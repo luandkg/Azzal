@@ -12,6 +12,7 @@ public class AppAzzal {
        Alpha mAlpha = new Alpha();
 
        mWindows.CriarCenarioAplicavel(mAlpha);
+     //  mWindows.CriarCenarioAplicavel(new ChuvaDeBlocos());
 
        Thread mThread = new Thread(mWindows);
        mThread.start();

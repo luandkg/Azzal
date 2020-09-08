@@ -21,4 +21,5 @@ public class Ponto {
     public void setX(int eX){mX=eX;}
     public void setY(int eY){mY=eY;}
 
+    public String toString(){ return "X : " + mX + " , Y : " + mY; }
 }

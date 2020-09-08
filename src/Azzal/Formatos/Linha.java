@@ -219,7 +219,7 @@ public class Linha {
                 dy = (-1) * dy;
             }
 
-            v = (int) Math.sqrt((double)((dx*dx) + (dy*dy)));
+            v = (int) Math.sqrt((double) ((dx * dx) + (dy * dy)));
 
         }
 
@@ -228,6 +228,74 @@ public class Linha {
         }
 
         return v;
+    }
+
+
+    public Ponto getCentro() {
+
+        int cx = 0;
+        int cy = 0;
+
+        if (mX1 == mX2) {
+            cx = mX1;
+
+            if (mY2 > mY1) {
+                cy = mY1 + ((mY2 - mY1) / 2);
+            } else {
+                cy = mY2 + ((mY2 - mY1) / 2);
+            }
+
+        } else if (mY1 == mY2) {
+
+            if (mX2 > mX1) {
+                cx = mX1 + ((mX2 - mX1) / 2);
+            } else {
+                cx = mX2 + ((mX1 - mX2) / 2);
+            }
+
+            cy = mY1;
+        } else {
+
+            int dx =0;
+            int dy =0;
+
+            if (mX2 > mX1) {
+                dx = mX2 - mX1;
+            }else{
+                dx = mX1 - mX2;
+            }
+
+            if (mY2 > mY1) {
+                dy = mY2 - mY1;
+            }else{
+                dy = mY1 - mY2;
+            }
+
+
+            dx = dx / 2;
+            dy = dy / 2;
+
+            if (mX2 > mX1) {
+                cx = mX1 + dx;
+            }else{
+                cx = mX2 + dx;
+            }
+
+            if (mY2 > mY1) {
+                cy = mY1 + dy;
+            }else{
+                cy = mY2 + dy;
+            }
+
+
+        }
+
+
+        return new Ponto(cx, cy);
+    }
+
+    public String toString() {
+        return "Inicio { " + getX1() + "," + getY1() + "} " + " Fim { " + getX2() + "," + getY2() + "} ";
     }
 
 }

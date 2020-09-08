@@ -63,6 +63,22 @@ public class Circulo {
         return new Ponto(this.getX()+this.getRaio(), this.getY()+this.getRaio());
     }
 
+    public Ponto getTopo() {
+        return new Ponto(this.getX()+this.getRaio(), this.getY());
+    }
+
+    public Ponto getBaixo() {
+        return new Ponto(this.getX()+this.getRaio(), this.getY() + this.getDiametro());
+    }
+
+    public Ponto getEsquerda() {
+        return new Ponto(this.getX(), this.getY() + this.getRaio());
+    }
+
+    public Ponto getDireita() {
+        return new Ponto(this.getX()+this.getDiametro(), this.getY() + this.getRaio());
+    }
+
     public Retangulo getRetangulo() {
         return new Retangulo(this.getX() , this.getY() , this.getDiametro(), this.getDiametro());
     }

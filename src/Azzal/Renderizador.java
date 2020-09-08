@@ -2,6 +2,7 @@ package Azzal;
 
 import Azzal.Formatos.*;
 import Azzal.Utils.Cor;
+import Azzal.Utils.Espelho;
 import Azzal.Utils.Luz;
 import Azzal.Utils.TransformadorDeCor;
 import Luan.Iterador;
@@ -262,7 +263,7 @@ public class Renderizador {
     public void drawCirculo(Circulo eCirculo, Cor eCor) {
 
         int x = 0;
-        int y = eCirculo.getRaio() ;
+        int y = eCirculo.getRaio();
         double d = 1.25 - (double) eCirculo.getRaio();
 
         int xi = eCirculo.getX() + eCirculo.getRaio();
@@ -282,7 +283,7 @@ public class Renderizador {
             drawPixel(xi - x, yi + y, eCor);
             drawPixel(xi - x, yi - y, eCor);
 
-            drawPixel(xi+ y, yi + x, eCor);
+            drawPixel(xi + y, yi + x, eCor);
             drawPixel(xi + y, yi - x, eCor);
             drawPixel(xi - y, yi + x, eCor);
             drawPixel(xi - y, yi - x, eCor);
@@ -291,8 +292,7 @@ public class Renderizador {
 
     }
 
-    public void drawCirculo_Pintado(Circulo eCirculo, Cor eCor)
-    {
+    public void drawCirculo_Pintado(Circulo eCirculo, Cor eCor) {
         int x = eCirculo.getRaio();
         int y = 0;
         int xChange = 1 - (eCirculo.getRaio() << 1);
@@ -303,17 +303,14 @@ public class Renderizador {
         int yi = eCirculo.getY() + eCirculo.getRaio();
 
 
-        while (x >= y)
-        {
-            for (int i = xi - x; i <= xi + x; i++)
-            {
+        while (x >= y) {
+            for (int i = xi - x; i <= xi + x; i++) {
 
                 drawPixel(i, yi + y, eCor);
                 drawPixel(i, yi - y, eCor);
 
             }
-            for (int i = xi - y; i <=xi + y; i++)
-            {
+            for (int i = xi - y; i <= xi + y; i++) {
 
                 drawPixel(i, yi + x, eCor);
                 drawPixel(i, yi - x, eCor);
@@ -322,8 +319,7 @@ public class Renderizador {
             y++;
             radiusError += yChange;
             yChange += 2;
-            if (((radiusError << 1) + xChange) > 0)
-            {
+            if (((radiusError << 1) + xChange) > 0) {
                 x--;
                 radiusError += xChange;
                 xChange += 2;
@@ -783,4 +779,47 @@ public class Renderizador {
     public void setAmbiente_Azul(int b) {
         mAmbiente.setBlue(b);
     }
+
+    public void espelhar(Ponto ePonto, Retangulo eArea) {
+
+        int mX2 = eArea.getX() + eArea.getLargura();
+
+        int x = 0;
+        for (int mX = eArea.getX(); mX < mX2; mX++) {
+
+            int mY2 = eArea.getY() + eArea.getAltura();
+
+            int y = 0;
+
+            for (int mY = eArea.getY(); mY < mY2; mY++) {
+
+
+                if (mX >= 0 && mX < mLargura && mY >= 0 && mY < mAltura) {
+
+                    int ePox = (mY * mLargura) + mX;
+
+                    int eCopia = mPixels[ePox];
+
+                    int oX = ePonto.getX() + x;
+                    int oY = ePonto.getY() + y;
+
+                    if (oX >= 0 && oX < mLargura && oY >= 0 && oY < mAltura) {
+
+                        int oPox = (oY * mLargura) + oX;
+
+                        mPixels[oPox] = eCopia;
+
+                    }
+
+
+                }
+
+                y+=1;
+            }
+
+            x += 1;
+        }
+
+    }
+
 }

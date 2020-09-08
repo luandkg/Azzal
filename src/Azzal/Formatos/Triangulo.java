@@ -25,6 +25,20 @@ public class Triangulo {
 
     }
 
+    public Triangulo(Ponto ePontoA, Ponto ePontoB, Ponto ePontoC) {
+
+        mAX = ePontoA.getX();
+        mAY = ePontoA.getY();
+
+        mBX = ePontoB.getX();
+        mBY = ePontoB.getY();
+
+        mCX = ePontoC.getX();
+        mCY = ePontoC.getY();
+
+
+    }
+
     public Ponto getPonto_A() {
         return new Ponto(mAX, mAY);
     }
@@ -74,6 +88,20 @@ public class Triangulo {
         return new Linha(mCX, mCY, mAX, mAY);
     }
 
+
+    public Ponto getCentro_A() {
+        return new Linha(mAX, mAY, mBX, mBY).getCentro();
+    }
+
+    public Ponto getCentro_B() {
+        return new Linha(mBX, mBY, mCX, mCY).getCentro();
+    }
+
+    public Ponto getCentro_C() {
+        return new Linha(mCX, mCY, mAX, mAY).getCentro();
+    }
+
+
     public void setA(int eAX, int eAY) {
         mAX = eAX;
         mAY = eAY;
@@ -120,13 +148,13 @@ public class Triangulo {
 
     }
 
-    public void moverPara(int eX,int eY){
+    public void moverPara(int eX, int eY) {
 
-        mBX=mBX - mAX;
+        mBX = mBX - mAX;
         mCX = mCX - mAX;
         mAX = 0;
 
-        mBY=mBY - mAY;
+        mBY = mBY - mAY;
         mCY = mCY - mAY;
         mAY = 0;
 
@@ -141,7 +169,20 @@ public class Triangulo {
 
     }
 
-    public Retangulo getRetangulo(){
+    public Linha getM1() {
+        return new Linha(this.getCentro_A(), this.getCentro_B());
+    }
+
+    public Linha getM2() {
+        return new Linha(this.getCentro_B(), this.getCentro_C());
+    }
+
+    public Linha getM3() {
+        return new Linha(this.getCentro_C(), this.getCentro_A());
+    }
+
+
+    public Retangulo getRetangulo() {
 
         int maxX = Math.max(mAX, Math.max(mBX, mCX));
         int minX = Math.min(mAX, Math.min(mBX, mCX));
@@ -152,11 +193,11 @@ public class Triangulo {
         int tamX = maxX - minX;
         int tamY = maxY - minY;
 
-        return new Retangulo(minX,minY,tamX,tamY);
+        return new Retangulo(minX, minY, tamX, tamY);
     }
 
 
-    public String getPosicao() {
+    public String toString() {
         return "A { " + mAX + "," + mAY + "} " + "B { " + mBX + "," + mBY + "} " + "C { " + mCX + "," + mCY + "}";
     }
 
