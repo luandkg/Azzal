@@ -1,4 +1,4 @@
-package Azzal.Utils;
+package Luan;
 
 public class Par<A,B> {
 

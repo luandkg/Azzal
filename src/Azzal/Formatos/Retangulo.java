@@ -38,7 +38,145 @@ public class Retangulo {
     public int getX(){return mX;}
     public int getY(){return mY;}
 
+    public int getX2(){return mX + mLargura;}
+    public int getY2(){return mY + mAltura;}
+
     public void setX(int eX){mX=eX;}
     public void setY(int eY){mY=eY;}
+
+    public int getLargura(){return mLargura;}
+    public int getAltura(){return mAltura;}
+
+    public void setLargura(int eLargura){mLargura=eLargura;}
+    public void setAltura(int eAltura){mAltura=eAltura;}
+
+
+    public Retangulo getRetangulo() {
+        return new Retangulo(mX, mY, mLargura, mAltura);
+    }
+
+    public Ponto getCentro() {
+        int eMetadeX = mLargura / 2;
+        int eMetadeY = mAltura / 2;
+
+        return new Ponto(mX + eMetadeX, mY + eMetadeY);
+    }
+
+    public Ponto getPonto_Centro() {
+        int eMetadeX = mLargura / 2;
+        int eMetadeY = mAltura / 2;
+        return new Ponto(mX + eMetadeX, mY + eMetadeY);
+    }
+
+    public Ponto getPonto_A() {
+        return new Ponto(this.getX(), this.getY());
+    }
+
+    public Ponto getPonto_B() {
+        return new Ponto(this.getX2(), this.getY());
+    }
+
+    public Ponto getPonto_C() {
+        return new Ponto(this.getX2(), this.getY2());
+    }
+
+    public Ponto getPonto_D() {
+        return new Ponto(this.getX(), this.getY2());
+    }
+
+
+    public Linha getLinha_AB() {
+        return new Linha(this.getX(), this.getY(), this.getX2(), this.getY());
+    }
+
+    public Linha getLinha_BC() {
+        return new Linha(this.getX2(), this.getY(), this.getX2(), this.getY2());
+    }
+
+    public Linha getLinha_CD() {
+        return new Linha(this.getX2(), this.getY2(), this.getX(), this.getY2());
+    }
+
+    public Linha getLinha_DA() {
+        return new Linha(this.getX(), this.getY2(), this.getX(), this.getY());
+    }
+
+    public Linha getLinha_BA() {
+        return new Linha(this.getX2(), this.getY(), this.getX(), this.getY());
+    }
+
+    public Linha getLinha_CB() {
+        return new Linha(this.getX2(), this.getY2(), this.getX2(), this.getY());
+    }
+
+    public Linha getLinha_DC() {
+        return new Linha(this.getX(), this.getY2(), this.getX2(), this.getY2());
+    }
+
+    public Linha getLinha_AD() {
+        return new Linha(this.getX(), this.getY(), this.getX(), this.getY2());
+    }
+
+
+    public Linha getDiagonal_AC() {
+        return new Linha(this.getX(), this.getY(), this.getX2(), this.getY2());
+    }
+
+    public Linha getDiagonal_BD() {
+        return new Linha(this.getX2(), this.getY(), this.getX(), this.getY2());
+    }
+
+
+    public Linha getDiagonal_CA() {
+        return new Linha(this.getX2(), this.getY2(), this.getX(), this.getY());
+    }
+
+    public Linha getDiagonal_DB() {
+        return new Linha(this.getX(), this.getY2(), this.getX2(), this.getY());
+    }
+
+
+    public Ponto getPonto_AB() {
+        int eTam = (this.getX2()-this.getX()) / 2;
+        return new Ponto(this.getX()+eTam, this.getY());
+    }
+
+    public Ponto getPonto_BC() {
+        int eTam = (this.getY2()-this.getY()) / 2;
+        return new Ponto(this.getX2(), this.getY()+eTam);
+    }
+
+
+    public Ponto getPonto_CD() {
+        int eTam = (this.getX2()-this.getX()) / 2;
+        return new Ponto(this.getX()+eTam, this.getY2());
+    }
+
+    public Ponto getPonto_DA() {
+        int eTam = (this.getY2()-this.getY()) / 2;
+        return new Ponto(this.getX(), this.getY()+eTam);
+    }
+
+    public Ponto getPonto_BA() {
+        int eTam = (this.getX2()-this.getX()) / 2;
+        return new Ponto(this.getX()+eTam, this.getY());
+    }
+
+    public Ponto getPonto_CB() {
+        int eTam = (this.getY2()-this.getY()) / 2;
+        return new Ponto(this.getX2(), this.getY()+eTam);
+    }
+
+
+    public Ponto getPonto_DC() {
+        int eTam = (this.getX2()-this.getX()) / 2;
+        return new Ponto(this.getX()+eTam, this.getY2());
+    }
+
+    public Ponto getPonto_AD() {
+        int eTam = (this.getY2()-this.getY()) / 2;
+        return new Ponto(this.getX(), this.getY()+eTam);
+    }
+
 
 }

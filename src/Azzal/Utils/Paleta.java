@@ -1,60 +1,52 @@
 package Azzal.Utils;
 
-import java.util.ArrayList;
+import Luan.Dicionario;
 
 public class Paleta {
 
-    private ArrayList<Par<String, Cor>> mCores;
+    private Dicionario<Cor> mCores;
 
     public Paleta() {
 
-        mCores = new ArrayList<Par<String, Cor>>();
+        mCores = new Dicionario<Cor>();
 
     }
 
     public boolean existeChave(String eChave) {
-        boolean ret = false;
-
-        for (Par<String, Cor> ePar : mCores) {
-
-            if (ePar.getChave().contentEquals(eChave)) {
-                ret = true;
-                break;
-            }
-
-
-        }
-
-        return ret;
+        return mCores.existeChave(eChave);
     }
 
     public void criar(String eNome, Cor eCor) {
         if (!existeChave(eNome)) {
 
-            mCores.add(new Par<String, Cor>(eNome, eCor));
+            mCores.adicionar(eNome, eCor);
 
-        }else{
+        } else {
 
-            throw new IllegalArgumentException("Ja existe uma cor com esse nome : "+ eNome);
+            throw new IllegalArgumentException("Ja existe uma cor com esse nome : " + eNome);
         }
 
     }
 
 
-    public Cor getCor(String eChave) {
-        Cor eCor = new Cor();
+    public Cor getCor(String eNome) {
 
-        for (Par<String, Cor> ePar : mCores) {
+        return mCores.obter(eNome);
 
-            if (ePar.getChave().contentEquals(eChave)) {
-                eCor= ePar.getValor();
-                break;
-            }
+    }
 
+    public void remover(String eChave) {
 
+        if (existeChave(eChave)) {
+            mCores.remover(eChave);
+        } else {
+
+            throw new IllegalArgumentException("Cor nao encontrada : " + eChave);
         }
+    }
 
-        return eCor;
+    public int getQuantidade() {
+        return mCores.getQuantidade();
     }
 
 

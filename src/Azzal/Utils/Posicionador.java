@@ -1,0 +1,25 @@
+package Azzal.Utils;
+
+import Azzal.Formatos.Quadrado;
+import Azzal.Formatos.Retangulo;
+
+public class Posicionador {
+
+    public Quadrado getQuadrado_Centralizado(int eX, int eY, int eTamanho){
+
+        int eMetade = eTamanho/2;
+
+        return new Quadrado(eX-eMetade,eY-eMetade,eTamanho);
+
+    }
+
+    public Retangulo getRetangulo_Centralizado(int eX, int eY, int eLargura,int eAltura){
+
+        int eMetadeLargura = eLargura/2;
+        int eMetadeeAltura = eAltura/2;
+
+        return new Retangulo(eX-eMetadeLargura,eY-eMetadeeAltura,eLargura,eAltura);
+
+    }
+
+}
