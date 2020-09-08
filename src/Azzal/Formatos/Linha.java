@@ -198,5 +198,36 @@ public class Linha {
         return mLista;
     }
 
+    public int getTamanho() {
+
+        int v = 0;
+
+        if (mX1 == mX2) {
+            v = mY2 - mY1;
+        } else if (mY1 == mY2) {
+            v = mX2 - mX1;
+        } else {
+
+            int dx = mX2 - mX1;
+            int dy = mY2 - mY1;
+
+            if (dx < 0) {
+                dx = (-1) * dx;
+            }
+
+            if (dy < 0) {
+                dy = (-1) * dy;
+            }
+
+            v = (int) Math.sqrt((double)((dx*dx) + (dy*dy)));
+
+        }
+
+        if (v < 0) {
+            v = (-1) * v;
+        }
+
+        return v;
+    }
 
 }

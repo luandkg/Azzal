@@ -1,5 +1,6 @@
 package Azzal.Utils;
 
+import Azzal.Formatos.Circulo;
 import Azzal.Formatos.Quadrado;
 import Azzal.Formatos.Retangulo;
 
@@ -22,4 +23,16 @@ public class Posicionador {
 
     }
 
+
+    public Circulo getCirculo_Centralizado(int eX, int eY, int eRaio){
+
+        return new Circulo(eX-eRaio,eY-eRaio,eRaio);
+
+    }
+
+    public Circulo getCirculo(int eX, int eY, int eRaio){
+
+        return new Circulo(eX,eY,eRaio);
+
+    }
 }

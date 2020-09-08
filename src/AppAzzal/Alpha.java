@@ -85,6 +85,7 @@ public class Alpha extends Cena {
 
         // mRenderizador.drawQuad(300 + movendo, 500, 100, 100, TDB.getCor());
 
+        Posicionador ePosicionador = new Posicionador();
 
         Retangulo Qa = new Retangulo(600, 200, 100, 200);
 
@@ -96,7 +97,6 @@ public class Alpha extends Cena {
         mRenderizador.drawEsquema_BD(Qa.getRetangulo(), 30, mPaleta.getCor("Gama"));
         mRenderizador.drawEsquema_BD(Qa.getRetangulo(), 40, mPaleta.getCor("Gama"));
 
-        Posicionador ePosicionador = new Posicionador();
 
         Retangulo Qb = ePosicionador.getRetangulo_Centralizado(150, 500, 200, 100);
 
@@ -122,7 +122,6 @@ public class Alpha extends Cena {
         mRenderizador.drawLinha(new Linha(Qb.getPonto_D(), new Ponto(500, 100)), new Cor(100, 100, 40));
 
         mRenderizador.drawLinha(new Linha(Qb.getCentro(), new Ponto(600, 100)), new Cor(100, 50, 40));
-
 
 
         mRenderizador.drawRect(Qb, mPaleta.getCor("Gama"));
@@ -166,23 +165,44 @@ public class Alpha extends Cena {
 
         Triangulo TrianguloSeparado = mTD;
 
-        TrianguloSeparado.moverPara(1000,100);
+        TrianguloSeparado.moverPara(1000, 50);
 
         mRenderizador.drawTriangulo_Pintado(TrianguloSeparado, mPaleta.getCor("Epsilon"));
 
 
         Triangulo mTria = new Triangulo();
-        mTria.setA(1000,200);
-        mTria.setB(800,300);
-        mTria.setC(800,400);
+        mTria.setA(1200, 200);
+        mTria.setB(900, 300);
+        mTria.setC(900, 500);
 
         //System.out.println("Triangulo : " + mTria.getPosicao());
 
         //mTria.aumentarX(200);
 
-       // System.out.println("Triangulo : " + mTria.getPosicao());
+        // System.out.println("Triangulo : " + mTria.getPosicao());
 
         mRenderizador.drawTriangulo_Pintado(mTria, mPaleta.getCor("Gama"));
+
+
+        mRenderizador.drawLinha(new Linha(mTria.getPonto_A(), new Ponto(1400, 400)), mPaleta.getCor("Iota"));
+        mRenderizador.drawLinha(new Linha(mTria.getPonto_B(), new Ponto(1400, 400)), new Cor(100, 100, 40));
+        mRenderizador.drawLinha(new Linha(mTria.getPonto_C(), new Ponto(1400, 400)), new Cor(100, 100, 40));
+
+
+        mRenderizador.drawRect(mTria.getRetangulo(), mPaleta.getCor("Iota"));
+
+        Circulo eCirculo = ePosicionador.getCirculo_Centralizado(1200, 800, 50);
+        Retangulo eRetangulo =  eCirculo.getRetangulo();
+
+
+        mRenderizador.drawCirculo_Pintado(eCirculo, mPaleta.getCor("Iota"));
+        mRenderizador.drawRect( eRetangulo, mPaleta.getCor("Kapa"));
+
+
+        mRenderizador.drawLinha(new Linha(eCirculo.getCentro(), new Ponto(1300, 900)), new Cor(100, 100, 40));
+
+        // Linha aLinha = new Linha(new Ponto(500, movendo), new Ponto(200, 500));
+        // mRenderizador.drawLinha(aLinha, new Cor(100, 100, 40));
 
 
         // mRenderizador.drawLinha(Qc.getLinha_BA(), new Cor(100,50,40));

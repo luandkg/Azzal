@@ -259,6 +259,78 @@ public class Renderizador {
 
     }
 
+    public void drawCirculo(Circulo eCirculo, Cor eCor) {
+
+        int x = 0;
+        int y = eCirculo.getRaio() ;
+        double d = 1.25 - (double) eCirculo.getRaio();
+
+        int xi = eCirculo.getX() + eCirculo.getRaio();
+        int yi = eCirculo.getY() + eCirculo.getRaio();
+
+        while (x < y) {
+            if (d < 0) {
+                d = d + 2 * x + 3;
+                x += 1;
+            } else {
+                d = d + 2 * (x - y) + 5;
+                x += 1;
+                y -= 1;
+            }
+            drawPixel(xi + x, yi + y, eCor);
+            drawPixel(xi + x, yi - y, eCor);
+            drawPixel(xi - x, yi + y, eCor);
+            drawPixel(xi - x, yi - y, eCor);
+
+            drawPixel(xi+ y, yi + x, eCor);
+            drawPixel(xi + y, yi - x, eCor);
+            drawPixel(xi - y, yi + x, eCor);
+            drawPixel(xi - y, yi - x, eCor);
+
+        }
+
+    }
+
+    public void drawCirculo_Pintado(Circulo eCirculo, Cor eCor)
+    {
+        int x = eCirculo.getRaio();
+        int y = 0;
+        int xChange = 1 - (eCirculo.getRaio() << 1);
+        int yChange = 0;
+        int radiusError = 0;
+
+        int xi = eCirculo.getX() + eCirculo.getRaio();
+        int yi = eCirculo.getY() + eCirculo.getRaio();
+
+
+        while (x >= y)
+        {
+            for (int i = xi - x; i <= xi + x; i++)
+            {
+
+                drawPixel(i, yi + y, eCor);
+                drawPixel(i, yi - y, eCor);
+
+            }
+            for (int i = xi - y; i <=xi + y; i++)
+            {
+
+                drawPixel(i, yi + x, eCor);
+                drawPixel(i, yi - x, eCor);
+            }
+
+            y++;
+            radiusError += yChange;
+            yChange += 2;
+            if (((radiusError << 1) + xChange) > 0)
+            {
+                x--;
+                radiusError += xChange;
+                xChange += 2;
+            }
+        }
+    }
+
     public void drawLinhaHorizontal(int eX, int eY, int eTam, Cor eCor) {
 
         int eX2 = eX + eTam;
@@ -488,7 +560,7 @@ public class Renderizador {
         /* check for trivial case of bottom-flat triangle */
         if (vt2.getY() == vt3.getY()) {
 
-          //  fillBottomFlatTriangle(vt1, vt2, vt3, eCor);
+            //  fillBottomFlatTriangle(vt1, vt2, vt3, eCor);
 
             float invslope1 = (vt2.getX() - vt1.getX()) / (vt2.getY() - vt1.getY());
             float invslope2 = (vt3.getX() - vt1.getX()) / (vt3.getY() - vt1.getY());
@@ -506,7 +578,7 @@ public class Renderizador {
         /* check for trivial case of top-flat triangle */
         else if (vt1.getY() == vt2.getY()) {
 
-          //  fillTopFlatTriangle(vt1, vt2, vt3,eCor);
+            //  fillTopFlatTriangle(vt1, vt2, vt3,eCor);
 
             float invslope1 = (vt3.getX() - vt1.getX()) / (vt3.getY() - vt1.getY());
             float invslope2 = (vt3.getX() - vt2.getX()) / (vt3.getY() - vt2.getY());
@@ -515,7 +587,7 @@ public class Renderizador {
             float curx2 = vt3.getX();
 
             for (int scanlineY = vt3.getY(); scanlineY > vt1.getY(); scanlineY--) {
-                drawLinha((int) curx1, scanlineY, (int) curx2, scanlineY,eCor);
+                drawLinha((int) curx1, scanlineY, (int) curx2, scanlineY, eCor);
                 curx1 -= invslope1;
                 curx2 -= invslope2;
             }
@@ -524,7 +596,7 @@ public class Renderizador {
             /* general case - split the triangle in a topflat and bottom-flat one */
             Ponto v4 = new Ponto((int) (vt1.getX() + ((float) (vt2.getY() - vt1.getY()) / (float) (vt3.getY() - vt1.getY())) * (vt3.getX() - vt1.getX())), vt2.getY());
 
-           // fillBottomFlatTriangle(vt1, vt2, v4, eCor);
+            // fillBottomFlatTriangle(vt1, vt2, v4, eCor);
 
             float invslope1 = (vt2.getX() - vt1.getX()) / (vt2.getY() - vt1.getY());
             float invslope2 = (v4.getX() - vt1.getX()) / (v4.getY() - vt1.getY());
@@ -539,8 +611,7 @@ public class Renderizador {
             }
 
 
-
-           // fillTopFlatTriangle(vt2, v4, vt3,eCor);
+            // fillTopFlatTriangle(vt2, v4, vt3,eCor);
             float invslope3 = (vt3.getX() - vt2.getX()) / (vt3.getY() - vt2.getY());
             float invslope4 = (vt3.getX() - v4.getX()) / (vt3.getY() - v4.getY());
 
@@ -548,7 +619,7 @@ public class Renderizador {
             float curx4 = vt3.getX();
 
             for (int scanlineY = vt3.getY(); scanlineY > vt2.getY(); scanlineY--) {
-                drawLinha((int) curx3, scanlineY, (int) curx4, scanlineY,eCor);
+                drawLinha((int) curx3, scanlineY, (int) curx4, scanlineY, eCor);
                 curx3 -= invslope3;
                 curx4 -= invslope4;
             }
@@ -556,7 +627,6 @@ public class Renderizador {
 
 
     }
-
 
 
     public void adicionarLuz(Ponto ePonto, Cor eCor, int eTamanho) {

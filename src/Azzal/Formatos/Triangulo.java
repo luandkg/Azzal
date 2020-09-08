@@ -141,6 +141,20 @@ public class Triangulo {
 
     }
 
+    public Retangulo getRetangulo(){
+
+        int maxX = Math.max(mAX, Math.max(mBX, mCX));
+        int minX = Math.min(mAX, Math.min(mBX, mCX));
+
+        int maxY = Math.max(mAY, Math.max(mBY, mCY));
+        int minY = Math.min(mAY, Math.min(mBY, mCY));
+
+        int tamX = maxX - minX;
+        int tamY = maxY - minY;
+
+        return new Retangulo(minX,minY,tamX,tamY);
+    }
+
 
     public String getPosicao() {
         return "A { " + mAX + "," + mAY + "} " + "B { " + mBX + "," + mBY + "} " + "C { " + mCX + "," + mCY + "}";
