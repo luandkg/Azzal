@@ -25,6 +25,7 @@ public class Renderizador {
     private Lista<Luz> mLuzes;
     private Iterador<Luz> mLuzes_Iterador;
 
+    private boolean mAmbiente_Existe;
     private Cor mAmbiente;
 
     public Renderizador(BufferedImage eImagem) {
@@ -41,8 +42,8 @@ public class Renderizador {
         mLuzes = new Lista<Luz>();
         mLuzes_Iterador = new Iterador<Luz>(mLuzes);
 
-        mAmbiente = new Cor(0, 0, 0);
-        mAmbiente.setAlpha(255);
+
+        mAmbiente_Existe = false;
 
     }
 
@@ -59,7 +60,8 @@ public class Renderizador {
 
         for (int i = 0; i < mPixels.length; i++) {
             mMapaDeAcao[i] = true;
-            mMapaDeLuz[i] = mAmbiente.getValor();
+           // mMapaDeLuz[i] = mAmbiente.getValor();
+             mMapaDeLuz[i] = 0;
         }
 
 
@@ -326,6 +328,44 @@ public class Renderizador {
             }
         }
     }
+
+    public void drawOval_Pintado(Oval eOval, Cor eCor) {
+        int x = eOval.getRaioLargura();
+        int x2 = eOval.getRaioAltura();
+
+        int y = 0;
+        int xChange = 1 - (eOval.getRaioLargura() << 1);
+        int yChange = 0;
+        int radiusError = 0;
+
+        int xi = eOval.getX() + eOval.getRaioLargura();
+        int yi = eOval.getY() + eOval.getRaioAltura();
+
+
+        while (x >= y) {
+            for (int i = xi - x; i <= xi + x; i++) {
+
+                drawPixel(i, yi + y, eCor);
+                drawPixel(i, yi - y, eCor);
+
+            }
+            for (int i = xi - y; i <= xi + y; i++) {
+
+                drawPixel(i, yi + x2, eCor);
+                drawPixel(i, yi - x2, eCor);
+            }
+
+            y++;
+            radiusError += yChange;
+            yChange += 2;
+            if (((radiusError << 1) + xChange) > 0) {
+                x--;
+                radiusError += xChange;
+                xChange += 2;
+            }
+        }
+    }
+
 
     public void drawLinhaHorizontal(int eX, int eY, int eTam, Cor eCor) {
 
@@ -667,9 +707,48 @@ public class Renderizador {
 
     }
 
+    public int trans(int i1, int i2) {
+
+
+        int a1 = (i1 >> 24 & 0xff);
+        int r1 = ((i1 & 0xff0000) >> 16);
+        int g1 = ((i1 & 0xff00) >> 8);
+        int b1 = (i1 & 0xff);
+
+        int a2 = (i2 >> 24 & 0xff);
+        int r2 = ((i2 & 0xff0000) >> 16);
+        int g2 = ((i2 & 0xff00) >> 8);
+        int b2 = (i2 & 0xff);
+
+        float alpha_A = 255.0F / (float)a1;
+        float alpha_B = 255.0F / (float)i2;
+
+      
+        int a = (int) ((a1 * alpha_A) + (a2 * alpha_B));
+        int r = (int) ((r1 * alpha_A) + (r2 * alpha_B));
+        int g = (int) ((g1 * alpha_A) + (g2 * alpha_B));
+        int b = (int) ((b1 * alpha_A) + (b2 * alpha_B));
+
+        if (a>=255) {a -=255;}
+        if (r>=255) {r -=255;}
+        if (g>=255) {g -=255;}
+        if (b>=255) {b -=255;}
+
+        return (r << 24 | g << 16 | b << 8 | a);
+
+    }
+
     public void iluminar() {
 
         //  System.out.println("Iluminar");
+
+        if (mAmbiente_Existe) {
+            for (int i = 0; i < mPixels.length; i++) {
+
+                mPixels[i] = trans(mPixels[i], mAmbiente.getValor());
+
+            }
+        }
 
         for (mLuzes_Iterador.iniciar(); mLuzes_Iterador.continuar(); mLuzes_Iterador.proximo()) {
 
@@ -759,13 +838,25 @@ public class Renderizador {
     }
 
     public void setOpacidade(int eOpacidade) {
-        mAmbiente.setAlpha(eOpacidade);
+        if (!mAmbiente_Existe) {
+            mAmbiente = new Cor(0, 0, 0);
+            mAmbiente_Existe = true;
+            mAmbiente.setAlpha(eOpacidade);
+        } else {
+            mAmbiente.setAlpha(eOpacidade);
+        }
     }
 
     public void setAmbiente(int r, int g, int b) {
-        mAmbiente.setRed(r);
-        mAmbiente.setGreen(g);
-        mAmbiente.setBlue(b);
+        if (!mAmbiente_Existe) {
+            mAmbiente = new Cor(r, g, b);
+            mAmbiente.setAlpha(255);
+            mAmbiente_Existe = true;
+        } else {
+            mAmbiente.setRed(r);
+            mAmbiente.setGreen(g);
+            mAmbiente.setBlue(b);
+        }
     }
 
     public void setAmbiente_Vermelho(int r) {
@@ -814,7 +905,7 @@ public class Renderizador {
 
                 }
 
-                y+=1;
+                y += 1;
             }
 
             x += 1;

@@ -1,21 +1,17 @@
 package AppAzzal;
 
-import Azzal.Windows;
+import Azzal.AzzalUnico;
 
 public class AppAzzal {
 
    public static void main(String[] args){
 
+       AzzalUnico.unico("AppAzzal", 1500, 1020,new Graficos());
 
-       Windows mWindows = new Windows("AppAzzal", 1500, 1020);
+      //  mWindows.CriarCenarioAplicavel(new Alpha());
 
-       Alpha mAlpha = new Alpha();
+      //  mWindows.CriarCenarioAplicavel(new ChuvaDeBlocos());
 
-       mWindows.CriarCenarioAplicavel(mAlpha);
-     //  mWindows.CriarCenarioAplicavel(new ChuvaDeBlocos());
-
-       Thread mThread = new Thread(mWindows);
-       mThread.start();
 
    }
 

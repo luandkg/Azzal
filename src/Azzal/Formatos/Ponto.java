@@ -15,6 +15,11 @@ public class Ponto {
         mY=eY;
     }
 
+    public void setPos(int eX,int eY){
+        mX=eX;
+        mY=eY;
+    }
+
     public int getX(){return mX;}
     public int getY(){return mY;}
 

@@ -1,6 +1,7 @@
 package Azzal.Utils;
 
 import Azzal.Formatos.Circulo;
+import Azzal.Formatos.Oval;
 import Azzal.Formatos.Quadrado;
 import Azzal.Formatos.Retangulo;
 
@@ -35,4 +36,11 @@ public class Posicionador {
         return new Circulo(eX,eY,eRaio);
 
     }
+
+    public Oval getOval_Centralizado(int eX, int eY, int eRaioLargura, int eRaioAltura){
+
+        return new Oval(eX-eRaioLargura,eY-eRaioAltura,eRaioLargura,eRaioAltura);
+
+    }
+
 }

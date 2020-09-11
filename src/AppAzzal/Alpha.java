@@ -16,6 +16,7 @@ public class Alpha extends Cena {
 
     private int movendo = 0;
     private int rodando = 0;
+    private int opacidade = 0;
 
     private TransformadorDeCor TDA;
     private TransformadorDeCor TDB;
@@ -75,6 +76,11 @@ public class Alpha extends Cena {
 
         if (rodando >= 360) {
             rodando = 0;
+        }
+
+        opacidade+=1;
+        if (opacidade>=255){
+            opacidade=0;
         }
 
         movendo += 3;
@@ -303,6 +309,20 @@ public class Alpha extends Cena {
         mRenderizador.drawLinha(new Linha(eCirculo.getDireita(), encontro), mPaleta.getCor("Omega"));
         mRenderizador.drawLinha(new Linha(eCirculo.getEsquerda(), encontro), mPaleta.getCor("Omega"));
 
+
+        Circulo o1 = ePosicionador.getCirculo_Centralizado(700, 800, 100);
+        mRenderizador.drawCirculo_Pintado(o1, mPaleta.getCor("Delta"));
+
+        Circulo o2 = ePosicionador.getCirculo_Centralizado(700, 800, 50);
+        mRenderizador.drawCirculo_Pintado(o2, mPaleta.getCor("Omega"));
+
+        Circulo o3 = ePosicionador.getCirculo_Centralizado(700, 800, 20);
+        mRenderizador.drawCirculo_Pintado(o3, mPaleta.getCor("Kapa"));
+
+        Oval o4 = ePosicionador.getOval_Centralizado(100, 100, 10,20);
+        mRenderizador.drawOval_Pintado(o4, mPaleta.getCor("Kapa"));
+
+
         // Linha aLinha = new Linha(new Ponto(500, movendo), new Ponto(200, 500));
         // mRenderizador.drawLinha(aLinha, new Cor(100, 100, 40));
 
@@ -345,6 +365,9 @@ public class Alpha extends Cena {
 
         // mRenderizador.drawQuad(500 , 500, 100, 100, TDB.getCor());
 
+        mRenderizador.setAmbiente(255,0,0);
+        mRenderizador.setOpacidade(opacidade);
+        System.out.println("Opacidade : " + opacidade);
         mRenderizador.iluminar();
 
 

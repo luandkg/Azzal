@@ -253,6 +253,9 @@ public class Cor {
         return new Color( this.getRed(), this.getGreen(), this.getBlue(), this.getAlpha()).getRGB();
     }
 
+    public static Cor getRGB(Color eColor){
+        return new Cor(eColor.getRed(),eColor.getGreen(),eColor.getBlue());
+    }
 
     public String toString() {
         return "{" + mRed + "." + mGreen + "." + mBlue + "." + mAlpha + "}";
