@@ -50,11 +50,11 @@ public class Quadrado {
     }
 
     public int getX2() {
-        return mX + mTamanho;
+        return (mX + mTamanho);
     }
 
     public int getY2() {
-        return mY + mTamanho;
+        return (mY + mTamanho);
     }
 
     public int getTamanho() {

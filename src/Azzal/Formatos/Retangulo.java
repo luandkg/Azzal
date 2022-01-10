@@ -8,47 +8,72 @@ public class Retangulo {
     private int mLargura;
     private int mAltura;
 
-    public Retangulo(){
-        mX=0;
-        mY=0;
+    public Retangulo() {
+        mX = 0;
+        mY = 0;
 
-        mLargura=200;
-        mAltura=100;
+        mLargura = 200;
+        mAltura = 100;
 
     }
 
-    public Retangulo(int eX,int eY){
-        mX=eX;
-        mY=eY;
+    public Retangulo(int eX, int eY) {
+        mX = eX;
+        mY = eY;
 
-        mLargura=200;
-        mAltura=100;
+        mLargura = 200;
+        mAltura = 100;
     }
 
 
-    public Retangulo(int eX,int eY,int eLargura,int eAltura){
-        mX=eX;
-        mY=eY;
+    public Retangulo(int eX, int eY, int eLargura, int eAltura) {
+        mX = eX;
+        mY = eY;
 
-        mLargura=eLargura;
-        mAltura=eAltura;
+        mLargura = eLargura;
+        mAltura = eAltura;
     }
 
 
-    public int getX(){return mX;}
-    public int getY(){return mY;}
+    public int getX() {
+        return mX;
+    }
 
-    public int getX2(){return mX + mLargura;}
-    public int getY2(){return mY + mAltura;}
+    public int getY() {
+        return mY;
+    }
 
-    public void setX(int eX){mX=eX;}
-    public void setY(int eY){mY=eY;}
+    public int getX2() {
+        return mX + mLargura;
+    }
 
-    public int getLargura(){return mLargura;}
-    public int getAltura(){return mAltura;}
+    public int getY2() {
+        return mY + mAltura;
+    }
 
-    public void setLargura(int eLargura){mLargura=eLargura;}
-    public void setAltura(int eAltura){mAltura=eAltura;}
+    public void setX(int eX) {
+        mX = eX;
+    }
+
+    public void setY(int eY) {
+        mY = eY;
+    }
+
+    public int getLargura() {
+        return mLargura;
+    }
+
+    public int getAltura() {
+        return mAltura;
+    }
+
+    public void setLargura(int eLargura) {
+        mLargura = eLargura;
+    }
+
+    public void setAltura(int eAltura) {
+        mAltura = eAltura;
+    }
 
 
     public Retangulo getRetangulo() {
@@ -137,46 +162,76 @@ public class Retangulo {
 
 
     public Ponto getPonto_AB() {
-        int eTam = (this.getX2()-this.getX()) / 2;
-        return new Ponto(this.getX()+eTam, this.getY());
+        int eTam = (this.getX2() - this.getX()) / 2;
+        return new Ponto(this.getX() + eTam, this.getY());
     }
 
     public Ponto getPonto_BC() {
-        int eTam = (this.getY2()-this.getY()) / 2;
-        return new Ponto(this.getX2(), this.getY()+eTam);
+        int eTam = (this.getY2() - this.getY()) / 2;
+        return new Ponto(this.getX2(), this.getY() + eTam);
     }
 
 
     public Ponto getPonto_CD() {
-        int eTam = (this.getX2()-this.getX()) / 2;
-        return new Ponto(this.getX()+eTam, this.getY2());
+        int eTam = (this.getX2() - this.getX()) / 2;
+        return new Ponto(this.getX() + eTam, this.getY2());
     }
 
     public Ponto getPonto_DA() {
-        int eTam = (this.getY2()-this.getY()) / 2;
-        return new Ponto(this.getX(), this.getY()+eTam);
+        int eTam = (this.getY2() - this.getY()) / 2;
+        return new Ponto(this.getX(), this.getY() + eTam);
     }
 
     public Ponto getPonto_BA() {
-        int eTam = (this.getX2()-this.getX()) / 2;
-        return new Ponto(this.getX()+eTam, this.getY());
+        int eTam = (this.getX2() - this.getX()) / 2;
+        return new Ponto(this.getX() + eTam, this.getY());
     }
 
     public Ponto getPonto_CB() {
-        int eTam = (this.getY2()-this.getY()) / 2;
-        return new Ponto(this.getX2(), this.getY()+eTam);
+        int eTam = (this.getY2() - this.getY()) / 2;
+        return new Ponto(this.getX2(), this.getY() + eTam);
     }
 
 
     public Ponto getPonto_DC() {
-        int eTam = (this.getX2()-this.getX()) / 2;
-        return new Ponto(this.getX()+eTam, this.getY2());
+        int eTam = (this.getX2() - this.getX()) / 2;
+        return new Ponto(this.getX() + eTam, this.getY2());
     }
 
     public Ponto getPonto_AD() {
-        int eTam = (this.getY2()-this.getY()) / 2;
-        return new Ponto(this.getX(), this.getY()+eTam);
+        int eTam = (this.getY2() - this.getY()) / 2;
+        return new Ponto(this.getX(), this.getY() + eTam);
     }
 
 
+    public String getPosicaoFormatada() {
+        return " X1 = " + getX() + " Y1 = " + getY() + " X2 = " + getX2() + " Y2 = " + getY2();
+    }
+
+    public boolean isDentro(int eX, int eY) {
+
+        boolean eisDentro = false;
+
+        if (eX >= getX() && eX <= getX2()) {
+            if (eY >= getY() && eY <= getY2()) {
+                eisDentro = true;
+            }
+        }
+
+        return eisDentro;
+
+    }
+
+    public boolean isIntersectado(Retangulo eRect) {
+
+        boolean mRet = false;
+
+        if (eRect.getX() >= this.getX() && eRect.getX2() < this.getX() + this.getLargura()) {
+            if (eRect.getY() >= this.getY() && eRect.getY2() < this.getY() + this.getAltura()) {
+                mRet = true;
+            }
+        }
+
+        return mRet;
+    }
 }

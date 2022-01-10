@@ -7,6 +7,7 @@ import Azzal.Renderizador;
 import Azzal.Windows;
 import Luan.Iterador;
 import Luan.Lista;
+import Movimento.Movettor;
 
 import java.awt.*;
 import java.util.Random;
@@ -27,6 +28,8 @@ public class Alpha extends Cena {
     private Retangulo mCaindo;
     private int velocidade;
     private Cor mCor;
+
+    private Movettor mMovettor;
 
     public Alpha() {
 
@@ -56,6 +59,9 @@ public class Alpha extends Cena {
         mPaleta.criar("Iota", new Cor(63, 81, 181));
         mPaleta.criar("Omega", new Cor(255, 235, 59));
 
+        mMovettor = new Movettor(0, 0, 12, 12);
+        mMovettor.setMinimo(0, 0);
+        mMovettor.setMaximo(10000, 10000);
 
     }
 
@@ -72,15 +78,17 @@ public class Alpha extends Cena {
         TDA.atualizar();
         TDB.atualizar();
 
+        mMovettor.move();
+
         rodando += 1;
 
         if (rodando >= 360) {
             rodando = 0;
         }
 
-        opacidade+=1;
-        if (opacidade>=255){
-            opacidade=0;
+        opacidade += 1;
+        if (opacidade >= 255) {
+            opacidade = 0;
         }
 
         movendo += 3;
@@ -319,7 +327,7 @@ public class Alpha extends Cena {
         Circulo o3 = ePosicionador.getCirculo_Centralizado(700, 800, 20);
         mRenderizador.drawCirculo_Pintado(o3, mPaleta.getCor("Kapa"));
 
-        Oval o4 = ePosicionador.getOval_Centralizado(100, 100, 10,20);
+        Oval o4 = ePosicionador.getOval_Centralizado(100, 100, 10, 20);
         mRenderizador.drawOval_Pintado(o4, mPaleta.getCor("Kapa"));
 
 
@@ -358,17 +366,29 @@ public class Alpha extends Cena {
         // mRenderizador.adicionarLuz(new Ponto(400 + movendo, 450),T , 200);
 
         Cor R = new Cor(0, 255, 0);
-        R.setAlpha(50);
+        R.setAlpha(130);
 
-        //mRenderizador.adicionarLuz(new Ponto(400 + movendo, 600),R , 200);
+     //   mRenderizador.adicionarLuz(new Ponto(400 + movendo, 600),R , 50);
 
 
         // mRenderizador.drawQuad(500 , 500, 100, 100, TDB.getCor());
 
-        mRenderizador.setAmbiente(255,0,0);
-        mRenderizador.setOpacidade(opacidade);
-        System.out.println("Opacidade : " + opacidade);
+      //  System.out.println("Op : " + opacidade);
+
+        mRenderizador.setAmbiente(255, 0, 0);
+        mRenderizador.setOpacidade(80);
         mRenderizador.iluminar();
+
+        Cor eT1 = new Cor(255, 0, 0);
+        eT1.setAlpha(80);
+
+        mRenderizador.blend(mMovettor.getX(), mMovettor.getY(), 100, 100,eT1);
+
+        Cor eT2 = new Cor(0, 255, 0);
+        eT2.setAlpha(80);
+
+        mRenderizador.blend(mMovettor.getX()+60, mMovettor.getY()+60, 100, 100,eT2);
+
 
 
     }

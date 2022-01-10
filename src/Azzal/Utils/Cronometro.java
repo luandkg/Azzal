@@ -2,35 +2,39 @@ package Azzal.Utils;
 
 public class Cronometro {
 
-	private long mTempo_inicio;
-	private long mEsperar;
+    private long mTempo_inicio;
+    private long mEsperar;
 
-	private boolean mEsperado;
+    private boolean mEsperado;
 
-	public Cronometro(long eEsperar) {
+    public Cronometro(long eEsperar) {
 
-		mTempo_inicio = System.nanoTime();
-		mEsperar = eEsperar * 1000000;
-		mEsperado = false;
-	}
+        mTempo_inicio = System.nanoTime();
+        mEsperar = eEsperar * 1000000;
+        mEsperado = false;
+    }
 
-	public void Esperar() {
+    public void esperar() {
 
-		mEsperado = false;
+        mEsperado = false;
 
-		if ((System.nanoTime() - mTempo_inicio) >= mEsperar) {
-			mTempo_inicio = System.nanoTime();
-			mEsperado = true;
-		}
+        if ((System.nanoTime() - mTempo_inicio) >= mEsperar) {
+            mTempo_inicio = System.nanoTime();
+            mEsperado = true;
+        }
 
-	}
+    }
 
-	public boolean Esperado() {
-		return mEsperado;
-	}
+    public long diff() {
+        return (System.nanoTime() - mTempo_inicio);
+    }
 
-	public void Zerar() {
-		mTempo_inicio = System.nanoTime();
-		mEsperado = false;
-	}
+    public boolean foiEsperado() {
+        return mEsperado;
+    }
+
+    public void zerar() {
+        mTempo_inicio = System.nanoTime();
+        mEsperado = false;
+    }
 }

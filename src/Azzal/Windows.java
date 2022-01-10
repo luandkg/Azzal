@@ -3,10 +3,8 @@ package Azzal;
 import Azzal.Cenarios.Cena;
 import Azzal.Cenarios.Cenarios;
 
-import java.awt.Color;
-import java.awt.Graphics;
+
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -23,13 +21,15 @@ public class Windows extends JFrame implements Runnable {
 
 
     private BufferedImage mImagem;
-    private Graphics2D mGraficos;
 
     private Renderizador mRenderizador;
 
     private int mCenaID;
     private Cena mCena;
     private Cenarios mCenarios;
+
+    private Mouse mMouse;
+    private Teclado mTeclado;
 
     public Windows(String eTitulo, int eLargura, int eAltura) {
 
@@ -45,7 +45,6 @@ public class Windows extends JFrame implements Runnable {
 
         if (mImagem == null) {
             mImagem = new BufferedImage(this.getLargura(), this.getAltura(), BufferedImage.TYPE_INT_ARGB);
-            mGraficos = (Graphics2D) mImagem.getGraphics();
         }
 
         mRenderizador = new Renderizador(mImagem);
@@ -55,6 +54,23 @@ public class Windows extends JFrame implements Runnable {
 
         mCenarios = new Cenarios();
 
+        mMouse = new Mouse();
+
+        this.addMouseMotionListener(mMouse);
+        this.addMouseListener(mMouse);
+
+        mTeclado = new Teclado();
+        this.addKeyListener(mTeclado);
+
+
+    }
+
+    public Mouse getMouse() {
+        return mMouse;
+    }
+
+    public Teclado getTeclado() {
+        return mTeclado;
     }
 
 
@@ -67,7 +83,6 @@ public class Windows extends JFrame implements Runnable {
 
         final int GAME_HERTIZ = 30;
         final double GAME_QUADRO = 1000000000 / (double) GAME_HERTIZ;
-
 
         int mAtualizador = 0;
         int mDesenhador = 0;
@@ -83,30 +98,31 @@ public class Windows extends JFrame implements Runnable {
         double mDilatadorMin = mPassado;
         double mDilatadorMax = mPassado + ((double) (GAME_HERTIZ) * GAME_QUADRO);
 
+
         while (mExecutando) {
 
-            double mAgora = System.nanoTime();
+            double mPresente = System.nanoTime();
+            boolean mDesenhar = false;
 
-            if (mAgora >= mFuturo) {
+
+            if (mPresente >= mFuturo) {
                 mAtualizador += 1;
 
                 // System.out.println("\t - Desenhando " + mDesenhador);
+                mFuturo = (mPresente - (mPresente - mFuturo)) + GAME_QUADRO;
 
-                mDesenhador += 1;
-                mFuturo = (mAgora - (mAgora - mFuturo)) + GAME_QUADRO;
+                mCena.update(mPresente - mPassado);
 
-                 mCena.update(mAgora - mPassado);
-                mCena.draw(mRenderizador);
+                mDesenhar = true;
 
-                getGraphics().drawImage(mImagem, 0, 7, getLargura(), getAltura(), null);
 
             } else {
 
             }
 
-            if (mAgora >= mDilatadorMax) {
+            if (mPresente >= mDilatadorMax) {
 
-                mDilatacao = mAgora - mDilatadorMin;
+                mDilatacao = mPresente - mDilatadorMin;
                 mDilatando = mDilatacao;
                 mVerificador = 0;
 
@@ -115,10 +131,10 @@ public class Windows extends JFrame implements Runnable {
                     mVerificador += 1;
                 }
 
-                //System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador + "," + mVerificador + "," + mDilatador + " >>  :: " + mDesenhador);
+                //    System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador + "," + mVerificador + "," + mDilatador + " >>  :: " + mDesenhador);
 
-                mDilatadorMin = mAgora;
-                mDilatadorMax = mAgora + ((double) (GAME_HERTIZ) * GAME_QUADRO);
+                mDilatadorMin = mPresente;
+                mDilatadorMax = mPresente + ((double) (GAME_HERTIZ) * GAME_QUADRO);
 
                 mAcumulador += mDilatador;
 
@@ -126,11 +142,8 @@ public class Windows extends JFrame implements Runnable {
                     //System.out.println("\t - ACUMULADO : " + (mAcumulador) + " - Desacumulando " + GAME_HERTIZ);
                     mAcumulador -= GAME_HERTIZ;
 
-                    mCena.update(mAgora - mPassado);
-                    mCena.draw(mRenderizador);
-
-
-                    getGraphics().drawImage(mImagem, 0, 7, getLargura(), getAltura(), null);
+                    mCena.update(mPresente - mPassado);
+                    mDesenhar = true;
 
                 }
 
@@ -138,13 +151,17 @@ public class Windows extends JFrame implements Runnable {
                 mAtualizador = 0;
                 mDesenhador = 0;
             } else {
-
                 if (mAtualizador >= GAME_HERTIZ) {
                     mDilatador += 1;
                 }
-
             }
 
+
+            if (mDesenhar) {
+                mDesenhador += 1;
+                mCena.draw(mRenderizador);
+                getGraphics().drawImage(mImagem, 0, 7, getLargura(), getAltura(), null);
+            }
 
             try {
                 Thread.yield();
@@ -168,6 +185,7 @@ public class Windows extends JFrame implements Runnable {
         return mAltura;
     }
 
+    public BufferedImage getImagem(){return mImagem;}
 
     public int CriarCenario(Cena eCena) {
         return mCenarios.CriarCenario(eCena);
@@ -176,6 +194,7 @@ public class Windows extends JFrame implements Runnable {
     public void setCenario(int eCenaID) {
         mCena = mCenarios.getCenario(eCenaID).getCena();
         mCenaID = eCenaID;
+        mCena.setWindows(this);
         mCena.iniciar(this);
     }
 

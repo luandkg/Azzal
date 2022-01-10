@@ -1,20 +1,18 @@
 package AppAzzal;
 
 import Azzal.Cenarios.Cena;
-import Azzal.Formatos.*;
 import Azzal.Utils.*;
 import Azzal.Renderizador;
 import Azzal.Windows;
-import Luan.Iterador;
-import Luan.Lista;
+import Graficos.ZettaBarras;
 
 import java.awt.*;
 import java.util.Random;
 
 
-public class Graficos extends Cena {
+public class GraficosCena extends Cena {
 
-  private TransformadorDeCor TDA;
+    private TransformadorDeCor TDA;
     private TransformadorDeCor TDB;
     private Paleta mPaleta;
     private ZettaBarras mZettaBarras;
@@ -22,7 +20,7 @@ public class Graficos extends Cena {
     Cronometro mCron;
 
 
-    public Graficos() {
+    public GraficosCena() {
 
 
         TDA = new TransformadorDeCor(new Cor(76, 175, 80));
@@ -50,17 +48,17 @@ public class Graficos extends Cena {
 
         mZettaBarras = new ZettaBarras();
 
-        mZettaBarras.setCorBarra(new Cor(30,50,80));
+        mZettaBarras.setCorBarra(new Cor(30, 50, 80));
         mZettaBarras.setCorFundo(Cor.getRGB(Color.WHITE));
 
         mZettaBarras.setMaiorDoGrupo(true);
-        mZettaBarras.setCorMaiorBarra(new Cor(10,150,160));
+        mZettaBarras.setCorMaiorBarra(new Cor(10, 150, 160));
 
         mZettaBarras.setMenorDoGrupo(true);
-        mZettaBarras.setCorMenorBarra(new Cor(200,60,150));
+        mZettaBarras.setCorMenorBarra(new Cor(200, 60, 150));
 
 
-        mZettaBarras.nivelar(-100,100);
+        mZettaBarras.nivelar(-100, 100);
 
         mCron = new Cronometro(600);
 
@@ -79,19 +77,18 @@ public class Graficos extends Cena {
         TDA.atualizar();
         TDB.atualizar();
 
-        mCron.Esperar();
+        mCron.esperar();
 
-        if (mCron.Esperado()){
+        if (mCron.foiEsperado()) {
 
             Random gerador = new Random();
 
-            mZettaBarras.adicionar(100-gerador.nextInt(200));
+            mZettaBarras.adicionar(100 - gerador.nextInt(200));
 
 
         }
 
     }
-
 
 
     @Override

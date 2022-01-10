@@ -1,4 +1,4 @@
-package AppAzzal;
+package Particulas;
 
 import Azzal.Cenarios.Cena;
 import Azzal.Formatos.*;

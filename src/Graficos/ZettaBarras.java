@@ -1,6 +1,5 @@
-package AppAzzal;
+package Graficos;
 
-import Azzal.Formatos.Circulo;
 import Azzal.Formatos.Linha;
 import Azzal.Formatos.Ponto;
 import Azzal.Formatos.Retangulo;

@@ -3,18 +3,14 @@ package Azzal.Cenarios;
 import Azzal.Renderizador;
 import Azzal.Windows;
 
-import java.awt.Graphics;
 
 public abstract class Cena {
 
 	private String mNome;
-
+	private Windows mWindows;
 
 	public void setNome(String eNome) {
 		this.mNome = eNome;
-
-		
-
 	}
 
 	// Propriedades Importantes
@@ -23,7 +19,6 @@ public abstract class Cena {
 		return mNome;
 	}
 
-
 	// Metodos Importantes
 
 	public abstract void iniciar(Windows eWindows);
@@ -31,5 +26,8 @@ public abstract class Cena {
 	public abstract void update(double dt);
 
 	public abstract void draw(Renderizador g);
+
+	public Windows getWindows(){return mWindows;}
+	public void setWindows(Windows eWindows){ mWindows=eWindows;}
 
 }
