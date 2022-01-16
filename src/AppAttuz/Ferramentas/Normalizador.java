@@ -1,4 +1,4 @@
-package AppAttuz;
+package AppAttuz.Ferramentas;
 
 public class Normalizador {
 
@@ -66,17 +66,9 @@ public class Normalizador {
 
     public void equilibrar() {
 
-
         delta = (double) (maior - menor);
         dec = (double) mEscalas / 100.0;
         tx = (double) delta / 100.0;
-
-        //System.out.println("Maior      :: " + maior);
-      //  System.out.println("Menor      :: " + menor);
-       // System.out.println("Delta      :: " + delta);
-      //  System.out.println("Taxa       :: " + tx);
-     //   System.out.println("Escalas    :: " + mEscalas);
-     //   System.out.println("T. Esc     :: " + dec);
 
         atualizar = false;
 

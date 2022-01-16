@@ -4,7 +4,7 @@ import AppAttuz.Camadas.Massas;
 import AppAttuz.EscalasPadroes;
 import AppAttuz.Ferramentas.Escala;
 import AppAttuz.Ferramentas.Pintor;
-import AppAttuz.Integers;
+import Luan.Integers;
 import Imaginador.ImageUtils;
 import Servittor.Servico;
 
@@ -91,7 +91,7 @@ public class Cartografia extends Servico {
     }
 
     @Override
-    public void onInit() {
+    public void onInit( ) {
 
         Escala mEscala = EscalasPadroes.getEscalaLatitude();
 

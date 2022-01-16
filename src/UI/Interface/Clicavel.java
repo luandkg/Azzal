@@ -44,7 +44,7 @@ public class Clicavel {
                 mTempo.zerar();
                 clicavel = false;
                 mClicado = true;
-                System.out.println("Cliquei...");
+             //   System.out.println("Cliquei...");
             }
         }
 

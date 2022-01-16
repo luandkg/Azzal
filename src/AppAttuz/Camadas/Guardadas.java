@@ -7,7 +7,7 @@ import AppAttuz.Ferramentas.Pintor;
 import AppAttuz.IDW.PontoIDW;
 import AppAttuz.Mapa.Local;
 import AppAttuz.MapaUtilitario;
-import AppAttuz.Normalizador;
+import AppAttuz.Ferramentas.Normalizador;
 import Azzal.Formatos.Ponto;
 import Imaginador.ImageUtils;
 

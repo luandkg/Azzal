@@ -397,6 +397,10 @@ public class FonteRunTime implements Fonte {
         return FONTE;
     }
 
+    public static int getTamanhoPequeno(){return 11;}
+    public static int getTamanhoMicro(){return 10;}
+
+
     public void escreveLinha(int y, int x1, int x2, String eTexto1, String eTexto2) {
         escreva(x1, y, eTexto1);
         escreva(x2, y, eTexto2);
@@ -858,9 +862,11 @@ public class FonteRunTime implements Fonte {
 
 
     public int getLarguraDe(String frase) {
+
         int x = 0;
         int i = 0;
         int o = frase.length();
+
         while (i < o) {
             String l = String.valueOf(frase.charAt(i));
             if (l.contentEquals(" ")) {

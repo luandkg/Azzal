@@ -6,8 +6,8 @@ import AppAttuz.EscalasPadroes;
 import AppAttuz.Ferramentas.Escala;
 import AppAttuz.Ferramentas.MapaRender;
 import AppAttuz.Ferramentas.Pintor;
-import AppAttuz.LatitudeCalor;
-import AppAttuz.Normalizador;
+import AppAttuz.Ferramentas.LatitudeCalor;
+import AppAttuz.Ferramentas.Normalizador;
 import Azzal.Renderizador;
 import Azzal.Utils.Cor;
 import Imaginador.Efeitos;
@@ -33,7 +33,7 @@ public class Temperatura extends Servico {
     }
 
     @Override
-    public void onInit() {
+    public void onInit( ) {
 
         mLatitudes[0] = new LatitudeCalor(1200, -400);
         mLatitudes[1] = new LatitudeCalor(1000, -200);

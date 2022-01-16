@@ -1,4 +1,4 @@
-package Aleatoriedade;
+package ZZAleatoriedade;
 
 public class Ta {
 

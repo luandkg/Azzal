@@ -5,7 +5,7 @@ import AppAttuz.Camadas.Massas;
 import AppAttuz.Camadas.OnData;
 import AppAttuz.EscalasPadroes;
 import AppAttuz.Ferramentas.Escala;
-import AppAttuz.Normalizador;
+import AppAttuz.Ferramentas.Normalizador;
 import Azzal.Cores;
 import Azzal.Utils.Cor;
 import Imaginador.ImageUtils;
@@ -23,7 +23,7 @@ public class Umidade extends Servico {
     }
 
     @Override
-    public void onInit() {
+    public void onInit( ) {
 
 
         Cartografia onCartografia = new Cartografia(LOCAL);
@@ -84,7 +84,7 @@ public class Umidade extends Servico {
 
         tectonica.paraCadaPonto(new CadaPonto() {
             @Override
-            public void ontPonto(int x, int y) {
+            public void onPonto(int x, int y) {
                 if (tectonica.isTerra(x, y)) {
                     mapa_colorindo.setRGB(x, y, umidade.get(norm.get(dados.getValor(x, y)) + 1));
                 }
@@ -105,7 +105,7 @@ public class Umidade extends Servico {
 
         tectonica.paraCadaPonto(new CadaPonto() {
             @Override
-            public void ontPonto(int x, int y) {
+            public void onPonto(int x, int y) {
 
                 if (onCartografia.isLinhaLatitude(x, y)) {
 

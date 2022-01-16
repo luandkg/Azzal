@@ -13,8 +13,8 @@ public class EscalasPadroes {
         mRelevoTerra.set(10, new Color(100, 0, 0).getRGB());
         mRelevoTerra.set(9, new Color(120, 0, 0).getRGB());
         mRelevoTerra.set(8, new Color(141, 0, 0).getRGB());
-        mRelevoTerra.set(7, new Color(210, 80, 20).getRGB());
-        mRelevoTerra.set(6, new Color(247, 130, 0).getRGB());
+        mRelevoTerra.set(7, new Color(230, 90, 50).getRGB());
+        mRelevoTerra.set(6, new Color(245, 100, 60).getRGB());
         mRelevoTerra.set(5, new Color(245, 130, 60).getRGB());
         mRelevoTerra.set(4, new Color(253, 189, 130).getRGB());
         mRelevoTerra.set(3, new Color(255, 243, 181).getRGB());

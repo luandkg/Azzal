@@ -2,13 +2,13 @@ package Servittor;
 
 public class Servittor {
 
-    public static void onServico(String eNome,Servico eServico){
+    public static void onServico(String servico_nome,Servico eServico){
 
       //  System.out.println("############### SERVITTOR ##############");
       //  System.out.println("onServico : " + eNome);
 
-        System.out.println("############### " + eNome + " ##############");
-
+        System.out.println("############### " + servico_nome + " ##############");
+        eServico.onNomear(servico_nome);
         eServico.onInit();
 
     }

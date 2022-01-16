@@ -33,6 +33,7 @@ import Tronarko.Tronarko.Tozte;
 // 	ATUALIZACAO 6 : 26/03/2020 - Metodo de Ordenacao , Fusos Horarios e Enumeradores : Hiperarkos, Superarkos, Signos, Periakos e Modarkos.
 //	ATUALIZACAO 7 : 26/03/2020 - TozteCor e Interface UI
 //	ATUALIZACAO 8 : 30/03/2020 - Avisos
+//	ATUALIZACAO 9 : 25/11/2021 - Alteracao de Nomenclatura dos Hiperarkos
 
 public class Tronarko {
 

@@ -3,13 +3,13 @@ package AppAttuz.Localizador;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Camera {
+public class DroneCamera {
 
     private int quadro_x = 200;
     private int quadro_y = 240;
     private BufferedImage img;
 
-    public Camera() {
+    public DroneCamera() {
         img = new BufferedImage(quadro_x, quadro_y, BufferedImage.TYPE_INT_RGB);
     }
 

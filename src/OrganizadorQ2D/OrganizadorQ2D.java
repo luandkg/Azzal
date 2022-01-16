@@ -1,6 +1,5 @@
 package OrganizadorQ2D;
 
-import AppAzzal.Corpo;
 import Azzal.Formatos.Ponto;
 
 import java.util.ArrayList;

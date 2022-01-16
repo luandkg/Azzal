@@ -1,4 +1,4 @@
-package AppAttuz;
+package AppAttuz.Ferramentas;
 
 public class Escalometro {
 

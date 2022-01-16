@@ -1,6 +1,4 @@
-package Aleatoriedade;
-
-import java.util.ArrayList;
+package ZZAleatoriedade;
 
 public class Aleatorio {
 

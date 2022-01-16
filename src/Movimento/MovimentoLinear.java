@@ -1,7 +1,5 @@
 package Movimento;
 
-import AppAzzal.Corpo;
-
 import java.util.Random;
 
 public class MovimentoLinear implements Movimento {

@@ -81,9 +81,6 @@ public class Renderizador {
 
     public void drawImagem(int x,int y,BufferedImage img){
 
-        int xFim = x+mLargura;
-        int yFim = y+mAltura;
-
         int eTam = mPixels.length;
 
          int[]  img_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
@@ -98,7 +95,7 @@ public class Renderizador {
                 int ePox = (ry * mLargura) + rx;
 
                 if (ePox>=0 && ePox<eTam){
-                    if (rx >=0 && rx < xFim && ry >=0 && ry < yFim){
+                    if (rx >=0 && rx < mLargura && ry >=0 && ry < mAltura){
                         mPixels[ePox] = img.getRGB(xi,yi);
                        // mPixels[ePox] = img_Pixels[(yi*img.getWidth() )+ xi];
 

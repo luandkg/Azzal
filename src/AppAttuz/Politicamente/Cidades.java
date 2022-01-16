@@ -1,4 +1,4 @@
-package AppAttuz;
+package AppAttuz.Politicamente;
 
 
 import AppAttuz.Mapa.Caminho;

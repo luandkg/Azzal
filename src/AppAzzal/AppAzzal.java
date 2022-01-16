@@ -1,7 +1,11 @@
 package AppAzzal;
 
+import AppAttuz.Servicos.Cartografia;
+import AppAttuz.Servicos.LinhaDeRelevo;
+import AppAttuz.Servicos.Relevo;
 import Azzal.AzzalUnico;
-import TG22.Corpo;
+import Arquivos.AppImagem;
+import Servittor.Servittor;
 
 public class AppAzzal {
 
@@ -31,7 +35,9 @@ public class AppAzzal {
 
        // AzzalUnico.unico("Attuz", 2300, 1000, new AppAttuz.AppAttuz());
 
-        //Servittor.onServico("Mapa", new Relevo());
+        //Servittor.onServico("Relevo", new Relevo("/home/luan/Imagens/Arkazz/"));
+        Servittor.onServico("LinhaDeRelevo", new LinhaDeRelevo("/home/luan/Imagens/Arkazz/"));
+
         //Servittor.onServico("Cartografia", new Cartografia("/home/luan/Imagens/Arkazz/"));
 
         // Servittor.onServico("Temperatura", new Temperatura("/home/luan/Imagens/Arkazz/"));
@@ -39,7 +45,11 @@ public class AppAzzal {
         // Servittor.onServico("Umidade", new Umidade("/home/luan/Imagens/Arkazz/"));
         //  Servittor.onServico("Temperatura", new Temperatura("/home/luan/Imagens/Arkazz/"));
 
-        TG22.TG22.init();
+        //TG22.TG22.init();
+
+        //Servittor.onServico("Arquivador", new Arquivos.Servicos());
+       // AzzalUnico.unico("AppImagem", 1100, 900, new AppImagem());
+
 
     }
 

@@ -1,7 +1,5 @@
 package Movimento;
 
-import AppAzzal.ColididoCom;
-import AppAzzal.Corpo;
 import Azzal.Cenarios.Cena;
 import Azzal.Formatos.Ponto;
 import Azzal.Formatos.Retangulo;

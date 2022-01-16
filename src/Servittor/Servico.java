@@ -2,11 +2,17 @@ package Servittor;
 
 public class Servico {
 
-     public void onInit(){
+    private String mNome = "";
 
-     }
+    public void onNomear(String eNome) {
+        mNome = eNome;
+    }
 
-     public  void println(String a){
-          System.out.println("\t" + a);
-     }
+    public void onInit( ) {
+
+    }
+
+    public void println(String a) {
+        System.out.println(mNome + " :: " + a);
+    }
 }

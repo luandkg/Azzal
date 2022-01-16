@@ -21,7 +21,7 @@ public class OnData {
     private BufferedImage umidade;
 
     private int DISTANCIA_PADRAO = 10;
-    private int ALTITUDE_PADRAO = 500;
+    private int ALTITUDE_PADRAO = 100;
     private int UMIDADE_PADRAO = 5;
 
     public OnData(String LOCAL) {

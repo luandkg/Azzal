@@ -1,7 +1,7 @@
 package AppAttuz.Camadas;
 
 import AppAttuz.CadaPonto;
-import AppAttuz.Unicidade;
+import AppAttuz.Ferramentas.Unicidade;
 import Imaginador.ImageUtils;
 
 import java.awt.image.BufferedImage;
@@ -290,7 +290,7 @@ public class Massas {
 
         for (int y = 0; y < getAltura(); y++) {
             for (int x = 0; x < getLargura(); x++) {
-                eCadaPonto.ontPonto(x,y);
+                eCadaPonto.onPonto(x,y);
             }
         }
 

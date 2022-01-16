@@ -1,8 +1,8 @@
-package AppAzzal;
+package Luan;
 
 import Luan.Tarefa;
 
-public class TTY {
+public class STTY {
 
     public String inFixo(String s, int t) {
 
@@ -21,7 +21,6 @@ public class TTY {
 
         return s;
     }
-
 
     public String intNum(int i, int c) {
         String s = String.valueOf(i);
@@ -106,7 +105,6 @@ public class TTY {
         return f;
     }
 
-
     public String getTempoFormatado(long t) {
 
         if (t < 1000) {
@@ -136,7 +134,6 @@ public class TTY {
 
     }
 
-
     public long getTempoTarefa(Tarefa eTarefa) {
         long eAntes = System.currentTimeMillis();
 
@@ -154,7 +151,6 @@ public class TTY {
         long eDepois = System.currentTimeMillis();
         return getTempoFormatado(eDepois - eAntes);
     }
-
 
     public String getTempoEmSegundosFormatado(long s) {
 

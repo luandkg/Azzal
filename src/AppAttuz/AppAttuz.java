@@ -4,12 +4,15 @@ import AppAttuz.Camadas.*;
 import AppAttuz.Ferramentas.Escala;
 import AppAttuz.Ferramentas.Nivelador;
 import AppAttuz.Mapa.*;
+import AppAttuz.Politicamente.Cidades;
+import AppAttuz.Politicamente.ListaDeCidades;
+import AppAttuz.Politicamente.NomesEspecificos;
 import AppAttuz.Servicos.*;
 import Servittor.Servittor;
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
 import UI.Interface.Clicavel;
-import AppAttuz.Localizador.Camera;
+import AppAttuz.Localizador.DroneCamera;
 import Azzal.Cenarios.Cena;
 import Azzal.Cores;
 import Azzal.Cronometro;
@@ -54,7 +57,7 @@ public class AppAttuz extends Cena {
     private int Y0 = 100;
     private Cronometro mCron;
 
-    int raio = 150;
+    private int raio = 150;
 
     private int TEMPO_FLUXO = 500;
 
@@ -68,14 +71,15 @@ public class AppAttuz extends Cena {
     private int mais = 0;
 
     private Nivelador mNivelador;
-    private Massas mMassa;
     private Escala mRelevo;
+    private Massas mMassa;
 
     private Cores mCores;
-    private Camera mCamera;
+    private DroneCamera mDroneCamera;
 
     private String LOCAL = "/home/luan/Imagens/Arkazz/";
     //private String LOCAL = "/home/luan/Imagens/Simples/";
+    private boolean mostrarCidades = true;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -84,6 +88,11 @@ public class AppAttuz extends Cena {
 
         mapa = ImageUtils.getImagem(LOCAL + "mapa.png");
 
+
+        // SE SIMPLES
+        //X0 = 500;
+        //Y0 = 200;
+        mostrarCidades = false;
 
         // mapa = ImageUtils.getImagem("/home/luan/Imagens/Mapas/relevo/relevo.png");
 
@@ -112,7 +121,7 @@ public class AppAttuz extends Cena {
         mCaminhos = new ArrayList<Caminho>();
 
         mProcurador = new ProcurarLocalizacao();
-        mCamera = new Camera();
+        mDroneCamera = new DroneCamera();
 
         pequeno = new FonteRunTime(Cor.getRGB(Color.BLACK), 11);
         micro = new FonteRunTime(Cor.getRGB(Color.BLACK), 10);
@@ -210,12 +219,12 @@ public class AppAttuz extends Cena {
 
 
         if (GERAR) {
-            Servittor.onServico("Relevo", new Relevo());
+            Servittor.onServico("Relevo", new Relevo(LOCAL));
         }
 
         if (DADOS) {
-          //  Servittor.onServico("Cartografia", new Cartografia(LOCAL));
-          //  Servittor.onServico("ProximidadeDoMar", new ProximidadeDoMar(LOCAL));
+            //  Servittor.onServico("Cartografia", new Cartografia(LOCAL));
+            //  Servittor.onServico("ProximidadeDoMar", new ProximidadeDoMar(LOCAL));
             Servittor.onServico("Temperatura", new Temperatura(LOCAL));
             Servittor.onServico("Massas de Agua", new Umidade(LOCAL));
         }
@@ -401,11 +410,8 @@ public class AppAttuz extends Cena {
 
 
         for (Local ePonto : mMarcacoes) {
-
             g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, Cor.getInt(mRelevo.get(Integer.parseInt(ePonto.getNome()))));
-            micro.escreva(ePonto.getX() + X0, ePonto.getY() + Y0, (ePonto.getX() + X0) + "::" + (ePonto.getY() + Y0));
-
-
+        //    micro.escreva(ePonto.getX() + X0, ePonto.getY() + Y0, (ePonto.getX() + X0) + "::" + (ePonto.getY() + Y0));
         }
 
         for (Caminho eCaminho : mCaminhos) {
@@ -415,50 +421,54 @@ public class AppAttuz extends Cena {
         }
 
 
-        int l = 0;
+        if (mostrarCidades) {
+            int l = 0;
 
-        for (Local ePonto : mLocais) {
+            for (Local ePonto : mLocais) {
 
-            g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, mCores.getVerde());
+                g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, mCores.getVerde());
 
-            mNomear.nomear(g, micro, l, ePonto, X0, Y0);
+                mNomear.nomear(g, micro, l, ePonto, X0, Y0);
 
-            if (EU.estouPensando()) {
+                if (EU.estouPensando()) {
 
-                if (mViagem.getProximos().contains(ePonto)) {
+                    if (mViagem.getProximos().contains(ePonto)) {
 
-                    g.drawRect((ePonto.getX() + X0) - 15, (ePonto.getY() + Y0) - 15, 30, 30, mCores.getAmarelo());
+                        g.drawRect((ePonto.getX() + X0) - 15, (ePonto.getY() + Y0) - 15, 30, 30, mCores.getAmarelo());
 
-                    g.drawRect(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, mCores.getAzul());
+                        g.drawRect(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, mCores.getAzul());
+
+                    }
 
                 }
 
+
+                l += 1;
+
             }
 
+            for (Local ePonto : mMares) {
 
-            l += 1;
+                g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, mCores.getAzul());
 
-        }
+                g.drawRect_Pintado(ePonto.getX() + X0 - 20, ePonto.getY() + Y0, micro.getLarguraDe(ePonto.getNome()) - 5, (micro.getAltura() * 2) - 2, mCores.getLaranja());
+                micro.escreva(ePonto.getX() + X0 - 20, ePonto.getY() + Y0, ePonto.getNome());
 
-        for (Local ePonto : mMares) {
-
-            g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, mCores.getAzul());
-
-            g.drawRect_Pintado(ePonto.getX() + X0 - 20, ePonto.getY() + Y0, micro.getLarguraDe(ePonto.getNome())-5, (micro.getAltura()*2)-2, mCores.getLaranja());
-            micro.escreva(ePonto.getX() + X0 - 20, ePonto.getY() + Y0, ePonto.getNome());
+            }
 
         }
+
 
 
         mListaDeCidades.onDraw(g, mLocais);
 
         g.drawRect(EU.getX() + X0, EU.getY() + Y0, 5, 5, mCores.getVermelho());
 
-        int diametro = raio * 2;
 
-
-        g.drawRect((EU.getX() + X0) - raio, (EU.getY() + Y0) - raio, diametro, diametro, mCores.getAmarelo());
-
+        if (mostrarCidades) {
+            int diametro = raio * 2;
+            g.drawRect((EU.getX() + X0) - raio, (EU.getY() + Y0) - raio, diametro, diametro, mCores.getAmarelo());
+        }
 
         if (EU.getAtividade() == EU.getDormindo()) {
             //   pequeno.EscreveNegrito(g, EU.getX() + "::" + EU.getY() + " - " + "<" + EU.getTempo() + "> " + EU.getAtividade().toString(), 570, 80);
@@ -479,13 +489,17 @@ public class AppAttuz extends Cena {
         pequeno.escreva(570, 80, "" + mNivelador.getNivel());
 
 
-        g.drawLinha((EU.getX() + X0) + 2, (EU.getY() + Y0) + 2, 400 + 100, 690, mCores.getLaranja());
+
+        if (mostrarCidades) {
+
+            g.drawLinha((EU.getX() + X0) + 2, (EU.getY() + Y0) + 2, 400 + 100, 690, mCores.getLaranja());
 
 
-        g.drawImagem(400, 690, mCamera.onGravar(copia, (EU.getX() * 2) - 100, (EU.getY() * 2) - 100, EU.getX() * 2, EU.getY() * 2));
+            g.drawImagem(400, 690, mDroneCamera.onGravar(copia, (EU.getX() * 2) - 100, (EU.getY() * 2) - 100, EU.getX() * 2, EU.getY() * 2));
 
-        g.drawRect(400, 690, 200, 240, mCores.getPreto());
+            g.drawRect(400, 690, 200, 240, mCores.getPreto());
 
+        }
 
         //  pequeno.EscreveNegrito(g, "Percurso : " + mViagem.getPercurso().size(), 750, 100);
         //    pequeno.EscreveNegrito(g, "Tempo    : " + mViagem.getTempo(), 750, 120);

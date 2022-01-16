@@ -1,6 +1,5 @@
 package AppAttuz.Ferramentas;
 
-import AppAttuz.Unicidade;
 import Azzal.Formatos.Ponto;
 
 import java.util.ArrayList;

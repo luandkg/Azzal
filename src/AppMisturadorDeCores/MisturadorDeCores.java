@@ -1,4 +1,4 @@
-package AppAzzal;
+package AppMisturadorDeCores;
 
 import Azzal.Cenarios.Cena;
 import Azzal.Formatos.Quadrado;

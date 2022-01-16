@@ -2,8 +2,8 @@ package AppAttuz.IDW;
 
 import AppAttuz.Camadas.Massas;
 import AppAttuz.Ferramentas.Espaco2D;
-import AppAttuz.Normalizador;
-import AppAttuz.Progressante;
+import AppAttuz.Ferramentas.Normalizador;
+import AppAttuz.Ferramentas.Progressante;
 import Azzal.Formatos.Ponto;
 
 import java.util.ArrayList;
@@ -54,8 +54,8 @@ public class AlgoritmoIDW {
 
         int maior = 0;
 
-        for (int y = 0; y < massa.getAltura(); y++) {
-            for (int x = 0; x < massa.getLargura(); x++) {
+        for (int y = 0; y < tectonica.getAltura(); y++) {
+            for (int x = 0; x < tectonica.getLargura(); x++) {
 
                 int ponto_valor = massa.getValor(x, y);
                 if (ponto_valor > maior) {
@@ -98,8 +98,8 @@ public class AlgoritmoIDW {
 
         ArrayList<PontoIDW> eixos = new ArrayList<PontoIDW>();
 
-        for (int y = 0; y < massa.getAltura(); y++) {
-            for (int x = 0; x < massa.getLargura(); x++) {
+        for (int y = 0; y < tectonica.getAltura(); y++) {
+            for (int x = 0; x < tectonica.getLargura(); x++) {
                 if (tectonica.getValor(x, y) == TECTONICA_VALOR) {
 
                     int ponto_valor = massa.getValor(x, y);

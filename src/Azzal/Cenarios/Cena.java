@@ -30,4 +30,7 @@ public abstract class Cena {
 	public Windows getWindows(){return mWindows;}
 	public void setWindows(Windows eWindows){ mWindows=eWindows;}
 
+	public int getMx(){return (int) getWindows().getMouse().getX();}
+	public int getMy(){return (int) getWindows().getMouse().getY();}
+public boolean isPressionsado(){return getWindows().getMouse().isPressed();}
 }

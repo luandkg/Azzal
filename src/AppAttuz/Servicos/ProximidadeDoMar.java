@@ -4,12 +4,10 @@ import AppAttuz.Camadas.Massas;
 import AppAttuz.EscalasPadroes;
 import AppAttuz.Ferramentas.Escala;
 import AppAttuz.Ferramentas.MapaRender;
-import AppAttuz.Ferramentas.Pintor;
-import AppAttuz.Normalizador;
+import AppAttuz.Ferramentas.Normalizador;
 import Imaginador.ImageUtils;
 import Servittor.Servico;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ProximidadeDoMar extends Servico {
@@ -21,7 +19,7 @@ public class ProximidadeDoMar extends Servico {
     }
 
     @Override
-    public void onInit() {
+    public void onInit( ) {
 
         Escala mEscala = EscalasPadroes.getEscalaDistancia();
 

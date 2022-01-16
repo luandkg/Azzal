@@ -1,4 +1,4 @@
-package AppAzzal;
+package AppLetras;
 
 import Azzal.Cenarios.Cena;
 import Azzal.Mouse;

@@ -1,4 +1,4 @@
-package AppAzzal;
+package AppBancarium;
 
 import Azzal.Cenarios.Cena;
 import Azzal.Utils.*;
