@@ -29,22 +29,31 @@ public class Temperatura extends Servico {
 
     public Temperatura(String eLOCAL) {
         LOCAL = eLOCAL;
-        mLatitudes = new LatitudeCalor[10];
+        mLatitudes = new LatitudeCalor[18];
     }
 
     @Override
-    public void onInit( ) {
+    public void onInit() {
 
-        mLatitudes[0] = new LatitudeCalor(1200, -400);
-        mLatitudes[1] = new LatitudeCalor(1000, -200);
-        mLatitudes[2] = new LatitudeCalor(800, -100);
-        mLatitudes[3] = new LatitudeCalor(600, 100);
-        mLatitudes[4] = new LatitudeCalor(400, 200);
-        mLatitudes[5] = new LatitudeCalor(200, 400);
-        mLatitudes[6] = new LatitudeCalor(100, 800);
-        mLatitudes[7] = new LatitudeCalor(0, 1000);
-        mLatitudes[8] = new LatitudeCalor(-100, 1500);
-        mLatitudes[9] = new LatitudeCalor(-200, 2000);
+        mLatitudes[0] = new LatitudeCalor(-100, -550);
+        mLatitudes[1] = new LatitudeCalor(-50, -500);
+        mLatitudes[2] = new LatitudeCalor(0, -450);
+        mLatitudes[3] = new LatitudeCalor(50, -400);
+        mLatitudes[4] = new LatitudeCalor(100, -350);
+        mLatitudes[5] = new LatitudeCalor(200, -300);
+        mLatitudes[6] = new LatitudeCalor(300, -250);
+        mLatitudes[7] = new LatitudeCalor(400, -200);
+        mLatitudes[8] = new LatitudeCalor(500, -150);
+
+        mLatitudes[9] = new LatitudeCalor(500, -100);
+        mLatitudes[10] = new LatitudeCalor(400, -50);
+        mLatitudes[11] = new LatitudeCalor(300, 0);
+        mLatitudes[12] = new LatitudeCalor(200, 500);
+        mLatitudes[13] = new LatitudeCalor(100, 400);
+        mLatitudes[14] = new LatitudeCalor(50, 300);
+        mLatitudes[15] = new LatitudeCalor(0, 200);
+        mLatitudes[16] = new LatitudeCalor(-50, 100);
+        mLatitudes[17] = new LatitudeCalor(-100, 50);
 
         render(VERAO, 10, 500, 5, LOCAL + "build/temperatura_verao.png");
         render(INVERNO, 10, 500, 5, LOCAL + "build/temperatura_inverno.png");
@@ -68,6 +77,8 @@ public class Temperatura extends Servico {
 
         Normalizador normalizador = new Normalizador(mEscala.getMaximo());
 
+        int maior_lat = 0;
+
         for (int y = 0; y < mapa.getHeight(); y++) {
             for (int x = 0; x < mapa.getWidth(); x++) {
 
@@ -77,18 +88,23 @@ public class Temperatura extends Servico {
 
                     int altitude = onData.getAltura(x, y);
                     int distancia_mar = onData.getDistanciaDoMar(x, y);
-                    int lat = onCartografia.getLatitudeModular(y);
+                    //   int lat = onCartografia.getLatitudeModular(y);
+                    int lat = onCartografia.getLatitudeContagem(y);
                     int umidade = onData.getUmidade(x, y);
 
-                    int variavel = 0;
+
+                   // if (lat > maior_lat) {
+                    //    maior_lat = lat;
+                     //   System.out.println("Lat :: " + maior_lat);
+                  //  }
+
+                    int valor = (distancia_mar * TAXA_DISTANCIA) - (altitude / TAXA_ALTURA) - (umidade / TAXA_UMIDADE);
 
                     if (estacao == INVERNO) {
-                        variavel = mLatitudes[lat / 2].getInverno();
+                        valor += mLatitudes[lat].getInverno();
                     } else if (estacao == VERAO) {
-                        variavel = mLatitudes[lat / 2].getVerao();
+                        valor += mLatitudes[lat].getVerao();
                     }
-
-                    int valor = (distancia_mar * TAXA_DISTANCIA) - (altitude / TAXA_ALTURA) - (umidade / TAXA_UMIDADE) + variavel;
 
                     normalizador.adicionar(valor);
 
@@ -117,7 +133,7 @@ public class Temperatura extends Servico {
         int n1 = 0;
         int n2 = 5;
 
-        for (int t = 1; t < 11; t++) {
+        for (int t = 1; t < 12; t++) {
             render.drawRect_Pintado(100, (t * 50) + 100, 30, 30, Cor.getInt((mEscala.get(t))));
             escrever.escreva(140, (t * 50) + 100, temp_val + "ºC");
             temp_val += n1 + n2;
@@ -146,7 +162,7 @@ public class Temperatura extends Servico {
         BufferedImage img_verao = Efeitos.reduzir(ImageUtils.getImagem(LOCAL + "build/temperatura_verao.png"), tectonica.getLargura() / 3, tectonica.getAltura() / 3);
         BufferedImage img_inverno = Efeitos.reduzir(ImageUtils.getImagem(LOCAL + "build/temperatura_inverno.png"), tectonica.getLargura() / 3, tectonica.getAltura() / 3);
 
-        BufferedImage mapa = new BufferedImage(tectonica.getLargura() / 3, ((tectonica.getAltura() / 3) * 2 + 50), BufferedImage.TYPE_INT_RGB);
+        BufferedImage mapa = new BufferedImage(tectonica.getLargura()-300, (tectonica.getAltura() / 2)-100, BufferedImage.TYPE_INT_RGB);
 
         for (int y = 0; y < img_verao.getHeight(); y++) {
             for (int x = 0; x < img_verao.getWidth(); x++) {
@@ -156,7 +172,7 @@ public class Temperatura extends Servico {
 
         for (int y = 0; y < img_inverno.getHeight(); y++) {
             for (int x = 0; x < img_inverno.getWidth(); x++) {
-                mapa.setRGB(x, y + 600, img_inverno.getRGB(x, y));
+                mapa.setRGB(x + img_verao.getWidth() + 10, y, img_inverno.getRGB(x, y));
             }
         }
 

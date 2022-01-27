@@ -46,21 +46,25 @@ public class AppImagem extends Cena {
 
         mClicavel = new Clicavel();
 
-        BotaoCor BTN_IR = mClicavel.criarBotaoCor(new BotaoCor(500, 50, 50, 50, new Cor(26, 188, 156)));
+        BotaoCor BTN_PROXIMA = mClicavel.criarBotaoCor(new BotaoCor(500, 50, 50, 50, new Cor(26, 188, 156)));
+        BotaoCor BTN_VOLTAR = mClicavel.criarBotaoCor(new BotaoCor(600, 50, 50, 50, new Cor(26, 188, 156)));
 
-        BTN_IR.setAcao(new Acao() {
+        BTN_PROXIMA.setAcao(new Acao() {
             @Override
             protected void onClique() {
-
-                clicar();
-
+                imagem_proxima();
             }
         });
 
-
+        BTN_VOLTAR.setAcao(new Acao() {
+            @Override
+            protected void onClique() {
+                imagem_voltar();
+            }
+        });
     }
 
-    public void clicar() {
+    public void imagem_proxima() {
 
         mSelecionado += 1;
 
@@ -72,10 +76,26 @@ public class AppImagem extends Cena {
 
         mImagem = mAlbumCorrente.getImagem(mSelecionado);
 
+        resolucao_adequar();
+
+    }
+
+    public void imagem_voltar() {
+
+        mSelecionado -= 1;
+
+        if (mSelecionado < 0) {
+            mSelecionado = mAlbumCorrente.getImagens().size() - 1;
+        }
+
+        System.out.println(" -->> " + mAlbumCorrente.getImagens().get(mSelecionado).getNome());
+
+        mImagem = mAlbumCorrente.getImagem(mSelecionado);
 
         resolucao_adequar();
 
     }
+
 
     public void resolucao_adequar() {
 

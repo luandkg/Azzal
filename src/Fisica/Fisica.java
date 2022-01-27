@@ -6,8 +6,8 @@ import Azzal.Teclado;
 import Azzal.Utils.*;
 import Azzal.Renderizador;
 import Azzal.Windows;
-import LetrumArkaica.Fonte08Padrao;
-import LetrumArkaica.Letramento;
+import Letrum.Fonte;
+import Letrum.Maker.FonteRunTime;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
 public class Fisica extends Cena {
 
 
-    private Letramento mLetramentoPreto;
+    private Fonte mLetramentoPreto;
 
 
     private HiperTempo mTempo;
@@ -57,7 +57,7 @@ public class Fisica extends Cena {
 
     public Fisica() {
 
-        mLetramentoPreto = new Letramento(new Fonte08Padrao());
+        mLetramentoPreto = new FonteRunTime(new Cor(255,0,0),10);
 
         zerar();
 
@@ -209,7 +209,7 @@ public class Fisica extends Cena {
 
         mRenderizador.limpar(Color.WHITE);
 
-        mLetramentoPreto.atualizar(mRenderizador);
+        mLetramentoPreto.setRenderizador(mRenderizador);
 
 
         espacoHorizontalMarcado(mRenderizador, mC1, mVelC1, mT1, new Cor(255, 0, 0), mPista);
@@ -223,9 +223,9 @@ public class Fisica extends Cena {
     public void espacoHorizontalMarcado(Renderizador mRenderizador, Retangulo mCorpo, int eVel, int eTempo, Cor eCorCorpo, LinhaHorizontal mPistaDoCorpo) {
 
 
-        mLetramentoPreto.escreve(mPistaDoCorpo.getX() + 120, mPistaDoCorpo.getY() - 100, "X : " + (mCorpo.getX() - 200));
-        mLetramentoPreto.escreve(mPistaDoCorpo.getX() + 220, mPistaDoCorpo.getY() - 100, "Y : " + mCorpo.getY());
-        mLetramentoPreto.escreve(mPistaDoCorpo.getX() + 350, mPistaDoCorpo.getY() - 100, "T : " + eTempo);
+        mLetramentoPreto.escreva(mPistaDoCorpo.getX() + 120, mPistaDoCorpo.getY() - 100, "X : " + (mCorpo.getX() - 200));
+        mLetramentoPreto.escreva(mPistaDoCorpo.getX() + 220, mPistaDoCorpo.getY() - 100, "Y : " + mCorpo.getY());
+        mLetramentoPreto.escreva(mPistaDoCorpo.getX() + 350, mPistaDoCorpo.getY() - 100, "T : " + eTempo);
 
 
         drawLinhaHorizontal(mRenderizador, mPistaDoCorpo, new Cor(0, 0, 0));

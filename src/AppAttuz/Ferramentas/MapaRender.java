@@ -47,6 +47,18 @@ public class MapaRender {
                         int n = massa.getValor(x, y);
                         mapa.setRGB(x, y, eEscala.get(n));
 
+                        for (int yr = 0; yr < 10; yr++) {
+                            for (int r = 0; r < 10; r++) {
+
+                                int ex = x + r;
+                                int ey = y + yr;
+
+                                if (ex >= 0 && ex < mapa.getWidth() && ey >= 0 && ey < mapa.getHeight()) {
+                                    mapa.setRGB(ex, ey, eEscala.get(n));
+                                }
+
+                            }
+                        }
                     }
 
                 }

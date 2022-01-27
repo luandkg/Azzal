@@ -5,7 +5,6 @@ import Azzal.Renderizador;
 import Azzal.Teclado;
 import Azzal.Utils.Cor;
 import Azzal.Utils.Cronometro;
-import LetrumArkaica.Letramento;
 
 import java.awt.event.KeyEvent;
 
@@ -17,14 +16,14 @@ public class WidgetTextBox {
     private Cronometro mCron;
     private boolean mMostrarMarcador;
     private boolean mEstaEditando;
-    private Letramento mLetramento;
+    private Fonte mLetramento;
     private Retangulo mArea;
 
     private int mPosicaoMarcador;
     private int mTamanhoComprimento;
     private boolean mTabulado;
 
-    public WidgetTextBox(int eX, int eY, Letramento eLetramento) {
+    public WidgetTextBox(int eX, int eY, Fonte eLetramento) {
 
         mX = eX;
         mY = eY;
@@ -67,7 +66,7 @@ public class WidgetTextBox {
 
     public void render(Renderizador mRenderizador) {
 
-        mLetramento.escreve(mX, mY, mTexto);
+        mLetramento.escreva(mX, mY, mTexto);
 
 
         mRenderizador.drawRect_Pintado(new Retangulo(mX, mY + 20, mTamanhoComprimento, 2), Cor.getHexCor("#8bc34a"));

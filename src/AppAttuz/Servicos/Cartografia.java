@@ -35,6 +35,10 @@ public class Cartografia extends Servico {
 
     }
 
+    public int getLatitudeContagem(int p) {
+        return (p/CARTOGRAFIA_ALTURA);
+    }
+
 
     public int getLatitude(int p) {
 

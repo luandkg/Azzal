@@ -9,9 +9,8 @@ import Azzal.Teclado;
 import Azzal.Utils.*;
 import Azzal.Renderizador;
 import Azzal.Windows;
-import LetrumArkaica.Fonte12Vermelha;
-import LetrumArkaica.FontePadrao;
-import LetrumArkaica.Letramento;
+import Letrum.Fonte;
+import Letrum.Maker.FonteRunTime;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,8 +21,8 @@ public class C1 extends Cena {
 
 
     private Cronometro mCron;
-    private Letramento mLetramentoPreto;
-    private Letramento mLetramentoVermelho;
+    private Fonte mLetramentoPreto;
+    private Fonte mLetramentoVermelho;
     //  private LetramentoColorido m3;
     // private LetramentoColorido m4;
 
@@ -59,8 +58,8 @@ public class C1 extends Cena {
 
         mCron = new Cronometro(50);
 
-        mLetramentoPreto = new Letramento(new FontePadrao());
-        mLetramentoVermelho = new Letramento(new Fonte12Vermelha());
+        mLetramentoPreto = new FonteRunTime(new Cor(255,0,0),10);
+        mLetramentoVermelho = new FonteRunTime(new Cor(255,0,0),10);
         //   m3 = new LetramentoColorido(Cor.getHexCor("#99d066"));
         //   m4 = new LetramentoColorido(Cor.getHexCor("#ffd54f"));
 
@@ -206,14 +205,14 @@ public class C1 extends Cena {
 
         mRenderizador.limpar(Color.WHITE);
 
-        mLetramentoPreto.atualizar(mRenderizador);
-        mLetramentoVermelho.atualizar(mRenderizador);
+        mLetramentoPreto.setRenderizador(mRenderizador);
+        mLetramentoVermelho.setRenderizador(mRenderizador);
         //  m3.atualizar(mRenderizador);
         // m4.atualizar(mRenderizador);
 
 
-        mLetramentoPreto.escreve(150, 150, "Luan Alves Freitas");
-        mLetramentoVermelho.escreve(150, 170, "Luan Alves Freitas");
+        mLetramentoPreto.escreva(150, 150, "Luan Alves Freitas");
+        mLetramentoVermelho.escreva(150, 170, "Luan Alves Freitas");
         // m3.escreve(150, 190, "Luan Alves Freitas");
         //  m4.escreve(150, 210, "Luan Alves Freitas");
 
@@ -265,7 +264,7 @@ public class C1 extends Cena {
 
         // mRenderizador.drawMidpointCircle(mCirculante2, 0, 360, mCorVerde);
 
-        mLetramentoPreto.escreve(mCirculante.getX(), mCirculante.getY() + 2 * (mCirculante.getRaio()) + 20, eFrase);
+        mLetramentoPreto.escreva(mCirculante.getX(), mCirculante.getY() + 2 * (mCirculante.getRaio()) + 20, eFrase);
 
         drawTabelaDeCores(mRenderizador);
 

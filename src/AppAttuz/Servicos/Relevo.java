@@ -6,7 +6,7 @@ import AppAttuz.Ferramentas.*;
 import AppAttuz.IDW.AlgoritmoIDW;
 import AppAttuz.IDW.PontoIDW;
 import AppAttuz.Mapa.Local;
-import AppAttuz.Mapa.Mapetzo;
+import AppAttuz.Mapa.Proximattor;
 import Azzal.Formatos.Ponto;
 import Azzal.Renderizador;
 import Azzal.Utils.Cor;
@@ -29,7 +29,7 @@ public class Relevo extends Servico {
     }
 
     @Override
-    public void onInit( ) {
+    public void onInit() {
 
         println("Criando relevo ....");
 
@@ -79,8 +79,7 @@ public class Relevo extends Servico {
 
         // AlgoritmoIDW.aplicar(tectonica, tectonica.getTerra(), massa, normalizador, eixos);
 
-        // Mapetzo.aplicar(tectonica, tectonica.getTerra(), massa, normalizador, eixos,10);
-        Mapetzo.porProximidade(tectonica, tectonica.getTerra(), massa, normalizador, eixos, 10);
+        Proximattor.porProximidade(tectonica, tectonica.getTerra(), massa, normalizador, eixos, 10);
 
         System.out.println("Maior :: " + getMaior(tectonica, tectonica.getTerra(), massa));
         System.out.println("Menor :: " + getMenor(tectonica, tectonica.getTerra(), massa));
@@ -96,7 +95,7 @@ public class Relevo extends Servico {
         BufferedImage mapa_renderizado = Pintor.colorir(mapa, massa, mRelevo);
 
 
-       // terra_legenda();
+        // terra_legenda();
 
 
         ImageUtils.exportar(mapa_renderizado, LOCAL + "build/terra.png");
@@ -115,22 +114,22 @@ public class Relevo extends Servico {
 
         int altitude_min = 100;
         int delta = 100;
-        int altitude_max = altitude_min+delta;
+        int altitude_max = altitude_min + delta;
 
         for (int t = 1; t < 11; t++) {
             render.drawRect_Pintado(30, (t * 50) + 50, 20, 20, Cor.getInt(eEscala.get(t)));
             escrever.escreva(50, (t * 50) + 50, altitude_min + " m -- " + altitude_max + " m");
 
-            altitude_min=altitude_max;
-            delta=100;
-            altitude_max = altitude_min+delta;
+            altitude_min = altitude_max;
+            delta = 100;
+            altitude_max = altitude_min + delta;
         }
 
         ImageUtils.exportar(mapa_entrada, LOCAL + "build/terra.png");
 
     }
 
-        private void onAgua(String LOCAL) {
+    private void onAgua(String LOCAL) {
 
         Massas massa = new Massas(LOCAL, true);
         Massas tectonica = new Massas(LOCAL, true);
@@ -159,12 +158,18 @@ public class Relevo extends Servico {
 
         ArrayList<PontoIDW> eixos = AlgoritmoIDW.getEixos(tectonica, tectonica.getAgua(), massa);
 
+        System.out.println(" -->> OBITIDOS :: " + eixos.size());
+
+        ArrayList<PontoIDW> novos = ExpansorDeLimite.expandir(eixos, tectonica);
+        eixos.addAll(novos);
+        System.out.println(" -->> EXPANDIDOS :: " + eixos.size());
+
+
         for (PontoIDW eixo : eixos) {
             massa.setValor(eixo.getX(), eixo.getY(), eixo.getValor());
             normalizador.adicionar(eixo.getValor());
         }
 
-        System.out.println(" -->> OBITIDOS :: " + eixos.size());
 
         MapaRender.renderizaSoPontos(mapa, tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador, LOCAL + "build/agua_eixos.png");
 
@@ -172,7 +177,7 @@ public class Relevo extends Servico {
 
         //Mapetzo.aplicar(tectonica, tectonica.getAgua(), massa, normalizador, eixos, 2);
 
-        Mapetzo.porProximidade(tectonica, tectonica.getAgua(), massa, normalizador, eixos, 10);
+        Proximattor.porProximidade(tectonica, tectonica.getAgua(), massa, normalizador, eixos, 10);
 
         System.out.println("Maior :: " + getMaior(tectonica, tectonica.getAgua(), massa));
         System.out.println("Menor :: " + getMenor(tectonica, tectonica.getAgua(), massa));
@@ -183,19 +188,20 @@ public class Relevo extends Servico {
         normalizador.equilibrar();
         normalizador.stock();
 
-        MapaRender.equilibrador(tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador);
+        //MapaRender.equilibrador(tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador);
 
 
         //agua_legenda(mapa,massa,mRelevo_aquatico);
 
+         MapaRender.renderiza(mapa, tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador, LOCAL + "build/agua.png");
 
-        ImageUtils.exportar(Pintor.colorir(mapa, massa, mRelevo_aquatico), LOCAL + "build/agua.png");
+       // ImageUtils.exportar(Pintor.colorir(mapa, massa, mRelevo_aquatico), LOCAL + "build/agua.png");
 
         println("-->> PRONTO !");
 
     }
 
-    private void agua_legenda(BufferedImage mapa_entrada, Massas eMassa, Escala eEscala){
+    private void agua_legenda(BufferedImage mapa_entrada, Massas eMassa, Escala eEscala) {
 
         BufferedImage mapa_renderizado = Pintor.colorir(mapa_entrada, eMassa, eEscala);
 

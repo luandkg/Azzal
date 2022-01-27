@@ -270,10 +270,55 @@ public class TX {
                 }
             }
 
-            contando+=1;
-            if (contando>limite){
+            contando += 1;
+            if (contando > limite) {
                 break;
             }
+        }
+
+
+        return texto;
+    }
+
+    public String lerDeBytes(ArrayList<Byte> bytes) {
+
+        String texto = "";
+
+        // System.out.println("Texto TX - Iniciado");
+
+        boolean lendo = true;
+
+        int ii = 0;
+        int oo = bytes.size();
+
+        while (lendo) {
+
+            int valor = Inteiro.byteToInt(bytes.get(ii));
+            ii += 1;
+
+            if (valor == 0) {
+                lendo = false;
+            } else {
+                if (valor == 255) {
+
+                    int valor2 = Inteiro.byteToInt(bytes.get(ii));
+                    ii += 1;
+
+                    int menos = valor2 - 1;
+                    texto += getCaracter(menos);
+
+                } else {
+
+                    int menos = valor - 1;
+                    texto += getCaracter(menos);
+
+                }
+            }
+
+            if (ii > oo) {
+                break;
+            }
+
         }
 
 

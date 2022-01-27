@@ -136,7 +136,7 @@ public class Griphizz {
                 boolean e = eGriph.get(ix, iy);
 
                 if (e) {
-                    mRenderizador.drawQuad(aX + (ix * 1), aY + (iy * 1), 1, 1, eCor);
+                    mRenderizador.drawRect_Pintado(aX + (ix * 1), aY + (iy * 1), 1, 1, eCor);
                 }
 
             }

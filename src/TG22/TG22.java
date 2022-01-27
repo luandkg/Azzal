@@ -16,7 +16,8 @@ public class TG22 {
 
         ArrayList<Ficha> projeto = iniciar_projeto();
 
-
+        cadastrar("20/05/7002", 1.60, 75.0, projeto);
+        cadastrar("15/05/7002", 1.60, 76.0, projeto);
         cadastrar("06/05/7002", 1.60, 77.0, projeto);
 
 
@@ -31,7 +32,7 @@ public class TG22 {
         historico.add(new Ficha(eTozte, Corpo.getAltura(eAltura), Corpo.getPeso(ePeso)));
     }
 
-    public static String getDif(String t1, String t2) {
+    public static long getDif(String t1, String t2) {
 
         StringTronarko st = new StringTronarko();
 
@@ -40,7 +41,7 @@ public class TG22 {
 
         Tozte_Intervalo intervalo = new Tozte_Intervalo("", r1, r2);
 
-        return "" + intervalo.getSuperarkos();
+        return intervalo.getSuperarkos();
     }
 
     public static ArrayList<Ficha> iniciar_projeto() {
@@ -58,11 +59,11 @@ public class TG22 {
         System.out.println("");
         System.out.println("#################### EVOLUÇÃO ######################");
         System.out.println("");
-        System.out.println("\t - META :: " + STTY.espacar_antes("" + STTY.f2zerado(ideal), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(ideal, Corpo.getAltura(ALTURA))) + " UP ) ");
+        System.out.println("\t - META :: " + STTY.espacar_antes("" + STTY.f2zerado(ideal), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(ideal, Corpo.getAltura(ALTURA))) + " fuzz ) ");
 
         double ultimo = projeto.get(0).getPeso();
 
-        System.out.println("\t - HOJE :: " + STTY.espacar_antes("" + ultimo, 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(ultimo, Corpo.getAltura(ALTURA))) + " UP ) ");
+        System.out.println("\t - HOJE :: " + STTY.espacar_antes("" + ultimo, 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(ultimo, Corpo.getAltura(ALTURA))) + " fuzz ) ");
 
         System.out.println("");
 
@@ -86,10 +87,26 @@ public class TG22 {
 
         for (Ficha eFicha : projeto) {
 
-            System.out.println("TOZTE -->> " + eFicha.getTozte() + " :: " + getDif(eFicha.getTozte(), eTronarko.getTozte().toString()) + " superarkos atrás");
-            System.out.println("\t - PESO   :: " + STTY.espacar_antes(STTY.doubleNumC2(eFicha.getPeso()), 10) + " moz");
-            System.out.println("\t - ALTURA :: " + STTY.espacar_antes(STTY.doubleNumC2(eFicha.getAltura()), 10) + " tgz");
-            System.out.println("\t - NIVEL  :: " + STTY.espacar_antes(STTY.doubleNumC2(Corpo.getNivel(eFicha.getPeso(), eFicha.getAltura())), 10) + " UP");
+            String faixa_temporal = "";
+            long superarkos = getDif(eFicha.getTozte(), eTronarko.getTozte().toString());
+
+            if (superarkos <= 1) {
+                faixa_temporal = superarkos + " superarko atrás";
+            } else {
+                faixa_temporal = superarkos + " superarkos atrás";
+            }
+
+            System.out.println("TOZTE -->> " + eFicha.getTozte() + " :: " + faixa_temporal);
+            System.out.println("\t - PESO   :: " + STTY.espacar_antes(STTY.doubleNumC2(eFicha.getPeso()) + " moz", 18));
+            System.out.println("\t - ALTURA :: " + STTY.espacar_antes(STTY.doubleNumC2(eFicha.getAltura())+ " tgz", 18) );
+            System.out.println("\t - NIVEL  :: " + STTY.espacar_antes(STTY.doubleNumC2(Corpo.getNivel(eFicha.getPeso(), eFicha.getAltura()))+ " fuzz", 18) );
+
+            double agora_ficha = eFicha.getPeso();
+
+            if (agora_ficha > ideal) {
+                System.out.println("\t - META   :: " + STTY.espacar_antes("FALTA " + STTY.doubleNumC2((agora_ficha - ideal)) + " moz", 18));
+            }
+
             System.out.println("");
 
         }

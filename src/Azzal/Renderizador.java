@@ -79,25 +79,25 @@ public class Renderizador {
 
     }
 
-    public void drawImagem(int x,int y,BufferedImage img){
+    public void drawImagem(int x, int y, BufferedImage img) {
 
         int eTam = mPixels.length;
 
-         int[]  img_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
+        int[] img_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
         for (int yi = 0; yi < img.getHeight(); yi++) {
             for (int xi = 0; xi < img.getWidth(); xi++) {
 
 
-                int rx = x+xi;
-                int ry = y+yi;
+                int rx = x + xi;
+                int ry = y + yi;
 
                 int ePox = (ry * mLargura) + rx;
 
-                if (ePox>=0 && ePox<eTam){
-                    if (rx >=0 && rx < mLargura && ry >=0 && ry < mAltura){
-                        mPixels[ePox] = img.getRGB(xi,yi);
-                       // mPixels[ePox] = img_Pixels[(yi*img.getWidth() )+ xi];
+                if (ePox >= 0 && ePox < eTam) {
+                    if (rx >= 0 && rx < mLargura && ry >= 0 && ry < mAltura) {
+                        mPixels[ePox] = img.getRGB(xi, yi);
+                        // mPixels[ePox] = img_Pixels[(yi*img.getWidth() )+ xi];
 
                     }
                 }
@@ -290,6 +290,33 @@ public class Renderizador {
 
     public void drawQuad(Quadrado eQuadrado, Cor eCor) {
 
+        drawLinha(eQuadrado.getX(), eQuadrado.getY(), eQuadrado.getX2(), eQuadrado.getY(), eCor); // Linha Superior
+
+        drawLinha(eQuadrado.getX(), eQuadrado.getY2(), eQuadrado.getX2(), eQuadrado.getY2(), eCor); // Linha Inferior
+
+        drawLinha(eQuadrado.getX(), eQuadrado.getY(), eQuadrado.getX(), eQuadrado.getY2(), eCor); // Coluna Esquerda
+
+        drawLinha(eQuadrado.getX2(), eQuadrado.getY(), eQuadrado.getX2(), eQuadrado.getY2(), eCor); // Coluna Direita
+
+
+    }
+
+    public void drawQuad(int px, int py, int tamanho, Cor eCor) {
+
+        drawLinha(px, py, px + tamanho, py, eCor); // Linha Superior
+
+        drawLinha(px, py + tamanho, px + tamanho, py + tamanho, eCor); // Linha Inferior
+
+        drawLinha(px, py, px, py + tamanho, eCor); // Coluna Esquerda
+
+        drawLinha(px + tamanho, py, px + tamanho, py + tamanho, eCor); // Coluna Direita
+
+
+    }
+
+
+    public void drawQuad_Pintado(Quadrado eQuadrado, Cor eCor) {
+
         int eX = eQuadrado.getX();
         int eY = eQuadrado.getY();
 
@@ -304,15 +331,6 @@ public class Renderizador {
 
     }
 
-    public void drawQuad(int eX, int eY, int eLargura, int eAltura, Cor eCor) {
-
-        for (int x = 0; x < eLargura; x++) {
-            for (int y = 0; y < eAltura; y++) {
-                drawPixel(eX + x, eY + y, eCor);
-            }
-        }
-
-    }
 
     public void drawRect(Retangulo eRetangulo, Cor eCor) {
 
@@ -327,15 +345,15 @@ public class Renderizador {
 
     }
 
-    public void drawRect(int px,int py,int largura,int altura, Cor eCor) {
+    public void drawRect(int px, int py, int largura, int altura, Cor eCor) {
 
-        drawLinha(px, py, px+largura, py, eCor); // Linha Superior
+        drawLinha(px, py, px + largura, py, eCor); // Linha Superior
 
-        drawLinha(px, py+altura, px+largura, py+altura, eCor); // Linha Inferior
+        drawLinha(px, py + altura, px + largura, py + altura, eCor); // Linha Inferior
 
-        drawLinha(px, py, px, py+altura, eCor); // Coluna Esquerda
+        drawLinha(px, py, px, py + altura, eCor); // Coluna Esquerda
 
-        drawLinha(px+largura, py,px+largura, py+altura, eCor); // Coluna Direita
+        drawLinha(px + largura, py, px + largura, py + altura, eCor); // Coluna Direita
 
 
     }
@@ -384,7 +402,7 @@ public class Renderizador {
 
     }
 
-    public void drawRect_Pintado(int px,int py,int largura,int altura, Cor eCor) {
+    public void drawRect_Pintado(int px, int py, int largura, int altura, Cor eCor) {
 
         int mX2 = px + largura;
 

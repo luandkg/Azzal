@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.Random;
 
 
-public class Fenomenos extends Cena {
+public class AppFenomenos extends Cena {
 
     private TransformadorDeCor TDA;
     private TransformadorDeCor TDB;
@@ -40,7 +40,7 @@ public class Fenomenos extends Cena {
                 Integer.valueOf(colorStr.substring(5, 7), 16));
     }
 
-    public Fenomenos() {
+    public AppFenomenos() {
 
 
         TDA = new TransformadorDeCor(new Cor(76, 175, 80));
@@ -348,7 +348,7 @@ public class Fenomenos extends Cena {
 
             Particula mCorrente = mIterador.getValor();
             //mRenderizador.drawQuad(mCorrente.getX(), mCorrente.getY(), mCorrente.getLargura() - 1, mCorrente.getAltura() - 1, mPaleta.getCor("Areia"));
-            mRenderizador.drawQuad(mCorrente.getX(), mCorrente.getY(), mCorrente.getLargura(), mCorrente.getAltura(), mPaleta.getCor("Areia"));
+            mRenderizador.drawRect_Pintado(mCorrente.getX(), mCorrente.getY(), mCorrente.getLargura(), mCorrente.getAltura(), mPaleta.getCor("Areia"));
 
 
         }
@@ -364,7 +364,7 @@ public class Fenomenos extends Cena {
             Particula mCorrente = mIterador.getValor();
 
             //  mRenderizador.drawQuad(mCorrente.getX(), mCorrente.getY(), mCorrente.getLargura()-1, mCorrente.getAltura()-1, mPaleta.getCor("Alfa"));
-            mRenderizador.drawQuad(mCorrente.getX(), mCorrente.getY(), mCorrente.getLargura(), mCorrente.getAltura(), mPaleta.getCor("Agua"));
+            mRenderizador.drawRect_Pintado(mCorrente.getX(), mCorrente.getY(), mCorrente.getLargura(), mCorrente.getAltura(), mPaleta.getCor("Agua"));
 
             desenharCopo(mRenderizador);
 
@@ -381,13 +381,13 @@ public class Fenomenos extends Cena {
 
 
         for (int a = 0; a < 40; a++) {
-            mRenderizador.drawQuad(ex + (a * mTamanhoCopo), ey + (mTamanhoCopo), mTamanhoCopo, mTamanhoCopo, mPaleta.getCor("Areia"));
+            mRenderizador.drawRect_Pintado(ex + (a * mTamanhoCopo), ey + (mTamanhoCopo), mTamanhoCopo, mTamanhoCopo, mPaleta.getCor("Areia"));
         }
 
         ey = 510;
         for (int a = 0; a < 31; a++) {
-            mRenderizador.drawQuad(ex, ey + (a * mTamanhoCopo), mTamanhoCopo, mTamanhoCopo, mPaleta.getCor("Areia"));
-            mRenderizador.drawQuad(ex2, ey + (a * mTamanhoCopo), mTamanhoCopo, mTamanhoCopo, mPaleta.getCor("Areia"));
+            mRenderizador.drawRect_Pintado(ex, ey + (a * mTamanhoCopo), mTamanhoCopo, mTamanhoCopo, mPaleta.getCor("Areia"));
+            mRenderizador.drawRect_Pintado(ex2, ey + (a * mTamanhoCopo), mTamanhoCopo, mTamanhoCopo, mPaleta.getCor("Areia"));
         }
 
     }

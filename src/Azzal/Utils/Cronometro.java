@@ -18,8 +18,10 @@ public class Cronometro {
 
         mEsperado = false;
 
-        if ((System.nanoTime() - mTempo_inicio) >= mEsperar) {
-            mTempo_inicio = System.nanoTime();
+        long agora = System.nanoTime();
+
+        if ((agora- mTempo_inicio) >= mEsperar) {
+            mTempo_inicio = agora;
             mEsperado = true;
         }
 

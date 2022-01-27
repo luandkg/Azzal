@@ -54,6 +54,14 @@ public class Cores {
     public Cor getAzul() {
         return mAzul;
     }
+
+    public static Cor hexToCor(String colorStr) {
+        return new Cor(
+                Integer.valueOf(colorStr.substring(1, 3), 16),
+                Integer.valueOf(colorStr.substring(3, 5), 16),
+                Integer.valueOf(colorStr.substring(5, 7), 16));
+    }
+
     public static Color hexToColor(String colorStr) {
         return new Color(
                 Integer.valueOf(colorStr.substring(1, 3), 16),

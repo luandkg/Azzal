@@ -3,15 +3,15 @@ package Fisica;
 
 import Azzal.Renderizador;
 import Azzal.Utils.Cor;
-import LetrumArkaica.Letramento;
+import Letrum.Fonte;
 
 public class Trena {
 
     private int mIntervalo;
     private int mOrigem;
-    private Letramento mLetramentoPreto;
+    private Fonte mLetramentoPreto;
 
-    public Trena(int eOrigem, int eIntervalo,Letramento eLetramento) {
+    public Trena(int eOrigem, int eIntervalo, Fonte eLetramento) {
         mOrigem = eOrigem;
         mIntervalo = eIntervalo;
         mLetramentoPreto=eLetramento;
@@ -27,7 +27,7 @@ public class Trena {
 
             mRenderizador.drawLinhaVertical(cx,eY-20, 20,new Cor(0,0,0));
 
-            mLetramentoPreto.escreve( cx+5, eY,eAtual + " ");
+            mLetramentoPreto.escreva( cx+5, eY,eAtual + " ");
             cx += mIntervalo;
             eAtual += mIntervalo;
         }

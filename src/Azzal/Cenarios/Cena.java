@@ -32,5 +32,8 @@ public abstract class Cena {
 
 	public int getMx(){return (int) getWindows().getMouse().getX();}
 	public int getMy(){return (int) getWindows().getMouse().getY();}
+
 public boolean isPressionsado(){return getWindows().getMouse().isPressed();}
+	public boolean isClicado(){return getWindows().getMouse().isClicked();}
+
 }

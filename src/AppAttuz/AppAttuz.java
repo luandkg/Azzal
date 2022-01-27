@@ -78,21 +78,18 @@ public class AppAttuz extends Cena {
     private DroneCamera mDroneCamera;
 
     private String LOCAL = "/home/luan/Imagens/Arkazz/";
-    //private String LOCAL = "/home/luan/Imagens/Simples/";
     private boolean mostrarCidades = true;
+
 
     @Override
     public void iniciar(Windows eWindows) {
+
+       // simplificar();
 
         mCores = new Cores();
 
         mapa = ImageUtils.getImagem(LOCAL + "mapa.png");
 
-
-        // SE SIMPLES
-        //X0 = 500;
-        //Y0 = 200;
-        mostrarCidades = false;
 
         // mapa = ImageUtils.getImagem("/home/luan/Imagens/Mapas/relevo/relevo.png");
 
@@ -236,6 +233,20 @@ public class AppAttuz extends Cena {
         //mapa = Cartografia.aplicarLatitudes(LOCAL,mapa);
 
         mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+
+    }
+
+
+    public void simplificar() {
+
+
+        // SE SIMPLES
+
+        LOCAL = "/home/luan/Imagens/Simples/";
+
+        X0 = 500;
+        Y0 = 200;
+        mostrarCidades = false;
 
     }
 
@@ -411,7 +422,7 @@ public class AppAttuz extends Cena {
 
         for (Local ePonto : mMarcacoes) {
             g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, Cor.getInt(mRelevo.get(Integer.parseInt(ePonto.getNome()))));
-        //    micro.escreva(ePonto.getX() + X0, ePonto.getY() + Y0, (ePonto.getX() + X0) + "::" + (ePonto.getY() + Y0));
+            //    micro.escreva(ePonto.getX() + X0, ePonto.getY() + Y0, (ePonto.getX() + X0) + "::" + (ePonto.getY() + Y0));
         }
 
         for (Caminho eCaminho : mCaminhos) {
@@ -459,7 +470,6 @@ public class AppAttuz extends Cena {
         }
 
 
-
         mListaDeCidades.onDraw(g, mLocais);
 
         g.drawRect(EU.getX() + X0, EU.getY() + Y0, 5, 5, mCores.getVermelho());
@@ -487,7 +497,6 @@ public class AppAttuz extends Cena {
         }
 
         pequeno.escreva(570, 80, "" + mNivelador.getNivel());
-
 
 
         if (mostrarCidades) {

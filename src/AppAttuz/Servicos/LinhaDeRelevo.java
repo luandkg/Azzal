@@ -39,6 +39,10 @@ public class LinhaDeRelevo extends Servico {
             massa.setValor(eixo.getX(), eixo.getY(), 10);
         }
 
+        if (pontos.size() < 2) {
+            return;
+        }
+
         BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
         BufferedImage copia = ImageUtils.getCopia(mapa);
 
@@ -65,12 +69,12 @@ public class LinhaDeRelevo extends Servico {
 
         for (Ponto ePonto : todos_pontos) {
 
-            int altitude = (onData.getAltura(ePonto.getX(), ePonto.getY()) / 100)*30;
+            int altitude = (onData.getAltura(ePonto.getX(), ePonto.getY()) / 100) * 30;
 
             System.out.println(ePonto.getX() + "::" + ePonto.getY() + " -->> " + altitude);
 
-            montar.drawRect_Pintado(lar, 500-altitude, 1, altitude, mCores.getLaranja());
-            lar+=1;
+            montar.drawRect_Pintado(lar, 500 - altitude, 1, altitude, mCores.getLaranja());
+            lar += 1;
 
         }
 

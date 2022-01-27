@@ -7,8 +7,7 @@ import Azzal.Renderizador;
 import Azzal.Teclado;
 import Azzal.Utils.Cor;
 import Azzal.Windows;
-import LetrumArkaica.Fonte08Padrao;
-import LetrumArkaica.Letramento;
+import Letrum.Maker.FonteRunTime;
 import LuanDKG.Texto;
 
 import javax.imageio.ImageIO;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 
 public class CenaLetrador extends Cena {
 
-    private Letramento mLetramento;
+    private Fonte mLetramento;
 
 
     private BufferedImage mImagem;
@@ -52,7 +51,7 @@ public class CenaLetrador extends Cena {
     public CenaLetrador() {
 
 
-        mLetramento = new Letramento(new Fonte08Padrao());
+        mLetramento = new FonteRunTime(new Cor(255,0,0),10);
 
         mIniciar = new Retangulo(1000, 400, 100, 25);
         mTerminar = new Retangulo(1150, 400, 100, 25);
@@ -331,7 +330,7 @@ public class CenaLetrador extends Cena {
         mRenderizador.limpar(new Cor(255, 255, 255));
 
 
-        mLetramento.atualizar(mRenderizador);
+        mLetramento.setRenderizador(mRenderizador);
 
         mRenderizador.drawPixels(eComecarX, eComecarY, mPixels, ml, ma);
 
@@ -358,7 +357,7 @@ public class CenaLetrador extends Cena {
         }
 
 
-        mLetramento.escreve(50, 250, "POSICAO = " + mPosicaoX);
+        mLetramento.escreva(50, 250, "POSICAO = " + mPosicaoX);
 
         if (mMarcado) {
 
@@ -366,7 +365,7 @@ public class CenaLetrador extends Cena {
                 mRenderizador.drawPixel(eComecarX + mMarcadoX, (eComecarY - 5) + y, new Cor(150, 200, 0));
             }
 
-            mLetramento.escreve(50, 300, "MARCADO = " + mMarcadoX);
+            mLetramento.escreva(50, 300, "MARCADO = " + mMarcadoX);
         }
 
 

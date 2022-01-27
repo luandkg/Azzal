@@ -338,7 +338,7 @@ public class Letras extends Cena {
         mGriphizz.drawGriph(mRenderizador, 30, 50, mQuadro, eTextoCor);
 
 
-        mRenderizador.drawQuad(mBTN_X, mBTN_Y, mBTN_QUAD, mBTN_QUAD, ePreenchico);
+        mRenderizador.drawRect_Pintado(mBTN_X, mBTN_Y, mBTN_QUAD, mBTN_QUAD, ePreenchico);
 
         mGriphizz.drawString(mRenderizador, mGriphattor, "ABCDEFGHIJKLM", eTextoCor, 1000, 600);
         mGriphizz.drawString(mRenderizador, mGriphattor, "NOPQRSTUVWXYZ.:_-><", eTextoCor, 1000, 625);
@@ -377,9 +377,9 @@ public class Letras extends Cena {
                 boolean e = eGriph.get(ix, iy);
 
                 if (e) {
-                    mRenderizador.drawQuad(aX + (ix * eTam), aY + (iy * eTam), eDentro, eDentro, ePreenchido);
+                    mRenderizador.drawRect_Pintado(aX + (ix * eTam), aY + (iy * eTam), eDentro, eDentro, ePreenchido);
                 } else {
-                    mRenderizador.drawQuad(aX + (ix * eTam), aY + (iy * eTam), eDentro, eDentro, eVazio);
+                    mRenderizador.drawRect_Pintado(aX + (ix * eTam), aY + (iy * eTam), eDentro, eDentro, eVazio);
                 }
 
             }

@@ -10,8 +10,10 @@ import java.util.ArrayList;
 public class Arquivador {
 
     private RandomAccessFile mFile;
+    private String mArquivo;
 
     public Arquivador(String eArquivo) {
+        mArquivo=eArquivo;
 
         try {
             mFile = new RandomAccessFile(new File(eArquivo), "rw");
@@ -20,6 +22,15 @@ public class Arquivador {
         }
     }
 
+    public static void remover(String eArq) {
+
+        File Arq = new File(eArq);
+        if (Arq.exists()) {
+            Arq.delete();
+        }
+
+
+    }
 
     public byte[] longToBytes(long l) {
         byte[] result = new byte[8];
@@ -184,9 +195,21 @@ public class Arquivador {
 
     }
 
+
     public void writeByteRepetidos(int quantidade, Byte byte_v) {
         try {
             for (int i = 0; i < quantidade; i++) {
+                mFile.writeByte((byte) byte_v);
+            }
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    public void writeByteRepetidos(long quantidade, Byte byte_v) {
+        try {
+            for (long i = 0; i < quantidade; i++) {
                 mFile.writeByte((byte) byte_v);
             }
         } catch (IOException e) {
@@ -211,8 +234,34 @@ public class Arquivador {
         }
     }
 
+    public ArrayList<Byte> readBytes(int eQuantidade) {
+
+        ArrayList<Byte> bytes = new ArrayList<Byte>();
+
+        try {
+            for (int i = 0; i < eQuantidade; i++) {
+                bytes.add(mFile.readByte());
+            }
+        } catch (IOException e) {
+
+        }
+
+        return bytes;
+    }
 
     public void fechar() throws IOException {
         mFile.close();
     }
+
+    public void encerrar() {
+
+        try {
+            mFile.close();
+        } catch (IOException e) {
+
+        }
+
+    }
+
+
 }
