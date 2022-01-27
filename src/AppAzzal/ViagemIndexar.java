@@ -4,7 +4,7 @@ import Arquivos.BZ;
 import Arquivos.TX;
 import DKG.DKG;
 import Tronarko.StringTronarko;
-import Tronarko.Tronarko;
+import Tronarko.Tozte;
 import DKG.DKGObjeto;
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class ViagemIndexar {
 
 
             int primeiro = Integer.parseInt(st.getTronarko(t2.unicoObjeto("Viagem").getObjetos().get(0).identifique("Tozte").getValor()));
-            Tronarko.Tozte eTozte = new Tronarko.Tozte(1, 1, primeiro);
+            Tozte eTozte = new Tozte(1, 1, primeiro);
 
             int ii = 3501196;
             System.out.println("Comecar -->> " + (eTozte.getSuperarkosTotal() - 3501196));

@@ -9,10 +9,11 @@ import DKG.DKGObjeto;
 import Tronarko.Tronarko;
 import java.io.File;
 import Tronarko.StringTronarko;
-
+import Tronarko.Tozte;
+import Tronarko.Hazde;
 public class ProcurarLocalizacao {
 
-    public String ondeEstou(Viajante EU, Tronarko.Tozte eTozte, Tronarko.Hazde eHazde) {
+    public String ondeEstou(Viajante EU, Tozte eTozte, Hazde eHazde) {
 
 
         String arqCache = "/home/luan/Documentos/Cache.txt";
@@ -43,7 +44,7 @@ public class ProcurarLocalizacao {
 
     }
 
-    public String procurando(DKG eDKG, Viajante EU, Tronarko.Tozte eTozte, Tronarko.Hazde eHazde) {
+    public String procurando(DKG eDKG, Viajante EU, Tozte eTozte, Hazde eHazde) {
 
         DKGObjeto eViagem = eDKG.unicoObjeto("Viagem");
 
@@ -133,7 +134,7 @@ public class ProcurarLocalizacao {
         return estou;
     }
 
-    public boolean inCache(String arqCache, Tronarko.Tozte eTozte, Tronarko.Hazde eHazde) {
+    public boolean inCache(String arqCache, Tozte eTozte, Hazde eHazde) {
         boolean ret = false;
 
 
@@ -157,7 +158,7 @@ public class ProcurarLocalizacao {
         return ret;
     }
 
-    public void montarCache(DKG eDKG, Tronarko.Tozte eTozte, String eArquivo) {
+    public void montarCache(DKG eDKG, Tozte eTozte, String eArquivo) {
 
         int eTozteRef_min = (eTozte.getTronarko() * 500) + (eTozte.getHiperarko() * 50) + eTozte.getSuperarko();
 

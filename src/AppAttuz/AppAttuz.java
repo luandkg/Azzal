@@ -26,6 +26,7 @@ import Imaginador.TirarPrint;
 import Letrum.Fonte;
 import Letrum.Maker.FonteRunTime;
 import Tronarko.Tronarko;
+import Tronarko.Tron;
 
 
 import java.awt.*;
@@ -293,7 +294,7 @@ public class AppAttuz extends Cena {
             }
 
 
-            Tronarko.Tron eTron = eTronarko.getTronAgora();
+            Tron eTron = eTronarko.getTronAgora();
             eTron.internalizar_Arco(mais);
 
             mViagem.viajar(EU, mLocais);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Tronarko.Eventos.Avisar.AvisarGrandeEvento;
 import Tronarko.Eventos.Avisar.AvisarPequenoEvento;
-import Tronarko.Tronarko.Tozte;
+import Tronarko.Tozte;
 
 public class Comunicum {
 

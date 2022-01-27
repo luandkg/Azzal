@@ -1,8 +1,8 @@
 package Tronarko.Eventos;
 
 import Tronarko.Intervalos.Tron_Intervalo;
-import Tronarko.Tronarko.Tozte;
-import Tronarko.Tronarko.Tron;
+import Tronarko.Tozte;
+import Tronarko.Tron;
 
 public class PequenoEvento {
 

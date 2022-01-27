@@ -1,4 +1,4 @@
-package Tronarko;
+package Tronarko.Eventos;
 
 public class Ocorrencia {
 

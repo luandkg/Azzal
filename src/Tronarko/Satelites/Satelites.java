@@ -3,7 +3,7 @@ package Tronarko.Satelites;
 import java.util.ArrayList;
 
 import Tronarko.Tronarko;
-import Tronarko.Tronarko.Tozte;
+import Tronarko.Tozte;
 import Tronarko.Satelites.MapaCelestial.Allux;
 import Tronarko.Satelites.MapaCelestial.Ettos;
 import Tronarko.Satelites.MapaCelestial.Unnos;

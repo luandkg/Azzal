@@ -1,6 +1,6 @@
 package Tronarko.Satelites;
 
-import Tronarko.Tronarko.Tozte;
+import Tronarko.Tozte;
 
 public class Satelite {
 

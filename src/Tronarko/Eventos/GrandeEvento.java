@@ -1,13 +1,14 @@
 package Tronarko.Eventos;
 
+import Tronarko.Tozte;
 import Tronarko.TozteCor;
 
 import java.util.ArrayList;
 
 import Tronarko.Intervalos.Tozte_Intervalo;
 import Tronarko.Intervalos.Tron_Intervalo;
-import Tronarko.Tronarko.Tozte;
-import Tronarko.Tronarko.Tron;
+import Tronarko.Tozte;
+import Tronarko.Tron;
 
 public class GrandeEvento {
 

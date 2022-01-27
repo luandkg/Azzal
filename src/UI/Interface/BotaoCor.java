@@ -9,9 +9,13 @@ import Azzal.Utils.Cor;
 public class BotaoCor {
 
     private Retangulo mRetangulo;
-    private Cor mCor = new Cor(255,255,255);
+    private Cor mCor = new Cor(255, 255, 255);
     private boolean mTemAcao;
     private Acao mAcao;
+
+    private boolean mTemVariacao;
+    private Cor mCorNormal;
+    private Cor mCorPressionada;
 
     public BotaoCor(int eX, int eY, int eLargura, int eAltura) {
 
@@ -19,6 +23,7 @@ public class BotaoCor {
         mTemAcao = false;
         mAcao = null;
 
+        mTemVariacao = false;
     }
 
 
@@ -31,6 +36,18 @@ public class BotaoCor {
 
     }
 
+    public void setVariacao(Cor eCorNormal, Cor eCorPressionada) {
+        mTemVariacao = true;
+        mCorNormal = eCorNormal;
+        mCorPressionada = eCorPressionada;
+    }
+
+    public boolean temVariacao() {
+        return mTemVariacao;
+    }
+
+    public Cor getCorPressionado(){return mCorPressionada;}
+    public Cor getCorNormal(){return mCorNormal;}
 
     public int getX() {
         return mRetangulo.getX();
@@ -74,7 +91,7 @@ public class BotaoCor {
 
     public void draw(Renderizador g) {
 
-        g.drawRect_Pintado(mRetangulo.getX(), mRetangulo.getY(), mRetangulo.getLargura(), mRetangulo.getAltura(),mCor);
+        g.drawRect_Pintado(mRetangulo.getX(), mRetangulo.getY(), mRetangulo.getLargura(), mRetangulo.getAltura(), mCor);
 
 
     }
@@ -96,11 +113,11 @@ public class BotaoCor {
     }
 
     public void setAcao(Acao eAcao) {
-        mAcao=eAcao;
+        mAcao = eAcao;
         mTemAcao = true;
     }
 
-    public void clicar(){
+    public void clicar() {
         mAcao.onClique();
     }
 }

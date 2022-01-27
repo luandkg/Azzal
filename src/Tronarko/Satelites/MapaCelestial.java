@@ -3,8 +3,8 @@ package Tronarko.Satelites;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import Tronarko.Tozte;
 import Tronarko.TozteCor;
-import Tronarko.Tronarko.Tozte;
 
 public class MapaCelestial {
 
@@ -42,6 +42,8 @@ public class MapaCelestial {
 	public Unnizz getUnnizz() {
 		return new Unnizz();
 	}
+
+
 
 	public ArrayList<TozteCor> getToztesComCor_Allux(int eTronarko) {
 

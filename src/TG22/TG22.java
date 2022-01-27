@@ -5,7 +5,7 @@ import DKG.DKG;
 import Tronarko.Tronarko;
 import Tronarko.StringTronarko;
 import Tronarko.Intervalos.Tozte_Intervalo;
-import Tronarko.Tronarko.Tozte;
+import Tronarko.Tozte;
 import DKG.DKGObjeto;
 
 import java.util.ArrayList;

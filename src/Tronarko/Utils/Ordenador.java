@@ -1,10 +1,10 @@
-package Tronarko;
+package Tronarko.Utils;
+
+import Tronarko.Hazde;
+import Tronarko.Tozte;
+import Tronarko.Tron;
 
 import java.util.ArrayList;
-
-import Tronarko.Tronarko.Hazde;
-import Tronarko.Tronarko.Tozte;
-import Tronarko.Tronarko.Tron;
 
 public class Ordenador {
 
@@ -36,7 +36,7 @@ public class Ordenador {
 		for (int i = 0; i < n; i++) {
 			for (int j = 1; j < (n - i); j++) {
 
-				if (Entrada.get(j - 1).MaiorIgualQue(Entrada.get(j))) {
+				if (Entrada.get(j - 1).isMaiorIgual(Entrada.get(j))) {
 					temp = Entrada.get(j - 1);
 					Entrada.set(j - 1, Entrada.get(j));
 					Entrada.set(j, temp);

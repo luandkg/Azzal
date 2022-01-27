@@ -1,6 +1,5 @@
 package Tronarko;
 
-import Tronarko.Tronarko.Tron;
 
 public class FusoHorario {
 

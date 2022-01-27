@@ -2,11 +2,13 @@ package AppAttuz.Localizador;
 
 import Tronarko.StringTronarko;
 import Tronarko.Tronarko;
+import Tronarko.Tozte;
+import Tronarko.Hazde;
 
 public class Escurcao {
 
 
-    public static void onEscurcao(Tronarko.Tozte eTozte, Tronarko.Hazde eHazde, String visita_comecar){
+    public static void onEscurcao(Tozte eTozte, Hazde eHazde, String visita_comecar){
 
         System.out.println("\t - Comecei :: " + visita_comecar);
         System.out.println("\t - Agora   :: " + eTozte.toString() + " :: " + c2(eHazde.getArco()) + ":" + c2(eHazde.getItta()));

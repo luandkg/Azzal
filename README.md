@@ -37,7 +37,9 @@
 > O ano é chamado de TRONARKO e possui 500 Superarkos que representam os dias, dividos em 10 faixas de 50 Superarkos entitulados de Hiperarkos
 >
 > Cada Superarko é formado por 10 Arcos [ 0 ... 9 ] que representam as horas
-> 
+
+![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/tronarko.png)
+
 
 # Attuz
 

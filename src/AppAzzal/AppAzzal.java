@@ -4,15 +4,18 @@ import AppAttuz.Servicos.*;
 import Azzal.AzzalUnico;
 import Servittor.Servittor;
 import GamaFS.GamaFS;
+import AppTronarko.AppTronarko;
 
 public class AppAzzal {
 
 
     public static void main(String[] args) {
 
+        AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko());
+
         //  AzzalUnico.unico("AppAzzal", 1500, 1020, new C1());
         // AzzalUnico.unico("AppAzzal", 1500, 1020, new CenaBanco());
-       // AzzalUnico.unico("Quadrante Espacial", 1500, 1010, new QuadranteEspacial());
+        // AzzalUnico.unico("Quadrante Espacial", 1500, 1010, new QuadranteEspacial());
 
         //   AzzalUnico.unico("AppAzzal", 1100, 800, new Fisica.Fisica());
 
