@@ -116,8 +116,6 @@ public class Windows extends JFrame implements Runnable {
                 mDesenhar = true;
 
 
-            } else {
-
             }
 
             if (mPresente >= mDilatadorMax) {
@@ -131,7 +129,7 @@ public class Windows extends JFrame implements Runnable {
                     mVerificador += 1;
                 }
 
-                //    System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador + "," + mVerificador + "," + mDilatador + " >>  :: " + mDesenhador);
+                  //  System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador + "," + mVerificador + "," + mDilatador + " >>  :: " + mDesenhador);
 
                 mDilatadorMin = mPresente;
                 mDilatadorMax = mPresente + ((double) (GAME_HERTIZ) * GAME_QUADRO);

@@ -1,5 +1,7 @@
-package Arquivos;
+package AppArquivos;
 
+import Arquivos.AI;
+import Arquivos.ImagemDoAlbum;
 import Azzal.Cenarios.Cena;
 import Azzal.Cores;
 import Azzal.Renderizador;

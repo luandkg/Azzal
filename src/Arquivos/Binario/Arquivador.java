@@ -13,10 +13,20 @@ public class Arquivador {
     private String mArquivo;
 
     public Arquivador(String eArquivo) {
-        mArquivo=eArquivo;
+        mArquivo = eArquivo;
 
         try {
             mFile = new RandomAccessFile(new File(eArquivo), "rw");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Arquivador(String eArquivo, String modo) {
+        mArquivo = eArquivo;
+
+        try {
+            mFile = new RandomAccessFile(new File(eArquivo), modo);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -1,45 +1,37 @@
 package AppTronarko;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
-
 import Azzal.Cenarios.Cena;
 import Azzal.Cores;
 import Azzal.Renderizador;
 import Azzal.Utils.Cor;
 import Azzal.Windows;
 import Letrum.Fonte;
+import Letrum.FonteDupla;
+import Letrum.FonteDuplaRunTime;
 import Letrum.Maker.FonteRunTime;
-
-
 import Tronarko.Eventos.Eventum;
+import Tronarko.*;
+import Tronarko.Satelites.Ceu;
 import Tronarko.Satelites.MapaCelestial;
-import Tronarko.Tronarko;
-import Tronarko.Tozte;
-import Tronarko.Hazde;
-import Tronarko.TozteCor;
-import Tronarko.Hiperarkos;
-import Tronarko.Superarkos;
-
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
 import UI.Interface.Clicavel;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class AppTronarko extends Cena {
 
 
-    private Fonte TextoGrande;
-    private Fonte TextoGrande_Hoje;
+    private FonteDupla mTextoGrande;
 
-    private Fonte TextoPequeno;
-    private Fonte TextoPequeno_Sel;
+    private FonteDupla mTextoPequeno;
 
-    private Fonte TextoPequeno_Hoje;
-    private Fonte TextoPequeno_Hoje2;
+    private Fonte mTextoPequenoBranco;
 
     private Tronarko mTronarkum;
     private Eventum mEnventum;
+    private Ceu mCeu;
 
 
     private Tozte mAtualmente;
@@ -53,6 +45,7 @@ public class AppTronarko extends Cena {
     private Clicavel mClicavel;
     private BotaoCor BTN_MENOS;
     private BotaoCor BTN_MAIS;
+    private BotaoCor BTN_HOJE;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -60,18 +53,13 @@ public class AppTronarko extends Cena {
 
         mCores = new Cores();
 
-        TextoGrande = new FonteRunTime(mCores.getPreto(), 20);
-        TextoGrande_Hoje = new FonteRunTime(mCores.getVermelho(), 20);
-
-        TextoPequeno = new FonteRunTime(mCores.getPreto(), 11);
-        TextoPequeno_Sel = new FonteRunTime(mCores.getVermelho(), 11);
-
-        TextoPequeno_Hoje = new FonteRunTime(mCores.getVermelho(), 11);
-        TextoPequeno_Hoje2 = new FonteRunTime(mCores.getBranco(), 11);
+        mTextoGrande = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 20);
+        mTextoPequeno = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 11);
+        mTextoPequenoBranco = new FonteRunTime(mCores.getBranco(), 11);
 
         mTronarkum = new Tronarko();
         mEnventum = new Eventum();
-
+        mCeu = new Ceu();
 
         mAtualmente = null;
         mHoje = null;
@@ -79,8 +67,8 @@ public class AppTronarko extends Cena {
 
         mClicavel = new Clicavel();
 
-        BotaoCor BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25, 950, 50, 50, new Cor(200, 120, 0)));
-        BTN_HOJE.setVariacao(new Cor(200, 120, 0),new Cor(255, 120, 0));
+        BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25, 950, 50, 50, new Cor(200, 120, 0)));
+        BTN_HOJE.setVariacao(new Cor(200, 120, 0), new Cor(255, 120, 0));
 
         BTN_HOJE.setAcao(new Acao() {
             @Override
@@ -90,7 +78,7 @@ public class AppTronarko extends Cena {
         });
 
         BTN_MENOS = mClicavel.criarBotaoCor(new BotaoCor(1100, 920, 50, 100, new Cor(50, 90, 156)));
-        BTN_MENOS.setVariacao(new Cor(50, 90, 156),new Cor(100, 90, 156));
+        BTN_MENOS.setVariacao(new Cor(50, 90, 156), new Cor(100, 90, 156));
 
         BTN_MENOS.setAcao(new Acao() {
             @Override
@@ -100,7 +88,7 @@ public class AppTronarko extends Cena {
         });
 
         BTN_MAIS = mClicavel.criarBotaoCor(new BotaoCor(1155, 920, 50, 100, new Cor(26, 188, 156)));
-        BTN_MAIS.setVariacao(new Cor(26, 188, 156),new Cor(100, 188, 156));
+        BTN_MAIS.setVariacao(new Cor(26, 188, 156), new Cor(100, 188, 156));
 
         BTN_MAIS.setAcao(new Acao() {
             @Override
@@ -120,7 +108,7 @@ public class AppTronarko extends Cena {
         mAgora = mTronarkum.getHazde();
 
 
-        mClicavel.update(dt, (int) getWindows().getMouse().getX(), (int) getWindows().getMouse().getY(), getWindows().getMouse().isPressed());
+        mClicavel.update(dt, getWindows().getMouse().getX(), getWindows().getMouse().getY(), getWindows().getMouse().isPressed());
 
 
         mHoje = mHoje.adicionar_Superarko(mQuantos);
@@ -149,16 +137,14 @@ public class AppTronarko extends Cena {
         mClicavel.onDraw(r);
 
 
-        TextoPequeno.setRenderizador(r);
-        TextoGrande.setRenderizador(r);
-        TextoGrande_Hoje.setRenderizador(r);
-        TextoPequeno_Sel.setRenderizador(r);
-        TextoPequeno_Hoje.setRenderizador(r);
-        TextoPequeno_Hoje2.setRenderizador(r);
+        mTextoPequeno.setRenderizador(r);
+        mTextoGrande.setRenderizador(r);
+        mTextoPequenoBranco.setRenderizador(r);
 
 
-        TextoPequeno_Hoje2.escreva(BTN_MENOS.getX() + 5, BTN_MENOS.getY() + 40, "-1");
-        TextoPequeno_Hoje2.escreva(BTN_MAIS.getX() + 25, BTN_MAIS.getY() + 40, "+1");
+        mTextoPequenoBranco.escreva(BTN_MENOS.getX() + 5, BTN_MENOS.getY() + 40, "-1");
+        mTextoPequenoBranco.escreva(BTN_MAIS.getX() + 25, BTN_MAIS.getY() + 40, "+1");
+        mTextoPequenoBranco.escreva(BTN_HOJE.getX() + 2, BTN_HOJE.getY() + 15, "HOJE");
 
 
         ArrayList<TozteCor> mInfos = mEnventum.getToztesComCor(mHoje.getTronarko());
@@ -188,20 +174,16 @@ public class AppTronarko extends Cena {
 
         int ePosY = 100;
 
-        TextoPequeno.escreva(LX, ePosY, " -->> Hoje : " + mHoje.toString());
-        TextoPequeno.escreva(LX, ePosY + 50, " -->> Agora : " + mAgora.toString());
-        TextoPequeno.escreva(LX, ePosY + 100, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
+        mTextoPequeno.escreva(LX, ePosY, " -->> Hoje : " + mHoje.toString());
+        mTextoPequeno.escreva(LX, ePosY + 50, " -->> Agora : " + mAgora.toString());
+        mTextoPequeno.escreva(LX, ePosY + 100, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
 
         mAgora.getTotalEttonsParaAcabar();
 
 
-        MapaCelestial.Allux AlluxC = new MapaCelestial.Allux();
-        MapaCelestial.Ettos EttosC = new MapaCelestial.Ettos();
-        MapaCelestial.Unnos UnnosC = new MapaCelestial.Unnos();
-
-        TextoPequeno.escreveLinha(LX + 300, LY - 100, 120, " -->> Allux", AlluxC.getFase(mHoje).toString());
-        TextoPequeno.escreveLinha(LX + 300, LY - 50, 120, " -->> Ettos", EttosC.getFase(mHoje).toString());
-        TextoPequeno.escreveLinha(LX + 300, LY, 120, " -->> Unnos", UnnosC.getFase(mHoje).toString());
+        mTextoPequeno.escreveLinha(LY - 100, LX + 300, LX + 430, " -->> Allux", mCeu.allux_getFase(mHoje).toString());
+        mTextoPequeno.escreveLinha(LY - 50, LX + 300, LX + 430, " -->> Ettos", mCeu.ettos_getFase(mHoje).toString());
+        mTextoPequeno.escreveLinha(LY, LX + 300, LX + 430, " -->> Unnos", mCeu.unnos_getFase(mHoje).toString());
 
 
         draw_hiperarko(r, mHoje, mInfos, mHoje.getHiperarko(), 0, LX + 50, 280, CAIXA_ALTURA);
@@ -221,11 +203,11 @@ public class AppTronarko extends Cena {
 
 
             if (tozte_info.getNome().contains("Reciclum")) {
-                TextoPequeno.escreva(LX + 30, LY, tozte_info.getNome());
-                TextoPequeno.escreva(LX + 250, LY, " -->> " + tozte_info.getComplemento());
+                mTextoPequeno.escreva(LX + 30, LY, tozte_info.getNome());
+                mTextoPequeno.escreva(LX + 250, LY, " -->> " + tozte_info.getComplemento());
             } else {
-                TextoPequeno.escreva(LX + 30, LY, tozte_info.getNome());
-                TextoPequeno.escreva(LX + 250, LY, " -->> " + tozte_info.getComplemento());
+                mTextoPequeno.escreva(LX + 30, LY, tozte_info.getNome());
+                mTextoPequeno.escreva(LX + 250, LY, " -->> " + tozte_info.getComplemento());
             }
 
             LY += 50;
@@ -240,9 +222,9 @@ public class AppTronarko extends Cena {
         int eTronarko = Hoje.getTronarko();
 
         if (Hoje.getHiperarko() == (mHiperarko)) {
-            TextoGrande_Hoje.escreva(CAIXA_X - 10, (CAIXA_ALTURA * Faixador) + CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
+            mTextoGrande.escrevaSelecionada(CAIXA_X - 10, (CAIXA_ALTURA * Faixador) + CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
         } else {
-            TextoGrande.escreva(CAIXA_X - 10, (CAIXA_ALTURA * Faixador) + CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
+            mTextoGrande.escreva(CAIXA_X - 10, (CAIXA_ALTURA * Faixador) + CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
         }
 
         for (int s = 0; s < 10; s++) {
@@ -252,18 +234,18 @@ public class AppTronarko extends Cena {
             if ((Hoje.getTronarko() == eTronarko) && (Hoje.getHiperarko() == mHiperarko)) {
 
                 if (eMega.contentEquals(Hoje.Superarko_capital())) {
-                    TextoPequeno_Sel.escreva((CAIXA_X - 10) + (s * 40),
+                    mTextoPequeno.escrevaSelecionada((CAIXA_X - 10) + (s * 40),
                             ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
 
                 } else {
-                    TextoPequeno.escreva((CAIXA_X - 10) + (s * 40),
+                    mTextoPequeno.escreva((CAIXA_X - 10) + (s * 40),
                             ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
 
                 }
 
             } else {
 
-                TextoPequeno.escreva((CAIXA_X - 10) + (s * 40),
+                mTextoPequeno.escreva((CAIXA_X - 10) + (s * 40),
                         ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
 
             }
@@ -325,9 +307,9 @@ public class AppTronarko extends Cena {
                 }
 
                 if (mHoje.Igual(mTozte)) {
-                    TextoPequeno_Sel.escreva(QX, QY, mSuperNum);
+                    mTextoPequeno.escrevaSelecionada(QX, QY, mSuperNum);
                 } else {
-                    TextoPequeno.escreva(QX, QY, mSuperNum);
+                    mTextoPequeno.escreva(QX, QY, mSuperNum);
                 }
 
 

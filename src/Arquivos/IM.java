@@ -20,6 +20,8 @@ public class IM {
     private static int IMAGEM_ALFA_COM = 31;
     private static int IMAGEM_ALFA_SEM = 48;
 
+    private static boolean DEBUG = false;
+
     // 11 - COR INDEXADA
     // 10 - REPETIR
     // 01 - NOVA COR
@@ -66,8 +68,8 @@ public class IM {
 
             arquivador.writeByte((byte) IMAGEM_VERSAO_1);
 
-            arquivador.writeInt( largura);
-            arquivador.writeInt( altura);
+            arquivador.writeInt(largura);
+            arquivador.writeInt(altura);
 
             int alfa_primeiro = new Color(eImagem.getRGB(0, 0)).getAlpha();
             boolean tem_alfa = false;
@@ -275,8 +277,8 @@ public class IM {
 
             byte versao = arquivador.readByte();
 
-            int largura =  arquivador.readInt();
-            int altura =  arquivador.readInt();
+            int largura = arquivador.readInt();
+            int altura = arquivador.readInt();
 
             System.out.println("Largura :: " + largura);
             System.out.println("Altura  :: " + altura);
@@ -434,21 +436,23 @@ public class IM {
             arquivador.fechar();
 
             ImageUtils.exportar(imagem, eArquivoPNG);
-
-            System.out.println("Imagem IM - Terminada");
+            if(DEBUG) {
+                System.out.println("Imagem IM - Terminada");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        System.out.println("TODOS     :: " + todos);
-        System.out.println("FIXADOS   :: " + fixados);
-        System.out.println("REPITIDOS :: " + repetir);
+        if(DEBUG) {
+            System.out.println("TODOS     :: " + todos);
+            System.out.println("FIXADOS   :: " + fixados);
+            System.out.println("REPITIDOS :: " + repetir);
+        }
 
     }
 
-    public static void salvar_bytes(BufferedImage eImagem, Arquivador arquivador) {
+    public static long salvar_bytes(BufferedImage eImagem, Arquivador arquivador) {
 
 
         int largura = eImagem.getWidth();
@@ -463,13 +467,14 @@ public class IM {
 
         int primeiro = 10;
 
+        long pos_inicio = arquivador.getPonteiro();
 
         arquivador.writeByte((byte) IMAGEM_IM1);
         arquivador.writeByte((byte) IMAGEM_IM2);
 
         arquivador.writeByte((byte) IMAGEM_VERSAO_1);
 
-        arquivador.writeInt( largura);
+        arquivador.writeInt(largura);
         arquivador.writeInt(altura);
 
         int alfa_primeiro = new Color(eImagem.getRGB(0, 0)).getAlpha();
@@ -495,10 +500,11 @@ public class IM {
             arquivador.writeByte((byte) IMAGEM_ALFA_COM);
             arquivador.writeByte((byte) 0);
         }
-
-        System.out.println("Tem Alfa :: " + tem_alfa);
-        System.out.println("Largura  :: " + eImagem.getWidth());
-        System.out.println("Altura   :: " + eImagem.getHeight());
+        if(DEBUG) {
+            System.out.println("Tem Alfa :: " + tem_alfa);
+            System.out.println("Largura  :: " + eImagem.getWidth());
+            System.out.println("Altura   :: " + eImagem.getHeight());
+        }
 
         int matriz[] = new int[64];
 
@@ -628,17 +634,22 @@ public class IM {
         int8.zerar();
         arquivador.writeByte((byte) int8.getInt());
 
+        if(DEBUG) {
+            System.out.println("TODOS     :: " + todos);
+            System.out.println("FIXADOS   :: " + fixados);
+            System.out.println("REPITIDOS :: " + repetir);
+        }
 
-        System.out.println("TODOS     :: " + todos);
-        System.out.println("FIXADOS   :: " + fixados);
-        System.out.println("REPITIDOS :: " + repetir);
+        long pos_fim = arquivador.getPonteiro();
 
+        return pos_fim - pos_inicio;
     }
 
     public static BufferedImage lerDoFluxo(Arquivador arquivador) {
 
-
-        System.out.println("Imagem IM - Abrindo");
+        if(DEBUG) {
+            System.out.println("Imagem IM - Abrindo");
+        }
 
 
         int todos = 0;
@@ -657,8 +668,10 @@ public class IM {
         int largura = arquivador.readInt();
         int altura = arquivador.readInt();
 
-        System.out.println("Largura :: " + largura);
-        System.out.println("Altura  :: " + altura);
+        if(DEBUG) {
+            System.out.println("Largura :: " + largura);
+            System.out.println("Altura  :: " + altura);
+        }
 
         byte a1 = arquivador.readByte();
         byte a2 = arquivador.readByte();
@@ -669,7 +682,9 @@ public class IM {
         if (Inteiro.byteToInt(a1) == IMAGEM_ALFA_COM) {
             alfa_com = true;
             alfa_canal = Inteiro.byteToInt(a2);
-            System.out.println("Tem Alfa :: " + alfa_canal);
+            if(DEBUG) {
+                System.out.println("Tem Alfa :: " + alfa_canal);
+            }
         }
 
 
@@ -809,13 +824,14 @@ public class IM {
             }
         }
 
+        if(DEBUG) {
 
-        System.out.println("Imagem IM - Terminada");
+            System.out.println("Imagem IM - Terminada");
 
-
-        System.out.println("TODOS     :: " + todos);
-        System.out.println("FIXADOS   :: " + fixados);
-        System.out.println("REPITIDOS :: " + repetir);
+            System.out.println("TODOS     :: " + todos);
+            System.out.println("FIXADOS   :: " + fixados);
+            System.out.println("REPITIDOS :: " + repetir);
+        }
 
         return imagem;
     }

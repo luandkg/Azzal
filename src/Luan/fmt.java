@@ -161,4 +161,66 @@ public class fmt {
         return print_final(texto, objetos);
     }
 
+    public  static  String getN8(long e) {
+        String v = String.valueOf(e);
+        while (v.length() < 8) {
+            v = "0" + v;
+        }
+        return v;
+    }
+
+    public  static String getN3(long e) {
+        String v = String.valueOf(e);
+        while (v.length() < 3) {
+            v = "0" + v;
+        }
+        return v;
+    }
+
+    public  static String getN2(long e) {
+        String v = String.valueOf(e);
+        while (v.length() < 2) {
+            v = "0" + v;
+        }
+        return v;
+    }
+
+    public static String getCasas(double e, int c) {
+
+        String valor = String.valueOf(e);
+        String mRet = "";
+
+        int i = 0;
+        int o = valor.length();
+
+        boolean mPontuou = false;
+        int dp = 0;
+
+        while (i < o) {
+            String l = String.valueOf(valor.charAt(i));
+            if (mPontuou) {
+                if (dp < c) {
+                    mRet += l;
+                } else {
+                    break;
+                }
+                dp += 1;
+            } else {
+                if (l.contentEquals(".")) {
+                    if (c > 0) {
+                        mRet += l;
+                    }
+                    mPontuou = true;
+                } else {
+                    mRet += l;
+                }
+            }
+
+            i += 1;
+        }
+
+        return mRet;
+
+    }
+
 }

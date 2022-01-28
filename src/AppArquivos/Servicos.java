@@ -1,7 +1,8 @@
-package Arquivos;
+package AppArquivos;
 
-import Arquivos.Binario.Arquivador;
+import Arquivos.*;
 import Arquivos.Binario.Int8;
+import Arquivos.Video.VideoSequenciador;
 import Imaginador.ImageUtils;
 import Servittor.Servico;
 
@@ -60,6 +61,22 @@ public class Servicos extends Servico {
         for (ImagemDoAlbum imagem : minha.getImagens()) {
             System.out.println("Item " + imagem.getNome() + " -->> " + imagem.getInicio() + "::" + imagem.getFim());
         }
+
+
+        AnimadorCriador ac = new AnimadorCriador();
+
+        ac.criarAnimacao_01("/home/luan/Imagens/quad.an");
+        ac.criarAnimacao_02("/home/luan/Imagens/quadum.an");
+
+        AN animacao = AN.abrirAnimacao("/home/luan/Imagens/quadum.an");
+
+        System.out.println("Chrono  :: " + animacao.getChrono());
+        System.out.println("Largura :: " + animacao.getLargura());
+        System.out.println("Altura  :: " + animacao.getAltura());
+        System.out.println("Quadros :: " + animacao.getImagens().getQuantidade());
+
+
+        VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema.vi",800,801,"/home/luan/Imagens/ecossistema/S", 0, 97, ".png");
 
     }
 

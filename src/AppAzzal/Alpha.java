@@ -10,6 +10,7 @@ import Luan.Lista;
 import Movimento.Movettor;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -30,6 +31,12 @@ public class Alpha extends Cena {
     private Cor mCor;
 
     private Movettor mMovettor;
+
+    private CirculoTrigonometrico mCT;
+    Posicionador ePosicionador;
+    private Circulo mMeuCirculo;
+
+    private Cronometro mCron;
 
     public Alpha() {
 
@@ -62,6 +69,13 @@ public class Alpha extends Cena {
         mMovettor = new Movettor(0, 0, 12, 12);
         mMovettor.setMinimo(0, 0);
         mMovettor.setMaximo(10000, 10000);
+
+        ePosicionador = new Posicionador();
+
+        mMeuCirculo = ePosicionador.getCirculo_Centralizado(600, 600, 100);
+        mCT = new CirculoTrigonometrico(mMeuCirculo);
+
+        mCron = new Cronometro(300);
 
     }
 
@@ -159,6 +173,20 @@ public class Alpha extends Cena {
 
         }
 
+        mCron.esperar();
+
+        if (mCron.foiEsperado()) {
+            p += 1;
+            if (p >= mCT.getPontos().size()) {
+                p = 0;
+            }
+
+            g += 1;
+            if (g >= 360) {
+                g = 0;
+            }
+        }
+
     }
 
     public boolean colisao(Retangulo r1, Retangulo r2) {
@@ -184,7 +212,6 @@ public class Alpha extends Cena {
 
         // mRenderizador.drawQuad(300 + movendo, 500, 100, 100, TDB.getCor());
 
-        Posicionador ePosicionador = new Posicionador();
 
         Retangulo Qa = new Retangulo(600, 200, 100, 200);
 
@@ -368,12 +395,12 @@ public class Alpha extends Cena {
         Cor R = new Cor(0, 255, 0);
         R.setAlpha(130);
 
-     //   mRenderizador.adicionarLuz(new Ponto(400 + movendo, 600),R , 50);
+        //   mRenderizador.adicionarLuz(new Ponto(400 + movendo, 600),R , 50);
 
 
         // mRenderizador.drawQuad(500 , 500, 100, 100, TDB.getCor());
 
-      //  System.out.println("Op : " + opacidade);
+        //  System.out.println("Op : " + opacidade);
 
         mRenderizador.setAmbiente(255, 0, 0);
         mRenderizador.setOpacidade(80);
@@ -382,16 +409,165 @@ public class Alpha extends Cena {
         Cor eT1 = new Cor(255, 0, 0);
         eT1.setAlpha(80);
 
-        mRenderizador.blend(mMovettor.getX(), mMovettor.getY(), 100, 100,eT1);
+        mRenderizador.blend(mMovettor.getX(), mMovettor.getY(), 100, 100, eT1);
 
         Cor eT2 = new Cor(0, 255, 0);
         eT2.setAlpha(80);
 
-        mRenderizador.blend(mMovettor.getX()+60, mMovettor.getY()+60, 100, 100,eT2);
+        mRenderizador.blend(mMovettor.getX() + 60, mMovettor.getY() + 60, 100, 100, eT2);
 
+        // mRenderizador.limpar(Color.WHITE);
+
+        Cor circulo_cor = new Cor(255, 0, 0);
+        mRenderizador.drawCirculo(mMeuCirculo, circulo_cor);
+
+        if (mCT.getPontos().size() > 0) {
+
+            // int p360 = (int) ((double) mCT.getPontos().size() / 360.0);
+
+            //  int metade = mCT.getPontos().size()/2;
+
+            Ponto p1 = mCT.getGrau(0);
+            Ponto p2 = mCT.getGrau(g);
+
+            int m = (g - 0) / 2;
+
+            Ponto p3 = mCT.getGrau(m);
+
+            p3 = mCT.getPontoCentralDaLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), p3.getX(), p3.getY());
+
+
+            mRenderizador.drawLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), p1.getX(), p1.getY(), circulo_cor);
+            mRenderizador.drawLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), p2.getX(), p2.getY(), circulo_cor);
+
+            mRenderizador.drawLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), p3.getX(), p3.getY(), circulo_cor);
+
+            if (m > 0) {
+                pintar_de_dentro(mRenderizador, mMeuCirculo, p3, circulo_cor);
+            }
+
+
+            //    mRenderizador.drawLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), mCT.getPontos().get(0).getX(), mCT.getPontos().get(0).getY(), mCor);
+            //  mRenderizador.drawLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), mCT.getPontos().get(p).getX(), mCT.getPontos().get(p).getY(), mCor);
+
+
+        }
 
 
     }
 
+    private int p = 0;
+    private int g = 0;
 
+    public void pintar_de_dentro(Renderizador r, Circulo circulo, Ponto p, Cor eCor) {
+
+        int bcor = eCor.getValor();
+
+        int cx = circulo.getCentro().getX();
+        int cy = circulo.getCentro().getY();
+        int raio = circulo.getRaio();
+
+
+        ArrayList<Ponto> pintar = new ArrayList<Ponto>();
+        pintar.add(p);
+
+        ArrayList<Ponto> remover = new ArrayList<Ponto>();
+        ArrayList<Ponto> adicionar = new ArrayList<Ponto>();
+
+        ArrayList<Ponto> passou = new ArrayList<Ponto>();
+
+        while (pintar.size() > 0) {
+
+            remover.clear();
+            adicionar.clear();
+
+            for (Ponto pinte : pintar) {
+
+                r.drawPixelBruto(pinte.getX(), pinte.getY(), bcor);
+
+                int pot_x = (cx - pinte.getX()) * (cx - pinte.getX());
+                int pot_y = (cy - pinte.getY()) * (cy - pinte.getY());
+
+                if (Math.sqrt(pot_x + pot_y) <= raio) {
+
+                    if (r.getPixelBruto(pinte.getX() + 1, pinte.getY()) != bcor) {
+                        Ponto questao = new Ponto(pinte.getX() + 1, pinte.getY());
+                        if (!ja_passou(passou, cx, cy, raio, questao)) {
+                            passou.add(questao);
+                            adicionar.add(questao);
+                        }
+                    }
+
+                    if (r.getPixelBruto(pinte.getX() - 1, pinte.getY()) != bcor) {
+                        Ponto questao = new Ponto(pinte.getX() - 1, pinte.getY());
+                        if (!ja_passou(passou, cx, cy, raio, questao)) {
+                            passou.add(questao);
+                            adicionar.add(questao);
+                        }
+                    }
+
+                    if (r.getPixelBruto(pinte.getX(), pinte.getY() + 1) != bcor) {
+                        Ponto questao = new Ponto(pinte.getX(), pinte.getY() + 1);
+                        if (!ja_passou(passou, cx, cy, raio, questao)) {
+                            passou.add(questao);
+                            adicionar.add(questao);
+                        }
+                    }
+
+                    if (r.getPixelBruto(pinte.getX(), pinte.getY() - 1) != bcor) {
+                        Ponto questao = new Ponto(pinte.getX(), pinte.getY() - 1);
+                        if (!ja_passou(passou, cx, cy, raio, questao)) {
+                            passou.add(questao);
+                            adicionar.add(questao);
+                        }
+                    }
+                }
+
+
+                remover.add(pinte);
+
+            }
+
+            for (Ponto remove : remover) {
+                pintar.remove(remove);
+            }
+
+            pintar.addAll(adicionar);
+
+
+
+            if (pintar.size() > 0) {
+                //    System.out.println("para pintar :: " + pintar.size() + " -->> " + pintar.get(0).getX() + " :: " + pintar.get(0).getY());
+              //  System.out.println("para pintar :: " + pintar.size() + " -->> add " + adicionar.size() + " ja = " + passou.size());
+
+            }
+
+        }
+
+    }
+
+
+    public boolean ja_passou(ArrayList<Ponto> pontos, int cx, int cy, int raio, Ponto esse) {
+        boolean ja = false;
+
+
+        int pot_x = (cx - esse.getX()) * (cx - esse.getX());
+        int pot_y = (cy - esse.getY()) * (cy - esse.getY());
+
+        if (Math.sqrt(pot_x + pot_y) <= raio) {
+
+            for (Ponto p : pontos) {
+                if (p.getX() == esse.getX() && p.getY() == esse.getY()) {
+                    ja = true;
+                    break;
+                }
+            }
+
+        } else {
+            ja = true;
+        }
+
+
+        return ja;
+    }
 }

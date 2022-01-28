@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 
 public class Mouse extends MouseAdapter {
 
-    private boolean isPressed;
-    private boolean isClicked;
+    private boolean isPressionado;
+    private boolean isClicado;
     private boolean isMovendo;
 
     private int mX;
@@ -16,8 +16,8 @@ public class Mouse extends MouseAdapter {
     private int dY;
 
     public Mouse() {
-        isPressed = false;
-        isClicked = false;
+        isPressionado = false;
+        isClicado = false;
         isMovendo = false;
         dX = 0;
         dY = 0;
@@ -25,8 +25,8 @@ public class Mouse extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        isPressed = true;
-        isClicked = true;
+        isPressionado = true;
+        isClicado = true;
         isMovendo = false;
 
         mX = e.getX();
@@ -43,7 +43,7 @@ public class Mouse extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        isClicked = true;
+        isClicado = true;
         isMovendo = false;
 
         mX = e.getX();
@@ -63,17 +63,17 @@ public class Mouse extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        isPressed = false;
+        isPressionado = false;
         isMovendo = false;
-        isClicked = false;
+        isClicado = false;
     }
 
     public boolean isPressed() {
-        return isPressed;
+        return isPressionado;
     }
 
     public boolean isClicked() {
-        return isClicked;
+        return isClicado;
     }
 
     public boolean isMovendo() {
@@ -81,7 +81,7 @@ public class Mouse extends MouseAdapter {
     }
 
     public void liberar() {
-        isClicked = false;
+        isClicado = false;
     }
 
     public int getX() {

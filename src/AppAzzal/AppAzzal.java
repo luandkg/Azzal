@@ -1,19 +1,23 @@
 package AppAzzal;
 
+import AppArquivos.AppVideo;
 import AppAttuz.Servicos.*;
+import Arquivos.Video.VideoCodecador;
+import Arquivos.Video.VideoSequenciador;
 import Azzal.AzzalUnico;
 import Servittor.Servittor;
 import GamaFS.GamaFS;
-import AppTronarko.AppTronarko;
 
 public class AppAzzal {
 
 
     public static void main(String[] args) {
 
-        AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko());
+        //  AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko());
 
-        //  AzzalUnico.unico("AppAzzal", 1500, 1020, new C1());
+        // AzzalUnico.unico("AppAzzal", 1500, 1020, new Alpha());
+
+        // AzzalUnico.unico("AppAzzal", 1500, 1020, new C1());
         // AzzalUnico.unico("AppAzzal", 1500, 1020, new CenaBanco());
         // AzzalUnico.unico("Quadrante Espacial", 1500, 1010, new QuadranteEspacial());
 
@@ -59,8 +63,6 @@ public class AppAzzal {
 
         //TG22.TG22.init();
 
-        //Servittor.onServico("Arquivador", new Arquivos.Servicos());
-        // AzzalUnico.unico("AppImagem", 1100, 900, new AppImagem());
 
         //  AzzalUnico.unico("Editor - luan.dkg", 1000, 1000, new AppKhronos.AppKrhonos());
 
@@ -74,16 +76,31 @@ public class AppAzzal {
 
         // BZZ.procurar(eArquivo, 0);
 
-        String eArquivo = "/home/luan/Documentos/fs/gama.fs";
+        boolean isGama = false;
+        if (isGama) {
+            String eArquivo = "/home/luan/Documentos/fs/gama.fs";
 
-        // GamaFS.criar(eArquivo, 10 * 1024 * 1024);
-        // GamaFS.zerar(eArquivo);
-        GamaFS.formatar(eArquivo);
+            // GamaFS.criar(eArquivo, 10 * 1024 * 1024);
+            // GamaFS.zerar(eArquivo);
+            GamaFS.formatar(eArquivo);
 
-        GamaFS eGama = new GamaFS(eArquivo);
+            GamaFS eGama = new GamaFS(eArquivo);
 
-        eGama.encerrar();
+            eGama.encerrar();
+        }
 
+        //Servittor.onServico("Arquivador", new AppArquivos.Servicos());
+
+        //  AzzalUnico.unico("AppImagem", 1100, 900, new AppImagem());
+        //  AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
+
+        //VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema_01.vi",800,801,"/home/luan/Imagens/ecossistema_01/S", 0, 97, ".png");
+        // VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema_02.vi", 800, 801, "/home/luan/Imagens/ecossistema_02/S", 0, 365, ".png");
+        //  VideoSequenciador.criar("/home/luan/Vídeos/vi/alunos_v2.vi",3000,2700,"/home/luan/Imagens/alunos_vi/S", 0, 99, ".png");
+
+       // VideoCodecador.abrir("/home/luan/Vídeos/vi/ecossistema_01.vi");
+
+        AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
     }
 

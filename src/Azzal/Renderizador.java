@@ -490,6 +490,8 @@ public class Renderizador {
         int xi = x1 + raio;
         int yi = y1 + raio;
 
+        drawPixel(x1 + raio, y1 , eCor);
+
         while (x < y) {
             if (d < 0) {
                 d = d + 2 * x + 3;
@@ -985,7 +987,7 @@ public class Renderizador {
             }
 
             //System.out.println("Ambiente : " + eAmb);
-            System.out.println("Ambiente com Cor = { Alfa : " + mAmbiente.getAlpha() + " } ");
+        //    System.out.println("Ambiente com Cor = { Alfa : " + mAmbiente.getAlpha() + " } ");
 
         }
 
@@ -1063,7 +1065,7 @@ public class Renderizador {
             }
         }
 
-        System.out.println("Trocar : " + eTrocar);
+       // System.out.println("Trocar : " + eTrocar);
 
 
     }
