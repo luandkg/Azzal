@@ -38,7 +38,15 @@ public class Alpha extends Cena {
 
     private Cronometro mCron;
 
-    public Alpha() {
+    private int p = 0;
+    private int g = 0;
+    private long anteriormente = 0;
+    private QuadranteColorido mQuadranteColorido;
+
+    @Override
+    public void iniciar(Windows eWindows) {
+
+        eWindows.setTitle("Alpha");
 
         mCaiu = new Lista<Retangulo>();
         tem = false;
@@ -75,15 +83,11 @@ public class Alpha extends Cena {
         mMeuCirculo = ePosicionador.getCirculo_Centralizado(600, 600, 100);
         mCT = new CirculoTrigonometrico(mMeuCirculo);
 
-        mCron = new Cronometro(300);
-
-    }
+        mCron = new Cronometro(100);
 
 
-    @Override
-    public void iniciar(Windows eWindows) {
+        mQuadranteColorido = new QuadranteColorido(850, 550);
 
-        eWindows.setTitle("Alpha");
     }
 
     @Override
@@ -176,6 +180,8 @@ public class Alpha extends Cena {
         mCron.esperar();
 
         if (mCron.foiEsperado()) {
+
+            long agora = System.nanoTime();
             p += 1;
             if (p >= mCT.getPontos().size()) {
                 p = 0;
@@ -185,7 +191,19 @@ public class Alpha extends Cena {
             if (g >= 360) {
                 g = 0;
             }
+
+            int medio = (int) ((agora - anteriormente) / 1000);
+
+            System.out.println("RAD :: " + g + " com " + medio);
+
+            anteriormente = agora;
+
         }
+
+
+        mQuadranteColorido.update(getWindows().getMouse());
+
+        getWindows().getMouse().liberar();
 
     }
 
@@ -419,6 +437,9 @@ public class Alpha extends Cena {
         // mRenderizador.limpar(Color.WHITE);
 
         Cor circulo_cor = new Cor(255, 0, 0);
+
+        circulo_cor = new Cor(mQuadranteColorido.getVermelho(),mQuadranteColorido.getVerde(),mQuadranteColorido.getAzul());
+
         mRenderizador.drawCirculo(mMeuCirculo, circulo_cor);
 
         if (mCT.getPontos().size() > 0) {
@@ -443,7 +464,7 @@ public class Alpha extends Cena {
             mRenderizador.drawLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), p3.getX(), p3.getY(), circulo_cor);
 
             if (m > 0) {
-                pintar_de_dentro(mRenderizador, mMeuCirculo, p3, circulo_cor);
+             //   pintar_de_dentro(mRenderizador, mMeuCirculo, p3, circulo_cor);
             }
 
 
@@ -454,10 +475,11 @@ public class Alpha extends Cena {
         }
 
 
+        mQuadranteColorido.render(mRenderizador);
+
+
     }
 
-    private int p = 0;
-    private int g = 0;
 
     public void pintar_de_dentro(Renderizador r, Circulo circulo, Ponto p, Cor eCor) {
 
@@ -535,10 +557,9 @@ public class Alpha extends Cena {
             pintar.addAll(adicionar);
 
 
-
             if (pintar.size() > 0) {
                 //    System.out.println("para pintar :: " + pintar.size() + " -->> " + pintar.get(0).getX() + " :: " + pintar.get(0).getY());
-              //  System.out.println("para pintar :: " + pintar.size() + " -->> add " + adicionar.size() + " ja = " + passou.size());
+                //  System.out.println("para pintar :: " + pintar.size() + " -->> add " + adicionar.size() + " ja = " + passou.size());
 
             }
 

@@ -15,7 +15,7 @@ public class AppAzzal {
 
         //  AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko());
 
-        // AzzalUnico.unico("AppAzzal", 1500, 1020, new Alpha());
+         AzzalUnico.unico("AppAzzal", 1500, 1020, new Alpha());
 
         // AzzalUnico.unico("AppAzzal", 1500, 1020, new C1());
         // AzzalUnico.unico("AppAzzal", 1500, 1020, new CenaBanco());
@@ -100,7 +100,7 @@ public class AppAzzal {
 
        // VideoCodecador.abrir("/home/luan/Vídeos/vi/ecossistema_01.vi");
 
-        AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
+     //   AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
     }
 

@@ -81,6 +81,7 @@
     - TX : Formato de Texto
     - BZ : Formato de Blocos de Textos Indexados
     - AU : Formato de Áudio : @NAO_IMPLEMENTADO_AINDA @ESTOU_ESTUDANDO
+    - VI : Formato de Vídeo : @NAO_TEM_AUDIO
 
     - Arquivador : Classe para abrir/escrever arquivos
 
