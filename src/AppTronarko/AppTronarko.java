@@ -12,7 +12,6 @@ import Letrum.Maker.FonteRunTime;
 import Tronarko.Eventos.Eventum;
 import Tronarko.*;
 import Tronarko.Satelites.Ceu;
-import Tronarko.Satelites.MapaCelestial;
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
 import UI.Interface.Clicavel;
@@ -67,7 +66,7 @@ public class AppTronarko extends Cena {
 
         mClicavel = new Clicavel();
 
-        BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25, 950, 50, 50, new Cor(200, 120, 0)));
+        BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25, 930, 50, 50, new Cor(200, 120, 0)));
         BTN_HOJE.setVariacao(new Cor(200, 120, 0), new Cor(255, 120, 0));
 
         BTN_HOJE.setAcao(new Acao() {
@@ -77,7 +76,7 @@ public class AppTronarko extends Cena {
             }
         });
 
-        BTN_MENOS = mClicavel.criarBotaoCor(new BotaoCor(1100, 920, 50, 100, new Cor(50, 90, 156)));
+        BTN_MENOS = mClicavel.criarBotaoCor(new BotaoCor(1100, 900, 50, 100, new Cor(50, 90, 156)));
         BTN_MENOS.setVariacao(new Cor(50, 90, 156), new Cor(100, 90, 156));
 
         BTN_MENOS.setAcao(new Acao() {
@@ -87,7 +86,7 @@ public class AppTronarko extends Cena {
             }
         });
 
-        BTN_MAIS = mClicavel.criarBotaoCor(new BotaoCor(1155, 920, 50, 100, new Cor(26, 188, 156)));
+        BTN_MAIS = mClicavel.criarBotaoCor(new BotaoCor(1155, 900, 50, 100, new Cor(26, 188, 156)));
         BTN_MAIS.setVariacao(new Cor(26, 188, 156), new Cor(100, 188, 156));
 
         BTN_MAIS.setAcao(new Acao() {
@@ -97,6 +96,10 @@ public class AppTronarko extends Cena {
             }
         });
 
+        System.out.println("tron");
+
+        mHoje = mTronarkum.getTozte();
+        mAgora = mTronarkum.getHazde();
 
     }
 

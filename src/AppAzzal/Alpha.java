@@ -1,15 +1,23 @@
 package AppAzzal;
 
+import AppArquivos.AudioWidgets.AudioRender;
+import AppArquivos.AudioWidgets.Espectrum;
+import AppArquivos.AudioWidgets.HZQuatter;
+import Arquivos.Audio.HZ;
+import Arquivos.Audio.HZControlador;
 import Azzal.Cenarios.Cena;
 import Azzal.Formatos.*;
 import Azzal.Utils.*;
 import Azzal.Renderizador;
 import Azzal.Windows;
+import Letrum.Fonte;
+import Letrum.Maker.FonteRunTime;
 import Luan.Iterador;
 import Luan.Lista;
 import Movimento.Movettor;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,10 +51,29 @@ public class Alpha extends Cena {
     private long anteriormente = 0;
     private QuadranteColorido mQuadranteColorido;
 
+    private HZ audio;
+    private HZControlador mControlador;
+
+    private Fonte texto;
+
     @Override
     public void iniciar(Windows eWindows) {
 
         eWindows.setTitle("Alpha");
+
+        auto_init();
+
+        //   mAudio = new Audio();
+        // mAudio.toque();
+
+        audio = mControlador.init("/home/luan/Música/musicas_hz/top.hz");
+        eWindows.audio_emitir(audio);
+
+        texto = new FonteRunTime(new Cor(0, 0, 0), 10);
+
+    }
+
+    public void auto_init() {
 
         mCaiu = new Lista<Retangulo>();
         tem = false;
@@ -84,10 +111,10 @@ public class Alpha extends Cena {
         mCT = new CirculoTrigonometrico(mMeuCirculo);
 
         mCron = new Cronometro(100);
+        //  mCron = new AzzalCronometro(0, 5);
 
 
         mQuadranteColorido = new QuadranteColorido(850, 550);
-
     }
 
     @Override
@@ -177,11 +204,12 @@ public class Alpha extends Cena {
 
         }
 
+        //mCron.esperar(dt);
         mCron.esperar();
+        // System.out.println("DT :: " + dt);
 
         if (mCron.foiEsperado()) {
 
-            long agora = System.nanoTime();
             p += 1;
             if (p >= mCT.getPontos().size()) {
                 p = 0;
@@ -192,27 +220,38 @@ public class Alpha extends Cena {
                 g = 0;
             }
 
-            int medio = (int) ((agora - anteriormente) / 1000);
 
-            System.out.println("RAD :: " + g + " com " + medio);
+            // System.out.println("RAD :: " + g + " com " + medio);
 
-            anteriormente = agora;
 
         }
 
 
         mQuadranteColorido.update(getWindows().getMouse());
 
+
+        if (getWindows().getTeclado().foiPressionado(KeyEvent.VK_P)) {
+            if (getWindows().temAudio()) {
+                if (getWindows().getAudio().isPausado()) {
+                    getWindows().getAudio().reproduzir();
+                } else {
+                    getWindows().getAudio().pausar();
+                }
+            }
+        }
+
+
         getWindows().getMouse().liberar();
+
+        if (!getWindows().getAudio().temMais()){
+            getWindows().getAudio().re_iniciar();
+        }
 
     }
 
     public boolean colisao(Retangulo r1, Retangulo r2) {
 
-        if (r1.getX() < r2.getX() + r2.getLargura() &&
-                r1.getX() + r1.getLargura() > r2.getX() &&
-                r1.getY() < r2.getY() + r2.getAltura() &&
-                r1.getY() + r1.getAltura() > r2.getY()) {
+        if (r1.getX() < r2.getX() + r2.getLargura() && r1.getX() + r1.getLargura() > r2.getX() && r1.getY() < r2.getY() + r2.getAltura() && r1.getY() + r1.getAltura() > r2.getY()) {
             // collision detected!
             return true;
         }
@@ -438,7 +477,7 @@ public class Alpha extends Cena {
 
         Cor circulo_cor = new Cor(255, 0, 0);
 
-        circulo_cor = new Cor(mQuadranteColorido.getVermelho(),mQuadranteColorido.getVerde(),mQuadranteColorido.getAzul());
+        circulo_cor = new Cor(mQuadranteColorido.getVermelho(), mQuadranteColorido.getVerde(), mQuadranteColorido.getAzul());
 
         mRenderizador.drawCirculo(mMeuCirculo, circulo_cor);
 
@@ -464,7 +503,7 @@ public class Alpha extends Cena {
             mRenderizador.drawLinha(mMeuCirculo.getCentro().getX(), mMeuCirculo.getCentro().getY(), p3.getX(), p3.getY(), circulo_cor);
 
             if (m > 0) {
-             //   pintar_de_dentro(mRenderizador, mMeuCirculo, p3, circulo_cor);
+                //   pintar_de_dentro(mRenderizador, mMeuCirculo, p3, circulo_cor);
             }
 
 
@@ -477,6 +516,31 @@ public class Alpha extends Cena {
 
         mQuadranteColorido.render(mRenderizador);
 
+
+        mRenderizador.limpar(Color.WHITE);
+
+        if (getWindows().temAudio()) {
+
+            AudioRender.onPlayer(mRenderizador,100, 200, getWindows().getAudio());
+
+
+            if (getWindows().getAudio().getBuffer().length == 256) {
+
+                //    HZQuatter.direita(getWindows(), mRenderizador);
+
+                texto.setRenderizador(mRenderizador);
+                HZQuatter.valores(getWindows(), mRenderizador, texto);
+
+                // int[] valorado = HZQuatter.normalizado(getWindows(), mRenderizador, texto);
+
+                int[] fluxo_audio = Espectrum.normalizado(getWindows().getAudio().getBuffer());
+
+                AudioRender.onFluxoAmostragem2(mRenderizador, fluxo_audio, 140, 200, mCor);
+
+            }
+
+
+        }
 
     }
 

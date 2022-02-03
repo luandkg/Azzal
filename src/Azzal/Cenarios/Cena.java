@@ -6,34 +6,49 @@ import Azzal.Windows;
 
 public abstract class Cena {
 
-	private String mNome;
-	private Windows mWindows;
+    private String mNome;
+    private Windows mWindows;
 
-	public void setNome(String eNome) {
-		this.mNome = eNome;
-	}
+    public void setNome(String eNome) {
+        this.mNome = eNome;
+    }
 
-	// Propriedades Importantes
+    // Propriedades Importantes
 
-	public String getNome() {
-		return mNome;
-	}
+    public String getNome() {
+        return mNome;
+    }
 
-	// Metodos Importantes
+    // Metodos Importantes
 
-	public abstract void iniciar(Windows eWindows);
+    public abstract void iniciar(Windows eWindows);
 
-	public abstract void update(double dt);
+    public abstract void update(double dt);
 
-	public abstract void draw(Renderizador g);
+    public abstract void draw(Renderizador g);
 
-	public Windows getWindows(){return mWindows;}
-	public void setWindows(Windows eWindows){ mWindows=eWindows;}
+    public Windows getWindows() {
+        return mWindows;
+    }
 
-	public int getMx(){return (int) getWindows().getMouse().getX();}
-	public int getMy(){return (int) getWindows().getMouse().getY();}
+    public void setWindows(Windows eWindows) {
+        mWindows = eWindows;
+    }
 
-public boolean isPressionsado(){return getWindows().getMouse().isPressed();}
-	public boolean isClicado(){return getWindows().getMouse().isClicked();}
+    public int getMx() {
+        return (int) getWindows().getMouse().getX();
+    }
+
+    public int getMy() {
+        return (int) getWindows().getMouse().getY();
+    }
+
+    public boolean isPressionsado() {
+        return getWindows().getMouse().isPressed();
+    }
+
+    public boolean isClicado() {
+        return getWindows().getMouse().isClicked();
+    }
 
 }

@@ -1,21 +1,22 @@
 package AppAzzal;
 
-import AppArquivos.AppVideo;
 import AppAttuz.Servicos.*;
-import Arquivos.Video.VideoCodecador;
-import Arquivos.Video.VideoSequenciador;
+
 import Azzal.AzzalUnico;
 import Servittor.Servittor;
 import GamaFS.GamaFS;
+
 
 public class AppAzzal {
 
 
     public static void main(String[] args) {
 
+        AzzalUnico.unico("AppAzzal", 1600, 1020, new AppGlobal());
+
         //  AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko());
 
-         AzzalUnico.unico("AppAzzal", 1500, 1020, new Alpha());
+        //AzzalUnico.unico("AppAzzal", 1500, 1020, new Alpha());
 
         // AzzalUnico.unico("AppAzzal", 1500, 1020, new C1());
         // AzzalUnico.unico("AppAzzal", 1500, 1020, new CenaBanco());
@@ -29,7 +30,12 @@ public class AppAzzal {
         // AzzalUnico.unico("AppAzzal", 1300, 1000, new Chiado());
         //AzzalUnico.unico("AppAzzal", 1300, 1000, new CidadeCena());
 
+
+
+
         //AzzalUnico.unico("Arch", 1300, 1000, new Arch.Arch());
+
+
 
 
         //Assembler mAssembler = new Assembler();
@@ -89,18 +95,24 @@ public class AppAzzal {
             eGama.encerrar();
         }
 
-        //Servittor.onServico("Arquivador", new AppArquivos.Servicos());
+     //   Servittor.onServico("Arquivador", new AppArquivos.Servicos());
 
-        //  AzzalUnico.unico("AppImagem", 1100, 900, new AppImagem());
+       // AzzalUnico.unico("AppAzzal", 1500, 1020, new AppArquivos.AppImagem());
+
         //  AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
+
+
 
         //VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema_01.vi",800,801,"/home/luan/Imagens/ecossistema_01/S", 0, 97, ".png");
         // VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema_02.vi", 800, 801, "/home/luan/Imagens/ecossistema_02/S", 0, 365, ".png");
         //  VideoSequenciador.criar("/home/luan/Vídeos/vi/alunos_v2.vi",3000,2700,"/home/luan/Imagens/alunos_vi/S", 0, 99, ".png");
 
-       // VideoCodecador.abrir("/home/luan/Vídeos/vi/ecossistema_01.vi");
+        // VideoCodecador.abrir("/home/luan/Vídeos/vi/ecossistema_01.vi");
 
-     //   AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
+        //   AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
+
+
+
 
     }
 

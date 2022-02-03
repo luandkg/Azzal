@@ -39,7 +39,8 @@ public class AppVideo extends Cena {
 
     @Override
     public void iniciar(Windows eWindows) {
-        getWindows().setTitle("Visualizador MV");
+
+        eWindows.setTitle("Visualizador MV");
 
 
         TextoGrande = new FonteRunTime(new Cor(0, 0, 0), 11);

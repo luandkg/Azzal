@@ -64,8 +64,8 @@ public class AI {
                     nome = nome.replace(".bmp", ".im");
                 }
 
-                System.out.println("Cabecalho Arquivo :: " + arquivo);
-                System.out.println("Cabecalho Arquivo :: " + nome);
+                System.out.println("\t - Indice :: " + arquivo + " -->> " + nome);
+                //System.out.println("Cabecalho Arquivo :: " + nome);
 
                 long pti = arquivador.getPonteiro();
 
@@ -96,7 +96,7 @@ public class AI {
 
             for (String arquivo : arquivos) {
 
-                System.out.println("Imagem Arquivo :: " + arquivo);
+                System.out.println("\t - Imagem :: " + arquivo);
 
                 BufferedImage imagem = ImageUtils.getImagem(arquivo);
 
