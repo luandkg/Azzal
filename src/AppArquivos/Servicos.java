@@ -1,12 +1,15 @@
 package AppArquivos;
 
 import Arquivos.*;
+import Arquivos.Audio.HZControlador;
 import Arquivos.Binario.Int8;
 import Arquivos.Video.VideoSequenciador;
 import Imaginador.ImageUtils;
+import Luan.Strings;
 import Servittor.Servico;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Servicos extends Servico {
@@ -53,7 +56,7 @@ public class Servicos extends Servico {
         arquivos.add("/home/luan/Imagens/sketches-mountain-brushes.jpg");
         arquivos.add("/home/luan/Imagens/2021/2021 09/2021-08-30 16.18.34.jpg");
 
-        AI.criar(arquivos, "/home/luan/Imagens/luan.ai");
+        //AI.criar(arquivos, "/home/luan/Imagens/luan.ai");
 
         AI minha = new AI();
         minha.abrir("/home/luan/Imagens/luan.ai");
@@ -76,7 +79,11 @@ public class Servicos extends Servico {
         System.out.println("Quadros :: " + animacao.getImagens().getQuantidade());
 
 
-        VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema.vi",800,801,"/home/luan/Imagens/ecossistema/S", 0, 97, ".png");
+        // VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema.vi",800,801,"/home/luan/Imagens/ecossistema/S", 0, 97, ".png");
+
+      //  HQ.criarHQ("/home/luan/Imagens/HQ/Corporação-X 01.hq", "/home/luan/Imagens/HQ/Corporação-X 01 (2021)(Renegados-MdHQ)");
+
+        HZControlador.converterToHZ("/home/luan/Downloads/top (online-audio-converter.com).wav", "/home/luan/Música/musicas_hz/top.hz");
 
     }
 

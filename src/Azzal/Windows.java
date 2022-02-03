@@ -1,10 +1,11 @@
 package Azzal;
 
+import Arquivos.Audio.HZ;
+import Arquivos.Audio.HZControlador;
 import Azzal.Cenarios.Cena;
 import Azzal.Cenarios.Cenarios;
 
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -30,6 +31,9 @@ public class Windows extends JFrame implements Runnable {
 
     private Mouse mMouse;
     private Teclado mTeclado;
+
+    private boolean mTemAudio = false;
+    private HZ audio;
 
     public Windows(String eTitulo, int eLargura, int eAltura) {
 
@@ -73,6 +77,32 @@ public class Windows extends JFrame implements Runnable {
         return mTeclado;
     }
 
+    public void audio_emitir(HZ eAudio) {
+
+        audio = eAudio;
+        mTemAudio = true;
+
+    }
+
+    public void audio_retirar() {
+        mTemAudio = false;
+    }
+
+    public void tocar() {
+        if (audio.temMais()) {
+            HZControlador.toque(audio);
+        } else {
+            // mTemAudio = false;
+        }
+    }
+
+    public boolean temAudio() {
+        return mTemAudio;
+    }
+
+    public HZ getAudio() {
+        return audio;
+    }
 
     @Override
     public void run() {
@@ -104,6 +134,9 @@ public class Windows extends JFrame implements Runnable {
             double mPresente = System.nanoTime();
             boolean mDesenhar = false;
 
+            if (mTemAudio) {
+                tocar();
+            }
 
             if (mPresente >= mFuturo) {
                 mAtualizador += 1;
@@ -129,7 +162,7 @@ public class Windows extends JFrame implements Runnable {
                     mVerificador += 1;
                 }
 
-                  //  System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador + "," + mVerificador + "," + mDilatador + " >>  :: " + mDesenhador);
+                //  System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador + "," + mVerificador + "," + mDilatador + " >>  :: " + mDesenhador);
 
                 mDilatadorMin = mPresente;
                 mDilatadorMax = mPresente + ((double) (GAME_HERTIZ) * GAME_QUADRO);
@@ -161,12 +194,12 @@ public class Windows extends JFrame implements Runnable {
                 getGraphics().drawImage(mImagem, 0, 7, getLargura(), getAltura(), null);
             }
 
-            try {
-                Thread.yield();
-                Thread.sleep(1);
-            } catch (Exception e) {
-                System.out.println("GAME LOOP - PROBLEMA !");
-            }
+            // try {
+            //    Thread.yield();
+            //     Thread.sleep(1);
+            //  } catch (Exception e) {
+            //     System.out.println("GAME LOOP - PROBLEMA !");
+            //  }
 
             mPassado = System.nanoTime();
 
@@ -183,7 +216,9 @@ public class Windows extends JFrame implements Runnable {
         return mAltura;
     }
 
-    public BufferedImage getImagem(){return mImagem;}
+    public BufferedImage getImagem() {
+        return mImagem;
+    }
 
     public int CriarCenario(Cena eCena) {
         return mCenarios.CriarCenario(eCena);

@@ -39,8 +39,10 @@ public class Arquivador {
             Arq.delete();
         }
 
-
     }
+
+
+
 
     public byte[] longToBytes(long l) {
         byte[] result = new byte[8];
@@ -147,6 +149,20 @@ public class Arquivador {
 
         }
 
+    }
+
+    public void writeInt16(int l) {
+
+        int v1 = l / 255;
+        int v2 = l - (v1 * 255);
+
+
+        try {
+            mFile.write((byte) v1);
+            mFile.write((byte) v2);
+        } catch (IOException e) {
+
+        }
     }
 
 
@@ -257,6 +273,16 @@ public class Arquivador {
         }
 
         return bytes;
+    }
+
+    public void readBufferBytes(byte[] buff,int eQuantidade) {
+
+        try {
+            mFile.read(buff,0,eQuantidade);
+        } catch (IOException e) {
+
+        }
+
     }
 
     public void fechar() throws IOException {
