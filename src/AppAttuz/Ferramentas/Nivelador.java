@@ -15,7 +15,7 @@ public class Nivelador {
     public Acao get(int v){
        return new Acao() {
             @Override
-            protected void onClique() {
+            public void onClique() {
                 mNivel=v;
 
                 if (v ==0){

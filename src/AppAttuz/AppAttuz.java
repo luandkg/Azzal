@@ -142,7 +142,7 @@ public class AppAttuz extends Cena {
 
         BTN_IR.setAcao(new Acao() {
             @Override
-            protected void onClique() {
+            public void onClique() {
                 EU.mudar();
             }
         });

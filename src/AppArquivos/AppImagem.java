@@ -53,14 +53,14 @@ public class AppImagem extends Cena {
 
         BTN_PROXIMA.setAcao(new Acao() {
             @Override
-            protected void onClique() {
+            public void onClique() {
                 imagem_proxima();
             }
         });
 
         BTN_VOLTAR.setAcao(new Acao() {
             @Override
-            protected void onClique() {
+            public void onClique() {
                 imagem_voltar();
             }
         });

@@ -71,7 +71,7 @@ public class AppTronarko extends Cena {
 
         BTN_HOJE.setAcao(new Acao() {
             @Override
-            protected void onClique() {
+            public void onClique() {
                 mQuantos = 0;
             }
         });
@@ -81,7 +81,7 @@ public class AppTronarko extends Cena {
 
         BTN_MENOS.setAcao(new Acao() {
             @Override
-            protected void onClique() {
+            public void onClique() {
                 mQuantos -= 1;
             }
         });
@@ -91,7 +91,7 @@ public class AppTronarko extends Cena {
 
         BTN_MAIS.setAcao(new Acao() {
             @Override
-            protected void onClique() {
+            public void onClique() {
                 mQuantos += 1;
             }
         });

@@ -200,6 +200,100 @@ public class FonteRunTime implements Fonte {
 
     }
 
+    public FonteRunTime(Cor eCor,String eNome, int eTamanho,boolean isBold) {
+
+        mCor = eCor;
+        ESCREVA_COR = mCor.getValor();
+
+        mLetras = new ArrayList<Letra>();
+
+
+        String sequencia = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZçÇ_0123456789-<>.,:;/\\+-*=()[]{}?!@#$%ºª";
+        sequencia += "áàâãäéèêẽëíìîĩïóòôõöúùûũü";
+        sequencia += "ÁÀÂÃÄÉÈÊẼËÍÌÎĨÏÓÒÔÕÖÚÙÛŨÜ";
+        sequencia += "'\"\t";
+
+        int quantidade = sequencia.length();
+        for (int v = 0; v < quantidade; v++) {
+            mLetras.add(new Letra(String.valueOf(sequencia.charAt(v)), 0, 0,0,0));
+        }
+
+        int eLinhas = 1;
+
+        int tam = sequencia.length();
+        while (tam > 10) {
+            eLinhas += 1;
+            tam -= 10;
+        }
+
+        int mLargura = (12 * (eTamanho + (eTamanho / 2)));
+        int mAltura = (eTamanho + 20) * eLinhas;
+
+        LARGURA = mLargura;
+        ALTURA = mAltura;
+        FONTE = eTamanho;
+
+        mImagem = new BufferedImage(mLargura, mAltura, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics g = mImagem.getGraphics();
+
+        g.setColor(new Color(0, 0, 0, 0));
+        g.fillRect(0, 0, mLargura, mAltura);
+
+        int i = 0;
+        int e = 0;
+        int o = sequencia.length();
+
+        int x = eTamanho;
+        int y = eTamanho + 5;
+
+        g.setColor(Color.BLACK);
+
+        if (isBold){
+            g.setFont(new Font(eNome, Font.BOLD, eTamanho));
+        }else{
+            g.setFont(new Font(eNome, Font.PLAIN, eTamanho));
+        }
+
+
+        Color QuadroCor = new Color(0, 0, 0);
+
+        while (i < o) {
+            String l = String.valueOf(sequencia.charAt(i));
+
+            String iString = String.valueOf(i);
+            while (iString.length() < 2) {
+                iString = "0" + iString;
+            }
+
+            g.setColor(QuadroCor);
+            g.drawString(l, x, y);
+
+            int w = g.getFontMetrics().stringWidth(l);
+
+            g.setColor(Color.RED);
+
+            int x1 = x - 2;
+            int x2 = (x) + w;
+            int y1 = y - eTamanho - 2;
+            int y2 = y + (eTamanho / 2) - (eTamanho / 4);
+
+            mLetras.get(i).redefinir(l, x1, y1, x2, y2);
+
+            x += eTamanho + (eTamanho / 2);
+
+            i += 1;
+            e += 1;
+            if (e > 10) {
+                e = 0;
+                y += (eTamanho + 20);
+                x = eTamanho;
+            }
+
+
+        }
+
+    }
 
     public void setRenderizador(Renderizador eRenderizador) {
         mRenderizador = eRenderizador;

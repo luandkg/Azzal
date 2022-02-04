@@ -2,6 +2,7 @@ package AppAzzal;
 
 import Azzal.Cenarios.Cena;
 import Azzal.Renderizador;
+import Azzal.Utils.Cor;
 import Azzal.Utils.Cronometro;
 import Azzal.Windows;
 
@@ -166,6 +167,27 @@ public class TransicionadorDeCena {
     public void draw(Renderizador mRenderizador) {
 
         mRenderizador.limpar(Color.WHITE);
+
+        if (isMudando) {
+
+            render_antes.limpar(Color.WHITE);
+            render_depois.limpar(Color.WHITE);
+
+            mCenas.get(antes).draw(render_antes);
+            mCenas.get(depois).draw(render_depois);
+
+            mRenderizador.drawImagem(x_antes, 0, imagem_antes);
+            mRenderizador.drawImagem(x_depois, 0, imagem_depois);
+
+        } else {
+            mCenas.get(mSelecionada).draw(mRenderizador);
+        }
+
+    }
+
+    public void drawComCor(Renderizador mRenderizador, Cor eCor) {
+
+        mRenderizador.limpar(eCor);
 
         if (isMudando) {
 

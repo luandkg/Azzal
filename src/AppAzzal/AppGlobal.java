@@ -18,9 +18,7 @@ import java.util.Random;
 
 public class AppGlobal extends Cena {
 
-
     private TransicionadorDeCena mTransicionador;
-
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -36,14 +34,11 @@ public class AppGlobal extends Cena {
 
         mTransicionador.iniciarCenas();
 
-
     }
 
     @Override
     public void update(double dt) {
-
         mTransicionador.update(dt);
-
     }
 
 
