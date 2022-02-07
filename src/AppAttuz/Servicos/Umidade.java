@@ -23,10 +23,10 @@ public class Umidade extends Servico {
     }
 
     @Override
-    public void onInit( ) {
+    public void onInit() {
 
 
-        Cartografia onCartografia = new Cartografia(LOCAL);
+        Conveccionador eConveccionador = new Conveccionador(LOCAL);
         OnData onData = new OnData(LOCAL);
 
         Massas tectonica = new Massas(LOCAL);
@@ -34,8 +34,6 @@ public class Umidade extends Servico {
         dados.zerar();
 
         BufferedImage mapa_colorindo = ImageUtils.getImagem(LOCAL + "terra.png");
-
-        Cores paleta = new Cores();
 
 
         boolean indo = true;
@@ -46,15 +44,11 @@ public class Umidade extends Servico {
 
         Normalizador norm = new Normalizador(umidade.getMaximo());
 
-        for (Integer faixa : onCartografia.getCentrosDeLatitudes()) {
+        for (Integer faixa : eConveccionador.getCentrosDeLatitudes()) {
 
-            // Cor eCor = (indo == true) ? paleta.getVermelho() : paleta.getAzul();
-            // drawRect_Pintado(mapa_colorindo, pos, faixa, 30, 30, eCor);
 
-            int pCentral = faixa + 15;
-
-            int pCentral_c = pCentral - 50;
-            int pCentral_t = pCentral + 50;
+            int pCentral_c = faixa - (eConveccionador.getAlturaFaixa() / 2);
+            int pCentral_t = faixa +(eConveccionador.getAlturaFaixa() / 2);
 
             int comecar = 0;
             int mudanca = 0;
@@ -67,7 +61,7 @@ public class Umidade extends Servico {
                 mudanca = -1;
             }
 
-            for (int u = pCentral_c; u < pCentral_t; u++) {
+            for (int u = pCentral_c; u <= pCentral_t; u++) {
                 umidecer(tectonica, dados, onData, norm, u, comecar, mudanca);
             }
 

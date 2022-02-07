@@ -139,4 +139,32 @@ public class EscalasPadroes {
         return mRelevo;
     }
 
+    public static Escala getEscalaConveccao() {
+
+        Escala mRelevo = new Escala(1, 4);
+
+        mRelevo.set(3, new Color(62, 140, 215).getRGB());
+        mRelevo.set(2, new Color(220, 60, 20).getRGB());
+        mRelevo.set(1, new Color(120, 160, 40).getRGB());
+
+        mRelevo.set(0, new Color(255, 255, 255).getRGB());
+
+        return mRelevo;
+    }
+
+    public static Escala getEscalaConveccaoMovimento() {
+
+        Escala mRelevo = new Escala(1, 5);
+
+        mRelevo.set(4, new Color(150, 220, 15).getRGB());
+        mRelevo.set(3, new Color(200, 200, 30).getRGB());
+
+        mRelevo.set(2, new Color(62, 140, 215).getRGB());
+        mRelevo.set(1, new Color(220, 60, 20).getRGB());
+
+        mRelevo.set(0, new Color(255, 255, 255).getRGB());
+
+        return mRelevo;
+    }
+
 }

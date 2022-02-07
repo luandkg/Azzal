@@ -87,9 +87,8 @@ public class Normalizador {
 
         double o = emOutra(menor, maior, 0, mEscalas, eValor);
 
-        int real = (int) o;
+        return (int) o;
 
-        return real;
     }
 
     public double emOutra(int min_a, int max_a, int min_b, int max_b, int val_a) {

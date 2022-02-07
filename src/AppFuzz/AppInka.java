@@ -11,7 +11,6 @@ import java.awt.*;
 public class AppInka extends Cena {
 
 
-
     private Listagem mListagem;
 
     private Fuzzer mFuzzer;

@@ -4,13 +4,16 @@ package AppFuzz;
 import Azzal.Cenarios.Cena;
 import Azzal.Renderizador;
 import Azzal.Windows;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class AppBaz extends Cena {
 
-
     private Fuzzer mFuzzer;
+    private ArrayList<Menu> menu_principal;
+
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -18,10 +21,12 @@ public class AppBaz extends Cena {
 
         mFuzzer = new Fuzzer();
 
-        Seletor SLT_A = mFuzzer.onSeletor(400, 50, 140, 60, "TIPO A");
-        Seletor SLT_B = mFuzzer.onSeletor(400 + (1 * 160), 50, 140, 60, "TIPO B");
-        Seletor SLT_C = mFuzzer.onSeletor(400 + (2 * 160), 50, 140, 60, "TIPO C");
-        Seletor SLT_D = mFuzzer.onSeletor(400 + (3 * 160), 50, 140, 60, "TIPO D");
+        menu_principal = new ArrayList<Menu>();
+
+        Menu SLT_A = mFuzzer.onMenu(menu_principal,400, 50, 140, 60, "TIPO A");
+        Menu SLT_B = mFuzzer.onMenu(menu_principal,400 + (1 * 160), 50, 140, 60, "TIPO B");
+        Menu SLT_C = mFuzzer.onMenu(menu_principal,400 + (2 * 160), 50, 140, 60, "TIPO C");
+        Menu SLT_D = mFuzzer.onMenu(menu_principal,400 + (3 * 160), 50, 140, 60, "TIPO D");
 
 
         mFuzzer.onBotao(80, 300, 150, 30, "FUNC A");
@@ -31,6 +36,7 @@ public class AppBaz extends Cena {
         mFuzzer.onBotao(80, 500, 150, 30, "FUNC E");
         mFuzzer.onBotao(80, 550, 150, 30, "FUNC F");
 
+        SLT_A.setValor(true);
 
     }
 

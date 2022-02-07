@@ -7,10 +7,13 @@ import Azzal.Cronometro;
 import Azzal.Renderizador;
 import Azzal.Utils.Cor;
 import Azzal.Windows;
+import Imaginador.ImageUtils;
 import Letrum.Fonte;
 import Letrum.Maker.FonteRunTime;
 import UI.Interface.BotaoCor;
 import UI.Interface.Clicavel;
+
+import java.awt.image.BufferedImage;
 
 public class AppVideo extends Cena {
 
@@ -23,8 +26,9 @@ public class AppVideo extends Cena {
 
     Clicavel mClicavel;
 
-    String eArquivoAbrir = "/home/luan/Vídeos/vi/ecossistema_02.vi";
-   // String eArquivoAbrir = "/home/luan/Vídeos/vi/alunos_v2.vi";
+    // String eArquivoAbrir = "/home/luan/Vídeos/vi/ecossistema_02.vi";
+    // String eArquivoAbrir = "/home/luan/Vídeos/vi/alunos_v2.vi";
+    String eArquivoAbrir = "/home/luan/Imagens/Arkazz/build/temperatura.vi";
 
 
     private boolean mAberto = false;
@@ -84,11 +88,9 @@ public class AppVideo extends Cena {
         mVideo.abrir(eArquivoAbrir);
 
         mCron = new Cronometro(mVideo.getTaxa());
-      //  mCron = new Cronometro(1);
+          mCron = new Cronometro(5);
 
         mAberto = true;
-
-
 
 
     }
@@ -162,7 +164,11 @@ public class AppVideo extends Cena {
 
 
         if (mAberto && mCarregado) {
-            r.drawImagem(100, 100, mVideo.getImagemCorrente());
+           // r.drawImagem(100, 100, mVideo.getImagemCorrente());
+
+            BufferedImage reduzido = Imaginador.Efeitos.reduzir(mVideo.getImagemCorrente(),mVideo.getImagemCorrente().getWidth()/3,mVideo.getImagemCorrente().getHeight()/3);
+            r.drawImagem(100, 100, reduzido);
+
         }
 
         int mAlargador = 5;

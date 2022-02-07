@@ -551,7 +551,45 @@ public class Renderizador {
         }
     }
 
-    public void drawOval_Pintado(Oval eOval, Cor eCor) {
+    public void drawCirculo_Pintado(int x1, int y1, int raio, Cor eCor) {
+
+
+        int x = raio;
+        int y = 0;
+        int xChange = 1 - (raio << 1);
+        int yChange = 0;
+        int radiusError = 0;
+
+        int xi = x1 + raio;
+        int yi = y1 + raio;
+
+
+        while (x >= y) {
+            for (int i = xi - x; i <= xi + x; i++) {
+
+                drawPixel(i, yi + y, eCor);
+                drawPixel(i, yi - y, eCor);
+
+            }
+            for (int i = xi - y; i <= xi + y; i++) {
+
+                drawPixel(i, yi + x, eCor);
+                drawPixel(i, yi - x, eCor);
+            }
+
+            y++;
+            radiusError += yChange;
+            yChange += 2;
+            if (((radiusError << 1) + xChange) > 0) {
+                x--;
+                radiusError += xChange;
+                xChange += 2;
+            }
+        }
+
+    }
+
+        public void drawOval_Pintado(Oval eOval, Cor eCor) {
         int x = eOval.getRaioLargura();
         int x2 = eOval.getRaioAltura();
 
@@ -1356,6 +1394,26 @@ public class Renderizador {
     public void exportar(String eLocal) {
 
         BufferedImage mExportar = new BufferedImage(mLargura, mAltura, BufferedImage.TYPE_INT_ARGB);
+
+        int[] mExportar_Pixels = ((DataBufferInt) mExportar.getRaster().getDataBuffer()).getData();
+
+        int i = 0;
+        for (int e : mPixels) {
+            mExportar_Pixels[i] = e;
+            i += 1;
+        }
+
+        try {
+            ImageIO.write(mExportar, "png", new File(eLocal));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void exportarSemAlfa(String eLocal) {
+
+        BufferedImage mExportar = new BufferedImage(mLargura, mAltura, BufferedImage.TYPE_INT_RGB);
 
         int[] mExportar_Pixels = ((DataBufferInt) mExportar.getRaster().getDataBuffer()).getData();
 

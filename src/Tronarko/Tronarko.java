@@ -207,11 +207,11 @@ public class Tronarko {
 
     public Hazde getHora(String entrada) {
 
-        String hora = String.valueOf(entrada.charAt(0))+String.valueOf(entrada.charAt(1));
-        String minuto = String.valueOf(entrada.charAt(3))+String.valueOf(entrada.charAt(4));
-        String segundo = String.valueOf(entrada.charAt(6))+String.valueOf(entrada.charAt(7));
+        String hora = String.valueOf(entrada.charAt(0)) + String.valueOf(entrada.charAt(1));
+        String minuto = String.valueOf(entrada.charAt(3)) + String.valueOf(entrada.charAt(4));
+        String segundo = String.valueOf(entrada.charAt(6)) + String.valueOf(entrada.charAt(7));
 
-        return getHora(Integer.parseInt(hora), Integer.parseInt(minuto),Integer.parseInt(segundo));
+        return getHora(Integer.parseInt(hora), Integer.parseInt(minuto), Integer.parseInt(segundo));
     }
 
     public Hazde getHora(int eHora, int eMinuto, int eSegundo) {
@@ -271,5 +271,18 @@ public class Tronarko {
 
     public Tozte_Intervalo getIntervalo(String eNome, Tozte eInicio, Tozte eFim) {
         return new Tozte_Intervalo(eNome, eInicio, eFim);
+    }
+
+
+    // ESTATICOS
+
+    public static Tozte getTozteDireto() {
+        Tronarko t = new Tronarko();
+        return t.getTozte();
+    }
+
+    public static Hazde getHazdeDireto() {
+        Tronarko t = new Tronarko();
+        return t.getHazde();
     }
 }

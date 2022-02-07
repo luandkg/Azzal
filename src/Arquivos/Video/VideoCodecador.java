@@ -3,6 +3,7 @@ package Arquivos.Video;
 
 import Arquivos.Binario.Arquivador;
 import AssetContainer.Chronos_Intervalo;
+import Imaginador.ImageUtils;
 import Luan.OrdenadorAlfaNum;
 import Luan.fmt;
 
@@ -476,5 +477,89 @@ public class VideoCodecador {
 
     }
 
+    public static void criar(String eArquivo, ArrayList<String> eArquivos) {
+
+        System.out.println("");
+        System.out.println("------------------------- VIDEO_CODECADOR --------------------------");
+        System.out.println("");
+
+
+        BufferedImage primeira = ImageUtils.getImagem(eArquivos.get(0));
+
+        int mLargura = primeira.getWidth();
+        int mAltura = primeira.getHeight();
+
+        int mTaxa = 200;
+
+        Chronos_Intervalo mCrono = new Chronos_Intervalo();
+        mCrono.marqueInicio();
+
+
+        System.out.println("\t - ARQUIVO = " + eArquivo);
+        System.out.println("");
+        System.out.println("\t - LARGURA = " + mLargura);
+        System.out.println("\t - ALTURA = " + mAltura);
+        System.out.println("\t - TAXA = " + mTaxa);
+        System.out.println("");
+
+        VideoCodecador eVideoCodecador = new VideoCodecador();
+
+        Empilhador eEmpilhador = eVideoCodecador.criar(eArquivo, mLargura, mAltura);
+
+        boolean mCarregado = true;
+
+        Collections.sort(eArquivos, new OrdenadorAlfaNum());
+
+        for (String eArquivoParaFrame : eArquivos) {
+
+            mCarregado = true;
+
+            String eArquivoFrameFormatado = eArquivoParaFrame;
+            // eArquivoFrameFormatado = eArquivoFrameFormatado.replace(eLocal, "");
+            // eArquivoFrameFormatado = eArquivoFrameFormatado.replace("/", "");
+
+            try {
+
+                Arenar eArenar = eEmpilhador.empurrarQuadro(ImageIO.read(new File(eArquivoParaFrame)));
+
+                System.out.println("\t - FRAME SUCESSO :: " + eArenar.getStatus().replace("$ARQUIVO", eArquivoParaFrame));
+
+
+            } catch (IOException e) {
+                mCarregado = false;
+            }
+
+
+            if (!mCarregado) {
+                System.out.println("\t - FRAME FALHOU  :: " + eEmpilhador.getFrameCorrente() + " " + eArquivoFrameFormatado);
+                break;
+            }
+
+        }
+
+        mCrono.marqueFim();
+
+        System.out.println("");
+
+
+        double mReducao = (1 - ((double) (eEmpilhador.getUsou()) / (double) eEmpilhador.getTotal())) * 100.0F;
+
+        System.out.println("\t - REDUCAO = " + fmt.getCasas(mReducao, 2) + " %");
+
+        System.out.println("\t - TEMPO = " + mCrono.getIntervalo() + " s");
+
+        if (mCarregado) {
+            System.out.println("\t - STATUS = SUCESSO");
+        } else {
+            System.out.println("\t - STATUS = FALHOU");
+        }
+
+        eEmpilhador.fechar();
+
+        System.out.println("");
+        System.out.println("-------------------------------------------------------------------------------------------");
+        System.out.println("");
+
+    }
 
 }

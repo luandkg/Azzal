@@ -21,6 +21,7 @@ public class Fuzzer {
     private ArrayList<Botao> mBotoes;
     private ArrayList<Botao> mBotoesAcoes;
     private ArrayList<Seletor> mSeletores;
+    private ArrayList<Menu> mMenus;
 
     private ArrayList<Listagem> mListagens;
 
@@ -40,6 +41,7 @@ public class Fuzzer {
         mBotoes = new ArrayList<Botao>();
         mBotoesAcoes = new ArrayList<Botao>();
         mSeletores = new ArrayList<Seletor>();
+        mMenus = new ArrayList<Menu>();
 
         mListagens = new ArrayList<Listagem>();
 
@@ -92,6 +94,21 @@ public class Fuzzer {
         return st;
     }
 
+
+    public Menu onMenu(ArrayList<Menu> menu_principal,int x, int y, int l, int a, String texto) {
+
+        Botao eBotao = new Botao(x, y, l, a, texto);
+
+        eBotao.setVariacao(new Cor(200, 30, 0), new Cor(200, 30, 0));
+
+        Menu mn = new Menu(eBotao,menu_principal);
+        mAcionadores.add(eBotao);
+
+        mMenus.add(mn);
+        menu_principal.add(mn);
+
+        return mn;
+    }
 
     public void onListagem(Listagem eListagem) {
         mListagens.add(eListagem);
@@ -186,13 +203,21 @@ public class Fuzzer {
         }
 
 
-        for (Listagem eListagem : mListagens) {
-            drawListagem(mRenderizador, eListagem);
-        }
+
 
         for (Seletor eSeletor : mSeletores) {
             drawSeletor(mRenderizador, eSeletor);
         }
+
+        for (Menu eMenu : mMenus) {
+            drawMenu(mRenderizador, eMenu);
+        }
+
+        for (Listagem eListagem : mListagens) {
+            drawListagem(mRenderizador, eListagem);
+        }
+
+
     }
 
     public void drawListagem(Renderizador mRenderizador, Listagem eListagem) {
@@ -288,6 +313,30 @@ public class Fuzzer {
         }
 
     }
+
+    public void drawMenu(Renderizador mRenderizador, Menu eBotao) {
+
+
+        mRenderizador.drawRect_Pintado(eBotao.getX(), eBotao.getY(), 140, 60, eBotao.getCor());
+
+        mRenderizador.drawRect_Pintado(eBotao.getX(), eBotao.getY() + 60, 50, 15, eBotao.getCor());
+
+        mRenderizador.drawRect_Pintado(eBotao.getX() + 55, eBotao.getY() + 60 + 5, 30, 10, eBotao.getEixoCor());
+
+        mRenderizador.drawRect_Pintado(eBotao.getX() + 55 + 35, eBotao.getY() + 60, 50, 15, eBotao.getCor());
+
+        int la = mEscritorPequeno.getLarguraDe(eBotao.getTexto());
+        if (la < eBotao.getL()) {
+            int s = (eBotao.getL() - la) / 2;
+
+            mEscritorPequeno.escreva(eBotao.getX() + s, eBotao.getY() + (eBotao.getA() / 2) - 5, eBotao.getTexto());
+
+        } else {
+            mEscritorPequeno.escreva(eBotao.getX() + 20, eBotao.getY() + (eBotao.getA() / 2) - 5, eBotao.getTexto());
+        }
+
+    }
+
 
     public void setRenderizador(Renderizador mRenderizador) {
         mEscritorPequeno.setRenderizador(mRenderizador);

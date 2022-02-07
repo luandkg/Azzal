@@ -14,6 +14,7 @@ public class Pintor {
             for (int x = 0; x < mapa.getWidth(); x++) {
 
                 int n = eMassa.getValor(x, y);
+
                 if (n<eEscala.getMaximo()){
                     mapa.setRGB(x, y, eEscala.get(n));
                 }else{

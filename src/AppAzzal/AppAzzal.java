@@ -2,7 +2,6 @@ package AppAzzal;
 
 import AppAttuz.Servicos.*;
 
-import Azzal.AzzalUnico;
 import Servittor.Servittor;
 import GamaFS.GamaFS;
 
@@ -14,7 +13,7 @@ public class AppAzzal {
 
         //    AzzalUnico.unico("AppAzzal", 1600, 1020, new AppGlobal());
 
-        AzzalUnico.unico("AppFuzz", 1600, 1020, new AppFuzz.AppFuzz());
+        //  AzzalUnico.unico("AppFuzz", 1600, 1020, new AppFuzz.AppFuzz());
 
 
         //  AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko());
@@ -48,25 +47,29 @@ public class AppAzzal {
 
         eLocal = "/home/luan/Imagens/Arkazz/";
 
-        boolean fazer = false;
+        boolean fazer = true;
 
+        //  Servittor.onServico("Conveccionador", new Conveccionador(eLocal));
 
         if (fazer) {
 
-            Servittor.onServico("Expansor", new Expansor(eLocal));
+            //Servittor.onServico("Expansor", new Expansor(eLocal));
 
-            Servittor.onServico("Relevo", new Relevo(eLocal));
+            //  Servittor.onServico("Relevo", new Relevo(eLocal));
+            // Servittor.onServico("Conveccionador", new Conveccionador(eLocal));
             // Servittor.onServico("LinhaDeRelevo", new LinhaDeRelevo(eLocal));
             // Servittor.onServico("Cartografia", new Cartografia(eLocal));
             // Servittor.onServico("Proximidade Do Mar", new ProximidadeDoMar(eLocal));
-            // Servittor.onServico("Umidade", new Umidade(eLocal));
-            // Servittor.onServico("Temperatura", new Temperatura(eLocal));
+            //   Servittor.onServico("Umidade", new Umidade(eLocal));
+             Servittor.onServico("Temperatura", new Temperatura(eLocal));
+
 
         }
 
-        // AzzalUnico.unico("Attuz", 2300, 1000, new AppAttuz.AppAttuz());
+        //    AzzalUnico.unico("Attuz", 2300, 1000, new AppAttuz.AppAttuz());
+        // AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
 
-        //TG22.TG22.init();
+        // TG22.TG22.init();
 
 
         //  AzzalUnico.unico("Editor - luan.dkg", 1000, 1000, new AppKhronos.AppKrhonos());
@@ -107,8 +110,10 @@ public class AppAzzal {
 
         // VideoCodecador.abrir("/home/luan/Vídeos/vi/ecossistema_01.vi");
 
-        //   AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
+       //   AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
+        //GuiaDeViagem.organizar();
+        //GuiaDeViagem.passei(Tronarko.Tronarko.getTozteDireto(),Tronarko.Tronarko.getHazdeDireto());
 
     }
 

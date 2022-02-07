@@ -3,44 +3,54 @@ package AppFuzz;
 import Azzal.Utils.Cor;
 import UI.Interface.Acao;
 
-public class Seletor {
+import java.util.ArrayList;
+
+public class Menu {
 
     private Botao mBotao;
 
-    private int mValor;
+    private boolean mValor;
 
-    private int mValorInicial;
-    private int mValorProximo;
     private Cor mEixo;
 
-    public Seletor(Botao eBotao, int eValorInicial, int eValorProximo) {
+    public Menu(Botao eBotao, ArrayList<Menu> menu_principal) {
 
         mBotao = eBotao;
-        mValor = eValorInicial;
-        mValorInicial = eValorInicial;
-        mValorProximo = eValorProximo;
+        mValor = false;
 
-        if (mValor == mValorInicial) {
-            mValor = mValorProximo;
-            mEixo = new Cor(0,255,0);
+        if (mValor) {
+            mEixo = new Cor(0, 255, 0);
         } else {
-            mValor = eValorInicial;
-            mEixo = new Cor(50,130,50);
+            mEixo = new Cor(50, 130, 50);
         }
-
 
         mBotao.setAcao(new Acao() {
             @Override
             public void onClique() {
-                if (mValor == mValorInicial) {
-                    mValor = mValorProximo;
-                    mEixo = new Cor(0,255,0);
-                } else {
-                    mValor = eValorInicial;
-                    mEixo = new Cor(50,130,50);
+
+                for (Menu eMenu : menu_principal) {
+                    eMenu.setValor(false);
                 }
+
+                mValor = true;
+
+                if (mValor) {
+                    mEixo = new Cor(0, 255, 0);
+                } else {
+                    mEixo = new Cor(50, 130, 50);
+                }
+
             }
         });
+    }
+
+    public void setValor(boolean e){
+        mValor=e;
+        if (mValor) {
+            mEixo = new Cor(0, 255, 0);
+        } else {
+            mEixo = new Cor(50, 130, 50);
+        }
     }
 
 

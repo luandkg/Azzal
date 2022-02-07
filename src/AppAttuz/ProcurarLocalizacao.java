@@ -11,6 +11,7 @@ import java.io.File;
 import Tronarko.StringTronarko;
 import Tronarko.Tozte;
 import Tronarko.Hazde;
+
 public class ProcurarLocalizacao {
 
     public String ondeEstou(Viajante EU, Tozte eTozte, Hazde eHazde) {
