@@ -1,8 +1,9 @@
 package AppAttuz.Servicos;
 
 import AppAttuz.Camadas.Massas;
-import AppAttuz.EscalasPadroes;
-import AppAttuz.Ferramentas.Escala;
+import AppAttuz.Camadas.MassasDados;
+import AppAttuz.Camadas.EscalasPadroes;
+import AppAttuz.Assessorios.Escala;
 import AppAttuz.Ferramentas.Pintor;
 import Azzal.Renderizador;
 import Luan.Integers;
@@ -36,42 +37,12 @@ public class Conveccionador extends Servico {
 
     }
 
-    public int getConveccao(int p) {
 
-        int parte = mAltura / 6;
-
-        int conv = 0;
-
-        int c = 0;
-
-        while (p >= parte) {
-            c += 1;
-            p -= parte;
-        }
-
-        if (c < 3) {
-            conv = 2 - c;
-        } else {
-            conv = c - 3;
-        }
-
-        return conv;
-    }
-
-
-    public int getConveccaoModular(int p) {
-
-        int v = getConveccao(p);
-
-        if (v < 0) {
-            return v * (-1);
-        }
-
-        return v;
-    }
 
     @Override
     public void onInit() {
+
+        marcarInicio();
 
         Escala mEscala = EscalasPadroes.getEscalaConveccao();
 
@@ -81,14 +52,15 @@ public class Conveccionador extends Servico {
 
         genOceanoCorrentes(LOCAL);
 
-
+        marcarFim();
+        mostrarTempo();
     }
 
     private void genConveccao(String LOCAL, Escala mEscala) {
 
         BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
 
-        Massas eMassa = new Massas(LOCAL);
+        Massas eMassa = MassasDados.getTerraAgua(LOCAL);
 
 
         for (int y = 0; y < mapa.getHeight(); y++) {
@@ -130,13 +102,13 @@ public class Conveccionador extends Servico {
         return CARTOGRAFIA_LARGURA;
     }
 
-    public int getAlturaFaixa(){
-        return mAltura/6;
+    public int getAlturaFaixa() {
+        return mAltura / 6;
     }
 
     public int getLatidadeNoMapa(int p) {
 
-        int FAIXA = mAltura/6;
+        int FAIXA = mAltura / 6;
 
         if (p >= 0) {
             return (mAltura / 2) + (p * FAIXA);
@@ -214,9 +186,9 @@ public class Conveccionador extends Servico {
             int pos_p = p;
             int neg_p = p * (-1);
 
-            centros_de_faixas.add(getLatidadeNoMapa(neg_p) );
+            centros_de_faixas.add(getLatidadeNoMapa(neg_p));
 
-            centros_de_faixas.add(getLatidadeNoMapa(pos_p) );
+            centros_de_faixas.add(getLatidadeNoMapa(pos_p));
 
         }
 
@@ -230,8 +202,8 @@ public class Conveccionador extends Servico {
 
         BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
 
-        Massas eMassa = new Massas(LOCAL, true);
-        Massas tectonica = new Massas(LOCAL);
+        Massas eMassa = MassasDados.getAguaTerra(LOCAL);
+        Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
         int ACIMA = 1;
         int ABAIXO = 3;
@@ -270,9 +242,6 @@ public class Conveccionador extends Servico {
         ImageUtils.exportar(Pintor.colorir(mapa, eMassa, mEscalaMovimento), LOCAL + "build/oceano_correntes.png");
 
         Renderizador r = new Renderizador(ImageUtils.getCopia(ImageUtils.getImagem(LOCAL + "build/oceano_correntes.png")));
-
-
-
 
 
         r.exportarSemAlfa(LOCAL + "build/oceano_correntes.png");
@@ -389,5 +358,39 @@ public class Conveccionador extends Servico {
         }
 
         return ret;
+    }
+
+    public int getConveccao(int p) {
+
+        int parte = mAltura / 6;
+
+        int conv = 0;
+
+        int c = 0;
+
+        while (p >= parte) {
+            c += 1;
+            p -= parte;
+        }
+
+        if (c < 3) {
+            conv = 2 - c;
+        } else {
+            conv = c - 3;
+        }
+
+        return conv;
+    }
+
+
+    public int getConveccaoModular(int p) {
+
+        int v = getConveccao(p);
+
+        if (v < 0) {
+            return v * (-1);
+        }
+
+        return v;
     }
 }

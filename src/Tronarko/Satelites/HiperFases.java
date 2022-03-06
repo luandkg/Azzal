@@ -78,12 +78,12 @@ public enum HiperFases {
 					+ UnnosC.getFase(TozteSatelite).getValor() + " }   ->   "
 					+ HiperFases.getHiperFase(TozteSatelite).toString());
 
-			AgrupadorC.Adicionar(HiperFases.getHiperFase(TozteSatelite));
+			AgrupadorC.guardar(HiperFases.getHiperFase(TozteSatelite));
 
 			TozteSatelite = TozteSatelite.adicionar_Superarko(1);
 		}
 
-		AgrupadorC.Agrupar();
+		AgrupadorC.agrupar();
 
 		ret += ("\n");
 
@@ -109,43 +109,43 @@ public enum HiperFases {
 		return ret;
 	}
 
-	public static String Satelites_Contadores(int eTronarko) {
+	public static String getSatelites_Contadores(int eTronarko) {
 
 		String ret = "";
 
 		Tozte TozteSatelite = new Tozte(1, 1, eTronarko);
 
-		Agrupador AgrupadorC = new Agrupador();
+		Agrupador grupos = new Agrupador();
 
 		for (int g = 0; g < 500; g++) {
 
-			AgrupadorC.Adicionar(HiperFases.getHiperFase(TozteSatelite));
+			grupos.guardar(HiperFases.getHiperFase(TozteSatelite));
 
 			TozteSatelite = TozteSatelite.adicionar_Superarko(1);
 		}
 
-		AgrupadorC.Agrupar();
+		grupos.agrupar();
 
 		ret += ("\n");
 
-		ret += ("\n - Comum : " + AgrupadorC.getComum());
+		ret += ("\n - Comum : " + grupos.getComum());
 		ret += ("\n");
 
-		ret += ("\n - Allet : " + AgrupadorC.getAllett());
-		ret += ("\n - Ettun : " + AgrupadorC.getEttun());
-		ret += ("\n - Unnall : " + AgrupadorC.getUnnall());
+		ret += ("\n - Allet : " + grupos.getAllett());
+		ret += ("\n - Ettun : " + grupos.getEttun());
+		ret += ("\n - Unnall : " + grupos.getUnnall());
 		ret += ("\n");
 
-		ret += ("\n - Allizz : " + AgrupadorC.getAllizz());
-		ret += ("\n - Ettizz : " + AgrupadorC.getEttizz());
-		ret += ("\n - Unnizz : " + AgrupadorC.getUnnizz());
+		ret += ("\n - Allizz : " + grupos.getAllizz());
+		ret += ("\n - Ettizz : " + grupos.getEttizz());
+		ret += ("\n - Unnizz : " + grupos.getUnnizz());
 		ret += ("\n");
 
-		ret += ("\n - Escuridao : " + AgrupadorC.getEscuridao());
-		ret += ("\n - Iluminacao : " + AgrupadorC.getIluminacao());
+		ret += ("\n - Escuridao : " + grupos.getEscuridao());
+		ret += ("\n - Iluminacao : " + grupos.getIluminacao());
 		ret += ("\n");
 
-		ret += ("\n - TODOS : " + AgrupadorC.getTodos());
+		ret += ("\n - TODOS : " + grupos.getTodos());
 
 		return ret;
 	}

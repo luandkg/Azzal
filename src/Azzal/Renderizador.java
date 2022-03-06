@@ -83,11 +83,10 @@ public class Renderizador {
 
         int eTam = mPixels.length;
 
-        int[] img_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
+        //int[] img_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
         for (int yi = 0; yi < img.getHeight(); yi++) {
             for (int xi = 0; xi < img.getWidth(); xi++) {
-
 
                 int rx = x + xi;
                 int ry = y + yi;
@@ -105,6 +104,39 @@ public class Renderizador {
         }
 
     }
+
+    public void drawImagemComAlfa(int x, int y, BufferedImage img) {
+
+        int eTam = mPixels.length;
+
+
+        for (int yi = 0; yi < img.getHeight(); yi++) {
+            for (int xi = 0; xi < img.getWidth(); xi++) {
+
+                int rx = x + xi;
+                int ry = y + yi;
+
+                int ePox = (ry * mLargura) + rx;
+
+                if (ePox >= 0 && ePox < eTam) {
+                    if (rx >= 0 && rx < mLargura && ry >= 0 && ry < mAltura) {
+
+                        int cor = img.getRGB(xi, yi);
+
+                        int alpha = 0xFF & (cor >> 24);
+
+                        if (alpha == 255) {
+                            mPixels[ePox] = cor;
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+    }
+
 
     public void limpar(Cor eCor) {
 
@@ -490,7 +522,7 @@ public class Renderizador {
         int xi = x1 + raio;
         int yi = y1 + raio;
 
-        drawPixel(x1 + raio, y1 , eCor);
+        drawPixel(x1 + raio, y1, eCor);
 
         while (x < y) {
             if (d < 0) {
@@ -589,7 +621,7 @@ public class Renderizador {
 
     }
 
-        public void drawOval_Pintado(Oval eOval, Cor eCor) {
+    public void drawOval_Pintado(Oval eOval, Cor eCor) {
         int x = eOval.getRaioLargura();
         int x2 = eOval.getRaioAltura();
 
@@ -1025,7 +1057,7 @@ public class Renderizador {
             }
 
             //System.out.println("Ambiente : " + eAmb);
-        //    System.out.println("Ambiente com Cor = { Alfa : " + mAmbiente.getAlpha() + " } ");
+            //    System.out.println("Ambiente com Cor = { Alfa : " + mAmbiente.getAlpha() + " } ");
 
         }
 
@@ -1103,7 +1135,7 @@ public class Renderizador {
             }
         }
 
-       // System.out.println("Trocar : " + eTrocar);
+        // System.out.println("Trocar : " + eTrocar);
 
 
     }
@@ -1410,6 +1442,38 @@ public class Renderizador {
         }
 
     }
+
+
+    public BufferedImage toImagem() {
+
+        BufferedImage mExportar = new BufferedImage(mLargura, mAltura, BufferedImage.TYPE_INT_ARGB);
+
+        int[] mExportar_Pixels = ((DataBufferInt) mExportar.getRaster().getDataBuffer()).getData();
+
+        int i = 0;
+        for (int e : mPixels) {
+            mExportar_Pixels[i] = e;
+            i += 1;
+        }
+
+        return mExportar;
+    }
+
+    public BufferedImage toImagemSemAlfa() {
+
+        BufferedImage mExportar = new BufferedImage(mLargura, mAltura, BufferedImage.TYPE_INT_RGB);
+
+        int[] mExportar_Pixels = ((DataBufferInt) mExportar.getRaster().getDataBuffer()).getData();
+
+        int i = 0;
+        for (int e : mPixels) {
+            mExportar_Pixels[i] = e;
+            i += 1;
+        }
+
+        return mExportar;
+    }
+
 
     public void exportarSemAlfa(String eLocal) {
 

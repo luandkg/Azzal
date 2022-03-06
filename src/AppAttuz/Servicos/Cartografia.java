@@ -1,8 +1,9 @@
 package AppAttuz.Servicos;
 
 import AppAttuz.Camadas.Massas;
-import AppAttuz.EscalasPadroes;
-import AppAttuz.Ferramentas.Escala;
+import AppAttuz.Camadas.MassasDados;
+import AppAttuz.Camadas.EscalasPadroes;
+import AppAttuz.Assessorios.Escala;
 import AppAttuz.Ferramentas.Pintor;
 import Luan.Integers;
 import Imaginador.ImageUtils;
@@ -97,6 +98,8 @@ public class Cartografia extends Servico {
     @Override
     public void onInit( ) {
 
+        marcarInicio();
+
         Escala mEscala = EscalasPadroes.getEscalaLatitude();
 
         println("Criando mapa de Latitude....");
@@ -105,13 +108,15 @@ public class Cartografia extends Servico {
         println("Criando mapa de Longitude....");
         genLongitude(LOCAL, mEscala);
 
+        marcarFim();
+        mostrarTempo();
     }
 
     private void genLatitude(String LOCAL, Escala mEscala) {
 
         BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
 
-        Massas eMassa = new Massas(LOCAL);
+        Massas eMassa = MassasDados.getTerraAgua(LOCAL);
 
         Cartografia onCartografia = new Cartografia(LOCAL);
 
@@ -154,7 +159,7 @@ public class Cartografia extends Servico {
 
         BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
 
-        Massas eMassa = new Massas(LOCAL);
+        Massas eMassa = MassasDados.getTerraAgua(LOCAL);
         Cartografia onCartografia = new Cartografia(LOCAL);
 
         for (int y = 0; y < mapa.getHeight(); y++) {

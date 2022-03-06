@@ -102,7 +102,9 @@ public class TX {
 
     }
 
-    public ArrayList<Byte> toListBytes(String eConteudo) {
+    public static ArrayList<Byte> toListBytes(String eConteudo) {
+
+        TX eTX = new TX();
 
         int i = 0;
         int o = eConteudo.length();
@@ -115,7 +117,7 @@ public class TX {
         while (i < o) {
             String letra = String.valueOf(eConteudo.charAt(i));
 
-            int indice = getIndice(letra);
+            int indice = eTX.getIndice(letra);
 
             if (indice >= 0) {
 
@@ -280,7 +282,9 @@ public class TX {
         return texto;
     }
 
-    public String lerDeBytes(ArrayList<Byte> bytes) {
+    public static String lerDeBytes(ArrayList<Byte> bytes) {
+
+        TX eTX = new TX();
 
         String texto = "";
 
@@ -291,7 +295,7 @@ public class TX {
         int ii = 0;
         int oo = bytes.size();
 
-        while (lendo) {
+        while (lendo && (ii<oo)) {
 
             int valor = Inteiro.byteToInt(bytes.get(ii));
             ii += 1;
@@ -305,12 +309,12 @@ public class TX {
                     ii += 1;
 
                     int menos = valor2 - 1;
-                    texto += getCaracter(menos);
+                    texto += eTX.getCaracter(menos);
 
                 } else {
 
                     int menos = valor - 1;
-                    texto += getCaracter(menos);
+                    texto += eTX.getCaracter(menos);
 
                 }
             }

@@ -1,12 +1,13 @@
 package AppAttuz.Servicos;
 
-import AppAttuz.CadaPonto;
+import AppAttuz.Camadas.CadaPonto;
 import AppAttuz.Camadas.Massas;
-import AppAttuz.Camadas.OnData;
-import AppAttuz.EscalasPadroes;
-import AppAttuz.Ferramentas.Escala;
+import AppAttuz.Camadas.MassasDados;
+import AppAttuz.Camadas.DadosQTT;
+import AppAttuz.Camadas.EscalasPadroes;
+import AppAttuz.Assessorios.Escala;
+import AppAttuz.Ferramentas.MassaToQTT;
 import AppAttuz.Ferramentas.Normalizador;
-import Azzal.Cores;
 import Azzal.Utils.Cor;
 import Imaginador.ImageUtils;
 import Servittor.Servico;
@@ -25,12 +26,13 @@ public class Umidade extends Servico {
     @Override
     public void onInit() {
 
+        marcarInicio();
 
         Conveccionador eConveccionador = new Conveccionador(LOCAL);
-        OnData onData = new OnData(LOCAL);
+        DadosQTT dadosQTT = new DadosQTT(LOCAL);
 
-        Massas tectonica = new Massas(LOCAL);
-        Massas dados = new Massas(LOCAL);
+        Massas tectonica = MassasDados.getTerraAgua(LOCAL);
+        Massas dados = MassasDados.getTerraAgua(LOCAL);
         dados.zerar();
 
         BufferedImage mapa_colorindo = ImageUtils.getImagem(LOCAL + "terra.png");
@@ -40,9 +42,9 @@ public class Umidade extends Servico {
 
         int faixa_contador = 0;
 
-        Escala umidade = EscalasPadroes.getEscalaUmidade();
+        Escala escala_umidade = EscalasPadroes.getEscalaUmidade();
 
-        Normalizador norm = new Normalizador(umidade.getMaximo());
+        Normalizador norm = new Normalizador(escala_umidade.getMaximo());
 
         for (Integer faixa : eConveccionador.getCentrosDeLatitudes()) {
 
@@ -62,7 +64,7 @@ public class Umidade extends Servico {
             }
 
             for (int u = pCentral_c; u <= pCentral_t; u++) {
-                umidecer(tectonica, dados, onData, norm, u, comecar, mudanca);
+                umidecer(tectonica, dados, dadosQTT, norm, u, comecar, mudanca);
             }
 
             indo = !indo;
@@ -80,18 +82,30 @@ public class Umidade extends Servico {
             @Override
             public void onPonto(int x, int y) {
                 if (tectonica.isTerra(x, y)) {
-                    mapa_colorindo.setRGB(x, y, umidade.get(norm.get(dados.getValor(x, y)) + 1));
+                    dados.setValor(x, y, norm.get(dados.getValor(x, y)) + 1);
                 }
             }
         });
 
-
+        tectonica.paraCadaPonto(new CadaPonto() {
+            @Override
+            public void onPonto(int x, int y) {
+                if (tectonica.isTerra(x, y)) {
+                    mapa_colorindo.setRGB(x, y, escala_umidade.get(dados.getValor(x,y)));
+                }
+            }
+        });
         // aplicar_grade(tectonica, onCartografia, mapa_colorindo);
 
 
         ImageUtils.exportar(mapa_colorindo, LOCAL + "build/umidade.png");
 
+        System.out.println("Guardar Umidade - QTT");
+        MassaToQTT.salvarTerra(tectonica,dados, LOCAL + "dados/umidade.qtt");
 
+
+        marcarFim();
+        mostrarTempo();
     }
 
 
@@ -137,7 +151,7 @@ public class Umidade extends Servico {
 
     }
 
-    public void umidecer(Massas tectonica, Massas dados, OnData onData, Normalizador norm, int altura_inicio, int xComecar, int mudanca) {
+    public void umidecer(Massas tectonica, Massas dados, DadosQTT dadosQTT, Normalizador norm, int altura_inicio, int xComecar, int mudanca) {
 
 
         double maior = 300.0;
@@ -160,10 +174,18 @@ public class Umidade extends Servico {
 
                     dados.setValor(x, altura_inicio, (int) valor_corrente);
                     norm.adicionar((int) valor_corrente);
+
+                }else{
+                    double antigo = dados.getValor(x, altura_inicio);
+
+                    double valor_corrente = antigo + menor;
+
+                    dados.setValor(x, altura_inicio, (int) valor_corrente);
+                    norm.adicionar((int) valor_corrente);
                 }
 
 
-                if (onData.getAltura(x, altura_inicio) > 3000) {
+                if (dadosQTT.getAltura(x, altura_inicio) > 3000) {
 
                     int co = dados.getValor(x, altura_inicio) + (int) valor;
                     int te = co;

@@ -33,10 +33,10 @@ public class Eventum {
         mOcorrencias.add(new Ocorrencia("Aposta do Trovão", 45, 2, 6507, 1, 3));
 
         mOcorrencias.add(new Ocorrencia("Corrida dos Ventos", 26, 1, 6500, 5, 3));
-        mOcorrencias.add(new Ocorrencia("Olimpíadas de Trannor", 11, 3, 6444, 32, 33));
+        mOcorrencias.add(new Ocorrencia("Olimpíadas de Trannor", 11, 3, 6444, 32, 4));
         mOcorrencias.add(new Ocorrencia("Grande Competição de Izzator", 11, 4, 6500, 25, 5));
 
-        mOcorrencias.add(new Ocorrencia("Fuga do Labirinto", 1, 5, 5227, 20, 100));
+        mOcorrencias.add(new Ocorrencia("Fuga do Labirinto", 1, 5, 5227, 20, 4));
         mOcorrencias.add(new Ocorrencia("Cruzada das Águas", 41, 7, 6501, 5, 3));
         mOcorrencias.add(new Ocorrencia("Emboscada da Terra", 5, 8, 6503, 10, 3));
 
@@ -44,7 +44,7 @@ public class Eventum {
 
         mOcorrencias.add(new Ocorrencia("Festival da Colheita", 26, 10, 6200, 5, 1));
 
-        mOcorrencias.add(new Ocorrencia("Batalha dos Imperadores", 30, 1, 5382, 39, 50));
+        mOcorrencias.add(new Ocorrencia("Batalha dos Imperadores", 30, 1, 5382, 39, 5));
         mOcorrencias.add(new Ocorrencia("Torneio de Hazzo", 11, 9, 5431, 10, 2));
 
         for (Ocorrencia OcorrenciaC : mOcorrencias) {
@@ -657,9 +657,25 @@ public class Eventum {
         }
 
 
-
-
         return ToztesComCor;
+    }
+
+
+    public void alinhar_eventos(ArrayList<TozteCor> infos) {
+
+        String mPassadoInfoNome = "";
+
+        for (TozteCor info : infos) {
+
+            String mAtualInfoNome = info.getNome();
+
+            if (mPassadoInfoNome.contentEquals("Festival da Água") && mAtualInfoNome.contentEquals("Cruzada das Águas")) {
+                info.setNome("Cruzada das Águas");
+            }
+
+            mPassadoInfoNome = info.getNome();
+        }
+
     }
 
     public ArrayList<TozteCor> getToztesComCorHiperarko(int eHiperarko, int eTronarko) {
@@ -789,14 +805,14 @@ public class Eventum {
 
     public Color getCor(String eNome) {
 
-        Color eCor = Color.BLACK;
+        Color eCor = new Color(170, 170, 170);
 
         if (eNome.contains("Reciclum")) {
-            eCor = Color.GRAY;
+            eCor = new Color(140, 140, 140);
         }
 
         if (eNome.contains("Fogo")) {
-            eCor = Color.red;
+            eCor = new Color(255, 20, 60);
         }
 
         if (eNome.contains("Água")) {

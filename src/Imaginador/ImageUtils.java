@@ -1,6 +1,7 @@
 package Imaginador;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +43,20 @@ public class ImageUtils {
         }
 
         return copia;
+    }
+
+    public static BufferedImage criarEmBranco(int largura,int altura) {
+
+
+        BufferedImage imagem = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
+
+        for (int y = 0; y < altura; y++) {
+            for (int x = 0; x < largura; x++) {
+                imagem.setRGB(x, y, Color.WHITE.getRGB());
+            }
+        }
+
+        return imagem;
     }
 
 }

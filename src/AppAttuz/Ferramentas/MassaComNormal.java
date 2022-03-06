@@ -14,4 +14,9 @@ public class MassaComNormal {
 
     public Massas getDados(){return mDados;}
     public Normalizador getNormalizado(){return mNormal;}
+
+    public void setValor(int x,int y,int valor){
+        mNormal.adicionar(valor);
+        mDados.setValor(x, y, valor);
+    }
 }

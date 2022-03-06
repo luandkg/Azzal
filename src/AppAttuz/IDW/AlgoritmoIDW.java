@@ -3,7 +3,7 @@ package AppAttuz.IDW;
 import AppAttuz.Camadas.Massas;
 import AppAttuz.Ferramentas.Espaco2D;
 import AppAttuz.Ferramentas.Normalizador;
-import AppAttuz.Ferramentas.Progressante;
+import AppAttuz.Assessorios.Progressante;
 import Azzal.Formatos.Ponto;
 
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
 package AppAttuz.Mapa;
 
-import AppAttuz.*;
+import AppAttuz.Camadas.CadaPonto;
 import AppAttuz.Camadas.Massas;
 import AppAttuz.Ferramentas.Espaco2D;
 import AppAttuz.Ferramentas.Normalizador;
-import AppAttuz.Ferramentas.Progressante;
+import AppAttuz.Assessorios.Progressante;
 import AppAttuz.IDW.PontoIDW;
 import Luan.fmt;
 
@@ -139,36 +139,16 @@ public class Proximattor {
 
                     if (direita.existe() && esquerda.existe() && acima.existe() && abaixo.existe()) {
 
-                        int p1 = direita.getDistancia();
-                        int p2 = esquerda.getDistancia();
-                        int p3 = acima.getDistancia();
-                        int p4 = abaixo.getDistancia();
+                        PontoDirecionado ePonto = new PontoDirecionado(direita.getDistancia(), direita.getValor(), "DIREITA");
 
-                        int distancia = p1;
-                        int valor = direita.getValor();
+                        escolherMenor(ePonto, esquerda.getDistancia(), esquerda.getValor(), "ESQUERDA");
+                        escolherMenor(ePonto, acima.getDistancia(), acima.getValor(), "ACIMA");
+                        escolherMenor(ePonto, abaixo.getDistancia(), abaixo.getValor(), "ABAIXO");
 
-                        String direcao = "DIREITA";
+                        normalizador.adicionar(ePonto.getValor());
+                        massa.setValor(x, y, ePonto.getValor());
 
-                        if (p2 < distancia) {
-                            distancia = p2;
-                            valor = esquerda.getValor();
-                            direcao = "ESQUERDA";
-                        }
-                        if (p3 < distancia) {
-                            distancia = p3;
-                            valor = acima.getValor();
-                            direcao = "ACIMA";
-                        }
-                        if (p4 < distancia) {
-                            distancia = p4;
-                            valor = abaixo.getValor();
-                            direcao = "ABAIXO";
-                        }
-
-                        normalizador.adicionar(valor);
-                        massa.setValor(x, y, valor);
-
-                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor  , distancia);
+                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, ePonto.getDirecao(), ePonto.getValor(), ePonto.getDistancia());
 
                         progresso.emitir((y * tectonica.getAltura()) + x, v);
 
@@ -192,7 +172,7 @@ public class Proximattor {
                         normalizador.adicionar(valor);
                         massa.setValor(x, y, valor);
 
-                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor  , distancia);
+                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor, distancia);
 
                         progresso.emitir((y * tectonica.getAltura()) + x, v);
 
@@ -219,7 +199,7 @@ public class Proximattor {
                         normalizador.adicionar(valor);
                         massa.setValor(x, y, valor);
 
-                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor  , distancia);
+                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor, distancia);
 
                         progresso.emitir((y * tectonica.getAltura()) + x, v);
 
@@ -236,5 +216,12 @@ public class Proximattor {
 
     }
 
+    public static void escolherMenor(PontoDirecionado ePontoDirecionado, int eDistancia, int eValor, String eDirecao) {
+
+        if (eDistancia < ePontoDirecionado.getDistancia()) {
+            ePontoDirecionado.mudar(eDistancia, eValor, eDirecao);
+        }
+
+    }
 
 }

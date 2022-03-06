@@ -27,4 +27,10 @@ public class Ceu {
     public Fases unnos_getFase(Tozte TozteC) {
         return mUnnos.getFase(TozteC);
     }
+
+
+    public Satelite getAllux(){return mAllux;}
+    public Satelite getEttos(){return mEttos;}
+    public Satelite getUnnos(){return mUnnos;}
+
 }

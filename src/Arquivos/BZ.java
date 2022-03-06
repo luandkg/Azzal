@@ -30,7 +30,6 @@ public class BZ {
 
     }
 
-
     public static void atribuir(String eArquivo, int posicao, String dados) {
 
         int posicionador = posicao * (5 * 1024);
@@ -63,11 +62,13 @@ public class BZ {
 
         int posicionador = indice * (5 * 1024);
 
+       // System.out.println("PROC -->> " + indice + " :: " + posicionador);
+
         ArrayList<Byte> bytes = new ArrayList<Byte>();
 
         try {
 
-            Arquivador arquivador = new Arquivador(eArquivo);
+            Arquivador arquivador = new Arquivador(eArquivo,"r");
 
             if (posicionador < arquivador.getLength()) {
 
@@ -83,6 +84,8 @@ public class BZ {
         }
 
         TX eTX = new TX();
+
+       // System.out.println("Bytes -->> " + bytes.size());
 
         return eTX.lerDeBytes(bytes);
 

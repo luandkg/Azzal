@@ -115,4 +115,22 @@ public class DKGAtributo {
         return valorPadrao;
     }
 
+
+    public boolean isValor(String deve_ser){
+        boolean ret = false;
+
+        if (mValor.contentEquals(deve_ser)){
+            ret=true;
+        }
+        return ret;
+    }
+
+    public boolean isValor(int deve_ser){
+        boolean ret = false;
+
+        if (getInteiro()==deve_ser){
+            ret=true;
+        }
+        return ret;
+    }
 }

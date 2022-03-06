@@ -3568,4 +3568,17 @@ public class G15 implements Fonte {
       mapear(129, 439, 5);
       mapear(151, 439, 5);
     }
+
+    @Override
+    public void escrevaCentralizado(int x, int y, String frase) {
+
+        int largura = getLarguraDe(frase);
+
+        escreva(x - (largura / 2), y, frase);
+
+    }
+
+    public     Renderizador getRenderizador(){return mRenderizador;}
+
+    public Cor getCor(){return null;}
 }

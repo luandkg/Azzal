@@ -1,17 +1,19 @@
 package AppAttuz;
 
-import AppAttuz.Camadas.*;
-import AppAttuz.Ferramentas.Escala;
-import AppAttuz.Ferramentas.Nivelador;
-import AppAttuz.Localizador.GuiaDeViagem;
+import AppAttuz.Assessorios.Escala;
+import AppAttuz.Assessorios.MapaUtilitario;
+import AppAttuz.Assessorios.Nivelador;
+import AppAttuz.Camadas.EscalasPadroes;
+import AppAttuz.Localizador.ProcurarLocalizacao;
+import AppAttuz.Localizador.ViagemIndexar;
 import AppAttuz.Mapa.*;
 import AppAttuz.Politicamente.Cidades;
 import AppAttuz.Politicamente.ListaDeCidades;
 import AppAttuz.Politicamente.NomesEspecificos;
 import AppAttuz.Servicos.*;
 import Arquivos.PreferenciasOrganizadas;
+import Arquivos.QTT;
 import Azzal.*;
-import DKG.DKG;
 import Servittor.Servittor;
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
@@ -32,7 +34,6 @@ import UI.ToggleHorizontal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 public class AppAttuz extends Cena {
@@ -70,12 +71,11 @@ public class AppAttuz extends Cena {
     private Tronarko eTronarko = new Tronarko();
 
     private NomesEspecificos mNomear;
-    private BufferedImage copia;
+    private BufferedImage mImagemDrone;
     private int mais = 0;
 
     private Nivelador mNivelador;
     private Escala mRelevo;
-    private Massas mMassa;
 
     private Cores mCores;
     private DroneCamera mDroneCamera;
@@ -91,6 +91,10 @@ public class AppAttuz extends Cena {
     private ToggleHorizontal mMostrarPontosCidades;
     private ToggleHorizontal mMostrarMares;
 
+    private int mPosicaoX = 0;
+    private int mPosicaoY = 0;
+    private String mValorSelecionado = "";
+
     @Override
     public void iniciar(Windows eWindows) {
 
@@ -100,12 +104,12 @@ public class AppAttuz extends Cena {
 
         mapa = ImageUtils.getImagem(LOCAL + "mapa.png");
 
+      //  mapa = ImageUtils.getImagem(LOCAL + "build/temperatura_verao.png");
 
-        // mapa = ImageUtils.getImagem("/home/luan/Imagens/Mapas/relevo/relevo.png");
+         mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
 
         mapa = Efeitos.preto_branco(mapa);
 
-        mMassa = new Massas(LOCAL, 0, 1);
 
         //Territorios.init(mapa);
         // Biomas.init(mapa);
@@ -214,7 +218,8 @@ public class AppAttuz extends Cena {
 
         //  System.out.println("Estou :: " + mProcurador.ondeEstou(EU, eTronarko.getTozte(), eTronarko.getHazde()));
 
-        copia = ImageUtils.getCopia(mapa);
+        mImagemDrone = ImageUtils.getCopia(mapa);
+        droneOrganizar(mImagemDrone);
 
         // expo();
 
@@ -248,9 +253,9 @@ public class AppAttuz extends Cena {
 
         preferencias_construir();
 
-       // GuiaDeViagem.organizar();
+        // GuiaDeViagem.organizar();
 
-       // GuiaDeViagem.passei(eTronarko.getTozte(),eTronarko.getHazde());
+        // GuiaDeViagem.passei(eTronarko.getTozte(),eTronarko.getHazde());
 
     }
 
@@ -268,13 +273,13 @@ public class AppAttuz extends Cena {
 
     }
 
-    public void expo() {
+    public void droneOrganizar(BufferedImage eImagemDrone) {
 
+        Renderizador gg = new Renderizador(eImagemDrone);
 
         int l = 0;
         for (Local ePonto : mLocais) {
 
-            Renderizador gg = new Renderizador(copia);
 
             gg.drawRect_Pintado(ePonto.getX() * 2, ePonto.getY() * 2, 5, 5, Cor.getRGB(Color.green));
 
@@ -284,7 +289,7 @@ public class AppAttuz extends Cena {
             l += 1;
         }
 
-        ImageUtils.exportar(copia, LOCAL + "territorio.png");
+        //  ImageUtils.exportar(copia, LOCAL + "territorio.png");
 
     }
 
@@ -297,6 +302,26 @@ public class AppAttuz extends Cena {
 
         mClicavel.update(dt, px, py, getWindows().getMouse().isClicked());
 
+        mPosicaoX = 0;
+        mPosicaoY = 0;
+        mValorSelecionado="";
+
+        if (px > X0 && py >= Y0 && px < (mapa.getWidth() + X0) && py < (mapa.getHeight() + Y0)) {
+
+            int agoraX = (px - X0)*2;
+            int agoraY = (py - Y0)*2;
+
+
+            if (mPosicaoX != agoraX || mPosicaoY != agoraY) {
+                mPosicaoX = agoraX;
+                mPosicaoY = agoraY;
+
+                mValorSelecionado = String.valueOf(QTT.pegar(LOCAL + "dados/relevo.qtt", mPosicaoX, mPosicaoY));
+
+
+            }
+        }
+
 
         mCron.atualizar();
         if (mCron.esperado()) {
@@ -307,14 +332,20 @@ public class AppAttuz extends Cena {
                 mais = 0;
             }
 
+            boolean procurar = false;
 
-            Tron eTron = eTronarko.getTronAgora();
-          //  eTron.internalizar_Arco(mais);
+            if (procurar) {
+                Tron eTron = eTronarko.getTronAgora();
+                eTron.internalizar_Arco(mais);
 
-            mViagem.viajar(EU, mLocais);
+                mViagem.viajar(EU, mLocais);
 
-            mProcurador.ondeEstou(EU, eTron.getTozte(), eTron.getHazde());
-            //System.out.println("Localizando...");
+                //mProcurador.ondeEstou(EU, eTron.getTozte(), eTron.getHazde());
+                //System.out.println("Localizando...");
+
+                ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", EU, eTron.getTozte(), eTron.getHazde());
+
+            }
 
         }
 
@@ -438,6 +469,9 @@ public class AppAttuz extends Cena {
         micro.setRenderizador(g);
         pequeno.setRenderizador(g);
 
+
+        pequeno.escreva(1300, 80, " X = " + mPosicaoX + " Y = " + mPosicaoY + " -->> " + mValorSelecionado);
+
         int uu = mViagem.getPercurso().size();
         int ui = 0;
 
@@ -527,7 +561,7 @@ public class AppAttuz extends Cena {
 
         mListaDeCidades.onDraw(g, mLocais);
 
-      //  g.drawRect(EU.getX() + X0, EU.getY() + Y0, 5, 5, mCores.getVermelho());
+        //  g.drawRect(EU.getX() + X0, EU.getY() + Y0, 5, 5, mCores.getVermelho());
 
         ComplexoRender.sinalizar(g, EU.getX() + X0 - 3, EU.getY() + Y0 - 3, 6, mCores.getBranco(), mCores.getVermelho());
         ComplexoRender.sinalizar(g, EU.getX() + X0 - 4, EU.getY() + Y0 - 4, 8, mCores.getBranco(), mCores.getVermelho());
@@ -557,12 +591,12 @@ public class AppAttuz extends Cena {
         pequeno.escreva(570, 80, "" + mNivelador.getNivel());
 
 
-        if (mostrarCidades) {
+        if (mMostrarCidades.getValor()) {
 
             g.drawLinha((EU.getX() + X0) + 2, (EU.getY() + Y0) + 2, 400 + 100, 690, mCores.getLaranja());
 
 
-            g.drawImagem(400, 690, mDroneCamera.onGravar(copia, (EU.getX() * 2) - 100, (EU.getY() * 2) - 100, EU.getX() * 2, EU.getY() * 2));
+            g.drawImagem(400, 690, mDroneCamera.onGravar(mImagemDrone, (EU.getX() * 2) - 100, (EU.getY() * 2) - 100, EU.getX() * 2, EU.getY() * 2));
 
             g.drawRect(400, 690, 200, 240, mCores.getPreto());
 

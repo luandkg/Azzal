@@ -70,6 +70,38 @@ public class STTY {
         return f;
     }
 
+    public static String doubleNumC3(double numero) {
+        String s = String.valueOf(numero);
+        String f = "";
+
+        int e = 0;
+        int c = 3;
+
+        boolean ja = false;
+
+        int i = 0;
+        int o = s.length();
+        while (i < o) {
+            String letra = String.valueOf(s.charAt(i));
+            if (letra.contentEquals(".")) {
+                ja = true;
+                f += letra;
+            } else {
+                if (!ja) {
+                    f += letra;
+                } else {
+                    if (e < c) {
+                        f += letra;
+                    }
+                    e += 1;
+                }
+            }
+            i += 1;
+        }
+
+        return f;
+    }
+
     public static String f2zerado(double numero) {
         String s = String.valueOf(numero);
         String f = "";

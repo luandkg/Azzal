@@ -1,7 +1,10 @@
 package AppAttuz.Servicos;
 
-import AppAttuz.*;
+import AppAttuz.Assessorios.Escala;
+import AppAttuz.Assessorios.MapaUtilitario;
+import AppAttuz.Camadas.EscalasPadroes;
 import AppAttuz.Camadas.Massas;
+import AppAttuz.Camadas.MassasDados;
 import AppAttuz.Ferramentas.*;
 import AppAttuz.IDW.AlgoritmoIDW;
 import AppAttuz.IDW.PontoIDW;
@@ -30,8 +33,8 @@ public class Expansor extends Servico {
         println("Criando area de expansao ....");
 
 
-        Massas massa = new Massas(LOCAL, true);
-        Massas tectonica = new Massas(LOCAL, true);
+        Massas massa = MassasDados.getAguaTerra(LOCAL);
+        Massas tectonica = MassasDados.getAguaTerra(LOCAL);
 
         println("Tudo :: " + massa.getContagem());
 

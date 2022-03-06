@@ -161,6 +161,19 @@ public class fmt {
         return print_final(texto, objetos);
     }
 
+    public static String print(String texto, Object o1, Object o2, Object o3, Object o4,Object o5,Object o6) {
+
+        ArrayList<Object> objetos = new ArrayList<Object>();
+        objetos.add(o1);
+        objetos.add(o2);
+        objetos.add(o3);
+        objetos.add(o4);
+        objetos.add(o5);
+        objetos.add(o6);
+
+        return print_final(texto, objetos);
+    }
+
     public  static  String getN8(long e) {
         String v = String.valueOf(e);
         while (v.length() < 8) {

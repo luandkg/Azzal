@@ -30,7 +30,7 @@ public class FonteRunTime implements Fonte {
         mLetras = new ArrayList<Letra>();
 
 
-        String sequencia = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZçÇ_0123456789-<>.,:;/\\+-*=()[]{}!@#$%ºª";
+        String sequencia = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZçÇ_0123456789-–<>.,:;/\\+-*=()[]{}!@#$%ºª";
         sequencia += "áàâãäéèêẽëíìîĩïóòôõöúùûũü";
         sequencia += "ÁÀÂÃÄÉÈÊẼËÍÌÎĨÏÓÒÔÕÖÚÙÛŨÜ";
         sequencia += "\"\t";
@@ -370,6 +370,14 @@ public class FonteRunTime implements Fonte {
         }
     }
 
+    @Override
+    public void escrevaCentralizado(int x, int y, String frase) {
+
+        int largura = getLarguraDe(frase);
+
+        escreva(x - (largura / 2), y, frase);
+
+    }
 
     public int getLarguraDe(String frase) {
 
@@ -405,4 +413,7 @@ public class FonteRunTime implements Fonte {
         return x;
     }
 
+    public     Renderizador getRenderizador(){return mRenderizador;}
+
+    public Cor getCor(){return mCor;}
 }

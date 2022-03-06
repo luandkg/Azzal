@@ -23,6 +23,12 @@ public class DKG {
         parserDKGC.parse(Texto.Ler(eArquivo), this);
     }
 
+
+    public void parser(String eTexto){
+        ParserDKG parserDKGC = new ParserDKG();
+        parserDKGC.parse(eTexto, this);
+    }
+
     public void salvar(String eArquivo){
 
         EscritorDKG escritor = new EscritorDKG();

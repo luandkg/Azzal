@@ -1,5 +1,6 @@
 package AppAttuz.Ferramentas;
 
+import AppAttuz.Assessorios.Unicidade;
 import Imaginador.ImageUtils;
 
 import java.awt.image.BufferedImage;

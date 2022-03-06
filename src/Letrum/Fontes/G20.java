@@ -4424,4 +4424,17 @@ private void colocar(int x, int y, int q) {
 		   mapear(176,504,7);
 		   mapear(206,504,7);
 	}
+
+	@Override
+	public void escrevaCentralizado(int x, int y, String frase) {
+
+		int largura = getLarguraDe(frase);
+
+		escreva(x - (largura / 2), y, frase);
+
+	}
+
+	public     Renderizador getRenderizador(){return mRenderizador;}
+
+	public Cor getCor(){return null;}
 }

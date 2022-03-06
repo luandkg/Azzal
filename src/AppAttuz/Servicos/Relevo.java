@@ -1,13 +1,16 @@
 package AppAttuz.Servicos;
 
-import AppAttuz.*;
+import AppAttuz.Assessorios.Escala;
+import AppAttuz.Assessorios.MapaUtilitario;
+import AppAttuz.Camadas.EscalasPadroes;
 import AppAttuz.Camadas.Massas;
+import AppAttuz.Camadas.MassasDados;
 import AppAttuz.Ferramentas.*;
 import AppAttuz.IDW.AlgoritmoIDW;
 import AppAttuz.IDW.PontoIDW;
 import AppAttuz.Mapa.Local;
 import AppAttuz.Mapa.Proximattor;
-import Azzal.Formatos.Ponto;
+import Arquivos.QTT;
 import Azzal.Renderizador;
 import Azzal.Utils.Cor;
 import Imaginador.ImageUtils;
@@ -18,7 +21,6 @@ import Servittor.Servico;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Relevo extends Servico {
 
@@ -31,26 +33,31 @@ public class Relevo extends Servico {
     @Override
     public void onInit() {
 
+        marcarInicio();
+
         println("Criando relevo ....");
 
 
         onTerra(LOCAL);
         onAgua(LOCAL);
 
-        unir(LOCAL);
+        UnirMapas.unir(LOCAL,"build/terra.png","build/agua.png","build/relevo.png");
 
+        marcarFim();
+        mostrarTempo();
     }
 
     private void onTerra(String LOCAL) {
 
-        Massas massa = new Massas(LOCAL);
-        Massas tectonica = new Massas(LOCAL);
+        Massas massa = MassasDados.getTerraAgua(LOCAL);
+        Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
-        println("Tudo :: " + massa.getContagem());
+        // println("Tudo :: " + massa.getContagem());
+        //println("Agua  :: " + massa.getContagemAgua() + " -->> " + massa.getProporcaoAgua());
+        // println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
 
-        println("Agua  :: " + massa.getContagemAgua() + " -->> " + massa.getProporcaoAgua());
-        println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
-
+        println("Agua  " + " -->> " + massa.getProporcaoAgua());
+        println("Terra " + " -->> " + massa.getProporcaoTerra());
 
         BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
 
@@ -61,7 +68,7 @@ public class Relevo extends Servico {
         ArrayList<Local> ls_valores_marcados = MapaUtilitario.toLocalNormalizado(MapaUtilitario.obterLocais(LOCAL + "terra.txt"));
 
         for (int nivel = 1; nivel <= 10; nivel++) {
-            marcar_simples(tectonica, massa, massa.getTerra(), MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)), nivel);
+            Pontuadores.marcarPontos(tectonica, massa, massa.getTerra(), MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)), nivel);
         }
 
 
@@ -81,8 +88,8 @@ public class Relevo extends Servico {
 
         Proximattor.porProximidade(tectonica, tectonica.getTerra(), massa, normalizador, eixos, 10);
 
-        System.out.println("Maior :: " + getMaior(tectonica, tectonica.getTerra(), massa));
-        System.out.println("Menor :: " + getMenor(tectonica, tectonica.getTerra(), massa));
+        //System.out.println("Maior :: " + Pontuadores.getMaior(tectonica, tectonica.getTerra(), massa));
+        //System.out.println("Menor :: " + Pontuadores.getMenor(tectonica, tectonica.getTerra(), massa));
 
 
         // MapaRender.renderiza(mapa, tectonica, tectonica.getTerra(), massa, mRelevo, normalizador, LOCAL + "build/terra.png");
@@ -91,6 +98,30 @@ public class Relevo extends Servico {
         //normalizador.stock();
 
         MapaRender.equilibrador(tectonica, tectonica.getTerra(), massa, mRelevo, normalizador);
+
+
+        System.out.println("Guardar Relevo");
+
+        QTT eRelevoQTT = QTT.criar(tectonica.getLargura(), tectonica.getAltura());
+
+
+        for (int y = 0; y < massa.getAltura(); y++) {
+            for (int x = 0; x < massa.getLargura(); x++) {
+
+                if (tectonica.isTerra(x, y)) {
+                    int n = massa.getValor(x, y);
+                    eRelevoQTT.setValor(x, y, (n * 100));
+                } else {
+                    eRelevoQTT.setValor(x, y, 0);
+                }
+
+            }
+        }
+
+        QTT.guardar(LOCAL + "dados/relevo.qtt", eRelevoQTT);
+
+        System.out.println("Guardar Relevo - Concluido !");
+
 
         BufferedImage mapa_renderizado = Pintor.colorir(mapa, massa, mRelevo);
 
@@ -131,13 +162,13 @@ public class Relevo extends Servico {
 
     private void onAgua(String LOCAL) {
 
-        Massas massa = new Massas(LOCAL, true);
-        Massas tectonica = new Massas(LOCAL, true);
+        Massas massa = MassasDados.getAguaTerra(LOCAL);
+        Massas tectonica = MassasDados.getAguaTerra(LOCAL);
 
-        println("Tudo :: " + massa.getContagem());
+       // println("Tudo :: " + massa.getContagem());
 
-        println("Agua  :: " + massa.getContagemAgua() + " -->> " + massa.getProporcaoAgua());
-        println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
+     //   println("Agua  :: " + massa.getContagemAgua() + " -->> " + massa.getProporcaoAgua());
+       // println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
 
 
         BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
@@ -148,21 +179,21 @@ public class Relevo extends Servico {
 
         ArrayList<Local> ls_valores_marcados = MapaUtilitario.toLocalNormalizado(MapaUtilitario.obterLocais(LOCAL + "agua.txt"));
 
-        System.out.println(" -->> TODOS :: " + ls_valores_marcados.size());
+     //   System.out.println(" -->> TODOS :: " + ls_valores_marcados.size());
 
         for (int nivel = 1; nivel <= 10; nivel++) {
-            marcar_simples(tectonica, massa, massa.getAgua(), MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)), nivel);
-            System.out.println(" -->> " + nivel + ":: " + MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)).size());
+            Pontuadores.marcarPontos(tectonica, massa, massa.getAgua(), MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)), nivel);
+         //   System.out.println(" -->> " + nivel + ":: " + MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)).size());
         }
 
 
         ArrayList<PontoIDW> eixos = AlgoritmoIDW.getEixos(tectonica, tectonica.getAgua(), massa);
 
-        System.out.println(" -->> OBITIDOS :: " + eixos.size());
+       // System.out.println(" -->> OBITIDOS :: " + eixos.size());
 
         ArrayList<PontoIDW> novos = ExpansorDeLimite.expandir(eixos, tectonica);
         eixos.addAll(novos);
-        System.out.println(" -->> EXPANDIDOS :: " + eixos.size());
+       // System.out.println(" -->> EXPANDIDOS :: " + eixos.size());
 
 
         for (PontoIDW eixo : eixos) {
@@ -179,23 +210,45 @@ public class Relevo extends Servico {
 
         Proximattor.porProximidade(tectonica, tectonica.getAgua(), massa, normalizador, eixos, 10);
 
-        System.out.println("Maior :: " + getMaior(tectonica, tectonica.getAgua(), massa));
-        System.out.println("Menor :: " + getMenor(tectonica, tectonica.getAgua(), massa));
+     //   System.out.println("Maior :: " + getMaior(tectonica, tectonica.getAgua(), massa));
+       // System.out.println("Menor :: " + getMenor(tectonica, tectonica.getAgua(), massa));
 
 
         // MapaRender.renderiza(mapa, tectonica, tectonica.getTerra(), massa, mRelevo, normalizador, LOCAL + "build/terra.png");
 
         normalizador.equilibrar();
-        normalizador.stock();
+       // normalizador.stock();
+
 
         //MapaRender.equilibrador(tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador);
 
 
         //agua_legenda(mapa,massa,mRelevo_aquatico);
 
-         MapaRender.renderiza(mapa, tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador, LOCAL + "build/agua.png");
+        MapaRender.renderiza(mapa, tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador, LOCAL + "build/agua.png");
 
-       // ImageUtils.exportar(Pintor.colorir(mapa, massa, mRelevo_aquatico), LOCAL + "build/agua.png");
+        QTT eRelevoQTT = QTT.getTudo(LOCAL + "dados/relevo.qtt");
+
+        for (int y = 0; y < massa.getAltura(); y++) {
+            for (int x = 0; x < massa.getLargura(); x++) {
+
+                if (tectonica.isAgua(x, y)) {
+
+                    int n = massa.getValor(x, y);
+                    int valor = -(n * 100);
+
+                    eRelevoQTT.setValor(x, y, valor);
+
+                    //QTT.alterar(LOCAL + "dados/relevo.qtt", x,y, valor);
+
+                }
+
+            }
+        }
+
+        QTT.guardar(LOCAL + "dados/relevo.qtt", eRelevoQTT);
+
+        // ImageUtils.exportar(Pintor.colorir(mapa, massa, mRelevo_aquatico), LOCAL + "build/agua.png");
 
         println("-->> PRONTO !");
 
@@ -223,92 +276,5 @@ public class Relevo extends Servico {
 
     }
 
-
-    private void unir(String LOCAL) {
-
-        Massas massa = new Massas(LOCAL);
-
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
-
-        BufferedImage terra = ImageUtils.getImagem(LOCAL + "build/terra.png");
-        BufferedImage mar = ImageUtils.getImagem(LOCAL + "build/agua.png");
-
-        for (int y = 0; y < mapa.getHeight(); y++) {
-            for (int x = 0; x < mapa.getWidth(); x++) {
-                if (massa.isTerra(x, y)) {
-                    mapa.setRGB(x, y, terra.getRGB(x, y));
-                } else {
-                    mapa.setRGB(x, y, mar.getRGB(x, y));
-                }
-            }
-        }
-
-
-        ImageUtils.exportar(mapa, LOCAL + "build/relevo.png");
-
-    }
-
-
-    private void marcar_simples(Massas tectonica, Massas massa, int VALOR_PADRAO, ArrayList<Ponto> pt_montanhas, int v) {
-
-        System.out.println(" -->> " + v + " ENTRADA " + pt_montanhas.size());
-
-        AlgoritmosDeMapa am = new AlgoritmosDeMapa();
-
-        ArrayList<Ponto> n2 = am.expandir_em4(pt_montanhas, 10);
-        ArrayList<Ponto> n3 = am.expandir_em4(n2, 20);
-        ArrayList<Ponto> n4 = am.expandir_em4(n3, 20);
-        ArrayList<Ponto> n5 = am.expandir_em4(n4, 20);
-
-        Random eSorte = new Random();
-
-        for (Ponto ePonto : pt_montanhas) {
-            if (tectonica.getValor(ePonto.getX(), ePonto.getY()) == VALOR_PADRAO) {
-                massa.setValor(ePonto.getX(), ePonto.getY(), (v * 100) + eSorte.nextInt(100));
-            }
-        }
-
-    }
-
-    public static int getMaior(Massas tectonica, int TECTONICA_VALOR, Massas massa) {
-
-        final int[] maior = {0};
-
-        tectonica.paraCadaPonto(new CadaPonto() {
-            @Override
-            public void onPonto(int x, int y) {
-
-                if (tectonica.getValor(x, y) == TECTONICA_VALOR) {
-                    int corrente = massa.getValor(x, y);
-                    if (corrente > maior[0]) {
-                        maior[0] = corrente;
-                    }
-                }
-            }
-        });
-
-        return maior[0];
-    }
-
-    public static int getMenor(Massas tectonica, int TECTONICA_VALOR, Massas massa) {
-
-
-        final int[] menor = {Integer.MAX_VALUE};
-
-        tectonica.paraCadaPonto(new CadaPonto() {
-            @Override
-            public void onPonto(int x, int y) {
-
-                if (tectonica.getValor(x, y) == TECTONICA_VALOR) {
-                    int corrente = massa.getValor(x, y);
-                    if (corrente < menor[0]) {
-                        menor[0] = corrente;
-                    }
-                }
-            }
-        });
-
-        return menor[0];
-    }
 
 }

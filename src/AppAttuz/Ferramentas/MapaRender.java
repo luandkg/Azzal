@@ -1,5 +1,6 @@
 package AppAttuz.Ferramentas;
 
+import AppAttuz.Assessorios.Escala;
 import AppAttuz.Camadas.Massas;
 import Imaginador.ImageUtils;
 
@@ -26,6 +27,20 @@ public class MapaRender {
 
         equilibrador(tectonica, VALOR_PADRAO, massa, mRelevo, normalizador);
         ImageUtils.exportar(Pintor.colorir(mapa, massa, mRelevo), arq);
+
+    }
+
+    public static void renderiza(BufferedImage mapa, Massas tectonica, int VALOR_PADRAO, MassaComNormal eMassaComNormal, Escala mRelevo, String arq) {
+
+        equilibrador(tectonica, VALOR_PADRAO, eMassaComNormal.getDados(), mRelevo, eMassaComNormal.getNormalizado());
+        ImageUtils.exportar(Pintor.colorir(mapa, eMassaComNormal.getDados(), mRelevo), arq);
+
+    }
+
+    public static BufferedImage renderizaImagem(BufferedImage mapa, Massas tectonica, int VALOR_PADRAO, MassaComNormal eMassaComNormal, Escala mRelevo) {
+
+        equilibrador(tectonica, VALOR_PADRAO, eMassaComNormal.getDados(), mRelevo, eMassaComNormal.getNormalizado());
+        return Pintor.colorir(mapa, eMassaComNormal.getDados(), mRelevo);
 
     }
 

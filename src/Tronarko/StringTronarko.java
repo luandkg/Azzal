@@ -75,11 +75,21 @@ public class StringTronarko {
         return ret;
     }
 
-    public int getTotalSuperarkos(int t, int h, int s) {
-        return (t * 500) + (h * 50) + s;
+
+    public Tozte getTozte(String entrada){
+
+        int t = Integer.parseInt(getTronarko(entrada));
+        int h = Integer.parseInt(getHiperarko(entrada));
+        int s = Integer.parseInt(getSuperarko(entrada));
+
+        return new Tozte(s,h,t);
     }
 
-    public int getTotalIttas(int a, int i) {
-        return ((a * 100) + i);
+    public Hazde getHazdeDeComplexo(String entrada){
+
+        int a = Integer.parseInt(getArkoFormatoComplexo(entrada));
+        int i = Integer.parseInt(getIttasFormatoComplexo(entrada));
+
+        return new Hazde(a,i,0);
     }
 }

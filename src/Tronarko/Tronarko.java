@@ -33,6 +33,8 @@ import java.util.Random;
 //	ATUALIZACAO 8  : 30/03/2020 - Avisos
 //	ATUALIZACAO 9  : 25/04/2021 - ReOrganizacao do Pacote Tronarko
 //	ATUALIZACAO 10 : 15/05/2021 - Hizarkos Com Cor
+//  ATUALIZACAO 11 : 06/03/2022 - Fases GIBOSAS DOS SATELITES
+
 
 public class Tronarko {
 

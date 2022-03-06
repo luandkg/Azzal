@@ -82,8 +82,7 @@ public class Hazde {
         }
 
 
-
-        texto = p1 + ":" + p2 ;
+        texto = p1 + ":" + p2;
 
         return texto;
     }
@@ -128,17 +127,28 @@ public class Hazde {
         int eIttas = 0;
         int eArcos = 0;
 
-        while (eEttons > 100) {
+        while (eEttons >= 100) {
             eEttons -= 100;
             eIttas += 1;
         }
 
-        while (eIttas > 100) {
+        while (eIttas >= 100) {
             eIttas -= 100;
             eArcos += 1;
         }
 
-        return "" + eArcos + ":" + eIttas + ":" + eEttons;
+        String sIttas = String.valueOf(eIttas);
+        String sEttons = String.valueOf(eEttons);
+
+        if (sIttas.length()==1){
+            sIttas="0" + sIttas;
+        }
+
+        if (sEttons.length()==1){
+            sEttons="0" + sEttons;
+        }
+
+        return "" + eArcos + ":" + sIttas + ":" + sEttons;
     }
 
     public Periarkos getPeriarko() {
@@ -417,5 +427,8 @@ public class Hazde {
         return resposta;
     }
 
+    public int getIttasTotal() {
+        return (mArkos * 100) + mIttas;
+    }
 }
 

@@ -3,310 +3,318 @@ package Tronarko.Satelites;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import Tronarko.Intervalos.Tozte_Intervalo;
 import Tronarko.Tozte;
 import Tronarko.TozteCor;
 
 public class MapaCelestial {
 
-	// TRES
-	public Iluminacao getIluminacao() {
-		return new Iluminacao();
-	}
+    // TRES
+    public Iluminacao getIluminacao() {
+        return new Iluminacao();
+    }
 
-	public Escuridao getEscuridao() {
-		return new Escuridao();
-	}
+    public Escuridao getEscuridao() {
+        return new Escuridao();
+    }
 
-	// DUAS
-	public Allett getAllett() {
-		return new Allett();
-	}
+    // DUAS
+    public Allett getAllett() {
+        return new Allett();
+    }
 
-	public Unnall getUnnall() {
-		return new Unnall();
-	}
+    public Unnall getUnnall() {
+        return new Unnall();
+    }
 
-	public Ettun getEttun() {
-		return new Ettun();
-	}
+    public Ettun getEttun() {
+        return new Ettun();
+    }
 
-	// UMA
-	public Allizz getAllizz() {
-		return new Allizz();
-	}
+    // UMA
+    public Allizz getAllizz() {
+        return new Allizz();
+    }
 
-	public Ettizz getEttizz() {
-		return new Ettizz();
-	}
+    public Ettizz getEttizz() {
+        return new Ettizz();
+    }
 
-	public Unnizz getUnnizz() {
-		return new Unnizz();
-	}
+    public Unnizz getUnnizz() {
+        return new Unnizz();
+    }
 
 
+    public void mostrarOcorrencias(ArrayList<Tozte_Intervalo> ocorrencias) {
 
-	public ArrayList<TozteCor> getToztesComCor_Allux(int eTronarko) {
+        for (Tozte_Intervalo ocorrencia : ocorrencias) {
+            System.out.println(ocorrencia.getNome() + " : " + ocorrencia.getInicio().toString() + " a " + ocorrencia.getFim().getTexto() + " com : " + ocorrencia.getSuperarkos() + " Superarkos ");
+        }
 
-		ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+    }
 
-		Allux AlluxC = new Allux();
 
-		for (int h = 1; h <= 10; h++) {
+    public ArrayList<TozteCor> getToztesComCor_Allux(int eTronarko) {
 
-			for (int s = 1; s <= 50; s++) {
+        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
 
-				Tozte TozteC = new Tozte(s, h, eTronarko);
+        Allux AlluxC = new Allux();
 
-				Fases FaseC = AlluxC.getFase(TozteC);
+        for (int h = 1; h <= 10; h++) {
 
-				switch (FaseC) {
-				case CHEIA:
-					ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
-					break;
-				case NOVA:
-					ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
-					break;
-				case MINGUANTE:
-					ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
-					break;
-				case CRESCENTE:
-					ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
-					break;
-				}
+            for (int s = 1; s <= 50; s++) {
 
-			}
+                Tozte TozteC = new Tozte(s, h, eTronarko);
 
-		}
+                Fases FaseC = AlluxC.getFase(TozteC);
 
-		return ToztesComCor;
-	}
+                switch (FaseC) {
+                    case CHEIA:
+                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
+                        break;
+                    case NOVA:
+                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
+                        break;
+                    case MINGUANTE:
+                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
+                        break;
+                    case CRESCENTE:
+                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
+                        break;
+                }
 
-	public ArrayList<TozteCor> getToztesComCor_Ettos(int eTronarko) {
+            }
 
-		ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        }
 
-		Ettos EttosC = new Ettos();
+        return ToztesComCor;
+    }
 
-		for (int h = 1; h <= 10; h++) {
+    public ArrayList<TozteCor> getToztesComCor_Ettos(int eTronarko) {
 
-			for (int s = 1; s <= 50; s++) {
+        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
 
-				Tozte TozteC = new Tozte(s, h, eTronarko);
+        Ettos EttosC = new Ettos();
 
-				Fases FaseC = EttosC.getFase(TozteC);
+        for (int h = 1; h <= 10; h++) {
 
-				switch (FaseC) {
-				case CHEIA:
-					ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
-					break;
-				case NOVA:
-					ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
-					break;
-				case MINGUANTE:
-					ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
-					break;
-				case CRESCENTE:
-					ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
-					break;
-				}
+            for (int s = 1; s <= 50; s++) {
 
-			}
+                Tozte TozteC = new Tozte(s, h, eTronarko);
 
-		}
+                Fases FaseC = EttosC.getFase(TozteC);
 
-		return ToztesComCor;
-	}
+                switch (FaseC) {
+                    case CHEIA:
+                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
+                        break;
+                    case NOVA:
+                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
+                        break;
+                    case MINGUANTE:
+                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
+                        break;
+                    case CRESCENTE:
+                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
+                        break;
+                }
 
-	public ArrayList<TozteCor> getToztesComCor_Todos(int eTronarko) {
+            }
 
-		ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        }
 
-		Allux FaseAllux = new Allux();
-		Ettos FaseEttos = new Ettos();
-		Unnos FaseUnnos = new Unnos();
+        return ToztesComCor;
+    }
 
-		for (int h = 1; h <= 10; h++) {
+    public ArrayList<TozteCor> getToztesComCor_Todos(int eTronarko) {
 
-			for (int s = 1; s <= 50; s++) {
+        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
 
-				Tozte TozteC = new Tozte(s, h, eTronarko);
+        Allux FaseAllux = new Allux();
+        Ettos FaseEttos = new Ettos();
+        Unnos FaseUnnos = new Unnos();
 
-				Fases FaseAlluxC = FaseAllux.getFase(TozteC);
-				Fases FaseEttosC = FaseEttos.getFase(TozteC);
-				Fases FaseUnnosC = FaseUnnos.getFase(TozteC);
+        for (int h = 1; h <= 10; h++) {
 
-			
-				
-				// TRES
-				if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
-					ToztesComCor.add(new TozteCor("ILUMUNAÇAO", TozteC, Color.GRAY));
-				}
+            for (int s = 1; s <= 50; s++) {
 
-				if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
-					ToztesComCor.add(new TozteCor("ESCURIDÃO", TozteC, Color.BLACK));
-				}
+                Tozte TozteC = new Tozte(s, h, eTronarko);
 
-				// DUAS
-				if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
-					ToztesComCor.add(new TozteCor("ALLET", TozteC, Color.ORANGE));
-				}
-				
-				if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
-					ToztesComCor.add(new TozteCor("UNNALL", TozteC, Color.GREEN));
-				}
-				if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
-					ToztesComCor.add(new TozteCor("ETTUN", TozteC, new Color(135,31,120)));
-				}
-				
-				// UM
-				if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
-					ToztesComCor.add(new TozteCor("ALLIZZ", TozteC, Color.YELLOW));
-				}
-				
-				if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
-					ToztesComCor.add(new TozteCor("ETTIZZ", TozteC, Color.RED));
-				}
-				if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
-					ToztesComCor.add(new TozteCor("UNNIZZ", TozteC, Color.BLUE));
-				}
-			}
+                Fases FaseAlluxC = FaseAllux.getFase(TozteC);
+                Fases FaseEttosC = FaseEttos.getFase(TozteC);
+                Fases FaseUnnosC = FaseUnnos.getFase(TozteC);
 
-		}
 
-		return ToztesComCor;
-	}
+                // TRES
+                if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
+                    ToztesComCor.add(new TozteCor("ILUMUNAÇAO", TozteC, Color.GRAY));
+                }
 
-	public ArrayList<TozteCor> getToztesComCor_Unnos(int eTronarko) {
+                if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
+                    ToztesComCor.add(new TozteCor("ESCURIDÃO", TozteC, Color.BLACK));
+                }
 
-		ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+                // DUAS
+                if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
+                    ToztesComCor.add(new TozteCor("ALLET", TozteC, Color.ORANGE));
+                }
 
-		Unnos UnnosC = new Unnos();
+                if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
+                    ToztesComCor.add(new TozteCor("UNNALL", TozteC, Color.GREEN));
+                }
+                if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
+                    ToztesComCor.add(new TozteCor("ETTUN", TozteC, new Color(135, 31, 120)));
+                }
 
-		for (int h = 1; h <= 10; h++) {
+                // UM
+                if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
+                    ToztesComCor.add(new TozteCor("ALLIZZ", TozteC, Color.YELLOW));
+                }
 
-			for (int s = 1; s <= 50; s++) {
+                if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
+                    ToztesComCor.add(new TozteCor("ETTIZZ", TozteC, Color.RED));
+                }
+                if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
+                    ToztesComCor.add(new TozteCor("UNNIZZ", TozteC, Color.BLUE));
+                }
+            }
 
-				Tozte TozteC = new Tozte(s, h, eTronarko);
+        }
 
-				Fases FaseC = UnnosC.getFase(TozteC);
+        return ToztesComCor;
+    }
 
-				switch (FaseC) {
-				case CHEIA:
-					ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
-					break;
-				case NOVA:
-					ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
-					break;
-				case MINGUANTE:
-					ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
-					break;
-				case CRESCENTE:
-					ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
-					break;
-				}
+    public ArrayList<TozteCor> getToztesComCor_Unnos(int eTronarko) {
 
-			}
+        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
 
-		}
+        Unnos UnnosC = new Unnos();
 
-		return ToztesComCor;
-	}
+        for (int h = 1; h <= 10; h++) {
 
-	public static class Allux extends Satelite {
+            for (int s = 1; s <= 50; s++) {
 
-		public Allux() {
-			super("ALLUX", new Tozte(31, 6, 3856), 10, "AMARELO");
-		}
+                Tozte TozteC = new Tozte(s, h, eTronarko);
 
-	}
-	
-	public static class Ettos extends Satelite {
+                Fases FaseC = UnnosC.getFase(TozteC);
 
-		public Ettos() {
-			super("ETTOS", new Tozte(12, 8, 4727), 33, "VERMELHO");
-		}
+                switch (FaseC) {
+                    case CHEIA:
+                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
+                        break;
+                    case NOVA:
+                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
+                        break;
+                    case MINGUANTE:
+                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
+                        break;
+                    case CRESCENTE:
+                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
+                        break;
+                }
 
-	}
+            }
 
-	public static class Unnos extends Satelite {
+        }
 
-		public Unnos() {
-			super("UNNOS", new Tozte(18, 10, 4838), 22, "AZUL");
-		}
+        return ToztesComCor;
+    }
 
-	}
+    public static class Allux extends Satelite {
 
-	
-	public static class Iluminacao extends Satelites {
+        public Allux() {
+            super("ALLUX", new Tozte(31, 6, 3856), 10, "AMARELO");
+        }
 
-		public Iluminacao() {
+    }
 
-			super("Iluminação", Fases.CHEIA, Fases.CHEIA, Fases.CHEIA);
-		}
+    public static class Ettos extends Satelite {
 
-	}
+        public Ettos() {
+            super("ETTOS", new Tozte(12, 8, 4727), 33, "VERMELHO");
+        }
 
-	public static class Escuridao extends Satelites {
+    }
 
-		public Escuridao() {
+    public static class Unnos extends Satelite {
 
-			super("Escuridão", Fases.NOVA, Fases.NOVA, Fases.NOVA);
-		}
+        public Unnos() {
+            super("UNNOS", new Tozte(18, 10, 4838), 22, "AZUL");
+        }
 
-	}
+    }
 
-	public static class Allett extends Satelites {
 
-		public Allett() {
+    public static class Iluminacao extends ObservadorLunar {
 
-			super("Allett", Fases.CHEIA, Fases.CHEIA, Fases.NOVA);
-		}
+        public Iluminacao() {
 
-	}
+            super("Iluminação", Fases.CHEIA, Fases.CHEIA, Fases.CHEIA);
+        }
 
-	public static class Unnall extends Satelites {
+    }
 
-		public Unnall() {
+    public static class Escuridao extends ObservadorLunar {
 
-			super("Unnall", Fases.CHEIA, Fases.NOVA, Fases.CHEIA);
-		}
+        public Escuridao() {
 
-	}
+            super("Escuridão", Fases.NOVA, Fases.NOVA, Fases.NOVA);
+        }
 
-	public static class Ettun extends Satelites {
+    }
 
-		public Ettun() {
+    public static class Allett extends ObservadorLunar {
 
-			super("Ettun", Fases.NOVA, Fases.CHEIA, Fases.CHEIA);
-		}
+        public Allett() {
 
-	}
+            super("Allett", Fases.CHEIA, Fases.CHEIA, Fases.NOVA);
+        }
 
-	public static class Allizz extends Satelites {
+    }
 
-		public Allizz() {
+    public static class Unnall extends ObservadorLunar {
 
-			super("Allizz", Fases.CHEIA, Fases.NOVA, Fases.NOVA);
-		}
+        public Unnall() {
 
-	}
+            super("Unnall", Fases.CHEIA, Fases.NOVA, Fases.CHEIA);
+        }
 
-	public static class Ettizz extends Satelites {
+    }
 
-		public Ettizz() {
+    public static class Ettun extends ObservadorLunar {
 
-			super("Ettizz", Fases.NOVA, Fases.CHEIA, Fases.NOVA);
-		}
+        public Ettun() {
 
-	}
+            super("Ettun", Fases.NOVA, Fases.CHEIA, Fases.CHEIA);
+        }
 
-	public static class Unnizz extends Satelites {
+    }
 
-		public Unnizz() {
+    public static class Allizz extends ObservadorLunar {
 
-			super("Unnizz", Fases.NOVA, Fases.NOVA, Fases.CHEIA);
-		}
+        public Allizz() {
 
-	}
+            super("Allizz", Fases.CHEIA, Fases.NOVA, Fases.NOVA);
+        }
+
+    }
+
+    public static class Ettizz extends ObservadorLunar {
+
+        public Ettizz() {
+
+            super("Ettizz", Fases.NOVA, Fases.CHEIA, Fases.NOVA);
+        }
+
+    }
+
+    public static class Unnizz extends ObservadorLunar {
+
+        public Unnizz() {
+
+            super("Unnizz", Fases.NOVA, Fases.NOVA, Fases.CHEIA);
+        }
+
+    }
 
 }

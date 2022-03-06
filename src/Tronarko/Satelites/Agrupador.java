@@ -22,17 +22,15 @@ public class Agrupador {
 
 		mHiperFases = new ArrayList<HiperFases>();
 
-		Zerar();
+		limpar();
 
 	}
 
-	public void Adicionar(HiperFases eHiperFase) {
-
+	public void guardar(HiperFases eHiperFase) {
 		mHiperFases.add(eHiperFase);
-
 	}
 
-	public void Zerar() {
+	public void limpar() {
 		ACUMULADOR_Comum = 0;
 		ACUMULADOR_Comum = 0;
 		ACUMULADOR_Allett = 0;
@@ -45,9 +43,9 @@ public class Agrupador {
 		ACUMULADOR_Iluminacao = 0;
 	}
 
-	public void Agrupar() {
+	public void agrupar() {
 
-		Zerar();
+		limpar();
 
 		for (HiperFases HiperFaseC : mHiperFases) {
 			switch (HiperFaseC) {

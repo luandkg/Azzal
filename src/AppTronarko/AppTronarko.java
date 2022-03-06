@@ -5,18 +5,22 @@ import Azzal.Cores;
 import Azzal.Renderizador;
 import Azzal.Utils.Cor;
 import Azzal.Windows;
+import Imaginador.Efeitos;
+import Imaginador.ImageUtils;
 import Letrum.Fonte;
 import Letrum.FonteDupla;
 import Letrum.FonteDuplaRunTime;
 import Letrum.Maker.FonteRunTime;
 import Tronarko.Eventos.Eventum;
 import Tronarko.*;
-import Tronarko.Satelites.Ceu;
+import Tronarko.Intervalos.Tozte_Intervalo;
+import Tronarko.Satelites.*;
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
 import UI.Interface.Clicavel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class AppTronarko extends Cena {
@@ -45,6 +49,23 @@ public class AppTronarko extends Cena {
     private BotaoCor BTN_MENOS;
     private BotaoCor BTN_MAIS;
     private BotaoCor BTN_HOJE;
+
+    private BufferedImage SIGNO_CARPA = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/carpa.png"), 64, 64);
+    private BufferedImage SIGNO_GATO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/gato.png"), 64, 64);
+    private BufferedImage SIGNO_GAVIAO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/gaviao.png"), 64, 64);
+    private BufferedImage SIGNO_LEAO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/leao.png"), 64, 64);
+    private BufferedImage SIGNO_LEOPARDO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/leopardo.png"), 64, 64);
+
+    private BufferedImage SIGNO_LOBO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/lobo.png"), 64, 64);
+    private BufferedImage SIGNO_RAPOSA = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/raposa.png"), 64, 64);
+    private BufferedImage SIGNO_SERPENTE = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/serpente.png"), 64, 64);
+    private BufferedImage SIGNO_TIGRE = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/tigre.png"), 64, 64);
+    private BufferedImage SIGNO_TOURO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/touro.png"), 64, 64);
+
+    private Satelatizador mSatelatizadorAllux;
+    private Satelatizador mSatelatizadorUnnos;
+    private Satelatizador mSatelatizadorEttos;
+
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -101,6 +122,24 @@ public class AppTronarko extends Cena {
         mHoje = mTronarkum.getTozte();
         mAgora = mTronarkum.getHazde();
 
+        mSatelatizadorAllux = new Satelatizador("comum");
+        mSatelatizadorEttos = new Satelatizador("comum");
+        mSatelatizadorUnnos = new Satelatizador("comum");
+
+        ExportarSequenciaLunar.exportar(mHoje, 100, "/home/luan/Imagens/tronarko_luas.png");
+        ExportarSequenciaLunar.exportar(new Tozte(1, 1, 7001), 500, "/home/luan/Imagens/tronarko_luas_iluminacao.png");
+        ExportarSequenciaLunar.exportar(new Tozte(1, 1, 7000), 500, "/home/luan/Imagens/tronarko_luas_escuridao.png");
+
+
+        //MapaCelestial s = new MapaCelestial();
+
+        //ArrayList<Tozte_Intervalo> illuminatti = s.getIluminacao().mostrar(new Tozte(1, 1, 7001), 2);
+        //ArrayList<Tozte_Intervalo> onnozzatti = s.getEscuridao().mostrar(new Tozte(1, 1, 7000), 2);
+
+        //s.mostrarOcorrencias(illuminatti);
+        // s.mostrarOcorrencias(onnozzatti);
+
+        // ObservarCeu.mostrar(new Tozte(1, 1, 7000),"ILUMINACAO", Fases.CHEIA, Fases.CHEIA, Fases.CHEIA);
     }
 
     @Override
@@ -115,7 +154,9 @@ public class AppTronarko extends Cena {
 
 
         mHoje = mHoje.adicionar_Superarko(mQuantos);
-        mAgora = mAgora.adicionar_Arco(mQuantos);
+        //mAgora = mAgora.adicionar_Arco(mQuantos);
+
+        // mHoje = mHoje.adicionar_Tronarko(mQuantos);
 
         if (mAtualmente == null) {
             mAtualmente = mHoje;
@@ -152,6 +193,8 @@ public class AppTronarko extends Cena {
 
         ArrayList<TozteCor> mInfos = mEnventum.getToztesComCor(mHoje.getTronarko());
 
+        mEnventum.alinhar_eventos(mInfos);
+
 
         int CAIXA_X = 40;
         int CAIXA_Y = 80;
@@ -184,14 +227,43 @@ public class AppTronarko extends Cena {
         mAgora.getTotalEttonsParaAcabar();
 
 
-        mTextoPequeno.escreveLinha(LY - 100, LX + 300, LX + 430, " -->> Allux", mCeu.allux_getFase(mHoje).toString());
-        mTextoPequeno.escreveLinha(LY - 50, LX + 300, LX + 430, " -->> Ettos", mCeu.ettos_getFase(mHoje).toString());
-        mTextoPequeno.escreveLinha(LY, LX + 300, LX + 430, " -->> Unnos", mCeu.unnos_getFase(mHoje).toString());
+        //mTextoPequeno.escreveLinha(LY - 100, LX + 250, LX + 380, " -->> Allux", mCeu.allux_getFase(mHoje).toString());
+        // mTextoPequeno.escreveLinha(LY - 50, LX + 250, LX + 380, " -->> Ettos", mCeu.ettos_getFase(mHoje).toString());
+        //  mTextoPequeno.escreveLinha(LY, LX + 250, LX + 380, " -->> Unnos", mCeu.unnos_getFase(mHoje).toString());
+
+        // mTextoPequeno.escreva(LX + 250, LY - 100, " -->> Allux");
+        //  mTextoPequeno.escreva(LX + 250, LY - 50, " -->> Ettos");
+        //  mTextoPequeno.escreva(LX + 250, LY, " -->> Unnos");
 
 
-        draw_hiperarko(r, mHoje, mInfos, mHoje.getHiperarko(), 0, LX + 50, 280, CAIXA_ALTURA);
+        // mTextoPequeno.escreveLinha(LY - 100, LX + 300, LX + 430, " -->> Allux", mCeu.allux_getFase(mHoje).toString() + " v = " + v);
 
-        draw_hiperarko_progresso(r, LX + 33, 450);
+        int satelites = LX + 300;
+
+        int pAllus = satelites;
+        int pEttus = satelites + 60;
+        int pUnnos = satelites + 120;
+
+        r.drawImagemComAlfa(pAllus, ePosY, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(pEttus, ePosY, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(pUnnos, ePosY, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
+
+        mTextoPequeno.escreva(pAllus - 10, ePosY + 40, "Allux");
+        mTextoPequeno.escreva(pEttus - 10, ePosY + 40, "Ettos");
+        mTextoPequeno.escreva(pUnnos - 10, ePosY + 40, "Unnos");
+
+
+        //r.drawImagemComAlfa(LX + 370, LY - 108, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
+        //r.drawImagemComAlfa(LX + 370, LY - 58, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
+        //r.drawImagemComAlfa(LX + 370, LY - 8, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
+
+
+        // mTextoPequeno.escreva(LX + 400, LY - 100, mCeu.getAllux().getQuantidade(mHoje) + "" + mCeu.getAllux().getFase(mHoje).toString());
+
+
+        draw_hiperarko(r, mHoje, mInfos, mHoje.getHiperarko(), 0, LX, 280, CAIXA_ALTURA);
+
+        draw_hiperarko_progresso(r, LX, 450);
 
 
         LY = 500;
@@ -217,8 +289,36 @@ public class AppTronarko extends Cena {
 
         }
 
+
+        r.drawImagemComAlfa(1380, 350, getSigno());
+        mTextoPequeno.escrevaCentralizado(1380 + 32 - 2, 420, mHoje.getSigno().toString());
+
+
     }
 
+    public BufferedImage getSigno() {
+
+
+        BufferedImage imagem = null;
+
+        Signos eSigno = mHoje.getSigno();
+
+        switch (eSigno) {
+            case CARPA -> imagem = SIGNO_CARPA;
+            case GATO -> imagem = SIGNO_GATO;
+            case GAVIAO -> imagem = SIGNO_GAVIAO;
+            case LEAO -> imagem = SIGNO_LEAO;
+            case LEOPARDO -> imagem = SIGNO_LEOPARDO;
+            case LOBO -> imagem = SIGNO_LOBO;
+            case RAPOSA -> imagem = SIGNO_RAPOSA;
+            case SERPENTE -> imagem = SIGNO_SERPENTE;
+            case TIGRE -> imagem = SIGNO_TIGRE;
+            case TOURO -> imagem = SIGNO_TOURO;
+        }
+
+        return imagem;
+
+    }
 
     public void draw_hiperarko(Renderizador r, Tozte Hoje, ArrayList<TozteCor> mInfos, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
 
@@ -237,8 +337,14 @@ public class AppTronarko extends Cena {
             if ((Hoje.getTronarko() == eTronarko) && (Hoje.getHiperarko() == mHiperarko)) {
 
                 if (eMega.contentEquals(Hoje.Superarko_capital())) {
+
                     mTextoPequeno.escrevaSelecionada((CAIXA_X - 10) + (s * 40),
                             ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
+
+                    int larg = mTextoPequeno.getLarguraSelecionadaDe(eMega);
+
+                    r.drawRect_Pintado((CAIXA_X - 10) + (s * 40), ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y + 15, larg, 3, mCores.getPreto());
+
 
                 } else {
                     mTextoPequeno.escreva((CAIXA_X - 10) + (s * 40),
@@ -266,6 +372,7 @@ public class AppTronarko extends Cena {
 
             for (int s = 0; s < 10; s++) {
 
+
                 int QX = (CAIXA_X - 10) + (s * 40) + 5;
                 int QY = (((CAIXA_ALTURA * Faixador) + 30) + ((m + 1) * 20)) + CAIXA_Y + 10;
 
@@ -292,9 +399,6 @@ public class AppTronarko extends Cena {
 
                 if (comFundo & anteriorComFundo) {
 
-                    if (mPassadoInfoNome.contentEquals("Festival da Água") && mAtualInfoNome.contentEquals("Cruzada das Águas")) {
-                        mPassadoInfoNome = "Cruzada das Águas";
-                    }
 
                     if (mPassadoInfoNome.contentEquals(mAtualInfoNome)) {
                         r.drawRect_Pintado(QX - 3 - 18, QY + 5, 20, 5, Cor.getRGB(mCor));
@@ -310,7 +414,11 @@ public class AppTronarko extends Cena {
                 }
 
                 if (mHoje.Igual(mTozte)) {
-                    mTextoPequeno.escrevaSelecionada(QX, QY, mSuperNum);
+                    if (comFundo) {
+                        mTextoPequenoBranco.escreva(QX, QY, mSuperNum);
+                    } else {
+                        mTextoPequeno.escrevaSelecionada(QX, QY, mSuperNum);
+                    }
                 } else {
                     mTextoPequeno.escreva(QX, QY, mSuperNum);
                 }

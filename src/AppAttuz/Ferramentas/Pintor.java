@@ -1,5 +1,6 @@
 package AppAttuz.Ferramentas;
 
+import AppAttuz.Assessorios.Escala;
 import AppAttuz.Camadas.Massas;
 import Imaginador.ImageUtils;
 

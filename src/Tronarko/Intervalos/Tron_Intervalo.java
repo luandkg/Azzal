@@ -118,6 +118,36 @@ public  class Tron_Intervalo {
 
     }
 
+    public int getIntervaloIttas() {
+
+        int mArkos = 0;
+        int mIttas = 0;
+
+        int mSuperarkos = 0;
+
+        long mTotal = getTotalEttons();
+        long UmArko = 1 * 100 * 100;
+
+        while (mTotal >= UmArko) {
+            mTotal -= UmArko;
+            mArkos += 1;
+        }
+
+
+        while (mTotal >= 100) {
+            mTotal -= 100;
+            mIttas += 1;
+        }
+
+        while (mArkos >= 10) {
+            mArkos -= 10;
+            mSuperarkos += 1;
+        }
+
+        return (mSuperarkos *1000) + (mArkos*100) + mIttas;
+
+    }
+
     public Hazde getHazde() {
 
         int mArkos = 0;
