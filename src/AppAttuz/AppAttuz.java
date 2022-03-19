@@ -40,39 +40,31 @@ public class AppAttuz extends Cena {
 
     private BufferedImage mapa = null;
 
-
     private Fonte pequeno;
     private Fonte micro;
 
-
     private Clicavel mClicavel;
 
-    private ArrayList<Local> mMarcacoes;
     private ArrayList<Local> mLocais;
     private ArrayList<Local> mMares;
 
     private ArrayList<Caminho> mCaminhos;
-
 
     private Viajante EU;
     private Viagem mViagem;
 
     private int X0 = -20;
     private int Y0 = 100;
-    private Cronometro mCron;
 
     private int raio = 150;
 
-    private int TEMPO_FLUXO = 500;
 
     private ListaDeCidades mListaDeCidades;
     private boolean printou = false;
-    private ProcurarLocalizacao mProcurador;
     private Tronarko eTronarko = new Tronarko();
 
     private NomesEspecificos mNomear;
     private BufferedImage mImagemDrone;
-    private int mais = 0;
 
     private Nivelador mNivelador;
     private Escala mRelevo;
@@ -83,17 +75,17 @@ public class AppAttuz extends Cena {
     private String LOCAL = "/home/luan/Imagens/Arkazz/";
     private boolean mostrarCidades = true;
 
-    private PreferenciasOrganizadas pref;
-
-    private ToggleHorizontal mMostrarMarcadores;
-
-    private ToggleHorizontal mMostrarCidades;
-    private ToggleHorizontal mMostrarPontosCidades;
-    private ToggleHorizontal mMostrarMares;
 
     private int mPosicaoX = 0;
     private int mPosicaoY = 0;
     private String mValorSelecionado = "";
+
+
+    private RealizarViagem mRealizarViagem;
+    private HiperMarkattor mHiperMarkattor;
+
+    private Preferencias mPreferencias;
+    private Escolhettor mEscolhettor;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -104,12 +96,13 @@ public class AppAttuz extends Cena {
 
         mapa = ImageUtils.getImagem(LOCAL + "mapa.png");
 
-      //  mapa = ImageUtils.getImagem(LOCAL + "build/temperatura_verao.png");
+        //  mapa = ImageUtils.getImagem(LOCAL + "build/temperatura_verao.png");
 
-         mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
+        //   mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
 
         mapa = Efeitos.preto_branco(mapa);
 
+        mImagemDrone = ImageUtils.getCopia(mapa);
 
         //Territorios.init(mapa);
         // Biomas.init(mapa);
@@ -119,20 +112,15 @@ public class AppAttuz extends Cena {
 
         mClicavel = new Clicavel();
 
-        mMarcacoes = new ArrayList<Local>();
         mLocais = new ArrayList<Local>();
         mMares = new ArrayList<Local>();
 
         mRelevo = EscalasPadroes.getEscalaTerrestre();
 
 
-        mMarcacoes = MapaUtilitario.obterLocais(LOCAL + "dados.txt");
-
-
         mCaminhos = new ArrayList<Caminho>();
 
-        mProcurador = new ProcurarLocalizacao();
-        mDroneCamera = new DroneCamera();
+        mDroneCamera = new DroneCamera(mCores);
 
         pequeno = new FonteRunTime(Cor.getRGB(Color.BLACK), 11);
         micro = new FonteRunTime(Cor.getRGB(Color.BLACK), 10);
@@ -144,7 +132,6 @@ public class AppAttuz extends Cena {
 
         mViagem.getPercurso().add(new Ponto(1080, 221));
 
-        mCron = new Cronometro(TEMPO_FLUXO);
 
         mNomear = new NomesEspecificos(mCores);
 
@@ -162,26 +149,8 @@ public class AppAttuz extends Cena {
 
         mNivelador = new Nivelador();
 
+        mEscolhettor = new Escolhettor(mNivelador, mClicavel, mRelevo);
 
-        int e = 1;
-        int u = 0;
-
-        for (int i = 1; i <= 10; i++) {
-
-            BotaoCor BTN_N2 = mClicavel.criarBotaoCor(new BotaoCor(800 + (e * 50), 50 + (u * 30), 20, 20, Cor.getRGB(new Color(mRelevo.get(i)))));
-            BTN_N2.setAcao(mNivelador.get(i));
-
-            e += 1;
-
-            if (e > 5) {
-                e = 1;
-                u += 1;
-            }
-        }
-
-
-        BotaoCor BTN_ZERO = mClicavel.criarBotaoCor(new BotaoCor(800 - 100, 50, 50, 50, Cor.getRGB(new Color(100, 100, 100))));
-        BTN_ZERO.setAcao(mNivelador.get(0));
 
         boolean CRIAR = false;
 
@@ -218,8 +187,7 @@ public class AppAttuz extends Cena {
 
         //  System.out.println("Estou :: " + mProcurador.ondeEstou(EU, eTronarko.getTozte(), eTronarko.getHazde()));
 
-        mImagemDrone = ImageUtils.getCopia(mapa);
-        droneOrganizar(mImagemDrone);
+        // droneOrganizar(mImagemDrone);
 
         // expo();
 
@@ -251,11 +219,25 @@ public class AppAttuz extends Cena {
         mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
 
 
-        preferencias_construir();
+        mPreferencias = new Preferencias(LOCAL);
+
 
         // GuiaDeViagem.organizar();
 
         // GuiaDeViagem.passei(eTronarko.getTozte(),eTronarko.getHazde());
+
+        mRealizarViagem = new RealizarViagem();
+
+        mHiperMarkattor = new HiperMarkattor(mNivelador, X0, Y0, (mapa.getWidth() + X0), (mapa.getHeight() + Y0));
+
+        mHiperMarkattor.carregarMarcadores(MapaUtilitario.obterLocais(LOCAL + "dados.txt"));
+
+        mHiperMarkattor.setAcao(new Acao() {
+            @Override
+            public void onClique() {
+                MapaUtilitario.salvarLocais(LOCAL + "dados.txt", mHiperMarkattor.getMarcadores());
+            }
+        });
 
     }
 
@@ -273,17 +255,19 @@ public class AppAttuz extends Cena {
 
     }
 
-    public void droneOrganizar(BufferedImage eImagemDrone) {
+    public void droneOrganizar(int ox, int oy, BufferedImage eImagemDrone) {
 
         Renderizador gg = new Renderizador(eImagemDrone);
 
         int l = 0;
         for (Local ePonto : mLocais) {
 
+            int rx = (ePonto.getX() * 2) - ox;
+            int ry = (ePonto.getY() * 2) - oy;
 
-            gg.drawRect_Pintado(ePonto.getX() * 2, ePonto.getY() * 2, 5, 5, Cor.getRGB(Color.green));
+            gg.drawRect_Pintado(rx, ry, 5, 5, Cor.getRGB(Color.green));
 
-            mNomear.nomearDireto(gg, micro, l, ePonto.getNome(), ePonto.getX() * 2, ePonto.getY() * 2, 0, 0);
+            mNomear.nomearDireto(gg, micro, l, ePonto.getNome(), rx, ry, 0, 0);
 
 
             l += 1;
@@ -296,20 +280,20 @@ public class AppAttuz extends Cena {
     @Override
     public void update(double dt) {
 
-        int px = (int) getWindows().getMouse().getX();
-        int py = (int) getWindows().getMouse().getY();
+        int px = getWindows().getMouse().getX();
+        int py = getWindows().getMouse().getY();
 
 
         mClicavel.update(dt, px, py, getWindows().getMouse().isClicked());
 
         mPosicaoX = 0;
         mPosicaoY = 0;
-        mValorSelecionado="";
+        mValorSelecionado = "";
 
         if (px > X0 && py >= Y0 && px < (mapa.getWidth() + X0) && py < (mapa.getHeight() + Y0)) {
 
-            int agoraX = (px - X0)*2;
-            int agoraY = (py - Y0)*2;
+            int agoraX = (px - X0) * 2;
+            int agoraY = (py - Y0) * 2;
 
 
             if (mPosicaoX != agoraX || mPosicaoY != agoraY) {
@@ -323,136 +307,33 @@ public class AppAttuz extends Cena {
         }
 
 
-        mCron.atualizar();
-        if (mCron.esperado()) {
+        mRealizarViagem.viajar(eTronarko, mViagem, EU, mLocais);
 
-            mais += 1;
-
-            if (mais >= 100) {
-                mais = 0;
-            }
-
-            boolean procurar = false;
-
-            if (procurar) {
-                Tron eTron = eTronarko.getTronAgora();
-                eTron.internalizar_Arco(mais);
-
-                mViagem.viajar(EU, mLocais);
-
-                //mProcurador.ondeEstou(EU, eTron.getTozte(), eTron.getHazde());
-                //System.out.println("Localizando...");
-
-                ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", EU, eTron.getTozte(), eTron.getHazde());
-
-            }
-
-        }
 
         if (mClicavel.getClicado()) {
 
-            //  mPontos.clear();
-            localizar();
+
+            mHiperMarkattor.localizar(px, py, getWindows().getMouse().isMovendo(), getWindows().getMouse().getDeltaX(), getWindows().getMouse().getDeltaY());
 
             if (getWindows().getMouse().isClicked()) {
 
-                mMostrarMarcadores.foiClicado(px - 3, py - 5);
-                mMostrarCidades.foiClicado(px - 3, py - 5);
-                mMostrarMares.foiClicado(px - 3, py - 5);
-                mMostrarPontosCidades.foiClicado(px - 3, py - 5);
+                mPreferencias.mMostrarMarcadores.foiClicado(px - 3, py - 5);
+                mPreferencias.mMostrarCidades.foiClicado(px - 3, py - 5);
+                mPreferencias.mMostrarMares.foiClicado(px - 3, py - 5);
+                mPreferencias.mMostrarPontosCidades.foiClicado(px - 3, py - 5);
 
             }
 
         }
 
-        if (getWindows().getMouse().isMovendo()) {
+        mHiperMarkattor.movendo(px, py, getWindows().getMouse().isMovendo(), getWindows().getMouse().getDeltaX(), getWindows().getMouse().getDeltaY());
 
-            if (mNivelador.getNivel() == 0) {
-
-                pontos_limpar();
-                MapaUtilitario.salvarLocais(LOCAL + "dados.txt", mMarcacoes);
-
-            }
-
-        }
 
         for (Ponto ePercurso : mViagem.getPercurso()) {
             // mListaDeCidades.visitar(ePercurso.getX() + "::" + ePercurso.getY());
         }
 
         getWindows().getMouse().liberar();
-
-    }
-
-    public void pontos_limpar() {
-
-
-        int px = (int) getWindows().getMouse().getX();
-        int py = (int) getWindows().getMouse().getY();
-
-        int rx = px - X0 - 3;
-        int ry = py - Y0 - 5;
-
-        if (getWindows().getMouse().isMovendo()) {
-            rx += getWindows().getMouse().getDeltaX();
-            ry += getWindows().getMouse().getDeltaY();
-        }
-
-        System.out.println("Limpando -->> " + rx + " :: " + ry);
-
-        int comecar_x = rx - 50;
-        int comecar_y = ry - 50;
-
-        int terminar_x = rx + 50;
-        int terminar_y = ry + 50;
-
-        if (mNivelador.getNivel() == 0) {
-            ArrayList<Local> remover = new ArrayList<Local>();
-
-            for (Local r : mMarcacoes) {
-                if (r.getX() > comecar_x && r.getX() < terminar_x && r.getY() > comecar_y && r.getY() < terminar_y) {
-                    remover.add(r);
-                }
-            }
-
-            for (Local r : remover) {
-                mMarcacoes.remove(r);
-            }
-        }
-    }
-
-    public void localizar() {
-
-        int px = (int) getWindows().getMouse().getX();
-        int py = (int) getWindows().getMouse().getY();
-
-
-        if (px > X0 && py >= Y0 && px < (mapa.getWidth() + X0) && py < (mapa.getHeight() + Y0)) {
-
-            int rx = px - X0 - 3;
-            int ry = py - Y0 - 5;
-
-
-            if (mNivelador.getNivel() == 0) {
-                pontos_limpar();
-            } else {
-
-                if (px > X0 && py > Y0) {
-                    //if (mMassa.isTerra(rx * 2, ry * 2)) {
-                    mMarcacoes.add(new Local("" + mNivelador.getNivel(), rx, ry));
-                    // System.out.println(" PONTO -->> " + (rx ) + "::" + (ry));
-                    //  }
-                }
-
-
-            }
-
-
-            MapaUtilitario.salvarLocais(LOCAL + "dados.txt", mMarcacoes);
-
-
-        }
-
 
     }
 
@@ -470,7 +351,7 @@ public class AppAttuz extends Cena {
         pequeno.setRenderizador(g);
 
 
-        pequeno.escreva(1300, 80, " X = " + mPosicaoX + " Y = " + mPosicaoY + " -->> " + mValorSelecionado);
+        pequeno.escreva(1300, 50, " X = " + mPosicaoX + " Y = " + mPosicaoY + " -->> " + mValorSelecionado);
 
         int uu = mViagem.getPercurso().size();
         int ui = 0;
@@ -487,9 +368,9 @@ public class AppAttuz extends Cena {
         }
 
 
-        if (mMostrarMarcadores.getValor()) {
+        if (mPreferencias.mMostrarMarcadores.getValor()) {
 
-            for (Local ePonto : mMarcacoes) {
+            for (Local ePonto : mHiperMarkattor.getMarcadores()) {
                 g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 5, 5, Cor.getInt(mRelevo.get(Integer.parseInt(ePonto.getNome()))));
                 //    micro.escreva(ePonto.getX() + X0, ePonto.getY() + Y0, (ePonto.getX() + X0) + "::" + (ePonto.getY() + Y0));
             }
@@ -504,7 +385,7 @@ public class AppAttuz extends Cena {
         }
 
 
-        if (mMostrarPontosCidades.getValor()) {
+        if (mPreferencias.mMostrarPontosCidades.getValor()) {
             for (Local ePonto : mLocais) {
 
                 int cx = ePonto.getX() + X0 - 3;
@@ -516,7 +397,7 @@ public class AppAttuz extends Cena {
         }
 
 
-        if (mMostrarCidades.getValor()) {
+        if (mPreferencias.mMostrarCidades.getValor()) {
             int l = 0;
 
             for (Local ePonto : mLocais) {
@@ -545,7 +426,7 @@ public class AppAttuz extends Cena {
 
         }
 
-        if (mMostrarMares.getValor()) {
+        if (mPreferencias.mMostrarMares.getValor()) {
 
             for (Local ePonto : mMares) {
 
@@ -588,15 +469,22 @@ public class AppAttuz extends Cena {
 
         }
 
-        pequeno.escreva(570, 80, "" + mNivelador.getNivel());
+        mEscolhettor.drawSelecionado(g,pequeno);
 
 
-        if (mMostrarCidades.getValor()) {
+
+        if (mPreferencias.mMostrarCidades.getValor()) {
 
             g.drawLinha((EU.getX() + X0) + 2, (EU.getY() + Y0) + 2, 400 + 100, 690, mCores.getLaranja());
 
+            int rx = (EU.getX() * 2) - 100;
+            int ry = (EU.getY() * 2) - 100;
 
-            g.drawImagem(400, 690, mDroneCamera.onGravar(mImagemDrone, (EU.getX() * 2) - 100, (EU.getY() * 2) - 100, EU.getX() * 2, EU.getY() * 2));
+            BufferedImage aqui_drone = mDroneCamera.onGravar(mImagemDrone, rx, ry, EU.getX() * 2, EU.getY() * 2, mLocais);
+
+            // droneOrganizar(rx ,ry,aqui_drone);
+
+            g.drawImagem(400, 690, aqui_drone);
 
             g.drawRect(400, 690, 200, 240, mCores.getPreto());
 
@@ -609,8 +497,8 @@ public class AppAttuz extends Cena {
 
             if (getWindows().getMouse().isMovendo()) {
 
-                int px = (int) getWindows().getMouse().getX() + getWindows().getMouse().getDeltaX();
-                int py = (int) getWindows().getMouse().getY() + getWindows().getMouse().getDeltaY();
+                int px = getWindows().getMouse().getMovendoX();
+                int py = getWindows().getMouse().getMovendoY();
 
 
                 g.drawRect(px - 50, py - 50, 100, 100, mCores.getPreto());
@@ -618,8 +506,8 @@ public class AppAttuz extends Cena {
 
             } else {
 
-                int px = (int) getWindows().getMouse().getX();
-                int py = (int) getWindows().getMouse().getY();
+                int px = getWindows().getMouse().getX();
+                int py = getWindows().getMouse().getY();
 
                 g.drawRect(px - 50, py - 50, 100, 100, mCores.getPreto());
 
@@ -628,7 +516,7 @@ public class AppAttuz extends Cena {
 
         }
 
-        panielConfiguracoes(g);
+        mPreferencias.panielConfiguracoes(g);
 
         if (!printou) {
             TirarPrint.print(getWindows(), "/home/luan/Imagens/t_7002.png");
@@ -637,80 +525,5 @@ public class AppAttuz extends Cena {
 
     }
 
-
-    public void panielConfiguracoes(Renderizador mRender) {
-
-        mMostrarMarcadores.onRender(mRender, pequeno);
-        mMostrarCidades.onRender(mRender, pequeno);
-        mMostrarPontosCidades.onRender(mRender, pequeno);
-        mMostrarMares.onRender(mRender, pequeno);
-
-    }
-
-
-    public void preferencias_construir() {
-
-        mMostrarMarcadores = new ToggleHorizontal(2200, 150, "MOSTRAR MARCADORES", true);
-
-        mMostrarMarcadores.setAcao(new Acao() {
-            @Override
-            public void onClique() {
-                salvarConf();
-            }
-        });
-
-
-        mMostrarCidades = new ToggleHorizontal(2200, 170, "MOSTRAR CIDADES", true);
-
-        mMostrarCidades.setAcao(new Acao() {
-            @Override
-            public void onClique() {
-                salvarConf();
-            }
-        });
-
-        mMostrarPontosCidades = new ToggleHorizontal(2200, 190, "MOSTRAR PONTOS DE CIDADES", true);
-
-        mMostrarPontosCidades.setAcao(new Acao() {
-            @Override
-            public void onClique() {
-                salvarConf();
-            }
-        });
-
-
-        mMostrarMares = new ToggleHorizontal(2200, 210, "MOSTRAR MARES", true);
-
-        mMostrarMares.setAcao(new Acao() {
-            @Override
-            public void onClique() {
-                salvarConf();
-            }
-        });
-
-
-        pref = new PreferenciasOrganizadas(LOCAL + "conf.po");
-        pref.abrirSeExistir();
-
-        mMostrarMarcadores.setValor(pref.getLogico("Marcadores", "Mostrar"));
-        mMostrarCidades.setValor(pref.getLogico("CidadesNomes", "Mostrar"));
-        mMostrarPontosCidades.setValor(pref.getLogico("CidadesPontos", "Mostrar"));
-        mMostrarMares.setValor(pref.getLogico("Mares", "Mostrar"));
-
-
-    }
-
-
-    public void salvarConf() {
-
-
-        pref.setLogico("Marcadores", "Mostrar", mMostrarMarcadores.getValor());
-        pref.setLogico("CidadesNomes", "Mostrar", mMostrarCidades.getValor());
-        pref.setLogico("CidadesPontos", "Mostrar", mMostrarPontosCidades.getValor());
-        pref.setLogico("Mares", "Mostrar", mMostrarMares.getValor());
-
-        pref.salvar();
-
-    }
 
 }

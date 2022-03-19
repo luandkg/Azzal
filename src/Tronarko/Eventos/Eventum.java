@@ -3,6 +3,7 @@ package Tronarko.Eventos;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import Azzal.Utils.Cor;
 import Tronarko.Hizarkos;
 import Tronarko.TozteCor;
 import Tronarko.Eventos.Ocorrencia.Modos;
@@ -716,7 +717,7 @@ public class Eventum {
         System.out.println("-->> DEPOIS : " + eDepois.getTexto());
 
 
-        if (eAntes.MaiorQue(eDepois)) {
+        if (eAntes.isMaiorQue(eDepois)) {
             Tozte tmp = eAntes;
             eAntes = eDepois;
             eDepois = tmp;
@@ -775,7 +776,7 @@ public class Eventum {
 
         for (TozteCor e : ToztesComCor) {
 
-            if (e.getTozte().MaiorIgualQue(eAntes) && e.getTozte().MenorIgualQue(eDepois)) {
+            if (e.getTozte().isMaiorIgualQue(eAntes) && e.getTozte().isMenorIgualQue(eDepois)) {
                 mFiltrando.add(e);
             }
 
@@ -852,8 +853,22 @@ public class Eventum {
             eCor = new Color(154, 205, 50);
         }
 
+        if (eNome.contains("Imperador")) {
+            eCor = getHexCor("#fdd835");
+        }
+
+
         return eCor;
     }
+
+    private Color getHexCor(String colorStr) {
+        Color eTmp = new Color(Integer.valueOf(colorStr.substring(1, 3), 16),
+                Integer.valueOf(colorStr.substring(3, 5), 16),
+                Integer.valueOf(colorStr.substring(5, 7), 16));
+
+        return eTmp;
+    }
+
 
     public Color getHizarkoCor(Hizarkos eHizarko) {
 

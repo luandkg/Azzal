@@ -36,16 +36,16 @@ public class ListaDeCidades {
         for (Local ePonto : mLocais) {
 
             if (mVisitadas.contains(ePonto.getX() + "::" + ePonto.getY() )){
-                g.drawRect_Pintado(ex - 30, ey , 10, 10, mCores.getLaranja());
+                g.drawRect_Pintado(ex - 30, ey+5 , 10, 10, mCores.getLaranja());
             }else{
-                g.drawRect_Pintado(ex - 30, ey , 10, 10, mCores.getPreto());
+                g.drawRect_Pintado(ex - 30, ey +5, 10, 10, mCores.getPreto());
             }
 
 
          //   pequeno.EscreveNegrito(g, ePonto.getX() + "::" + ePonto.getY() + " - " + ePonto.getNome(), ex, ey);
             pequeno.escreva( ex, ey, l + " - " + ePonto.getNome());
 
-            ey += 30;
+            ey += 22;
             if (ey > 980) {
                 ey = 60;
                 ex = 1900;

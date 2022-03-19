@@ -18,7 +18,7 @@ public  class Tozte_Intervalo {
 
     private void Organizar(Tozte eInicio, Tozte eFim) {
 
-        if (eInicio.MenorIgualQue(eFim)) {
+        if (eInicio.isMenorIgualQue(eFim)) {
             this.mInicio = eInicio;
             this.mFim = eFim;
         } else {

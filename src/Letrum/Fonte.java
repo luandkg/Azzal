@@ -11,6 +11,8 @@ public interface Fonte {
 
     void escreva(int x, int y, String frase);
 
+    void escrevaComOutraCor(int x, int y, String frase, Cor eOutraCor);
+
     int getLarguraDe(String frase);
 
     int getAltura();
@@ -19,6 +21,6 @@ public interface Fonte {
 
     void escrevaCentralizado(int x, int y, String frase);
 
-     Cor getCor();
+    Cor getCor();
 
 }

@@ -47,9 +47,9 @@ public class Comunicum {
 				Tozte eAvisoFim = eCorrente.adicionar_Superarko((+1) * AvisoC.getDepois());
 
 	
-				if (TozteProcurar.MaiorIgualQue(eAvisoInicio) && TozteProcurar.MenorIgualQue(eAvisoFim)) {
+				if (TozteProcurar.isMaiorIgualQue(eAvisoInicio) && TozteProcurar.isMenorIgualQue(eAvisoFim)) {
 
-					if (TozteProcurar.Igual(eCorrente)) {
+					if (TozteProcurar.isIgual(eCorrente)) {
 
 						ret.add("Estamos no " + AvisoC.getNome());
 
@@ -57,7 +57,7 @@ public class Comunicum {
 
 						// ret.add(" - Deve Notificar !");
 
-						if (TozteProcurar.MaiorIgualQue(eAvisoInicio) && TozteProcurar.MenorrQue(eCorrente)) {
+						if (TozteProcurar.isMaiorIgualQue(eAvisoInicio) && TozteProcurar.isMenorQue(eCorrente)) {
 							// ret.add(" - Antes !");
 
 							long Falta = eCorrente.getSuperarkosTotal() - TozteProcurar.getSuperarkosTotal();
@@ -68,7 +68,7 @@ public class Comunicum {
 								ret.add("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
 							}
 
-						} else if (TozteProcurar.MenorIgualQue(eAvisoFim) && TozteProcurar.MaiorQue(eCorrente)) {
+						} else if (TozteProcurar.isMenorIgualQue(eAvisoFim) && TozteProcurar.isMaiorQue(eCorrente)) {
 							// ret.add(" - Depois !");
 
 							long Passou = TozteProcurar.getSuperarkosTotal() - eCorrente.getSuperarkosTotal();
@@ -111,16 +111,16 @@ public class Comunicum {
 				Tozte eAvisoFim = eFim.adicionar_Superarko((+1) * AvisoC.getDepois());
 
 	
-				if (TozteProcurar.MaiorIgualQue(eAvisoInicio) && TozteProcurar.MenorIgualQue(eAvisoFim)) {
+				if (TozteProcurar.isMaiorIgualQue(eAvisoInicio) && TozteProcurar.isMenorIgualQue(eAvisoFim)) {
 
-					if (TozteProcurar.MaiorIgualQue(eInicio) && TozteProcurar.MenorIgualQue(eFim)) {
+					if (TozteProcurar.isMaiorIgualQue(eInicio) && TozteProcurar.isMenorIgualQue(eFim)) {
 
 						// ret.add(" - Grande Evento Ocorrendo !");
 
-						if (TozteProcurar.Igual(eInicio)) {
+						if (TozteProcurar.isIgual(eInicio)) {
 							ret.add("Hoje é o Inicio de : " + AvisoC.getNome());
 
-						} else if (TozteProcurar.Igual(eFim)) {
+						} else if (TozteProcurar.isIgual(eFim)) {
 							ret.add("Hoje é o Fim de : " + AvisoC.getNome());
 
 						} else {
@@ -132,7 +132,7 @@ public class Comunicum {
 
 						// ret.add(" - Deve Notificar !");
 
-						if (TozteProcurar.MaiorIgualQue(eAvisoInicio) && TozteProcurar.MenorrQue(eInicio)) {
+						if (TozteProcurar.isMaiorIgualQue(eAvisoInicio) && TozteProcurar.isMenorQue(eInicio)) {
 							// ret.add(" - Antes !");
 
 							long Falta = eInicio.getSuperarkosTotal() - TozteProcurar.getSuperarkosTotal();
@@ -143,7 +143,7 @@ public class Comunicum {
 								ret.add("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
 							}
 
-						} else if (TozteProcurar.MenorIgualQue(eAvisoFim) && TozteProcurar.MaiorQue(eFim)) {
+						} else if (TozteProcurar.isMenorIgualQue(eAvisoFim) && TozteProcurar.isMaiorQue(eFim)) {
 							// ret.add(" - Depois !");
 
 							long Passou = TozteProcurar.getSuperarkosTotal() - eFim.getSuperarkosTotal();

@@ -1,5 +1,7 @@
 package TG22;
 
+import Arquivos.IO;
+import Arquivos.PDF;
 import Azzal.Renderizador;
 import Luan.STTY;
 import DKG.DKG;
@@ -21,6 +23,8 @@ public class TG22 {
 
         ArrayList<Ficha> projeto = iniciar_projeto();
 
+        cadastrar("21/06/7002", 1.60, 71.0, projeto);
+        cadastrar("15/06/7002", 1.60, 71.0, projeto);
         cadastrar("05/06/7002", 1.60, 71.0, projeto);
         cadastrar("48/05/7002", 1.60, 72.0, projeto);
         cadastrar("41/05/7002", 1.60, 72.0, projeto);
@@ -40,57 +44,23 @@ public class TG22 {
 
         TronarkoTG22 t = new TronarkoTG22();
 
-        BufferedImage meu_projeto = new BufferedImage(1600, 1100, BufferedImage.TYPE_INT_RGB);
-        Renderizador rr = new Renderizador(meu_projeto);
+        Renderizador rr = Renderizador.construir(1600, 1100);
+
 
         t.draw(rr, projeto, META_ALTURA, META_PESO);
 
         rr.exportarSemAlfa("/home/luan/Imagens/TG22.png");
         rr.exportarSemAlfa("/home/luan/Dropbox/TG22.png");
 
-        pngToPDF("/home/luan/Dropbox/TG22.png", "/home/luan/Dropbox/TG22.pdf");
+        IO.remova_se_existir("/home/luan/Dropbox/TG22.pdf");
 
-        if (new File("/home/luan/Dropbox/TG22.png").exists()) {
-            new File("/home/luan/Dropbox/TG22.png").delete();
-        }
+        PDF.pngToPDF("/home/luan/Dropbox/TG22.png", "/home/luan/Dropbox/TG22.pdf");
 
-    }
+        IO.remova_se_existir("/home/luan/Dropbox/TG22.png");
 
-    private static String as_string(String a) {
-        return "'" + a + "'";
-    }
-
-    private static void pngToPDF(String eFonte, String eDestino) {
-
-        String eComando = "img2pdf " + as_string(eFonte) + " -o " + as_string(eDestino);
-
-        final ArrayList<String> commands = new ArrayList<String>();
-        commands.add("/bin/bash");
-        commands.add("-c");
-        commands.add(eComando);
-
-        BufferedReader br = null;
-        String saida = "";
-
-        try {
-            final ProcessBuilder p = new ProcessBuilder(commands);
-            final Process process;
-            process = p.start();
-            final InputStream is = process.getInputStream();
-            final InputStreamReader isr = new InputStreamReader(is);
-            br = new BufferedReader(isr);
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                saida += "Retorno do comando = [" + line + "]\n";
-            }
-        } catch (IOException ioe) {
-
-        } finally {
-
-        }
 
     }
+
 
     public static void cadastrar(String eTozte, double eAltura, double ePeso, ArrayList<Ficha> historico) {
         historico.add(new Ficha(eTozte, Corpo.getAltura(eAltura), Corpo.getPeso(ePeso)));

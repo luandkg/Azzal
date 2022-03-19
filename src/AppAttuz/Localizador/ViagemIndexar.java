@@ -222,7 +222,7 @@ public class ViagemIndexar {
         return "";
     }
 
-    public static void passeiBZZ(String eArquivo, Tozte eTozte, Hazde eHazde) {
+    public static void passeiBZZ(String eArquivo, Tozte eTozte, Hazde eHazde,Tozte eHoje) {
 
         int indiceBZZ = 0;
 
@@ -265,12 +265,12 @@ public class ViagemIndexar {
                 if (superarkos_valor < eTozteRef_min) {
 
                     ePonto.identifique("TozteValor", superarkos_valor);
-                    fluxo.emFluxo(ePonto);
+                    fluxo.emFluxo(ePonto,eHoje);
 
                 } else if (superarkos_valor == eTozteRef_min && ittas_total <= procurando_ittas) {
 
                     ePonto.identifique("TozteValor", superarkos_valor);
-                    fluxo.emFluxo(ePonto);
+                    fluxo.emFluxo(ePonto,eHoje);
 
                     fluxo.viagem_comecou = ePonto.identifique("TrilhaComecou").getValor();
                     fluxo.viagem_terminou = ePonto.identifique("Tozte").getValor();

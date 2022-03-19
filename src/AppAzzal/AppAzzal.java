@@ -1,5 +1,7 @@
 package AppAzzal;
 
+import AppAttuz.Localizador.ViagemIndexar;
+import AppAttuz.Mapa.Viajante;
 import AppAttuz.Servicos.*;
 
 import AppAttuz.WorldBuilding;
@@ -19,7 +21,9 @@ public class AppAzzal {
         //  AzzalUnico.unico("AppFuzz", 1600, 1020, new AppFuzz.AppFuzz());
 
 
-        AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko.AppTronarko());
+        // AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko.AppTronarko());
+        //.unico("Tronarko", 900, 800, new AppTronarko.AppAlarme());
+        // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppTronarko.AppLinhaDoTempo());
 
         //AzzalUnico.unico("AppAzzal", 1500, 1020, new Alpha());
 
@@ -47,9 +51,9 @@ public class AppAzzal {
         // AzzalUnico.unico("", 1100, 900, new CenaLetrador());
 
 
-        //  AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
+        AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
 
-        TG22.TG22.init();
+        //TG22.TG22.init();
 
 
         //  AzzalUnico.unico("Editor - luan.dkg", 1000, 1000, new AppKhronos.AppKrhonos());
@@ -105,13 +109,16 @@ public class AppAzzal {
         // System.out.println(conteudo);
         // System.out.println("Tamanho :: " + conteudo.length());
 
-        //ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", Tronarko.Tronarko.getTozteDireto(), Tronarko.Tronarko.getHazdeDireto());
-        // ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", new Tronarko.Tozte(46,4,7002), new Tronarko.Hazde(7,0,0));
+
+        // ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", Tronarko.Tronarko.getTozteDireto(), Tronarko.Tronarko.getHazdeDireto(),Tronarko.Tronarko.getTozteDireto());
+
+
+        //ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", new Tronarko.Tozte(46,4,7002), new Tronarko.Hazde(7,0,0));
 
         // System.out.println("BZZ -->> Max " + BZZ.getQuantidadeMaxima("/home/luan/Documentos/viagem.bzz"));
         // System.out.println("BZZ -->> " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));
 
-        // ViagemIndexar.mostrarIndexado("/home/luan/Documentos/viagem.bzz","36/05/7002");
+        //ViagemIndexar.mostrarIndexado("/home/luan/Documentos/viagem.bzz","36/05/7002");
         // ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", new Viajante(),new Tozte(36,5,7002),new Hazde(4,0,0));
 
         // System.out.println("Com Valores :: " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));

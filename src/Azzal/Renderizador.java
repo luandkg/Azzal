@@ -1809,5 +1809,12 @@ public class Renderizador {
 
     }
 
+    public static Renderizador construir(int largura, int altura) {
+
+        BufferedImage construido = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
+        return new Renderizador(construido);
+
+    }
+
 
 }

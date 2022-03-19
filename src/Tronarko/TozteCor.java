@@ -63,7 +63,7 @@ public class TozteCor {
 
             for (Tozte eTozte : mToztes) {
 
-                if (eTozte.MenorrQue(ret)) {
+                if (eTozte.isMenorQue(ret)) {
                     ret = eTozte;
                 }
 
@@ -87,7 +87,7 @@ public class TozteCor {
 
             for (Tozte eTozte : mToztes) {
 
-                if (eTozte.MaiorQue(ret)) {
+                if (eTozte.isMaiorQue(ret)) {
                     ret = eTozte;
                 }
 

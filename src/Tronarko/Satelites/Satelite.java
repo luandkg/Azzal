@@ -90,6 +90,10 @@ public class Satelite {
         int F2 = 2 * mTaxa;
         int F3 = 3 * mTaxa;
         int F4 = 4 * mTaxa;
+        int F5 = 5 * mTaxa;
+        int F6 = 6 * mTaxa;
+        int F7 = 7 * mTaxa;
+        int F8 = 8 * mTaxa;
 
         String ret = "";
 
@@ -101,13 +105,15 @@ public class Satelite {
         ret += "\t - Proxima : " + getProximo(TozteC) + "\n";
         ret += "\t - Proxima Fase : " + getProximaFase(TozteC) + "\n\n";
 
-        ret += "\t - Fase Nova : [1 a " + F1 + "]\n";
 
-        ret += "\t - Fase Crescente : [" + (F1) + " a " + F2 + "]\n";
-
-        ret += "\t - Fase Cheia : [" + F2 + " a " + F3 + "]\n";
-
-        ret += "\t - Fase Minguante : [" + F3 + " a " + F4 + "]\n";
+        ret += "\t - Fase NOVA : [1 a " + F1 + "]\n";
+        ret += "\t - Fase MINGUANTE : [" + (F1) + " a " + F2 + "]\n";
+        ret += "\t - Fase QUADRO_MINGUANTE : [" + (F2) + " a " + F3 + "]\n";
+        ret += "\t - Fase MINGUANTE_GIBOSA : [" + F3 + " a " + F4+ "]\n";
+        ret += "\t - Fase CHEIA : [" + F4 + " a " + F5 + "]\n";
+        ret += "\t - Fase CRESCENTE_GIBOSA : [" + F5 + " a " + F6 + "]\n";
+        ret += "\t - Fase QUADRO_CRESCENTE : [" + F6 + " a " + F7 + "]\n";
+        ret += "\t - Fase CRESCENTE : [" + F7 + " a " + F8 + "]\n";
 
         return ret;
 
@@ -200,9 +206,9 @@ public class Satelite {
         } else if (aTozteQuantidade > F3 && aTozteQuantidade <= F4) {
             ret = Fases.MINGUANTE_GIBOSA;
         } else if (aTozteQuantidade > F4 && aTozteQuantidade <= F5) {
-            ret = Fases.CRESCENTE_GIBOSA;
-        } else if (aTozteQuantidade > F5 && aTozteQuantidade <= F6) {
             ret = Fases.CHEIA;
+        } else if (aTozteQuantidade > F5 && aTozteQuantidade <= F6) {
+            ret = Fases.CRESCENTE_GIBOSA;
         } else if (aTozteQuantidade > F6 && aTozteQuantidade <= F7) {
             ret = Fases.QUADRO_CRESCENTE;
         } else if (aTozteQuantidade > F7 && aTozteQuantidade <= F8) {

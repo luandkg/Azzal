@@ -27,4 +27,14 @@ public class AutoInt {
     public void zerar() {
         mValor = 0;
     }
+
+    public int mais_get(int mais) {
+        mValor += mais;
+        return mValor;
+    }
+
+    public int re_init(int eValor) {
+        mValor = eValor;
+        return mValor;
+    }
 }

@@ -19,13 +19,13 @@ public class Satelatizador {
     public Satelatizador(String eNome) {
 
         IMG_0 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/0.png"), 32, 32);
-        IMG_1 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome +"/1.png"), 32, 32);
-        IMG_2 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome +"/2.png"), 32, 32);
-        IMG_3 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" +eNome + "/3.png"), 32, 32);
-        IMG_4 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" +eNome + "/4.png"), 32, 32);
-        IMG_5 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome +"/5.png"), 32, 32);
-        IMG_6 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome +"/6.png"), 32, 32);
-        IMG_7 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome +"/7.png"), 32, 32);
+        IMG_1 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/1.png"), 32, 32);
+        IMG_2 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/2.png"), 32, 32);
+        IMG_3 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/3.png"), 32, 32);
+        IMG_4 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/4.png"), 32, 32);
+        IMG_5 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/5.png"), 32, 32);
+        IMG_6 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/6.png"), 32, 32);
+        IMG_7 = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/lua/" + eNome + "/7.png"), 32, 32);
 
     }
 

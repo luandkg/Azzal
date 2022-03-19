@@ -1,25 +1,25 @@
 package Letrum;
 
 import Azzal.Cenarios.Cena;
+import Azzal.Cores;
 import Azzal.Formatos.Retangulo;
 import Azzal.Renderizador;
 import Azzal.Teclado;
 import Azzal.Utils.Cor;
 import Azzal.Windows;
 import Letrum.Maker.FonteGerador;
-import Letrum.Fontes.G10;
-import Letrum.Fontes.G20;
-import Letrum.Fontes.G30;
+
+import Letrum.Maker.FonteRunTime;
 
 import java.awt.*;
 
 
 public class FonteGeradorCena extends Cena {
 
-    private G10 T10;
-    private G20 T20;
-    private G30 T30;
-    private G30 V30;
+    private Fonte T10;
+    private Fonte T20;
+    private Fonte T30;
+    private Fonte V30;
 
     private EditorDeTexto mEditorDeTexto;
     private Teclado mTeclado;
@@ -46,10 +46,14 @@ public class FonteGeradorCena extends Cena {
         eWindows.setTitle("Auto Gerador de Fonte");
         mTeclado = eWindows.getTeclado();
 
-        T10 = new G10();
-        T20 = new G20();
-        T30 = new G30();
-        V30 = new G30(new Cor(100, 200, 0));
+        Cores mCores = new Cores();
+
+        T10 = new FonteRunTime(mCores.getPreto(), 10);
+        T20 = new FonteRunTime(mCores.getPreto(), 20);
+        T30 = new FonteRunTime(mCores.getPreto(), 30);
+        V30 = new FonteRunTime(mCores.getVermelho(), 30);
+
+
 
         mEditorDeTexto = new EditorDeTexto(500, 600, T30);
         mEditorDeTexto.setTexto("MAÇÃ");

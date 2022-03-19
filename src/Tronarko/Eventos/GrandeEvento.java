@@ -292,7 +292,7 @@ public class GrandeEvento {
 		ArrayList<Tozte> ret = new ArrayList<Tozte>();
 		
 		Tozte T1 = this.getInicio().getCopia();
-		while (T1.MenorIgualQue(this.getFim())) {
+		while (T1.isMenorIgualQue(this.getFim())) {
 
 			ret.add(T1.getCopia());
 

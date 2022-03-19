@@ -4,6 +4,8 @@ import DKG.DKGObjeto;
 import Luan.STTY;
 import Luan.TTY;
 import Tronarko.IntTronarko;
+import Tronarko.StringTronarko;
+import Tronarko.Tozte;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class FluxoDeViagem {
 
     public ArrayList<String> viagem = new ArrayList<String>();
     public ArrayList<String> acampamentos = new ArrayList<String>();
+    public ArrayList<String> viagem_hoje = new ArrayList<String>();
 
     public String viagem_anterior = "";
 
@@ -43,11 +46,22 @@ public class FluxoDeViagem {
     public void mostrarViagemAtual() {
 
         int viagem_percurso = getPercurso(viagem);
+        int passos_percurso = getPassos(viagem);
+
+
+        int hoje_percurso = getPercurso(viagem_hoje);
+        int passos_hoje = getPassos(viagem_hoje);
+
 
         System.out.println("\t      Viagem Duracao      -->> " + IntTronarko.intervalo(viagem_comecou, viagem_terminou));
         System.out.println("\t      Viagem Pontos       -->> " + viagem.size());
         System.out.println("\t      Acampamentos        -->> " + acampamentos.size());
         System.out.println("\t      Percurso            -->> " + viagem_percurso + " Stgz");
+        System.out.println("\t      Passos Percurso     -->> " + passos_percurso + " passos");
+
+        System.out.println("\t      Percurso HOJE       -->> " + hoje_percurso + " Stgz");
+        System.out.println("\t      Passos HOJE         -->> " + passos_hoje + " passos");
+
         System.out.println("\t      Tempo Andando       -->> " + andando_tempo + " ittas");
         System.out.println("\t      Tempo Descansando   -->> " + acampamento_tempo + " ittas");
         System.out.println("\t      Tempo da Viagem     -->> " + (acampamento_tempo + andando_tempo) + " ittas");
@@ -72,7 +86,7 @@ public class FluxoDeViagem {
     }
 
 
-    public void emFluxo(DKGObjeto ePonto) {
+    public void emFluxo(DKGObjeto ePonto, Tozte eHoje) {
 
         if (ePonto.existeIdentificador("Cidade")) {
 
@@ -86,6 +100,8 @@ public class FluxoDeViagem {
                     mostrarViagem();
 
                     viagem.clear();
+                    viagem_hoje.clear();
+
                     acampamentos.clear();
 
                 }
@@ -114,6 +130,8 @@ public class FluxoDeViagem {
                 jaInicouViagem = true;
 
                 viagem.clear();
+                viagem_hoje.clear();
+
                 acampamentos.clear();
 
                 viagem_anterior = "";
@@ -125,6 +143,13 @@ public class FluxoDeViagem {
 
             viagem.add(ePonto.identifique("x").getValor() + "::" + ePonto.identifique("y").getValor());
 
+            StringTronarko st = new StringTronarko();
+
+            String pTozte = st.getTozte(ePonto.identifique("Tozte").getValor()).getTexto();
+
+            if (pTozte.contentEquals(eHoje.getTexto())) {
+                viagem_hoje.add(ePonto.identifique("x").getValor() + "::" + ePonto.identifique("y").getValor());
+            }
 
             if (ePonto.identifique("Momento").isValor("Acampamento")) {
                 acampamentos.add(ePonto.identifique("x").getValor() + "::" + ePonto.identifique("y").getValor());
@@ -190,6 +215,19 @@ public class FluxoDeViagem {
 
 
         return p * 10;
+    }
+
+    public static int getPassos(ArrayList<String> pontos) {
+
+        int contando_passos = (getPercurso(pontos) * 100) / 3;
+
+        int passos_2_tercos = contando_passos * 2;
+        int passos_1_terco = contando_passos;
+
+        int passos = (passos_2_tercos * 3) + (passos_1_terco * 2);
+
+
+        return passos;
     }
 
     public static int getPercursoDesde(ArrayList<String> pontos, String eDesde) {

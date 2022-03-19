@@ -16,7 +16,7 @@ public class Ordenador {
 		for (int i = 0; i < n; i++) {
 			for (int j = 1; j < (n - i); j++) {
 
-				if (Entrada.get(j - 1).MaiorIgualQue(Entrada.get(j))) {
+				if (Entrada.get(j - 1).isMaiorIgualQue(Entrada.get(j))) {
 					temp = Entrada.get(j - 1);
 					Entrada.set(j - 1, Entrada.get(j));
 					Entrada.set(j, temp);
@@ -67,5 +67,35 @@ public class Ordenador {
 		}
 
 	}
+
+	public static ArrayList<Lembrete> OrdenarLembretes(ArrayList<Lembrete> entradas) {
+
+		int n = entradas.size();
+		Lembrete temp = null;
+
+		for (int i = 0; i < n; i++) {
+			for (int j = 1; j < (n - i); j++) {
+
+				if (entradas.get(j - 1).getTozte().isMaiorIgualQue((entradas.get(j)).getTozte())) {
+					if (entradas.get(j - 1).getTozte().isIgual((entradas.get(j)).getTozte())) {
+
+						if (entradas.get(j - 1).getHazde().isMaior((entradas.get(j)).getHazde())) {
+							temp = entradas.get(j - 1);
+							entradas.set(j - 1, entradas.get(j));
+							entradas.set(j, temp);
+						}
+
+					} else {
+						temp = entradas.get(j - 1);
+						entradas.set(j - 1, entradas.get(j));
+						entradas.set(j, temp);
+					}
+				}
+
+			}
+		}
+		return entradas;
+	}
+
 
 }

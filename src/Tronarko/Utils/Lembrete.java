@@ -4,6 +4,8 @@ package Tronarko.Utils;
 import Tronarko.Hazde;
 import Tronarko.Tozte;
 
+import java.util.ArrayList;
+
 public class Lembrete {
 
     private Tozte mTozte;
@@ -23,5 +25,7 @@ public class Lembrete {
     public Hazde getHazde() {
         return mHazde;
     }
+
+
 
 }

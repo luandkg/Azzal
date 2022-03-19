@@ -105,6 +105,8 @@ public class Hazde {
         return texto;
     }
 
+
+
     public final String toString() {
         return getTexto();
     }

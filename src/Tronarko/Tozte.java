@@ -694,7 +694,7 @@ public class Tozte {
 
     }
 
-    public boolean MaiorQue(Tozte Outro) {
+    public boolean isMaiorQue(Tozte Outro) {
         boolean resposta = false;
         if (this.getSuperarkosTotal() > Outro.getSuperarkosTotal()) {
             resposta = true;
@@ -703,7 +703,7 @@ public class Tozte {
         return resposta;
     }
 
-    public boolean MenorrQue(Tozte Outro) {
+    public boolean isMenorQue(Tozte Outro) {
         boolean resposta = false;
         if (this.getSuperarkosTotal() < Outro.getSuperarkosTotal()) {
             resposta = true;
@@ -712,7 +712,7 @@ public class Tozte {
         return resposta;
     }
 
-    public boolean Igual(Tozte Outro) {
+    public boolean isIgual(Tozte Outro) {
 
         boolean resposta = false;
 
@@ -723,7 +723,7 @@ public class Tozte {
         return resposta;
     }
 
-    public boolean Diferente(Tozte Outro) {
+    public boolean isDiferente(Tozte Outro) {
         boolean resposta = false;
         if (this.getSuperarkosTotal() != Outro.getSuperarkosTotal()) {
             resposta = true;
@@ -732,7 +732,7 @@ public class Tozte {
         return resposta;
     }
 
-    public boolean MaiorIgualQue(Tozte Outro) {
+    public boolean isMaiorIgualQue(Tozte Outro) {
         boolean resposta = false;
         if (this.getSuperarkosTotal() >= Outro.getSuperarkosTotal()) {
             resposta = true;
@@ -741,7 +741,7 @@ public class Tozte {
         return resposta;
     }
 
-    public boolean MenorIgualQue(Tozte Outro) {
+    public boolean isMenorIgualQue(Tozte Outro) {
         boolean resposta = false;
         if (this.getSuperarkosTotal() <= Outro.getSuperarkosTotal()) {
             resposta = true;

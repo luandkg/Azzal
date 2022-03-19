@@ -6,6 +6,7 @@ public enum Fases {
     MINGUANTE(1),
     QUADRO_MINGUANTE(2),
     MINGUANTE_GIBOSA(3),
+
     CHEIA(4),
     CRESCENTE_GIBOSA(5),
     QUADRO_CRESCENTE(6),
@@ -33,9 +34,9 @@ public enum Fases {
         } else if (mValor == 3) {
             ret = "MINGUANTE_GIBOSA";
         } else if (mValor == 4) {
-            ret = "CRESCENTE_GIBOSA";
-        } else if (mValor == 5) {
             ret = "CHEIA";
+        } else if (mValor == 5) {
+            ret = "CRESCENTE_GIBOSA";
         } else if (mValor == 6) {
             ret = "QUADRO_CRESCENTE";
         } else if (mValor == 7) {

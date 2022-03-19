@@ -419,4 +419,53 @@ public class AutoFonte implements Fonte {
     public     Renderizador getRenderizador(){return mRenderizador;}
 
     public Cor getCor(){return mCor;}
+
+
+    public void escrevaComOutraCor(int x, int y, String frase,Cor eOutraCor) {
+
+
+        int i = 0;
+        int o = frase.length();
+        while (i < o) {
+            String l = String.valueOf(frase.charAt(i));
+            if (l.contentEquals(" ")) {
+                x += 10;
+            } else if (l.contentEquals("\t")) {
+                x += 15;
+            } else {
+                boolean enc = false;
+                Letra letraSelecionada = null;
+
+                for (Letra e : mLetras) {
+                    if (e.igual(l)) {
+                        enc = true;
+                        letraSelecionada = e;
+                        break;
+                    }
+                }
+
+
+                if (enc) {
+                    int ox = x;
+                    int yc = y;
+
+                    for (int y1 = letraSelecionada.getY1(); y1 < letraSelecionada.getY2(); y1++) {
+                        int xc = ox;
+                        for (int xi = letraSelecionada.getX1(); xi < letraSelecionada.getX2(); xi++) {
+                            int v = mImagem.getRGB(xi, y1);
+                            if (v != 0) {
+                                mRenderizador.drawPixelBruto(xc, yc, eOutraCor.getValor());
+                            }
+                            xc += 1;
+                        }
+                        yc += 1;
+                    }
+
+                    x += (letraSelecionada.getX2() - letraSelecionada.getX1());
+                }
+            }
+            i += 1;
+        }
+    }
+
 }

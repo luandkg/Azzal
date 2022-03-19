@@ -77,7 +77,7 @@ public class TronarkoTG22 {
             Tozte ultimo = st.getTozte(projeto.get(0).getTozte());
             Tozte primeiro = st.getTozte(projeto.get(projeto.size() - 1).getTozte());
 
-            while (primeiro.MenorIgualQue(ultimo)) {
+            while (primeiro.isMenorIgualQue(ultimo)) {
                 mInfos.add(new TozteCor("TG22", primeiro, new Color(255, 165, 23)));
                 primeiro = primeiro.adicionar_Superarko(1);
             }
@@ -202,17 +202,19 @@ public class TronarkoTG22 {
 
             if (escalado > 15) {
 
-                mTextoMicroBranco.escreva(RX + 320, RY + 2, inteiro);
 
+                if (escalado > 50) {
+                    mTextoMicroBranco.escreva(RX + 320, RY + 2, inteiro + " fuzz");
+                } else {
+                    mTextoMicroBranco.escreva(RX + 320, RY + 2, inteiro);
+                }
 
                 // LIGAMENTO
-                r.drawRect_Pintado(RX , RY + 26,305, 2, new Cor(255, 20, 0));
-                r.drawRect_Pintado(RX+305 , RY + 8,2, 20, new Cor(255, 20, 0));
-                r.drawRect_Pintado(RX+305 , RY + 8,15, 2, new Cor(255, 20, 0));
+                r.drawRect_Pintado(RX, RY + 26, 305, 2, new Cor(255, 20, 0));
+                r.drawRect_Pintado(RX + 305, RY + 8, 2, 20, new Cor(255, 20, 0));
+                r.drawRect_Pintado(RX + 305, RY + 8, 15, 2, new Cor(255, 20, 0));
 
             }
-
-
 
 
             RY += 40;
@@ -280,7 +282,7 @@ public class TronarkoTG22 {
 
                 for (TozteCor InfoC : mInfos) {
 
-                    if (mTozte.Igual(InfoC.getTozte())) {
+                    if (mTozte.isIgual(InfoC.getTozte())) {
                         mCor = InfoC.getCor();
                         comFundo = true;
                         mAtualInfoNome = InfoC.getNome();
@@ -312,7 +314,7 @@ public class TronarkoTG22 {
                     mSuperNum = "0" + mSuperNum;
                 }
 
-                if (mHoje.Igual(mTozte)) {
+                if (mHoje.isIgual(mTozte)) {
                     mTextoPequeno.escrevaSelecionada(QX, QY, mSuperNum);
                 } else {
                     mTextoPequeno.escreva(QX, QY, mSuperNum);
@@ -356,16 +358,16 @@ public class TronarkoTG22 {
         Tozte eOutro_Ref = eReferencia.getCopia();
         Tozte eOutro_AlgumTozte = eAlgumTozte.getCopia();
 
-        if (eOutro_Ref.MaiorQue(eOutro_AlgumTozte)) {
+        if (eOutro_Ref.isMaiorQue(eOutro_AlgumTozte)) {
 
-            while (eOutro_Ref.MaiorQue(eOutro_AlgumTozte)) {
+            while (eOutro_Ref.isMaiorQue(eOutro_AlgumTozte)) {
                 eOutro_Ref = eOutro_Ref.adicionar_Superarko(-1);
                 dif += 1;
             }
 
-        } else if (eOutro_Ref.MenorrQue(eOutro_AlgumTozte)) {
+        } else if (eOutro_Ref.isMenorQue(eOutro_AlgumTozte)) {
 
-            while (eOutro_Ref.MenorrQue(eOutro_AlgumTozte)) {
+            while (eOutro_Ref.isMenorQue(eOutro_AlgumTozte)) {
                 eOutro_Ref = eOutro_Ref.adicionar_Superarko(+1);
                 dif -= 1;
             }
