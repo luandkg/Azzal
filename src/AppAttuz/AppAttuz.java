@@ -11,6 +11,7 @@ import AppAttuz.Politicamente.Cidades;
 import AppAttuz.Politicamente.ListaDeCidades;
 import AppAttuz.Politicamente.NomesEspecificos;
 import AppAttuz.Servicos.*;
+import AppAttuz.Widgets.Distanciador;
 import Arquivos.PreferenciasOrganizadas;
 import Arquivos.QTT;
 import Azzal.*;
@@ -86,6 +87,9 @@ public class AppAttuz extends Cena {
 
     private Preferencias mPreferencias;
     private Escolhettor mEscolhettor;
+    private Distanciador mDistanciador;
+
+    private BufferedImage marcador = Efeitos.reduzirComAlfa(ImageUtils.getImagem("/home/luan/Imagens/icones_mapa/marcador.png"), 30, 30);
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -239,6 +243,8 @@ public class AppAttuz extends Cena {
             }
         });
 
+        mDistanciador = new Distanciador(mClicavel);
+
     }
 
 
@@ -304,6 +310,14 @@ public class AppAttuz extends Cena {
 
 
             }
+
+            if (mDistanciador.isSelecionando()) {
+                if (getWindows().getMouse().isClicked()) {
+                    mDistanciador.marcar(agoraX, agoraY);
+                }
+            }
+
+
         }
 
 
@@ -469,8 +483,7 @@ public class AppAttuz extends Cena {
 
         }
 
-        mEscolhettor.drawSelecionado(g,pequeno);
-
+        mEscolhettor.drawSelecionado(g, pequeno);
 
 
         if (mPreferencias.mMostrarCidades.getValor()) {
@@ -517,6 +530,17 @@ public class AppAttuz extends Cena {
         }
 
         mPreferencias.panielConfiguracoes(g);
+
+        mDistanciador.draw(g);
+
+        if (mDistanciador.temP1()) {
+            g.drawImagemComAlfa((mDistanciador.getP1().getX() / 2) + X0-15, (mDistanciador.getP1().getY() / 2) + Y0-30, marcador);
+        }
+
+        if (mDistanciador.temP2()) {
+            g.drawImagemComAlfa((mDistanciador.getP2().getX() / 2) + X0-15, (mDistanciador.getP2().getY() / 2) + Y0-30, marcador);
+        }
+
 
         if (!printou) {
             TirarPrint.print(getWindows(), "/home/luan/Imagens/t_7002.png");

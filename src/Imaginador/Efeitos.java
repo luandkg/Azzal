@@ -46,6 +46,9 @@ public class Efeitos {
         return reduzida;
     }
 
+
+
+
     public static BufferedImage reduzirComAlfa(BufferedImage img,int nova_largura,int nova_altura) {
 
         BufferedImage reduzida = new BufferedImage(nova_largura, nova_altura, BufferedImage.TYPE_INT_ARGB);
