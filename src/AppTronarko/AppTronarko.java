@@ -287,7 +287,7 @@ public class AppTronarko extends Cena {
         mHiperarkoWidgetSelecionado.draw_hiperarko_com_infos(r, mHoje, mEventos);
 
 
-        TriBarraDeProgresso.draw(r, 950, 450, 380, 50, mHoje.getSuperarko(), 25, 40);
+        BarraDeProgresso.tri_progresso(r, 950, 450, 380, 50, mHoje.getSuperarko(), 25, 40);
 
 
         int AVISO_X = 950;
@@ -321,7 +321,7 @@ public class AppTronarko extends Cena {
                     int intervalo = Momentum.getDistancia(eComunicado.getTozte().getTozteMin(), eComunicado.getTozte().getTozteMax());
                     int ate = Momentum.getDistancia(eComunicado.getTozte().getTozteMin(), mHoje);
 
-                    TriBarraDeProgresso.draw(r, AVISO_X, AVISO_Y + 70, 380, intervalo, ate, intervalo / 3, intervalo / 2);
+                    BarraDeProgresso.progresso(r, AVISO_X, AVISO_Y + 70, 380, intervalo, ate, Cor.getRGB(eComunicado.getCor()));
 
 
                 }
