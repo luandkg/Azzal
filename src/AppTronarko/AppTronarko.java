@@ -167,6 +167,7 @@ public class AppTronarko extends Cena {
 
         mHiperarkoWidgetSelecionado = new HiperarkoWidget(950, 280, 1, mHoje.getTronarko());
         mHiperarkoWidgetSelecionado.setTamanhoCaixaTitulo(20);
+
     }
 
 
@@ -312,6 +313,21 @@ public class AppTronarko extends Cena {
 
             Marcador.marcar_barra_dupla(r, AVISO_X, AVISO_Y + 30, 5, 25, Cor.getRGB(eComunicado.getCor()));
             mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y + 35, eComunicado.getValor());
+
+            if (!eComunicado.getValor().contains("Tron") && eComunicado.getTozte().getTozteMax().isMaiorQue(eComunicado.getTozte().getTozteMin())) {
+
+                if (mHoje.isMaiorIgualQue(eComunicado.getTozte().getTozteMin())) {
+
+                    int intervalo = Momentum.getDistancia(eComunicado.getTozte().getTozteMin(), eComunicado.getTozte().getTozteMax());
+                    int ate = Momentum.getDistancia(eComunicado.getTozte().getTozteMin(), mHoje);
+
+                    TriBarraDeProgresso.draw(r, AVISO_X, AVISO_Y + 70, 380, intervalo, ate, intervalo / 3, intervalo / 2);
+
+
+                }
+
+            }
+
 
         }
 
