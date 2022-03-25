@@ -10,8 +10,11 @@ import Letrum.Fonte;
 import Letrum.FonteDupla;
 import Letrum.FonteDuplaRunTime;
 import Letrum.Maker.FonteRunTime;
+import Tronarko.Eventos.Comunicado;
+import Tronarko.Eventos.Comunicum;
 import Tronarko.Eventos.Eventum;
 import Tronarko.*;
+import Tronarko.Eventos.Momentum;
 import Tronarko.Satelites.*;
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
@@ -189,6 +192,18 @@ public class AppTronarko extends Cena {
         mHiperarkoWidgetSelecionado.setHiperarko(mHoje.getHiperarko());
         mHiperarkoWidgetSelecionado.setTronarko(mHoje.getTronarko());
 
+        mHiperarkoWidget_01.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_02.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_03.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_04.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_05.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_06.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_07.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_08.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_09.setTronarko(mHoje.getTronarko());
+        mHiperarkoWidget_10.setTronarko(mHoje.getTronarko());
+
+
         if (mAtualmente == null) {
             mAtualmente = mHoje;
 
@@ -245,12 +260,13 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_10.draw_hiperarko_com_infos(r, mHoje, mEventos);
 
 
-
         mTextoPequeno.escreva(950, 100 + 0, " -->> Hoje : " + mHoje.toString());
         mTextoPequeno.escreva(950, 100 + 50, " -->> Agora : " + mAgora.toString());
         mTextoPequeno.escreva(950, 100 + 100, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
 
-        mAgora.getTotalEttonsParaAcabar();
+
+        mTextoPequeno.escreva(1230, 100 + 100, "Estação : " + mHoje.getHizarko().toString() + " ( " + mHoje.Hizarko_Duracao() + " ) ");
+        mTextoPequeno.escreva(1230, 100 + 130, "Fluxo : " + hizarko_fluxo(mHoje.Hizarko_Duracao()));
 
 
         int satelites = 950 + 300;
@@ -276,7 +292,9 @@ public class AppTronarko extends Cena {
         int AVISO_X = 950;
         int AVISO_Y = 500;
 
-        for (TozteCor tozte_evento : mEventum.getLegenda(mEventos)) {
+        ArrayList<TozteCor> eventos = mEventum.getLegenda(mEventos);
+
+        for (TozteCor tozte_evento : eventos) {
 
             Marcador.marcar(r, AVISO_X, AVISO_Y, 20, 5, Cor.getRGB(tozte_evento.getCor()), mCores.getBranco());
 
@@ -288,12 +306,36 @@ public class AppTronarko extends Cena {
         }
 
 
+        Comunicado eComunicado = Comunicum.obterComunicado(eventos, mHoje);
+
+        if (eComunicado.isOK()) {
+
+            Marcador.marcar_barra_dupla(r, AVISO_X, AVISO_Y + 30, 5, 25, Cor.getRGB(eComunicado.getCor()));
+            mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y + 35, eComunicado.getValor());
+
+        }
+
+
         r.drawImagemComAlfa(1380, 350, mTronarkoImagemSignos.getSigno(mHoje.getSigno()));
         mTextoPequeno.escrevaCentralizado(1380 + 32 - 2, 420, mHoje.getSigno().toString());
 
 
     }
 
+
+    public String hizarko_fluxo(int v) {
+        String ret = "...";
+
+        if (v <= 10) {
+            ret = "Começando...";
+        } else if (v >= 115) {
+            ret = "Terminando...";
+        } else {
+            ret = "Aproveitando a estação...";
+        }
+
+        return ret;
+    }
 
 }
 

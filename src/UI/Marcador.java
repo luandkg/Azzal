@@ -12,4 +12,13 @@ public class Marcador {
 
 
     }
+
+    public static void marcar_barra_dupla(Renderizador r, int px, int py, int largura, int altura, Cor eCor ) {
+
+        r.drawRect_Pintado(px, py, largura, altura,eCor);
+        r.drawRect_Pintado(px + 10, py, largura, altura, eCor);
+
+    }
+
+
 }

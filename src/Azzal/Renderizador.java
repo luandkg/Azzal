@@ -123,10 +123,12 @@ public class Renderizador {
 
                         int cor = img.getRGB(xi, yi);
 
+                        //drawIluminado(rx,ry,Cor.getInt(cor ));
+
                         int alpha = 0xFF & (cor >> 24);
 
                         if (alpha == 255) {
-                            mPixels[ePox] = cor;
+                           mPixels[ePox] = cor;
                         }
 
 
@@ -134,6 +136,44 @@ public class Renderizador {
                 }
             }
         }
+
+    }
+
+    public void drawIluminado(int eX, int eY, Cor eAplicar) {
+
+        if (eX >= 0 && eX < mLargura && eY >= 0 && eY < mAltura) {
+
+            int ePox = (eY * mLargura) + eX;
+
+            int i1 = mPixels[ePox];
+
+            Cor eOriginal = Cor.getRGB(new Color(i1));
+
+            Cor eFinal = eOriginal;
+
+
+            if (eAplicar.getAlpha() == 255) {
+                eFinal = eAplicar;
+            }
+
+            int d = 255 * (eOriginal.getAlpha() + eAplicar.getAlpha()) - eOriginal.getAlpha() * eAplicar.getAlpha();
+            int r = (eOriginal.getRed() * eOriginal.getAlpha() * (255 - eAplicar.getAlpha()) + 255 * eAplicar.getAlpha() * eAplicar.getRed()) / d;
+            int g = (eOriginal.getGreen() * eOriginal.getAlpha() * (255 - eAplicar.getAlpha()) + 255 * eAplicar.getAlpha() * eAplicar.getGreen()) / d;
+            int b = (eOriginal.getBlue() * eOriginal.getAlpha() * (255 - eAplicar.getAlpha()) + 255 * eAplicar.getAlpha() * eAplicar.getBlue()) / d;
+
+            int a = d / 255;
+
+            eFinal.setRed(r);
+            eFinal.setGreen(g);
+            eFinal.setBlue(b);
+            eFinal.setAlpha(a);
+
+
+            mPixels[ePox] = eFinal.getValor();
+
+
+        }
+
 
     }
 

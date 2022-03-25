@@ -122,7 +122,7 @@ public class Hazde {
 
         int eValor = getTotalEttons();
 
-        int eTudo = (10 * 100 * 100) + (100 * 100) + 100;
+        int eTudo = (10 * 100 * 100) ;
         int eFalta = eTudo - eValor;
 
         int eEttons = eFalta;

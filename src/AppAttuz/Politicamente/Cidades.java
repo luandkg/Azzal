@@ -1,6 +1,7 @@
 package AppAttuz.Politicamente;
 
 
+import AppAttuz.Ferramentas.Espaco2D;
 import AppAttuz.Mapa.Caminho;
 import AppAttuz.Mapa.Local;
 import Azzal.Formatos.Ponto;
@@ -170,4 +171,23 @@ public class Cidades {
         return ret;
     }
 
+
+    public static String getNomeMaisProximo(ArrayList<Local> mLocais, int px, int py, int ate) {
+
+        String ret = "";
+        int menor = ate;
+
+        for (Local ePonto : mLocais) {
+            int dist = Espaco2D.distancia_entre_pontos(px, py, ePonto.getX() * 2, ePonto.getY() * 2);
+
+            if (dist < menor) {
+                menor = dist;
+                ret = ePonto.getNome();
+            }
+
+
+        }
+
+        return ret;
+    }
 }

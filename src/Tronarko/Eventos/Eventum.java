@@ -875,19 +875,19 @@ public class Eventum {
         Color eCor = Color.BLACK;
 
         if (eHizarko == Hizarkos.HARBARIUM) {
-            eCor = Color.YELLOW;
+            eCor = new Color(220, 220, 20);
         }
 
         if (eHizarko == Hizarkos.DEGGOVIUM) {
-            eCor = Color.RED;
+            eCor = new Color(250, 20, 30);
         }
 
         if (eHizarko == Hizarkos.NUZTIUM) {
-            eCor = new Color(92, 80, 200);
+            eCor = new Color(50, 60, 180);
         }
 
         if (eHizarko == Hizarkos.HITTARIUM) {
-            eCor = new Color(74, 118, 110);
+            eCor = new Color(160, 160, 160);
         }
 
 

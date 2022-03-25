@@ -543,6 +543,21 @@ public class Tozte {
         return modificar_Tronarko(this, t);
     }
 
+    // RETIRAR METODOS
+
+    public Tozte retirar_Superarko(int s) {
+        return modificar_Superarko(this, (-1)*s);
+    }
+
+    public Tozte retirar_Hiperarko(int h) {
+        return modificar_Hiperarko(this,(-1)*h);
+    }
+
+    public Tozte retirar_Tronarko(int t) {
+        return modificar_Tronarko(this, (-1)*t);
+    }
+
+
     // ESPECIAIS
 
     public Tozte proximo_Superarko() {

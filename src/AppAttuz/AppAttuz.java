@@ -89,7 +89,8 @@ public class AppAttuz extends Cena {
     private Escolhettor mEscolhettor;
     private Distanciador mDistanciador;
 
-    private BufferedImage marcador = Efeitos.reduzirComAlfa(ImageUtils.getImagem("/home/luan/Imagens/icones_mapa/marcador.png"), 30, 30);
+    // private BufferedImage marcador = Efeitos.reduzirComAlfa(ImageUtils.getImagem("/home/luan/Imagens/icones_mapa/marcador_32.png"), 30, 30);
+    private BufferedImage marcador = ImageUtils.getImagem("/home/luan/Imagens/icones_mapa/marcador_32.png");
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -531,14 +532,14 @@ public class AppAttuz extends Cena {
 
         mPreferencias.panielConfiguracoes(g);
 
-        mDistanciador.draw(g);
+        mDistanciador.draw(g, mLocais);
 
         if (mDistanciador.temP1()) {
-            g.drawImagemComAlfa((mDistanciador.getP1().getX() / 2) + X0-15, (mDistanciador.getP1().getY() / 2) + Y0-30, marcador);
+            g.drawImagemComAlfa((mDistanciador.getP1().getX() / 2) + X0 - 15, (mDistanciador.getP1().getY() / 2) + Y0 - 30, marcador);
         }
 
         if (mDistanciador.temP2()) {
-            g.drawImagemComAlfa((mDistanciador.getP2().getX() / 2) + X0-15, (mDistanciador.getP2().getY() / 2) + Y0-30, marcador);
+            g.drawImagemComAlfa((mDistanciador.getP2().getX() / 2) + X0 - 15, (mDistanciador.getP2().getY() / 2) + Y0 - 30, marcador);
         }
 
 
