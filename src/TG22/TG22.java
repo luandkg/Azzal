@@ -6,16 +6,11 @@ import Azzal.Renderizador;
 import Luan.STTY;
 import DKG.DKG;
 import Tronarko.Tronarko;
-import Tronarko.StringTronarko;
-import Tronarko.Intervalos.Tozte_Intervalo;
-import Tronarko.Tozte;
 import DKG.DKGObjeto;
 
-import java.awt.image.BufferedImage;
-import java.io.*;
 import java.util.ArrayList;
 
-import Tronarko.IntTronarko;
+import Tronarko.Utils.IntTronarko;
 
 public class TG22 {
 
@@ -23,6 +18,7 @@ public class TG22 {
 
         ArrayList<Ficha> projeto = iniciar_projeto();
 
+        cadastrar("33/06/7002", 1.60, 70.0, projeto);
         cadastrar("21/06/7002", 1.60, 71.0, projeto);
         cadastrar("15/06/7002", 1.60, 71.0, projeto);
         cadastrar("05/06/7002", 1.60, 71.0, projeto);

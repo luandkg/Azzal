@@ -2,10 +2,8 @@ package Tronarko.Eventos;
 
 import java.util.ArrayList;
 
-import Tronarko.Eventos.Avisar.AvisarGrandeEvento;
-import Tronarko.Eventos.Avisar.AvisarPequenoEvento;
 import Tronarko.Tozte;
-import Tronarko.TozteCor;
+import Tronarko.Utils.TozteCor;
 
 public class Comunicum {
 

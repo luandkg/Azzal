@@ -19,7 +19,7 @@ public  class Tron_Intervalo {
 
     private void Organizar(Tron eInicio, Tron eFim) {
 
-        if (eInicio.MenorIgualQue(eFim)) {
+        if (eInicio.isMenorIgualQue(eFim)) {
             this.mInicio = eInicio;
             this.mFim = eFim;
         } else {

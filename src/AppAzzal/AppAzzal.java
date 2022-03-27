@@ -22,7 +22,7 @@ public class AppAzzal {
         //  AzzalUnico.unico("AppFuzz", 1600, 1020, new AppFuzz.AppFuzz());
 
 
-        AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko.AppTronarko());
+       // AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko.AppTronarko());
         //AzzalUnico .unico("Tronarko", 900, 800, new AppTronarko.AppAlarme());
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppTronarko.AppLinhaDoTempo());
 
@@ -154,6 +154,9 @@ public class AppAzzal {
         //ViagemCompleta.remontar_GuiaDeViagem();
 
         //RhoBenchmark.RhoBenchmark.organizar("res/RhoBenchmark.dkg","/home/luan/Imagens/RhoBenchmark.png");
+
+        VamosCalcular vc = new VamosCalcular();
+        vc.init();
 
     }
 

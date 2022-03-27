@@ -148,7 +148,7 @@ public class Proximattor {
                         normalizador.adicionar(ePonto.getValor());
                         massa.setValor(x, y, ePonto.getValor());
 
-                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, ePonto.getDirecao(), ePonto.getValor(), ePonto.getDistancia());
+                        String v = fmt.format(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, ePonto.getDirecao(), ePonto.getValor(), ePonto.getDistancia());
 
                         progresso.emitir((y * tectonica.getAltura()) + x, v);
 
@@ -172,7 +172,7 @@ public class Proximattor {
                         normalizador.adicionar(valor);
                         massa.setValor(x, y, valor);
 
-                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor, distancia);
+                        String v = fmt.format(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor, distancia);
 
                         progresso.emitir((y * tectonica.getAltura()) + x, v);
 
@@ -199,7 +199,7 @@ public class Proximattor {
                         normalizador.adicionar(valor);
                         massa.setValor(x, y, valor);
 
-                        String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor, distancia);
+                        String v = fmt.format(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} em distancia {esq5}", x, y, direcao, valor, distancia);
 
                         progresso.emitir((y * tectonica.getAltura()) + x, v);
 

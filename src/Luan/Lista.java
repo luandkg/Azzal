@@ -2,356 +2,385 @@ package Luan;
 
 public class Lista<T> {
 
-	private class Item {
-
-		private T mValor;
-		private Item mProximo;
-
-		public Item(T eValor) {
-			mValor = eValor;
-			mProximo = null;
-		}
-
-		public void setValor(T eValor) {
-			this.mValor = eValor;
-		}
-
-		public T getValor() {
-			return this.mValor;
-		}
-
-		public void setProximo(Item eProximo) {
-			this.mProximo = eProximo;
-		}
-
-		public Item getProximo() {
-			return this.mProximo;
-		}
-
-	}
-
-	private Item mPrimeiro;
-	private Item mUltimo;
-	private int mQuantidade;
-
-	private boolean mLimitada;
-	private int mLimite;
-	
-	public Lista() {
+    private class Item {
 
-		mPrimeiro = null;
-		mUltimo = null;
-		mQuantidade = 0;
-		mLimitada=false;
-		mLimite=0;
-		
-		//System.out.println("Construindo Lista");
-	}
+        private T mValor;
+        private Item mProximo;
 
-	public void adicionar(T eValor) {
+        public Item(T eValor) {
+            mValor = eValor;
+            mProximo = null;
+        }
 
-		boolean adicionando = false;
-		
-		if(mLimitada) {
-			
-			if(mQuantidade<mLimite) {
-				adicionando=true;
-			}else {
-				throw new IllegalArgumentException("A lista esta cheia !");
-			}
-			
-		}else {
-			adicionando=true;
-		}
-		
-		if(adicionando) {
-			
-			Item mAdicionar = new Item(eValor);
+        public void setValor(T eValor) {
+            this.mValor = eValor;
+        }
 
-			if (mPrimeiro == null) {
+        public T getValor() {
+            return this.mValor;
+        }
 
-				mPrimeiro = mAdicionar;
+        public void setProximo(Item eProximo) {
+            this.mProximo = eProximo;
+        }
 
-			} else {
+        public Item getProximo() {
+            return this.mProximo;
+        }
 
-				mUltimo.setProximo(mAdicionar);
-			}
+    }
 
-			mUltimo = mAdicionar;
+    private Item mPrimeiro;
+    private Item mUltimo;
+    private int mQuantidade;
 
-			//System.out.println("Adicionando " + eValor);
-			mQuantidade += 1;
-			
-		}
-		
-		
-		
-		
-		
-	}
+    private boolean mLimitada;
+    private int mLimite;
 
-	public int getQuantidade() {
-		return mQuantidade;
-	}
+    public Lista() {
 
-	public void remover(T eValor) {
+        mPrimeiro = null;
+        mUltimo = null;
+        mQuantidade = 0;
+        mLimitada = false;
+        mLimite = 0;
 
-		if (mPrimeiro != null) {
+        //System.out.println("Construindo Lista");
+    }
 
-			Item mAnterior = null;
-			Item mCorrente = mPrimeiro;
+    public void adicionar(T eValor) {
 
-			while (mCorrente != null) {
+        boolean adicionando = false;
 
-				if (mCorrente.getValor() == eValor) {
+        if (mLimitada) {
 
-					mQuantidade -= 1;
-				//	System.out.println("Removendo " + eValor);
+            if (mQuantidade < mLimite) {
+                adicionando = true;
+            } else {
+                throw new IllegalArgumentException("A lista esta cheia !");
+            }
 
-					if (mAnterior == null) {
+        } else {
+            adicionando = true;
+        }
 
-						if (mPrimeiro.getProximo() != null) {
-							mPrimeiro = mPrimeiro.getProximo();
-						} else {
-							mPrimeiro = null;
-							mUltimo = null;
-						}
+        if (adicionando) {
 
-					} else {
+            Item mAdicionar = new Item(eValor);
 
-						if (mCorrente.getProximo() == null) {
-							mUltimo = mAnterior;
-							mAnterior.setProximo(null);
-							mCorrente = null;
-						} else {
+            if (mPrimeiro == null) {
 
-							mAnterior.setProximo(mCorrente.getProximo());
-							mCorrente = null;
-						}
+                mPrimeiro = mAdicionar;
 
-					}
+            } else {
 
-					break;
-				}
+                mUltimo.setProximo(mAdicionar);
+            }
 
-				mAnterior = mCorrente;
-				mCorrente = mCorrente.getProximo();
-			}
+            mUltimo = mAdicionar;
 
-		}
+            //System.out.println("Adicionando " + eValor);
+            mQuantidade += 1;
 
-	}
+        }
 
-	public void listarSemIndice() {
 
-		Item mCorrente = mPrimeiro;
+    }
 
-		while (mCorrente != null) {
-			System.out.println(" ->> " + mCorrente.getValor());
-			mCorrente = mCorrente.getProximo();
-		}
+    public int getQuantidade() {
+        return mQuantidade;
+    }
 
-	}
+    public void remover(T eValor) {
 
-	public void listarComIndice() {
+        if (mPrimeiro != null) {
 
-		int indice = 0;
+            Item mAnterior = null;
+            Item mCorrente = mPrimeiro;
 
-		Item mCorrente = mPrimeiro;
-		while (mCorrente != null) {
+            while (mCorrente != null) {
 
-			System.out.println(" " + indice + " ->> " + mCorrente.getValor());
+                if (mCorrente.getValor() == eValor) {
 
-			mCorrente = mCorrente.getProximo();
-			indice += 1;
-		}
-	}
+                    mQuantidade -= 1;
+                    //	System.out.println("Removendo " + eValor);
 
-	public T getValor(int indice) {
+                    if (mAnterior == null) {
 
-		if (indice >= 0) {
+                        if (mPrimeiro.getProximo() != null) {
+                            mPrimeiro = mPrimeiro.getProximo();
+                        } else {
+                            mPrimeiro = null;
+                            mUltimo = null;
+                        }
 
-			int indicecontagem = 0;
-			Item mCorrente = mPrimeiro;
-			while (mCorrente != null) {
+                    } else {
 
-				if (indice == indicecontagem) {
-					return mCorrente.getValor();
-				}
-
-				indicecontagem += 1;
-				mCorrente = mCorrente.getProximo();
-			}
-
-			throw new IllegalArgumentException("Indice invalido : " + indice);
-
-		} else {
-
-			throw new IllegalArgumentException("Indice invalido : " + indice);
-		}
-
-	}
-
-	public void setValor(int indice, T eValor) {
-
-		if (indice >= 0) {
-
-			int indicecontagem = 0;
-			Item mCorrente = mPrimeiro;
-			boolean trocou = false;
-
-			while (mCorrente != null) {
-
-				if (indice == indicecontagem) {
-					mCorrente.setValor(eValor);
-					trocou = true;
-					break;
-				}
-
-				indicecontagem += 1;
-				mCorrente = mCorrente.getProximo();
-
-			}
-
-			if (!trocou) {
-				throw new IllegalArgumentException("Indice invalido : " + indice);
-			}
-
-		} else {
-
-			throw new IllegalArgumentException("Indice invalido : " + indice);
-
-		}
-
-	}
-	
-	
-	public boolean estaVazia() {
-		
-		return mQuantidade==0;
-		
-	}
-	
-	public boolean possuiObjetos() {
-		
-		return mQuantidade>0;
-	}
-
-	public void limpar() {
-		mQuantidade=0;
-		mPrimeiro=null;
-		mUltimo=null;
-	}
-	
-	
-	public int getIndexOf(T eValor) {
-		
-		
-		boolean encontrou = false;
-		
-		Item mCorrente = mPrimeiro;
-		
-		int mIndice = 0;
-		
-		while(mCorrente!=null) {
-			
-			if(mCorrente.getValor()==eValor) {
-				encontrou=true;
-				break;
-			}
-			
-			
-			mIndice+=1;
-			mCorrente=mCorrente.getProximo();
-		}
-		
-		if (encontrou==false) {
-			throw new IllegalArgumentException("Valor nao encontrado : " + eValor);
-		}
-		
-		return mIndice;
-	}
-	
-	public boolean existe(T eValor) {
-		
-		boolean retorno = false;
-		
-		Item mCorrente = mPrimeiro;
-		while(mCorrente !=null) {
-			if(mCorrente.getValor()==eValor) {
-				retorno=true;
-				break;
-			}
-			mCorrente=mCorrente.getProximo();
-		}
-		
-		return retorno;
-		
-	}
-	
-	public int contar(T eValor) {
-		
-		int retorno = 0;
-		
-		
-		Item mCorrente = mPrimeiro;
-		
-		while(mCorrente!=null) {
-			if(mCorrente.getValor()==eValor) {
-				retorno +=1;
-			}
-			mCorrente=mCorrente.getProximo();
-		}
-		
-		return retorno;
-	}
-	
-	
-	public void limitar(int eLimite) {
-		
-		if (mQuantidade<=eLimite) {
-			mLimitada = true;
-			mLimite=eLimite;
-		}else {
-			throw new IllegalArgumentException("A quantidade de objetos e maior que o limite !");
-		}
-		
-	}
-	
-	public void desLimitar() {
-		mLimitada=false;
-		mLimite=0;
-	}
-	
-	
-	public boolean estaLimitada() {return mLimitada;}
-	public int getLimite() {
-		return mLimite;
-	}
-	
-	public boolean estaCheia() {
-		if(mLimitada) {
-			return mQuantidade>=mLimite;
-		}else {
-			return false;
-		}
-	}
-	
-	public void aumentarLimite(int eAumento) {
-		
-		
-		
-	}
-	
-	public int completar() {
-		if(mLimitada) {
-					
-			return mLimite-mQuantidade;
-			
-		}else {
-			return 0;
-		}
-	}
-	
-	
+                        if (mCorrente.getProximo() == null) {
+                            mUltimo = mAnterior;
+                            mAnterior.setProximo(null);
+                            mCorrente = null;
+                        } else {
+
+                            mAnterior.setProximo(mCorrente.getProximo());
+                            mCorrente = null;
+                        }
+
+                    }
+
+                    break;
+                }
+
+                mAnterior = mCorrente;
+                mCorrente = mCorrente.getProximo();
+            }
+
+        }
+
+    }
+
+    public void listarSemIndice() {
+
+        Item mCorrente = mPrimeiro;
+
+        while (mCorrente != null) {
+            System.out.println(" ->> " + mCorrente.getValor());
+            mCorrente = mCorrente.getProximo();
+        }
+
+    }
+
+    public void listarComIndice() {
+
+        int indice = 0;
+
+        Item mCorrente = mPrimeiro;
+        while (mCorrente != null) {
+
+            System.out.println(" " + indice + " ->> " + mCorrente.getValor());
+
+            mCorrente = mCorrente.getProximo();
+            indice += 1;
+        }
+    }
+
+    public T getValor(int indice) {
+
+        if (indice >= 0) {
+
+            int indicecontagem = 0;
+            Item mCorrente = mPrimeiro;
+            while (mCorrente != null) {
+
+                if (indice == indicecontagem) {
+                    return mCorrente.getValor();
+                }
+
+                indicecontagem += 1;
+                mCorrente = mCorrente.getProximo();
+            }
+
+            throw new IllegalArgumentException("Indice invalido : " + indice);
+
+        } else {
+
+            throw new IllegalArgumentException("Indice invalido : " + indice);
+        }
+
+    }
+
+    public void setValor(int indice, T eValor) {
+
+        if (indice >= 0) {
+
+            int indicecontagem = 0;
+            Item mCorrente = mPrimeiro;
+            boolean trocou = false;
+
+            while (mCorrente != null) {
+
+                if (indice == indicecontagem) {
+                    mCorrente.setValor(eValor);
+                    trocou = true;
+                    break;
+                }
+
+                indicecontagem += 1;
+                mCorrente = mCorrente.getProximo();
+
+            }
+
+            if (!trocou) {
+                throw new IllegalArgumentException("Indice invalido : " + indice);
+            }
+
+        } else {
+
+            throw new IllegalArgumentException("Indice invalido : " + indice);
+
+        }
+
+    }
+
+
+    public boolean estaVazia() {
+
+        return mQuantidade == 0;
+
+    }
+
+    public boolean possuiObjetos() {
+
+        return mQuantidade > 0;
+    }
+
+    public void limpar() {
+        mQuantidade = 0;
+        mPrimeiro = null;
+        mUltimo = null;
+    }
+
+
+    public int getIndexOf(T eValor) {
+
+
+        boolean encontrou = false;
+
+        Item mCorrente = mPrimeiro;
+
+        int mIndice = 0;
+
+        while (mCorrente != null) {
+
+            if (mCorrente.getValor() == eValor) {
+                encontrou = true;
+                break;
+            }
+
+
+            mIndice += 1;
+            mCorrente = mCorrente.getProximo();
+        }
+
+        if (encontrou == false) {
+            throw new IllegalArgumentException("Valor nao encontrado : " + eValor);
+        }
+
+        return mIndice;
+    }
+
+    public boolean existe(T eValor) {
+
+        boolean retorno = false;
+
+        Item mCorrente = mPrimeiro;
+        while (mCorrente != null) {
+            if (mCorrente.getValor() == eValor) {
+                retorno = true;
+                break;
+            }
+            mCorrente = mCorrente.getProximo();
+        }
+
+        return retorno;
+
+    }
+
+    public int contar(T eValor) {
+
+        int retorno = 0;
+
+
+        Item mCorrente = mPrimeiro;
+
+        while (mCorrente != null) {
+            if (mCorrente.getValor() == eValor) {
+                retorno += 1;
+            }
+            mCorrente = mCorrente.getProximo();
+        }
+
+        return retorno;
+    }
+
+
+    public void limitar(int eLimite) {
+
+        if (mQuantidade <= eLimite) {
+            mLimitada = true;
+            mLimite = eLimite;
+        } else {
+            throw new IllegalArgumentException("A quantidade de objetos e maior que o limite !");
+        }
+
+    }
+
+    public void desLimitar() {
+        mLimitada = false;
+        mLimite = 0;
+    }
+
+
+    public boolean estaLimitada() {
+        return mLimitada;
+    }
+
+    public int getLimite() {
+        return mLimite;
+    }
+
+    public boolean estaCheia() {
+        if (mLimitada) {
+            return mQuantidade >= mLimite;
+        } else {
+            return false;
+        }
+    }
+
+    public void aumentarLimite(int eAumento) {
+
+
+    }
+
+    public int completar() {
+        if (mLimitada) {
+
+            return mLimite - mQuantidade;
+
+        } else {
+            return 0;
+        }
+    }
+
+    // SUPER FUNCOES
+
+    public Iterador<T> getIterador() {
+        Iterador<T> eIterador = new Iterador<T>(this);
+        return eIterador;
+    }
+
+    public void paraCada(EmCada emCada) {
+
+        Iterador<T> passador = getIterador();
+
+        for (passador.iniciar(); passador.continuar(); passador.proximo()) {
+
+            emCada.fazer(passador.getValor());
+
+        }
+
+    }
+
+    public void opereCada(T resultado,Operacao emCada) {
+
+        Iterador<T> passador = getIterador();
+
+        for (passador.iniciar(); passador.continuar(); passador.proximo()) {
+
+            emCada.fazer(passador.getValor(),resultado);
+
+        }
+
+    }
+
 }

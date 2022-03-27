@@ -21,7 +21,7 @@ public class Progressante {
 
         if (agora_i > passado_i) {
 
-            String v = fmt.print("PROGRESSO :: {f2} {}", STTY.doubleNumC2(agora), eFrase);
+            String v = fmt.format("PROGRESSO :: {f2} {}", STTY.doubleNumC2(agora), eFrase);
 
             System.out.println("\t - " + v);
 

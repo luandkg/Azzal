@@ -47,7 +47,7 @@ public class ProximidadeDaAgua extends Servico {
 
                     massa.setValor(x, y, distancia);
 
-                    String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} ", x, y, distancia);
+                    String v = fmt.format(" PONTO ( {esq5} , {esq5} ) :: {esq9} ", x, y, distancia);
 
                     progresso.emitir((y * tectonica.getAltura()) + x, v);
 

@@ -9,8 +9,8 @@ import Luan.Opcional;
 import Tronarko.Hiperarkos;
 import Tronarko.Superarkos;
 import Tronarko.Tozte;
-import Tronarko.TozteCor;
-import Tronarko.Utils.Alarme;
+import Tronarko.Utils.TozteCor;
+import Tronarko.Agenda.Alarme;
 
 import java.awt.*;
 import java.util.ArrayList;

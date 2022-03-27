@@ -227,6 +227,17 @@ public class Iterador<T> {
 
     public void sair() {
         mFinalizado = true;
-        mIndice=mQuantidade;
+        mIndice = mQuantidade;
+    }
+
+
+    public void paraCada(EmCada emCada) {
+
+        for (iniciar(); continuar(); proximo()) {
+
+            emCada.fazer(getValor());
+
+        }
+
     }
 }

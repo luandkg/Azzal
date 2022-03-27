@@ -1,4 +1,4 @@
-package Tronarko.Utils;
+package Tronarko.Agenda;
 
 import Tronarko.Hazde;
 import Tronarko.Superarkos;

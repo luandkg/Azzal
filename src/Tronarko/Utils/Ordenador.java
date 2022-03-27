@@ -1,5 +1,6 @@
 package Tronarko.Utils;
 
+import Tronarko.Agenda.Lembrete;
 import Tronarko.Hazde;
 import Tronarko.Tozte;
 import Tronarko.Tron;
@@ -56,7 +57,7 @@ public class Ordenador {
 		for (int i = 0; i < n; i++) {
 			for (int j = 1; j < (n - i); j++) {
 
-				if (Entrada.get(j - 1).MaiorIgualQue(Entrada.get(j))) {
+				if (Entrada.get(j - 1).isMaiorIgualQue(Entrada.get(j))) {
 					temp = Entrada.get(j - 1);
 					Entrada.set(j - 1, Entrada.get(j));
 					Entrada.set(j, temp);

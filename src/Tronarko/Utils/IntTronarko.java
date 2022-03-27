@@ -1,7 +1,9 @@
-package Tronarko;
+package Tronarko.Utils;
 
 import Tronarko.Intervalos.Tozte_Intervalo;
 import Tronarko.Intervalos.Tron_Intervalo;
+import Tronarko.Tozte;
+import Tronarko.Tron;
 
 public class IntTronarko {
 

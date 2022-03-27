@@ -188,7 +188,7 @@ public class AppAttuz extends Cena {
         }
 
 
-        System.out.println("Tronarko :: " + eTronarko.getAgora());
+        System.out.println("Tronarko :: " + Tronarko.getAgora());
 
         //  System.out.println("Estou :: " + mProcurador.ondeEstou(EU, eTronarko.getTozte(), eTronarko.getHazde()));
 

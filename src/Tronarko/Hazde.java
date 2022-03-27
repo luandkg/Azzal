@@ -235,7 +235,7 @@ public class Hazde {
             narco -= 10;
         }
 
-        while (narco <= 0) {
+        while (narco < 0) {
             narco += 10;
         }
 

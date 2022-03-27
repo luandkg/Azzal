@@ -1,10 +1,9 @@
 package AppAttuz.Localizador;
 
 
-import Arquivos.BZZ;
 import DKG.DKG;
 import DKG.DKGObjeto;
-import Tronarko.StringTronarko;
+import Tronarko.Utils.StringTronarko;
 import Tronarko.Tozte;
 import Tronarko.Hazde;
 

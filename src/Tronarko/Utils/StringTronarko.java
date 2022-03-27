@@ -1,4 +1,7 @@
-package Tronarko;
+package Tronarko.Utils;
+
+import Tronarko.Hazde;
+import Tronarko.Tozte;
 
 public class StringTronarko {
 

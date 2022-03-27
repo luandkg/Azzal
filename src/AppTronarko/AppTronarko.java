@@ -10,6 +10,7 @@ import Letrum.Fonte;
 import Letrum.FonteDupla;
 import Letrum.FonteDuplaRunTime;
 import Letrum.Maker.FonteRunTime;
+import Luan.Tempo;
 import RhoBenchmark.RhoBenchmark;
 import Tronarko.Eventos.Comunicado;
 import Tronarko.Eventos.Comunicum;
@@ -17,6 +18,8 @@ import Tronarko.Eventos.Eventum;
 import Tronarko.*;
 import Tronarko.Eventos.Momentum;
 import Tronarko.Satelites.*;
+import Tronarko.Utils.TozteCor;
+import Tronarko.Utils.TronarkoFalsum;
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
 import UI.Interface.Clicavel;
@@ -76,6 +79,9 @@ public class AppTronarko extends Cena {
 
     private RhoBenchmark mRhoBenchmark;
 
+    private TronarkoFalsum mFalsum;
+
+
     @Override
     public void iniciar(Windows eWindows) {
         eWindows.setTitle("Tronarko com Azzal");
@@ -127,9 +133,6 @@ public class AppTronarko extends Cena {
         });
 
 
-        mHoje = mTronarkum.getTozte();
-        mAgora = mTronarkum.getHazde();
-
         mSatelatizadorAllux = new Satelatizador("comum");
         mSatelatizadorEttos = new Satelatizador("comum");
         mSatelatizadorUnnos = new Satelatizador("comum");
@@ -170,8 +173,23 @@ public class AppTronarko extends Cena {
         mHiperarkoWidgetSelecionado = new HiperarkoWidget(950, 280, 1, mHoje.getTronarko());
         mHiperarkoWidgetSelecionado.setTamanhoCaixaTitulo(20);
 
-        mRhoBenchmark = new RhoBenchmark("res/RhoBenchmark.dkg", 0,400);
+        mRhoBenchmark = new RhoBenchmark("res/RhoBenchmark.dkg", 0, 400);
+
+        Tron eComecar = new Tron(0, 0, 0, 1, 1, 7000);
+        Tron eTerminar = new Tron(9, 99, 99, 5, 1, 7000);
+
+        mFalsum = new TronarkoFalsum(eComecar, eTerminar);
+
+
+        mHoje = mTronarkum.getTozte();
+        mAgora = mTronarkum.getHazde();
+
+
+      // mHoje = mFalsum.getTozte();
+       // mAgora = mFalsum.getHazde();
+
     }
+
 
 
     @Override
@@ -179,8 +197,13 @@ public class AppTronarko extends Cena {
 
         long inicio = mRhoBenchmark.get();
 
-        mHoje = mTronarkum.getTozte();
-        mAgora = mTronarkum.getHazde();
+        mHoje = Tronarko.getTozte();
+        mAgora = Tronarko.getHazde();
+
+        mFalsum.sincronizar(Tempo.getSegundos(), 12000);
+
+       // mHoje = mFalsum.getTozte();
+       // mAgora = mFalsum.getHazde();
 
 
         mClicavel.update(dt, getWindows().getMouse().getX(), getWindows().getMouse().getY(), getWindows().getMouse().isPressed());
@@ -189,8 +212,6 @@ public class AppTronarko extends Cena {
         mHoje = mHoje.adicionar_Superarko(mQuantos);
         //mAgora = mAgora.adicionar_Arco(mQuantos);
         // mHoje = mHoje.adicionar_Tronarko(mQuantos);
-
-        mEventos = mEventum.getToztesComCor(mHoje.getTronarko());
 
 
         mHiperarkoWidgetSelecionado.setHiperarko(mHoje.getHiperarko());
@@ -212,14 +233,18 @@ public class AppTronarko extends Cena {
             mAtualmente = mHoje;
 
             Momentum eMomentum = new Momentum();
-            eMomentum.olharAoRedor(mAtualmente);
+          //  eMomentum.olharAoRedor(mAtualmente);
+
+            mEventos = mEventum.getToztesComCor(mHoje.getTronarko());
 
         } else {
             if (mHoje.isDiferente(mAtualmente)) {
                 mAtualmente = mHoje;
 
                 Momentum eMomentum = new Momentum();
-                eMomentum.olharAoRedor(mAtualmente);
+             //   eMomentum.olharAoRedor(mAtualmente);
+
+                mEventos = mEventum.getToztesComCor(mHoje.getTronarko());
 
             }
         }
@@ -228,7 +253,7 @@ public class AppTronarko extends Cena {
 
         long fim = mRhoBenchmark.get();
 
-        mRhoBenchmark.set("Tronarko.update()", inicio, fim);
+        //  mRhoBenchmark.set("Tronarko.update()", inicio, fim);
 
     }
 
@@ -343,7 +368,7 @@ public class AppTronarko extends Cena {
 
         long fim = mRhoBenchmark.get();
 
-        mRhoBenchmark.set("Tronarko.render()", inicio, fim);
+        //  mRhoBenchmark.set("Tronarko.render()", inicio, fim);
 
     }
 

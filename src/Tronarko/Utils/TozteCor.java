@@ -1,4 +1,4 @@
-package Tronarko;
+package Tronarko.Utils;
 
 import java.awt.Color;
 import java.util.ArrayList;

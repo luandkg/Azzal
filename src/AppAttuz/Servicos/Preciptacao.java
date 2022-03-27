@@ -70,7 +70,7 @@ public class Preciptacao extends Servico {
 
                     preciptacao_massa.setValor(x, y, preciptacao);
 
-                    String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} igual {esq5}", x, y, o_altitude, o_distancia, preciptacao);
+                    String v = fmt.format(" PONTO ( {esq5} , {esq5} ) :: {esq9} com {esq5} igual {esq5}", x, y, o_altitude, o_distancia, preciptacao);
 
                     progresso.emitir((y * tectonica.getAltura()) + x, v);
 

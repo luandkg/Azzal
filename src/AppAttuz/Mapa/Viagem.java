@@ -5,7 +5,7 @@ import AppAttuz.Ferramentas.GPS;
 import Azzal.Formatos.Ponto;
 import DKG.DKG;
 import DKG.DKGObjeto;
-import Tronarko.TempoGeral;
+import Tronarko.Utils.ContadorTronarko;
 
 
 import java.util.ArrayList;
@@ -165,7 +165,7 @@ public class Viagem {
         DKG sDKC = new DKG();
         DKGObjeto sViagem = sDKC.unicoObjeto("Viagem");
 
-        TempoGeral tg = new TempoGeral();
+        ContadorTronarko tg = new ContadorTronarko(46,4,7002);
 
         Random r = new Random();
 
@@ -191,8 +191,8 @@ public class Viagem {
                         novo.identifique("y", py);
                         novo.identifique("Cidade", eLocal.getNome());
 
-                        tg.proximo();
-                        novo.identifique("Tozte", tg.get());
+                        tg.proximo(40);
+                        novo.identifique("Tozte", tg.getTozteComArkoIttas());
 
                         if (f == 0) {
                             novo.identifique("Momento", "Chegando");
@@ -218,22 +218,22 @@ public class Viagem {
                     DKGObjeto novo = sViagem.criarObjeto("Ponto");
                     novo.identifique("x", px);
                     novo.identifique("y", py);
-                    novo.identifique("Tozte", tg.get());
+                    novo.identifique("Tozte", tg.getTozteComArkoIttas());
                     novo.identifique("Momento", "Acampamento");
 
                     acampamento = 0;
-                    tg.proximo();
+                    tg.proximo(40);
 
                 }
 
-                ePonto.identifique("Tozte", tg.get());
+                ePonto.identifique("Tozte", tg.getTozteComArkoIttas());
 
                 sViagem.getObjetos().add(ePonto);
                 acampamento += 1;
 
             }
 
-            tg.proximo();
+            tg.proximo(40);
         }
 
         sDKC.salvar(eArquivo);

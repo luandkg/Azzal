@@ -7,7 +7,7 @@ public class fmt {
     // AUTOR : LUAN FREITAS
     // DATA : 2022 01 16
 
-    private static String print_final(String texto, ArrayList<Object> objetos) {
+    private static String format_text(String texto, ArrayList<Object> objetos) {
 
         int i = 0;
         int o = texto.length();
@@ -111,34 +111,34 @@ public class fmt {
         return retornar;
     }
 
-    public static String print(String texto, Object o1) {
+    public static String format(String texto, Object o1) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
 
-        return print_final(texto, objetos);
+        return format_text(texto, objetos);
     }
 
-    public static String print(String texto, Object o1, Object o2) {
+    public static String format(String texto, Object o1, Object o2) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
         objetos.add(o2);
 
-        return print_final(texto, objetos);
+        return format_text(texto, objetos);
     }
 
-    public static String print(String texto, Object o1, Object o2, Object o3) {
+    public static String format(String texto, Object o1, Object o2, Object o3) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
         objetos.add(o2);
         objetos.add(o3);
 
-        return print_final(texto, objetos);
+        return format_text(texto, objetos);
     }
 
-    public static String print(String texto, Object o1, Object o2, Object o3, Object o4) {
+    public static String format(String texto, Object o1, Object o2, Object o3, Object o4) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
@@ -146,10 +146,10 @@ public class fmt {
         objetos.add(o3);
         objetos.add(o4);
 
-        return print_final(texto, objetos);
+        return format_text(texto, objetos);
     }
 
-    public static String print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5) {
+    public static String format(String texto, Object o1, Object o2, Object o3, Object o4, Object o5) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
@@ -158,10 +158,10 @@ public class fmt {
         objetos.add(o4);
         objetos.add(o5);
 
-        return print_final(texto, objetos);
+        return format_text(texto, objetos);
     }
 
-    public static String print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6) {
+    public static String format(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
@@ -171,7 +171,69 @@ public class fmt {
         objetos.add(o5);
         objetos.add(o6);
 
-        return print_final(texto, objetos);
+        return format_text(texto, objetos);
+    }
+
+    public static String format(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7) {
+
+        ArrayList<Object> objetos = new ArrayList<Object>();
+        objetos.add(o1);
+        objetos.add(o2);
+        objetos.add(o3);
+        objetos.add(o4);
+        objetos.add(o5);
+        objetos.add(o6);
+        objetos.add(o7);
+
+        return format_text(texto, objetos);
+    }
+
+    public static String format(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7, Object o8) {
+
+        ArrayList<Object> objetos = new ArrayList<Object>();
+        objetos.add(o1);
+        objetos.add(o2);
+        objetos.add(o3);
+        objetos.add(o4);
+        objetos.add(o5);
+        objetos.add(o6);
+        objetos.add(o7);
+        objetos.add(o8);
+
+        return format_text(texto, objetos);
+    }
+
+    public static String format(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7, Object o8, Object o9) {
+
+        ArrayList<Object> objetos = new ArrayList<Object>();
+        objetos.add(o1);
+        objetos.add(o2);
+        objetos.add(o3);
+        objetos.add(o4);
+        objetos.add(o5);
+        objetos.add(o6);
+        objetos.add(o7);
+        objetos.add(o8);
+        objetos.add(o9);
+
+        return format_text(texto, objetos);
+    }
+
+    public static String format(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7, Object o8, Object o9, Object o10) {
+
+        ArrayList<Object> objetos = new ArrayList<Object>();
+        objetos.add(o1);
+        objetos.add(o2);
+        objetos.add(o3);
+        objetos.add(o4);
+        objetos.add(o5);
+        objetos.add(o6);
+        objetos.add(o7);
+        objetos.add(o8);
+        objetos.add(o9);
+        objetos.add(o10);
+
+        return format_text(texto, objetos);
     }
 
     public static String getN8(long e) {
@@ -237,19 +299,52 @@ public class fmt {
     }
 
 
-    public static void print_out(String texto, Object o1) {
-        System.out.println(print(texto, o1));
-    }
-    public static void print_out(String texto, Object o1,Object o2) {
-        System.out.println(print(texto, o1,o2));
+    // PRINT
+
+    public static void print(String texto ) {
+        System.out.println(texto);
     }
 
-    public static void print_out(String texto, Object o1,Object o2,Object o3) {
-        System.out.println(print(texto, o1,o2,o3));
+    public static void print(String texto, Object o1) {
+        System.out.println(format(texto, o1));
     }
 
-    public static void print_out(String texto, Object o1,Object o2,Object o3,Object o4) {
-        System.out.println(print(texto, o1,o2,o3,o4));
+    public static void print(String texto, Object o1, Object o2) {
+        System.out.println(format(texto, o1, o2));
+    }
+
+    public static void print(String texto, Object o1, Object o2, Object o3) {
+        System.out.println(format(texto, o1, o2, o3));
+    }
+
+    public static void print(String texto, Object o1, Object o2, Object o3, Object o4) {
+        System.out.println(format(texto, o1, o2, o3, o4));
+    }
+
+    public static void print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5) {
+        System.out.println(format(texto, o1, o2, o3, o4, o5));
+    }
+
+    public static void print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6) {
+        System.out.println(format(texto, o1, o2, o3, o4, o5, o6));
+    }
+
+    public static void print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7) {
+        System.out.println(format(texto, o1, o2, o3, o4, o5, o6, o7));
+    }
+
+
+    public static void print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7, Object o8) {
+        System.out.println(format(texto, o1, o2, o3, o4, o5, o6, o7, o8));
+    }
+
+
+    public static void print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7, Object o8, Object o9) {
+        System.out.println(format(texto, o1, o2, o3, o4, o5, o6, o7, o8, o9));
+    }
+
+    public static void print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7, Object o8, Object o9, Object o10) {
+        System.out.println(format(texto, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10));
     }
 
 }

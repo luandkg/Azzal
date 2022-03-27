@@ -1,8 +1,5 @@
 package AppTronarko;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 
 import Azzal.Cenarios.Cena;
 import Azzal.Cores;
@@ -11,19 +8,14 @@ import Azzal.Utils.Cor;
 import Azzal.Windows;
 import Letrum.Fonte;
 import Letrum.Maker.FonteRunTime;
-import Luan.Opcional;
-import Tronarko.TozteCor;
 import Tronarko.Tronarko;
 import Tronarko.Tozte;
 import Tronarko.Hazde;
 import Tronarko.Superarkos;
-import Tronarko.Hiperarkos;
 
-import Tronarko.Eventos.Eventum;
-import Tronarko.Utils.Alarme;
-import Tronarko.Utils.Lembrete;
-import Tronarko.Utils.Cronometro;
-import Tronarko.FluxoTemporal;
+import Tronarko.Agenda.Alarme;
+import Tronarko.Agenda.Lembrete;
+import Tronarko.Utils.FluxoTemporal;
 
 import Tronarko.Utils.Ordenador;
 import UI.Interface.Acao;

@@ -3,13 +3,9 @@ package Tronarko.Eventos;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import Azzal.Utils.Cor;
 import Tronarko.Hizarkos;
-import Tronarko.TozteCor;
+import Tronarko.Utils.TozteCor;
 import Tronarko.Eventos.Ocorrencia.Modos;
-import Tronarko.Eventos.Avisar.Avisar;
-import Tronarko.Eventos.Avisar.AvisarGrandeEvento;
-import Tronarko.Eventos.Avisar.AvisarPequenoEvento;
 import Tronarko.Tozte;
 
 public class Eventum {

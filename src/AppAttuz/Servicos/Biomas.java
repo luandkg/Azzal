@@ -109,7 +109,7 @@ public class Biomas extends Servico {
 
                     bioma.setValor(x, y, valor);
 
-                    String v = fmt.print(" PONTO ( {esq5} , {esq5} ) :: U={esq9} P ={esq5}  T={esq5} -->> {}", x, y, umidade, preciptacao, temperatura, valor);
+                    String v = fmt.format(" PONTO ( {esq5} , {esq5} ) :: U={esq9} P ={esq5}  T={esq5} -->> {}", x, y, umidade, preciptacao, temperatura, valor);
 
                     progresso.emitir((y * tectonica.getLargura()) + x, v);
 

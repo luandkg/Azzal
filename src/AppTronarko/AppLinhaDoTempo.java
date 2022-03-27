@@ -11,24 +11,17 @@ import Azzal.Windows;
 import Letrum.Fonte;
 import Letrum.Maker.FonteRunTime;
 import Luan.Opcional;
-import Tronarko.Intervalos.Tozte_Intervalo;
-import Tronarko.TozteCor;
+import Tronarko.Utils.TozteCor;
 import Tronarko.Tronarko;
 import Tronarko.Tozte;
 import Tronarko.Hazde;
-import Tronarko.Superarkos;
-import Tronarko.Hiperarkos;
 
 import Tronarko.Eventos.Eventum;
-import Tronarko.Utils.Alarme;
-import Tronarko.Utils.Lembrete;
-import Tronarko.Utils.Cronometro;
-import Tronarko.FluxoTemporal;
+import Tronarko.Agenda.Alarme;
 
 import UI.Interface.Acao;
 import UI.Interface.BotaoCor;
 import UI.Interface.Clicavel;
-import UI.Marcador;
 
 public class AppLinhaDoTempo extends Cena {
 

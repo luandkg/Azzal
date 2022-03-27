@@ -10,8 +10,9 @@ import Letrum.Maker.FonteRunTime;
 import Luan.STTY;
 import Tronarko.*;
 import Tronarko.Eventos.Eventum;
-import Tronarko.Eventos.PequenoEvento;
-import Tronarko.Satelites.Ceu;
+import Tronarko.Utils.IntTronarko;
+import Tronarko.Utils.StringTronarko;
+import Tronarko.Utils.TozteCor;
 
 import java.awt.*;
 import java.util.ArrayList;

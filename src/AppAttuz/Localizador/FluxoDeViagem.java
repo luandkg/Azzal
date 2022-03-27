@@ -1,10 +1,8 @@
 package AppAttuz.Localizador;
 
 import DKG.DKGObjeto;
-import Luan.STTY;
-import Luan.TTY;
-import Tronarko.IntTronarko;
-import Tronarko.StringTronarko;
+import Tronarko.Utils.IntTronarko;
+import Tronarko.Utils.StringTronarko;
 import Tronarko.Tozte;
 
 import java.util.ArrayList;

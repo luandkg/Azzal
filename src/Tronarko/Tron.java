@@ -1,6 +1,6 @@
 package Tronarko;
 
-public  class Tron {
+public class Tron {
 
     private Hazde mHazdeC;
     private Tozte mTozteC;
@@ -13,7 +13,7 @@ public  class Tron {
     }
 
     public Tron getCopia() {
-        return new Tron(mHazdeC.getArco(),mHazdeC.getItta(),mHazdeC.getUzzon(),mTozteC.getSuperarko(),mTozteC.getHiperarko(),mTozteC.getTronarko());
+        return new Tron(mHazdeC.getArco(), mHazdeC.getItta(), mHazdeC.getUzzon(), mTozteC.getSuperarko(), mTozteC.getHiperarko(), mTozteC.getTronarko());
     }
 
     public Hazde getHazde() {
@@ -68,14 +68,16 @@ public  class Tron {
             nsuperarko += 1;
         }
 
-        while (narco <= 0) {
+        while (narco < 0) {
             narco += 10;
             nsuperarko -= 1;
         }
 
         mHazdeC = new Hazde(narco, mHazdeC.getItta(), mHazdeC.getUzzon());
 
-        mTozteC.internalizar_Superarko(nsuperarko);
+        if (nsuperarko != 0) {
+            mTozteC.internalizar_Superarko(nsuperarko);
+        }
 
     }
 
@@ -96,7 +98,9 @@ public  class Tron {
 
         mHazdeC = new Hazde(mHazdeC.getArco(), nitta, mHazdeC.getUzzon());
 
-        internalizar_Arco(narco);
+        if (narco != 0) {
+            internalizar_Arco(narco);
+        }
 
     }
 
@@ -117,7 +121,9 @@ public  class Tron {
 
         mHazdeC = new Hazde(mHazdeC.getArco(), mHazdeC.getItta(), nuzzon);
 
-        internalizar_Itta(nitta);
+        if (nitta != 0) {
+            internalizar_Itta(nitta);
+        }
 
     }
 
@@ -141,7 +147,7 @@ public  class Tron {
         Tron ret = new Tron(sTron.getHazde().getArco(), sTron.getHazde().getItta(), sTron.getHazde().getUzzon(),
                 nsuperarko, sTron.getTozte().getHiperarko(), sTron.getTozte().getTronarko());
 
-        if ((nhiperarko == 0) == false) {
+        if (nhiperarko != 0) {
             return modificar_Hiperarko(ret, nhiperarko);
         } else {
             return ret;
@@ -167,7 +173,7 @@ public  class Tron {
         Tron ret = new Tron(sTron.getHazde().getArco(), sTron.getHazde().getItta(), sTron.getHazde().getUzzon(),
                 sTron.getTozte().getSuperarko(), nhiperarko, sTron.getTozte().getTronarko());
 
-        if ((ntronarko == 0) == false) {
+        if (ntronarko != 0) {
             return modificar_Tronarko(ret, ntronarko);
         } else {
             return ret;
@@ -235,7 +241,7 @@ public  class Tron {
         int resposta = 0;
 
         if (this.getTotal() == Outro.getTotal()) {
-            resposta=0;
+            resposta = 0;
         }
         if (this.getTotal() < Outro.getTotal()) {
             resposta = -1;
@@ -249,7 +255,7 @@ public  class Tron {
     }
 
 
-    public boolean MaiorQue(Tron Outro) {
+    public boolean isMaiorQue(Tron Outro) {
         boolean resposta = false;
         if (this.getTotal() > Outro.getTotal()) {
             resposta = true;
@@ -258,7 +264,7 @@ public  class Tron {
         return resposta;
     }
 
-    public boolean MenorrQue(Tron Outro) {
+    public boolean isMenorrQue(Tron Outro) {
         boolean resposta = false;
         if (this.getTotal() < Outro.getTotal()) {
             resposta = true;
@@ -267,7 +273,7 @@ public  class Tron {
         return resposta;
     }
 
-    public boolean Igual(Tron Outro) {
+    public boolean isIgual(Tron Outro) {
         boolean resposta = false;
         if (this.getTotal() == Outro.getTotal()) {
             resposta = true;
@@ -276,7 +282,7 @@ public  class Tron {
         return resposta;
     }
 
-    public boolean Diferente(Tron Outro) {
+    public boolean isDiferente(Tron Outro) {
         boolean resposta = false;
         if (this.getTotal() != Outro.getTotal()) {
             resposta = true;
@@ -285,7 +291,7 @@ public  class Tron {
         return resposta;
     }
 
-    public boolean MaiorIgualQue(Tron Outro) {
+    public boolean isMaiorIgualQue(Tron Outro) {
         boolean resposta = false;
         if (this.getTotal() >= Outro.getTotal()) {
             resposta = true;
@@ -294,7 +300,7 @@ public  class Tron {
         return resposta;
     }
 
-    public boolean MenorIgualQue(Tron Outro) {
+    public boolean isMenorIgualQue(Tron Outro) {
         boolean resposta = false;
         if (this.getTotal() <= Outro.getTotal()) {
             resposta = true;

@@ -1,4 +1,6 @@
-package Tronarko;
+package Tronarko.Utils;
+
+import Tronarko.Tozte;
 
 public class FluxoTemporal {
 

@@ -1,4 +1,4 @@
-package Tronarko.Eventos.Avisar;
+package Tronarko.Eventos;
 
 public class AvisarGrandeEvento {
 

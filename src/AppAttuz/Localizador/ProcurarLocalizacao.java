@@ -1,12 +1,11 @@
 package AppAttuz.Localizador;
 
-import AppAttuz.Localizador.ViajemAcao;
 import AppAttuz.Mapa.Viajante;
 import DKG.DKG;
 import DKG.DKGObjeto;
 
 import java.io.File;
-import Tronarko.StringTronarko;
+import Tronarko.Utils.StringTronarko;
 import Tronarko.Tozte;
 import Tronarko.Hazde;
 

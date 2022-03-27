@@ -169,7 +169,7 @@ public class ViagemCompleta {
 
                 }
 
-                fmt.print_out(" -->> {dir30} :: {dir15} {dir25} -- {dir20}", cidade, s_mapa_pos, s_distancia, faixa_temporal);
+                fmt.print(" -->> {dir30} :: {dir15} {dir25} -- {dir20}", cidade, s_mapa_pos, s_distancia, faixa_temporal);
 
                 mapa_pos_anterior.set(mapa_pos);
             }
