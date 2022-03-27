@@ -123,7 +123,6 @@ public class AppTronarko extends Cena {
             }
         });
 
-        System.out.println("tron");
 
         mHoje = mTronarkum.getTozte();
         mAgora = mTronarkum.getHazde();
@@ -184,7 +183,6 @@ public class AppTronarko extends Cena {
 
         mHoje = mHoje.adicionar_Superarko(mQuantos);
         //mAgora = mAgora.adicionar_Arco(mQuantos);
-
         // mHoje = mHoje.adicionar_Tronarko(mQuantos);
 
         mEventos = mEventum.getToztesComCor(mHoje.getTronarko());
@@ -270,16 +268,16 @@ public class AppTronarko extends Cena {
         mTextoPequeno.escreva(1230, 100 + 130, "Fluxo : " + hizarko_fluxo(mHoje.Hizarko_Duracao()));
 
 
-        int satelites = 950 + 300;
+        int POS_X_SATELITES = 950 + 300;
 
 
-        r.drawImagemComAlfa(satelites, 100, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
-        r.drawImagemComAlfa(satelites + 60, 100, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
-        r.drawImagemComAlfa(satelites + 120, 100, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_X_SATELITES, 100, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_X_SATELITES + 60, 100, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_X_SATELITES + 120, 100, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
 
-        mTextoPequeno.escreva(satelites - 10, 100 + 40, "Allux");
-        mTextoPequeno.escreva(satelites + 60 - 10, 100 + 40, "Ettos");
-        mTextoPequeno.escreva(satelites + 120 - 10, 100 + 40, "Unnos");
+        mTextoPequeno.escreva(POS_X_SATELITES - 10, 100 + 40, mCeu.getAllux().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_X_SATELITES + 60 - 10, 100 + 40, mCeu.getEttos().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_X_SATELITES + 120 - 10, 100 + 40, mCeu.getUnnos().getNomeCapitalizado());
 
         // mTextoPequeno.escreva(pAllus - 10, ePosY + 80, mCeu.getAllux().getFaseIntTozte(mHoje) + " :: " + mCeu.getAllux().getFase(mHoje).toString());
 
@@ -314,20 +312,18 @@ public class AppTronarko extends Cena {
             Marcador.marcar_barra_dupla(r, AVISO_X, AVISO_Y + 30, 5, 25, Cor.getRGB(eComunicado.getCor()));
             mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y + 35, eComunicado.getValor());
 
-            if (!eComunicado.getValor().contains("Tron") && eComunicado.getTozte().getTozteMax().isMaiorQue(eComunicado.getTozte().getTozteMin())) {
+            if (eComunicado.temVariosSuperarkos()) {
 
-                if (mHoje.isMaiorIgualQue(eComunicado.getTozte().getTozteMin())) {
+                if (eComunicado.estaDentro(mHoje)) {
 
-                    int intervalo = Momentum.getDistancia(eComunicado.getTozte().getTozteMin(), eComunicado.getTozte().getTozteMax());
-                    int ate = Momentum.getDistancia(eComunicado.getTozte().getTozteMin(), mHoje);
+                    int duracao = eComunicado.getDuracao();
+                    int ate = eComunicado.getDistanciaDe(mHoje);
 
-                    BarraDeProgresso.progresso(r, AVISO_X, AVISO_Y + 70, 380, intervalo, ate, Cor.getRGB(eComunicado.getCor()));
-
+                    BarraDeProgresso.progresso(r, AVISO_X, AVISO_Y + 70, 380, duracao, ate, Cor.getRGB(eComunicado.getCor()));
 
                 }
 
             }
-
 
         }
 
@@ -340,7 +336,7 @@ public class AppTronarko extends Cena {
 
 
     public String hizarko_fluxo(int v) {
-        String ret = "...";
+        String ret = "";
 
         if (v <= 10) {
             ret = "Começando...";

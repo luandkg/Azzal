@@ -222,7 +222,7 @@ public class ViagemIndexar {
         return "";
     }
 
-    public static void passeiBZZ(String eArquivo, Tozte eTozte, Hazde eHazde,Tozte eHoje) {
+    public static void passeiBZZ(String eArquivo, Tozte eTozte, Hazde eHazde, Tozte eHoje) {
 
         int indiceBZZ = 0;
 
@@ -235,7 +235,7 @@ public class ViagemIndexar {
         boolean enc_fim = false;
         DKGObjeto fim = null;
 
-        FluxoDeViagem fluxo = new FluxoDeViagem();
+        FluxoDeViagem viajando = new FluxoDeViagem();
 
         while (!encontradoBZZ && indiceBZZ < blocosBZZ) {
 
@@ -265,15 +265,15 @@ public class ViagemIndexar {
                 if (superarkos_valor < eTozteRef_min) {
 
                     ePonto.identifique("TozteValor", superarkos_valor);
-                    fluxo.emFluxo(ePonto,eHoje);
+                    viajando.passar(ePonto, eHoje);
 
                 } else if (superarkos_valor == eTozteRef_min && ittas_total <= procurando_ittas) {
 
                     ePonto.identifique("TozteValor", superarkos_valor);
-                    fluxo.emFluxo(ePonto,eHoje);
+                    viajando.passar(ePonto, eHoje);
 
-                    fluxo.viagem_comecou = ePonto.identifique("TrilhaComecou").getValor();
-                    fluxo.viagem_terminou = ePonto.identifique("Tozte").getValor();
+                    viajando.viagem_comecou = ePonto.identifique("TrilhaComecou").getValor();
+                    viajando.viagem_terminou = ePonto.identifique("Tozte").getValor();
 
                     enc_fim = true;
                     fim = ePonto;
@@ -306,7 +306,7 @@ public class ViagemIndexar {
                 System.out.println("");
                 System.out.println("\t -->> Viagem :: " + fim.identifique("TrilhaComecou").getValor() + " :: saiu de " + fim.identifique("Saiu").getValor());
 
-                fluxo.mostrarViagemAtual();
+                viajando.mostrarViagemAtual();
             }
 
         }

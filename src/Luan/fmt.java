@@ -149,7 +149,7 @@ public class fmt {
         return print_final(texto, objetos);
     }
 
-    public static String print(String texto, Object o1, Object o2, Object o3, Object o4,Object o5) {
+    public static String print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
@@ -161,7 +161,7 @@ public class fmt {
         return print_final(texto, objetos);
     }
 
-    public static String print(String texto, Object o1, Object o2, Object o3, Object o4,Object o5,Object o6) {
+    public static String print(String texto, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6) {
 
         ArrayList<Object> objetos = new ArrayList<Object>();
         objetos.add(o1);
@@ -174,7 +174,7 @@ public class fmt {
         return print_final(texto, objetos);
     }
 
-    public  static  String getN8(long e) {
+    public static String getN8(long e) {
         String v = String.valueOf(e);
         while (v.length() < 8) {
             v = "0" + v;
@@ -182,7 +182,7 @@ public class fmt {
         return v;
     }
 
-    public  static String getN3(long e) {
+    public static String getN3(long e) {
         String v = String.valueOf(e);
         while (v.length() < 3) {
             v = "0" + v;
@@ -190,7 +190,7 @@ public class fmt {
         return v;
     }
 
-    public  static String getN2(long e) {
+    public static String getN2(long e) {
         String v = String.valueOf(e);
         while (v.length() < 2) {
             v = "0" + v;
@@ -234,6 +234,22 @@ public class fmt {
 
         return mRet;
 
+    }
+
+
+    public static void print_out(String texto, Object o1) {
+        System.out.println(print(texto, o1));
+    }
+    public static void print_out(String texto, Object o1,Object o2) {
+        System.out.println(print(texto, o1,o2));
+    }
+
+    public static void print_out(String texto, Object o1,Object o2,Object o3) {
+        System.out.println(print(texto, o1,o2,o3));
+    }
+
+    public static void print_out(String texto, Object o1,Object o2,Object o3,Object o4) {
+        System.out.println(print(texto, o1,o2,o3,o4));
     }
 
 }

@@ -44,7 +44,7 @@ public class AppAlarme extends Cena {
 
     private Fonte TextoPequeno_Hoje;
     private Fonte TextoPequeno_Hoje2;
-    private Fonte TextoPequeno_HojePintado;
+    private Fonte TextoPequeno_MuitoGrande;
 
     private Tronarko TronarkoC;
 
@@ -85,7 +85,7 @@ public class AppAlarme extends Cena {
 
         TextoPequeno_Hoje = new FonteRunTime(mCores.getVermelho(), 11);
         TextoPequeno_Hoje2 = new FonteRunTime(mCores.getBranco(), 11);
-        TextoPequeno_HojePintado = new FonteRunTime(mCores.getBranco(), 15);
+        TextoPequeno_MuitoGrande = new FonteRunTime(mCores.getBranco(), 18);
 
         TronarkoC = new Tronarko();
 
@@ -188,10 +188,10 @@ public class AppAlarme extends Cena {
         TextoGrande.setRenderizador(r);
         TextoPequeno_Hoje.setRenderizador(r);
         TextoPequeno_Hoje2.setRenderizador(r);
-        TextoPequeno_HojePintado.setRenderizador(r);
+        TextoPequeno_MuitoGrande.setRenderizador(r);
 
 
-        TextoPequeno_HojePintado.escreva(BTN_DISPENSADOR.getX()+30, BTN_DISPENSADOR.getY()+10, "DISPENSAR");
+        TextoPequeno_MuitoGrande.escreva(BTN_DISPENSADOR.getX()+30, BTN_DISPENSADOR.getY()+10, "DISPENSAR");
 
 
         TextoPequeno.escreva(50, 100, " -->> Hoje : " + mHoje.toString());

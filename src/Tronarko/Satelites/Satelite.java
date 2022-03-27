@@ -4,7 +4,7 @@ import Tronarko.Tozte;
 
 public class Satelite {
 
-    private String NOME;
+    private String mNome;
 
     private Tozte mTozteInicial;
     private int mTaxa;
@@ -12,13 +12,21 @@ public class Satelite {
 
     public Satelite(String eNome, Tozte eTozteInicial, int eTaxa, String eCor) {
 
-        this.NOME = eNome;
+        this.mNome = eNome;
 
         this.mTaxa = eTaxa;
         this.mCor = eCor;
 
         mTozteInicial = eTozteInicial;
 
+    }
+
+    public String getNome() {
+        return mNome;
+    }
+
+    public String getNomeCapitalizado() {
+        return String.valueOf(mNome.charAt(0)).toUpperCase() + mNome.substring(1).toLowerCase();
     }
 
     public int getCrescente() {
@@ -47,7 +55,7 @@ public class Satelite {
 
     public String getDef() {
 
-        return NOME + " - { CRESCENTE = " + getCrescente() + " CHEIA = " + getCheia() + " MINGUANTE = " + getMinguante()
+        return mNome + " - { CRESCENTE = " + getCrescente() + " CHEIA = " + getCheia() + " MINGUANTE = " + getMinguante()
                 + " NOVA = " + getNova() + " } : " + getIntervalo() + " : " + mCor + " - Inicio : "
                 + mTozteInicial.toString();
 
@@ -64,7 +72,7 @@ public class Satelite {
         int F3 = 3 * mTaxa;
         int F4 = 4 * mTaxa;
 
-        return NOME + " - { CRESCENTE = [ 0 - " + (F1 - 1) + " ] CHEIA = [ " + F1 + " - " + (F2 - 1) + " ]"
+        return mNome + " - { CRESCENTE = [ 0 - " + (F1 - 1) + " ] CHEIA = [ " + F1 + " - " + (F2 - 1) + " ]"
                 + " MINGUANTE = [ " + (F2) + " - " + (F3 - 1) + " ] NOVA = " + (F3) + " - " + (F4 - 1) + " ] } ";
 
     }
@@ -97,7 +105,7 @@ public class Satelite {
 
         String ret = "";
 
-        ret += "SATELITE : " + NOME + " \n\n";
+        ret += "SATELITE : " + mNome + " \n\n";
 
         ret += "\t - Tozte : " + TozteC.getTexto() + "\n";
         ret += "\t - Fase Atual : " + getFase((int) getQuantidade(TozteC)) + "\n";
@@ -109,7 +117,7 @@ public class Satelite {
         ret += "\t - Fase NOVA : [1 a " + F1 + "]\n";
         ret += "\t - Fase MINGUANTE : [" + (F1) + " a " + F2 + "]\n";
         ret += "\t - Fase QUADRO_MINGUANTE : [" + (F2) + " a " + F3 + "]\n";
-        ret += "\t - Fase MINGUANTE_GIBOSA : [" + F3 + " a " + F4+ "]\n";
+        ret += "\t - Fase MINGUANTE_GIBOSA : [" + F3 + " a " + F4 + "]\n";
         ret += "\t - Fase CHEIA : [" + F4 + " a " + F5 + "]\n";
         ret += "\t - Fase CRESCENTE_GIBOSA : [" + F5 + " a " + F6 + "]\n";
         ret += "\t - Fase QUADRO_CRESCENTE : [" + F6 + " a " + F7 + "]\n";

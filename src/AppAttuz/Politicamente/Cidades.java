@@ -190,4 +190,25 @@ public class Cidades {
 
         return ret;
     }
+
+
+    public static ArrayList<Local> getCidades() {
+
+        ArrayList<Local> cidades_locais = new ArrayList<Local>();
+
+        Cidades.marcar(cidades_locais, new ArrayList<Local>());
+
+        return cidades_locais;
+    }
+
+    public static Local getLocalizacao(ArrayList<Local> cidades,String eNome){
+
+        for(Local l : cidades){
+            if (l.getNome().contentEquals(eNome)){
+                return l;
+            }
+        }
+
+        return null;
+    }
 }

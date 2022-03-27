@@ -4,6 +4,7 @@ import AppAttuz.Localizador.ViagemIndexar;
 import AppAttuz.Mapa.Viajante;
 import AppAttuz.Servicos.*;
 
+import AppAttuz.ViagemCompleta;
 import AppAttuz.WorldBuilding;
 import Azzal.AzzalUnico;
 import Documentar.Documentar;
@@ -21,9 +22,8 @@ public class AppAzzal {
         //  AzzalUnico.unico("AppFuzz", 1600, 1020, new AppFuzz.AppFuzz());
 
 
-
         AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko.AppTronarko());
-        //.unico("Tronarko", 900, 800, new AppTronarko.AppAlarme());
+        //AzzalUnico .unico("Tronarko", 900, 800, new AppTronarko.AppAlarme());
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppTronarko.AppLinhaDoTempo());
 
         //AzzalUnico.unico("AppAzzal", 1500, 1020, new Alpha());
@@ -52,7 +52,7 @@ public class AppAzzal {
         // AzzalUnico.unico("", 1100, 900, new CenaLetrador());
 
 
-      //  AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
+        //  AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
 
         //TG22.TG22.init();
 
@@ -98,7 +98,7 @@ public class AppAzzal {
         //   AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
         // GuiaDeViagem.unir("/home/luan/Documentos/viagem_desorganizada.txt");
-        //   GuiaDeViagem.organizar("/home/luan/Documentos/viagem_desorganizada.txt","/home/luan/Documentos/viagem_organizada.txt");
+         //  GuiaDeViagem.organizar("/home/luan/Documentos/viagem_desorganizada.txt","/home/luan/Documentos/viagem_organizada.txt");
         //GuiaDeViagem.passei("/home/luan/Documentos/viagem_organizada.txt",Tronarko.Tronarko.getTozteDireto(), Tronarko.Tronarko.getHazdeDireto());
 
         // BZZ.alocar("/home/luan/Documentos/viagem.bzz", 2000);
@@ -111,16 +111,17 @@ public class AppAzzal {
         // System.out.println("Tamanho :: " + conteudo.length());
 
 
-        // ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", Tronarko.Tronarko.getTozteDireto(), Tronarko.Tronarko.getHazdeDireto(),Tronarko.Tronarko.getTozteDireto());
+      //  ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", Tronarko.Tronarko.getTozteDireto(), Tronarko.Tronarko.getHazdeDireto(), Tronarko.Tronarko.getTozteDireto());
 
+        //System.out.println("HOJE :: " + Tronarko.Tronarko.getTozteDireto().getTexto());
 
-        //ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", new Tronarko.Tozte(46,4,7002), new Tronarko.Hazde(7,0,0));
+        //ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", new Tronarko.Tozte(1,4,7002), new Tronarko.Hazde(7,0,0),Tronarko.Tronarko.getTozteDireto());
 
         // System.out.println("BZZ -->> Max " + BZZ.getQuantidadeMaxima("/home/luan/Documentos/viagem.bzz"));
         // System.out.println("BZZ -->> " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));
 
         //ViagemIndexar.mostrarIndexado("/home/luan/Documentos/viagem.bzz","36/05/7002");
-        // ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", new Viajante(),new Tozte(36,5,7002),new Hazde(4,0,0));
+        // ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", new Viajante(),new Tronarko.Tozte(36,5,7002),new Tronarko.Hazde(4,0,0));
 
         // System.out.println("Com Valores :: " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));
         //   System.out.println("Sem Valores :: " + BZZ.semValores("/home/luan/Documentos/viagem.bzz"));
@@ -145,10 +146,12 @@ public class AppAzzal {
 
         //RenderQTT.render(eLocal + "dados/relevo.qtt",eLocal + "dados/relevo.png");
 
-        Documentar planejamento = new Documentar();
+        //  Documentar planejamento = new Documentar();
+        // planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/planejamento.txt", "/home/luan/Dropbox/CED_01/Planejamento/PLANAJEMENTO - PROF. LUAN FREITAS e PROF. WALISON FRANCISCO.pdf");
+        // planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/pd3_8.txt", "/home/luan/Dropbox/CED_01/Planejamento/PLANEJAMENTO - PROFº ELVES_PROFª. IARA_PROFº LUAN -PLANEJAMENTO DE CURSO 2022.pdf");
 
-        planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/planejamento.txt", "/home/luan/Dropbox/CED_01/Planejamento/PLANAJEMENTO - PROF. LUAN FREITAS e PROF. WALISON FRANCISCO.pdf");
-        planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/pd3_8.txt", "/home/luan/Dropbox/CED_01/Planejamento/PLANEJAMENTO - PROFº ELVES_PROFª. IARA_PROFº LUAN -PLANEJAMENTO DE CURSO 2022.pdf");
+        //ViagemCompleta.motrarCidades();
+        //ViagemCompleta.remontar_GuiaDeViagem();
 
     }
 

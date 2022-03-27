@@ -34,12 +34,9 @@ public class DKGObjeto {
         }
 
 
-
         for (DKGObjeto mDKGObjeto : mDKGObjetos) {
             t += mDKGObjeto.contagem();
         }
-
-
 
 
         return t;
@@ -72,7 +69,7 @@ public class DKGObjeto {
 
     }
 
-    public boolean existeIdentificador(String eNome){
+    public boolean existeIdentificador(String eNome) {
 
         boolean enc = false;
 
@@ -153,45 +150,45 @@ public class DKGObjeto {
         return ret;
     }
 
-    public DKGObjeto criarObjeto(String eNome,String a1,String v1) {
+    public DKGObjeto criarObjeto(String eNome, String a1, String v1) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
         mDKGObjetos.add(ret);
 
-        ret.identifique(a1,v1);
+        ret.identifique(a1, v1);
 
         return ret;
     }
 
-    public DKGObjeto criarObjeto(String eNome,String a1,String v1,String a2,String v2) {
+    public DKGObjeto criarObjeto(String eNome, String a1, String v1, String a2, String v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
         mDKGObjetos.add(ret);
 
-        ret.identifique(a1,v1);
-        ret.identifique(a2,v2);
+        ret.identifique(a1, v1);
+        ret.identifique(a2, v2);
 
         return ret;
     }
 
-    public DKGObjeto criarObjeto(String eNome,String a1,int v1,String a2,int v2) {
+    public DKGObjeto criarObjeto(String eNome, String a1, int v1, String a2, int v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
         mDKGObjetos.add(ret);
 
-        ret.identifique(a1,v1);
-        ret.identifique(a2,v2);
+        ret.identifique(a1, v1);
+        ret.identifique(a2, v2);
 
         return ret;
     }
 
-    public DKGObjeto criarObjeto(String eNome,String a1,double v1,String a2,double v2) {
+    public DKGObjeto criarObjeto(String eNome, String a1, double v1, String a2, double v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
         mDKGObjetos.add(ret);
 
-        ret.identifique(a1,v1);
-        ret.identifique(a2,v2);
+        ret.identifique(a1, v1);
+        ret.identifique(a2, v2);
 
         return ret;
     }
@@ -247,4 +244,44 @@ public class DKGObjeto {
     }
 
 
+    public void paraCadaObjeto(CadaObjeto eCadaObjeto) {
+
+        for (DKGObjeto objeto : getObjetos()) {
+
+            eCadaObjeto.dentro(objeto);
+
+            if (eCadaObjeto.foiCancelado()) {
+                break;
+            }
+
+        }
+
+    }
+
+
+    // FACILITADORES DE IDENTIFICADORES
+
+    public boolean id_existe(String eNome){
+        return existeIdentificador(eNome);
+    }
+
+    public String id_valor(String eNome){
+        return identifique(eNome).getValor();
+    }
+
+    public int id_int(String eNome){
+        return identifique(eNome).getInteiro();
+    }
+
+    public boolean id_bool(String eNome){
+        return identifique(eNome).getBool();
+    }
+
+    public float id_float(String eNome){
+        return identifique(eNome).getFloat();
+    }
+
+    public double id_double(String eNome){
+        return identifique(eNome).getDouble();
+    }
 }
