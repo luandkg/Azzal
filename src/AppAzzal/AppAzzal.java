@@ -153,6 +153,8 @@ public class AppAzzal {
         //ViagemCompleta.motrarCidades();
         //ViagemCompleta.remontar_GuiaDeViagem();
 
+        //RhoBenchmark.RhoBenchmark.organizar("res/RhoBenchmark.dkg","/home/luan/Imagens/RhoBenchmark.png");
+
     }
 
 

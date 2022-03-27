@@ -284,4 +284,9 @@ public class DKGObjeto {
     public double id_double(String eNome){
         return identifique(eNome).getDouble();
     }
+
+    public long id_long(String eNome){
+        return identifique(eNome).getLong();
+    }
+
 }

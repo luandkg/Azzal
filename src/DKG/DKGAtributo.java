@@ -44,6 +44,10 @@ public class DKGAtributo {
         mValor = String.valueOf(eValor);
     }
 
+    public void setLong(long eValor) {
+        mValor = String.valueOf(eValor);
+    }
+
     public String getValor() {
         return mValor;
     }
@@ -133,4 +137,20 @@ public class DKGAtributo {
         }
         return ret;
     }
+
+
+    public long getLong() {
+        return Long.parseLong(getValor());
+    }
+
+    public long getLong(long valorPadrao) {
+        if (getValor().length() == 0) {
+            setLong(valorPadrao);
+        } else {
+            valorPadrao = Long.parseLong(getValor());
+        }
+
+        return valorPadrao;
+    }
+
 }

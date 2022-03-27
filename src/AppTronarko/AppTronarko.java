@@ -10,6 +10,7 @@ import Letrum.Fonte;
 import Letrum.FonteDupla;
 import Letrum.FonteDuplaRunTime;
 import Letrum.Maker.FonteRunTime;
+import RhoBenchmark.RhoBenchmark;
 import Tronarko.Eventos.Comunicado;
 import Tronarko.Eventos.Comunicum;
 import Tronarko.Eventos.Eventum;
@@ -72,6 +73,8 @@ public class AppTronarko extends Cena {
     private TronarkoImagemSignos mTronarkoImagemSignos;
 
     private ArrayList<TozteCor> mEventos;
+
+    private RhoBenchmark mRhoBenchmark;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -167,12 +170,14 @@ public class AppTronarko extends Cena {
         mHiperarkoWidgetSelecionado = new HiperarkoWidget(950, 280, 1, mHoje.getTronarko());
         mHiperarkoWidgetSelecionado.setTamanhoCaixaTitulo(20);
 
+        mRhoBenchmark = new RhoBenchmark("res/RhoBenchmark.dkg", 0,400);
     }
 
 
     @Override
     public void update(double dt) {
 
+        long inicio = mRhoBenchmark.get();
 
         mHoje = mTronarkum.getTozte();
         mAgora = mTronarkum.getHazde();
@@ -221,11 +226,16 @@ public class AppTronarko extends Cena {
 
         getWindows().getMouse().liberar();
 
+        long fim = mRhoBenchmark.get();
+
+        mRhoBenchmark.set("Tronarko.update()", inicio, fim);
+
     }
 
     @Override
     public void draw(Renderizador r) {
 
+        long inicio = mRhoBenchmark.get();
 
         r.limpar(mCores.getBranco());
 
@@ -331,6 +341,9 @@ public class AppTronarko extends Cena {
         r.drawImagemComAlfa(1380, 350, mTronarkoImagemSignos.getSigno(mHoje.getSigno()));
         mTextoPequeno.escrevaCentralizado(1380 + 32 - 2, 420, mHoje.getSigno().toString());
 
+        long fim = mRhoBenchmark.get();
+
+        mRhoBenchmark.set("Tronarko.render()", inicio, fim);
 
     }
 
