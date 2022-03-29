@@ -29,6 +29,24 @@ public class Tozte {
         return this.mHiperarkos;
     }
 
+    public boolean isOk() {
+        boolean ok = true;
+
+        if (mSuperarkos <= 0 || mSuperarkos >= 51) {
+            ok = false;
+        }
+
+        if (mHiperarkos <= 0 || mSuperarkos >= 11) {
+            ok = false;
+        }
+
+        if (mTronarkos < 0 ) {
+            ok = false;
+        }
+
+        return ok;
+    }
+
     public int getTronarko() {
         return this.mTronarkos;
     }
@@ -546,15 +564,15 @@ public class Tozte {
     // RETIRAR METODOS
 
     public Tozte retirar_Superarko(int s) {
-        return modificar_Superarko(this, (-1)*s);
+        return modificar_Superarko(this, (-1) * s);
     }
 
     public Tozte retirar_Hiperarko(int h) {
-        return modificar_Hiperarko(this,(-1)*h);
+        return modificar_Hiperarko(this, (-1) * h);
     }
 
     public Tozte retirar_Tronarko(int t) {
-        return modificar_Tronarko(this, (-1)*t);
+        return modificar_Tronarko(this, (-1) * t);
     }
 
 

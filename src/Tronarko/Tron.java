@@ -44,6 +44,18 @@ public class Tron {
 
     }
 
+
+    public boolean isOk() {
+        boolean ok = true;
+
+        if (!mHazdeC.isOk() || !mTozteC.isOk()) {
+            ok = false;
+        }
+
+        return ok;
+    }
+
+
     // INTERNALIZAR METODOS
 
     public void internalizar_Superarko(int s) {

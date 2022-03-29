@@ -207,7 +207,6 @@ public class FileBinary {
                 }
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

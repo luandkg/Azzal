@@ -10,6 +10,7 @@ import Azzal.AzzalUnico;
 import Documentar.Documentar;
 import Servittor.Servittor;
 import GamaFS.GamaFS;
+import Tronarko.Testes;
 
 
 public class AppAzzal {
@@ -156,7 +157,10 @@ public class AppAzzal {
         //RhoBenchmark.RhoBenchmark.organizar("res/RhoBenchmark.dkg","/home/luan/Imagens/RhoBenchmark.png");
 
         VamosCalcular vc = new VamosCalcular();
-        vc.init();
+       // vc.init();
+
+
+        Tronarko.Testes.init();
 
     }
 

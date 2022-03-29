@@ -206,5 +206,13 @@ public class Tronarko {
 
     }
 
+    // FACILITADORES
 
+    public static Tozte make_tozte(int s, int h, int t) {
+        return new Tozte(s, h, t);
+    }
+
+    public static Hazde make_hazde(int a, int i, int u) {
+        return new Hazde(a, i, u);
+    }
 }

@@ -207,6 +207,25 @@ public class Hazde {
         return String.valueOf(this.getArco()) + "º " + getModarko_Valor();
     }
 
+
+    public boolean isOk() {
+        boolean ok = true;
+
+        if (mArkos <= 0 || mArkos >= 11) {
+            ok = false;
+        }
+
+        if (mIttas <= 0 || mIttas >= 101) {
+            ok = false;
+        }
+
+        if (mUzzons <= 0 || mUzzons >= 101) {
+            ok = false;
+        }
+
+        return ok;
+    }
+
     public Hazde adicionar_Arco(int a) {
         return modificar_Arco(this, a);
     }
