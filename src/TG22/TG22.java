@@ -18,6 +18,7 @@ public class TG22 {
 
         ArrayList<Ficha> projeto = iniciar_projeto();
 
+        cadastrar("44/06/7002", 1.60, 70.0, projeto);
         cadastrar("33/06/7002", 1.60, 70.0, projeto);
         cadastrar("21/06/7002", 1.60, 71.0, projeto);
         cadastrar("15/06/7002", 1.60, 71.0, projeto);

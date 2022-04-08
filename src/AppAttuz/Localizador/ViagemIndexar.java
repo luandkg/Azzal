@@ -254,8 +254,8 @@ public class ViagemIndexar {
 
                 String visita_comecar = ePonto.identifique("Tozte").getValor();
 
-                Tozte viagem_tozte = st.getTozte(visita_comecar);
-                Hazde viagem_hazde = st.getHazdeDeComplexo(visita_comecar);
+                Tozte viagem_tozte = st.parseTozte(visita_comecar);
+                Hazde viagem_hazde = st.getHazdeDeComplexoSemUzzon(visita_comecar);
 
 
                 long superarkos_valor = viagem_tozte.getSuperarkosTotal();

@@ -55,7 +55,7 @@ public class AppAzzal {
 
         //  AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
 
-        //TG22.TG22.init();
+        TG22.TG22.init();
 
 
         //  AzzalUnico.unico("Editor - luan.dkg", 1000, 1000, new AppKhronos.AppKrhonos());

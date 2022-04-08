@@ -1,5 +1,6 @@
 package Tronarko;
 
+import Tronarko.Utils.StringTronarko;
 import hipertestes.HiperTestador;
 import hipertestes.Teste;
 
@@ -12,6 +13,8 @@ public class Testes {
         testar.adicionar(Teste_Tronarko_Init());
         testar.adicionar(Teste_Tronarko_Toztes());
         testar.adicionar(Teste_Tronarko_Hazde());
+        testar.adicionar(Teste_Tronarko_Parser());
+
 
         testar.realizar_testes();
 
@@ -135,5 +138,51 @@ public class Testes {
         };
     }
 
+
+    public static Teste Teste_Tronarko_Parser() {
+        return new Teste("Teste_Tronarko_Parser") {
+            @Override
+            public void executar() {
+
+                StringTronarko st = new StringTronarko();
+
+
+                CHECK_EQ("01/01/7000", st.parseTozte("1/1/7000").getTextoZerado());
+                CHECK_EQ("35/05/7002", st.parseTozte("35/5/7002").getTextoZerado());
+                CHECK_EQ("12/10/7008", st.parseTozte("12/10/7008").getTextoZerado());
+
+                CHECK_EQ("01:30:80", st.parseHazde("1:30:80").getTextoZerado());
+                CHECK_EQ("01:02:03", st.parseHazde("1:2:3").getTextoZerado());
+
+                CHECK_EQ("01", st.getArko("01:30:80"));
+                CHECK_EQ("30", st.getIttas("01:30:80"));
+                CHECK_EQ("80", st.getUzzon("01:30:80"));
+
+                CHECK_EQ("15", st.getSuperarko("15/02/7002"));
+                CHECK_EQ("02", st.getHiperarko("15/02/7002"));
+                CHECK_EQ("7002", st.getTronarko("15/02/7002"));
+
+                CHECK_EQ("15", st.getSuperarko("15/02/7002 05:12:50"));
+                CHECK_EQ("02", st.getHiperarko("15/02/7002 05:12:50"));
+                CHECK_EQ("7002", st.getTronarko("15/02/7002 05:12:50"));
+
+                CHECK_EQ("05", st.getArkoFormatoComplexo("15/02/7002 05:12:50"));
+                CHECK_EQ("12", st.getIttasFormatoComplexo("15/02/7002 05:12:50"));
+                CHECK_EQ("50", st.getUzzonFormatoComplexo("15/02/7002 05:12:50"));
+
+                CHECK_EQ("05", st.getArko("15/02/7002 05:12:50"));
+                CHECK_EQ("12", st.getIttas("15/02/7002 05:12:50"));
+                CHECK_EQ("50", st.getUzzon("15/02/7002 05:12:50"));
+
+                CHECK_EQ("15/02/7002", st.getTozteDeComplexo("15/02/7002 05:12:50").getTextoZerado());
+                CHECK_EQ("05:12:50", st.getHazdeDeComplexo("15/02/7002 05:12:50").getTextoZerado());
+                CHECK_EQ("15/02/7002 05:12:50", st.getTronDeComplexo("15/02/7002 05:12:50").getTextoZerado());
+
+                CHECK_EQ("15/02/7002 05:12", st.getTronDeComplexo("15/02/7002 05:12:50").getTextoSemUzzonZerado());
+                CHECK_EQ("15/02/7002 05:12", st.getTronDeComplexo("15/02/7002 05:12").getTextoSemUzzonZerado());
+
+            }
+        };
+    }
 
 }

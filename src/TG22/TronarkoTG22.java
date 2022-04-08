@@ -75,8 +75,8 @@ public class TronarkoTG22 {
 
             StringTronarko st = new StringTronarko();
 
-            Tozte ultimo = st.getTozte(projeto.get(0).getTozte());
-            Tozte primeiro = st.getTozte(projeto.get(projeto.size() - 1).getTozte());
+            Tozte ultimo = st.parseTozte(projeto.get(0).getTozte());
+            Tozte primeiro = st.parseTozte(projeto.get(projeto.size() - 1).getTozte());
 
             while (primeiro.isMenorIgualQue(ultimo)) {
                 mInfos.add(new TozteCor("TG22", primeiro, new Color(255, 165, 23)));

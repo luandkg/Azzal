@@ -28,6 +28,74 @@ public class Tron {
         return mHazdeC.getTexto() + " " + mTozteC.getTexto();
     }
 
+
+
+    public String getTextoZerado() {
+        String texto = "";
+
+        String p1 = String.valueOf(getTozte().getSuperarko());
+        String p2 = String.valueOf(getTozte().getHiperarko());
+        String p3 = String.valueOf(getTozte().getTronarko());
+
+        String p4 = String.valueOf(getHazde().getArco());
+        String p5 = String.valueOf(getHazde().getItta());
+        String p6 = String.valueOf(getHazde().getUzzon());
+
+        if (p1.length() == 1) {
+            p1 = "0" + p1;
+        }
+
+        if (p2.length() == 1) {
+            p2 = "0" + p2;
+        }
+
+        if (p4.length() == 1) {
+            p4 = "0" + p4;
+        }
+        if (p5.length() == 1) {
+            p5 = "0" + p5;
+        }
+        if (p6.length() == 1) {
+            p6 = "0" + p6;
+        }
+
+        texto = p1 + "/" + p2 + "/" + p3 + " " + p4 +":" + p5 + ":" + p6;
+
+        return texto;
+    }
+
+    public String getTextoSemUzzonZerado() {
+        String texto = "";
+
+        String p1 = String.valueOf(getTozte().getSuperarko());
+        String p2 = String.valueOf(getTozte().getHiperarko());
+        String p3 = String.valueOf(getTozte().getTronarko());
+
+        String p4 = String.valueOf(getHazde().getArco());
+        String p5 = String.valueOf(getHazde().getItta());
+
+        if (p1.length() == 1) {
+            p1 = "0" + p1;
+        }
+
+        if (p2.length() == 1) {
+            p2 = "0" + p2;
+        }
+
+        if (p4.length() == 1) {
+            p4 = "0" + p4;
+        }
+        if (p5.length() == 1) {
+            p5 = "0" + p5;
+        }
+
+
+        texto = p1 + "/" + p2 + "/" + p3 + " " + p4 +":" + p5 ;
+
+        return texto;
+    }
+
+
     public String toString() {
         return getTexto();
     }
