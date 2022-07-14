@@ -31,7 +31,7 @@
         - Transformador de Cor
 
 
-# Tronarko
+# libs.Tronarko
 
 > Sistema de contagem temporal
 > 
@@ -52,7 +52,7 @@
     - Aplicativo para visualização de mapa e realizar marcações.
 
 
-# DKG
+# libs.DKG
 
 > Formato de texto com estilo de marcação para estruturação de dados
 
@@ -73,7 +73,7 @@
 }
 ~~~
 
-# Arquivos
+# libs.Arquivos
 
 > Pacote com formatos de arquivados criados por mim mesmo ( hehehe )
 
@@ -89,15 +89,15 @@
     - Int8 : Mapeador de 8 bits
     - Int6 : Mapeador de 6 bits
 
-# Graficos
+# libs.Graficos
 
 > Pacote ZettaBarras para desenhos de gráficos de barras e pontos.
 
-# Imaginador
+# libs.Imaginador
 
 > Coleção de códigos para facilitar abertura de imagens, além de aplicação de efeitos.
 
-# Luan
+# libs.Luan
 
 > Pacote com ESTRUTURAS DE DADOS
 
@@ -117,15 +117,15 @@
 
 > Aplicação de renderização de partículas AREIA e LÍQUIDO.
 
-# OrganizadorQ2D
+# libs.OrganizadorQ2D
 
 > Mapeador de regiões do espaço 2D com algoritmo para algilizar detecção de colisão de corpos.
 
-# Movimento
+# libs.Movimento
 
 > Algoritmos para realizar movimento de corpos no espaço 2D de forma mais harmônica e real.
 
-    - Movimento Burro
-    - Movimento Linear
-    - Movimento Vertical
-    - Movimento Inteligente
+    - libs.Movimento Burro
+    - libs.Movimento Linear
+    - libs.Movimento Vertical
+    - libs.Movimento Inteligente
