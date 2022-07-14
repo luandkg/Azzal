@@ -350,7 +350,7 @@ public class fmt {
 
     // ACESSORIOS
 
-    public String inFixo(String s, int t) {
+    public static String inFixo(String s, int t) {
 
         while (s.length() < t) {
             s = " " + s;
@@ -359,7 +359,7 @@ public class fmt {
         return s;
     }
 
-    public String inAposFixo(String s, int t) {
+    public  static String inAposFixo(String s, int t) {
 
         while (s.length() < t) {
             s = s + " ";
@@ -368,7 +368,7 @@ public class fmt {
         return s;
     }
 
-    public String intNum(int i, int c) {
+    public static String intNum(int i, int c) {
         String s = String.valueOf(i);
         while (s.length() < c) {
             s = "0" + s;
@@ -376,13 +376,15 @@ public class fmt {
         return s;
     }
 
-    public String longNum(long i, int c) {
+    public static String longNum(long i, int c) {
         String s = String.valueOf(i);
         while (s.length() < c) {
             s = "0" + s;
         }
         return s;
     }
+
+
 
     public static String doubleNumC2(double numero) {
         String s = String.valueOf(numero);
@@ -483,7 +485,8 @@ public class fmt {
         return f;
     }
 
-    public String getTempoFormatado(long t) {
+
+    public static String getTempoFormatado(long t) {
 
         if (t < 1000) {
             return t + " ms";
@@ -511,6 +514,7 @@ public class fmt {
         }
 
     }
+
 
     public long getTempoTarefa(Tarefa eTarefa) {
         long eAntes = System.currentTimeMillis();

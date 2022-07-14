@@ -7,7 +7,7 @@ import libs.Extenum.Colecionador.Registro;
 import libs.Extenum.Colecionador.Sumarizador;
 import libs.Extenum.Paginador.Paginador;
 import libs.Extenum.Paginador.RefBloco;
-import libs.Luan.TTY;
+import libs.Luan.fmt;
 
 import java.util.ArrayList;
 
@@ -279,7 +279,6 @@ public class Organizador {
 
     public void dump_colecoes() {
 
-        TTY eTTY = new TTY();
 
         System.out.println("");
         System.out.println("-->> Colecoes   =   " + this.getColecoes().size());
@@ -288,13 +287,13 @@ public class Organizador {
         for (Colecao eColecao : getColecoes()) {
 
 
-            String s0 = " :: Paginas = " + eTTY.LongNum(eColecao.getPaginasContagem(), 5);
+            String s0 = " :: Paginas = " + fmt.longNum(eColecao.getPaginasContagem(), 5);
 
-            String s1 = " Total = " + eTTY.LongNum(eColecao.getLivresContagem(), 3);
-            String s2 = " Ocupado = " + eTTY.LongNum(eColecao.getOcupadosContagem(), 3);
-            String s3 = " Indice Geral = " + eTTY.LongNum(eColecao.getIndiceGeral(), 3);
+            String s1 = " Total = " + fmt.longNum(eColecao.getLivresContagem(), 3);
+            String s2 = " Ocupado = " + fmt.longNum(eColecao.getOcupadosContagem(), 3);
+            String s3 = " Indice Geral = " + fmt.longNum(eColecao.getIndiceGeral(), 3);
 
-            System.out.println("\t-->> Colecao " + eTTY.LongNum(eColecao.getColecaoID(), 5) + s0 + s1 + s2 + s3);
+            System.out.println("\t-->> Colecao " + fmt.longNum(eColecao.getColecaoID(), 5) + s0 + s1 + s2 + s3);
 
         }
 

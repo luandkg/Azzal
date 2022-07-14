@@ -1,7 +1,7 @@
 package libs.Extenum.Arquivador;
 
 
-import libs.Luan.TTY;
+import libs.Luan.fmt;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -279,7 +279,6 @@ public class Arquivador {
 
     public void dump_blocos() {
 
-        TTY eTTY = new TTY();
 
         long eContagem = this.getBlocosContagem();
 
@@ -291,11 +290,11 @@ public class Arquivador {
 
             Bloco blocoC = this.getBloco(b);
 
-            String s0 = " Bloco = " + eTTY.LongNum(blocoC.getID(), 5);
+            String s0 = " Bloco = " + fmt.longNum(blocoC.getID(), 5);
 
-            String s1 = " Inicio = " + eTTY.LongNum(blocoC.getInicio(), 10);
-            String s2 = " Fim = " + eTTY.LongNum(blocoC.getFim(), 10);
-            String s3 = " Tamanho = " + eTTY.LongNum(blocoC.getTamanho(), 5);
+            String s1 = " Inicio = " + fmt.longNum(blocoC.getInicio(), 10);
+            String s2 = " Fim = " + fmt.longNum(blocoC.getFim(), 10);
+            String s3 = " Tamanho = " + fmt.longNum(blocoC.getTamanho(), 5);
 
             System.out.println("\t-->> "  + s0 + s1 + s2 + s3);
 

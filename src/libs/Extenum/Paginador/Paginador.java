@@ -2,8 +2,8 @@ package libs.Extenum.Paginador;
 
 import libs.Extenum.Arquivador.Arquivador;
 import libs.Extenum.Arquivador.Bloco;
-import libs.Luan.TTY;
 import libs.Extenum.Arquivador.Utils;
+import libs.Luan.fmt;
 
 import java.util.ArrayList;
 
@@ -81,7 +81,6 @@ public class Paginador {
 
     public void mostrarBlocos() {
 
-        TTY eTTY = new TTY();
 
         long b = mArquivador.getBlocosContagem();
 
@@ -89,11 +88,11 @@ public class Paginador {
 
             Bloco mBlocoCorrente = mArquivador.getBloco(i);
 
-            String s1 = " Inicio = " + eTTY.LongNum(mBlocoCorrente.getInicio(), 10);
-            String s2 = " Fim = " + eTTY.LongNum(mBlocoCorrente.getFim(), 10);
-            String s3 = " Tamanho = " + eTTY.LongNum(mBlocoCorrente.getTamanho(), 5);
+            String s1 = " Inicio = " + fmt.longNum(mBlocoCorrente.getInicio(), 10);
+            String s2 = " Fim = " + fmt.longNum(mBlocoCorrente.getFim(), 10);
+            String s3 = " Tamanho = " + fmt.longNum(mBlocoCorrente.getTamanho(), 5);
 
-            System.out.println(" -->> Bloco " + eTTY.LongNum(i, 5) + s1 + s2 + s3);
+            System.out.println(" -->> Bloco " + fmt.longNum(i, 5) + s1 + s2 + s3);
 
         }
 
@@ -371,7 +370,6 @@ public class Paginador {
 
     public void dump_paginas() {
 
-        TTY eTTY = new TTY();
 
         System.out.println("");
         System.out.println("-->> Paginas   =   " + this.getPaginasContagem());
@@ -379,13 +377,13 @@ public class Paginador {
 
         for (Pagina ePagina : getPaginas()) {
 
-            String s0 = " :: Bloco = " + eTTY.LongNum(ePagina.getBlocoID(), 5);
+            String s0 = " :: Bloco = " + fmt.longNum(ePagina.getBlocoID(), 5);
 
-            String s1 = " Inicio = " + eTTY.LongNum(ePagina.getInicio(), 10);
-            String s2 = " Fim = " + eTTY.LongNum(ePagina.getFim(), 10);
-            String s3 = " Tamanho = " + eTTY.LongNum(ePagina.getTamanho(), 5);
+            String s1 = " Inicio = " + fmt.longNum(ePagina.getInicio(), 10);
+            String s2 = " Fim = " + fmt.longNum(ePagina.getFim(), 10);
+            String s3 = " Tamanho = " + fmt.longNum(ePagina.getTamanho(), 5);
 
-            System.out.println("\t-->> Pagina " + eTTY.LongNum(ePagina.getPaginaID(), 5) + s0 + s1 + s2 + s3);
+            System.out.println("\t-->> Pagina " + fmt.longNum(ePagina.getPaginaID(), 5) + s0 + s1 + s2 + s3);
 
         }
 
@@ -394,7 +392,6 @@ public class Paginador {
 
     public void dump_refs() {
 
-        TTY eTTY = new TTY();
 
         System.out.println("");
         System.out.println("-->> Paginas   =   " + this.getPaginasContagem());
@@ -419,13 +416,13 @@ public class Paginador {
             }
 
 
-            String s0 = " :: Bloco = " + eTTY.LongNum(ePagina.getBlocoID(), 5);
+            String s0 = " :: Bloco = " + fmt.longNum(ePagina.getBlocoID(), 5);
 
-            String s1 = " Total = " + eTTY.LongNum(mPTotal, 3);
-            String s2 = " Ocupado = " + eTTY.LongNum(mPOcupado, 3);
-            String s3 = " Livre = " + eTTY.LongNum(mPLivre, 3);
+            String s1 = " Total = " + fmt.longNum(mPTotal, 3);
+            String s2 = " Ocupado = " + fmt.longNum(mPOcupado, 3);
+            String s3 = " Livre = " + fmt.longNum(mPLivre, 3);
 
-            System.out.println("\t-->> Pagina " + eTTY.LongNum(ePagina.getPaginaID(), 5) + s0 + s1 + s2 + s3);
+            System.out.println("\t-->> Pagina " + fmt.longNum(ePagina.getPaginaID(), 5) + s0 + s1 + s2 + s3);
 
         }
 
