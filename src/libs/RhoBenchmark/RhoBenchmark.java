@@ -2,8 +2,8 @@ package libs.RhoBenchmark;
 
 import azzal.Renderizador;
 import azzal.Utils.Cor;
-import libs.DKG.DKG;
-import libs.DKG.DKGObjeto;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
 import libs.Imaginador.ImageUtils;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.AutoFonte;

@@ -11,13 +11,13 @@ import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import libs.Luan.Opcional;
-import libs.Tronarko.Utils.TozteCor;
-import libs.Tronarko.Tronarko;
-import libs.Tronarko.Tozte;
-import libs.Tronarko.Hazde;
+import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.Tronarko;
+import libs.tronarko.Tozte;
+import libs.tronarko.Hazde;
 
-import libs.Tronarko.Eventos.Eventum;
-import libs.Tronarko.Agenda.Alarme;
+import libs.tronarko.Eventos.Eventum;
+import libs.tronarko.Agenda.Alarme;
 
 import azzal_ui.Interface.Acao;
 import azzal_ui.Interface.BotaoCor;

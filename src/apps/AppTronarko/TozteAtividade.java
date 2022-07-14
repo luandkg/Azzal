@@ -1,6 +1,6 @@
 package apps.AppTronarko;
 
-import libs.Tronarko.Tozte;
+import libs.tronarko.Tozte;
 
 public class TozteAtividade {
 

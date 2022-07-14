@@ -31,7 +31,7 @@
         - Transformador de Cor
 
 
-# libs.Tronarko
+# libs.tronarko
 
 > Sistema de contagem temporal
 > 
@@ -52,7 +52,7 @@
     - Aplicativo para visualização de mapa e realizar marcações.
 
 
-# libs.DKG
+# libs.dkg
 
 > Formato de texto com estilo de marcação para estruturação de dados
 

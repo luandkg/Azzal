@@ -5,15 +5,15 @@ import apps.AppAttuz.Mapa.Local;
 import apps.AppAttuz.Politicamente.Cidades;
 import apps.AppAttuz.Politicamente.EquipamentosDeEngenharia;
 import azzal.Formatos.Ponto;
-import libs.DKG.DKG;
-import libs.DKG.DKGObjeto;
-import libs.DKG.CadaObjeto;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
+import libs.dkg.CadaObjeto;
 import libs.Luan.Opcional;
 import libs.Luan.RefString;
 import libs.Luan.fmt;
-import libs.Tronarko.Tozte;
-import libs.Tronarko.Tronarko;
-import libs.Tronarko.Hazde;
+import libs.tronarko.Tozte;
+import libs.tronarko.Tronarko;
+import libs.tronarko.Hazde;
 
 import java.util.ArrayList;
 

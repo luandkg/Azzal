@@ -3,8 +3,8 @@ package apps.AppAttuz.Assessorios;
 import apps.AppAttuz.Ferramentas.GPS;
 import apps.AppAttuz.Mapa.Local;
 import azzal.Formatos.Ponto;
-import libs.DKG.DKG;
-import libs.DKG.DKGObjeto;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
 
 
 import java.awt.*;

@@ -4,15 +4,15 @@ import libs.Arquivos.IO;
 import libs.Arquivos.PDF;
 import azzal.Renderizador;
 import libs.Luan.STTY;
-import libs.DKG.DKG;
-import libs.Tronarko.Tronarko;
-import libs.DKG.DKGObjeto;
+import libs.dkg.DKG;
+import libs.tronarko.Tronarko;
+import libs.dkg.DKGObjeto;
 
 import java.util.ArrayList;
 
-import libs.Tronarko.Utils.IntTronarko;
+import libs.tronarko.Utils.IntTronarko;
 
-import libs.Tronarko.Tozte;
+import libs.tronarko.Tozte;
 
 public class TG22 {
 

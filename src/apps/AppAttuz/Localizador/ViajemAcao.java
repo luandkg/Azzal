@@ -1,8 +1,8 @@
 package apps.AppAttuz.Localizador;
 
-import libs.Tronarko.Intervalos.Tron_Intervalo;
-import libs.Tronarko.Utils.StringTronarko;
-import libs.Tronarko.Tron;
+import libs.tronarko.Intervalos.Tron_Intervalo;
+import libs.tronarko.Utils.StringTronarko;
+import libs.tronarko.Tron;
 
 public class ViajemAcao {
 

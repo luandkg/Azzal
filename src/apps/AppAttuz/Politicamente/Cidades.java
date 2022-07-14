@@ -5,11 +5,11 @@ import apps.AppAttuz.Ferramentas.Espaco2D;
 import apps.AppAttuz.Mapa.Caminho;
 import apps.AppAttuz.Mapa.Local;
 import azzal.Formatos.Ponto;
-import libs.DKG.DKG;
+import libs.dkg.DKG;
 
 import java.util.ArrayList;
 
-import libs.DKG.DKGObjeto;
+import libs.dkg.DKGObjeto;
 
 public class Cidades {
 

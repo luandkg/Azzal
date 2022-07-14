@@ -25,7 +25,7 @@ import libs.Imaginador.ImageUtils;
 import libs.Imaginador.TirarPrint;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Tronarko.Tronarko;
+import libs.tronarko.Tronarko;
 
 
 import java.awt.*;

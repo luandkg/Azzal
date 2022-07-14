@@ -1,13 +1,13 @@
 package apps.AppAttuz.Localizador;
 
 import apps.AppAttuz.Mapa.Viajante;
-import libs.DKG.DKG;
-import libs.DKG.DKGObjeto;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
 
 import java.io.File;
-import libs.Tronarko.Utils.StringTronarko;
-import libs.Tronarko.Tozte;
-import libs.Tronarko.Hazde;
+import libs.tronarko.Utils.StringTronarko;
+import libs.tronarko.Tozte;
+import libs.tronarko.Hazde;
 
 public class ProcurarLocalizacao {
 

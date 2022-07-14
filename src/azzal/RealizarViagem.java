@@ -4,8 +4,8 @@ import apps.AppAttuz.Localizador.ViagemIndexar;
 import apps.AppAttuz.Mapa.Local;
 import apps.AppAttuz.Mapa.Viagem;
 import apps.AppAttuz.Mapa.Viajante;
-import libs.Tronarko.Tron;
-import libs.Tronarko.Tronarko;
+import libs.tronarko.Tron;
+import libs.tronarko.Tronarko;
 
 import java.util.ArrayList;
 

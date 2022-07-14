@@ -3,9 +3,9 @@ package apps.AppAttuz.Mapa;
 import apps.AppAttuz.Ferramentas.Espaco2D;
 import apps.AppAttuz.Ferramentas.GPS;
 import azzal.Formatos.Ponto;
-import libs.DKG.DKG;
-import libs.DKG.DKGObjeto;
-import libs.Tronarko.Utils.ContadorTronarko;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
+import libs.tronarko.Utils.ContadorTronarko;
 
 
 import java.util.ArrayList;

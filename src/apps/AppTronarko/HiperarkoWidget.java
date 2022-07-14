@@ -6,11 +6,11 @@ import azzal.Utils.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import libs.Luan.Opcional;
-import libs.Tronarko.Hiperarkos;
-import libs.Tronarko.Superarkos;
-import libs.Tronarko.Tozte;
-import libs.Tronarko.Utils.TozteCor;
-import libs.Tronarko.Agenda.Alarme;
+import libs.tronarko.Hiperarkos;
+import libs.tronarko.Superarkos;
+import libs.tronarko.Tozte;
+import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.Agenda.Alarme;
 
 import java.awt.*;
 import java.util.ArrayList;

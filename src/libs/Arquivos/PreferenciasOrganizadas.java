@@ -1,6 +1,6 @@
 package libs.Arquivos;
 
-import libs.DKG.DKG;
+import libs.dkg.DKG;
 
 import java.io.File;
 

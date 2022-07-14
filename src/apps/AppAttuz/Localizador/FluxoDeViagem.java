@@ -1,9 +1,9 @@
 package apps.AppAttuz.Localizador;
 
-import libs.DKG.DKGObjeto;
-import libs.Tronarko.Utils.IntTronarko;
-import libs.Tronarko.Utils.StringTronarko;
-import libs.Tronarko.Tozte;
+import libs.dkg.DKGObjeto;
+import libs.tronarko.Utils.IntTronarko;
+import libs.tronarko.Utils.StringTronarko;
+import libs.tronarko.Tozte;
 
 import java.util.ArrayList;
 

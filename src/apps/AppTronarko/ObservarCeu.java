@@ -1,9 +1,9 @@
 package apps.AppTronarko;
 
-import libs.Tronarko.Intervalos.Tozte_Intervalo;
-import libs.Tronarko.Satelites.Ceu;
-import libs.Tronarko.Satelites.Fases;
-import libs.Tronarko.Tozte;
+import libs.tronarko.Intervalos.Tozte_Intervalo;
+import libs.tronarko.Satelites.Ceu;
+import libs.tronarko.Satelites.Fases;
+import libs.tronarko.Tozte;
 
 import java.util.ArrayList;
 

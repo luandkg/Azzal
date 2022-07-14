@@ -2,7 +2,7 @@ package apps.AppTronarko;
 
 import libs.Imaginador.Efeitos;
 import libs.Imaginador.ImageUtils;
-import libs.Tronarko.Signos;
+import libs.tronarko.Signos;
 
 import java.awt.image.BufferedImage;
 

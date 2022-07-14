@@ -8,16 +8,16 @@ import azzal.Utils.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Tronarko.Tronarko;
-import libs.Tronarko.Tozte;
-import libs.Tronarko.Hazde;
-import libs.Tronarko.Superarkos;
+import libs.tronarko.Tronarko;
+import libs.tronarko.Tozte;
+import libs.tronarko.Hazde;
+import libs.tronarko.Superarkos;
 
-import libs.Tronarko.Agenda.Alarme;
-import libs.Tronarko.Agenda.Lembrete;
-import libs.Tronarko.Utils.FluxoTemporal;
+import libs.tronarko.Agenda.Alarme;
+import libs.tronarko.Agenda.Lembrete;
+import libs.tronarko.Utils.FluxoTemporal;
 
-import libs.Tronarko.Utils.Ordenador;
+import libs.tronarko.Utils.Ordenador;
 import azzal_ui.Interface.Acao;
 import azzal_ui.Interface.BotaoCor;
 import azzal_ui.Interface.Clicavel;

@@ -4,8 +4,8 @@ import azzal.Cores;
 import azzal.Renderizador;
 import libs.Imaginador.ImageUtils;
 import apps.appLetrum.Maker.AutoFonte;
-import libs.Tronarko.Satelites.Ceu;
-import libs.Tronarko.Tozte;
+import libs.tronarko.Satelites.Ceu;
+import libs.tronarko.Tozte;
 
 import java.awt.image.BufferedImage;
 
