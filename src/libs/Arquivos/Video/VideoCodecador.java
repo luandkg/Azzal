@@ -2,7 +2,6 @@ package libs.Arquivos.Video;
 
 
 import libs.Arquivos.Binario.Arquivador;
-import libs.AssetContainer.Chronos_Intervalo;
 import libs.Imaginador.ImageUtils;
 import libs.Luan.OrdenadorAlfaNum;
 import libs.Luan.fmt;
@@ -203,7 +202,7 @@ public class VideoCodecador {
         int mAltura = 801;
         int mTaxa = 200;
 
-        Chronos_Intervalo mCrono = new Chronos_Intervalo();
+        Temporizador mCrono = new Temporizador();
         mCrono.marqueInicio();
 
         Collections.sort(mArquivos, new OrdenadorAlfaNum());
@@ -300,7 +299,7 @@ public class VideoCodecador {
         int mAltura = 800;
         int mTaxa = 200;
 
-        Chronos_Intervalo mCrono = new Chronos_Intervalo();
+        Temporizador mCrono = new Temporizador();
         mCrono.marqueInicio();
 
         Collections.sort(mArquivos, new OrdenadorAlfaNum());
@@ -491,8 +490,8 @@ public class VideoCodecador {
 
         int mTaxa = 200;
 
-        Chronos_Intervalo mCrono = new Chronos_Intervalo();
-        mCrono.marqueInicio();
+        Temporizador mTemporizador = new Temporizador();
+        mTemporizador.marqueInicio();
 
 
         System.out.println("\t - ARQUIVO = " + eArquivo);
@@ -537,7 +536,7 @@ public class VideoCodecador {
 
         }
 
-        mCrono.marqueFim();
+        mTemporizador.marqueFim();
 
         System.out.println("");
 
@@ -546,7 +545,7 @@ public class VideoCodecador {
 
         System.out.println("\t - REDUCAO = " + fmt.getCasas(mReducao, 2) + " %");
 
-        System.out.println("\t - TEMPO = " + mCrono.getIntervalo() + " s");
+        System.out.println("\t - TEMPO = " + mTemporizador.getIntervalo() + " s");
 
         if (mCarregado) {
             System.out.println("\t - STATUS = SUCESSO");

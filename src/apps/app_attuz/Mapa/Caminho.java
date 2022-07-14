@@ -1,0 +1,19 @@
+package apps.app_attuz.Mapa;
+
+
+import azzal.Formatos.Ponto;
+
+public class Caminho {
+
+    private Ponto mInicio;
+    private Ponto mFim;
+
+    public Caminho(Ponto eInicio,Ponto eFim){
+        mInicio=eInicio;
+        mFim=eFim;
+    }
+
+    public Ponto getInicio(){return mInicio;}
+    public Ponto getFim(){return mFim;}
+
+}

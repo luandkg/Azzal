@@ -89,7 +89,7 @@
     - Int8 : Mapeador de 8 bits
     - Int6 : Mapeador de 6 bits
 
-# libs.Graficos
+# libs.zettagraficos
 
 > Pacote ZettaBarras para desenhos de gráficos de barras e pontos.
 

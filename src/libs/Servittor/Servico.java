@@ -1,6 +1,6 @@
 package libs.Servittor;
 
-import libs.Luan.STTY;
+import libs.Luan.fmt;
 
 public class Servico {
 
@@ -35,7 +35,7 @@ public class Servico {
 
         double segundos = (double) tempo / 1_000_000_000.0;
 
-        System.out.println("TEMPO :: " + STTY.doubleNumC2(segundos) + " s");
+        System.out.println("TEMPO :: " + fmt.doubleNumC2(segundos) + " s");
 
     }
 }

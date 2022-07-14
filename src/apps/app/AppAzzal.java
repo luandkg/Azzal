@@ -1,11 +1,9 @@
 package apps.app;
 
-import apps.AppAttuz.WorldBuilding;
-import apps.AppAzzal.VamosCalcular;
-import apps.app_llcripto.App_LLCripto;
+import apps.app_attuz.WorldBuilding;
+import apps.app_azzal.VamosCalcular;
 import azzal.AzzalUnico;
 import libs.GamaFS.GamaFS;
-import libs.llcripto.LLCripto;
 
 
 public class AppAzzal {
@@ -18,7 +16,8 @@ public class AppAzzal {
         //  AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.apps.AppFuzz());
 
 
-        // AzzalUnico.unico("libs.Tronarko", 1550, 1100, new apps.AppTronarko.apps.AppTronarko());
+        AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+
         //AzzalUnico .unico("libs.Tronarko", 900, 800, new apps.AppTronarko.AppAlarme());
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new apps.AppTronarko.AppLinhaDoTempo());
 
@@ -156,14 +155,8 @@ public class AppAzzal {
 
         // libs.Tronarko.Testes.init();
 
-        // AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
+        //AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
 
-       // LLCripto.demonstracao();
-
-        byte[] valores = LLCripto.criptografar("Luan Alves Freitas", "1992");
-
-        System.out.println("CIFRAR   :: " + LLCripto.bytes_to_sequencia(valores));
-        System.out.println("DECIFRAR :: " + LLCripto.descriptografar(valores, "1992a"));
 
     }
 

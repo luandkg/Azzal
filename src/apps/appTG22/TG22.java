@@ -3,7 +3,7 @@ package apps.appTG22;
 import libs.Arquivos.IO;
 import libs.Arquivos.PDF;
 import azzal.Renderizador;
-import libs.Luan.STTY;
+import libs.Luan.fmt;
 import libs.dkg.DKG;
 import libs.tronarko.Tronarko;
 import libs.dkg.DKGObjeto;
@@ -114,20 +114,20 @@ public class TG22 {
         System.out.println("");
         System.out.println("#################### EVOLUÇÃO ######################");
         System.out.println("");
-        System.out.println("\t - META :: " + STTY.espacar_antes("" + STTY.f2zerado(META_PESO), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
+        System.out.println("\t - META :: " + fmt.espacar_antes("" + fmt.f2zerado(META_PESO), 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
 
         if (projeto.size() > 0) {
 
             double peso_atual = projeto.get(0).getPeso();
             double peso_primeiro = projeto.get(projeto.size() - 1).getPeso();
 
-            System.out.println("\t - HOJE :: " + STTY.espacar_antes("" + peso_atual, 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(peso_atual, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
+            System.out.println("\t - HOJE :: " + fmt.espacar_antes("" + peso_atual, 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(peso_atual, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
 
             System.out.println("");
 
 
             if (peso_atual > META_PESO) {
-                System.out.println("\t - OBJETIVO  :: FALTA " + STTY.doubleNumC2((peso_atual - META_PESO)) + " moz !");
+                System.out.println("\t - OBJETIVO  :: FALTA " + fmt.doubleNumC2((peso_atual - META_PESO)) + " moz !");
 
                 double diferenca = 0.0;
                 String status = "";
@@ -140,7 +140,7 @@ public class TG22 {
                     status = "AUMENTOU";
                 }
 
-                System.out.println("\t - PROGRESSO :: " + status + " " + STTY.doubleNumC2(diferenca) + " moz !");
+                System.out.println("\t - PROGRESSO :: " + status + " " + fmt.doubleNumC2(diferenca) + " moz !");
 
                 System.out.println("\t - DURACAO   :: " + IntTronarko.getSuperarkosDiferenca(comecou, eTronarko.getTozte().toString()) + " superarkos !");
 
@@ -169,14 +169,14 @@ public class TG22 {
 
 
                 System.out.println("TOZTE -->> " + eFicha.getTozte() + " :: " + faixa_temporal);
-                System.out.println("\t - PESO        :: " + STTY.espacar_antes(STTY.doubleNumC2(eFicha.getPeso()) + " moz", ESPACAMENTO_RESULTADO));
-                System.out.println("\t - ALTURA      :: " + STTY.espacar_antes(STTY.doubleNumC2(eFicha.getAltura()) + " tgz", ESPACAMENTO_RESULTADO));
-                System.out.println("\t - NIVEL       :: " + STTY.espacar_antes(STTY.doubleNumC2(Corpo.getNivel(eFicha.getPeso(), eFicha.getAltura())) + " fuzz", ESPACAMENTO_RESULTADO));
+                System.out.println("\t - PESO        :: " + fmt.espacar_antes(fmt.doubleNumC2(eFicha.getPeso()) + " moz", ESPACAMENTO_RESULTADO));
+                System.out.println("\t - ALTURA      :: " + fmt.espacar_antes(fmt.doubleNumC2(eFicha.getAltura()) + " tgz", ESPACAMENTO_RESULTADO));
+                System.out.println("\t - NIVEL       :: " + fmt.espacar_antes(fmt.doubleNumC2(Corpo.getNivel(eFicha.getPeso(), eFicha.getAltura())) + " fuzz", ESPACAMENTO_RESULTADO));
 
                 double agora_ficha = eFicha.getPeso();
 
                 if (agora_ficha > META_PESO) {
-                    System.out.println("\t - META        :: " + STTY.espacar_antes("FALTA " + STTY.doubleNumC2((agora_ficha - META_PESO)) + " moz", ESPACAMENTO_RESULTADO));
+                    System.out.println("\t - META        :: " + fmt.espacar_antes("FALTA " + fmt.doubleNumC2((agora_ficha - META_PESO)) + " moz", ESPACAMENTO_RESULTADO));
 
 
                     double diferenca = 0.0;
@@ -191,7 +191,7 @@ public class TG22 {
                     }
 
                     if (diferenca > 0) {
-                        System.out.println("\t - PROGRESSO   :: " + STTY.espacar_antes(status + " " + STTY.doubleNumC2(diferenca) + " moz", ESPACAMENTO_RESULTADO));
+                        System.out.println("\t - PROGRESSO   :: " + fmt.espacar_antes(status + " " + fmt.doubleNumC2(diferenca) + " moz", ESPACAMENTO_RESULTADO));
                     }
 
 

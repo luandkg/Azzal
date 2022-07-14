@@ -1,7 +1,6 @@
 package libs.Arquivos.Video;
 
 import libs.Arquivos.Binario.Arquivador;
-import libs.AssetContainer.Chronos_Intervalo;
 import libs.Luan.fmt;
 
 import javax.imageio.ImageIO;
@@ -30,7 +29,7 @@ public class VideoSequenciador {
 
         int mTaxa = 1;
 
-        Chronos_Intervalo mCrono = new Chronos_Intervalo();
+        Temporizador mCrono = new Temporizador();
         mCrono.marqueInicio();
 
         System.out.println("\t - ARQUIVO = " + eArquivo);

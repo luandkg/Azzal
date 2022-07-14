@@ -7,7 +7,7 @@ import apps.appLetrum.Fonte;
 import apps.appLetrum.FonteDupla;
 import apps.appLetrum.FonteDuplaRunTime;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Luan.STTY;
+import libs.Luan.fmt;
 import libs.tronarko.*;
 import libs.tronarko.Eventos.Eventum;
 import libs.tronarko.Utils.IntTronarko;
@@ -126,24 +126,24 @@ public class TronarkoTG22 {
 
         int coluna_dois = 160;
 
-        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- META ", STTY.espacar_antes("" + STTY.f2zerado(META_PESO), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
+        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- META ", fmt.espacar_antes("" + fmt.f2zerado(META_PESO), 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
         RY += 35;
 
-        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INIT ", STTY.espacar_antes("" + STTY.f2zerado(projeto.get(projeto.size() - 1).getPeso()), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(projeto.get(projeto.size() - 1).getPeso(), projeto.get(projeto.size() - 1).getAltura())) + " fuzz ) ");
+        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INIT ", fmt.espacar_antes("" + fmt.f2zerado(projeto.get(projeto.size() - 1).getPeso()), 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(projeto.get(projeto.size() - 1).getPeso(), projeto.get(projeto.size() - 1).getAltura())) + " fuzz ) ");
         RY += 20;
 
         if (projeto.size() > 0) {
 
             double peso_atual = projeto.get(0).getPeso();
 
-            mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- HOJE ", STTY.espacar_antes("" + peso_atual, 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(peso_atual, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
+            mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- HOJE ", fmt.espacar_antes("" + peso_atual, 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(peso_atual, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
             RY += 20;
 
             System.out.println("");
 
 
             if (peso_atual > META_PESO) {
-                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- OBJETIVO  ", "FALTA " + STTY.doubleNumC2((peso_atual - META_PESO)) + " moz !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- OBJETIVO  ", "FALTA " + fmt.doubleNumC2((peso_atual - META_PESO)) + " moz !");
                 RY += 20;
 
                 double diferenca = 0.0;
@@ -157,7 +157,7 @@ public class TronarkoTG22 {
                     status = "AUMENTOU";
                 }
 
-                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- PROGRESSO ", status + " " + STTY.doubleNumC2(diferenca) + " moz !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- PROGRESSO ", status + " " + fmt.doubleNumC2(diferenca) + " moz !");
                 RY += 20;
 
                 mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- DURAÇÃO   ", IntTronarko.getSuperarkosDiferenca(comecou, eTronarko.getTozte().toString()) + " superarkos !");

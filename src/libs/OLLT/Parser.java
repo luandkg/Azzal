@@ -37,7 +37,7 @@ public class Parser {
 
     // PARSER
 
-    public void Parse(String eDocumento, LuanDKG eEmpacotador) {
+    public void Parse(String eDocumento, OLLT eEmpacotador) {
 
         eEmpacotador.getPacotes().clear();
 

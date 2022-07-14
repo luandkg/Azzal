@@ -1,9 +1,9 @@
 package azzal;
 
-import apps.AppAttuz.Localizador.ViagemIndexar;
-import apps.AppAttuz.Mapa.Local;
-import apps.AppAttuz.Mapa.Viagem;
-import apps.AppAttuz.Mapa.Viajante;
+import apps.app_attuz.Localizador.ViagemIndexar;
+import apps.app_attuz.Mapa.Local;
+import apps.app_attuz.Mapa.Viagem;
+import apps.app_attuz.Mapa.Viajante;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 

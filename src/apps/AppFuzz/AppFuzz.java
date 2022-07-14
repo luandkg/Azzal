@@ -1,6 +1,6 @@
 package apps.AppFuzz;
 
-import apps.AppAzzal.TransicionadorDeCena;
+import apps.app_azzal.TransicionadorDeCena;
 import azzal.Cenarios.Cena;
 import azzal.Utils.*;
 import azzal.Renderizador;
