@@ -54,7 +54,7 @@ public class TronarkoTG22 {
         mHoje = mTronarkum.getTozte();
     }
 
-    public void draw(Renderizador r, ArrayList<Ficha> projeto, double META_ALTURA, double META_PESO) {
+    public void draw(Renderizador r, ArrayList<Ficha> projeto, ArrayList<Ficha> interompidos, double META_ALTURA, double META_PESO) {
 
 
         r.limpar(mCores.getBranco());
@@ -86,6 +86,11 @@ public class TronarkoTG22 {
 
         }
 
+        StringTronarko st = new StringTronarko();
+
+        for (Ficha f : interompidos) {
+            mInfos.add(new TozteCor("TG22", st.getTozteDeComplexo(f.getTozte()), new Color(250, 50, 23)));
+        }
 
         int CAIXA_X = 40;
         int CAIXA_Y = 90;
@@ -119,24 +124,26 @@ public class TronarkoTG22 {
 
         String comecou = eTronarko.getData("03/01/2022").toString();
 
-        mTextoPequeno.escreveLinha(RY, RX, RX + 150, "- META ", STTY.espacar_antes("" + STTY.f2zerado(META_PESO), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
+        int coluna_dois = 160;
+
+        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- META ", STTY.espacar_antes("" + STTY.f2zerado(META_PESO), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
         RY += 35;
 
-        mTextoPequeno.escreveLinha(RY, RX, RX + 150, "- INIT ", STTY.espacar_antes("" + STTY.f2zerado(projeto.get(projeto.size() - 1).getPeso()), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(projeto.get(projeto.size() - 1).getPeso(), projeto.get(projeto.size() - 1).getAltura())) + " fuzz ) ");
+        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INIT ", STTY.espacar_antes("" + STTY.f2zerado(projeto.get(projeto.size() - 1).getPeso()), 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(projeto.get(projeto.size() - 1).getPeso(), projeto.get(projeto.size() - 1).getAltura())) + " fuzz ) ");
         RY += 20;
 
         if (projeto.size() > 0) {
 
             double peso_atual = projeto.get(0).getPeso();
 
-            mTextoPequeno.escreveLinha(RY, RX, RX + 150, "- HOJE ", STTY.espacar_antes("" + peso_atual, 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(peso_atual, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
+            mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- HOJE ", STTY.espacar_antes("" + peso_atual, 6) + " moz em ( " + STTY.doubleNumC2(Corpo.getNivel(peso_atual, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
             RY += 20;
 
             System.out.println("");
 
 
             if (peso_atual > META_PESO) {
-                mTextoPequeno.escreveLinha(RY, RX, RX + 150, "- OBJETIVO  ", "FALTA " + STTY.doubleNumC2((peso_atual - META_PESO)) + " moz !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- OBJETIVO  ", "FALTA " + STTY.doubleNumC2((peso_atual - META_PESO)) + " moz !");
                 RY += 20;
 
                 double diferenca = 0.0;
@@ -150,14 +157,17 @@ public class TronarkoTG22 {
                     status = "AUMENTOU";
                 }
 
-                mTextoPequeno.escreveLinha(RY, RX, RX + 150, "- PROGRESSO ", status + " " + STTY.doubleNumC2(diferenca) + " moz !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- PROGRESSO ", status + " " + STTY.doubleNumC2(diferenca) + " moz !");
                 RY += 20;
 
-                mTextoPequeno.escreveLinha(RY, RX, RX + 150, "- DURAÇÃO   ", IntTronarko.getSuperarkosDiferenca(comecou, eTronarko.getTozte().toString()) + " superarkos !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- DURAÇÃO   ", IntTronarko.getSuperarkosDiferenca(comecou, eTronarko.getTozte().toString()) + " superarkos !");
+                RY += 20;
+
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INTERROMPIDO   ", interompidos.size() + " superarkos !");
                 RY += 20;
 
             } else {
-                mTextoPequeno.escreveLinha(RY, RX, RX + 150, "- OBJETIVO ", "CONCLUIDO COM SUCESSO !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- OBJETIVO ", "CONCLUIDO COM SUCESSO !");
                 RY += 20;
 
             }
@@ -167,64 +177,95 @@ public class TronarkoTG22 {
 
         RY += 30;
 
-        for (Ficha eFicha : projeto) {
-
-            long superarkos = IntTronarko.getSuperarkosDiferenca(eFicha.getTozte(), mHoje.toString());
-
-            String faixa_temporal = TG22.getComConcordancia(superarkos, "superarko atrás", "superarkos atrás");
-
-            double peso_atual = eFicha.getPeso();
-
-            double diferenca = 0.0;
-            String status = "";
-
-            Cor eCor = new Cor(0, 0, 0);
-
-            if (peso_primeiro > peso_atual) {
-                diferenca = peso_primeiro - peso_atual;
-                status = "DIMINUIU";
-                eCor = new Cor(255, 30, 60);
-            } else if (peso_primeiro < peso_atual) {
-                diferenca = peso_atual - peso_primeiro;
-                status = "AUMENTOU";
-                eCor = new Cor(120, 30, 60);
-            }
+        double anterior = peso_primeiro;
 
 
-            mTextoPequeno.escreva(RX, RY, eFicha.getTozte() + " :: " + faixa_temporal);
+        for (Ficha eFicha : toReverso(projeto)) {
 
-            int i_diferenca = (int) diferenca;
+            if (eFicha.isFichario()) {
 
-            int escalado = i_diferenca * 8;
+                long superarkos = IntTronarko.getSuperarkosDiferenca(eFicha.getTozte(), mHoje.toString());
 
-            r.drawRect_Pintado(RX + 320, RY, escalado, 20, eCor);
+                String faixa_temporal = TG22.getComConcordancia(superarkos, "superarko atrás", "superarkos atrás");
 
-            String inteiro = String.valueOf(i_diferenca);
+                double peso_atual = eFicha.getPeso();
 
-            if (escalado > 15) {
+                double diferenca = 0.0;
+                String status = "";
+
+                Cor eCor = new Cor(0, 0, 0);
+
+                double desde_inicio = 0;
+
+                if (anterior >= peso_atual) {
+                    diferenca = anterior - peso_atual;
+                    status = "DIMINUIU";
+                    eCor = new Cor(120, 200, 60);
+
+                } else if (anterior < peso_atual) {
+                    diferenca = peso_atual - anterior;
+                    status = "AUMENTOU";
+                    eCor = new Cor(255, 30, 60);
 
 
-                if (escalado > 50) {
-                    mTextoMicroBranco.escreva(RX + 320, RY + 2, inteiro + " fuzz");
-                } else {
-                    mTextoMicroBranco.escreva(RX + 320, RY + 2, inteiro);
                 }
 
-                // LIGAMENTO
-                r.drawRect_Pintado(RX, RY + 26, 305, 2, new Cor(255, 20, 0));
-                r.drawRect_Pintado(RX + 305, RY + 8, 2, 20, new Cor(255, 20, 0));
-                r.drawRect_Pintado(RX + 305, RY + 8, 15, 2, new Cor(255, 20, 0));
+                if (peso_primeiro > peso_atual) {
+                    desde_inicio = peso_primeiro - peso_atual;
+                } else if (peso_primeiro < peso_atual) {
+                    desde_inicio = peso_atual - peso_primeiro;
+                }
+
+                anterior = peso_atual;
+
+                mTextoPequeno.escreva(RX, RY, eFicha.getTozte() + " :: " + faixa_temporal);
+
+                int i_diferenca = (int) diferenca;
+                int i_desde_inicio = (int) desde_inicio;
+
+                int escalado = i_desde_inicio * 10;
+
+                int faixa_comprimento = 330;
+                int faixa_comprimento_reduzido = faixa_comprimento - 15;
+
+                r.drawRect_Pintado(RX + faixa_comprimento, RY, escalado, 20, eCor);
+
+                String inteiro = String.valueOf(i_diferenca);
+                String s_desdeinicio = String.valueOf(i_desde_inicio);
+
+                if (escalado > 15) {
+
+                    if (escalado > 50) {
+                        mTextoMicroBranco.escreva(RX + faixa_comprimento, RY + 2, s_desdeinicio + " fuzz");
+                    } else {
+                        mTextoMicroBranco.escreva(RX + faixa_comprimento, RY + 2, s_desdeinicio);
+                    }
+
+                    // LIGAMENTO
+                    r.drawRect_Pintado(RX, RY + 26, faixa_comprimento_reduzido, 2, eCor);
+                    r.drawRect_Pintado(RX + faixa_comprimento_reduzido, RY + 8, 2, 20, eCor);
+                    r.drawRect_Pintado(RX + faixa_comprimento_reduzido, RY + 8, 15, 2, eCor);
+
+                }
+
+
+                RY += 40;
 
             }
 
-
-            RY += 40;
 
         }
 
 
     }
 
+    public static ArrayList<Ficha> toReverso(ArrayList<Ficha> historico) {
+        ArrayList<Ficha> ret = new ArrayList<Ficha>();
+        for (Ficha f : historico) {
+            ret.add(0, f);
+        }
+        return ret;
+    }
 
     public void draw_hiperarko(Renderizador r, Tozte Hoje, ArrayList<TozteCor> mInfos, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
 

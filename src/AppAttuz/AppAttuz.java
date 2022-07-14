@@ -43,6 +43,8 @@ public class AppAttuz extends Cena {
 
     private Fonte pequeno;
     private Fonte micro;
+    private Fonte hipermicro;
+
 
     private Clicavel mClicavel;
 
@@ -101,11 +103,12 @@ public class AppAttuz extends Cena {
 
         mapa = ImageUtils.getImagem(LOCAL + "mapa.png");
 
-        //  mapa = ImageUtils.getImagem(LOCAL + "build/temperatura_verao.png");
 
         //   mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
 
         mapa = Efeitos.preto_branco(mapa);
+
+          mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
 
         mImagemDrone = ImageUtils.getCopia(mapa);
 
@@ -129,6 +132,7 @@ public class AppAttuz extends Cena {
 
         pequeno = new FonteRunTime(Cor.getRGB(Color.BLACK), 11);
         micro = new FonteRunTime(Cor.getRGB(Color.BLACK), 10);
+        hipermicro = new FonteRunTime(Cor.getRGB(Color.BLACK), 7);
 
         mListaDeCidades = new ListaDeCidades(pequeno, mCores);
 
@@ -364,7 +368,7 @@ public class AppAttuz extends Cena {
 
         micro.setRenderizador(g);
         pequeno.setRenderizador(g);
-
+        hipermicro.setRenderizador(g);
 
         pequeno.escreva(1300, 50, " X = " + mPosicaoX + " Y = " + mPosicaoY + " -->> " + mValorSelecionado);
 

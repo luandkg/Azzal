@@ -65,8 +65,6 @@ public class Tozte {
         String texto = "";
 
         String p1 = String.valueOf(this.getSuperarko());
-
-
         String p2 = String.valueOf(this.getHiperarko());
 
 
@@ -76,26 +74,22 @@ public class Tozte {
     }
 
     public String getTextoZerado() {
-        String texto = "";
 
-        String p1 = String.valueOf(this.getSuperarko());
-        String p2 = String.valueOf(this.getHiperarko());
-        String p3 = String.valueOf(this.getTronarko());
+        String p1 = S(this.getSuperarko());
+        String p2 = S(this.getHiperarko());
+        String p3 = S(this.getTronarko());
 
-        if (p1.length() == 1) {
-            p1 = "0" + p1;
-        }
-
-        if (p2.length() == 1) {
-            p2 = "0" + p2;
-        }
-
-
-        texto = p1 + "/" + p2 + "/" + p3;
-
-        return texto;
+        return  p1 + "/" + p2 + "/" + p3;
     }
 
+    private String S(int valor) {
+
+        String sValor = String.valueOf(valor);
+        if (sValor.length() == 1) {
+            sValor = "0" + sValor;
+        }
+        return sValor;
+    }
 
     public final String toString() {
         return getTexto();

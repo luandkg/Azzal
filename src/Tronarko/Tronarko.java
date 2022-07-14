@@ -1,5 +1,7 @@
 package Tronarko;
 
+import Luan.RefInt;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,12 +50,22 @@ public class Tronarko {
 
     public static Tron getTronAgora() {
 
-        Hazde h = getHazde();
-        Tozte t = getTozte();
+        Calendar c = Calendar.getInstance();
 
-        Tron ret = new Tron(h.getArco(), h.getItta(), h.getUzzon(), t.getSuperarko(), t.getHiperarko(), t.getTronarko());
+        int eMilisegundo = c.get(Calendar.MILLISECOND);
+        int eSegundo = c.get(Calendar.SECOND);
+        int eMinuto = c.get(Calendar.MINUTE);
+        int eHora = c.get(Calendar.HOUR_OF_DAY);
 
-        return ret;
+        int dia = c.get(Calendar.DAY_OF_MONTH);
+        int mes = c.get(Calendar.MONTH) + 1;
+        int ano = c.get(Calendar.YEAR);
+
+
+        Hazde eHazde = getHora(eHora,eMinuto,eSegundo,eMilisegundo);
+        Tozte eTozte = getData(dia,mes,ano);
+
+        return new Tron(eHazde, eTozte);
     }
 
 
@@ -68,7 +80,6 @@ public class Tronarko {
 
 
         return getData(dia, mes, ano);
-
     }
 
     public static Tozte getData(String entrada) {
@@ -85,67 +96,40 @@ public class Tronarko {
     public static Tozte getData(int eDia, int eMes, int eAno) {
 
         // System.out.printf("\nHCC : %s",eData);
+        
+        String sDia = S(eDia);
+        String sMes = S(eMes);
+        String sAno = S(eAno);
 
-        long diferencia_de_dias = 0;
+        String DATA_AQUI = sDia + "/" + sMes + "/" + sAno;
 
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        df.setLenient(false);
+        RefInt diferenca_de_dias = new RefInt(getDias(DATA_INICIO,DATA_AQUI));
 
-        String sDia = String.valueOf(eDia);
-        if (sDia.length() == 1) {
-            sDia = "0" + sDia;
+
+        RefInt iTronarko = new RefInt(TRONARKO_INICIO);
+        RefInt iHiperarko = new RefInt(1);
+        RefInt iSuperarko = new RefInt(1);
+
+        if (diferenca_de_dias.get() >= 0) {
+
+            diferenca_de_dias.reduzir(iTronarko, 500);
+            diferenca_de_dias.reduzir(iHiperarko, 50);
+
+            iSuperarko.set(1 + diferenca_de_dias.get());
+
+        } else if (diferenca_de_dias.get() < 0) {
+
+            iTronarko.subtrair(1);
+            iHiperarko.set(10);
+
+            diferenca_de_dias.aumentar(iTronarko, 500);
+            diferenca_de_dias.aumentar(iHiperarko, 50);
+
+
+            iSuperarko.set(50 + 1 + diferenca_de_dias.get());
         }
 
-        String sMes = String.valueOf(eMes);
-        if (sMes.length() == 1) {
-            sMes = "0" + sMes;
-        }
-
-        String sAno = String.valueOf(eAno);
-
-
-        try {
-            Date DTI = df.parse(DATA_INICIO);
-            Date DTE = df.parse(sDia + "/" + sMes + "/" + sAno);
-            diferencia_de_dias = (DTE.getTime() - DTI.getTime()) / 86400000L;
-
-        } catch (java.text.ParseException evt) {
-        }
-
-        int iTronarko = TRONARKO_INICIO;
-        int iHiperarko = 1;
-        int iSuperarko = 1;
-
-        if (diferencia_de_dias >= 0) {
-
-            while (diferencia_de_dias >= 500) {
-                diferencia_de_dias -= 500;
-                iTronarko += 1;
-            }
-
-            iHiperarko = 1;
-            while (diferencia_de_dias >= 50) {
-                diferencia_de_dias -= 50;
-                iHiperarko += 1;
-            }
-            iSuperarko = 1 + (int) diferencia_de_dias;
-
-        } else if (diferencia_de_dias < 0) {
-
-            iTronarko -= 1;
-            while (diferencia_de_dias <= -500) {
-                diferencia_de_dias += 500;
-                iTronarko -= 1;
-            }
-            iHiperarko = 10;
-            while (diferencia_de_dias <= -50) {
-                diferencia_de_dias += 50;
-                iHiperarko -= 1;
-            }
-            iSuperarko = 50 + 1 + (int) diferencia_de_dias;
-        }
-
-        return new Tozte(iSuperarko, iHiperarko, iTronarko);
+        return new Tozte(iSuperarko.get(), iHiperarko.get(), iTronarko.get());
     }
 
 
@@ -156,53 +140,62 @@ public class Tronarko {
         String minuto = String.valueOf(entrada.charAt(3)) + String.valueOf(entrada.charAt(4));
         String segundo = String.valueOf(entrada.charAt(6)) + String.valueOf(entrada.charAt(7));
 
-        return getHora(Integer.parseInt(hora), Integer.parseInt(minuto), Integer.parseInt(segundo));
+        return getHora(Integer.parseInt(hora), Integer.parseInt(minuto), Integer.parseInt(segundo), 0);
+    }
+
+    public static Hazde getHora(int eHora, int eMinuto, int eSegundo, int eMilissegundo) {
+
+
+        double HAZDE_COMPLETO = (24 * 1000 * 60 * 60);
+        double TOTAL_SEGUNDOS = (10 * 1000 * 100 * 100);
+        double TAXADOR = HAZDE_COMPLETO / TOTAL_SEGUNDOS;
+
+        double toSegundos = eMilissegundo + (eSegundo * 1000) + (eMinuto * 1000 * 60) + (eHora * 1000 * 60 * 60);
+
+
+        RefInt iArco = new RefInt(0);
+        RefInt iIttas = new RefInt(0);
+        RefInt iUzzons = new RefInt((int) ((toSegundos / TAXADOR) / 1000));
+
+        iUzzons.reduzir(iIttas, 100);
+        iIttas.reduzir(iArco, 100);
+
+
+        return new Hazde(iArco.get(), iIttas.get(), iUzzons.get());
     }
 
     public static Hazde getHora(int eHora, int eMinuto, int eSegundo) {
 
-        int iArco = 0;
-        int iIttas = 0;
-        int iUzzons = 0;
-
         int eMilissegundo = 0;
 
-        long Tudo = eMilissegundo + (eSegundo * 1000) + (eMinuto * 1000 * 60) + (eHora * 1000 * 60 * 60);
+        double HAZDE_COMPLETO = (24 * 1000 * 60 * 60);
+        double TOTAL_SEGUNDOS = (10 * 1000 * 100 * 100);
+        double TAXADOR = HAZDE_COMPLETO / TOTAL_SEGUNDOS;
 
-        double Taxa1 = (24 * 1000 * 60 * 60);
-        double Taxa2 = (10 * 1000 * 100 * 100);
+        double toSegundos = eMilissegundo + (eSegundo * 1000) + (eMinuto * 1000 * 60) + (eHora * 1000 * 60 * 60);
 
-        double Taxador = Taxa1 / Taxa2;
 
-        double Entaxa = Tudo / Taxador;
-        long IEntaxa = (long) Entaxa;
+        RefInt iArco = new RefInt(0);
+        RefInt iIttas = new RefInt(0);
+        RefInt iUzzons = new RefInt((int) ((toSegundos / TAXADOR) / 1000));
 
-        iUzzons = (int) (IEntaxa / 1000);
+        iUzzons.reduzir(iIttas, 100);
+        iIttas.reduzir(iArco, 100);
 
-        while (iUzzons >= 100) {
-            iUzzons -= 100;
-            iIttas += 1;
-        }
 
-        while (iIttas >= 100) {
-            iIttas -= 100;
-            iArco += 1;
-        }
-
-        //iArco += 1;
-
-        return new Hazde(iArco, iIttas, iUzzons);
+        return new Hazde(iArco.get(), iIttas.get(), iUzzons.get());
     }
 
     public static Hazde getHazde() {
 
         Calendar c = Calendar.getInstance();
 
+        int eMilisegundo = c.get(Calendar.MILLISECOND);
         int eSegundo = c.get(Calendar.SECOND);
         int eMinuto = c.get(Calendar.MINUTE);
         int eHora = c.get(Calendar.HOUR_OF_DAY);
 
-        return getHora(eHora, eMinuto, eSegundo);
+        return getHora(eHora, eMinuto, eSegundo, eMilisegundo);
 
     }
 
@@ -215,4 +208,40 @@ public class Tronarko {
     public static Hazde make_hazde(int a, int i, int u) {
         return new Hazde(a, i, u);
     }
+
+    public static Hazde getHazdeComecar() {
+        return new Hazde(0, 0, 0);
+    }
+
+    public static Hazde getHazdeTerminar() {
+        return new Hazde(9, 9, 99);
+    }
+
+    private static String S(int valor) {
+
+        String sValor = String.valueOf(valor);
+        if (sValor.length() == 1) {
+            sValor = "0" + sValor;
+        }
+        return sValor;
+    }
+
+    private static int getDias(String DATA_INICIO, String DATA_FIM) {
+
+        int diferenca_de_dias = 0;
+
+        DateFormat CALENDARIO_GREGORIANO = new SimpleDateFormat("dd/MM/yyyy");
+        CALENDARIO_GREGORIANO.setLenient(false);
+
+        try {
+            long l = (CALENDARIO_GREGORIANO.parse(DATA_FIM).getTime() - CALENDARIO_GREGORIANO.parse(DATA_INICIO).getTime()) / 86400000L;
+            diferenca_de_dias = (int) l;
+
+        } catch (java.text.ParseException ignored) {
+        }
+
+        return diferenca_de_dias;
+    }
+
+
 }

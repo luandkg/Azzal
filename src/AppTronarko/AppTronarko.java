@@ -37,7 +37,6 @@ public class AppTronarko extends Cena {
 
     private Fonte mTextoPequenoBranco;
 
-    private Tronarko mTronarkum;
     private Eventum mEventum;
     private Ceu mCeu;
 
@@ -92,12 +91,11 @@ public class AppTronarko extends Cena {
         mTextoPequeno = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 11);
         mTextoPequenoBranco = new FonteRunTime(mCores.getBranco(), 11);
 
-        mTronarkum = new Tronarko();
         mEventum = new Eventum();
         mCeu = new Ceu();
 
         mAtualmente = null;
-        mHoje = mTronarkum.getTozte();
+        mHoje = Tronarko.getTozte();
         mQuantos = 0;
 
         mClicavel = new Clicavel();
@@ -158,7 +156,7 @@ public class AppTronarko extends Cena {
         AutoInt py = new AutoInt(50);
 
 
-        mHiperarkoWidget_01 = new HiperarkoWidget(px.get(), py.get(), 1, mHoje.getTronarko());
+        mHiperarkoWidget_01 = new HiperarkoWidget(px.mais_get(0), py.get(), 1, mHoje.getTronarko());
         mHiperarkoWidget_02 = new HiperarkoWidget(px.mais_get(450), py.get(), 2, mHoje.getTronarko());
         mHiperarkoWidget_03 = new HiperarkoWidget(px.re_init(50), py.mais_get(200), 3, mHoje.getTronarko());
         mHiperarkoWidget_04 = new HiperarkoWidget(px.mais_get(450), py.get(), 4, mHoje.getTronarko());
@@ -175,21 +173,20 @@ public class AppTronarko extends Cena {
 
         mRhoBenchmark = new RhoBenchmark("res/RhoBenchmark.dkg", 0, 400);
 
-        Tron eComecar = new Tron(0, 0, 0, 1, 1, 7000);
-        Tron eTerminar = new Tron(9, 99, 99, 5, 1, 7000);
+        Tron eComecar = new Tron(Tronarko.getHazdeComecar(), 1, 1, 7000);
+        Tron eTerminar = new Tron(Tronarko.getHazdeTerminar(), 5, 1, 7000);
 
         mFalsum = new TronarkoFalsum(eComecar, eTerminar);
 
 
-        mHoje = mTronarkum.getTozte();
-        mAgora = mTronarkum.getHazde();
+        mHoje = Tronarko.getTozte();
+        mAgora = Tronarko.getHazde();
 
 
-      // mHoje = mFalsum.getTozte();
-       // mAgora = mFalsum.getHazde();
+        // mHoje = mFalsum.getTozte();
+        // mAgora = mFalsum.getHazde();
 
     }
-
 
 
     @Override
@@ -202,8 +199,8 @@ public class AppTronarko extends Cena {
 
         mFalsum.sincronizar(Tempo.getSegundos(), 12000);
 
-       // mHoje = mFalsum.getTozte();
-       // mAgora = mFalsum.getHazde();
+        // mHoje = mFalsum.getTozte();
+        // mAgora = mFalsum.getHazde();
 
 
         mClicavel.update(dt, getWindows().getMouse().getX(), getWindows().getMouse().getY(), getWindows().getMouse().isPressed());
@@ -233,7 +230,7 @@ public class AppTronarko extends Cena {
             mAtualmente = mHoje;
 
             Momentum eMomentum = new Momentum();
-          //  eMomentum.olharAoRedor(mAtualmente);
+            //  eMomentum.olharAoRedor(mAtualmente);
 
             mEventos = mEventum.getToztesComCor(mHoje.getTronarko());
 
@@ -242,7 +239,7 @@ public class AppTronarko extends Cena {
                 mAtualmente = mHoje;
 
                 Momentum eMomentum = new Momentum();
-             //   eMomentum.olharAoRedor(mAtualmente);
+                //   eMomentum.olharAoRedor(mAtualmente);
 
                 mEventos = mEventum.getToztesComCor(mHoje.getTronarko());
 
@@ -294,8 +291,8 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_10.draw_hiperarko_com_infos(r, mHoje, mEventos);
 
 
-        mTextoPequeno.escreva(950, 100 + 0, " -->> Hoje : " + mHoje.toString());
-        mTextoPequeno.escreva(950, 100 + 50, " -->> Agora : " + mAgora.toString());
+        mTextoPequeno.escreva(950, 100 + 0, " -->> Hoje : " + mHoje.getTextoZerado());
+        mTextoPequeno.escreva(950, 100 + 50, " -->> Agora : " + mAgora.getTextoZerado());
         mTextoPequeno.escreva(950, 100 + 100, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
 
 

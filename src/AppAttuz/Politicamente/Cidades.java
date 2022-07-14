@@ -82,6 +82,11 @@ public class Cidades {
         mLocais.add(new Local("Escadarias da Folha", 1469, 278));
 
 
+        mLocais.add(new Local("-------- DESCONHECIDO -----------", 1515, 470));
+
+
+
+        // MARES
         mMares.add(new Local("Mar Otacam", 550, 130));
         mMares.add(new Local("Mar Vermelho", 853, 709));
         mMares.add(new Local("Mar Indigo", 1430, 574));

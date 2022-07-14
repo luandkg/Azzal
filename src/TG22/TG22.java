@@ -12,11 +12,17 @@ import java.util.ArrayList;
 
 import Tronarko.Utils.IntTronarko;
 
+import Tronarko.Tozte;
+
 public class TG22 {
 
     public static void init() {
 
         ArrayList<Ficha> projeto = iniciar_projeto();
+
+        interromper(Tronarko.getData(15, 5, 2022), Tronarko.getData(29, 5, 2022), projeto);
+
+        cadastrar("32/07/7002", 1.60, 71.0, projeto);
 
         cadastrar("44/06/7002", 1.60, 70.0, projeto);
         cadastrar("33/06/7002", 1.60, 70.0, projeto);
@@ -44,7 +50,7 @@ public class TG22 {
         Renderizador rr = Renderizador.construir(1600, 1100);
 
 
-        t.draw(rr, projeto, META_ALTURA, META_PESO);
+        t.draw(rr, toFicharios(projeto), toInterrompidos(projeto), META_ALTURA, META_PESO);
 
         rr.exportarSemAlfa("/home/luan/Imagens/TG22.png");
         rr.exportarSemAlfa("/home/luan/Dropbox/TG22.png");
@@ -61,6 +67,37 @@ public class TG22 {
 
     public static void cadastrar(String eTozte, double eAltura, double ePeso, ArrayList<Ficha> historico) {
         historico.add(new Ficha(eTozte, Corpo.getAltura(eAltura), Corpo.getPeso(ePeso)));
+    }
+
+    public static ArrayList<Ficha> toFicharios(ArrayList<Ficha> historico) {
+        ArrayList<Ficha> ret = new ArrayList<Ficha>();
+        for (Ficha f : historico) {
+            if (f.isFichario()) {
+                ret.add(f);
+            }
+        }
+        return ret;
+    }
+
+    public static ArrayList<Ficha> toInterrompidos(ArrayList<Ficha> historico) {
+        ArrayList<Ficha> ret = new ArrayList<Ficha>();
+        for (Ficha f : historico) {
+            if (!f.isFichario()) {
+                ret.add(f);
+            }
+        }
+        return ret;
+    }
+
+    public static void interromper(Tozte eTozte, Tozte eFim, ArrayList<Ficha> historico) {
+
+        Tozte passando = eTozte.getCopia();
+
+        while (passando.isMenorIgualQue(eFim)) {
+            historico.add(new Ficha(passando.getTextoZerado()));
+            passando = passando.adicionar_Superarko(1);
+        }
+
     }
 
 

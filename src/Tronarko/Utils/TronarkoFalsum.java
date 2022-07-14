@@ -47,7 +47,7 @@ public class TronarkoFalsum {
 
         if (agora != mPassado) {
             mPassado = agora;
-            System.out.println("Mudar :: " + agora + " -- " + mCorrente.getTexto());
+           // System.out.println("Mudar :: " + agora + " -- " + mCorrente.getTextoZerado());
             avancar(mais);
         }
 

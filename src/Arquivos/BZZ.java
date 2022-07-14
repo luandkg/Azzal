@@ -64,7 +64,7 @@ public class BZZ {
 
         int posicionador = indice * (BLOCO_TAMANHO);
 
-        // System.out.println("PROC -->> " + indice + " :: " + posicionador);
+       // System.out.println("PROC -->> " + indice + " :: " + posicionador);
 
         ArrayList<Byte> bytes = new ArrayList<Byte>();
 
@@ -86,7 +86,7 @@ public class BZZ {
         }
 
 
-        // System.out.println("Bytes -->> " + bytes.size());
+      //   System.out.println("Bytes -->> " + bytes.size());
 
         return TX.lerDeBytes(bytes);
 

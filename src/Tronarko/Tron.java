@@ -12,6 +12,20 @@ public class Tron {
 
     }
 
+    public Tron(Hazde eHazde,Tozte eTozte) {
+
+        mHazdeC = new Hazde(eHazde.getArco(), eHazde.getItta(), eHazde.getUzzon());
+        mTozteC = new Tozte(eTozte.getSuperarko(), eTozte.getHiperarko(), eTozte.getTronarko());
+
+    }
+
+    public Tron(Hazde eHazde,int _superarko, int _hiperarko, int _tronarko) {
+
+        mHazdeC = new Hazde(eHazde.getArco(), eHazde.getItta(), eHazde.getUzzon());
+        mTozteC = new Tozte(_superarko, _hiperarko, _tronarko);
+
+    }
+
     public Tron getCopia() {
         return new Tron(mHazdeC.getArco(), mHazdeC.getItta(), mHazdeC.getUzzon(), mTozteC.getSuperarko(), mTozteC.getHiperarko(), mTozteC.getTronarko());
     }

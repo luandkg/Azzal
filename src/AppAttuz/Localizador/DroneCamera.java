@@ -28,7 +28,7 @@ public class DroneCamera {
         img = new BufferedImage(quadro_x, quadro_y, BufferedImage.TYPE_INT_RGB);
         g = new Renderizador(img);
 
-        micro = new FonteRunTime(Cor.getRGB(Color.BLACK), 10);
+        micro = new FonteRunTime(Cor.getRGB(Color.BLACK), 7);
         mNomear = new NomesEspecificos(mCores);
 
 
@@ -63,9 +63,9 @@ public class DroneCamera {
                     int quadrado_x = (xCenter - i) * (xCenter - i);
                     int quadrado_y = (yCenter - j) * (yCenter - j);
 
-                    if (Math.sqrt(quadrado_x + quadrado_y) <= raio) {
+                   // if (Math.sqrt(quadrado_x + quadrado_y) <= raio) {
                         img.setRGB(i, j, mapa.getRGB(ix, iy));
-                    }
+                  //  }
 
                 }
 

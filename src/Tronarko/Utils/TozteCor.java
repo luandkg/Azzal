@@ -105,23 +105,17 @@ public class TozteCor {
 
         String ret = "";
 
-        if (mToztes.size() == 0) {
 
+        if (mToztes.size() == 1) {
+
+            ret = "[ " + getTozteMin().getTextoZerado() + " ]";
 
         } else {
 
-            if (mToztes.size() == 1) {
-
-                ret = "[ " + getTozteMin().toString() + " ]";
-
+            if (getNome().contains("Reciclum")) {
+                ret = "[ " + getTozteMin().getTextoZerado() + " e " + getTozteMax().getTextoZerado() + " ]";
             } else {
-
-                if (getNome().contains("Reciclum")) {
-                    ret = "[ " + getTozteMin().toString() + " e " + getTozteMax().toString() + " ]";
-                } else {
-                    ret = "[ " + getTozteMin().toString() + " a " + getTozteMax().toString() + " ]";
-                }
-
+                ret = "[ " + getTozteMin().getTextoZerado() + " a " + getTozteMax().getTextoZerado() + " ]";
             }
 
         }

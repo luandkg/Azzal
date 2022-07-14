@@ -43,8 +43,9 @@ public class ViagemIndexar {
             Tozte eTozteUltimo = new Tozte(ultimo_superarko, ultimo_hiperarko, ultimo_tronarko);
 
 
-            int ii = 3501196;
-            System.out.println("Comecar -->> " + (eTozteCorrente.getSuperarkosTotal() - 3501196));
+            int TOZTE_PRIMEIRO = 3501196;
+
+            System.out.println("Comecar -->> " + (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO));
 
             while (eTozteCorrente.getSuperarkosTotal() < eTozteUltimo.getSuperarkosTotal()) {
                 DKG viagem_aqui = new DKG();
@@ -64,17 +65,15 @@ public class ViagemIndexar {
                 }
 
 
-                TX eTX = new TX();
-
-                ArrayList<Byte> bytes = eTX.toListBytes(viagem_aqui.toString());
+                ArrayList<Byte> bytes = TX.toListBytes(viagem_aqui.toString());
 
                 int tt = bytes.size() / 1024;
 
-                int indice = (int) (eTozteCorrente.getSuperarkosTotal() - 3501196);
+                int indice = (int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO);
 
                 if (indice >= 0 && tt <= 5) {
                     System.out.println("Pass -->> (" + indice + " ) " + eTozteCorrente.getTexto() + " :: " + va.getObjetos().size() + " objs -->> " + tt + " kb com :: " + bytes.size());
-                    BZZ.atribuir(eArquivoBZZ, ((int) (eTozteCorrente.getSuperarkosTotal() - 3501196)), viagem_aqui.toString());
+                    BZZ.atribuir(eArquivoBZZ, ((int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO)), viagem_aqui.toString());
                 }
 
 
@@ -105,6 +104,8 @@ public class ViagemIndexar {
         int ii = 3501196;
 
         int indice_chave = (int) (eTozteProcurado.getSuperarkosTotal() - ii);
+
+        System.out.println(indice_chave);
 
         if (indice_chave >= 0) {
             String conteudo = BZZ.procurar(eArquivo, indice_chave);

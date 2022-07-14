@@ -44,49 +44,30 @@ public class Hazde {
     }
 
     public String getTextoZerado() {
-        String texto = "";
 
-        String p1 = String.valueOf(this.getArco());
-        String p2 = String.valueOf(this.getItta());
-        String p3 = String.valueOf(this.getUzzon());
+        String p1 = S(this.getArco());
+        String p2 = S(this.getItta());
+        String p3 = S(this.getUzzon());
 
-        if (p1.length() == 1) {
-            p1 = "0" + p1;
-        }
-
-        if (p2.length() == 1) {
-            p2 = "0" + p2;
-        }
-
-        if (p3.length() == 1) {
-            p3 = "0" + p3;
-        }
-
-        texto = p1 + ":" + p2 + ":" + p3;
-
-        return texto;
+        return p1 + ":" + p2 + ":" + p3;
     }
 
     public String getTextoSemUzzonZerado() {
-        String texto = "";
 
-        String p1 = String.valueOf(this.getArco());
-        String p2 = String.valueOf(this.getItta());
+        String p1 = S(this.getArco());
+        String p2 = S(this.getItta());
 
-        if (p1.length() == 1) {
-            p1 = "0" + p1;
-        }
-
-        if (p2.length() == 1) {
-            p2 = "0" + p2;
-        }
-
-
-        texto = p1 + ":" + p2;
-
-        return texto;
+        return p1 + ":" + p2;
     }
 
+    private String S(int valor) {
+
+        String sValor = String.valueOf(valor);
+        if (sValor.length() == 1) {
+            sValor = "0" + sValor;
+        }
+        return sValor;
+    }
 
     public String getTextoSemUzzons() {
         String texto = "";
@@ -106,7 +87,6 @@ public class Hazde {
     }
 
 
-
     public final String toString() {
         return getTexto();
     }
@@ -122,7 +102,7 @@ public class Hazde {
 
         int eValor = getTotalEttons();
 
-        int eTudo = (10 * 100 * 100) ;
+        int eTudo = (10 * 100 * 100);
         int eFalta = eTudo - eValor;
 
         int eEttons = eFalta;
@@ -139,16 +119,8 @@ public class Hazde {
             eArcos += 1;
         }
 
-        String sIttas = String.valueOf(eIttas);
-        String sEttons = String.valueOf(eEttons);
-
-        if (sIttas.length()==1){
-            sIttas="0" + sIttas;
-        }
-
-        if (sEttons.length()==1){
-            sEttons="0" + sEttons;
-        }
+        String sIttas = S(eIttas);
+        String sEttons = S(eEttons);
 
         return "" + eArcos + ":" + sIttas + ":" + sEttons;
     }

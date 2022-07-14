@@ -27,9 +27,14 @@ public class Testes {
             @Override
             public void executar() {
 
+
+                CHECK_EQ(Tronarko.getData(20, 9, 2018).getTexto(), Tronarko.make_tozte(50, 10, 6999).getTexto());
+                CHECK_EQ(Tronarko.getData(21, 9, 2018).getTexto(), Tronarko.make_tozte(1, 1, 7000).getTexto());
+                CHECK_EQ(Tronarko.getData(22, 9, 2018).getTexto(), Tronarko.make_tozte(2, 1, 7000).getTexto());
+
+
                 CHECK_EQ(Tronarko.getData(27, 7, 1992).getTexto(), Tronarko.make_tozte(49, 9, 6980).getTexto());
                 CHECK_EQ(Tronarko.getData(1, 1, 2022).getTexto(), Tronarko.make_tozte(49, 4, 7002).getTexto());
-
 
             }
         };

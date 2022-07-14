@@ -1,11 +1,13 @@
 package AppAzzal;
 
+import AppAttuz.Localizador.GuiaDeViagem;
 import AppAttuz.Localizador.ViagemIndexar;
 import AppAttuz.Mapa.Viajante;
 import AppAttuz.Servicos.*;
 
 import AppAttuz.ViagemCompleta;
 import AppAttuz.WorldBuilding;
+import Arquivos.BZZ;
 import Azzal.AzzalUnico;
 import Documentar.Documentar;
 import Servittor.Servittor;
@@ -23,7 +25,7 @@ public class AppAzzal {
         //  AzzalUnico.unico("AppFuzz", 1600, 1020, new AppFuzz.AppFuzz());
 
 
-       // AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko.AppTronarko());
+      // AzzalUnico.unico("Tronarko", 1550, 1100, new AppTronarko.AppTronarko());
         //AzzalUnico .unico("Tronarko", 900, 800, new AppTronarko.AppAlarme());
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppTronarko.AppLinhaDoTempo());
 
@@ -53,18 +55,17 @@ public class AppAzzal {
         // AzzalUnico.unico("", 1100, 900, new CenaLetrador());
 
 
-        //  AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
+          AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz.AppAttuz());
 
         TG22.TG22.init();
 
 
         //  AzzalUnico.unico("Editor - luan.dkg", 1000, 1000, new AppKhronos.AppKrhonos());
 
-        //String eArquivo = "/home/luan/Documentos/viagem.bzz";
+      //  String eArquivoBzz = "/home/luan/Documentos/viagem.bzz";
+      //   BZZ.alocar(eArquivoBzz, 2000);
 
-        // BZZ.alocar(eArquivo, 2000);
-
-        // ViagemIndexar.indexar(eArquivo, "/home/luan/Documentos/t7002.txt");
+        // ViagemIndexar.indexar(eArquivoBzz, "/home/luan/Documentos/t7002.txt");
         // ViagemIndexar.indexar(eArquivo, "/home/luan/Documentos/t7003.txt");
         // ViagemIndexar.indexar(eArquivo, "/home/luan/Documentos/t7004.txt");
 
@@ -98,21 +99,19 @@ public class AppAzzal {
 
         //   AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
-        // GuiaDeViagem.unir("/home/luan/Documentos/viagem_desorganizada.txt");
-         //  GuiaDeViagem.organizar("/home/luan/Documentos/viagem_desorganizada.txt","/home/luan/Documentos/viagem_organizada.txt");
+       //  GuiaDeViagem.unir("/home/luan/Documentos/viagem_desorganizada.txt");
+       //    GuiaDeViagem.organizar("/home/luan/Documentos/viagem_desorganizada.txt","/home/luan/Documentos/viagem_organizada.txt");
         //GuiaDeViagem.passei("/home/luan/Documentos/viagem_organizada.txt",Tronarko.Tronarko.getTozteDireto(), Tronarko.Tronarko.getHazdeDireto());
 
-        // BZZ.alocar("/home/luan/Documentos/viagem.bzz", 2000);
-
-
+       //  BZZ.alocar("/home/luan/Documentos/viagem.bzz", 2000);
         //ViagemIndexar.indexar("/home/luan/Documentos/viagem_organizada.txt", "/home/luan/Documentos/viagem.bzz");
 
-        // String conteudo = BZZ.procurar("/home/luan/Documentos/viagem.bzz", 140);
-        // System.out.println(conteudo);
+       //  String conteudo = BZZ.procurar("/home/luan/Documentos/viagem.bzz", 140);
+       //  System.out.println(conteudo);
         // System.out.println("Tamanho :: " + conteudo.length());
 
 
-      //  ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", Tronarko.Tronarko.getTozteDireto(), Tronarko.Tronarko.getHazdeDireto(), Tronarko.Tronarko.getTozteDireto());
+      //  ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", Tronarko.Tronarko.getTozte(), Tronarko.Tronarko.getHazde(), Tronarko.Tronarko.getTozte());
 
         //System.out.println("HOJE :: " + Tronarko.Tronarko.getTozteDireto().getTexto());
 
@@ -121,8 +120,10 @@ public class AppAzzal {
         // System.out.println("BZZ -->> Max " + BZZ.getQuantidadeMaxima("/home/luan/Documentos/viagem.bzz"));
         // System.out.println("BZZ -->> " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));
 
-        //ViagemIndexar.mostrarIndexado("/home/luan/Documentos/viagem.bzz","36/05/7002");
-        // ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", new Viajante(),new Tronarko.Tozte(36,5,7002),new Tronarko.Hazde(4,0,0));
+       // ViagemIndexar.obterIndexado("/home/luan/Documentos/viagem.bzz","36/05/7002");
+      //  String vt =  ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", new Viajante(),new Tronarko.Tozte(36,6,7002),new Tronarko.Hazde(4,0,0));
+
+       //  System.out.println(vt);
 
         // System.out.println("Com Valores :: " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));
         //   System.out.println("Sem Valores :: " + BZZ.semValores("/home/luan/Documentos/viagem.bzz"));
@@ -160,7 +161,7 @@ public class AppAzzal {
        // vc.init();
 
 
-        Tronarko.Testes.init();
+       // Tronarko.Testes.init();
 
     }
 

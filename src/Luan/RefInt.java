@@ -153,4 +153,35 @@ public class RefInt {
     public static RefInt dividir(RefInt a,RefInt b){
         return new RefInt(a.get()/b.get());
     }
+
+
+    public  void reduzir(  RefInt menor, int valor) {
+        while (get() >= valor) {
+            subtrair(valor);
+            menor.somar(1);
+        }
+    }
+
+    public  void aumentar(  RefInt menor, int valor) {
+        while (get() <= (valor * (-1))) {
+            somar(valor);
+            menor.subtrair(1);
+        }
+    }
+
+    // ESTRUTURAIS
+
+    public static void reduz(RefInt maior, RefInt menor, int valor) {
+        while (maior.get() >= valor) {
+            maior.subtrair(valor);
+            menor.somar(1);
+        }
+    }
+
+    public static void aumente(RefInt maior, RefInt menor, int valor) {
+        while (maior.get() <= (valor * (-1))) {
+            maior.somar(valor);
+            menor.subtrair(1);
+        }
+    }
 }
