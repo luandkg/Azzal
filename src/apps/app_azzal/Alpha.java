@@ -51,8 +51,6 @@ public class Alpha extends Cena {
     private long anteriormente = 0;
     private QuadranteColorido mQuadranteColorido;
 
-    private HZ audio;
-    private HZControlador mControlador;
 
     private Fonte texto;
 
@@ -63,11 +61,6 @@ public class Alpha extends Cena {
 
         auto_init();
 
-        //   mAudio = new Audio();
-        // mAudio.toque();
-
-        audio = mControlador.init("/home/luan/Música/musicas_hz/top.hz");
-        eWindows.audio_emitir(audio);
 
         texto = new FonteRunTime(new Cor(0, 0, 0), 10);
 
@@ -230,22 +223,8 @@ public class Alpha extends Cena {
         mQuadranteColorido.update(getWindows().getMouse());
 
 
-        if (getWindows().getTeclado().foiPressionado(KeyEvent.VK_P)) {
-            if (getWindows().temAudio()) {
-                if (getWindows().getAudio().isPausado()) {
-                    getWindows().getAudio().reproduzir();
-                } else {
-                    getWindows().getAudio().pausar();
-                }
-            }
-        }
-
-
         getWindows().getMouse().liberar();
 
-        if (!getWindows().getAudio().temMais()){
-            getWindows().getAudio().re_iniciar();
-        }
 
     }
 
@@ -516,31 +495,6 @@ public class Alpha extends Cena {
 
         mQuadranteColorido.render(mRenderizador);
 
-
-        mRenderizador.limpar(Color.WHITE);
-
-        if (getWindows().temAudio()) {
-
-            AudioRender.onPlayer(mRenderizador,100, 200, getWindows().getAudio());
-
-
-            if (getWindows().getAudio().getBuffer().length == 256) {
-
-                //    HZQuatter.direita(getWindows(), mRenderizador);
-
-                texto.setRenderizador(mRenderizador);
-                HZQuatter.valores(getWindows(), mRenderizador, texto);
-
-                // int[] valorado = HZQuatter.normalizado(getWindows(), mRenderizador, texto);
-
-                int[] fluxo_audio = Espectrum.normalizado(getWindows().getAudio().getBuffer());
-
-                AudioRender.onFluxoAmostragem2(mRenderizador, fluxo_audio, 140, 200, mCor);
-
-            }
-
-
-        }
 
     }
 

@@ -2,7 +2,7 @@
 
 > Sistema de Renderização de Interface Gráfica
 
-![AZZAL](https://github.com/luandkg/Azzal/blob/master/res/azzal_01.png)
+![AZZAL UI](https://github.com/luandkg/Azzal/blob/master/res/app_ui.png)
 
     Interface
         - Janela
@@ -39,7 +39,7 @@
 >
 > Cada Superarko é formado por 10 Arcos [ 0 ... 9 ] que representam as horas
 
-![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/tronarko.png)
+![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/app_tronarko.png)
 
 # Attuz
 
@@ -123,6 +123,8 @@ de Dados da Universidade de Brasília
 
 > Pacote ZettaBarras para desenhos de gráficos de barras e pontos.
 
+![ZETTA BARRAS](https://github.com/luandkg/Azzal/blob/master/res/app_zetta.png)
+
 # libs.Imaginador
 
 > Coleção de códigos para facilitar abertura de imagens, além de aplicação de efeitos.
@@ -135,6 +137,9 @@ de Dados da Universidade de Brasília
 # libs.OrganizadorQ2D
 
 > Mapeador de regiões do espaço 2D com algoritmo para algilizar detecção de colisão de corpos.
+
+![Organizador Espacial](https://github.com/luandkg/Azzal/blob/master/res/app_oe.png)
+
 
 # libs.Movimento
 
