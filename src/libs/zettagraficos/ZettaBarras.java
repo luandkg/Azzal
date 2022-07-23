@@ -1,11 +1,11 @@
 package libs.zettagraficos;
 
-import azzal.Formatos.Linha;
-import azzal.Formatos.Ponto;
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Linha;
+import azzal.geometria.Ponto;
+import azzal.geometria.Retangulo;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
-import azzal.Utils.Posicionador;
+import azzal.utilitarios.Cor;
+import azzal.utilitarios.Posicionador;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,7 +1,10 @@
 package apps.app;
 
+import apps.app_attuz.AppAttuz;
 import apps.app_attuz.WorldBuilding;
+import apps.app_azzal.AppGlobal;
 import apps.app_azzal.VamosCalcular;
+import apps.app_tronarko.AppLinhaDoTempo;
 import azzal.AzzalUnico;
 import libs.GamaFS.GamaFS;
 
@@ -11,15 +14,16 @@ public class AppAzzal {
 
     public static void main(String[] args) {
 
-        //    AzzalUnico.unico("apps.AppAzzal", 1600, 1020, new AppGlobal());
+          //AzzalUnico.unico("apps.AppAzzal", 1600, 1020, new AppGlobal());
 
-        //  AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.apps.AppFuzz());
+        //  AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.AppFuzz());
 
 
         AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         //AzzalUnico .unico("libs.Tronarko", 900, 800, new apps.AppTronarko.AppAlarme());
-        // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new apps.AppTronarko.AppLinhaDoTempo());
+
+        // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppLinhaDoTempo());
 
         //AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new Alpha());
 
@@ -47,8 +51,8 @@ public class AppAzzal {
         // AzzalUnico.unico("", 1100, 900, new CenaLetrador());
 
 
-        //   AzzalUnico.unico("Attuz", 2500, 1000, new apps.AppAttuz.apps.AppAttuz());
-//
+        //   AzzalUnico.unico("Attuz", 2500, 1000, new AppAttuz());
+
         //    TG22.TG22.init();
 
 

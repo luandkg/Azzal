@@ -1,8 +1,8 @@
 package azzal_ui;
 
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Retangulo;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 
 public class UI {

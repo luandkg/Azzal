@@ -2,7 +2,7 @@ package apps.appTG22;
 
 import azzal.Cores;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.FonteDupla;
 import apps.appLetrum.FonteDuplaRunTime;

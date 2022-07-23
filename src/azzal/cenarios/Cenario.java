@@ -1,4 +1,4 @@
-package azzal.Cenarios;
+package azzal.cenarios;
 
 public class Cenario {
 

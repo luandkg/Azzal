@@ -1,6 +1,6 @@
 package libs.Movimento;
 
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 
 public class Corpo {
 

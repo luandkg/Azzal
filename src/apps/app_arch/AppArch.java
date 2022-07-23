@@ -2,11 +2,11 @@ package apps.app_arch;
 
 import apps.app_arch.Assembler.Assembler;
 import apps.app_arch.Matematica.u8;
-import azzal.Cenarios.Cena;
-import azzal.Formatos.Retangulo;
+import azzal.cenarios.Cena;
+import azzal.geometria.Retangulo;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
-import azzal.Utils.Cronometro;
+import azzal.utilitarios.Cor;
+import azzal.utilitarios.Cronometro;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.*;

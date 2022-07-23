@@ -1,4 +1,4 @@
-package azzal.Cenarios;
+package azzal.cenarios;
 
 import azzal.Renderizador;
 import azzal.Windows;

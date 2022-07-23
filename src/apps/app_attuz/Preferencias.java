@@ -2,7 +2,7 @@ package apps.app_attuz;
 
 import libs.Arquivos.PreferenciasOrganizadas;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import azzal_ui.Interface.Acao;

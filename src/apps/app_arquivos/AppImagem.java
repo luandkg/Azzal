@@ -2,10 +2,10 @@ package apps.app_arquivos;
 
 import libs.Arquivos.AI;
 import libs.Arquivos.ImagemDoAlbum;
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Cores;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import libs.Imaginador.Efeitos;
 import apps.appLetrum.Fonte;

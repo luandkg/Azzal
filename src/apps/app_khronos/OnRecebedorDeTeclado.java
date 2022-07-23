@@ -1,7 +1,7 @@
 package apps.app_khronos;
 
 import azzal.Teclado;
-import azzal.Utils.Cronometro;
+import azzal.utilitarios.Cronometro;
 
 import java.awt.event.KeyEvent;
 

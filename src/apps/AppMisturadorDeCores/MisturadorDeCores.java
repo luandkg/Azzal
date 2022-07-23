@@ -1,8 +1,8 @@
 package apps.AppMisturadorDeCores;
 
-import azzal.Cenarios.Cena;
-import azzal.Formatos.Quadrado;
-import azzal.Utils.*;
+import azzal.cenarios.Cena;
+import azzal.geometria.Quadrado;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 

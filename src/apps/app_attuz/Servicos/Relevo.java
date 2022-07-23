@@ -12,7 +12,7 @@ import apps.app_attuz.Mapa.Local;
 import apps.app_attuz.Mapa.Proximattor;
 import libs.Arquivos.QTT;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import libs.Imaginador.ImageUtils;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;

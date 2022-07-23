@@ -1,6 +1,6 @@
 package apps.app_llcripto;
 
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Renderizador;
 import azzal.Windows;
 import libs.llcripto.LLCripto;

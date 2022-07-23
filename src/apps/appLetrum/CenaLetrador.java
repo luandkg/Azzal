@@ -1,11 +1,11 @@
 package apps.appLetrum;
 
-import azzal.Cenarios.Cena;
-import azzal.Formatos.Retangulo;
+import azzal.cenarios.Cena;
+import azzal.geometria.Retangulo;
 import azzal.Mouse;
 import azzal.Renderizador;
 import azzal.Teclado;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Maker.FonteRunTime;
 import libs.OLLT.Texto;

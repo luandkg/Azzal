@@ -2,7 +2,7 @@ package apps.app_attuz.Legendas;
 
 import apps.app_attuz.Assessorios.Escala;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 

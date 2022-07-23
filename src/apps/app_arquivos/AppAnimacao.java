@@ -1,10 +1,10 @@
 package apps.app_arquivos;
 
+import azzal.utilitarios.Cronometro;
 import libs.Arquivos.AN;
-import azzal.Cenarios.Cena;
-import azzal.Cronometro;
+import azzal.cenarios.Cena;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
@@ -78,9 +78,9 @@ public class AppAnimacao extends Cena {
 
         if (mAN.getQuantidade() > 0) {
 
-            mCron.atualizar();
+            mCron.esperar();
 
-            if (mCron.esperado()) {
+            if (mCron.foiEsperado()) {
 
                 if (temAberto){
                     i += 1;

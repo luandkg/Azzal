@@ -1,10 +1,10 @@
 package libs.Movimento;
 
-import azzal.Cenarios.Cena;
-import azzal.Formatos.Ponto;
-import azzal.Formatos.Retangulo;
+import azzal.cenarios.Cena;
+import azzal.geometria.Ponto;
+import azzal.geometria.Retangulo;
 import azzal.Teclado;
-import azzal.Utils.*;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 import libs.OrganizadorQ2D.OrganizadorQ2D;

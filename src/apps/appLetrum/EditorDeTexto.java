@@ -1,10 +1,10 @@
 package apps.appLetrum;
 
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Retangulo;
 import azzal.Renderizador;
 import azzal.Teclado;
-import azzal.Utils.Cor;
-import azzal.Utils.Cronometro;
+import azzal.utilitarios.Cor;
+import azzal.utilitarios.Cronometro;
 
 import java.awt.event.KeyEvent;
 

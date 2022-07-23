@@ -1,6 +1,6 @@
-package azzal.Utils;
+package azzal.utilitarios;
 
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 
 public class Luz {
 

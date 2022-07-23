@@ -1,7 +1,7 @@
 package azzal_ui;
 
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import azzal_ui.Interface.Acao;
 

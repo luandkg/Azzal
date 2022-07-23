@@ -1,7 +1,7 @@
 package azzal;
 
-import azzal.Formatos.Retangulo;
-import azzal.Utils.Cor;
+import azzal.geometria.Retangulo;
+import azzal.utilitarios.Cor;
 
 public class RenderizadorClip {
 

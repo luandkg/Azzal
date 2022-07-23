@@ -1,6 +1,6 @@
 package apps.appMetropole;
 
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 
 public class EtiquetaCores {
 

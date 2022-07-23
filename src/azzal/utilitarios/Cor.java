@@ -1,4 +1,4 @@
-package azzal.Utils;
+package azzal.utilitarios;
 
 import java.awt.*;
 

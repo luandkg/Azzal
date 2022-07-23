@@ -1,9 +1,9 @@
 package azzal_ui.Interface;
 
 
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Retangulo;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 
 
 public class BotaoCor {

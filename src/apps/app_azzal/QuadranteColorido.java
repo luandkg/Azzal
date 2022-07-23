@@ -2,7 +2,7 @@ package apps.app_azzal;
 
 import azzal.Mouse;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 
 public class QuadranteColorido {
 

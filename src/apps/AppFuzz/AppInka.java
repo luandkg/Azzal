@@ -1,9 +1,9 @@
 package apps.AppFuzz;
 
 
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import java.awt.*;
 

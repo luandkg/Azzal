@@ -1,9 +1,10 @@
-package azzal;
+package apps.app_attuz;
 
 import apps.app_attuz.Localizador.ViagemIndexar;
 import apps.app_attuz.Mapa.Local;
 import apps.app_attuz.Mapa.Viagem;
 import apps.app_attuz.Mapa.Viajante;
+import azzal.utilitarios.Cronometro;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 
@@ -24,8 +25,8 @@ public class RealizarViagem {
 
     public void viajar(Tronarko eTronarko, Viagem mViagem, Viajante EU, ArrayList<Local> mLocais) {
 
-        mCron.atualizar();
-        if (mCron.esperado()) {
+        mCron.esperar();
+        if (mCron.foiEsperado()) {
 
             mais += 1;
 

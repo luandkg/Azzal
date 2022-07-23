@@ -1,7 +1,7 @@
 package apps.app_tronarko;
 
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 
 public class BarraDeProgresso {
 

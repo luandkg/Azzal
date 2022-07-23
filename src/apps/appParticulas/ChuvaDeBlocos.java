@@ -1,8 +1,8 @@
 package apps.appParticulas;
 
-import azzal.Cenarios.Cena;
-import azzal.Formatos.*;
-import azzal.Utils.*;
+import azzal.cenarios.Cena;
+import azzal.geometria.*;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 import libs.Luan.Iterador;

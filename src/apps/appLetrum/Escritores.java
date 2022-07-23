@@ -1,7 +1,7 @@
 package apps.appLetrum;
 
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Maker.FonteRunTime;
 
 import java.util.ArrayList;

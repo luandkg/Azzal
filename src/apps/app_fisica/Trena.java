@@ -2,7 +2,7 @@ package apps.app_fisica;
 
 
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 
 public class Trena {

@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
-import azzal.Formatos.Linha;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Linha;
+import azzal.geometria.Ponto;
 
 import java.util.ArrayList;
 

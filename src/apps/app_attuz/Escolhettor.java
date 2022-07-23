@@ -3,7 +3,7 @@ package apps.app_attuz;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Assessorios.Nivelador;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import azzal_ui.Interface.BotaoCor;
 import azzal_ui.Interface.Clicavel;

@@ -1,12 +1,12 @@
 package apps.app_azzal;
 
-import azzal.Cenarios.Cena;
-import azzal.Formatos.Circulo;
-import azzal.Formatos.Quadrado;
-import azzal.Formatos.Retangulo;
+import azzal.cenarios.Cena;
+import azzal.geometria.Circulo;
+import azzal.geometria.Quadrado;
+import azzal.geometria.Retangulo;
 import azzal.RenderizadorClip;
 import azzal.Teclado;
-import azzal.Utils.*;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 import apps.appLetrum.Fonte;

@@ -1,6 +1,6 @@
 package apps.appMetropole;
 
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Teclado;
 import azzal.Renderizador;
 import azzal.Windows;

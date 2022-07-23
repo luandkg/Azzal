@@ -1,4 +1,4 @@
-package azzal.Formatos;
+package azzal.geometria;
 
 import libs.Luan.Lista;
 

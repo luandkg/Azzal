@@ -9,9 +9,9 @@ import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.IDW.AlgoritmoIDW;
 import apps.app_attuz.IDW.PontoIDW;
 import apps.app_attuz.Mapa.Local;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import libs.Imaginador.ImageUtils;
 import libs.Servittor.Servico;
 

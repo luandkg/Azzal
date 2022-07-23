@@ -2,11 +2,11 @@ package apps.app_khronos;
 
 import apps.app_khronos.Sintaxes.SintaxerDKG;
 import apps.app_khronos.Sintaxes.SintaxerSigmaz;
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Cores;
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Retangulo;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;

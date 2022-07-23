@@ -1,9 +1,9 @@
 package libs.OnTerraria;
 
-import azzal.Cenarios.Cena;
-import azzal.Formatos.Quadrado;
-import azzal.Formatos.Retangulo;
-import azzal.Utils.*;
+import azzal.cenarios.Cena;
+import azzal.geometria.Quadrado;
+import azzal.geometria.Retangulo;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 
@@ -17,8 +17,8 @@ public class TerrariaCena extends Cena {
     private Terraria mTerraria;
 
     private ArrayList<Localizacao> mPontos;
-    private ArrayList<azzal.Formatos.Ponto> mReferente;
-    private ArrayList<azzal.Formatos.Ponto> mMarcar;
+    private ArrayList<azzal.geometria.Ponto> mReferente;
+    private ArrayList<azzal.geometria.Ponto> mMarcar;
 
     public TerrariaCena() {
 
@@ -27,8 +27,8 @@ public class TerrariaCena extends Cena {
         mTerrariaArea = new Retangulo(50, 50, mTerraria.LARGURA, mTerraria.ALTURA);
 
         mPontos = new ArrayList<Localizacao>();
-        mMarcar = new ArrayList<azzal.Formatos.Ponto>();
-        mReferente = new ArrayList<azzal.Formatos.Ponto>();
+        mMarcar = new ArrayList<azzal.geometria.Ponto>();
+        mReferente = new ArrayList<azzal.geometria.Ponto>();
 
         mPontos.add(new Localizacao(new Ponto("-15.8025340"), new Ponto("-47.9041140")));
         mPontos.add(new Localizacao(new Ponto("-15.7490850"), new Ponto("-47.7649330")));
@@ -56,8 +56,8 @@ public class TerrariaCena extends Cena {
             //System.out.println("Latitude :: " + ePonto.getLatitude().toString() + " :: " + la);
             //System.out.println("Longitude :: " + ePonto.getLongitude().toString() + " :: " + lo);
 
-            mMarcar.add(new azzal.Formatos.Ponto(la / 10, lo / 10));
-            mReferente.add(new azzal.Formatos.Ponto(la + 50, lo + 50));
+            mMarcar.add(new azzal.geometria.Ponto(la / 10, lo / 10));
+            mReferente.add(new azzal.geometria.Ponto(la + 50, lo + 50));
         }
 
     }
@@ -71,7 +71,7 @@ public class TerrariaCena extends Cena {
         mRenderizador.drawRect(mTerrariaArea, new Cor(0, 0, 0));
 
 
-        for (azzal.Formatos.Ponto ePonto : mMarcar) {
+        for (azzal.geometria.Ponto ePonto : mMarcar) {
             mRenderizador.drawRect_Pintado(new Quadrado(50 + (ePonto.getX() * 10), 50 + (ePonto.getY() * 10), 10), new Cor(255, 0, 0));
         }
 
@@ -84,7 +84,7 @@ public class TerrariaCena extends Cena {
             }
         }
 
-        for (azzal.Formatos.Ponto ePonto : mReferente) {
+        for (azzal.geometria.Ponto ePonto : mReferente) {
             mRenderizador.drawRect_Pintado(new Quadrado(ePonto.getX(), ePonto.getY(), 5), new Cor(0, 255, 0));
         }
         

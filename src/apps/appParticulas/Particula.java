@@ -1,6 +1,6 @@
 package apps.appParticulas;
 
-import azzal.Formatos.Quadrado;
+import azzal.geometria.Quadrado;
 
 public class Particula {
 

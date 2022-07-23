@@ -1,9 +1,9 @@
 package apps.app_azzal;
 
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
-import azzal.Utils.Cronometro;
+import azzal.utilitarios.Cor;
+import azzal.utilitarios.Cronometro;
 import azzal.Windows;
 
 import java.awt.*;

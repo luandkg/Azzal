@@ -1,6 +1,6 @@
-package azzal.Utils;
+package azzal.utilitarios;
 
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Retangulo;
 
 public class Colisor {
 

@@ -1,9 +1,9 @@
 package apps.app_fisica;
 
-import azzal.Cenarios.Cena;
-import azzal.Formatos.Retangulo;
+import azzal.cenarios.Cena;
+import azzal.geometria.Retangulo;
 import azzal.Teclado;
-import azzal.Utils.*;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 import apps.appLetrum.Fonte;

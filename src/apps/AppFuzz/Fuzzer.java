@@ -1,10 +1,10 @@
 package apps.AppFuzz;
 
-import azzal.Cronometro;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
+import azzal.utilitarios.Cronometro;
 import azzal_ui.Interface.Acao;
 
 import java.util.ArrayList;
@@ -142,11 +142,11 @@ public class Fuzzer {
 
         mClicado = false;
 
-        mTempo.atualizar();
+        mTempo.esperar();
 
         //   System.out.println("Pode..." + mTempo.get() + " :: " + mTempo.getFim()  + " ->> " + mTempo.foiEsperado());
 
-        if (mTempo.esperado()) {
+        if (mTempo.foiEsperado()) {
             clicavel = true;
         }
 

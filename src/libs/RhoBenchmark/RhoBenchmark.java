@@ -1,7 +1,7 @@
 package libs.RhoBenchmark;
 
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.Imaginador.ImageUtils;

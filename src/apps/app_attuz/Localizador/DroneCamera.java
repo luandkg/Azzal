@@ -5,7 +5,7 @@ import apps.app_attuz.Politicamente.NomesEspecificos;
 import azzal.ComplexoRender;
 import azzal.Cores;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 

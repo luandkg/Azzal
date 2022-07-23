@@ -1,6 +1,6 @@
 package apps.app_fisica;
 
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Retangulo;
 
 public class VerificarColisao {
 

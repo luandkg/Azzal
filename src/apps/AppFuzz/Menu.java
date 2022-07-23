@@ -1,6 +1,6 @@
 package apps.AppFuzz;
 
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal_ui.Interface.Acao;
 
 import java.util.ArrayList;

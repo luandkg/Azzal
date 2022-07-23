@@ -1,8 +1,8 @@
 package azzal;
 
-import azzal.Formatos.*;
-import azzal.Utils.Cor;
-import azzal.Utils.Luz;
+import azzal.geometria.*;
+import azzal.utilitarios.Cor;
+import azzal.utilitarios.Luz;
 import libs.Luan.Iterador;
 import libs.Luan.Lista;
 

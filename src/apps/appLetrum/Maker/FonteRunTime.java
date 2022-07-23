@@ -1,7 +1,7 @@
 package apps.appLetrum.Maker;
 
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Letra;
 

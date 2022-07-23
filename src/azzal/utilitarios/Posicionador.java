@@ -1,9 +1,9 @@
-package azzal.Utils;
+package azzal.utilitarios;
 
-import azzal.Formatos.Circulo;
-import azzal.Formatos.Oval;
-import azzal.Formatos.Quadrado;
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Circulo;
+import azzal.geometria.Oval;
+import azzal.geometria.Quadrado;
+import azzal.geometria.Retangulo;
 
 public class Posicionador {
 

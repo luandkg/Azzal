@@ -1,8 +1,8 @@
 package apps.AppLetras;
 
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Mouse;
-import azzal.Utils.*;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 import libs.Griff.Griph;

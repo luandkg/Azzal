@@ -7,7 +7,7 @@ import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Mapa.Local;
 import apps.app_attuz.Assessorios.MapaUtilitario;
 import azzal.Cores;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 import azzal.Renderizador;
 import libs.Imaginador.ImageUtils;
 import libs.Servittor.Servico;

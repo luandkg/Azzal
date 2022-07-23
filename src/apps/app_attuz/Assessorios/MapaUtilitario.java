@@ -2,7 +2,7 @@ package apps.app_attuz.Assessorios;
 
 import apps.app_attuz.Ferramentas.GPS;
 import apps.app_attuz.Mapa.Local;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 

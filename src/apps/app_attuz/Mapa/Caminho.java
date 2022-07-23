@@ -1,7 +1,7 @@
 package apps.app_attuz.Mapa;
 
 
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 
 public class Caminho {
 

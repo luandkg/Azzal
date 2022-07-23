@@ -4,8 +4,8 @@ package apps.app_khronos;
 import azzal.Cores;
 import azzal.Renderizador;
 import azzal.Teclado;
-import azzal.Utils.Cor;
-import azzal.Utils.Cronometro;
+import azzal.utilitarios.Cor;
+import azzal.utilitarios.Cronometro;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 

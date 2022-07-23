@@ -1,6 +1,6 @@
 package azzal;
 
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 
 public class AzzalUnico {
 

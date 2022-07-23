@@ -1,7 +1,7 @@
 package apps.app_azzal;
 
-import azzal.Cenarios.Cena;
-import azzal.Utils.*;
+import azzal.cenarios.Cena;
+import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 

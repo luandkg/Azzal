@@ -1,6 +1,6 @@
 package azzal;
 
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 
 public class ComplexoRender {
 

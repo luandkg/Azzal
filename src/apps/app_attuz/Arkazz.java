@@ -1,6 +1,6 @@
 package apps.app_attuz;
 
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 
 import java.util.ArrayList;
 

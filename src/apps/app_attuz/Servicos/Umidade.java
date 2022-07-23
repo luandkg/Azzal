@@ -8,7 +8,7 @@ import apps.app_attuz.Camadas.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.MassaToQTT;
 import apps.app_attuz.Ferramentas.Normalizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import libs.Imaginador.ImageUtils;
 import libs.Servittor.Servico;
 

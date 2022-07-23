@@ -2,7 +2,7 @@ package apps.app_attuz.Mapa;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.GPS;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.tronarko.Utils.ContadorTronarko;

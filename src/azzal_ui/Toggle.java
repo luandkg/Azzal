@@ -1,6 +1,6 @@
 package azzal_ui;
 
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Retangulo;
 
 public class Toggle {
 

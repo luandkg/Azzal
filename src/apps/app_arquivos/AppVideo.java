@@ -1,11 +1,11 @@
 package apps.app_arquivos;
 
+import azzal.utilitarios.Cronometro;
 import libs.Arquivos.Video.Video;
 import libs.Arquivos.Video.LinhaDoTempo;
-import azzal.Cenarios.Cena;
-import azzal.Cronometro;
+import azzal.cenarios.Cena;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
@@ -101,9 +101,9 @@ public class AppVideo extends Cena {
         mClicavel.update(dt, getWindows().getMouse().getX(), getWindows().getMouse().getY(), getWindows().getMouse().isPressed());
 
         if (!mPausado) {
-            mCron.atualizar();
+            mCron.esperar();
 
-            if (mCron.esperado()) {
+            if (mCron.foiEsperado()) {
 
                 if (!mVideo.getAcabou()) {
                     mVideo.proximo();

@@ -2,8 +2,8 @@ package azzal;
 
 import libs.Arquivos.Audio.HZ;
 import libs.Arquivos.Audio.HZControlador;
-import azzal.Cenarios.Cena;
-import azzal.Cenarios.Cenarios;
+import azzal.cenarios.Cena;
+import azzal.cenarios.Cenarios;
 
 
 import java.awt.image.BufferedImage;

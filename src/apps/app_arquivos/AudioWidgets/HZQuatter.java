@@ -2,7 +2,7 @@ package apps.app_arquivos.AudioWidgets;
 
 import libs.Arquivos.Binario.Inteiro;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 

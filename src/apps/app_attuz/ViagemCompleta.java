@@ -4,7 +4,7 @@ import apps.app_attuz.Ferramentas.GPS;
 import apps.app_attuz.Mapa.Local;
 import apps.app_attuz.Politicamente.Cidades;
 import apps.app_attuz.Politicamente.EquipamentosDeEngenharia;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.CadaObjeto;

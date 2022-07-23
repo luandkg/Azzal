@@ -30,17 +30,16 @@
         - Posicionador
         - Transformador de Cor
 
-
 # libs.tronarko
 
 > Sistema de contagem temporal
-> 
-> O ano é chamado de TRONARKO e possui 500 Superarkos que representam os dias, dividos em 10 faixas de 50 Superarkos entitulados de Hiperarkos
+>
+> O ano é chamado de TRONARKO e possui 500 Superarkos que representam os dias, dividos em 10 faixas de 50 Superarkos
+> entitulados de Hiperarkos
 >
 > Cada Superarko é formado por 10 Arcos [ 0 ... 9 ] que representam as horas
 
 ![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/tronarko.png)
-
 
 # Attuz
 
@@ -51,27 +50,58 @@
     - Geração de mapas : Relevo, Temperatura, Umidade, Latitude, Longitude ...
     - Aplicativo para visualização de mapa e realizar marcações.
 
-
 # libs.dkg
 
-> Formato de texto com estilo de marcação para estruturação de dados
+> Formato de texto com estilo de marcação para estruturação de dados, possui dois tipos básicos de dados OBJETO e ATRIBUTO.
+> A estrutura é uma classe árvore que permite armazenar vários filhos do tipo OBJETO e cada objeto possui uma lista de atributos únicos.
 
 ~~~
 !Alunos :: {
-    !Aluno :: {  @Turma = "A" @Nome = "BELTRANO" @Grupo = "AZUL" @Status = "PRESENTE" @Visibilidade = "SIM" }
-    !Aluno :: {  @Turma = "B" @Nome = "FULANO"   @Grupo = "AZUL" @Status = "AUSENTE"  @Visibilidade = "SIM" }
+    !Aluno :: {  @Turma = "A" @Nome = "BELTRANO" @Grupo = "AZUL"     @Status = "PRESENTE" @Visibilidade = "SIM" }
+    !Aluno :: {  @Turma = "B" @Nome = "FULANO"   @Grupo = "VERMELHO" @Status = "AUSENTE"  @Visibilidade = "SIM" }
 }
 ~~~
 
 ~~~
 !Configuracoes :: {
-    !Objeto :: {  @Tipo = "Cadeira" @Nome = "BELTRANO" }
-    !Status :: {
-        !Status :: {  @Nome = "SETOR_A" @Nome = "PRONTO" }
-        !Status :: {  @Nome = "SETOR_B" @Nome = "EXECUTANDO" }
+    !Tarefas :: {
+        !Status :: {  @Nome = "Acessar" @Nome = "SIM" }
+        !Status :: {  @Nome = "Publicar" @Nome = "NAO" }
+        !Status :: {  @Nome = "Listar" @Nome = "SIM" }
     }
 }
 ~~~
+
+# libs.Luan
+
+> Estruturas de dados implementadas no segundo semestre do curso de ciências das computação na disciplina de Estrutura
+de Dados da Universidade de Brasília
+
+1. Vetor
+2. Lista
+3. Dicionário
+4. Par
+5. Iterador
+6. String
+
+> Algoritmos implementados 
+
+1. Ordenador
+2. Opcional
+3. Integers
+4. Strings
+
+> Classes referenciáveis
+
+1. RefInt
+2. RefBool
+3. RefLong
+4. RefString
+
+> fmt : Essa classe é muito top e foi desenvolvida para facilitar a saida de strings no terminal
+
+> Tempo : Classe responsável por trabalhar com datas e horarios, ela será atualizada com outra versão que desenvolvi no projeto appEscola
+
 
 # libs.Arquivos
 
@@ -97,21 +127,6 @@
 
 > Coleção de códigos para facilitar abertura de imagens, além de aplicação de efeitos.
 
-# libs.Luan
-
-> Pacote com ESTRUTURAS DE DADOS
-
-    - Vetor
-    - Lista
-    - Dicionário
-    - Iterador
-    - Par
-
-> Algoritmos interessantes
-
-    - fmt 
-    - TTY
-    - Tarefa
 
 # Partículas
 

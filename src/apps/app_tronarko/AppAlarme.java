@@ -1,10 +1,10 @@
 package apps.app_tronarko;
 
 
-import azzal.Cenarios.Cena;
+import azzal.cenarios.Cena;
 import azzal.Cores;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;

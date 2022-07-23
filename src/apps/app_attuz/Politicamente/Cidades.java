@@ -4,7 +4,7 @@ package apps.app_attuz.Politicamente;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Mapa.Caminho;
 import apps.app_attuz.Mapa.Local;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 import libs.dkg.DKG;
 
 import java.util.ArrayList;

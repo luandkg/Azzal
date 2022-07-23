@@ -4,7 +4,7 @@ import apps.app_attuz.Camadas.Massas;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.Normalizador;
 import apps.app_attuz.Assessorios.Progressante;
-import azzal.Formatos.Ponto;
+import azzal.geometria.Ponto;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package azzal_ui.Interface;
 
-import azzal.Cronometro;
 import azzal.Renderizador;
+import azzal.utilitarios.Cronometro;
 
 import java.util.ArrayList;
 
@@ -38,11 +38,12 @@ public class Clicavel {
 
         mClicado = false;
 
-        mTempo.atualizar();
+        mTempo.esperar();
 
         //   System.out.println("Pode..." + mTempo.get() + " :: " + mTempo.getFim()  + " ->> " + mTempo.foiEsperado());
 
-        if (mTempo.esperado()) {
+        if (mTempo.foiEsperado()) {
+            mTempo.zerar();
             clicavel = true;
         }
 

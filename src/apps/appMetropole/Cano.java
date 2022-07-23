@@ -1,10 +1,10 @@
 package apps.appMetropole;
 
-import azzal.Formatos.Ponto;
-import azzal.Formatos.Quadrado;
-import azzal.Formatos.Retangulo;
+import azzal.geometria.Ponto;
+import azzal.geometria.Quadrado;
+import azzal.geometria.Retangulo;
 import azzal.Renderizador;
-import azzal.Utils.Cor;
+import azzal.utilitarios.Cor;
 
 import java.util.ArrayList;
 
