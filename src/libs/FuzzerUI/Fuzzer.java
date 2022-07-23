@@ -1,4 +1,4 @@
-package apps.AppFuzz;
+package libs.FuzzerUI;
 
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;

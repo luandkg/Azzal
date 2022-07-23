@@ -1,4 +1,4 @@
-package apps.AppFuzz;
+package libs.FuzzerUI;
 
 public class ItemAcao {
 

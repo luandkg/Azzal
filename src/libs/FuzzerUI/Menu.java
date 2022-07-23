@@ -1,4 +1,4 @@
-package apps.AppFuzz;
+package libs.FuzzerUI;
 
 import azzal.utilitarios.Cor;
 import azzal_ui.Interface.Acao;

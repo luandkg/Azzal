@@ -4,6 +4,8 @@ package apps.AppFuzz;
 import azzal.cenarios.Cena;
 import azzal.Renderizador;
 import azzal.Windows;
+import libs.FuzzerUI.Fuzzer;
+import libs.FuzzerUI.Menu;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public class AppBaz extends Cena {
 
     private Fuzzer mFuzzer;
-    private ArrayList<Menu> menu_principal;
+    private ArrayList<libs.FuzzerUI.Menu> menu_principal;
 
 
     @Override
@@ -21,11 +23,11 @@ public class AppBaz extends Cena {
 
         mFuzzer = new Fuzzer();
 
-        menu_principal = new ArrayList<Menu>();
+        menu_principal = new ArrayList<libs.FuzzerUI.Menu>();
 
-        Menu SLT_A = mFuzzer.onMenu(menu_principal,400, 50, 140, 60, "TIPO A");
-        Menu SLT_B = mFuzzer.onMenu(menu_principal,400 + (1 * 160), 50, 140, 60, "TIPO B");
-        Menu SLT_C = mFuzzer.onMenu(menu_principal,400 + (2 * 160), 50, 140, 60, "TIPO C");
+        libs.FuzzerUI.Menu SLT_A = mFuzzer.onMenu(menu_principal,400, 50, 140, 60, "TIPO A");
+        libs.FuzzerUI.Menu SLT_B = mFuzzer.onMenu(menu_principal,400 + (1 * 160), 50, 140, 60, "TIPO B");
+        libs.FuzzerUI.Menu SLT_C = mFuzzer.onMenu(menu_principal,400 + (2 * 160), 50, 140, 60, "TIPO C");
         Menu SLT_D = mFuzzer.onMenu(menu_principal,400 + (3 * 160), 50, 140, 60, "TIPO D");
 
 
