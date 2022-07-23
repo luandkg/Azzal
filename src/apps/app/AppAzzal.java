@@ -19,9 +19,9 @@ public class AppAzzal {
         //  AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.AppFuzz());
 
 
-        AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+      //  AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
-        //AzzalUnico .unico("libs.Tronarko", 900, 800, new apps.AppTronarko.AppAlarme());
+        AzzalUnico .unico("libs.Tronarko", 900, 800, new apps.app_tronarko.AppAlarme());
 
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppLinhaDoTempo());
 

@@ -17,6 +17,11 @@ public class Alarme {
     private Tozte mDispensadoTozteCom;
     private Hazde mDispensadoHazdeCom;
 
+    public static final int EVENTO_PASSADO = -1;
+    public static final int EVENTO_TOCANDO = 0;
+    public static final int EVENTO_FUTURO = 1;
+
+
     public Alarme() {
 
         mLembretes = new ArrayList<Lembrete>();
@@ -154,4 +159,23 @@ public class Alarme {
         return isTocando;
     }
 
+
+    public int getModo(Lembrete eLembrete, int eTocar, Tozte eTozteSelecionado, Tozte eHoje, Hazde eAgora) {
+
+        int ret = EVENTO_PASSADO;
+
+        boolean estaTocando = estaTocando(eLembrete, eTocar, eHoje, eAgora);
+
+        if (estaTocando) {
+            ret = EVENTO_TOCANDO;
+        } else {
+            if (eTozteSelecionado.isMenorQue(eHoje)) {
+                ret = EVENTO_FUTURO;
+            } else if (eTozteSelecionado.isIgual(eHoje) && eAgora.isMenor(eLembrete.getHazde())) {
+                ret = EVENTO_FUTURO;
+            }
+        }
+
+        return ret;
+    }
 }

@@ -28,15 +28,15 @@ public class AppAlarme extends Cena {
 
     private Windows mWindows;
 
-    private Fonte TextoGrande;
-    private Fonte TextoGrande_Hoje;
+    private Fonte mTextoGrande;
+    private Fonte mTextoGrande_Hoje;
 
-    private Fonte TextoPequeno;
-    private Fonte TextoPequeno_Sel;
+    private Fonte mTextoPequeno;
+    private Fonte mTextoPequeno_Sel;
 
-    private Fonte TextoPequeno_Hoje;
-    private Fonte TextoPequeno_Hoje2;
-    private Fonte TextoPequeno_MuitoGrande;
+    private Fonte mTextoPequeno_Hoje;
+    private Fonte mTextoPequeno_Hoje2;
+    private Fonte mTextoPequeno_MuitoGrande;
 
     private Tronarko TronarkoC;
 
@@ -69,15 +69,15 @@ public class AppAlarme extends Cena {
 
         mCores = new Cores();
 
-        TextoGrande = new FonteRunTime(mCores.getPreto(), 15);
-        TextoGrande_Hoje = new FonteRunTime(mCores.getPreto(), 11);
+        mTextoGrande = new FonteRunTime(mCores.getPreto(), 15);
+        mTextoGrande_Hoje = new FonteRunTime(mCores.getPreto(), 11);
 
-        TextoPequeno = new FonteRunTime(mCores.getPreto(), 11);
-        TextoPequeno_Sel = new FonteRunTime(mCores.getVermelho(), 11);
+        mTextoPequeno = new FonteRunTime(mCores.getPreto(), 11);
+        mTextoPequeno_Sel = new FonteRunTime(mCores.getVermelho(), 11);
 
-        TextoPequeno_Hoje = new FonteRunTime(mCores.getVermelho(), 11);
-        TextoPequeno_Hoje2 = new FonteRunTime(mCores.getBranco(), 11);
-        TextoPequeno_MuitoGrande = new FonteRunTime(mCores.getBranco(), 18);
+        mTextoPequeno_Hoje = new FonteRunTime(mCores.getVermelho(), 11);
+        mTextoPequeno_Hoje2 = new FonteRunTime(mCores.getBranco(), 11);
+        mTextoPequeno_MuitoGrande = new FonteRunTime(mCores.getBranco(), 18);
 
         TronarkoC = new Tronarko();
 
@@ -132,7 +132,7 @@ public class AppAlarme extends Cena {
         mHiperarkoWidget.selecionar(TronarkoC.getTozte());
         mHiperarkoWidget.setPodeSelecionar(true);
 
-        TextoPequeno_Sel = new FonteRunTime(mHiperarkoWidget.getCorTocando(), 11);
+        mTextoPequeno_Sel = new FonteRunTime(mHiperarkoWidget.getCorTocando(), 11);
 
     }
 
@@ -174,23 +174,23 @@ public class AppAlarme extends Cena {
 
         //Hoje = Hoje.adicionar_Tronarko(5);
 
-        TextoPequeno.setRenderizador(r);
-        TextoPequeno_Sel.setRenderizador(r);
-        TextoGrande_Hoje.setRenderizador(r);
-        TextoGrande.setRenderizador(r);
-        TextoPequeno_Hoje.setRenderizador(r);
-        TextoPequeno_Hoje2.setRenderizador(r);
-        TextoPequeno_MuitoGrande.setRenderizador(r);
+        mTextoPequeno.setRenderizador(r);
+        mTextoPequeno_Sel.setRenderizador(r);
+        mTextoGrande_Hoje.setRenderizador(r);
+        mTextoGrande.setRenderizador(r);
+        mTextoPequeno_Hoje.setRenderizador(r);
+        mTextoPequeno_Hoje2.setRenderizador(r);
+        mTextoPequeno_MuitoGrande.setRenderizador(r);
 
 
-        TextoPequeno_MuitoGrande.escreva(BTN_DISPENSADOR.getX()+30, BTN_DISPENSADOR.getY()+10, "DISPENSAR");
+        mTextoPequeno_MuitoGrande.escreva(BTN_DISPENSADOR.getX() + 30, BTN_DISPENSADOR.getY() + 10, "DISPENSAR");
 
 
-        TextoPequeno.escreva(50, 100, " -->> Hoje : " + mHoje.toString());
-        TextoPequeno.escreva(50, 150, " -->> Agora : " + mAgora.toString());
+        mTextoPequeno.escreva(50, 100, " -->> Hoje : " + mHoje.toString());
+        mTextoPequeno.escreva(50, 150, " -->> Agora : " + mAgora.toString());
 
 
-        TextoGrande.escreva(600, 100, " AGENDA : " + mHoje.getSuperarko_Status().toString());
+        mTextoGrande.escreva(600, 100, " AGENDA : " + mHoje.getSuperarko_Status().toString());
 
 
         draw_agenda(r, 610, 150);
@@ -199,7 +199,7 @@ public class AppAlarme extends Cena {
         mHiperarkoWidget.draw_hiperarko(r, mHoje, mAlarme, mHoje.getHiperarko());
 
 
-        draw_agenda_selecionado(r, 50, 500);
+        draw_agenda_selecionado(r, 50, 500, mHiperarkoWidget);
 
     }
 
@@ -214,10 +214,10 @@ public class AppAlarme extends Cena {
 
                 Marcador.marcar(r, px, py, 20, 5, mHiperarkoWidget.getCorTocando(), mCores.getBranco());
 
-                TextoPequeno_Sel.escreva(px + 30, py, eLembrete.getTozte().getTexto() + " " + eLembrete.getHazde().getTextoSemUzzons());
+                mTextoPequeno_Sel.escreva(px + 30, py, eLembrete.getTozte().getTexto() + " " + eLembrete.getHazde().getTextoSemUzzons());
 
             } else {
-                TextoPequeno.escreva(px + 30, py, eLembrete.getTozte().getTexto() + " " + eLembrete.getHazde().getTextoSemUzzons());
+                mTextoPequeno.escreva(px + 30, py, eLembrete.getTozte().getTexto() + " " + eLembrete.getHazde().getTextoSemUzzons());
             }
 
             py += 30;
@@ -226,32 +226,35 @@ public class AppAlarme extends Cena {
 
     }
 
-    public void draw_agenda_selecionado(Renderizador r, int px, int py) {
+    public void draw_agenda_selecionado(Renderizador r, int px, int py, HiperarkoWidget eHiperarkoWidget) {
 
-        if (mHiperarkoWidget.getSelecionado().temValor()) {
 
-            Tozte mTozteSelecionado = mHiperarkoWidget.getSelecionado().get();
+        if (eHiperarkoWidget.getSelecionado().temValor()) {
+
+            Tozte mTozteSelecionado = eHiperarkoWidget.getSelecionado().get();
 
             for (Lembrete lembrete : Ordenador.OrdenarLembretes(mAlarme.getLembretes(mTozteSelecionado))) {
 
-                Cor eCor = mHiperarkoWidget.getCorEventos();
-                boolean passou = false;
+                Cor eCor = eHiperarkoWidget.getCorEventos();
 
-                if (mTozteSelecionado.isMenorQue(mHoje)) {
-                    passou = true;
-                } else if (mTozteSelecionado.isIgual(mHoje)) {
-                    if (mAgora.isMenor(lembrete.getHazde())) {
-                        passou = true;
+                int evento_modo = mAlarme.getModo(lembrete, mTocar,mTozteSelecionado, mHoje, mAgora);
+
+                switch (evento_modo) {
+                    case Alarme.EVENTO_PASSADO -> {
+                        Marcador.marcar(r, px, py - 3, 20, 5, mCores.getAzul(), mCores.getBranco());
+                        break;
+                    }
+                    case Alarme.EVENTO_TOCANDO -> {
+                        Marcador.marcar(r, px, py - 3, 20, 5, mHiperarkoWidget.getCorTocando(), mCores.getBranco());
+                        break;
+                    }
+                    case Alarme.EVENTO_FUTURO -> {
+                        r.drawRect_Pintado(px, py - 3, 20, 20, eCor);
+                        break;
                     }
                 }
 
-                if (passou) {
-                    Marcador.marcar(r, px, py - 3, 20, 5, eCor, mCores.getBranco());
-                } else {
-                    r.drawRect_Pintado(px, py - 3, 20, 20, eCor);
-                }
-
-                TextoPequeno.escreva(px + 30, py, lembrete.getTozte().getTexto() + " -->> " + lembrete.getHazde().getTextoSemUzzons());
+                mTextoPequeno.escreva(px + 30, py, lembrete.getTozte().getTexto() + " -->> " + lembrete.getHazde().getTextoSemUzzons());
 
                 py += 30;
 
