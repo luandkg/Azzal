@@ -1,12 +1,14 @@
 package libs.dg;
 
-import libs.Arquivos.Binario.Arquivador;
-import libs.Arquivos.TX;
-import libs.Luan.Opcional;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import libs.Arquivos.IO;
+import libs.Arquivos.TX;
+import libs.Arquivos.Binario.Arquivador;
+import libs.Luan.Opcional;
+import libs.Luan.fmt;
 
 public class DG {
 
@@ -268,11 +270,42 @@ public class DG {
     }
 
 
+
+    public void mostrar_informacoes(){
+
+
+        System.out.println("COLECIONADOR DG 1.0");
+        System.out.println("");
+        System.out.println("\t - Coleções : " + getColecoes().size());
+        System.out.println("\t - Tamanho  : " + IO.formatar_tamanho(mArquivador.getLength()));
+
+
+    }
+
+    public void mostrar_colecoes(){
+
+        for (DGColecao colecao : getColecoes()) {
+
+            String p1 = fmt.format("{esq20}",colecao.getNome());
+            String p2 = fmt.format("{dir5}",colecao.getPaginasContagem());
+            String p3 = fmt.format("{dir5}",colecao.getItensContagem());
+            String p4 = fmt.format("{dir5}",colecao.getVaziosContagem());
+
+            System.out.println("\t -- Colecao " + p1+ "  -->>     PAGINAS = " +p2+ " ITENS = " +p3 + " VAZIOS = " + p4);
+        }
+
+    }
+
+
     public void fechar() {
         mArquivador.encerrar();
     }
 
     public int indicePara(String eNome) {
         return Features.INDEX(this, eNome);
+    }
+
+    public int ultimoIndice(String eNome){
+        return Features.INDEX_ANTERIOR(this, eNome);
     }
 }

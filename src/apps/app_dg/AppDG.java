@@ -1,6 +1,8 @@
 package apps.app_dg;
 
 import libs.Arquivos.Binario.Arquivador;
+import libs.Luan.Opcional;
+import libs.Luan.fmt;
 import libs.dg.*;
 import libs.tronarko.Tronarko;
 
@@ -9,6 +11,7 @@ import java.util.Random;
 public class AppDG {
 
     private static String LOCAL_CONTAINERS = "/home/luan/Containers";
+    private static String LOCAL_COLECAO_AZZAL = "/home/luan/Containers/azzal.dg";
 
     public static void init() {
 
@@ -18,10 +21,9 @@ public class AppDG {
         System.out.println("Itens por Pagina :: " + DG.ITENS_POR_PAGINA);
         System.out.println("Maximo de Itens por Colecao :: " + DG.MAX_ITENS);
 
-
         // TESTE_COLECAO();
 
-       // TESTE_PAGINAS();
+        // TESTE_PAGINAS();
 
         // TESTE_MELHOR();
 
@@ -29,7 +31,7 @@ public class AppDG {
 
         System.out.println("-------------- LISTAR -------------------");
 
-        DG azzal_dg = new DG(LOCAL_CONTAINERS + "/Azzal.dg", false);
+        DG azzal_dg = new DG(LOCAL_COLECAO_AZZAL, true);
 
         DGObjeto a1 = new DGObjeto();
 
@@ -43,15 +45,24 @@ public class AppDG {
 
             System.out.println("\t -- Colecao :: " + colecao.getNome());
 
-            //  for (DGItem item : colecao.getItens()) {
-            //      System.out.println("\t\t :: " + item.getValor().replace("\n", ""));
-            //}
+            // for (DGItem item : colecao.getItens()) {
+            // System.out.println("\t\t :: " + item.getValor().replace("\n", ""));
+            // }
 
         }
 
-        for (DGColecao colecao : azzal_dg.getColecoes()) {
-            System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " + colecao.getPaginasContagem() + " com " + colecao.getItensContagem() + " VAZIO = " + colecao.getVaziosContagem());
+        azzal_dg.colecao("TimeStamps").mostrar_tudo();
+
+        Opcional<DGItem> ultimo_inserido = Features.PROCURAR(azzal_dg.colecao("TimeStamps"), "ID",
+                azzal_dg.ultimoIndice("TimeStamps"));
+
+        if (ultimo_inserido.isOK()) {
+            System.out.println(ultimo_inserido.get().getValor());
         }
+
+        azzal_dg.mostrar_informacoes();
+
+        azzal_dg.mostrar_colecoes();
 
         azzal_dg.fechar();
 
@@ -61,7 +72,6 @@ public class AppDG {
 
         Arquivador.remover(LOCAL_CONTAINERS + "/Azzal.dg");
 
-
         System.out.println("DG ->> ABRINDO");
 
         DG azzal_dg = new DG(LOCAL_CONTAINERS + "/Azzal.dg", true);
@@ -70,9 +80,9 @@ public class AppDG {
 
         azzal_dg.colecao("itens");
 
-
         for (DGColecao colecao : azzal_dg.getColecoes()) {
-            System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " + colecao.getPaginasContagem() + " com " + colecao.getItensContagem());
+            System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " + colecao.getPaginasContagem()
+                    + " com " + colecao.getItensContagem());
         }
 
         azzal_dg.fechar();
@@ -80,14 +90,11 @@ public class AppDG {
 
     }
 
-
     public static void TESTE_PAGINAS() {
 
         Arquivador.remover(LOCAL_CONTAINERS + "/Azzal.dg");
 
-
         DG azzal_dg = new DG(LOCAL_CONTAINERS + "/Azzal.dg", true);
-
 
         for (int i = 0; i < 5000; i++) {
 
@@ -100,9 +107,10 @@ public class AppDG {
 
             azzal_dg.colecao("CHAVES").adicionar(a1);
 
-          //  DGColecao colecao = azzal_dg.colecao("CHAVES");
+            // DGColecao colecao = azzal_dg.colecao("CHAVES");
 
-            //    System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " + colecao.getPaginasContagem() + " com " + colecao.getItensContagem());
+            // System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " +
+            // colecao.getPaginasContagem() + " com " + colecao.getItensContagem());
 
         }
 
@@ -116,9 +124,10 @@ public class AppDG {
 
             azzal_dg.colecao("CHAVES").adicionar(a1);
 
-            //  DGColecao colecao = azzal_dg.colecao("CHAVES");
+            // DGColecao colecao = azzal_dg.colecao("CHAVES");
 
-            // System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " + colecao.getPaginasContagem() + " com " + colecao.getItensContagem());
+            // System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " +
+            // colecao.getPaginasContagem() + " com " + colecao.getItensContagem());
 
         }
 
@@ -130,9 +139,7 @@ public class AppDG {
 
         Arquivador.remover(LOCAL_CONTAINERS + "/Azzal.dg");
 
-
         DG azzal_dg = new DG(LOCAL_CONTAINERS + "/Azzal.dg", true);
-
 
         for (int i = 0; i < 50; i++) {
 
@@ -145,10 +152,10 @@ public class AppDG {
 
             DGColecao colecao = azzal_dg.colecao("itens");
 
-            //    System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " + colecao.getPaginasContagem() + " com " + colecao.getItensContagem());
+            // System.out.println("\t -- Colecao :: " + colecao.getNome() + " -->> " +
+            // colecao.getPaginasContagem() + " com " + colecao.getItensContagem());
 
         }
-
 
         azzal_dg.fechar();
 

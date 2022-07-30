@@ -54,19 +54,16 @@ public class DGColecao {
             }
 
             indo += 8;
-            //  System.out.println("PG :: " + v + " -->> " + valor);
+            // System.out.println("PG :: " + v + " -->> " + valor);
         }
-
 
         return i;
     }
-
 
     public void adicionar(DGObjeto e) {
 
         long pagina = -1;
         boolean pagina_existente = false;
-
 
         long ponteiro_ir = mPonteiroDados;
 
@@ -74,13 +71,12 @@ public class DGColecao {
 
         for (int proc_pagina = 0; proc_pagina < DG.PAGINAS; proc_pagina++) {
 
-
             mDG.getArquivador().setPonteiro(ponteiro_ir);
 
             long valor = mDG.getArquivador().readLong();
             if (valor > 0) {
 
-                //  System.out.println("PAGINA :: " + proc_pagina + " -->> " + valor);
+                // System.out.println("PAGINA :: " + proc_pagina + " -->> " + valor);
 
                 DGPagina paginaCorrente = new DGPagina(mDG, proc_pagina, valor);
                 if (paginaCorrente.temVazio()) {
@@ -96,7 +92,7 @@ public class DGColecao {
                     break;
                 }
 
-                //      System.out.println("\t >>> PROXIMO");
+                // System.out.println("\t >>> PROXIMO");
 
             }
 
@@ -112,7 +108,6 @@ public class DGColecao {
 
             mDG.expandir(p3, DG.TAMANHO_PAGINA, 0);
 
-
             long criado = 0;
 
             for (int proc_pagina = 0; proc_pagina < DG.PAGINAS; proc_pagina++) {
@@ -125,7 +120,7 @@ public class DGColecao {
                     mDG.getArquivador().setPonteiro(mPonteiroDados + (proc_pagina * 8));
                     mDG.getArquivador().writeLong(p3);
 
-                    //   System.out.println("NOVA PAGINA :: " + proc_pagina + " -->> " + p2);
+                    // System.out.println("NOVA PAGINA :: " + proc_pagina + " -->> " + p2);
                     pagina = p3;
                     pagina_id = proc_pagina;
 
@@ -134,8 +129,7 @@ public class DGColecao {
 
             }
 
-
-            //  pagina = criarPagina();
+            // pagina = criarPagina();
             pagina_existente = true;
         }
 
@@ -154,7 +148,6 @@ public class DGColecao {
 
         int contando = 0;
 
-
         for (int proc_pagina = 0; proc_pagina < DG.PAGINAS; proc_pagina++) {
 
             mDG.getArquivador().setPonteiro(mPonteiroDados + (proc_pagina * 8));
@@ -162,16 +155,14 @@ public class DGColecao {
             long pagina_ref = mDG.getArquivador().readLong();
             if (pagina_ref > 0) {
 
-                //   System.out.println("PAGINA :: " + proc_pagina + " -->> " + pagina_ref);
+                // System.out.println("PAGINA :: " + proc_pagina + " -->> " + pagina_ref);
                 DGPagina paginaCorrente = new DGPagina(mDG, proc_pagina, pagina_ref);
                 contando += paginaCorrente.getVaziosContagem();
 
-
             }
 
-            //  indo += 8;
+            // indo += 8;
         }
-
 
         return contando;
     }
@@ -180,7 +171,6 @@ public class DGColecao {
 
         int contando = 0;
 
-
         for (int proc_pagina = 0; proc_pagina < DG.PAGINAS; proc_pagina++) {
 
             mDG.getArquivador().setPonteiro(mPonteiroDados + (proc_pagina * 8));
@@ -188,25 +178,21 @@ public class DGColecao {
             long slot = mDG.getArquivador().readLong();
             if (slot > 0) {
 
-                //   System.out.println("SLOT :: " + proc_slot + " -->> " + slot);
+                // System.out.println("SLOT :: " + proc_slot + " -->> " + slot);
                 DGPagina paginaCorrente = new DGPagina(mDG, proc_pagina, slot);
                 contando += paginaCorrente.contar();
 
-
             }
 
-            //  indo += 8;
+            // indo += 8;
         }
-
 
         return contando;
     }
 
-
     public ArrayList<DGItem> getItens() {
 
         ArrayList<DGItem> ret = new ArrayList<DGItem>();
-
 
         for (int proc_pagina = 0; proc_pagina < DG.PAGINAS; proc_pagina++) {
 
@@ -216,18 +202,24 @@ public class DGColecao {
 
             if (pagina_ref > 0) {
 
-                //   System.out.println("SLOT :: " + proc_slot + " -->> " + slot);
+                // System.out.println("SLOT :: " + proc_slot + " -->> " + slot);
                 DGPagina paginaCorrente = new DGPagina(mDG, proc_pagina, pagina_ref);
                 ret.addAll(paginaCorrente.getItens());
 
             }
 
-            //  indo += 8;
+            // indo += 8;
         }
-
 
         return ret;
     }
 
+    public void mostrar_tudo() {
+
+        for (DGItem item : getItens()) {
+            System.out.println("\t\t :: " + item.getValor().replace("\n", ""));
+        }
+
+    }
 
 }
