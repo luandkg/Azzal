@@ -6,8 +6,15 @@ public class Opcional<T> {
     private boolean mTem;
 
     public Opcional(T valor) {
-        mTem = true;
-        mValor = valor;
+
+        if (valor == null) {
+            mTem = false;
+            mValor = null;
+        } else {
+            mTem = true;
+            mValor = valor;
+        }
+
     }
 
     public Opcional() {
@@ -33,6 +40,9 @@ public class Opcional<T> {
         return mTem;
     }
 
+    public boolean isOK() {
+        return mTem;
+    }
 
     public void esvaziar() {
         mTem = false;

@@ -295,7 +295,7 @@ public class TX {
         int ii = 0;
         int oo = bytes.size();
 
-        while (lendo && (ii<oo)) {
+        while (lendo && (ii < oo)) {
 
             int valor = Inteiro.byteToInt(bytes.get(ii));
             ii += 1;
@@ -327,6 +327,45 @@ public class TX {
 
 
         return texto;
+    }
+
+    public void escreverFluxo(String eConteudo, Arquivador arquivador) {
+
+        int i = 0;
+        int o = eConteudo.length();
+
+
+        //System.out.println("Texto TX - Iniciado");
+
+        while (i < o) {
+            String letra = String.valueOf(eConteudo.charAt(i));
+
+            int indice = getIndice(letra);
+
+            if (indice >= 0) {
+
+                if (indice < 255) {
+                    arquivador.writeByte((byte) indice);
+                } else {
+
+                    int proximo = (indice - 255) + 1;
+
+                    arquivador.writeByte((byte) 255);
+                    arquivador.writeByte((byte) proximo);
+
+                }
+
+            }
+
+            i += 1;
+        }
+
+        arquivador.writeByte((byte) 0);
+
+
+        //    System.out.println("Texto TX - Terminado");
+
+
     }
 
 }

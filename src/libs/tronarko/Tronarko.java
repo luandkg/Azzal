@@ -12,7 +12,7 @@ import java.util.Calendar;
 //
 //       	ATUALIZACOES
 //
-//	CRIACAO		  : 21/09/2018 - Desenvolvimento do Sistema Temporal libs.Tronarko
+//	CRIACAO		  : 21/09/2018 - Desenvolvimento do Sistema Temporal Tronarko
 //
 //	ORGANIZACAO 1 : 22/09/2018 
 //  ORGANIZACAO 2 : 25/09/2018 
@@ -30,7 +30,7 @@ import java.util.Calendar;
 // 	ATUALIZACAO 6  : 26/03/2020 - Metodo de Ordenacao , Fusos Horarios e Enumeradores : Hiperarkos, Superarkos, Signos, Periakos e Modarkos.
 //	ATUALIZACAO 7  : 26/03/2020 - TozteCor e Interface UI
 //	ATUALIZACAO 8  : 30/03/2020 - Avisos
-//	ATUALIZACAO 9  : 25/04/2021 - ReOrganizacao do Pacote libs.Tronarko
+//	ATUALIZACAO 9  : 25/04/2021 - ReOrganizacao do Pacote Tronarko
 //	ATUALIZACAO 10 : 15/05/2021 - Hizarkos Com Cor
 //  ATUALIZACAO 11 : 06/03/2022 - Fases GIBOSAS DOS SATELITES
 //  ATUALIZACAO 12 : 11/03/2022 - AGENDA E FLUXO TEMPORAL
@@ -44,7 +44,7 @@ public class Tronarko {
 
     // TRON
     public static String getAgora() {
-        return getTronAgora().getTexto();
+        return getTronAgora().getTextoZerado();
     }
 
     public static Tron getTronAgora() {

@@ -121,6 +121,12 @@ public class Arquivador {
         return si;
     }
 
+    public int organizar_to_int(byte b) {
+        String si = String.valueOf(b);
+
+        return Integer.parseInt(si);
+    }
+
     public void limpar() {
 
         try {

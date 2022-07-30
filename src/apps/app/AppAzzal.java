@@ -8,6 +8,7 @@ import apps.app_audio.AppAudio;
 import apps.app_azzal.Alpha;
 import apps.app_azzal.AppGlobal;
 import apps.app_azzal.VamosCalcular;
+import apps.app_dg.AppDG;
 import apps.app_gamafs.AppGamaFS;
 import apps.app_khronos.AppKrhonos;
 import apps.app_tronarko.AppLinhaDoTempo;
@@ -24,17 +25,18 @@ public class AppAzzal {
 
         //AzzalUnico.unico("apps.AppAzzal", 1600, 1020, new AppGlobal());
 
-          AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.AppFuzz());
+        //AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.AppFuzz());
 
 
-         // AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+        //   AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         //   AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
 
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppLinhaDoTempo());
 
-     //    AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new Alpha());
-       // AzzalUnico.unico("apps.AppAudio", 700, 1020, new AppAudio());
+
+        //    AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new Alpha());
+        // AzzalUnico.unico("apps.AppAudio", 700, 1020, new AppAudio());
 
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new C1());
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new CenaBanco());
@@ -107,6 +109,7 @@ public class AppAzzal {
 
         //AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
 
+        AppDG.init();
 
     }
 

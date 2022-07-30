@@ -103,7 +103,8 @@ public class AppAttuz extends Cena {
 
         mapa = Efeitos.preto_branco(mapa);
 
-          mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
+        mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
+        mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
 
         mImagemDrone = ImageUtils.getCopia(mapa);
 
@@ -153,7 +154,7 @@ public class AppAttuz extends Cena {
 
         mNivelador = new Nivelador();
 
-        mEscolhettor = new Escolhettor(mNivelador, mClicavel, mRelevo);
+        mEscolhettor = new Escolhettor(2000, 900, mNivelador, mClicavel, mRelevo);
 
 
         boolean CRIAR = false;
@@ -182,7 +183,7 @@ public class AppAttuz extends Cena {
 
 
             // mViagem.abrir("/home/luan/Documentos/viagem_ovkom.txt");
-            //   mViagem.abrir("/home/luan/Documentos/t7002.txt");
+            mViagem.abrir("/home/luan/Documentos/t7002.txt");
 
         }
 
@@ -365,7 +366,9 @@ public class AppAttuz extends Cena {
         pequeno.setRenderizador(g);
         hipermicro.setRenderizador(g);
 
-        pequeno.escreva(1300, 50, " X = " + mPosicaoX + " Y = " + mPosicaoY + " -->> " + mValorSelecionado);
+        pequeno.escreva(2000, 700, " X = " + mPosicaoX + " Y = " + mPosicaoY );
+        pequeno.escreva(2050, 720, " ALTITUDE : " + mValorSelecionado + " m");
+
 
         int uu = mViagem.getPercurso().size();
         int ui = 0;
@@ -540,6 +543,9 @@ public class AppAttuz extends Cena {
         if (mDistanciador.temP2()) {
             g.drawImagemComAlfa((mDistanciador.getP2().getX() / 2) + X0 - 15, (mDistanciador.getP2().getY() / 2) + Y0 - 30, marcador);
         }
+
+
+        pequeno.escreva(2000, 970, "Luan Freitas - AZZAL UI :: MAPA ATTUZ 1.0");
 
 
         if (!printou) {
