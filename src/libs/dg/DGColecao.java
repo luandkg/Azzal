@@ -62,6 +62,12 @@ public class DGColecao {
 
     public void adicionar(DGObjeto e) {
 
+        System.out.println("chave :: " + e.deveConstruirChave());
+
+        if (e.deveConstruirChave()) {
+            e.identifique_comeco(e.getIndice()).setInteiro(mDG.indicePara(getNome()));
+        }
+
         long pagina = -1;
         boolean pagina_existente = false;
 
@@ -102,7 +108,7 @@ public class DGColecao {
 
         if (pagina == -1) {
 
-            System.out.println("Precisa de nova pagina...");
+            // System.out.println("Precisa de nova pagina...");
 
             long p3 = mDG.getArquivador().getLength();
 

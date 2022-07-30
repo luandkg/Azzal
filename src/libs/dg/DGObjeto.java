@@ -9,23 +9,40 @@ public class DGObjeto {
 
     private ArrayList<DGAtributo> mDKGAtributos;
 
+    private int mDeveConstruirChave = 0;
+    private String mNomeChave = "";
+
     public DGObjeto() {
 
         mDKGAtributos = new ArrayList<DGAtributo>();
 
     }
 
+    public DGObjeto(int eConstruirChave, String eNomeChave) {
+
+        mDKGAtributos = new ArrayList<DGAtributo>();
+
+        mDeveConstruirChave = eConstruirChave;
+        mNomeChave = eNomeChave;
+
+    }
+
+    public boolean deveConstruirChave() {
+        return mDeveConstruirChave == DG.CHAVE_UNICA;
+    }
+
+    public String getIndice() {
+        return mNomeChave;
+    }
 
     public int getTamanho() {
         return toString().length();
     }
 
-
     public void parser(String eTexto) {
         IOParser parser = new IOParser();
         parser.parse(eTexto, this);
     }
-
 
     public String toString() {
 
@@ -36,22 +53,43 @@ public class DGObjeto {
         return escritor.getTexto();
     }
 
-
     public int contagem() {
 
         int t = 1;
 
-
         for (DGAtributo ePacote : mDKGAtributos) {
             t += 2;
         }
-
 
         return t;
 
     }
 
     // ATRIBUTOS
+
+    public DGAtributo identifique_comeco(String eNome) {
+
+        boolean enc = false;
+        DGAtributo ret = null;
+
+        for (DGAtributo mIdentificador : mDKGAtributos) {
+
+            if (mIdentificador.getNome().contentEquals(eNome)) {
+                enc = true;
+                ret = mIdentificador;
+                break;
+            }
+
+        }
+
+        if (enc == false) {
+            ret = new DGAtributo(eNome, "");
+            mDKGAtributos.add(0, ret);
+        }
+
+        return ret;
+
+    }
 
     public DGAtributo identifique(String eNome) {
 
@@ -93,7 +131,6 @@ public class DGObjeto {
 
         return enc;
     }
-
 
     public DGAtributo identifique(String eNome, short eValor) {
         return this.identifique(eNome, String.valueOf(eValor));
@@ -142,7 +179,6 @@ public class DGObjeto {
     public ArrayList<DGAtributo> getAtributos() {
         return mDKGAtributos;
     }
-
 
     // FACILITADORES DE IDENTIFICADORES
 

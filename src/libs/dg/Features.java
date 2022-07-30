@@ -5,7 +5,6 @@ import libs.tronarko.Tronarko;
 
 public class Features {
 
-
     // FEATURES
 
     public static Opcional<DGItem> PROCURAR(DGColecao eColecao, String eAtributoNome, String eAtributoValor) {
@@ -22,12 +21,42 @@ public class Features {
         return ret;
     }
 
+    public static Opcional<DGItem> PROCURAR(DG eDG, String eColecao, String eAtributoNome, int eAtributoValor) {
+
+        Opcional<DGItem> ret = new Opcional<DGItem>();
+
+        for (DGItem item : eDG.colecao(eColecao).getItens()) {
+            if (item.to().id_int(eAtributoNome) == eAtributoValor) {
+                ret.set(item);
+                break;
+            }
+        }
+
+        return ret;
+    }
+
     public static Opcional<DGItem> PROCURAR(DGColecao eColecao, String eAtributoNome, int eAtributoValor) {
 
         Opcional<DGItem> ret = new Opcional<DGItem>();
 
         for (DGItem item : eColecao.getItens()) {
-            if (item.to().id_int(eAtributoNome)==eAtributoValor) {
+            if (item.to().id_int(eAtributoNome) == eAtributoValor) {
+                ret.set(item);
+                break;
+            }
+        }
+
+        return ret;
+    }
+
+    public static Opcional<DGItem> PROCURAR_ULTIMO(DG eDG, String eColecao, String eAtributoNome) {
+
+        Opcional<DGItem> ret = new Opcional<DGItem>();
+
+        int ultimo = eDG.ultimoIndice(eColecao);
+
+        for (DGItem item : eDG.colecao(eColecao).getItens()) {
+            if (item.to().id_int(eAtributoNome) == ultimo) {
                 ret.set(item);
                 break;
             }
@@ -53,7 +82,6 @@ public class Features {
 
             item.commit();
 
-
         } else {
 
             DGObjeto novo = new DGObjeto();
@@ -65,7 +93,6 @@ public class Features {
             eDG.colecao("INDEXADORES").adicionar(novo);
 
         }
-
 
         return v;
     }
@@ -80,16 +107,11 @@ public class Features {
 
             DGItem item = item_indexado.get();
 
-            v = item.to().identifique("VALOR").getInteiro(0) ;
-
+            v = item.to().identifique("VALOR").getInteiro(0);
 
         }
 
-
         return v;
     }
-
-
-    
 
 }

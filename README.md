@@ -41,7 +41,7 @@
 
 ![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/app_tronarko.png)
 
-# Attuz
+# Attuz - Construtor de Mundos
 
 > Aplicação de construção de WorldBuilding
 
@@ -50,7 +50,7 @@
     - Geração de mapas : Relevo, Temperatura, Umidade, Latitude, Longitude ...
     - Aplicativo para visualização de mapa e realizar marcações.
 
-# libs.dkg
+# libs.dkg - Arquivo DKG
 
 > Formato de texto com estilo de marcação para estruturação de dados, possui dois tipos básicos de dados OBJETO e ATRIBUTO.
 > A estrutura é uma classe árvore que permite armazenar vários filhos do tipo OBJETO e cada objeto possui uma lista de atributos únicos.
@@ -72,7 +72,12 @@
 }
 ~~~
 
-# libs.Luan
+# libs.dg - Biblioteca de Coleções
+
+> Banco de coleções em arquivo único
+> Essa biblioteca é ideal para armazenar objetos com vários campos de forma rápida e organizada, possui sistema de indexamento por páginas, construção de coleção não existente com a necessidade.
+
+# libs.Luan - Estruturas de Dados
 
 > Estruturas de dados implementadas no segundo semestre do curso de ciências das computação na disciplina de Estrutura
 de Dados da Universidade de Brasília
@@ -103,7 +108,7 @@ de Dados da Universidade de Brasília
 > Tempo : Classe responsável por trabalhar com datas e horarios, ela será atualizada com outra versão que desenvolvi no projeto appEscola
 
 
-# libs.Arquivos
+# libs.Arquivos - Meus formatos de arquivos
 
 > Pacote com formatos de arquivados criados por mim mesmo ( hehehe )
 

@@ -50,6 +50,21 @@ public class DGItem {
         return s;
     }
 
+    public String getValorEmLinha() {
+        String s = "";
+
+        mDG.getArquivador().setPonteiro(mPonteiroItem);
+
+        int valido = mDG.getArquivador().organizar_to_int(mDG.getArquivador().readByte());
+
+        if (valido != 0) {
+            TX eTX = new TX();
+            s = eTX.lerFluxoLimitado(mDG.getArquivador(), 4 * 1024);
+        }
+
+        return s.replace("\n", "");
+    }
+
     public boolean isValido() {
 
         mDG.getArquivador().setPonteiro(mPonteiroItem);
@@ -59,7 +74,6 @@ public class DGItem {
         return valido != 0;
     }
 
-
     public DGObjeto to() {
 
         if (!mIsCache) {
@@ -67,7 +81,6 @@ public class DGItem {
             mCached = new DGObjeto();
             mCached.parser(getValor());
         }
-
 
         return mCached;
     }
@@ -85,7 +98,6 @@ public class DGItem {
                 eTX.escreverFluxo(mCached.toString(), mDG.getArquivador());
 
             }
-
 
         }
 

@@ -15,11 +15,14 @@ public class AppDG {
 
     public static void init() {
 
-        System.out.println("DG 1.0");
-        System.out.println("Colecoes :: " + DG.COLECOES);
-        System.out.println("Paginas :: " + DG.PAGINAS);
-        System.out.println("Itens por Pagina :: " + DG.ITENS_POR_PAGINA);
-        System.out.println("Maximo de Itens por Colecao :: " + DG.MAX_ITENS);
+        boolean mostrar = false;
+        if (mostrar) {
+            System.out.println("DG 1.0");
+            System.out.println("Colecoes :: " + DG.COLECOES);
+            System.out.println("Paginas :: " + DG.PAGINAS);
+            System.out.println("Itens por Pagina :: " + DG.ITENS_POR_PAGINA);
+            System.out.println("Maximo de Itens por Colecao :: " + DG.MAX_ITENS);
+        }
 
         // TESTE_COLECAO();
 
@@ -33,34 +36,22 @@ public class AppDG {
 
         DG azzal_dg = new DG(LOCAL_COLECAO_AZZAL, true);
 
-        DGObjeto a1 = new DGObjeto();
+        DGObjeto a1 = new DGObjeto(DG.CHAVE_UNICA, "ID");
 
-        a1.identifique("ID", azzal_dg.indicePara("TimeStamps"));
         a1.identifique("DDC", Tronarko.getAgora());
         a1.identifique("VALOR", new Random().nextInt(100));
 
         azzal_dg.colecao("TimeStamps").adicionar(a1);
 
-        for (DGColecao colecao : azzal_dg.getColecoes()) {
-
-            System.out.println("\t -- Colecao :: " + colecao.getNome());
-
-            // for (DGItem item : colecao.getItens()) {
-            // System.out.println("\t\t :: " + item.getValor().replace("\n", ""));
-            // }
-
-        }
-
         azzal_dg.colecao("TimeStamps").mostrar_tudo();
 
-        Opcional<DGItem> ultimo_inserido = Features.PROCURAR(azzal_dg.colecao("TimeStamps"), "ID",
-                azzal_dg.ultimoIndice("TimeStamps"));
+        Opcional<DGItem> ultimo_inserido = Features.PROCURAR_ULTIMO(azzal_dg, "TimeStamps", "ID");
 
         if (ultimo_inserido.isOK()) {
-            System.out.println(ultimo_inserido.get().getValor());
+            // System.out.println(ultimo_inserido.get().getValorEmLinha());
         }
 
-        azzal_dg.mostrar_informacoes();
+        // azzal_dg.mostrar_informacoes();
 
         azzal_dg.mostrar_colecoes();
 
@@ -70,11 +61,11 @@ public class AppDG {
 
     public static void TESTE_COLECAO() {
 
-        Arquivador.remover(LOCAL_CONTAINERS + "/Azzal.dg");
+        Arquivador.remover(LOCAL_COLECAO_AZZAL);
 
         System.out.println("DG ->> ABRINDO");
 
-        DG azzal_dg = new DG(LOCAL_CONTAINERS + "/Azzal.dg", true);
+        DG azzal_dg = new DG(LOCAL_COLECAO_AZZAL, true);
 
         azzal_dg.colecao("itens").adicionar(new DGObjeto());
 
@@ -92,9 +83,9 @@ public class AppDG {
 
     public static void TESTE_PAGINAS() {
 
-        Arquivador.remover(LOCAL_CONTAINERS + "/Azzal.dg");
+        Arquivador.remover(LOCAL_COLECAO_AZZAL);
 
-        DG azzal_dg = new DG(LOCAL_CONTAINERS + "/Azzal.dg", true);
+        DG azzal_dg = new DG(LOCAL_COLECAO_AZZAL, true);
 
         for (int i = 0; i < 5000; i++) {
 
@@ -137,9 +128,9 @@ public class AppDG {
 
     public static void TESTE_MELHOR() {
 
-        Arquivador.remover(LOCAL_CONTAINERS + "/Azzal.dg");
+        Arquivador.remover(LOCAL_COLECAO_AZZAL);
 
-        DG azzal_dg = new DG(LOCAL_CONTAINERS + "/Azzal.dg", true);
+        DG azzal_dg = new DG(LOCAL_COLECAO_AZZAL, true);
 
         for (int i = 0; i < 50; i++) {
 

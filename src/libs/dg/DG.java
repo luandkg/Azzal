@@ -12,7 +12,6 @@ import libs.Luan.fmt;
 
 public class DG {
 
-
     // CONSTANTES DE IO
 
     public static final int BLOCO = 4 * 1024;
@@ -29,7 +28,6 @@ public class DG {
     public static final int PAGINAS = TAMANHO_PAGINA / 8;
 
     public static final int MAX_ITENS = (PAGINAS * ITENS_POR_PAGINA);
-
 
     // FUNCOES ESTATICAS
 
@@ -57,7 +55,6 @@ public class DG {
 
     }
 
-
     // FUNCOES DE CLASSE
 
     private String mLocal_Arquivo;
@@ -69,6 +66,8 @@ public class DG {
 
     private ArrayList<DGColecao> mCACHE_COLECOES;
     private boolean mCACHE_TODAS = false;
+
+    public final static int CHAVE_UNICA = 1;
 
     public DG(String eArquivo, boolean eAutoMontagem) {
 
@@ -101,7 +100,7 @@ public class DG {
 
         for (DGColecao c : mCACHE_COLECOES) {
             if (c.getNome().contentEquals(eNome)) {
-                System.out.println("Obtida do Cache :: COLECOES !");
+                // System.out.println("Obtida do Cache :: COLECOES !");
                 return c;
             }
         }
@@ -157,7 +156,6 @@ public class DG {
 
                 expandir(p2, DG.TAMANHO_PAGINA_MESTRE, 0);
 
-
                 ret = new DGColecao(this, p1, p2);
 
                 mArquivador.setPonteiro(pos_proc_col);
@@ -181,7 +179,7 @@ public class DG {
     public ArrayList<DGColecao> getColecoes() {
 
         if (mCACHE_TODAS) {
-            System.out.println("Do cache completo !");
+            // System.out.println("Do cache completo !");
             return mCACHE_COLECOES;
         }
 
@@ -207,14 +205,15 @@ public class DG {
                 long p1 = mArquivador.readLong();
                 long p2 = mArquivador.readLong();
 
-                // System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a + " :: " + eNome);
-                //  System.out.println("\t - P1 :: " + p1);
+                // System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a + " :: "
+                // + eNome);
+                // System.out.println("\t - P1 :: " + p1);
                 // System.out.println("\t - P2 :: " + p2);
 
                 ls.add(new DGColecao(this, p1, p2));
 
             } else {
-                //  System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a);
+                // System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a);
             }
 
         }
@@ -251,51 +250,46 @@ public class DG {
                     long p1 = mArquivador.readLong();
                     long p2 = mArquivador.readLong();
 
-                    // System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a + " :: " + eNome);
-                    //  System.out.println("\t - P1 :: " + p1);
+                    // System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a + " :: "
+                    // + eNome);
+                    // System.out.println("\t - P1 :: " + p1);
                     // System.out.println("\t - P2 :: " + p2);
 
                     ret.set(new DGColecao(this, p1, p2));
                 }
 
-
             } else {
-                //  System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a);
+                // System.out.println("proc col :: " + proc_colecao + " -->> " + proc_a);
             }
 
         }
 
-
         return ret;
     }
 
-
-
-    public void mostrar_informacoes(){
-
+    public void mostrar_informacoes() {
 
         System.out.println("COLECIONADOR DG 1.0");
         System.out.println("");
         System.out.println("\t - Coleções : " + getColecoes().size());
         System.out.println("\t - Tamanho  : " + IO.formatar_tamanho(mArquivador.getLength()));
 
-
     }
 
-    public void mostrar_colecoes(){
+    public void mostrar_colecoes() {
 
         for (DGColecao colecao : getColecoes()) {
 
-            String p1 = fmt.format("{esq20}",colecao.getNome());
-            String p2 = fmt.format("{dir5}",colecao.getPaginasContagem());
-            String p3 = fmt.format("{dir5}",colecao.getItensContagem());
-            String p4 = fmt.format("{dir5}",colecao.getVaziosContagem());
+            String p1 = fmt.format("{esq20}", colecao.getNome());
+            String p2 = fmt.format("{dir5}", colecao.getPaginasContagem());
+            String p3 = fmt.format("{dir5}", colecao.getItensContagem());
+            String p4 = fmt.format("{dir5}", colecao.getVaziosContagem());
 
-            System.out.println("\t -- Colecao " + p1+ "  -->>     PAGINAS = " +p2+ " ITENS = " +p3 + " VAZIOS = " + p4);
+            System.out.println(
+                    "\t -- Colecao " + p1 + "  -->>     PAGINAS = " + p2 + " ITENS = " + p3 + " VAZIOS = " + p4);
         }
 
     }
-
 
     public void fechar() {
         mArquivador.encerrar();
@@ -305,7 +299,7 @@ public class DG {
         return Features.INDEX(this, eNome);
     }
 
-    public int ultimoIndice(String eNome){
+    public int ultimoIndice(String eNome) {
         return Features.INDEX_ANTERIOR(this, eNome);
     }
 }

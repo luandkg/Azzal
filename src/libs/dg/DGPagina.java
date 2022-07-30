@@ -20,7 +20,6 @@ public class DGPagina {
         mPonteiroDados = ePonteiroDados;
     }
 
-
     public boolean temVazio() {
         boolean ret = false;
 
@@ -32,16 +31,15 @@ public class DGPagina {
 
             int item_vazio = mDG.getArquivador().organizar_to_int(mDG.getArquivador().readByte());
 
-            //System.out.println("Slot " + proc_slot + " -->> tipo : " + slot_tipo);
+            // System.out.println("Slot " + proc_slot + " -->> tipo : " + slot_tipo);
 
             if (item_vazio == VAZIO) {
-                //    System.out.println("Item Vazio " + proc_item + " :: " + v);
+                // System.out.println("Item Vazio " + proc_item + " :: " + v);
                 ret = true;
                 break;
             }
 
         }
-
 
         return ret;
     }
@@ -62,14 +60,15 @@ public class DGPagina {
 
                 int item_vazio = mDG.getArquivador().organizar_to_int(mDG.getArquivador().readByte());
 
-                //    System.out.println("Verificando :: " + proc_item);
+                // System.out.println("Verificando :: " + proc_item);
 
                 if (item_vazio == VAZIO) {
 
                     long eLocalAqui = mPonteiroDados + (proc_item * DG.BLOCO);
                     e.identifique("RefPtr").setLong(eLocalAqui);
 
-                    System.out.println("Item inserindo " + mPaginaID + " :: " + proc_item + " :: " + v + " -->> tipo : " + e.toString().replace("\n", ""));
+                    // System.out.println("Item inserindo " + mPaginaID + " :: " + proc_item + " ::
+                    // " + v + " -->> tipo : " + e.toString().replace("\n", ""));
 
                     mDG.getArquivador().setPonteiro(eLocalAqui);
                     mDG.getArquivador().writeByte((byte) OCUPADO);
@@ -78,7 +77,6 @@ public class DGPagina {
                     inserido = true;
                     break;
                 }
-
 
             }
 
@@ -89,7 +87,6 @@ public class DGPagina {
         } else {
             System.out.println("DG [ ERRO ] Objeto muito grande :: " + e.toString());
         }
-
 
     }
 
