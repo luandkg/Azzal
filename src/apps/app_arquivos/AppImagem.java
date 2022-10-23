@@ -10,9 +10,9 @@ import azzal.Windows;
 import libs.Imaginador.Efeitos;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import azzal_ui.Interface.Acao;
-import azzal_ui.Interface.BotaoCor;
-import azzal_ui.Interface.Clicavel;
+import mockui.Interface.Acao;
+import mockui.Interface.BotaoCor;
+import mockui.Interface.Clicavel;
 
 import java.awt.image.BufferedImage;
 

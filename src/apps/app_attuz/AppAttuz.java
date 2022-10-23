@@ -1,21 +1,29 @@
 package apps.app_attuz;
 
+import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Assessorios.MapaUtilitario;
 import apps.app_attuz.Assessorios.Nivelador;
-import apps.app_attuz.Camadas.EscalasPadroes;
-import apps.app_attuz.Mapa.*;
-import apps.app_attuz.Politicamente.Cidades;
-import apps.app_attuz.Politicamente.ListaDeCidades;
-import apps.app_attuz.Politicamente.NomesEspecificos;
+import apps.app_attuz.Assessorios.EscalasPadroes;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Ferramentas.Caminho;
+import apps.app_attuz.Ferramentas.Local;
+import apps.app_attuz.Widgets.ListaDeCidades;
+import apps.app_attuz.Widgets.NomesEspecificos;
+import apps.app_attuz.Regiao.Regiao;
+import apps.app_attuz.Regiao.Regionalizador;
 import apps.app_attuz.Servicos.*;
-import apps.app_attuz.Widgets.Distanciador;
+import apps.app_attuz.Viagem.RealizarViagem;
+import apps.app_attuz.Viagem.Viagem;
+import apps.app_attuz.Viagem.Viajante;
+import apps.app_attuz.Widgets.*;
+import libs.Arquivos.PreferenciasOrganizadas;
 import libs.Arquivos.QTT;
 import azzal.*;
-import libs.Servittor.Servittor;
-import azzal_ui.Interface.Acao;
-import azzal_ui.Interface.BotaoCor;
-import azzal_ui.Interface.Clicavel;
+import mockui.Interface.Acao;
+import mockui.Interface.BotaoCor;
+import mockui.Interface.Clicavel;
 import apps.app_attuz.Localizador.DroneCamera;
 import azzal.cenarios.Cena;
 import azzal.geometria.Ponto;
@@ -51,8 +59,8 @@ public class AppAttuz extends Cena {
     private Viajante EU;
     private Viagem mViagem;
 
-    private int X0 = -20;
-    private int Y0 = 100;
+    private int X0 = 400;
+    private int Y0 = 130;
 
     private int raio = 150;
 
@@ -77,8 +85,8 @@ public class AppAttuz extends Cena {
     private int mPosicaoX = 0;
     private int mPosicaoY = 0;
     private String mValorSelecionado = "";
-
-
+    private String mLocalSelecionado = "";
+    private String mRegiaoSelecionada = "";
     private RealizarViagem mRealizarViagem;
     private HiperMarkattor mHiperMarkattor;
 
@@ -86,32 +94,22 @@ public class AppAttuz extends Cena {
     private Escolhettor mEscolhettor;
     private Distanciador mDistanciador;
 
-    // private BufferedImage marcador = Efeitos.reduzirComAlfa(ImageUtils.getImagem("/home/luan/Imagens/icones_mapa/marcador_32.png"), 30, 30);
     private BufferedImage marcador = ImageUtils.getImagem("/home/luan/Imagens/icones_mapa/marcador_32.png");
+
+    private Oceanografia mOceanografia;
+    private Regionalizador mRegionalizador;
+    private OpcionadorObrigatorio mOpcionadorObrigatorio;
+    private boolean tem_posicao;
 
     @Override
     public void iniciar(Windows eWindows) {
 
-        // simplificar();
+        //simplificar();
 
         mCores = new Cores();
 
-        mapa = ImageUtils.getImagem(LOCAL + "mapa.png");
-
-
-        //   mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
-
-        mapa = Efeitos.preto_branco(mapa);
-
-        mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
-        mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
-
+        mapa = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
         mImagemDrone = ImageUtils.getCopia(mapa);
-
-        //Territorios.init(mapa);
-        // Biomas.init(mapa);
-
-        //Relevo.init(mapa);
 
 
         mClicavel = new Clicavel();
@@ -140,52 +138,46 @@ public class AppAttuz extends Cena {
 
         mNomear = new NomesEspecificos(mCores);
 
-        Cidades.marcar(mLocais, mMares);
-        Cidades.ligar(mLocais, mCaminhos);
+        Arkazz eArkazz = new Arkazz();
+        mLocais = eArkazz.getCidades();
+        mMares = eArkazz.getOceanos();
 
-        BotaoCor BTN_IR = mClicavel.criarBotaoCor(new BotaoCor(500, 50, 50, 50, new Cor(26, 188, 156)));
 
-        BTN_IR.setAcao(new Acao() {
-            @Override
-            public void onClique() {
-                EU.mudar();
-            }
-        });
+        mOceanografia = new Oceanografia(mMares);
+        mOpcionadorObrigatorio = new OpcionadorObrigatorio(600, 20);
+
+        mOpcionadorObrigatorio.setCabecalho("TIPO DE MAPA : ");
+
+        Cor cor_normal = new Cor(255, 200, 200);
+        Cor cor_selecionado = new Cor(255, 0, 0);
+
+        mOpcionadorObrigatorio.adicionar("REGIÃO", cor_normal, cor_selecionado);
+        mOpcionadorObrigatorio.adicionar("RELEVO", cor_normal, cor_selecionado);
+        mOpcionadorObrigatorio.adicionar("RELEVO TERRA", cor_normal, cor_selecionado);
+        mOpcionadorObrigatorio.adicionar("RELEVO OCEANO", cor_normal, cor_selecionado);
+
+        boolean criar_eu = false;
+
+        if (criar_eu) {
+
+            BotaoCor BTN_IR = mClicavel.criarBotaoCor(new BotaoCor(500, 50, 50, 50, new Cor(26, 188, 156)));
+
+            BTN_IR.setAcao(new Acao() {
+                @Override
+                public void onClique() {
+                    EU.mudar();
+                }
+            });
+
+        }
+
 
         mNivelador = new Nivelador();
 
-        mEscolhettor = new Escolhettor(2000, 900, mNivelador, mClicavel, mRelevo);
+        mEscolhettor = new Escolhettor(2500, 900, mNivelador, mClicavel, mRelevo);
 
 
-        boolean CRIAR = false;
-
-        if (CRIAR == true) {
-
-            while (mViagem.getTempo() < 3000) {
-                mViagem.viajar(EU, mLocais);
-
-                System.out.println(mViagem.getTempo() + " de 10000");
-            }
-
-            mViagem.salvar("/home/luan/Documentos/viagem_ovkom.txt");
-            mViagem.marcarCidades("/home/luan/Documentos/viagem_ovkom.txt", mLocais);
-
-            mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7002");
-            mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7003");
-            mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7004");
-            // mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7005");
-            // mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7006");
-            // mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7007");
-            //  mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7008");
-            // mViagem.separar("/home/luan/Documentos/viagem_ovkom.txt", "7009");
-
-        } else {
-
-
-            // mViagem.abrir("/home/luan/Documentos/viagem_ovkom.txt");
-            mViagem.abrir("/home/luan/Documentos/t7002.txt");
-
-        }
+        mViagem.abrir("/home/luan/Documentos/t7002.txt");
 
 
         System.out.println("libs.Tronarko :: " + Tronarko.getAgora());
@@ -196,39 +188,13 @@ public class AppAttuz extends Cena {
 
         // expo();
 
-        //  Cidades.salvar(mLocais, LOCAL + "cidades.dkg");
-        // Cidades.salvar(mMares, LOCAL + "mares.dkg");
-
-
-        boolean GERAR = false;
-        boolean DADOS = false;
-
-
-        if (GERAR) {
-            Servittor.onServico("Relevo", new Relevo(LOCAL));
-        }
-
-        if (DADOS) {
-            //  libs.Servittor.onServico("Cartografia", new Cartografia(LOCAL));
-            //  libs.Servittor.onServico("ProximidadeDoMar", new ProximidadeDoMar(LOCAL));
-            Servittor.onServico("Temperatura", new Temperatura(LOCAL));
-            Servittor.onServico("Massas de Agua", new Umidade(LOCAL));
-        }
-
-
-        //mapa = ImageUtils.getImagem("/home/luan/Imagens/Mapas/relevo/relevo.png");
-        // mapa = Efeitos.preto_branco(mapa);
-
-        //mapa = Cartografia.aplicarLatitudes(LOCAL,mapa);
 
         mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
 
 
         mPreferencias = new Preferencias(LOCAL);
 
-
         // GuiaDeViagem.organizar();
-
         // GuiaDeViagem.passei(eTronarko.getTozte(),eTronarko.getHazde());
 
         mRealizarViagem = new RealizarViagem();
@@ -246,6 +212,18 @@ public class AppAttuz extends Cena {
 
         mDistanciador = new Distanciador(mClicavel);
 
+        mRegionalizador = new Regionalizador(LOCAL);
+
+
+        PreferenciasOrganizadas pref = new PreferenciasOrganizadas(LOCAL + "conf.po");
+        pref.abrirSeExistir();
+
+        mOpcionadorObrigatorio.setSelecionado(pref.getOpcao("Mapa", "Modo"));
+
+        alterar_mapa();
+
+        tem_posicao = false;
+
     }
 
 
@@ -258,6 +236,7 @@ public class AppAttuz extends Cena {
 
         X0 = 500;
         Y0 = 200;
+
         mostrarCidades = false;
 
     }
@@ -293,11 +272,29 @@ public class AppAttuz extends Cena {
 
         mClicavel.update(dt, px, py, getWindows().getMouse().isClicked());
 
+        mOpcionadorObrigatorio.update(dt, px, py, getWindows().getMouse().isClicked());
+
+        if (mOpcionadorObrigatorio.isAlterado()) {
+
+            PreferenciasOrganizadas pref = new PreferenciasOrganizadas(LOCAL + "conf.po");
+            pref.abrirSeExistir();
+
+            pref.setOpcao("Mapa", "Modo", mOpcionadorObrigatorio.getSelecionado());
+            pref.salvar();
+
+            alterar_mapa();
+
+        }
+
         mPosicaoX = 0;
         mPosicaoY = 0;
         mValorSelecionado = "";
 
+        tem_posicao = false;
+
         if (px > X0 && py >= Y0 && px < (mapa.getWidth() + X0) && py < (mapa.getHeight() + Y0)) {
+
+            tem_posicao = true;
 
             int agoraX = (px - X0) * 2;
             int agoraY = (py - Y0) * 2;
@@ -307,7 +304,17 @@ public class AppAttuz extends Cena {
                 mPosicaoX = agoraX;
                 mPosicaoY = agoraY;
 
-                mValorSelecionado = String.valueOf(QTT.pegar(LOCAL + "dados/relevo.qtt", mPosicaoX, mPosicaoY));
+                int altitude = QTT.pegar(LOCAL + "dados/relevo.qtt", mPosicaoX, mPosicaoY);
+
+                mValorSelecionado = String.valueOf(altitude);
+
+                if (altitude >= 0) {
+                    mLocalSelecionado = "Continente";
+                    mRegiaoSelecionada = mRegionalizador.getRegiao(mPosicaoX / 2, mPosicaoY / 2);
+                } else {
+                    mLocalSelecionado = "Oceano";
+                    mRegiaoSelecionada = mOceanografia.getOceanoProximo(mPosicaoX / 2, mPosicaoY / 2);
+                }
 
 
             }
@@ -322,7 +329,7 @@ public class AppAttuz extends Cena {
         }
 
 
-        mRealizarViagem.viajar(eTronarko, mViagem, EU, mLocais);
+       // mRealizarViagem.viajar(eTronarko, mViagem, EU, mLocais);
 
 
         if (mClicavel.getClicado()) {
@@ -331,12 +338,7 @@ public class AppAttuz extends Cena {
             mHiperMarkattor.localizar(px, py, getWindows().getMouse().isMovendo(), getWindows().getMouse().getDeltaX(), getWindows().getMouse().getDeltaY());
 
             if (getWindows().getMouse().isClicked()) {
-
-                mPreferencias.mMostrarMarcadores.foiClicado(px - 3, py - 5);
-                mPreferencias.mMostrarCidades.foiClicado(px - 3, py - 5);
-                mPreferencias.mMostrarMares.foiClicado(px - 3, py - 5);
-                mPreferencias.mMostrarPontosCidades.foiClicado(px - 3, py - 5);
-
+                mPreferencias.onClique(px, py);
             }
 
         }
@@ -366,22 +368,14 @@ public class AppAttuz extends Cena {
         pequeno.setRenderizador(g);
         hipermicro.setRenderizador(g);
 
-        pequeno.escreva(2000, 700, " X = " + mPosicaoX + " Y = " + mPosicaoY );
-        pequeno.escreva(2050, 720, " ALTITUDE : " + mValorSelecionado + " m");
+        if (tem_posicao) {
+
+            pequeno.escreva(2500, 800, " X = " + mPosicaoX + " Y = " + mPosicaoY);
+            pequeno.escreva(2550, 820, " ALTITUDE : " + mValorSelecionado + " m");
+            pequeno.escreva(2550, 840, " LOCAL : " + mLocalSelecionado);
+            pequeno.escreva(2550, 860, " REGIAO : " + mRegiaoSelecionada);
 
 
-        int uu = mViagem.getPercurso().size();
-        int ui = 0;
-
-        for (Ponto ePonto : mViagem.getPercurso()) {
-            ui += 1;
-
-            g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 2, 2, mCores.getLaranja());
-
-            if (ui >= uu) {
-                //  g.setColor(Color.blue);
-                // g.fillRect(ePonto.getX() + X0, ePonto.getY() + Y0, 10, 10);
-            }
         }
 
 
@@ -452,6 +446,25 @@ public class AppAttuz extends Cena {
                 g.drawRect_Pintado(ePonto.getX() + X0 - 20, ePonto.getY() + Y0, micro.getLarguraDe(ePonto.getNome()) + 2, (micro.getAltura() * 2) - 2, mCores.getLaranja());
                 micro.escreva(ePonto.getX() + X0 - 20, ePonto.getY() + Y0, ePonto.getNome());
 
+            }
+
+        }
+
+        if (mPreferencias.mMostrarEU.getValor()) {
+
+
+            int uu = mViagem.getPercurso().size();
+            int ui = 0;
+
+            for (Ponto ePonto : mViagem.getPercurso()) {
+                ui += 1;
+
+                g.drawRect_Pintado(ePonto.getX() + X0, ePonto.getY() + Y0, 2, 2, mCores.getLaranja());
+
+                if (ui >= uu) {
+                    //  g.setColor(Color.blue);
+                    // g.fillRect(ePonto.getX() + X0, ePonto.getY() + Y0, 10, 10);
+                }
             }
 
         }
@@ -544,8 +557,21 @@ public class AppAttuz extends Cena {
             g.drawImagemComAlfa((mDistanciador.getP2().getX() / 2) + X0 - 15, (mDistanciador.getP2().getY() / 2) + Y0 - 30, marcador);
         }
 
+        mOpcionadorObrigatorio.draw(g);
 
-        pequeno.escreva(2000, 970, "Luan Freitas - AZZAL UI :: MAPA ATTUZ 1.0");
+        int py = 50;
+
+        for (Regiao eRegiao : mRegionalizador.getRegioes()) {
+
+            g.drawRect_Pintado(2830, py, 20, 20, eRegiao.getCor());
+            pequeno.escreva(2860, py, eRegiao.getNome());
+
+            py += 30;
+
+        }
+
+
+        pequeno.escreva(2500, 970, "Luan Freitas - AZZAL UI :: MAPA ATTUZ 1.0");
 
 
         if (!printou) {
@@ -555,5 +581,72 @@ public class AppAttuz extends Cena {
 
     }
 
+    public void alterar_mapa() {
 
+        System.out.println("Alterado :: " + mOpcionadorObrigatorio.getSelecionado());
+
+        if (mOpcionadorObrigatorio.getSelecionado().contentEquals("REGIÃO")) {
+
+            mapa = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
+            mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+
+            //mapa = apenas_regiao(mapa, "Skor");
+
+        } else if (mOpcionadorObrigatorio.getSelecionado().contentEquals("RELEVO")) {
+
+            mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
+            mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+
+        } else if (mOpcionadorObrigatorio.getSelecionado().contentEquals("RELEVO TERRA")) {
+
+            mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
+            mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+
+        } else if (mOpcionadorObrigatorio.getSelecionado().contentEquals("RELEVO OCEANO")) {
+
+            mapa = ImageUtils.getImagem(LOCAL + "build/agua.png");
+            mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+
+        }
+
+    }
+
+    public static BufferedImage apenas_regiao(BufferedImage origem, String regiao) {
+
+        String LOCAL = "/home/luan/Imagens/Arkazz/";
+
+        Regionalizador r = new Regionalizador(LOCAL);
+        Massas m = MassasDados.getTerraAgua(LOCAL);
+
+
+        int valor = 0;
+
+        for (Regiao rr : r.getRegioes()) {
+            if (rr.getNome().contentEquals(regiao)) {
+                valor = rr.getCor().getValor();
+                break;
+            }
+        }
+
+        BufferedImage copia = ImageUtils.getCopia(origem);
+        for (int x = 0; x < copia.getWidth(); x++) {
+            for (int y = 0; y < copia.getHeight(); y++) {
+
+
+                int vc = copia.getRGB(x, y);
+                if (vc == valor) {
+
+                } else {
+
+                    vc = Color.WHITE.getRGB();
+
+                    copia.setRGB(x, y, vc);
+                }
+
+
+            }
+        }
+
+        return copia;
+    }
 }

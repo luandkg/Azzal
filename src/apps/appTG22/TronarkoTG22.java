@@ -21,6 +21,7 @@ public class TronarkoTG22 {
 
 
     private FonteDupla mTextoGrande;
+    private FonteDupla mTextoMuitoGrande;
 
     private FonteDupla mTextoPequeno;
 
@@ -39,7 +40,9 @@ public class TronarkoTG22 {
 
         mCores = new Cores();
 
+        mTextoMuitoGrande= new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 25);
         mTextoGrande = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 20);
+
         mTextoPequeno = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 11);
         mTextoPequenoBranco = new FonteRunTime(mCores.getBranco(), 11);
         mTextoMicroBranco = new FonteRunTime(mCores.getBranco(), 11);
@@ -54,7 +57,7 @@ public class TronarkoTG22 {
         mHoje = mTronarkum.getTozte();
     }
 
-    public void draw(Renderizador r, ArrayList<Ficha> projeto, ArrayList<Ficha> interompidos, double META_ALTURA, double META_PESO) {
+    public void draw(Renderizador r, ArrayList<Ficha> projeto, ArrayList<Tozte> interrompidos, ArrayList<Tozte> toztes_personal, double META_ALTURA, double META_PESO) {
 
 
         r.limpar(mCores.getBranco());
@@ -65,51 +68,77 @@ public class TronarkoTG22 {
         mTextoPequenoBranco.setRenderizador(r);
         mTextoMicroBranco.setRenderizador(r);
 
-
+        mTextoMuitoGrande.setRenderizador(r);
         mTextoGrande.escreva(20, 20, "PROJETO TG22 - LUAN FREITAS");
 
 
         ArrayList<TozteCor> mInfos = new ArrayList<TozteCor>();
 
+        StringTronarko st = new StringTronarko();
+
+        for (Tozte f : toztes_personal) {
+            mInfos.add(new TozteCor("personal", f, Cor.getHexCor("#7CB342").toColor()));
+        }
+
+        for (Tozte f : interrompidos) {
+            mInfos.add(new TozteCor("interrompido", f, new Color(250, 50, 23)));
+        }
+
         if (projeto.size() > 0) {
 
-            StringTronarko st = new StringTronarko();
 
             Tozte ultimo = st.parseTozte(projeto.get(0).getTozte());
             Tozte primeiro = st.parseTozte(projeto.get(projeto.size() - 1).getTozte());
 
             while (primeiro.isMenorIgualQue(ultimo)) {
-                mInfos.add(new TozteCor("appTG22", primeiro, new Color(255, 165, 23)));
+                mInfos.add(new TozteCor("TG22", primeiro, new Color(255, 165, 23)));
                 primeiro = primeiro.adicionar_Superarko(1);
             }
 
 
         }
 
-        StringTronarko st = new StringTronarko();
-
-        for (Ficha f : interompidos) {
-            mInfos.add(new TozteCor("appTG22", st.getTozteDeComplexo(f.getTozte()), new Color(250, 50, 23)));
-        }
+        int CAIXA_PRIMEIRA_X = 40;
+        int CAIXA_SEGUNDA_X = 500;
 
         int CAIXA_X = 40;
-        int CAIXA_Y = 90;
+        int CAIXA_Y = 60;
 
         int CAIXA_ALTURA = 190;
 
-        draw_hiperarko(r, mHoje, mInfos, 1, 0, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 3, 1, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 5, 2, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 7, 3, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 9, 4, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+
+        int TRONARKO_PRIMEIRO = mHoje.getTronarko();
+        int TRONARKO_SEGUNDO = TRONARKO_PRIMEIRO + 1;
+
+
+        mTextoMuitoGrande.escreva(CAIXA_X - 10, CAIXA_Y, String.valueOf(TRONARKO_PRIMEIRO));
+
+        CAIXA_Y+=40;
+
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 1, 0, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 3, 1, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 5, 2, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 7, 3, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 9, 4, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
 
         CAIXA_X = 500;
 
-        draw_hiperarko(r, mHoje, mInfos, 2, 0, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 4, 1, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 6, 2, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 8, 3, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
-        draw_hiperarko(r, mHoje, mInfos, 10, 4, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 2, 0, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 4, 1, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 6, 2, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 8, 3, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 10, 4, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
+
+
+        CAIXA_Y = 1050;
+
+        mTextoMuitoGrande.escreva(CAIXA_PRIMEIRA_X - 10, CAIXA_Y, String.valueOf(TRONARKO_SEGUNDO));
+        CAIXA_Y+=40;
+
+
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_SEGUNDO, 1, 0, CAIXA_PRIMEIRA_X, CAIXA_Y, CAIXA_ALTURA);
+        draw_hiperarko(r, mHoje, mInfos, TRONARKO_SEGUNDO, 2, 0, CAIXA_SEGUNDA_X, CAIXA_Y, CAIXA_ALTURA);
+
 
         int RX = 950;
         int RY = 90;
@@ -163,7 +192,10 @@ public class TronarkoTG22 {
                 mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- DURAÇÃO   ", IntTronarko.getSuperarkosDiferenca(comecou, eTronarko.getTozte().toString()) + " superarkos !");
                 RY += 20;
 
-                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INTERROMPIDO   ", interompidos.size() + " superarkos !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INTERROMPIDO   ", interrompidos.size() + " superarkos !");
+                RY += 20;
+
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- PERSONAL   ", toztes_personal.size() + " superarkos !");
                 RY += 20;
 
             } else {
@@ -267,9 +299,8 @@ public class TronarkoTG22 {
         return ret;
     }
 
-    public void draw_hiperarko(Renderizador r, Tozte Hoje, ArrayList<TozteCor> mInfos, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
+    public void draw_hiperarko(Renderizador r, Tozte Hoje, ArrayList<TozteCor> mInfos, int eTronarko, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
 
-        int eTronarko = Hoje.getTronarko();
 
         if (Hoje.getHiperarko() == (mHiperarko)) {
             mTextoGrande.escrevaSelecionada(CAIXA_X - 10, (CAIXA_ALTURA * Faixador) + CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));

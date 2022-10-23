@@ -1,6 +1,7 @@
 package apps.appLetrum;
 
-import libs.OLLT.Texto;
+
+import libs.Luan.ArquivoTexto;
 
 import java.util.ArrayList;
 
@@ -279,7 +280,7 @@ public class GeradorDeFonte {
 
         eFonte += "\n}";
 
-        Texto.Escrever(eArquivo, eFonte);
+        ArquivoTexto.arquivo_escrever(eArquivo, eFonte);
 
 
     }

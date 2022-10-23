@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
-import apps.app_attuz.Camadas.CadaPonto;
-import apps.app_attuz.Camadas.Massas;
+import apps.app_attuz.Assessorios.CadaPonto;
+import apps.app_attuz.Assessorios.Massas;
 import azzal.geometria.Ponto;
 
 import java.util.ArrayList;

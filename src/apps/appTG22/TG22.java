@@ -19,8 +19,14 @@ public class TG22 {
     public static void init() {
 
         ArrayList<Ficha> projeto = iniciar_projeto();
+        ArrayList<Tozte> interrompidos = new ArrayList<Tozte>();
+        ArrayList<Tozte> personal = new ArrayList<Tozte>();
 
-        interromper(Tronarko.getData(15, 5, 2022), Tronarko.getData(29, 5, 2022), projeto);
+        periodo(Tronarko.getData(15, 5, 2022), Tronarko.getData(29, 5, 2022), projeto, interrompidos);
+
+        periodo(Tronarko.getData(20, 6, 2022), Tronarko.getData(22, 10, 2022), projeto, personal);
+
+        cadastrar("43/10/7002", 1.60, 68.0, projeto);
 
         cadastrar("32/07/7002", 1.60, 71.0, projeto);
 
@@ -47,10 +53,10 @@ public class TG22 {
 
         TronarkoTG22 t = new TronarkoTG22();
 
-        Renderizador rr = Renderizador.construir(1600, 1100);
+        Renderizador rr = Renderizador.construir(1600, 1300);
 
 
-        t.draw(rr, toFicharios(projeto), toInterrompidos(projeto), META_ALTURA, META_PESO);
+        t.draw(rr, toFicharios(projeto), interrompidos, personal, META_ALTURA, META_PESO);
 
         rr.exportarSemAlfa("/home/luan/Imagens/TG22.png");
         rr.exportarSemAlfa("/home/luan/Dropbox/TG22.png");
@@ -89,12 +95,13 @@ public class TG22 {
         return ret;
     }
 
-    public static void interromper(Tozte eTozte, Tozte eFim, ArrayList<Ficha> historico) {
+    public static void periodo(Tozte eTozte, Tozte eFim, ArrayList<Ficha> historico, ArrayList<Tozte> interrompido) {
 
         Tozte passando = eTozte.getCopia();
 
         while (passando.isMenorIgualQue(eFim)) {
             historico.add(new Ficha(passando.getTextoZerado()));
+            interrompido.add(passando.getCopia());
             passando = passando.adicionar_Superarko(1);
         }
 

@@ -2,8 +2,8 @@ package libs.dkg;
 
 import libs.dkg.IO.EscritorDKG;
 import libs.dkg.IO.ParserDKG;
-import libs.OLLT.Texto;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class DKG {
@@ -16,34 +16,60 @@ public class DKG {
 
     }
 
-    // IO
 
-    public void abrir(String eArquivo){
-        ParserDKG parserDKGC = new ParserDKG();
-        parserDKGC.parse(Texto.Ler(eArquivo), this);
+    // ESTATICOS
+
+    public static DKG ABRIR_DO_ARQUIVO(String eArquivo) {
+        DKG eDKG = new DKG();
+        File arq = new File(eArquivo);
+
+        if (arq.exists()) {
+            eDKG.abrir(eArquivo);
+        }
+
+        return eDKG;
+    }
+
+    public static DKG PARSER(String dados) {
+        DKG eDKG = new DKG();
+        eDKG.parser(dados);
+        return eDKG;
+    }
+
+    public static DKGObjeto PARSER_TO_OBJETO(String dados, String eObjeto) {
+        DKG eDKG = new DKG();
+        eDKG.parser(dados);
+        return eDKG.unicoObjeto(eObjeto);
     }
 
 
-    public void parser(String eTexto){
+    // IO
+
+    public void abrir(String eArquivo) {
+        ParserDKG parserDKGC = new ParserDKG();
+        parserDKGC.parse(arquivo_ler(eArquivo), this);
+    }
+
+
+    public void parser(String eTexto) {
         ParserDKG parserDKGC = new ParserDKG();
         parserDKGC.parse(eTexto, this);
     }
 
-    public void salvar(String eArquivo){
+    public void salvar(String eArquivo) {
 
         EscritorDKG escritor = new EscritorDKG();
-        escritor.montar( "", mDKGObjetos);
+        escritor.montar("", mDKGObjetos);
 
-        Texto.Escrever(eArquivo, escritor.getTexto());
+        arquivo_escrever(eArquivo, escritor.getTexto());
     }
-
 
 
     public String toString() {
 
         EscritorDKG escritor = new EscritorDKG();
 
-        escritor.montar( "", mDKGObjetos);
+        escritor.montar("", mDKGObjetos);
 
         return escritor.getTexto();
     }
@@ -51,7 +77,9 @@ public class DKG {
 
     // OBJETO
 
-    public ArrayList<DKGObjeto> getObjetos(){return mDKGObjetos;}
+    public ArrayList<DKGObjeto> getObjetos() {
+        return mDKGObjetos;
+    }
 
     public DKGObjeto criarObjeto(String eNome) {
 
@@ -76,7 +104,7 @@ public class DKG {
 
         }
 
-        if (enc == false) {
+        if (!enc) {
             ret = new DKGObjeto(eNome);
             mDKGObjetos.add(ret);
         }
@@ -109,4 +137,55 @@ public class DKG {
         }
 
     }
+
+
+    private static void arquivo_escrever(String eArquivo, String eConteudo) {
+
+        BufferedWriter writer = null;
+        try {
+            File logFile = new File(eArquivo);
+
+            writer = new BufferedWriter(new FileWriter(logFile));
+            writer.write(eConteudo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
+    private static String arquivo_ler(String eArquivo) {
+
+        String ret = "";
+
+        try {
+            FileReader arq = new FileReader(eArquivo);
+            BufferedReader lerArq = new BufferedReader(arq);
+
+            String linha = lerArq.readLine();
+
+            ret += linha;
+
+            while (linha != null) {
+
+                linha = lerArq.readLine();
+                if (linha != null) {
+                    ret += "\n" + linha;
+                }
+
+            }
+
+            arq.close();
+        } catch (IOException e) {
+
+        }
+
+        return ret;
+    }
+
 }

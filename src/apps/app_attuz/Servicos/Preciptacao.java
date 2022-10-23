@@ -2,12 +2,11 @@ package apps.app_attuz.Servicos;
 
 
 import apps.app_attuz.Assessorios.Progressante;
-import apps.app_attuz.Camadas.CadaPonto;
-import apps.app_attuz.Camadas.DadosQTT;
-import apps.app_attuz.Camadas.MapaFolha;
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Camadas.EscalasPadroes;
+import apps.app_attuz.Assessorios.CadaPonto;
+import apps.app_attuz.Assessorios.DadosQTT;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.Legendas.Legendar;
@@ -83,7 +82,8 @@ public class Preciptacao extends Servico {
         });
 
 
-        BufferedImage mRenderizado = MapaRender.renderizaImagem(MapaFolha.getMapa(LOCAL), tectonica, tectonica.getTerra(), preciptacao_massa, mEscala);
+
+        BufferedImage mRenderizado = MapaRender.renderizaImagem(ImageUtils.getImagem(LOCAL + "build/planeta.png"), tectonica, tectonica.getTerra(), preciptacao_massa, mEscala);
 
         System.out.println("Guardar Preciptacao - QTT");
         MassaToQTT.salvarTerra(tectonica, preciptacao_massa.getDados(), LOCAL + "dados/preciptacao.qtt");

@@ -20,10 +20,10 @@ import libs.tronarko.Eventos.Momentum;
 import libs.tronarko.Satelites.*;
 import libs.tronarko.Utils.TozteCor;
 import libs.tronarko.Utils.TronarkoFalsum;
-import azzal_ui.Interface.Acao;
-import azzal_ui.Interface.BotaoCor;
-import azzal_ui.Interface.Clicavel;
-import azzal_ui.Marcador;
+import mockui.Interface.Acao;
+import mockui.Interface.BotaoCor;
+import mockui.Interface.Clicavel;
+import mockui.Marcador;
 
 
 import java.util.ArrayList;

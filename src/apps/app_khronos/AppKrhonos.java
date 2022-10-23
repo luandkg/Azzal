@@ -10,8 +10,8 @@ import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.OLLT.Texto;
-import azzal_ui.Interface.Clicavel;
+import libs.Luan.ArquivoTexto;
+import mockui.Interface.Clicavel;
 
 
 public class AppKrhonos extends Cena {
@@ -76,7 +76,7 @@ public class AppKrhonos extends Cena {
 
         mArquivo = eArquivo;
 
-        String doc = Texto.Ler(eArquivo);
+        String doc = ArquivoTexto.arquivo_ler(eArquivo);
         mEditorDeTexto.setTexto(doc);
         mEditorDeTexto.update();
         mEditorDeTexto.organizarTexto();
@@ -140,7 +140,7 @@ public class AppKrhonos extends Cena {
 
                 } else if (comando.contentEquals("sv")) {
 
-                    Texto.Escrever(mArquivo,mEditorDeTexto.getTexto());
+                    ArquivoTexto.arquivo_escrever(mArquivo,mEditorDeTexto.getTexto());
 
 
                 } else if (comando.contentEquals("editar")) {

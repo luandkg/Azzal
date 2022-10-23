@@ -19,9 +19,9 @@ import libs.tronarko.Hazde;
 import libs.tronarko.Eventos.Eventum;
 import libs.tronarko.Agenda.Alarme;
 
-import azzal_ui.Interface.Acao;
-import azzal_ui.Interface.BotaoCor;
-import azzal_ui.Interface.Clicavel;
+import mockui.Interface.Acao;
+import mockui.Interface.BotaoCor;
+import mockui.Interface.Clicavel;
 
 public class AppLinhaDoTempo extends Cena {
 

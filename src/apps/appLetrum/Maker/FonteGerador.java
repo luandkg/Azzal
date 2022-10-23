@@ -1,6 +1,6 @@
 package apps.appLetrum.Maker;
 
-import libs.OLLT.Texto;
+import libs.Luan.ArquivoTexto;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -295,7 +295,7 @@ public class FonteGerador {
         eDocumentoJAVA += "\n}";
 
 
-        Texto.Escrever(eArquivoJAVA, eDocumentoJAVA);
+        ArquivoTexto.arquivo_escrever(eArquivoJAVA, eDocumentoJAVA);
 
     }
 

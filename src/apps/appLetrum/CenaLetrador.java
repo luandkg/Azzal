@@ -8,7 +8,7 @@ import azzal.Teclado;
 import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.OLLT.Texto;
+import libs.Luan.ArquivoTexto;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
@@ -241,14 +241,14 @@ public class CenaLetrador extends Cena {
                     tAcima += eAcima + " ";
                 }
 
-                Texto.Escrever("res/acima.txt", tAcima);
+                ArquivoTexto.arquivo_escrever("res/acima.txt", tAcima);
 
                 String tAbaixo = "";
                 for (Integer eAcima : mAbaixo) {
                     tAbaixo += eAcima + " ";
                 }
 
-                Texto.Escrever("res/abaixo.txt", tAbaixo);
+                ArquivoTexto.arquivo_escrever("res/abaixo.txt", tAbaixo);
 
 
             }
@@ -283,7 +283,7 @@ public class CenaLetrador extends Cena {
     }
 
     public void carregarAcima() {
-        String tAcima = Texto.Ler("res/acima.txt");
+        String tAcima = ArquivoTexto.arquivo_ler("res/acima.txt");
         int i = 0;
         int o = tAcima.length();
         String mCorrente = "";
@@ -304,7 +304,7 @@ public class CenaLetrador extends Cena {
     }
 
     public void carregarAbaixo() {
-        String tAbaixo = Texto.Ler("res/abaixo.txt");
+        String tAbaixo = ArquivoTexto.arquivo_ler("res/abaixo.txt");
         int i = 0;
         int o = tAbaixo.length();
         String mCorrente = "";

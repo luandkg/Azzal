@@ -35,24 +35,24 @@ public class SalvamentoReduzido {
       //  return e;
     }
 
-    private void Identificadores(ITexto ITextoC, ArrayList<Identificador> mIdentificadores) {
+    private void Identificadores(TextoDocumento TextoDocumentoC, ArrayList<Identificador> mIdentificadores) {
 
         for (Identificador IdentificadorC : mIdentificadores) {
 
-            ITextoC.Adicionar( " ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
+            TextoDocumentoC.Adicionar( " ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
                     + Codifica(IdentificadorC.getValor()) + "\" ");
 
         }
 
     }
 
-    private void Listas(ITexto ITextoC, ArrayList<Lista> mListas) {
+    private void Listas(TextoDocumento TextoDocumentoC, ArrayList<Lista> mListas) {
 
         for (Lista ListaC : mListas) {
 
             if (ListaC.getItens().size() == 0) {
 
-                ITextoC.Adicionar( " LISTA " + Codifica(ListaC.getNome()) + " { } ");
+                TextoDocumentoC.Adicionar( " LISTA " + Codifica(ListaC.getNome()) + " { } ");
 
             } else {
 
@@ -64,7 +64,7 @@ public class SalvamentoReduzido {
 
                 }
 
-                ITextoC.Adicionar( " LISTA " + Codifica(ListaC.getNome()) + " { " + Itens + " } ");
+                TextoDocumentoC.Adicionar( " LISTA " + Codifica(ListaC.getNome()) + " { " + Itens + " } ");
 
             }
 
@@ -72,28 +72,28 @@ public class SalvamentoReduzido {
 
     }
 
-    private void Comentarios(ITexto ITextoC, ArrayList<Comentario> mComentarios) {
+    private void Comentarios(TextoDocumento TextoDocumentoC, ArrayList<Comentario> mComentarios) {
 
         for (Comentario ComentarioC : mComentarios) {
 
-            ITextoC.Adicionar( " -- " + Codifica(ComentarioC.getNome()) + " : " + "\""
+            TextoDocumentoC.Adicionar( " -- " + Codifica(ComentarioC.getNome()) + " : " + "\""
                     + Codifica(ComentarioC.getValor()) + "\" --");
 
         }
 
     }
 
-    public void Objetos(ITexto ITextoC, ArrayList<Objeto> mObjetos) {
+    public void Objetos(TextoDocumento TextoDocumentoC, ArrayList<Objeto> mObjetos) {
 
         for (Objeto ObjetoC : mObjetos) {
 
 
 
-            ITextoC.Adicionar( " OBJETO " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.Adicionar( " OBJETO " + ObjetoC.getNome() + " { ");
 
             for (Identificador IdentificadorC : ObjetoC.getIdentificadores()) {
 
-                ITextoC.Adicionar( " ID " + IdentificadorC.getNome() + " = " + "\""
+                TextoDocumentoC.Adicionar( " ID " + IdentificadorC.getNome() + " = " + "\""
                         + IdentificadorC.getValor() + "\"");
 
             }
@@ -116,7 +116,7 @@ public class SalvamentoReduzido {
                     i += 1;
                 }
 
-                ITextoC.Adicionar(
+                TextoDocumentoC.Adicionar(
                          " LISTA " + Codifica(ListaC.getNome()) + " = { " + Itens + "} ");
 
             }
@@ -125,22 +125,22 @@ public class SalvamentoReduzido {
 
             for (Comentario ComentarioC : ObjetoC.getComentarios()) {
 
-                ITextoC.Adicionar("-- " + Codifica(ComentarioC.getNome()) + " : \""
+                TextoDocumentoC.Adicionar("-- " + Codifica(ComentarioC.getNome()) + " : \""
                         + Codifica(ComentarioC.getValor()) + "\" -- ");
 
             }
 
-            ITextoC.Adicionar( " } ");
+            TextoDocumentoC.Adicionar( " } ");
         }
 
     }
-    public void Vetores(ITexto ITextoC, ArrayList<Vetor> mVetores) {
+    public void Vetores(TextoDocumento TextoDocumentoC, ArrayList<Vetor> mVetores) {
 
 
         for (Vetor ObjetoC : mVetores) {
 
 
-            ITextoC.Adicionar(   "  " + "VETOR " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.Adicionar(   "  " + "VETOR " + ObjetoC.getNome() + " { ");
 
             int i = 0;
             int o = ObjetoC.getValores().size() - 1;
@@ -149,86 +149,86 @@ public class SalvamentoReduzido {
             for (String IdentificadorC : ObjetoC.getValores()) {
 
 
-                ITextoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\"");
+                TextoDocumentoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\"");
 
 
             }
 
 
-            ITextoC.Adicionar(   "   " + "}");
+            TextoDocumentoC.Adicionar(   "   " + "}");
         }
 
     }
 
-    public void Matrizes(ITexto ITextoC, ArrayList<Matriz> mMatrizes) {
+    public void Matrizes(TextoDocumento TextoDocumentoC, ArrayList<Matriz> mMatrizes) {
 
         for (Matriz ObjetoC : mMatrizes) {
 
 
-            ITextoC.Adicionar(  "   " + "MATRIZ " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.Adicionar(  "   " + "MATRIZ " + ObjetoC.getNome() + " { ");
 
             int i = 0;
             int o = ObjetoC.getValores().size() - 1;
 
             for (ArrayList<String> VetorValor : ObjetoC.getValores()) {
 
-                ITextoC.Adicionar(  "   " + "   { ");
+                TextoDocumentoC.Adicionar(  "   " + "   { ");
 
                 for (String IdentificadorC : VetorValor) {
-                    ITextoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\" ");
+                    TextoDocumentoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\" ");
                 }
 
                 if (i < o) {
-                    ITextoC.Adicionar("   }");
+                    TextoDocumentoC.Adicionar("   }");
                 } else {
-                    ITextoC.Adicionar("   }");
+                    TextoDocumentoC.Adicionar("   }");
                 }
                 i += 1;
 
             }
 
 
-            ITextoC.Adicionar("   " + "}");
+            TextoDocumentoC.Adicionar("   " + "}");
         }
 
     }
 
-    public void Pacote_Listar(ITexto ITextoC, ArrayList<Pacote> lsPacotes) {
+    public void Pacote_Listar(TextoDocumento TextoDocumentoC, ArrayList<Pacote> lsPacotes) {
 
         for (Pacote PacoteC : lsPacotes) {
 
             if (PacoteC.getPacotes().size() == 0 && PacoteC.getListas().size() == 0
                     && PacoteC.getIdentificadores().size() == 0 && PacoteC.getObjetos().size() == 0) {
 
-                ITextoC.Adicionar( " PACOTE " + Codifica(PacoteC.getNome()) + " { } ");
+                TextoDocumentoC.Adicionar( " PACOTE " + Codifica(PacoteC.getNome()) + " { } ");
 
             } else {
 
-                ITextoC.Adicionar( " PACOTE " + Codifica(PacoteC.getNome()));
-                ITextoC.Adicionar( " {");
+                TextoDocumentoC.Adicionar( " PACOTE " + Codifica(PacoteC.getNome()));
+                TextoDocumentoC.Adicionar( " {");
 
-                Identificadores(ITextoC, PacoteC.getIdentificadores());
-
-
-                Listas(ITextoC,  PacoteC.getListas());
+                Identificadores(TextoDocumentoC, PacoteC.getIdentificadores());
 
 
-                Comentarios(ITextoC, PacoteC.getComentarios());
+                Listas(TextoDocumentoC,  PacoteC.getListas());
 
 
-                Objetos(ITextoC, PacoteC.getObjetos());
-
-                Vetores(ITextoC, PacoteC.getVetores());
-
-                Matrizes(ITextoC, PacoteC.getMatrizes());
+                Comentarios(TextoDocumentoC, PacoteC.getComentarios());
 
 
-                Pacote_Listar(ITextoC, PacoteC.getPacotes());
+                Objetos(TextoDocumentoC, PacoteC.getObjetos());
+
+                Vetores(TextoDocumentoC, PacoteC.getVetores());
+
+                Matrizes(TextoDocumentoC, PacoteC.getMatrizes());
+
+
+                Pacote_Listar(TextoDocumentoC, PacoteC.getPacotes());
 
             }
 
 
-            ITextoC.Adicionar(" } ");
+            TextoDocumentoC.Adicionar(" } ");
 
         }
 

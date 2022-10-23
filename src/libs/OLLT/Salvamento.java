@@ -34,24 +34,24 @@ public class Salvamento {
         return ret;
     }
 
-    private void Identificadores(ITexto ITextoC, String ePrefixo, ArrayList<Identificador> mIdentificadores) {
+    private void Identificadores(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Identificador> mIdentificadores) {
 
         for (Identificador IdentificadorC : mIdentificadores) {
 
-            ITextoC.AdicionarLinha(ePrefixo + "   " + "ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
+            TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
                     + Codifica(IdentificadorC.getValor()) + "\"");
 
         }
 
     }
 
-    private void Listas(ITexto ITextoC, String ePrefixo, ArrayList<Lista> mListas) {
+    private void Listas(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Lista> mListas) {
 
         for (Lista ListaC : mListas) {
 
             if (ListaC.getItens().size() == 0) {
 
-                ITextoC.AdicionarLinha(ePrefixo + "   " + "LISTA " + Codifica(ListaC.getNome()) + " { } ");
+                TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "LISTA " + Codifica(ListaC.getNome()) + " { } ");
 
             } else {
 
@@ -63,7 +63,7 @@ public class Salvamento {
 
                 }
 
-                ITextoC.AdicionarLinha(ePrefixo + "   " + "LISTA " + Codifica(ListaC.getNome()) + " { " + Itens + "} ");
+                TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "LISTA " + Codifica(ListaC.getNome()) + " { " + Itens + "} ");
 
             }
 
@@ -71,18 +71,18 @@ public class Salvamento {
 
     }
 
-    private void Comentarios(ITexto ITextoC, String ePrefixo, ArrayList<Comentario> mComentarios) {
+    private void Comentarios(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Comentario> mComentarios) {
 
         for (Comentario ComentarioC : mComentarios) {
 
-            ITextoC.AdicionarLinha(ePrefixo + "   " + "-- " + Codifica(ComentarioC.getNome()) + " : " + "\""
+            TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "-- " + Codifica(ComentarioC.getNome()) + " : " + "\""
                     + Codifica(ComentarioC.getValor()) + "\" --");
 
         }
 
     }
 
-    public void Objetos(ITexto ITextoC, String ePrefixo, ArrayList<Objeto> mObjetos) {
+    public void Objetos(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Objeto> mObjetos) {
 
         for (Objeto ObjetoC : mObjetos) {
 
@@ -95,11 +95,11 @@ public class Salvamento {
 
             // } else {
 
-            ITextoC.AdicionarLinha(ePrefixo + "   " + "OBJETO " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "OBJETO " + ObjetoC.getNome() + " { ");
 
             for (Identificador IdentificadorC : ObjetoC.getIdentificadores()) {
 
-                ITextoC.AdicionarLinha(ePrefixo + "   " + "   " + "ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
+                TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "   " + "ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
                         + Codifica(IdentificadorC.getValor()) + "\"");
 
             }
@@ -127,7 +127,7 @@ public class Salvamento {
                     i += 1;
                 }
 
-                ITextoC.AdicionarLinha(
+                TextoDocumentoC.AdicionarLinha(
                         ePrefixo + "   " + "   " + "LISTA " + Codifica(ListaC.getNome()) + " = { " + Itens + "} ");
 
             }
@@ -136,23 +136,23 @@ public class Salvamento {
 
             for (Comentario ComentarioC : ObjetoC.getComentarios()) {
 
-                ITextoC.AdicionarLinha(ePrefixo + "   " + "   " + "-- " + Codifica(ComentarioC.getNome()) + " : \""
+                TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "   " + "-- " + Codifica(ComentarioC.getNome()) + " : \""
                         + Codifica(ComentarioC.getValor()) + "\" -- ");
 
             }
 
-            ITextoC.AdicionarLinha(ePrefixo + "   " + "}");
+            TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "}");
         }
 
     }
 
-    public void Vetores(ITexto ITextoC, String ePrefixo, ArrayList<Vetor> mVetores) {
+    public void Vetores(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Vetor> mVetores) {
 
 
         for (Vetor ObjetoC : mVetores) {
 
 
-            ITextoC.Adicionar( ePrefixo + "   " + "VETOR " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.Adicionar( ePrefixo + "   " + "VETOR " + ObjetoC.getNome() + " { ");
 
             int i = 0;
             int o = ObjetoC.getValores().size() - 1;
@@ -161,58 +161,58 @@ public class Salvamento {
             for (String IdentificadorC : ObjetoC.getValores()) {
 
 
-                ITextoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\"");
+                TextoDocumentoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\"");
 
 
             }
 
 
-            ITextoC.AdicionarLinha( ePrefixo + "   " + "}");
+            TextoDocumentoC.AdicionarLinha( ePrefixo + "   " + "}");
         }
 
     }
 
-    public void Matrizes(ITexto ITextoC, String ePrefixo, ArrayList<Matriz> mMatrizes) {
+    public void Matrizes(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Matriz> mMatrizes) {
 
         for (Matriz ObjetoC : mMatrizes) {
 
 
-            ITextoC.AdicionarLinha(ePrefixo + "   " + "MATRIZ " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "MATRIZ " + ObjetoC.getNome() + " { ");
 
             int i = 0;
             int o = ObjetoC.getValores().size() - 1;
 
             for (ArrayList<String> VetorValor : ObjetoC.getValores()) {
 
-                ITextoC.Adicionar("" + ePrefixo + "   " + "   { ");
+                TextoDocumentoC.Adicionar("" + ePrefixo + "   " + "   { ");
 
                 for (String IdentificadorC : VetorValor) {
-                    ITextoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\" ");
+                    TextoDocumentoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\" ");
                 }
 
                 if (i < o) {
-                    ITextoC.Adicionar("   }\n");
+                    TextoDocumentoC.Adicionar("   }\n");
                 } else {
-                    ITextoC.Adicionar("   }");
+                    TextoDocumentoC.Adicionar("   }");
                 }
                 i += 1;
 
             }
 
 
-            ITextoC.AdicionarLinha("\n" + ePrefixo + "   " + "}");
+            TextoDocumentoC.AdicionarLinha("\n" + ePrefixo + "   " + "}");
         }
 
     }
 
-    public void Pacote_Listar(ITexto ITextoC, String ePrefixo, ArrayList<Pacote> lsPacotes) {
+    public void Pacote_Listar(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Pacote> lsPacotes) {
 
         for (Pacote PacoteC : lsPacotes) {
 
             if (PacoteC.getPacotes().size() == 0 && PacoteC.getListas().size() == 0
                     && PacoteC.getIdentificadores().size() == 0 && PacoteC.getObjetos().size() == 0 && PacoteC.getVetores().size() == 0 && PacoteC.getMatrizes().size() == 0) {
 
-                ITextoC.AdicionarLinha(ePrefixo + "PACOTE " + Codifica(PacoteC.getNome()) + " { } ");
+                TextoDocumentoC.AdicionarLinha(ePrefixo + "PACOTE " + Codifica(PacoteC.getNome()) + " { } ");
 
             } else if (PacoteC.getPacotes().size() == 0 && PacoteC.getListas().size() == 0
                     && PacoteC.getObjetos().size() == 0 && PacoteC.getVetores().size() == 0 && PacoteC.getMatrizes().size() == 0 && PacoteC.getLinear()) {
@@ -227,31 +227,31 @@ public class Salvamento {
                 }
 
 
-                ITextoC.AdicionarLinha(ePrefixo + "PACOTE " + Codifica(PacoteC.getNome()) + " { " + eLinha + " } ");
+                TextoDocumentoC.AdicionarLinha(ePrefixo + "PACOTE " + Codifica(PacoteC.getNome()) + " { " + eLinha + " } ");
 
             } else {
 
-                ITextoC.AdicionarLinha(ePrefixo + "PACOTE " + Codifica(PacoteC.getNome()));
-                ITextoC.AdicionarLinha(ePrefixo + " {");
+                TextoDocumentoC.AdicionarLinha(ePrefixo + "PACOTE " + Codifica(PacoteC.getNome()));
+                TextoDocumentoC.AdicionarLinha(ePrefixo + " {");
 
-                Identificadores(ITextoC, ePrefixo, PacoteC.getIdentificadores());
+                Identificadores(TextoDocumentoC, ePrefixo, PacoteC.getIdentificadores());
 
-                Listas(ITextoC, ePrefixo, PacoteC.getListas());
+                Listas(TextoDocumentoC, ePrefixo, PacoteC.getListas());
 
-                Comentarios(ITextoC, ePrefixo, PacoteC.getComentarios());
+                Comentarios(TextoDocumentoC, ePrefixo, PacoteC.getComentarios());
 
-                Objetos(ITextoC, ePrefixo, PacoteC.getObjetos());
-
-
-                Vetores(ITextoC, ePrefixo, PacoteC.getVetores());
-
-                Matrizes(ITextoC, ePrefixo, PacoteC.getMatrizes());
+                Objetos(TextoDocumentoC, ePrefixo, PacoteC.getObjetos());
 
 
-                Pacote_Listar(ITextoC, ePrefixo + "   ", PacoteC.getPacotes());
+                Vetores(TextoDocumentoC, ePrefixo, PacoteC.getVetores());
+
+                Matrizes(TextoDocumentoC, ePrefixo, PacoteC.getMatrizes());
 
 
-                ITextoC.AdicionarLinha(ePrefixo + " } ");
+                Pacote_Listar(TextoDocumentoC, ePrefixo + "   ", PacoteC.getPacotes());
+
+
+                TextoDocumentoC.AdicionarLinha(ePrefixo + " } ");
             }
 
 

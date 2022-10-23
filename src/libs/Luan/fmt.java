@@ -562,4 +562,23 @@ public class fmt {
         return s;
     }
 
+    public static String espacar_depois(String s, int t) {
+
+        while (s.length() < t) {
+            s =  s+ " ";
+        }
+
+        return s;
+    }
+
+    public static String espacar_depois(int i, int t) {
+
+        String s = String.valueOf(i);
+
+        while (s.length() < t) {
+            s =  s+ " ";
+        }
+
+        return s;
+    }
 }

@@ -5,7 +5,7 @@ import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import azzal.utilitarios.Cronometro;
-import azzal_ui.Interface.Acao;
+import mockui.Interface.Acao;
 
 import java.util.ArrayList;
 

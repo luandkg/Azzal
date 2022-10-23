@@ -1,8 +1,8 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Camadas.EscalasPadroes;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.MapaRender;
 import apps.app_attuz.Ferramentas.MassaToQTT;
@@ -27,12 +27,12 @@ public class ProximidadeDoMar extends Servico {
 
         Escala mEscala = EscalasPadroes.getEscalaDistancia();
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         Massas massa = MassasDados.getTerraAgua(LOCAL);
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
-        Massas massa_continental = MassasDados.getMassaContinental(LOCAL);
+        // Massas massa_continental = MassasDados.getMassaContinental(LOCAL);
 
 
         Normalizador normalizador = new Normalizador(mEscala.getMaximo());
@@ -42,7 +42,7 @@ public class ProximidadeDoMar extends Servico {
 
                 if (tectonica.isTerra(x, y)) {
 
-                    int distancia = getProximidade(massa_continental, massa, x, y);
+                    int distancia = getProximidade(massa, massa, x, y);
 
                     normalizador.adicionar(distancia);
 
@@ -56,7 +56,7 @@ public class ProximidadeDoMar extends Servico {
         MapaRender.renderiza(mapa, tectonica, tectonica.getTerra(), massa, mEscala, normalizador, LOCAL + "build/mar.png");
 
         System.out.println("Guardar Proximidade - QTT");
-        MassaToQTT.salvarTerra(tectonica,massa, LOCAL + "dados/mar_distancia.qtt");
+        MassaToQTT.salvarTerra(tectonica, massa, LOCAL + "dados/mar_distancia.qtt");
 
 
         marcarFim();

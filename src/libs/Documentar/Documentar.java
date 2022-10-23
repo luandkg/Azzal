@@ -1,6 +1,6 @@
 package libs.Documentar;
 
-import libs.OLLT.Texto;
+import libs.Luan.ArquivoTexto;
 
 
 import java.io.*;
@@ -18,7 +18,7 @@ public class Documentar {
 
         if (new File(arquivo_txt).exists()) {
 
-            ArrayList<ParteTextual> objetos = eTextoToPartes.parser(Texto.Ler(arquivo_txt));
+            ArrayList<ParteTextual> objetos = eTextoToPartes.parser(ArquivoTexto.arquivo_ler(arquivo_txt));
 
             //mostrarObjetos(objetos);
 

@@ -1,10 +1,10 @@
 package apps.app_attuz.Servicos;
 
 import apps.app_attuz.Assessorios.Escala;
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Camadas.DadosQTT;
-import apps.app_attuz.Camadas.EscalasPadroes;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.DadosQTT;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.Legendas.Legendar;
 import apps.app_attuz.Legendas.Legendas;
@@ -72,7 +72,7 @@ public class Temperatura extends Servico {
             MassaComNormal verao = gerarDados(VERAO, TAXA_DISTANCIA_MAR, TAXA_ALTITUDE, TAXA_UMIDADE, EscalasPadroes.getEscalaTemperatura());
             MassaComNormal inverno = gerarDados(INVERNO, TAXA_DISTANCIA_MAR, TAXA_ALTITUDE, TAXA_UMIDADE, EscalasPadroes.getEscalaTemperatura());
 
-            vs.variacao(LOCAL, 10, verao, inverno, EscalasPadroes.getEscalaTemperatura(), "build/var_temperatura/temperatura_");
+            vs.variacao(LOCAL, QUANTIDADE_VARIACAO, verao, inverno, EscalasPadroes.getEscalaTemperatura(), "build/var_temperatura/temperatura_");
 
             marcarFim();
             mostrarTempo();
@@ -88,7 +88,7 @@ public class Temperatura extends Servico {
         Escala mEscala = EscalasPadroes.getEscalaTemperatura();
 
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 

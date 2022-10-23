@@ -1,16 +1,16 @@
 package apps.app_attuz.Widgets;
 
-import apps.app_attuz.Mapa.Local;
-import apps.app_attuz.Politicamente.Cidades;
-import apps.app_attuz.Politicamente.EquipamentosDeEngenharia;
+import apps.app_attuz.Arkazz.Cidades;
+import apps.app_attuz.Ferramentas.Local;
+import apps.app_attuz.Fisica.EquipamentosDeEngenharia;
 import azzal.geometria.Ponto;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import azzal_ui.Interface.Acao;
-import azzal_ui.Interface.BotaoCor;
-import azzal_ui.Interface.Clicavel;
+import mockui.Interface.Acao;
+import mockui.Interface.BotaoCor;
+import mockui.Interface.Clicavel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class Distanciador {
         m_primeiro = false;
         m_segundo = false;
 
-        BotaoCor BTN_PRIMEIRO = eClicavel.criarBotaoCor(new BotaoCor(2000, 600, 50, 50, new Cor(26, 188, 156)));
+        BotaoCor BTN_PRIMEIRO = eClicavel.criarBotaoCor(new BotaoCor(2600, 550, 50, 50, new Cor(26, 188, 156)));
 
         BTN_PRIMEIRO.setAcao(new Acao() {
             @Override
@@ -51,7 +51,7 @@ public class Distanciador {
             }
         });
 
-        BotaoCor BTN_SEGUNDO = eClicavel.criarBotaoCor(new BotaoCor(2060, 600, 50, 50, new Cor(26, 188, 156)));
+        BotaoCor BTN_SEGUNDO = eClicavel.criarBotaoCor(new BotaoCor(2660, 550, 50, 50, new Cor(26, 188, 156)));
 
         BTN_SEGUNDO.setAcao(new Acao() {
             @Override
@@ -61,6 +61,7 @@ public class Distanciador {
                 m_segundo = true;
             }
         });
+
 
     }
 
@@ -82,30 +83,32 @@ public class Distanciador {
 
         pequeno.setRenderizador(render);
 
+        int posicao_x = 2500;
+        int posicao_y = 650;
+
 
         if (temPrimeiro) {
-            render.drawRect_Pintado(2000 + 15, 670, 10, 10, new Cor(0, 255, 0));
+            render.drawRect_Pintado(posicao_x + 15, posicao_y, 10, 10, new Cor(0, 255, 0));
 
             String cidade = Cidades.getNomeMaisProximo(mLocais, p1.getX(), p1.getY(), 50);
 
             if (cidade.length() > 0) {
-                pequeno.escreva(2000 + 25, 670 - 5, "Ponto 1 = " + p1.getX() + ":" + p1.getY() + " -- " + cidade);
+                pequeno.escreva(posicao_x + 25, posicao_y - 5, "Ponto 1 = " + p1.getX() + ":" + p1.getY() + " -- " + cidade);
             } else {
-                pequeno.escreva(2000 + 25, 670 - 5, "Ponto 1 = " + p1.getX() + ":" + p1.getY());
+                pequeno.escreva(posicao_x + 25, posicao_y - 5, "Ponto 1 = " + p1.getX() + ":" + p1.getY());
             }
         }
 
         if (temSegundo) {
 
-            render.drawRect_Pintado(2000 + 15, 690, 10, 10, new Cor(0, 255, 0));
+            render.drawRect_Pintado(posicao_x + 15, posicao_y + 30, 10, 10, new Cor(0, 255, 0));
 
             String cidade = Cidades.getNomeMaisProximo(mLocais, p2.getX(), p2.getY(), 50);
 
             if (cidade.length() > 0) {
-                pequeno.escreva(2000 + 25, 690 - 5, "Ponto 2 = " + p2.getX() + ":" + p2.getY() + " -- " + cidade);
-
+                pequeno.escreva(posicao_x + 25, (posicao_y + 30) - 5, "Ponto 2 = " + p2.getX() + ":" + p2.getY() + " -- " + cidade);
             } else {
-                pequeno.escreva(2000 + 25, 690 - 5, "Ponto 2 = " + p2.getX() + ":" + p2.getY());
+                pequeno.escreva(posicao_x + 25, (posicao_y + 30) - 5, "Ponto 2 = " + p2.getX() + ":" + p2.getY());
             }
 
         }
@@ -121,9 +124,9 @@ public class Distanciador {
             float tempo_lento = EquipamentosDeEngenharia.tempo_de_viagem(distancia, velocidade_lento);
 
             // pequeno.escreva(2000 + 15, 710, "Valor = " + valor);
-            pequeno.escreva(2000 + 15, 710, "Distância = " + EquipamentosDeEngenharia.distanciaComUnidade(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
-            pequeno.escreva(2000 + 15, 750, EquipamentosDeEngenharia.getDescricaoViagem(velocidade_rapido, tempo_rapido));
-            pequeno.escreva(2000 + 15, 770, EquipamentosDeEngenharia.getDescricaoViagem(velocidade_lento, tempo_lento));
+            pequeno.escreva(posicao_x + 15, posicao_y + 60, "Distância = " + EquipamentosDeEngenharia.distanciaComUnidade(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
+            pequeno.escreva(posicao_x + 15, posicao_y + 80, EquipamentosDeEngenharia.getDescricaoViagem(velocidade_rapido, tempo_rapido));
+            pequeno.escreva(posicao_x + 15, posicao_y + 100, EquipamentosDeEngenharia.getDescricaoViagem(velocidade_lento, tempo_lento));
 
         }
 

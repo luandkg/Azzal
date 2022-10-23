@@ -4,8 +4,8 @@ import apps.app_arch.Assembler.AST;
 import apps.app_arch.Assembler.MontadorL1.Regiao;
 import apps.app_arch.I16;
 import apps.app_arch.Opcode;
-import libs.OLLT.ITexto;
-import libs.OLLT.Texto;
+import libs.Luan.ArquivoTexto;
+import libs.OLLT.TextoDocumento;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class MontadorL0 {
 
 
         System.out.println("");
-        Texto.Escrever(eObjeto, eObjetoConstruindo);
+        ArquivoTexto.arquivo_escrever(eObjeto, eObjetoConstruindo);
         System.out.println("-->> Montado :: " + eObjeto);
 
 
@@ -125,7 +125,7 @@ public class MontadorL0 {
 
         System.out.println(" -->> Montagem Final : " + eObjetoMontado);
 
-        ITexto eCompilado = new ITexto();
+        TextoDocumento eCompilado = new TextoDocumento();
 
         try {
             RandomAccessFile mFile = new RandomAccessFile(new File(eObjetoMontado), "rw");
@@ -154,8 +154,8 @@ public class MontadorL0 {
 
     public String organizar(int eIndexador, String eStart,RefInt ePosStart, ArrayList<Regiao> mText, ArrayList<AST> mData, ArrayList<AST> mBSS, ArrayList<Regiao> mTextNovos) {
 
-        ITexto eMontando = new ITexto();
-        ITexto eGuardando = new ITexto();
+        TextoDocumento eMontando = new TextoDocumento();
+        TextoDocumento eGuardando = new TextoDocumento();
 
 
         ArrayList<AST> mTodos = new ArrayList<AST>();
@@ -285,7 +285,7 @@ public class MontadorL0 {
         return b;
     }
 
-    public int adicionarTexto(int p, ITexto eCompilado, String v) {
+    public int adicionarTexto(int p, TextoDocumento eCompilado, String v) {
         if (p >= 9) {
             p = 0;
             eCompilado.adicionar("\n");

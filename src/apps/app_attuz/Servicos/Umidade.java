@@ -1,10 +1,10 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Camadas.CadaPonto;
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Camadas.DadosQTT;
-import apps.app_attuz.Camadas.EscalasPadroes;
+import apps.app_attuz.Assessorios.CadaPonto;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.DadosQTT;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.MassaToQTT;
 import apps.app_attuz.Ferramentas.Normalizador;
@@ -33,9 +33,10 @@ public class Umidade extends Servico {
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
         Massas dados = MassasDados.getTerraAgua(LOCAL);
+
         dados.zerar();
 
-        BufferedImage mapa_colorindo = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa_colorindo = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
 
         boolean indo = true;
@@ -50,7 +51,7 @@ public class Umidade extends Servico {
 
 
             int pCentral_c = faixa - (eConveccionador.getAlturaFaixa() / 2);
-            int pCentral_t = faixa +(eConveccionador.getAlturaFaixa() / 2);
+            int pCentral_t = faixa + (eConveccionador.getAlturaFaixa() / 2);
 
             int comecar = 0;
             int mudanca = 0;
@@ -91,17 +92,18 @@ public class Umidade extends Servico {
             @Override
             public void onPonto(int x, int y) {
                 if (tectonica.isTerra(x, y)) {
-                    mapa_colorindo.setRGB(x, y, escala_umidade.get(dados.getValor(x,y)));
+                    mapa_colorindo.setRGB(x, y, escala_umidade.get(dados.getValor(x, y)));
                 }
             }
         });
+
         // aplicar_grade(tectonica, onCartografia, mapa_colorindo);
 
 
         ImageUtils.exportar(mapa_colorindo, LOCAL + "build/umidade.png");
 
         System.out.println("Guardar Umidade - QTT");
-        MassaToQTT.salvarTerra(tectonica,dados, LOCAL + "dados/umidade.qtt");
+        MassaToQTT.salvarTerra(tectonica, dados, LOCAL + "dados/umidade.qtt");
 
 
         marcarFim();
@@ -175,7 +177,7 @@ public class Umidade extends Servico {
                     dados.setValor(x, altura_inicio, (int) valor_corrente);
                     norm.adicionar((int) valor_corrente);
 
-                }else{
+                } else {
                     double antigo = dados.getValor(x, altura_inicio);
 
                     double valor_corrente = antigo + menor;

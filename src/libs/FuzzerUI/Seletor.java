@@ -1,7 +1,7 @@
 package libs.FuzzerUI;
 
 import azzal.utilitarios.Cor;
-import azzal_ui.Interface.Acao;
+import mockui.Interface.Acao;
 
 public class Seletor {
 

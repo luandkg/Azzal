@@ -1,7 +1,7 @@
 package apps.app_arch.Assembler.MontadorL1;
 
 import apps.app_arch.Assembler.*;
-import libs.OLLT.Texto;
+import libs.Luan.ArquivoTexto;
 
 import java.util.ArrayList;
 
@@ -72,7 +72,7 @@ public class MontadorL1 {
     public int montar(String eArquivo, String eObjeto) {
 
 
-        mCodigo = new RefString(Texto.Ler(eArquivo));
+        mCodigo = new RefString(ArquivoTexto.arquivo_ler(eArquivo));
         mErros.clear();
         mGlobal = "";
         mtemGlobal = false;

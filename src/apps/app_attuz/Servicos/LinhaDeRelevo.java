@@ -1,10 +1,10 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Camadas.DadosQTT;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.DadosQTT;
 import apps.app_attuz.Ferramentas.Espaco2D;
-import apps.app_attuz.Mapa.Local;
+import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Assessorios.MapaUtilitario;
 import azzal.Cores;
 import azzal.geometria.Ponto;

@@ -1,7 +1,7 @@
 package apps.app_attuz;
 
-import apps.app_attuz.Assessorios.ReveladorQTT;
-import apps.app_attuz.Camadas.EscalasPadroes;
+import apps.app_attuz.Assessorios.QTTOnImagem;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Servicos.*;
 import libs.Servittor.Servittor;
 
@@ -10,7 +10,7 @@ public class WorldBuilding {
     public static void criar(String LOCAL) {
 
 
-        //libs.Servittor.onServico("Expansor", new Expansor(eLocal));
+        Servittor.onServico("TerraFormar", new TerraFormar(LOCAL));
 
         Servittor.onServico("Cartografia", new Cartografia(LOCAL));
 
@@ -26,7 +26,10 @@ public class WorldBuilding {
         Servittor.onServico("Umidade", new Umidade(LOCAL));
         Servittor.onServico("Temperatura", new Temperatura(LOCAL));
         Servittor.onServico("Preciptacao", new Preciptacao(LOCAL));
+
+
         Servittor.onServico("Divisao Politica", new DivisaoPolitica(LOCAL));
+        Servittor.onServico("Territorios", new Territorios(LOCAL));
 
 
     }
@@ -34,24 +37,23 @@ public class WorldBuilding {
     public static void renderQTT(String LOCAL) {
 
         System.out.println("QTT -> Relevo");
-        ReveladorQTT.relevo(LOCAL, LOCAL + "dados/relevo.qtt", LOCAL + "dados/relevo.png");
+        QTTOnImagem.relevo(LOCAL, LOCAL + "dados/relevo.qtt", LOCAL + "renderQTT/relevo.png");
 
         System.out.println("QTT -> Umidade");
-        ReveladorQTT.umidade(LOCAL, LOCAL + "dados/umidade.qtt", LOCAL + "dados/umidade.png");
+        QTTOnImagem.umidade(LOCAL, LOCAL + "dados/umidade.qtt", LOCAL + "renderQTT/umidade.png");
 
         System.out.println("QTT -> Mar");
-        ReveladorQTT.mar_distancia(LOCAL, LOCAL + "dados/mar_distancia.qtt", LOCAL + "dados/mar_distancia.png");
+        QTTOnImagem.mar_distancia(LOCAL, LOCAL + "dados/mar_distancia.qtt", LOCAL + "renderQTT/mar_distancia.png");
 
         System.out.println("QTT -> Agua");
-        ReveladorQTT.mar_distancia(LOCAL, LOCAL + "dados/agua_distancia.qtt", LOCAL + "dados/agua_distancia.png");
-
+        QTTOnImagem.mar_distancia(LOCAL, LOCAL + "dados/agua_distancia.qtt", LOCAL + "renderQTT/agua_distancia.png");
 
         System.out.println("QTT -> Temperatura");
-        ReveladorQTT.temperatura(LOCAL, LOCAL + "dados/temperatura_vi.qtt", LOCAL + "dados/temperatura_vi.png");
-        ReveladorQTT.temperatura(LOCAL, LOCAL + "dados/temperatura_iv.qtt", LOCAL + "dados/temperatura_iv.png");
+        QTTOnImagem.temperatura(LOCAL, LOCAL + "dados/temperatura_vi.qtt", LOCAL + "renderQTT/temperatura_vi.png");
+        QTTOnImagem.temperatura(LOCAL, LOCAL + "dados/temperatura_iv.qtt", LOCAL + "renderQTT/temperatura_iv.png");
 
         System.out.println("QTT -> Preciptacao");
-        ReveladorQTT.renderSoTerra(LOCAL, LOCAL + "dados/preciptacao.qtt", EscalasPadroes.getEscalaPreciptacao(), LOCAL + "dados/preciptacao.png");
+        QTTOnImagem.renderSoTerra(LOCAL, LOCAL + "dados/preciptacao.qtt", EscalasPadroes.getEscalaPreciptacao(), LOCAL + "renderQTT/preciptacao.png");
 
     }
 

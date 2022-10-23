@@ -54,7 +54,7 @@ public class EscritorDKG {
                 adicionarLinha(ePrefixo + "!" + Textum.codifica(PacoteC.getNome()) + " :: { ");
 
                 for (DKGAtributo IdentificadorC : PacoteC.getAtributos()) {
-                    adicionarLinha("  @" + Textum.codifica(IdentificadorC.getNome()) + " = " + "\"" + Textum.codifica(IdentificadorC.getValor()) + "\"");
+                    adicionarLinha(ePrefixo+"  @" + Textum.codifica(IdentificadorC.getNome()) + " = " + "\"" + Textum.codifica(IdentificadorC.getValor()) + "\"");
                 }
 
                 montar(ePrefixo + "  ", PacoteC.getObjetos());

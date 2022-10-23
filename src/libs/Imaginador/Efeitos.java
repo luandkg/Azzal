@@ -33,6 +33,7 @@ public class Efeitos {
                 img.setRGB(j, i, newColor.getRGB());
             }
         }
+
         return blackAndWhiteImg;
     }
 

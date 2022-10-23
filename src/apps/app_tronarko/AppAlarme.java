@@ -18,10 +18,10 @@ import libs.tronarko.Agenda.Lembrete;
 import libs.tronarko.Utils.FluxoTemporal;
 
 import libs.tronarko.Utils.Ordenador;
-import azzal_ui.Interface.Acao;
-import azzal_ui.Interface.BotaoCor;
-import azzal_ui.Interface.Clicavel;
-import azzal_ui.Marcador;
+import mockui.Interface.Acao;
+import mockui.Interface.BotaoCor;
+import mockui.Interface.Clicavel;
+import mockui.Marcador;
 
 public class AppAlarme extends Cena {
 

@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
 import libs.Imaginador.Efeitos;
 import libs.Imaginador.ImageUtils;
 
@@ -9,11 +9,11 @@ import java.awt.image.BufferedImage;
 
 public class UnirMapas {
 
-    public static void unir(String LOCAL,String eArquivoTerra,String eArquivoAgua,String eArquivoResultante) {
+    public static void unir(String LOCAL, String eArquivoTerra, String eArquivoAgua, String eArquivoResultante) {
 
         Massas massa = MassasDados.getTerraAgua(LOCAL);
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         BufferedImage terra = ImageUtils.getImagem(LOCAL + eArquivoTerra);
         BufferedImage mar = ImageUtils.getImagem(LOCAL + eArquivoAgua);
@@ -33,7 +33,7 @@ public class UnirMapas {
 
     }
 
-    public static void lado_a_lado(String LOCAL,String lado_a,String lado_b,String eArquivoResultante) {
+    public static void lado_a_lado(String LOCAL, String lado_a, String lado_b, String eArquivoResultante) {
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 

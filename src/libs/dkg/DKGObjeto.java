@@ -261,32 +261,39 @@ public class DKGObjeto {
 
     // FACILITADORES DE IDENTIFICADORES
 
-    public boolean id_existe(String eNome){
+    public boolean id_existe(String eNome) {
         return existeIdentificador(eNome);
     }
 
-    public String id_valor(String eNome){
+    public String id_valor(String eNome) {
         return identifique(eNome).getValor();
     }
 
-    public int id_int(String eNome){
+    public int id_int(String eNome) {
         return identifique(eNome).getInteiro();
     }
 
-    public boolean id_bool(String eNome){
+    public boolean id_bool(String eNome) {
         return identifique(eNome).getBool();
     }
 
-    public float id_float(String eNome){
+    public float id_float(String eNome) {
         return identifique(eNome).getFloat();
     }
 
-    public double id_double(String eNome){
+    public double id_double(String eNome) {
         return identifique(eNome).getDouble();
     }
 
-    public long id_long(String eNome){
+    public long id_long(String eNome) {
         return identifique(eNome).getLong();
     }
 
+
+    public void limpar() {
+
+        getAtributos().clear();
+        getObjetos().clear();
+
+    }
 }

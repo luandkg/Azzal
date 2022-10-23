@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Hierarquizador {
 
-	public void Hierarquizar(ITexto ITextoC, String ePrefixo, ArrayList<Pacote> lsPacotes) {
+	public void Hierarquizar(TextoDocumento TextoDocumentoC, String ePrefixo, ArrayList<Pacote> lsPacotes) {
 
 		for (Pacote PacoteC : lsPacotes) {
 
-			ITextoC.AdicionarLinha(ePrefixo + "PACOTE : " + PacoteC.getNome());
+			TextoDocumentoC.AdicionarLinha(ePrefixo + "PACOTE : " + PacoteC.getNome());
 
 			for (Identificador IdentificadorC : PacoteC.getIdentificadores()) {
 
-				ITextoC.AdicionarLinha(
+				TextoDocumentoC.AdicionarLinha(
 						ePrefixo + "   " + "ID : " + IdentificadorC.getNome() + " = " + IdentificadorC.getValor());
 
 			}
@@ -33,25 +33,25 @@ public class Hierarquizador {
 					i += 1;
 				}
 
-				ITextoC.AdicionarLinha(
+				TextoDocumentoC.AdicionarLinha(
 						ePrefixo + "   " + "LISTA : " + Codifica(ListaC.getNome()) + " = { " + Itens + "} ");
 
 			}
 
 			for (Comentario ComentarioC : PacoteC.getComentarios()) {
 
-				ITextoC.AdicionarLinha(ePrefixo + "   " + "COMENTARIO : " + Codifica(ComentarioC.getNome()) + " = \""
+				TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "COMENTARIO : " + Codifica(ComentarioC.getNome()) + " = \""
 						+ Codifica(ComentarioC.getValor()) + "\"");
 
 			}
 
 			for (Objeto ObjetoC : PacoteC.getObjetos()) {
 
-				ITextoC.AdicionarLinha(ePrefixo + "   " + "OBJETO : " + ObjetoC.getNome());
+				TextoDocumentoC.AdicionarLinha(ePrefixo + "   " + "OBJETO : " + ObjetoC.getNome());
 
 				for (Identificador IdentificadorC : ObjetoC.getIdentificadores()) {
 
-					ITextoC.AdicionarLinha(ePrefixo + "      " + "ID : " + IdentificadorC.getNome() + " = "
+					TextoDocumentoC.AdicionarLinha(ePrefixo + "      " + "ID : " + IdentificadorC.getNome() + " = "
 							+ IdentificadorC.getValor());
 
 				}
@@ -72,21 +72,21 @@ public class Hierarquizador {
 						i += 1;
 					}
 
-					ITextoC.AdicionarLinha(
+					TextoDocumentoC.AdicionarLinha(
 							ePrefixo + "      " + "LISTA : " + Codifica(ListaC.getNome()) + " = { " + Itens + "} ");
 
 				}
 
 				for (Comentario ComentarioC : ObjetoC.getComentarios()) {
 
-					ITextoC.AdicionarLinha(ePrefixo + "      " + "COMENTARIO : " + Codifica(ComentarioC.getNome())
+					TextoDocumentoC.AdicionarLinha(ePrefixo + "      " + "COMENTARIO : " + Codifica(ComentarioC.getNome())
 							+ " = \"" + Codifica(ComentarioC.getValor()) + "\"");
 
 				}
 
 			}
 
-			Hierarquizar(ITextoC, ePrefixo + "   ", PacoteC.getPacotes());
+			Hierarquizar(TextoDocumentoC, ePrefixo + "   ", PacoteC.getPacotes());
 
 		}
 

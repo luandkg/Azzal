@@ -1,7 +1,7 @@
 package apps.app_attuz.Localizador;
 
-import apps.app_attuz.Mapa.Local;
-import apps.app_attuz.Politicamente.NomesEspecificos;
+import apps.app_attuz.Ferramentas.Local;
+import apps.app_attuz.Widgets.NomesEspecificos;
 import azzal.ComplexoRender;
 import azzal.Cores;
 import azzal.Renderizador;

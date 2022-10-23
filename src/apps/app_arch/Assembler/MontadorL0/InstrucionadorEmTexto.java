@@ -2,13 +2,13 @@ package apps.app_arch.Assembler.MontadorL0;
 
 import apps.app_arch.Assembler.AST;
 import apps.app_arch.Assembler.MontadorL1.Regiao;
-import libs.OLLT.ITexto;
+import libs.OLLT.TextoDocumento;
 
 import java.util.ArrayList;
 
 public class InstrucionadorEmTexto {
 
-    public String instrucao_MOV(ITexto eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
+    public String instrucao_MOV(TextoDocumento eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
 
         String eLinha = "";
 
@@ -28,7 +28,7 @@ public class InstrucionadorEmTexto {
         return eLinha;
     }
 
-    public String instrucao_ADD(ITexto eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
+    public String instrucao_ADD(TextoDocumento eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
 
 
         String mDestino = "";
@@ -47,7 +47,7 @@ public class InstrucionadorEmTexto {
         return eLinha;
     }
 
-    public String instrucao_SENDI8(ITexto eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
+    public String instrucao_SENDI8(TextoDocumento eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
 
 
         String mDestino = "";
@@ -66,7 +66,7 @@ public class InstrucionadorEmTexto {
         return eLinha;
     }
 
-    public String instrucao_JMP(ITexto eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<Regiao> mTextNovos, ArrayList<String> mErros) {
+    public String instrucao_JMP(TextoDocumento eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<Regiao> mTextNovos, ArrayList<String> mErros) {
 
         int endereco = -1;
 
@@ -84,7 +84,7 @@ public class InstrucionadorEmTexto {
     }
 
 
-    public String instrucao_LDI8(ITexto eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
+    public String instrucao_LDI8(TextoDocumento eMontando, AST eInstrucao, ArrayList<AST> mTodos, ArrayList<String> mErros) {
 
 
         return "LDI8 " + eInstrucao.getValor();

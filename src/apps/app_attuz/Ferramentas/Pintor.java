@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.Escala;
-import apps.app_attuz.Camadas.Massas;
+import apps.app_attuz.Assessorios.Massas;
 import libs.Imaginador.ImageUtils;
 
 import java.awt.image.BufferedImage;

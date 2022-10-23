@@ -8,8 +8,8 @@ import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import azzal_ui.Interface.BotaoCor;
-import azzal_ui.Interface.Clicavel;
+import mockui.Interface.BotaoCor;
+import mockui.Interface.Clicavel;
 
 import java.awt.*;
 

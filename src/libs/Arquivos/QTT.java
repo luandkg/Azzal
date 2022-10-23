@@ -2,6 +2,9 @@ package libs.Arquivos;
 
 import libs.Arquivos.Binario.Arquivador;
 
+import java.io.File;
+import java.io.IOException;
+
 public class QTT {
 
     public static void guardar(String eArquivo, int eLargura, int eAltura, int[] valores) {
@@ -44,6 +47,8 @@ public class QTT {
 
 
         Arquivador.remover(eArquivo);
+
+
 
         Arquivador arquivador = new Arquivador(eArquivo, "rw");
 

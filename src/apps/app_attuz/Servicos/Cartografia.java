@@ -1,8 +1,8 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Camadas.EscalasPadroes;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.Pintor;
 import libs.Luan.Integers;
@@ -26,7 +26,7 @@ public class Cartografia extends Servico {
     public Cartografia(String eLOCAL) {
         LOCAL = eLOCAL;
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         CARTOGRAFIA_LARGURA = mapa.getWidth() / 18;
         CARTOGRAFIA_ALTURA = mapa.getHeight() / 18;
@@ -114,7 +114,7 @@ public class Cartografia extends Servico {
 
     private void genLatitude(String LOCAL, Escala mEscala) {
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         Massas eMassa = MassasDados.getTerraAgua(LOCAL);
 
@@ -157,7 +157,7 @@ public class Cartografia extends Servico {
 
     private void genLongitude(String LOCAL, Escala mEscala) {
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         Massas eMassa = MassasDados.getTerraAgua(LOCAL);
         Cartografia onCartografia = new Cartografia(LOCAL);

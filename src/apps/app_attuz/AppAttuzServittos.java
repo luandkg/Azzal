@@ -1,50 +1,22 @@
 package apps.app_attuz;
 
+import apps.app_attuz.Arkazz.Arkazz;
+import apps.app_attuz.Populacionar.Populacionar;
+import apps.app_attuz.Regiao.Regionalizador;
+import apps.app_attuz.SistemaEleitoral.*;
+import libs.materializedview.HiperMaterializedView10K;
+import libs.materializedview.MaterializedView10K;
+
 public class AppAttuzServittos {
 
     public static void init() {
 
-
-        //  GuiaDeViagem.unir("/home/luan/Documentos/viagem_desorganizada.txt");
-        //    GuiaDeViagem.organizar("/home/luan/Documentos/viagem_desorganizada.txt","/home/luan/Documentos/viagem_organizada.txt");
-        //GuiaDeViagem.passei("/home/luan/Documentos/viagem_organizada.txt",libs.Tronarko.libs.Tronarko.getTozteDireto(), libs.Tronarko.libs.Tronarko.getHazdeDireto());
-
-        //  BZZ.alocar("/home/luan/Documentos/viagem.bzz", 2000);
-        //ViagemIndexar.indexar("/home/luan/Documentos/viagem_organizada.txt", "/home/luan/Documentos/viagem.bzz");
-
-        //  String conteudo = BZZ.procurar("/home/luan/Documentos/viagem.bzz", 140);
-        //  System.out.println(conteudo);
-        // System.out.println("Tamanho :: " + conteudo.length());
-
-
-        //  ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", libs.Tronarko.libs.Tronarko.getTozte(), libs.Tronarko.libs.Tronarko.getHazde(), libs.Tronarko.libs.Tronarko.getTozte());
-
-        //System.out.println("HOJE :: " + libs.Tronarko.libs.Tronarko.getTozteDireto().getTexto());
-
-        //ViagemIndexar.passeiBZZ("/home/luan/Documentos/viagem.bzz", new libs.Tronarko.Tozte(1,4,7002), new libs.Tronarko.Hazde(7,0,0),libs.Tronarko.libs.Tronarko.getTozteDireto());
-
-        // System.out.println("BZZ -->> Max " + BZZ.getQuantidadeMaxima("/home/luan/Documentos/viagem.bzz"));
-        // System.out.println("BZZ -->> " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));
-
-        // ViagemIndexar.obterIndexado("/home/luan/Documentos/viagem.bzz","36/05/7002");
-        //  String vt =  ViagemIndexar.procurando("/home/luan/Documentos/viagem.bzz", new Viajante(),new libs.Tronarko.Tozte(36,6,7002),new libs.Tronarko.Hazde(4,0,0));
-
-        //  String eArquivoBzz = "/home/luan/Documentos/viagem.bzz";
-        //   BZZ.alocar(eArquivoBzz, 2000);
-
-        // ViagemIndexar.indexar(eArquivoBzz, "/home/luan/Documentos/t7002.txt");
-        // ViagemIndexar.indexar(eArquivo, "/home/luan/Documentos/t7003.txt");
-        // ViagemIndexar.indexar(eArquivo, "/home/luan/Documentos/t7004.txt");
-
-        // BZZ.procurar(eArquivo, 0);
-
-        //  System.out.println(vt);
-
-        // System.out.println("Com Valores :: " + BZZ.comValores("/home/luan/Documentos/viagem.bzz"));
-        //   System.out.println("Sem Valores :: " + BZZ.semValores("/home/luan/Documentos/viagem.bzz"));
-
         String LOCAL = "/home/luan/Imagens/Simples/";
         LOCAL = "/home/luan/Imagens/Arkazz/";
+
+
+        ViagemOrganizador.construir();
+
 
         boolean criar = false;
         boolean renderizar = false;
@@ -64,5 +36,143 @@ public class AppAttuzServittos {
 
         //ViagemCompleta.motrarCidades();
         //ViagemCompleta.remontar_GuiaDeViagem();
+
+
+        String local_territorios = LOCAL + "/territorios.mv";
+        String local_populacao = LOCAL + "/populacao.hmv";
+        String local_urnas = LOCAL + "/urnas.mv";
+
+
+        boolean mudar_populacao = true;
+        boolean mostrar_populacao = false;
+
+
+        if (mudar_populacao) {
+
+            Regionalizador r = new Regionalizador(LOCAL);
+
+            int regioes = r.getRegioes().size();
+
+            if (MaterializedView10K.contagem(local_territorios) != regioes) {
+                MaterializedView10K.construir(local_territorios, regioes);
+            }
+
+            Populacionar.zerar(local_populacao);
+
+            Populacionar.criar_pessoas(local_populacao);
+
+            Populacionar.organizar_pessoas(LOCAL, local_territorios, local_populacao);
+
+            Populacionar.shuffle_pessoas(local_populacao);
+
+        }
+
+
+        // Populacionar.analisar_pessoas(local_populacao);
+        if (mostrar_populacao) {
+            Populacionar.mostrar_populacoes(local_populacao);
+        }
+
+
+        Eleicao eleicao_2022 = new Eleicao();
+
+        eleicao_2022.presidencia("X33", 33, "Okkan de Vaztu");
+        eleicao_2022.presidencia("R15", 15, "Halina Maz");
+        eleicao_2022.presidencia("Z40", 40, "Molkore et Rhinz");
+
+
+        eleicao_2022.senado("X33", 330, "Martta della Cruttus");
+        eleicao_2022.senado("X33", 331, "Horban Vontzille");
+        eleicao_2022.senado("X33", 332, "Gabz Xaun");
+
+        eleicao_2022.senado("R15", 150, "Olla Moccatzim");
+        eleicao_2022.senado("R15", 151, "Getto Zina");
+        eleicao_2022.senado("R15", 152, "Putzo Carbon");
+
+        eleicao_2022.senado("Z40", 400, "Inna Domnus");
+        eleicao_2022.senado("Z40", 401, "Eggon Domnus");
+        eleicao_2022.senado("Z40", 402, "Saiga Domnus");
+
+        eleicao_2022.secretaria("X33", 3300, "Palluz Noze");
+        eleicao_2022.secretaria("X33", 3301, "Milic Zondareum");
+        eleicao_2022.secretaria("X33", 3302, "Orkz Mollante");
+
+        eleicao_2022.secretaria("R15", 1500, "Ilba Scaparim");
+        eleicao_2022.secretaria("R15", 1501, "Hurgo Bomptor");
+        eleicao_2022.secretaria("R15", 1502, "Valgro Allas");
+
+        eleicao_2022.secretaria("Z40", 4000, "Hindrige Elaffanto");
+        eleicao_2022.secretaria("Z40", 4001, "Virga Aztaze");
+        eleicao_2022.secretaria("Z40", 4002, "Malla Ongan");
+
+
+        SistemaEleitoral.direitos_politicos(LOCAL, local_populacao, local_territorios);
+
+
+        boolean realizar_tempo_de_eleicao = true;
+        boolean realizar_eleicao = true;
+        boolean realizar_apuracao = true;
+
+        if (realizar_tempo_de_eleicao) {
+
+            SistemaEleitoral.limpar_pensamento_politico(local_populacao);
+
+            SistemaEleitoral.tomar_decisao(local_populacao, eleicao_2022);
+
+            SistemaEleitoral.indecisao(local_populacao, eleicao_2022);
+
+            SistemaEleitoral.realizar_debate(local_populacao, "Presidencia", Eleicao.fazer_lista_de_nomes(eleicao_2022.getPresidencia()));
+            SistemaEleitoral.realizar_debate(local_populacao, "Senado", Eleicao.fazer_lista_de_nomes(eleicao_2022.getSenado()));
+            SistemaEleitoral.realizar_debate(local_populacao, "Secretaria", Eleicao.fazer_lista_de_nomes(eleicao_2022.getSecretaria()));
+
+            // PesquisaDeOpiniao.realizar("IPQ", local_populacao, "Presidencia");
+
+            SistemaEleitoral.indecisao(local_populacao, eleicao_2022);
+
+
+            SistemaEleitoral.realizar_debate(local_populacao, "Presidencia", Eleicao.fazer_lista_de_nomes(eleicao_2022.getPresidencia()));
+            SistemaEleitoral.realizar_debate(local_populacao, "Senado", Eleicao.fazer_lista_de_nomes(eleicao_2022.getSenado()));
+            SistemaEleitoral.realizar_debate(local_populacao, "Secretaria", Eleicao.fazer_lista_de_nomes(eleicao_2022.getSecretaria()));
+
+            SistemaEleitoral.indecisao(local_populacao, eleicao_2022);
+
+
+            SistemaEleitoral.realizar_debate(local_populacao, "Presidencia", Eleicao.fazer_lista_de_nomes(eleicao_2022.getPresidencia()));
+            SistemaEleitoral.realizar_debate(local_populacao, "Senado", Eleicao.fazer_lista_de_nomes(eleicao_2022.getSenado()));
+            SistemaEleitoral.realizar_debate(local_populacao, "Secretaria", Eleicao.fazer_lista_de_nomes(eleicao_2022.getSecretaria()));
+
+
+            SistemaEleitoral.indecisao(local_populacao, eleicao_2022);
+
+        }
+
+
+        if (realizar_eleicao) {
+
+
+            System.out.println("Iniciando eleição");
+            Votacao.realizar_eleicao(local_populacao, local_urnas, eleicao_2022);
+            System.out.println("Terminando eleição");
+
+
+        }
+
+        // SistemaEleitoral.visualizar_pensamento_politico(local_populacao, eleicao_2022);
+
+        if (realizar_apuracao) {
+
+            System.out.println("Realizando contagem de cidadãos obrigados a votar");
+            int cidadaos_obrigados = SistemaEleitoral.cidadaos_obrigados_a_votar(local_populacao);
+            System.out.println("Cidadao Obrigados = " + cidadaos_obrigados);
+
+
+            Apuracao.realizar_apuracao_das_urnas_tempo_real(cidadaos_obrigados, local_territorios, local_urnas);
+        }
+
+        // Auditoria.realizar_apuracao(local_populacao);
+
+
     }
+
+
 }

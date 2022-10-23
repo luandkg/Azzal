@@ -1,6 +1,6 @@
 package apps.app_attuz.Localizador;
 
-import apps.app_attuz.Mapa.Viajante;
+import apps.app_attuz.Viagem.Viajante;
 import libs.Arquivos.BZZ;
 import libs.Arquivos.TX;
 import libs.dkg.DKG;

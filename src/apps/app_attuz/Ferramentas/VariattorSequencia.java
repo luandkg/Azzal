@@ -1,9 +1,9 @@
 package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.Escala;
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Camadas.DadosQTT;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.DadosQTT;
 import libs.Imaginador.ImageUtils;
 
 import java.awt.image.BufferedImage;
@@ -19,7 +19,7 @@ public class VariattorSequencia {
 
         DadosQTT dadosQTT = new DadosQTT(LOCAL);
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 

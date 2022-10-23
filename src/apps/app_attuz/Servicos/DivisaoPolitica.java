@@ -1,20 +1,20 @@
 package apps.app_attuz.Servicos;
 
 
-import apps.app_attuz.Arkazz;
+import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Assessorios.Progressante;
-import apps.app_attuz.Camadas.CadaPonto;
-import apps.app_attuz.Camadas.DadosQTT;
-import apps.app_attuz.Camadas.MapaFolha;
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
-import apps.app_attuz.Regiao;
+import apps.app_attuz.Assessorios.CadaPonto;
+import apps.app_attuz.Assessorios.DadosQTT;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Regiao.Regiao;
 import libs.Arquivos.Audio.RefInt;
 import azzal.geometria.Ponto;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
+import libs.Imaginador.ImageUtils;
 import libs.Luan.fmt;
 import libs.Servittor.Servico;
 
@@ -35,77 +35,18 @@ public class DivisaoPolitica extends Servico {
 
         marcarInicio();
 
-        BufferedImage politico = MapaFolha.getMapaPolitico(LOCAL);
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
         DadosQTT dadosQTT = new DadosQTT(LOCAL);
-
         Progressante progresso = new Progressante(tectonica.getAltura() * tectonica.getLargura());
 
-        RefInt pontos = new RefInt(0);
-        RefInt terra = new RefInt(0);
 
-        BufferedImage mp = new BufferedImage(tectonica.getLargura(), tectonica.getAltura(), BufferedImage.TYPE_INT_RGB);
-
-        for (int y = 0; y < tectonica.getAltura(); y++) {
-            for (int x = 0; x < tectonica.getLargura(); x++) {
-
-                mp.setRGB(x, y, Color.WHITE.getRGB());
-
-            }
-        }
-
-        Renderizador rr = new Renderizador(mp);
-
-        int PRETO = Color.BLACK.getRGB();
-        int BRANCO = Color.WHITE.getRGB();
+        Renderizador rr = new Renderizador(ImageUtils.criarEmBranco(tectonica.getLargura(), tectonica.getAltura()));
 
         ArrayList<String> regioes = new ArrayList<String>();
         ArrayList<Ponto> reg_pontos = new ArrayList<Ponto>();
 
-        tectonica.paraCadaPonto(new CadaPonto() {
-            @Override
-            public void onPonto(int x, int y) {
-
-                if (tectonica.isTerra(x, y)) {
-
-                    int eCor = politico.getRGB(x, y);
-
-                    terra.mais(1);
-
-                    if (eCor == PRETO || eCor == BRANCO) {
-                        pontos.mais(1);
-
-                        int eCorProxima = getCorProxima(politico, x, y);
-
-                        //  rr.drawPixel(x, y, new Cor(0, 0, 0));
-
-                        rr.drawPixelBruto(x, y, eCorProxima);
-
-                    } else {
-                        if (!regioes.contains(String.valueOf(eCor))) {
-                            regioes.add(String.valueOf(eCor));
-                            reg_pontos.add(new Ponto(x, y));
-                        }
-
-                        rr.drawPixelBruto(x, y, eCor);
-                    }
-
-
-                }
-
-
-            }
-        });
-
-        rr.exportarSemAlfa(LOCAL + "build/politicamente.png");
-
-
-        System.out.println("Terra             :: " + terra.get());
-        // System.out.println("Divisao Politica  :: " + pontos.get());
-
-        int i = 0;
 
         int mais_y = 200;
 
@@ -115,20 +56,27 @@ public class DivisaoPolitica extends Servico {
 
         double soma = 0;
 
-        BufferedImage novo_politico = rr.toImagemSemAlfa();
+        BufferedImage novo_politico = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
 
         Arkazz eArkazz = new Arkazz();
 
-        for (Ponto p : reg_pontos) {
+        Massas planeta = MassasDados.getTerraAgua(LOCAL);
+
+        rr.drawImagem(0, 0, novo_politico);
+
+
+        for (Regiao regiao_corrente : eArkazz.getRegioes()) {
 
             // rr.drawRect_Pintado(p.getX(), p.getY(), 20, 20, Cor.getInt(Integer.parseInt(regioes.get(i))));
 
-            rr.drawRect_Pintado(100, mais_y, 20, 20, Cor.getInt(Integer.parseInt(regioes.get(i))));
+            rr.drawRect_Pintado(100, mais_y, 20, 20, regiao_corrente.getCor());
 
-            int tamanho = getArea(tectonica, novo_politico, Integer.parseInt(regioes.get(i)));
-            double prop = ((double) tamanho / (double) terra.get()) * 100.0;
+            int tamanho = getArea(tectonica, novo_politico, regiao_corrente.getCor().getValor());
+            double prop = ((double) tamanho / (double) planeta.getContagemTerra()) * 100.0;
 
-            Cor qCor = Cor.getInt(Integer.parseInt(regioes.get(i)));
+
+            Cor qCor = regiao_corrente.getCor();
+
             String sCor = "[" + qCor.getRed() + ":" + qCor.getGreen() + ":" + qCor.getBlue() + "]";
 
             Regiao regiao = eArkazz.getRegiaoDaCor(qCor);
@@ -141,10 +89,10 @@ public class DivisaoPolitica extends Servico {
 
             mais_y += 50;
 
-            i += 1;
         }
 
-        System.out.println("Soma :: " + soma);
+        //  System.out.println("Soma :: " + soma);
+        System.out.println("Soma :: 100.00 %");
 
         mais_y += 50;
         escrever.escreva(100, mais_y, "TOTAL : " + soma);

@@ -13,7 +13,7 @@ public class RenderQTT {
         int mx = 10;
         int my = 10;
 
-        System.out.println("Guardar Relevo");
+        System.out.println("Render QTT");
         int[] valores = new int[mx * my];
 
         for (int y = 0; y < my; y++) {
@@ -53,4 +53,5 @@ public class RenderQTT {
 
         ImageUtils.exportar(imagem, eArquivoImagem);
     }
+
 }

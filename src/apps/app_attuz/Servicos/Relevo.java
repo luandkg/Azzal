@@ -2,14 +2,14 @@ package apps.app_attuz.Servicos;
 
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Assessorios.MapaUtilitario;
-import apps.app_attuz.Camadas.EscalasPadroes;
-import apps.app_attuz.Camadas.Massas;
-import apps.app_attuz.Camadas.MassasDados;
+import apps.app_attuz.Assessorios.EscalasPadroes;
+import apps.app_attuz.Assessorios.Massas;
+import apps.app_attuz.Assessorios.MassasDados;
 import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.IDW.AlgoritmoIDW;
 import apps.app_attuz.IDW.PontoIDW;
-import apps.app_attuz.Mapa.Local;
-import apps.app_attuz.Mapa.Proximattor;
+import apps.app_attuz.Ferramentas.Local;
+import apps.app_attuz.Ferramentas.Proximattor;
 import libs.Arquivos.QTT;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
@@ -41,7 +41,7 @@ public class Relevo extends Servico {
         onTerra(LOCAL);
         onAgua(LOCAL);
 
-        UnirMapas.unir(LOCAL,"build/terra.png","build/agua.png","build/relevo.png");
+        UnirMapas.unir(LOCAL, "build/terra.png", "build/agua.png", "build/relevo.png");
 
         marcarFim();
         mostrarTempo();
@@ -59,7 +59,7 @@ public class Relevo extends Servico {
         println("Agua  " + " -->> " + massa.getProporcaoAgua());
         println("Terra " + " -->> " + massa.getProporcaoTerra());
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         Escala mRelevo = EscalasPadroes.getEscalaTerrestre();
 
@@ -165,13 +165,13 @@ public class Relevo extends Servico {
         Massas massa = MassasDados.getAguaTerra(LOCAL);
         Massas tectonica = MassasDados.getAguaTerra(LOCAL);
 
-       // println("Tudo :: " + massa.getContagem());
+        // println("Tudo :: " + massa.getContagem());
 
-     //   println("Agua  :: " + massa.getContagemAgua() + " -->> " + massa.getProporcaoAgua());
-       // println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
+        //   println("Agua  :: " + massa.getContagemAgua() + " -->> " + massa.getProporcaoAgua());
+        // println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
 
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
 
         Escala mRelevo_aquatico = EscalasPadroes.getEscalaAquatica();
 
@@ -179,21 +179,21 @@ public class Relevo extends Servico {
 
         ArrayList<Local> ls_valores_marcados = MapaUtilitario.toLocalNormalizado(MapaUtilitario.obterLocais(LOCAL + "agua.txt"));
 
-     //   System.out.println(" -->> TODOS :: " + ls_valores_marcados.size());
+        //   System.out.println(" -->> TODOS :: " + ls_valores_marcados.size());
 
         for (int nivel = 1; nivel <= 10; nivel++) {
             Pontuadores.marcarPontos(tectonica, massa, massa.getAgua(), MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)), nivel);
-         //   System.out.println(" -->> " + nivel + ":: " + MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)).size());
+            //   System.out.println(" -->> " + nivel + ":: " + MapaUtilitario.getPontosComNome(ls_valores_marcados, String.valueOf(nivel)).size());
         }
 
 
         ArrayList<PontoIDW> eixos = AlgoritmoIDW.getEixos(tectonica, tectonica.getAgua(), massa);
 
-       // System.out.println(" -->> OBITIDOS :: " + eixos.size());
+        // System.out.println(" -->> OBITIDOS :: " + eixos.size());
 
         ArrayList<PontoIDW> novos = ExpansorDeLimite.expandir(eixos, tectonica);
         eixos.addAll(novos);
-       // System.out.println(" -->> EXPANDIDOS :: " + eixos.size());
+        // System.out.println(" -->> EXPANDIDOS :: " + eixos.size());
 
 
         for (PontoIDW eixo : eixos) {
@@ -210,14 +210,14 @@ public class Relevo extends Servico {
 
         Proximattor.porProximidade(tectonica, tectonica.getAgua(), massa, normalizador, eixos, 10);
 
-     //   System.out.println("Maior :: " + getMaior(tectonica, tectonica.getAgua(), massa));
-       // System.out.println("Menor :: " + getMenor(tectonica, tectonica.getAgua(), massa));
+        //   System.out.println("Maior :: " + getMaior(tectonica, tectonica.getAgua(), massa));
+        // System.out.println("Menor :: " + getMenor(tectonica, tectonica.getAgua(), massa));
 
 
         // MapaRender.renderiza(mapa, tectonica, tectonica.getTerra(), massa, mRelevo, normalizador, LOCAL + "build/terra.png");
 
         normalizador.equilibrar();
-       // normalizador.stock();
+        // normalizador.stock();
 
 
         //MapaRender.equilibrador(tectonica, tectonica.getAgua(), massa, mRelevo_aquatico, normalizador);

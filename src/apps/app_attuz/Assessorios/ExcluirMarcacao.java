@@ -1,6 +1,6 @@
 package apps.app_attuz.Assessorios;
 
-import apps.app_attuz.Mapa.Local;
+import apps.app_attuz.Ferramentas.Local;
 
 import java.util.ArrayList;
 

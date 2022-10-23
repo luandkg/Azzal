@@ -1,5 +1,6 @@
 package libs.OLLT;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class OLLT {
@@ -78,24 +79,24 @@ public class OLLT {
 
     public String toString() {
 
-        ITexto ITextoC = new ITexto();
+        TextoDocumento TextoDocumentoC = new TextoDocumento();
         Salvamento SalvamentoC = new Salvamento();
 
-        SalvamentoC.Pacote_Listar(ITextoC, "", this.getPacotes());
+        SalvamentoC.Pacote_Listar(TextoDocumentoC, "", this.getPacotes());
 
         //System.out.println(ITextoC.toString());
 
-        return ITextoC.toString();
+        return TextoDocumentoC.toString();
     }
 
     public String gerarReduzido() {
 
-        ITexto ITextoC = new ITexto();
+        TextoDocumento TextoDocumentoC = new TextoDocumento();
         SalvamentoReduzido SalvamentoC = new SalvamentoReduzido();
 
-        SalvamentoC.Pacote_Listar(ITextoC, this.getPacotes());
+        SalvamentoC.Pacote_Listar(TextoDocumentoC, this.getPacotes());
 
-        return ITextoC.toString();
+        return TextoDocumentoC.toString();
     }
 
     // IO
@@ -106,7 +107,7 @@ public class OLLT {
 
         Parser ParserC = new Parser();
 
-        ParserC.Parse(Texto.Ler(eArquivo), this);
+        ParserC.Parse(arquivo_ler(eArquivo), this);
 
     }
 
@@ -121,13 +122,13 @@ public class OLLT {
 
     public void Salvar(String eArquivo) {
 
-        Texto.Escrever(eArquivo, this.toString());
+        arquivo_escrever(eArquivo, this.toString());
 
     }
 
     public void SalvarReduzido(String eArquivo) {
 
-        Texto.Escrever(eArquivo, this.gerarReduzido());
+        arquivo_escrever(eArquivo, this.gerarReduzido());
 
     }
 
@@ -138,12 +139,12 @@ public class OLLT {
     // HIERARQUIZE
 
     public String Hierarquize() {
-        ITexto ITextoC = new ITexto();
+        TextoDocumento TextoDocumentoC = new TextoDocumento();
         Hierarquizador HierarquizadorC = new Hierarquizador();
 
-        HierarquizadorC.Hierarquizar(ITextoC, "   ", this.getPacotes());
+        HierarquizadorC.Hierarquizar(TextoDocumentoC, "   ", this.getPacotes());
 
-        return ITextoC.toString();
+        return TextoDocumentoC.toString();
 
     }
 
@@ -223,6 +224,57 @@ public class OLLT {
 
         }
 
+    }
+
+
+
+    private static void arquivo_escrever(String eArquivo, String eConteudo) {
+
+        BufferedWriter writer = null;
+        try {
+            File logFile = new File(eArquivo);
+
+            writer = new BufferedWriter(new FileWriter(logFile));
+            writer.write(eConteudo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
+    private static String arquivo_ler(String eArquivo) {
+
+        String ret = "";
+
+        try {
+            FileReader arq = new FileReader(eArquivo);
+            BufferedReader lerArq = new BufferedReader(arq);
+
+            String linha = lerArq.readLine();
+
+            ret += linha;
+
+            while (linha != null) {
+
+                linha = lerArq.readLine();
+                if (linha != null) {
+                    ret += "\n" + linha;
+                }
+
+            }
+
+            arq.close();
+        } catch (IOException e) {
+
+        }
+
+        return ret;
     }
 
 }

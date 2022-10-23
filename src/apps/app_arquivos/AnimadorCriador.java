@@ -1,5 +1,6 @@
 package apps.app_arquivos;
 
+import azzal.utilitarios.Cor;
 import libs.Arquivos.AN;
 import libs.Luan.Lista;
 
@@ -117,7 +118,6 @@ public class AnimadorCriador {
 
         pintarTudo(Q1, Color.WHITE);
 
-       // mLista.adicionar(Q1);
 
         BufferedImage Q2 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
 
@@ -126,178 +126,19 @@ public class AnimadorCriador {
 
         mLista.adicionar(Q2);
 
-        for (int i = 1; i <= 4; i++) {
 
-            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
-            pintarTudo(eFluxo, Color.WHITE);
-
-            if (i == 1) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-
-            } else  if (i == 2) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-
-            } else  if (i == 3) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-
-            } else  if (i == 4) {
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
+        quadros_cor(mLista, Cor.getHexCor("#E64A19").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#388E3C").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#FDD835").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#1E88E5").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#311B92").toColor());
 
 
-            }
-
-            pintarQuadranteGeral(eFluxo, Color.BLACK);
-            mLista.adicionar(eFluxo);
-        }
-
-        for (int i = 1; i <= 4; i++) {
-
-            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
-            pintarTudo(eFluxo, Color.WHITE);
-
-            if (i == 1) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.RED);
-
-            } else  if (i == 2) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.RED);
-                pintarQuadranteCentro(eFluxo, 2, Color.RED);
-
-            } else  if (i == 3) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.RED);
-                pintarQuadranteCentro(eFluxo, 2, Color.RED);
-                pintarQuadranteCentro(eFluxo, 3, Color.RED);
-
-
-            } else  if (i == 4) {
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.RED);
-                pintarQuadranteCentro(eFluxo, 2, Color.RED);
-                pintarQuadranteCentro(eFluxo, 3, Color.RED);
-                pintarQuadranteCentro(eFluxo, 4, Color.RED);
-
-
-            }
-
-            pintarQuadranteGeral(eFluxo, Color.BLACK);
-            mLista.adicionar(eFluxo);
-        }
-
-        for (int i = 1; i <= 4; i++) {
-
-            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
-            pintarTudo(eFluxo, Color.WHITE);
-
-            if (i == 1) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 2, Color.RED);
-                pintarQuadranteCentro(eFluxo, 3, Color.RED);
-                pintarQuadranteCentro(eFluxo, 4, Color.RED);
-            } else  if (i == 2) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 3, Color.RED);
-                pintarQuadranteCentro(eFluxo, 4, Color.RED);
-            } else  if (i == 3) {
-
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 4, Color.RED);
-
-            } else  if (i == 4) {
-                pintarQuadrante(eFluxo, 1, Color.BLACK);
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
-
-
-            }
-
-            pintarQuadranteGeral(eFluxo, Color.BLACK);
-            mLista.adicionar(eFluxo);
-        }
-
-        for (int i = 1; i <= 4; i++) {
-
-            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
-            pintarTudo(eFluxo, Color.WHITE);
-
-            if (i == 1) {
-
-                pintarQuadrante(eFluxo, 2, Color.BLACK);
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
-            } else  if (i == 2) {
-
-                pintarQuadrante(eFluxo, 3, Color.BLACK);
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
-                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
-            } else  if (i == 3) {
-
-                pintarQuadrante(eFluxo, 4, Color.BLACK);
-                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
-
-            } else  if (i == 4) {
-
-
-
-            }
-
-            pintarQuadranteGeral(eFluxo, Color.BLACK);
-            mLista.adicionar(eFluxo);
-        }
-
-
-
+        quadros_cor(mLista, Cor.getHexCor("#311B92").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#1E88E5").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#FDD835").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#388E3C").toColor());
+        quadros_cor(mLista, Cor.getHexCor("#E64A19").toColor());
 
 
         BufferedImage Q10 = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
@@ -309,10 +150,183 @@ public class AnimadorCriador {
         mLista.adicionar(Q10);
 
 
-        AN.criar(mLista, 200, eArquivo);
+        AN.criar(mLista, 50, eArquivo);
 
     }
 
+    public void quadros_cor(Lista<BufferedImage> mLista, Color QUADRANTE_COR) {
+
+
+        for (int i = 1; i <= 4; i++) {
+
+            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+            pintarTudo(eFluxo, Color.WHITE);
+
+            if (i == 1) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+
+            } else if (i == 2) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+
+            } else if (i == 3) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+
+            } else if (i == 4) {
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+
+
+            }
+
+            pintarQuadranteGeral(eFluxo, Color.BLACK);
+            mLista.adicionar(eFluxo);
+        }
+
+        for (int i = 1; i <= 4; i++) {
+
+            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+            pintarTudo(eFluxo, Color.WHITE);
+
+            if (i == 1) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, QUADRANTE_COR);
+
+            } else if (i == 2) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 2, QUADRANTE_COR);
+
+            } else if (i == 3) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 2, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 3, QUADRANTE_COR);
+
+
+            } else if (i == 4) {
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 2, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 3, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 4, QUADRANTE_COR);
+
+
+            }
+
+            pintarQuadranteGeral(eFluxo, Color.BLACK);
+            mLista.adicionar(eFluxo);
+        }
+
+        for (int i = 1; i <= 4; i++) {
+
+            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+            pintarTudo(eFluxo, Color.WHITE);
+
+            if (i == 1) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 2, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 3, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 4, QUADRANTE_COR);
+            } else if (i == 2) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 3, QUADRANTE_COR);
+                pintarQuadranteCentro(eFluxo, 4, QUADRANTE_COR);
+            } else if (i == 3) {
+
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 4, QUADRANTE_COR);
+
+            } else if (i == 4) {
+                pintarQuadrante(eFluxo, 1, Color.BLACK);
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 1, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
+
+
+            }
+
+            pintarQuadranteGeral(eFluxo, Color.BLACK);
+            mLista.adicionar(eFluxo);
+        }
+
+        for (int i = 1; i <= 4; i++) {
+
+            BufferedImage eFluxo = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+            pintarTudo(eFluxo, Color.WHITE);
+
+            if (i == 1) {
+
+                pintarQuadrante(eFluxo, 2, Color.BLACK);
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 2, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
+            } else if (i == 2) {
+
+                pintarQuadrante(eFluxo, 3, Color.BLACK);
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 3, Color.WHITE);
+                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
+            } else if (i == 3) {
+
+                pintarQuadrante(eFluxo, 4, Color.BLACK);
+                pintarQuadranteCentro(eFluxo, 4, Color.WHITE);
+
+            } else if (i == 4) {
+
+
+            }
+
+            pintarQuadranteGeral(eFluxo, Color.BLACK);
+            mLista.adicionar(eFluxo);
+        }
+
+    }
 
     public void pintarTudo(BufferedImage IMG, Color eCor) {
 
