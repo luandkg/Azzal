@@ -1,6 +1,6 @@
 package apps.app_arquivos.AudioWidgets;
 
-import libs.Arquivos.Audio.HZ;
+import libs.arquivos.audio.HZ;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 

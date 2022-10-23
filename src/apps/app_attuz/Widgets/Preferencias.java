@@ -1,6 +1,6 @@
 package apps.app_attuz.Widgets;
 
-import libs.Arquivos.PreferenciasOrganizadas;
+import libs.arquivos.PreferenciasOrganizadas;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;

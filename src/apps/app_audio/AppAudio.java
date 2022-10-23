@@ -3,25 +3,17 @@ package apps.app_audio;
 import apps.app_arquivos.AudioWidgets.AudioRender;
 import apps.app_arquivos.AudioWidgets.Espectrum;
 import apps.app_arquivos.AudioWidgets.HZQuatter;
-import apps.app_azzal.CirculoTrigonometrico;
-import apps.app_azzal.QuadranteColorido;
-import libs.Arquivos.Audio.HZ;
-import libs.Arquivos.Audio.HZControlador;
+import libs.arquivos.audio.HZ;
+import libs.arquivos.audio.HZControlador;
 import azzal.cenarios.Cena;
-import azzal.geometria.*;
 import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Luan.Iterador;
-import libs.Luan.Lista;
-import libs.Movimento.Movettor;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Random;
 
 
 public class AppAudio extends Cena {

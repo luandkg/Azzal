@@ -1,7 +1,7 @@
 package azzal;
 
-import libs.Arquivos.Audio.HZ;
-import libs.Arquivos.Audio.HZControlador;
+import libs.arquivos.audio.HZ;
+import libs.arquivos.audio.HZControlador;
 import azzal.cenarios.Cena;
 import azzal.cenarios.Cenarios;
 

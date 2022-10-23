@@ -1,9 +1,9 @@
 package libs.Wav;
 
-import libs.Arquivos.Audio.AreaBinaria;
-import libs.Arquivos.Audio.HZ;
-import libs.Arquivos.Audio.HZControlador;
-import libs.Arquivos.Audio.RepetidorBinario;
+import libs.arquivos.audio.AreaBinaria;
+import libs.arquivos.audio.HZ;
+import libs.arquivos.audio.HZControlador;
+import libs.arquivos.audio.RepetidorBinario;
 
 public class AudioContructor {
 

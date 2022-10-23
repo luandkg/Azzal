@@ -48,4 +48,12 @@ public class Opcional<T> {
         mTem = false;
         mValor = null;
     }
+
+    public static <T> Opcional<T> OK(T eValor) {
+        return new Opcional<T>(eValor);
+    }
+
+    public static <T> Opcional<T> CANCEL() {
+        return new Opcional<T>(null);
+    }
 }

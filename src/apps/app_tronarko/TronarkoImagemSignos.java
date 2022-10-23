@@ -44,16 +44,16 @@ public class TronarkoImagemSignos {
 
 
         switch (eSigno) {
-            case CARPA -> imagem = SIGNO_CARPA;
-            case GATO -> imagem = SIGNO_GATO;
-            case GAVIAO -> imagem = SIGNO_GAVIAO;
-            case LEAO -> imagem = SIGNO_LEAO;
-            case LEOPARDO -> imagem = SIGNO_LEOPARDO;
-            case LOBO -> imagem = SIGNO_LOBO;
-            case RAPOSA -> imagem = SIGNO_RAPOSA;
-            case SERPENTE -> imagem = SIGNO_SERPENTE;
-            case TIGRE -> imagem = SIGNO_TIGRE;
-            case TOURO -> imagem = SIGNO_TOURO;
+            case CARPA : { imagem = SIGNO_CARPA;break;}
+            case GATO  : {imagem = SIGNO_GATO;break;}
+            case GAVIAO   :{ imagem = SIGNO_GAVIAO;break;}
+            case LEAO   :{ imagem = SIGNO_LEAO;break;}
+            case LEOPARDO  : { imagem = SIGNO_LEOPARDO;break;}
+            case LOBO   :{ imagem = SIGNO_LOBO;break;}
+            case RAPOSA   :{ imagem = SIGNO_RAPOSA;break;}
+            case SERPENTE  : { imagem = SIGNO_SERPENTE;break;}
+            case TIGRE  : { imagem = SIGNO_TIGRE;break;}
+            case TOURO  : { imagem = SIGNO_TOURO;break;}
         }
 
         return imagem;

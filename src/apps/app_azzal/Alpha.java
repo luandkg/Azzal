@@ -1,10 +1,5 @@
 package apps.app_azzal;
 
-import apps.app_arquivos.AudioWidgets.AudioRender;
-import apps.app_arquivos.AudioWidgets.Espectrum;
-import apps.app_arquivos.AudioWidgets.HZQuatter;
-import libs.Arquivos.Audio.HZ;
-import libs.Arquivos.Audio.HZControlador;
 import azzal.cenarios.Cena;
 import azzal.geometria.*;
 import azzal.utilitarios.*;
@@ -17,7 +12,6 @@ import libs.Luan.Lista;
 import libs.Movimento.Movettor;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 

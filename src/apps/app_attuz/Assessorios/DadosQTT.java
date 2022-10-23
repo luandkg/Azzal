@@ -1,6 +1,6 @@
 package apps.app_attuz.Assessorios;
 
-import libs.Arquivos.QTT;
+import libs.arquivos.QTT;
 
 public class DadosQTT {
 

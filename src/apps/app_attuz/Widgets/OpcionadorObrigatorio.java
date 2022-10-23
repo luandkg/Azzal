@@ -4,7 +4,6 @@ import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
-import libs.Arquivos.PreferenciasOrganizadas;
 
 import java.awt.*;
 import java.util.ArrayList;

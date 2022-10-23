@@ -1,8 +1,8 @@
 package apps.app_azzal;
 
-import libs.Arquivos.Binario.Arquivador;
-import libs.Arquivos.Binario.Int6;
-import libs.Arquivos.Binario.Int8;
+import libs.arquivos.binario.Arquivador;
+import libs.arquivos.binario.Int6;
+import libs.arquivos.binario.Int8;
 
 import java.awt.*;
 import java.io.File;

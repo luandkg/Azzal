@@ -1,7 +1,6 @@
 package libs.dg;
 
-import libs.Arquivos.TX;
-import libs.Luan.Opcional;
+import libs.arquivos.TX;
 
 import java.util.ArrayList;
 

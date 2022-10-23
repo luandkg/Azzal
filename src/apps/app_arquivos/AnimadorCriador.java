@@ -1,7 +1,7 @@
 package apps.app_arquivos;
 
 import azzal.utilitarios.Cor;
-import libs.Arquivos.AN;
+import libs.arquivos.AN;
 import libs.Luan.Lista;
 
 import java.awt.*;

@@ -1,8 +1,7 @@
 package apps.app_dg;
 
-import libs.Arquivos.Binario.Arquivador;
+import libs.arquivos.binario.Arquivador;
 import libs.Luan.Opcional;
-import libs.Luan.fmt;
 import libs.dg.*;
 import libs.tronarko.Tronarko;
 

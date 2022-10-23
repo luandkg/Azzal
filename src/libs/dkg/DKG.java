@@ -196,4 +196,38 @@ public class DKG {
         return ret;
     }
 
+    // FEATURE 22.09
+
+    public ArrayList<String> toListaDeString(String atributo){
+
+        ArrayList<String> ls = new ArrayList<String>();
+
+        for (DKGObjeto objeto : getObjetos()) {
+            ls.add(objeto.identifique(atributo).getValor());
+        }
+
+        return ls;
+    }
+
+    // FEATURE 22.09
+    public DKGObjeto unicamente(String ePrimeiro, String eSegundo) {
+        return unicoObjeto(ePrimeiro).unicoObjeto(eSegundo);
+    }
+
+    // FEATURE 22.09
+    public DKGObjeto unicamente(String ePrimeiro, String eSegundo,String eTerceiro) {
+        return unicoObjeto(ePrimeiro).unicoObjeto(eSegundo).unicoObjeto(eTerceiro);
+    }
+
+    // FEATURE 22.10
+    public ArrayList<DKGObjetoOuAtributo> getTodos(){
+
+        ArrayList<DKGObjetoOuAtributo> lista = new ArrayList<DKGObjetoOuAtributo>();
+
+        for (DKGObjeto obj : getObjetos()) {
+            lista.add(new DKGObjetoOuAtributo(obj));
+        }
+        return lista;
+    }
+
 }

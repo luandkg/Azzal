@@ -1,18 +1,20 @@
 package libs.dkg;
 
+import libs.Luan.Opcional;
+
 import java.util.ArrayList;
 
 public class DKGObjeto {
 
     private String mNome;
-    private ArrayList<DKGAtributo> mDKGAtributos;
-    private ArrayList<DKGObjeto> mDKGObjetos;
+    private ArrayList<DKGAtributo> mAtributos;
+    private ArrayList<DKGObjeto> mObjetos;
 
     public DKGObjeto(String eNome) {
         mNome = eNome;
 
-        mDKGAtributos = new ArrayList<DKGAtributo>();
-        mDKGObjetos = new ArrayList<DKGObjeto>();
+        mAtributos = new ArrayList<DKGAtributo>();
+        mObjetos = new ArrayList<DKGObjeto>();
 
     }
 
@@ -29,12 +31,12 @@ public class DKGObjeto {
         int t = 1;
 
 
-        for (DKGAtributo ePacote : mDKGAtributos) {
+        for (DKGAtributo ePacote : mAtributos) {
             t += 2;
         }
 
 
-        for (DKGObjeto mDKGObjeto : mDKGObjetos) {
+        for (DKGObjeto mDKGObjeto : mObjetos) {
             t += mDKGObjeto.contagem();
         }
 
@@ -50,7 +52,7 @@ public class DKGObjeto {
         boolean enc = false;
         DKGAtributo ret = null;
 
-        for (DKGAtributo mIdentificador : mDKGAtributos) {
+        for (DKGAtributo mIdentificador : mAtributos) {
 
             if (mIdentificador.getNome().contentEquals(eNome)) {
                 enc = true;
@@ -62,7 +64,7 @@ public class DKGObjeto {
 
         if (enc == false) {
             ret = new DKGAtributo(eNome, "");
-            mDKGAtributos.add(ret);
+            mAtributos.add(ret);
         }
 
         return ret;
@@ -73,7 +75,7 @@ public class DKGObjeto {
 
         boolean enc = false;
 
-        for (DKGAtributo mIdentificador : mDKGAtributos) {
+        for (DKGAtributo mIdentificador : mAtributos) {
 
             if (mIdentificador.getNome().contentEquals(eNome)) {
                 enc = true;
@@ -112,7 +114,7 @@ public class DKGObjeto {
         boolean enc = false;
         DKGAtributo ret = null;
 
-        for (DKGAtributo mIdentificador : mDKGAtributos) {
+        for (DKGAtributo mIdentificador : mAtributos) {
 
             if (mIdentificador.getNome().contentEquals(eNome)) {
                 enc = true;
@@ -125,27 +127,27 @@ public class DKGObjeto {
 
         if (enc == false) {
             ret = new DKGAtributo(eNome, eValor);
-            mDKGAtributos.add(ret);
+            mAtributos.add(ret);
         }
 
         return ret;
     }
 
     public ArrayList<DKGAtributo> getAtributos() {
-        return mDKGAtributos;
+        return mAtributos;
     }
 
 
     // OBJETO
 
     public ArrayList<DKGObjeto> getObjetos() {
-        return mDKGObjetos;
+        return mObjetos;
     }
 
     public DKGObjeto criarObjeto(String eNome) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mDKGObjetos.add(ret);
+        mObjetos.add(ret);
 
         return ret;
     }
@@ -153,7 +155,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, String v1) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mDKGObjetos.add(ret);
+        mObjetos.add(ret);
 
         ret.identifique(a1, v1);
 
@@ -163,7 +165,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, String v1, String a2, String v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mDKGObjetos.add(ret);
+        mObjetos.add(ret);
 
         ret.identifique(a1, v1);
         ret.identifique(a2, v2);
@@ -174,7 +176,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, int v1, String a2, int v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mDKGObjetos.add(ret);
+        mObjetos.add(ret);
 
         ret.identifique(a1, v1);
         ret.identifique(a2, v2);
@@ -185,7 +187,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, double v1, String a2, double v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mDKGObjetos.add(ret);
+        mObjetos.add(ret);
 
         ret.identifique(a1, v1);
         ret.identifique(a2, v2);
@@ -199,7 +201,7 @@ public class DKGObjeto {
         boolean enc = false;
         DKGObjeto ret = null;
 
-        for (DKGObjeto mDKGObjeto : mDKGObjetos) {
+        for (DKGObjeto mDKGObjeto : mObjetos) {
 
             if (mDKGObjeto.getNome().contentEquals(eNome)) {
                 enc = true;
@@ -211,7 +213,7 @@ public class DKGObjeto {
 
         if (enc == false) {
             ret = new DKGObjeto(eNome);
-            mDKGObjetos.add(ret);
+            mObjetos.add(ret);
         }
 
         return ret;
@@ -219,10 +221,10 @@ public class DKGObjeto {
 
     public void removerObjeto(DKGObjeto eDKGObjeto) {
 
-        for (DKGObjeto mDKGObjeto : mDKGObjetos) {
+        for (DKGObjeto mDKGObjeto : mObjetos) {
 
             if (mDKGObjeto == eDKGObjeto) {
-                mDKGObjetos.remove(eDKGObjeto);
+                mObjetos.remove(eDKGObjeto);
                 break;
             }
 
@@ -232,10 +234,10 @@ public class DKGObjeto {
 
     public void removerObjetoPorNome(String eNome) {
 
-        for (DKGObjeto mDKGObjeto : mDKGObjetos) {
+        for (DKGObjeto mDKGObjeto : mObjetos) {
 
             if (mDKGObjeto.getNome().contentEquals(eNome)) {
-                mDKGObjetos.remove(mDKGObjeto);
+                mObjetos.remove(mDKGObjeto);
                 break;
             }
 
@@ -296,4 +298,129 @@ public class DKGObjeto {
         getObjetos().clear();
 
     }
+
+    public String toDocumento() {
+
+        DKG escritor = new DKG();
+        escritor.getObjetos().add(this);
+
+        return escritor.toDocumento();
+    }
+
+    // FEATURE 2022.07
+
+    public Opcional<DKGObjeto> procurar(String atributo_nome, String atributo_valor) {
+
+        for (DKGObjeto objeto : mObjetos) {
+            if (objeto.identifique(atributo_nome).isValor(atributo_valor)) {
+                return Opcional.OK(objeto);
+            }
+        }
+
+        return Opcional.CANCEL();
+    }
+
+
+
+
+    // FEATURE 2022.08
+
+    public void adicionarObjetosDe(DKGObjeto eEmissor) {
+
+        for (DKGObjeto passando_objeto : eEmissor.getObjetos()) {
+            mObjetos.add(passando_objeto);
+        }
+
+    }
+
+    // FEATURE 2022.09
+
+    public void adicionarAtributosDe(DKGObjeto eEmissor) {
+
+        for (DKGAtributo copiando_atributo : eEmissor.getAtributos()) {
+
+            boolean existe = false;
+            for (DKGAtributo passando_atributo : getAtributos()) {
+                if (passando_atributo.getNome().contentEquals(copiando_atributo.getNome())) {
+                    passando_atributo.setValor(copiando_atributo.getValor());
+                    existe = true;
+                    break;
+                }
+            }
+
+            if (!existe) {
+                DKGAtributo atributo = new DKGAtributo(copiando_atributo.getNome(), copiando_atributo.getValor());
+                mAtributos.add(atributo);
+            }
+        }
+
+    }
+
+
+    // FEATURE 22.09
+
+    public ArrayList<String> toListaDeString(String atributo) {
+
+        ArrayList<String> ls = new ArrayList<String>();
+
+        for (DKGObjeto objeto : getObjetos()) {
+            ls.add(objeto.identifique(atributo).getValor());
+        }
+
+        return ls;
+    }
+
+    // FEATURE 22.09
+    public DKGObjeto unicamente(String ePrimeiro, String eSegundo) {
+        return unicoObjeto(ePrimeiro).unicoObjeto(eSegundo);
+    }
+
+    // FEATURE 22.09
+    public DKGObjeto unicamente(String ePrimeiro, String eSegundo, String eTerceiro) {
+        return unicoObjeto(ePrimeiro).unicoObjeto(eSegundo).unicoObjeto(eTerceiro);
+    }
+
+
+    // FEATURE 22.09
+
+    public int inteiro_mais(String eAtributo, int v) {
+        int valor = identifique(eAtributo).getInteiro(0) + v;
+        identifique(eAtributo).setInteiro(valor);
+        return valor;
+    }
+
+    public int inteiro_mais(DKGAtributo eAtributo, int v) {
+        int valor = eAtributo.getInteiro(0) + v;
+        eAtributo.setInteiro(valor);
+        return valor;
+    }
+
+    public int inteiro_menos(String eAtributo, int v) {
+        int valor = identifique(eAtributo).getInteiro(0) - v;
+        identifique(eAtributo).setInteiro(valor);
+        return valor;
+    }
+
+    public int inteiro_menos(DKGAtributo eAtributo, int v) {
+        int valor = eAtributo.getInteiro(0) - v;
+        eAtributo.setInteiro(valor);
+        return valor;
+    }
+
+
+    // FEATURE 22.10
+    public ArrayList<DKGObjetoOuAtributo> getTodos(){
+
+        ArrayList<DKGObjetoOuAtributo> lista = new ArrayList<DKGObjetoOuAtributo>();
+
+        for (DKGAtributo att : getAtributos()) {
+            lista.add(new DKGObjetoOuAtributo(att));
+        }
+        for (DKGObjeto obj : getObjetos()) {
+            lista.add(new DKGObjetoOuAtributo(obj));
+        }
+
+        return lista;
+    }
+
 }

@@ -1,7 +1,7 @@
 package libs.GamaFS;
 
-import libs.Arquivos.Binario.Arquivador;
-import libs.Arquivos.Binario.Inteiro;
+import libs.arquivos.binario.Arquivador;
+import libs.arquivos.binario.Inteiro;
 
 public class Raiz {
 

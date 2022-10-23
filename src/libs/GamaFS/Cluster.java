@@ -1,6 +1,6 @@
 package libs.GamaFS;
 
-import libs.Arquivos.Binario.Arquivador;
+import libs.arquivos.binario.Arquivador;
 
 public class Cluster {
 

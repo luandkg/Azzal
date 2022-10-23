@@ -1,8 +1,7 @@
 package apps.app_arquivos;
 
-import libs.Arquivos.*;
-import libs.Arquivos.Audio.HZControlador;
-import libs.Arquivos.Binario.Int8;
+import libs.arquivos.*;
+import libs.arquivos.binario.Int8;
 import libs.Imaginador.ImageUtils;
 import libs.Servittor.Servico;
 

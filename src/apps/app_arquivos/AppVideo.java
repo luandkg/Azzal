@@ -1,8 +1,8 @@
 package apps.app_arquivos;
 
 import azzal.utilitarios.Cronometro;
-import libs.Arquivos.Video.Video;
-import libs.Arquivos.Video.LinhaDoTempo;
+import libs.arquivos.video.Video;
+import libs.arquivos.video.LinhaDoTempo;
 import azzal.cenarios.Cena;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;

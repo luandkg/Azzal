@@ -1,28 +1,9 @@
 package apps.app;
 
-import apps.appTG22.TG22;
-import apps.app_arquivos.AppAnimacao;
-import apps.app_arquivos.AppImagem;
-import apps.app_arquivos.AppVideo;
-import apps.app_arquivos.ArquivosServicos;
-import apps.app_attuz.AppAttuz;
-import apps.app_attuz.AppAttuzServittos;
-import apps.app_attuz.WorldBuilding;
-import apps.app_audio.AppAudio;
-import apps.app_azzal.Alpha;
-import apps.app_azzal.AppGlobal;
+import apps.app_arquivos.*;
 import apps.app_azzal.VamosCalcular;
-import apps.app_dg.AppDG;
-import apps.app_gamafs.AppGamaFS;
-import apps.app_khronos.AppKrhonos;
-import apps.app_tronarko.AppLinhaDoTempo;
 import azzal.AzzalUnico;
-import libs.Arquivos.Video.VideoSequenciador;
 import libs.Documentar.Documentar;
-import libs.GamaFS.GamaFS;
-import libs.Movimento.QuadranteEspacial;
-import libs.OnTerraria.TerrariaCena;
-import libs.Servittor.Servittor;
 
 public class AppAzzal {
 
@@ -32,14 +13,14 @@ public class AppAzzal {
 
         // AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.AppFuzz());
 
-        //  AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
-        //  AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+        // AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+        // AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         // AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
 
-        //    AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
+        // AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
 
-        AppAttuzServittos.init();
+        //AppAttuzServittos.init();
 
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppLinhaDoTempo());
 
@@ -77,7 +58,8 @@ public class AppAzzal {
 
         //Servittor.onServico("Arquivador", new ArquivosServicos());
 
-        // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppImagem());
+         AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppImagem());
+      //  AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
 
         // AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
 

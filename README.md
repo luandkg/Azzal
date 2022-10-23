@@ -108,7 +108,7 @@ de Dados da Universidade de Brasília
 > Tempo : Classe responsável por trabalhar com datas e horarios, ela será atualizada com outra versão que desenvolvi no projeto appEscola
 
 
-# libs.Arquivos - Meus formatos de arquivos
+# libs.arquivos - Meus formatos de arquivos
 
 > Pacote com formatos de arquivados criados por mim mesmo ( hehehe )
 

@@ -1,13 +1,11 @@
 package apps.app_arquivos;
 
-import libs.Arquivos.AI;
-import libs.Arquivos.ImagemDoAlbum;
+import libs.arquivos.IM;
 import azzal.cenarios.Cena;
 import azzal.Cores;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import azzal.Windows;
-import libs.Imaginador.Efeitos;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import mockui.Interface.Acao;
@@ -22,11 +20,8 @@ public class AppImagem extends Cena {
     private Fonte micro;
     private Cores mCores;
 
-
     private Clicavel mClicavel;
 
-    private AI mAlbumCorrente;
-    private int mSelecionado;
     private BufferedImage mImagem;
 
 
@@ -38,11 +33,10 @@ public class AppImagem extends Cena {
         pequeno = new FonteRunTime(mCores.getPreto(), FonteRunTime.getTamanhoPequeno());
         micro = new FonteRunTime(mCores.getPreto(), FonteRunTime.getTamanhoMicro());
 
-        mAlbumCorrente = new AI();
-        mAlbumCorrente.abrir("/home/luan/Imagens/luan.ai");
-        mSelecionado = 0;
 
-        mImagem = mAlbumCorrente.getImagem(0);
+        mImagem = IM.abrir("/home/luan/Dropbox/CED_01/imagem.im");
+        //mImagem = IM.abrir("/home/luan/Imagens/eu.im");
+
         resolucao_adequar();
 
         mClicavel = new Clicavel();
@@ -66,32 +60,11 @@ public class AppImagem extends Cena {
     }
 
     public void imagem_proxima() {
-
-        mSelecionado += 1;
-
-        if (mSelecionado >= mAlbumCorrente.getImagens().size()) {
-            mSelecionado = 0;
-        }
-
-        System.out.println(" -->> " + mAlbumCorrente.getImagens().get(mSelecionado).getNome());
-
-        mImagem = mAlbumCorrente.getImagem(mSelecionado);
-
         resolucao_adequar();
-
     }
 
     public void imagem_voltar() {
 
-        mSelecionado -= 1;
-
-        if (mSelecionado < 0) {
-            mSelecionado = mAlbumCorrente.getImagens().size() - 1;
-        }
-
-        System.out.println(" -->> " + mAlbumCorrente.getImagens().get(mSelecionado).getNome());
-
-        mImagem = mAlbumCorrente.getImagem(mSelecionado);
 
         resolucao_adequar();
 
@@ -101,11 +74,11 @@ public class AppImagem extends Cena {
     public void resolucao_adequar() {
 
         if (mImagem.getWidth() > 600 && mImagem.getHeight() < 600) {
-            mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight());
+         //   mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight());
         } else if (mImagem.getWidth() < 600 && mImagem.getHeight() > 600) {
-            mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth(), mImagem.getHeight() / 2);
+      //      mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth(), mImagem.getHeight() / 2);
         } else if (mImagem.getWidth() > 600 || mImagem.getHeight() > 600) {
-            mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight() / 2);
+       //     mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight() / 2);
         }
 
     }
@@ -133,19 +106,6 @@ public class AppImagem extends Cena {
 
         mClicavel.onDraw(eRender);
 
-        int a = 0;
-        for (ImagemDoAlbum imagem : mAlbumCorrente.getImagens()) {
-
-            if (mSelecionado == a) {
-                eRender.drawRect_Pintado(30, 102 + (a * 25), 10, 10, mCores.getVermelho());
-            } else {
-                eRender.drawRect(30, 102 + (a * 25), 10, 10, mCores.getPreto());
-            }
-
-            pequeno.escreva(50, 100 + (a * 25), "Imagem :: " + imagem.getNome());
-            a += 1;
-
-        }
 
         eRender.drawImagem(150, 300, mImagem);
 

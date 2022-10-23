@@ -8,7 +8,7 @@ import apps.app_attuz.Assessorios.DadosQTT;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
 import apps.app_attuz.Regiao.Regiao;
-import libs.Arquivos.Audio.RefInt;
+import libs.arquivos.audio.RefInt;
 import azzal.geometria.Ponto;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;

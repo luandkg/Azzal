@@ -1,7 +1,7 @@
 package apps.app_arquivos;
 
 import azzal.utilitarios.Cronometro;
-import libs.Arquivos.AN;
+import libs.arquivos.AN;
 import azzal.cenarios.Cena;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;

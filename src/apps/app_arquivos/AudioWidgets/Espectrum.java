@@ -1,6 +1,6 @@
 package apps.app_arquivos.AudioWidgets;
 
-import libs.Arquivos.Binario.Inteiro;
+import libs.arquivos.binario.Inteiro;
 
 public class Espectrum {
 

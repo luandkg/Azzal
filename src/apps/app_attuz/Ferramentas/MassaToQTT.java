@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.Massas;
-import libs.Arquivos.QTT;
+import libs.arquivos.QTT;
 
 public class MassaToQTT {
 

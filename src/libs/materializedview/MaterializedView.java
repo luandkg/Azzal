@@ -1,8 +1,8 @@
 package libs.materializedview;
 
 
-import libs.Arquivos.Binario.Arquivador;
-import libs.Arquivos.TX;
+import libs.arquivos.binario.Arquivador;
+import libs.arquivos.TX;
 
 import java.io.File;
 import java.util.ArrayList;

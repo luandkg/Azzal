@@ -1,10 +1,10 @@
 package libs.Wav;
 
-import libs.Arquivos.Audio.AreaBinaria;
-import libs.Arquivos.Audio.RefInt;
-import libs.Arquivos.Audio.RepeticaoBinaria;
-import libs.Arquivos.Binario.Arquivador;
-import libs.Arquivos.Binario.Inteiro;
+import libs.arquivos.audio.AreaBinaria;
+import libs.arquivos.audio.RefInt;
+import libs.arquivos.audio.RepeticaoBinaria;
+import libs.arquivos.binario.Arquivador;
+import libs.arquivos.binario.Inteiro;
 
 import javax.sound.sampled.*;
 import java.util.ArrayList;

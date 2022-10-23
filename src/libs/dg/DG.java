@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import libs.Arquivos.IO;
-import libs.Arquivos.TX;
-import libs.Arquivos.Binario.Arquivador;
+import libs.arquivos.IO;
+import libs.arquivos.TX;
+import libs.arquivos.binario.Arquivador;
 import libs.Luan.Opcional;
 import libs.Luan.fmt;
 

@@ -1,7 +1,7 @@
 package libs.Wav;
 
-import libs.Arquivos.Audio.RefInt;
-import libs.Arquivos.Binario.Arquivador;
+import libs.arquivos.audio.RefInt;
+import libs.arquivos.binario.Arquivador;
 
 import javax.sound.sampled.*;
 

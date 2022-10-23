@@ -1,6 +1,6 @@
 package apps.app_arquivos.AudioWidgets;
 
-import libs.Arquivos.Binario.Inteiro;
+import libs.arquivos.binario.Inteiro;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import azzal.Windows;

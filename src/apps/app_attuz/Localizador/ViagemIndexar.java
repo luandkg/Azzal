@@ -1,8 +1,8 @@
 package apps.app_attuz.Localizador;
 
 import apps.app_attuz.Viagem.Viajante;
-import libs.Arquivos.BZZ;
-import libs.Arquivos.TX;
+import libs.arquivos.BZZ;
+import libs.arquivos.TX;
 import libs.dkg.DKG;
 import libs.tronarko.Hazde;
 import libs.tronarko.Utils.IntTronarko;

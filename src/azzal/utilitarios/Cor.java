@@ -253,6 +253,19 @@ public class Cor {
         return new Color(this.getRed(), this.getGreen(), this.getBlue(), this.getAlpha()).getRGB();
     }
 
+    public static Cor int32_to_cor(int pixel_cor) {
+
+        int b = (pixel_cor) & 0xFF;
+        int g = (pixel_cor >> 8) & 0xFF;
+        int r = (pixel_cor >> 16) & 0xFF;
+        int a = (pixel_cor >> 24) & 0xFF;
+
+        Cor e = new Cor(r, g, b);
+        e.setAlpha(a);
+        return e;
+
+    }
+
     public static Cor getInt(int eCor) {
         return getRGB(new Color(eCor));
     }
@@ -272,6 +285,35 @@ public class Cor {
         eCor.setAlpha(eTmp.getAlpha());
 
         return eCor;
+    }
+
+    public static Cor toCor(int pixel_cor) {
+
+        int b = (pixel_cor) & 0xFF;
+        int g = (pixel_cor >> 8) & 0xFF;
+        int r = (pixel_cor >> 16) & 0xFF;
+        int a = (pixel_cor >> 24) & 0xFF;
+
+        Cor e = new Cor(r, g, b);
+        e.setAlpha(a);
+        return e;
+    }
+
+
+    public static int corToInt(Cor c) {
+        return rgba_to_int(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+    }
+
+    public static int rgba_to_int(int r, int g, int b, int a) {
+
+        a = (a << 24) & 0xFF000000;
+        r = (r << 16) & 0x00FF0000;
+        g = (g << 8) & 0x0000FF00;
+        b = b & 0x000000FF;
+
+        return a | r | g | b;
+
+
     }
 
     public String toString() {

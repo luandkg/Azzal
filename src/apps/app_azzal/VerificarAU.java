@@ -1,10 +1,10 @@
 package apps.app_azzal;
 
-import libs.Arquivos.Audio.AreaBinaria;
-import libs.Arquivos.Audio.RepeticaoBinaria;
-import libs.Arquivos.Audio.RepetidorBinario;
-import libs.Arquivos.Binario.Arquivador;
-import libs.Arquivos.Binario.Inteiro;
+import libs.arquivos.audio.AreaBinaria;
+import libs.arquivos.audio.RepeticaoBinaria;
+import libs.arquivos.audio.RepetidorBinario;
+import libs.arquivos.binario.Arquivador;
+import libs.arquivos.binario.Inteiro;
 
 import java.util.ArrayList;
 

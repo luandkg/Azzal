@@ -1,6 +1,6 @@
 package libs.dg;
 
-import libs.Arquivos.TX;
+import libs.arquivos.TX;
 
 public class DGItem {
 

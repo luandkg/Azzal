@@ -240,15 +240,15 @@ public class AppAlarme extends Cena {
                 int evento_modo = mAlarme.getModo(lembrete, mTocar,mTozteSelecionado, mHoje, mAgora);
 
                 switch (evento_modo) {
-                    case Alarme.EVENTO_PASSADO -> {
+                    case Alarme.EVENTO_PASSADO : {
                         Marcador.marcar(r, px, py - 3, 20, 5, mCores.getAzul(), mCores.getBranco());
                         break;
                     }
-                    case Alarme.EVENTO_TOCANDO -> {
+                    case Alarme.EVENTO_TOCANDO : {
                         Marcador.marcar(r, px, py - 3, 20, 5, mHiperarkoWidget.getCorTocando(), mCores.getBranco());
                         break;
                     }
-                    case Alarme.EVENTO_FUTURO -> {
+                    case Alarme.EVENTO_FUTURO : {
                         r.drawRect_Pintado(px, py - 3, 20, 20, eCor);
                         break;
                     }

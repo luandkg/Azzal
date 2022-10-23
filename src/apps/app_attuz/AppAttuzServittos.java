@@ -43,7 +43,7 @@ public class AppAttuzServittos {
         String local_urnas = LOCAL + "/urnas.mv";
 
 
-        boolean mudar_populacao = true;
+        boolean mudar_populacao = false;
         boolean mostrar_populacao = false;
 
 
@@ -109,8 +109,8 @@ public class AppAttuzServittos {
         SistemaEleitoral.direitos_politicos(LOCAL, local_populacao, local_territorios);
 
 
-        boolean realizar_tempo_de_eleicao = true;
-        boolean realizar_eleicao = true;
+        boolean realizar_tempo_de_eleicao = false;
+        boolean realizar_eleicao = false;
         boolean realizar_apuracao = true;
 
         if (realizar_tempo_de_eleicao) {

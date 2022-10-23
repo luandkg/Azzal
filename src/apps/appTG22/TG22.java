@@ -1,7 +1,7 @@
 package apps.appTG22;
 
-import libs.Arquivos.IO;
-import libs.Arquivos.PDF;
+import libs.arquivos.IO;
+import libs.arquivos.PDF;
 import azzal.Renderizador;
 import libs.Luan.fmt;
 import libs.dkg.DKG;

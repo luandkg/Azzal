@@ -10,7 +10,7 @@ import apps.app_attuz.IDW.AlgoritmoIDW;
 import apps.app_attuz.IDW.PontoIDW;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Ferramentas.Proximattor;
-import libs.Arquivos.QTT;
+import libs.arquivos.QTT;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import libs.Imaginador.ImageUtils;
