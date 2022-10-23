@@ -74,6 +74,14 @@ public class DKG {
         return escritor.getTexto();
     }
 
+    public String toDocumento() {
+
+        EscritorDKG escritor = new EscritorDKG();
+
+        escritor.montar("", mDKGObjetos);
+
+        return escritor.getTexto();
+    }
 
     // OBJETO
 
