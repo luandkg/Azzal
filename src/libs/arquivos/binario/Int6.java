@@ -19,7 +19,7 @@ public class Int6 {
         set(valor);
     }
 
-    public void set(int valor){
+    public void set(int valor) {
 
         for (int i = 0; i < 6; i++) {
             valores[i] = 0;
@@ -92,7 +92,7 @@ public class Int6 {
         valores[p] = 1;
     }
 
-    public void setValor(int p,int v){
+    public void setValor(int p, int v) {
         valores[p] = v;
     }
 
@@ -103,5 +103,19 @@ public class Int6 {
     }
 
 
-    public int[] getValores(){return valores;}
+    public int[] getValores() {
+        return valores;
+    }
+
+    public void setArray(int c, int[] a) {
+
+        int t = a.length;
+        int i = c;
+
+        for (int p = 0; p < t; p++) {
+            valores[i] = a[p];
+            i += 1;
+        }
+
+    }
 }

@@ -1,7 +1,7 @@
 package apps.app_attuz.Assessorios;
 
 import libs.arquivos.QTT;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 
@@ -47,7 +47,7 @@ public class QTTOnImagem {
         }
 
 
-        ImageUtils.exportar(imagem, eArquivoImagem);
+        Imagem.exportar(imagem, eArquivoImagem);
 
     }
 
@@ -100,7 +100,7 @@ public class QTTOnImagem {
         }
 
 
-        ImageUtils.exportar(imagem, eArquivoImagem);
+        Imagem.exportar(imagem, eArquivoImagem);
 
     }
 
@@ -139,7 +139,7 @@ public class QTTOnImagem {
         }
 
 
-        ImageUtils.exportar(imagem, eArquivoImagem);
+        Imagem.exportar(imagem, eArquivoImagem);
 
     }
 

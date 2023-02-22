@@ -1,6 +1,6 @@
 package azzal.utilitarios;
 
-import libs.Luan.Dicionario;
+import libs.luan.Dicionario;
 
 public class Paleta {
 

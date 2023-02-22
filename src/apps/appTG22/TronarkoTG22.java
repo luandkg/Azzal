@@ -7,12 +7,12 @@ import apps.appLetrum.Fonte;
 import apps.appLetrum.FonteDupla;
 import apps.appLetrum.FonteDuplaRunTime;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Luan.fmt;
+import libs.luan.fmt;
 import libs.tronarko.*;
 import libs.tronarko.Eventos.Eventum;
-import libs.tronarko.Utils.IntTronarko;
-import libs.tronarko.Utils.StringTronarko;
-import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.utils.IntTronarko;
+import libs.tronarko.utils.StringTronarko;
+import libs.tronarko.utils.TozteCor;
 
 import java.awt.*;
 import java.util.ArrayList;

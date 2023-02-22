@@ -116,36 +116,36 @@ public class Empilhador {
             mArquivo.setPonteiro(mArquivo.getLength());
             ePonteiro = mArquivo.getPonteiro();
 
-            mArquivo.writeByte((byte) QUADRUM_INICIAR);
+            mArquivo.set_u8((byte) QUADRUM_INICIAR);
 
-            mArquivo.writeLong(mArenaCorrente.getPonteiro());
+            mArquivo.set_u64(mArenaCorrente.getPonteiro());
         } else {
 
             ePonteiro = mArquivo.getPonteiro();
 
-            mArquivo.writeByte((byte) QUADRUM_INICIAR);
+            mArquivo.set_u8((byte) QUADRUM_INICIAR);
 
-            mArquivo.writeLong(0);
+            mArquivo.set_u64(0);
         }
 
-        mArquivo.writeLong((byte) 0);
-        mArquivo.writeByte((byte) QUADRUM_INTERMEDIUM);
+        mArquivo.set_u64((byte) 0);
+        mArquivo.set_u8((byte) QUADRUM_INTERMEDIUM);
 
 
         for (int i = 0; i < 100; i++) {
-            mArquivo.writeLong((byte) 0);
+            mArquivo.set_u64((byte) 0);
         }
 
-        mArquivo.writeByte((byte) QUADRUM_FINALIZAR);
+        mArquivo.set_u8((byte) QUADRUM_FINALIZAR);
 
         Arena mArenaNovo = new Arena(mArquivo, ePonteiro);
 
         if (mExisteQuadroAnterior) {
 
             mArquivo.setPonteiro(mArenaCorrente.getPonteiro());
-            mArquivo.readByte();
-            mArquivo.readLong();
-            mArquivo.writeLong(ePonteiro);
+            mArquivo.get();
+            mArquivo.get_u64();
+            mArquivo.set_u64(ePonteiro);
 
         } else {
             mExisteQuadroAnterior = true;
@@ -459,21 +459,21 @@ public class Empilhador {
 
         if (mModalidade == 0) {
 
-            mArquivo.writeByte((byte) FRAME_KEYFRAME);
+            mArquivo.set_u8((byte) FRAME_KEYFRAME);
 
         } else if (mModalidade == 1) {
 
-            mArquivo.writeByte((byte) FRAME_REPETIR);
+            mArquivo.set_u8((byte) FRAME_REPETIR);
 
         } else if (mModalidade == 2) {
 
-            mArquivo.writeByte((byte) FRAME_DIFERENCIAL);
+            mArquivo.set_u8((byte) FRAME_DIFERENCIAL);
 
-            mArquivo.writeInt(eX1);
-            mArquivo.writeInt(eY1);
+            mArquivo.set_u32(eX1);
+            mArquivo.set_u32(eY1);
 
-            mArquivo.writeInt(eX2);
-            mArquivo.writeInt(eY2);
+            mArquivo.set_u32(eX2);
+            mArquivo.set_u32(eY2);
 
         }
 
@@ -486,7 +486,7 @@ public class Empilhador {
 
         }
 
-        mArquivo.writeByte((byte) FRAME_FINALIZAR);
+        mArquivo.set_u8((byte) FRAME_FINALIZAR);
     }
 
 

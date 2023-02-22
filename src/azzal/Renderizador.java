@@ -3,8 +3,8 @@ package azzal;
 import azzal.geometria.*;
 import azzal.utilitarios.Cor;
 import azzal.utilitarios.Luz;
-import libs.Luan.Iterador;
-import libs.Luan.Lista;
+import libs.luan.Iterador;
+import libs.luan.Lista;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -542,6 +542,7 @@ public class Renderizador {
         drawCirculo(eX - eRaio, eY - eRaio, eRaio, eCor);
     }
 
+
     public void drawCirculoCentralizado(int eX, int eY, Circulo eCirculo, Cor eCor) {
         drawCirculo(eX - eCirculo.getRaio(), eY - eCirculo.getRaio(), eCirculo.getRaio(), eCor);
     }
@@ -584,6 +585,9 @@ public class Renderizador {
 
     }
 
+    public void drawCirculoCentralizado_Pintado(int eX, int eY, int eRaio, Cor eCor) {
+        drawCirculo_Pintado(eX - eRaio, eY - eRaio, eRaio, eCor);
+    }
     public void drawCirculo_Pintado(Circulo eCirculo, Cor eCor) {
 
         int x = eCirculo.getRaio();

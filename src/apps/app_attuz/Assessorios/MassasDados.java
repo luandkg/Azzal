@@ -1,8 +1,6 @@
 package apps.app_attuz.Assessorios;
 
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.Unicidade;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 
@@ -15,7 +13,7 @@ public class MassasDados {
        int AGUA = 0;
 
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
 
         int  mLargura = mapa.getWidth();
@@ -60,7 +58,7 @@ public class MassasDados {
         int TERRA = 0;
         int AGUA = 1;
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         int  mLargura = mapa.getWidth();
         int mAltura = mapa.getHeight();
@@ -107,7 +105,7 @@ public class MassasDados {
 
         String arqTerra = LOCAL + "massa_continental.png";
 
-        BufferedImage mapa = ImageUtils.getImagem(arqTerra);
+        BufferedImage mapa = Imagem.getImagem(arqTerra);
 
         int   mLargura = mapa.getWidth();
         int   mAltura = mapa.getHeight();

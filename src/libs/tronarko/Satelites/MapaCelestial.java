@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import libs.tronarko.Intervalos.Tozte_Intervalo;
 import libs.tronarko.Tozte;
-import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.utils.TozteCor;
 
 public class MapaCelestial {
 

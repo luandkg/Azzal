@@ -10,9 +10,9 @@ import azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.CadaObjeto;
-import libs.Luan.Opcional;
-import libs.Luan.RefString;
-import libs.Luan.fmt;
+import libs.luan.Opcional;
+import libs.luan.RefString;
+import libs.luan.fmt;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
 import libs.tronarko.Hazde;
@@ -41,8 +41,8 @@ public class ViagemCompleta {
 
                 if (isCidade) {
 
-                    String cidade = objeto.id_valor("Cidade");
-                    String tozte_corrente = objeto.id_valor("Tozte");
+                    String cidade = objeto.identifique("Cidade").getValor();
+                    String tozte_corrente = objeto.identifique("Tozte").getValor();
 
                     if (cidade_anterior.isDiferente(cidade)) {
                         System.out.println(tozte_corrente + " ->> " + cidade);
@@ -81,8 +81,8 @@ public class ViagemCompleta {
 
                 if (isCidade) {
 
-                    String cidade = objeto.id_valor("Cidade");
-                    String tozte_corrente = objeto.id_valor("Tozte");
+                    String cidade = objeto.identifique("Cidade").getValor();
+                    String tozte_corrente = objeto.identifique("Tozte").getValor();
 
                     if (cidade_anterior.isDiferente(cidade)) {
                         System.out.println(tozte_corrente + " ->> " + cidade);
@@ -125,7 +125,7 @@ public class ViagemCompleta {
 
         DKGObjeto viagem = eDKC.unicoObjeto("Viagem");
         for (DKGObjeto cidade : viagem.getObjetos()) {
-            cidades.add(cidade.id_valor("Nome"));
+            cidades.add(cidade.identifique("Nome").getValor());
         }
 
         return cidades;

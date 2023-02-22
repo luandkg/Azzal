@@ -3,7 +3,7 @@ package libs.tronarko.Eventos;
 import java.util.ArrayList;
 
 import libs.tronarko.Tozte;
-import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.utils.TozteCor;
 
 public class Comunicum {
 

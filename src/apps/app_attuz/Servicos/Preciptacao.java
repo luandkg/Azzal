@@ -11,9 +11,9 @@ import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.Legendas.Legendar;
 import apps.app_attuz.Legendas.Legendas;
-import libs.Imaginador.ImageUtils;
-import libs.Luan.fmt;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.luan.fmt;
+import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
 
@@ -83,14 +83,14 @@ public class Preciptacao extends Servico {
 
 
 
-        BufferedImage mRenderizado = MapaRender.renderizaImagem(ImageUtils.getImagem(LOCAL + "build/planeta.png"), tectonica, tectonica.getTerra(), preciptacao_massa, mEscala);
+        BufferedImage mRenderizado = MapaRender.renderizaImagem(Imagem.getImagem(LOCAL + "build/planeta.png"), tectonica, tectonica.getTerra(), preciptacao_massa, mEscala);
 
         System.out.println("Guardar Preciptacao - QTT");
         MassaToQTT.salvarTerra(tectonica, preciptacao_massa.getDados(), LOCAL + "dados/preciptacao.qtt");
 
         mRenderizado = Legendar.legendar(mRenderizado, Legendas.getPreciptacao(), EscalasPadroes.getEscalaPreciptacao(), 100, 100);
 
-        ImageUtils.exportar(mRenderizado, LOCAL + "build/preciptacao.png");
+        Imagem.exportar(mRenderizado, LOCAL + "build/preciptacao.png");
 
 
         marcarFim();

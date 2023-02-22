@@ -155,28 +155,28 @@ public class ConverterParaAU {
             if (rep_contagem == 0) {
 
                 // au_arquivador.writeByte((byte) 100);
-                au_arquivador.writeByte((byte) 0);
+                au_arquivador.set_u8((byte) 0);
 
                 for (RepeticaoBinaria rep : z_repeticoes) {
-                    au_arquivador.writeByte((byte) rep.getB1());
-                    au_arquivador.writeByte((byte) rep.getB2());
+                    au_arquivador.set_u8((byte) rep.getB1());
+                    au_arquivador.set_u8((byte) rep.getB2());
                 }
 
             } else {
 
                 // au_arquivador.writeByte((byte) 200);
 
-                au_arquivador.writeByte((byte) chaves);
+                au_arquivador.set_u8((byte) chaves);
 
                 for (RepeticaoBinaria rep : z_repeticoes) {
                     if (rep.getQuantidade() > 1) {
-                        au_arquivador.writeByte((byte) rep.getB1());
-                        au_arquivador.writeByte((byte) rep.getB2());
+                        au_arquivador.set_u8((byte) rep.getB1());
+                        au_arquivador.set_u8((byte) rep.getB2());
 
-                        au_arquivador.writeByte((byte) rep.getPosicoes().size());
+                        au_arquivador.set_u8((byte) rep.getPosicoes().size());
 
                         for (Integer ePosicao : rep.getPosicoes()) {
-                            au_arquivador.writeByte((byte) ((int) ePosicao));
+                            au_arquivador.set_u8((byte) ((int) ePosicao));
                         }
 
                     }
@@ -186,8 +186,8 @@ public class ConverterParaAU {
 
                 for (RepeticaoBinaria rep : z_repeticoes) {
                     if (rep.getQuantidade() == 1) {
-                        au_arquivador.writeByte((byte) rep.getB1());
-                        au_arquivador.writeByte((byte) rep.getB2());
+                        au_arquivador.set_u8((byte) rep.getB1());
+                        au_arquivador.set_u8((byte) rep.getB2());
                         originais += 1;
                     }
                 }

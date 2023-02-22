@@ -14,6 +14,13 @@ public class Data {
         mDiaSemanal = eDiaSemanal;
     }
 
+    public Data(int eAno, int eMes, int eDia) {
+        mAno = eAno;
+        mMes = eMes;
+        mDia = eDia;
+        mDiaSemanal = DiaSemanal.Domingo;
+    }
+
     public DiaSemanal getDiaSemanal() {
         return mDiaSemanal;
     }
@@ -236,9 +243,13 @@ public class Data {
     }
 
     public boolean isMenorOuIgual(Data outra) {
-        boolean e1 = isMenor(outra);
-        boolean e2 = isIgual(outra);
-        return e1 || e2;
+        boolean ret = isIgual(outra);
+
+        if (!ret) {
+            ret = isMenor(outra);
+        }
+
+        return ret;
     }
 
 

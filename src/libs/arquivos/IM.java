@@ -1,11 +1,13 @@
 package libs.arquivos;
 
 import azzal.utilitarios.Cor;
+import libs.luan.RefInt;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Int6;
 import libs.arquivos.binario.Int8;
 import libs.arquivos.binario.Inteiro;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
+import libs.meta_functional.FuncaoBeta;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,8 +20,17 @@ public class IM {
     private static int IMAGEM_IM2 = 42;
     private static int IMAGEM_VERSAO_1 = 100;
 
-    private static int IMAGEM_ALFA_COM = 31;
-    private static int IMAGEM_ALFA_SEM = 48;
+    private static int IMAGEM_ALFA_SEM = 11;
+    private static int IMAGEM_ALFA_UNICO = 12;
+    private static int IMAGEM_ALFA_COM = 13;
+
+    private static final int PIXEL_NOVO = 1;
+    private static final int PIXEL_REPETIR = 10;
+    private static final int PIXEL_PALETADO = 11;
+
+    private static final int TERMINAR_IMAGEM = 0;
+
+    private static final int MATRIZ_TAMANHO = 64;
 
     private static boolean DEBUG = false;
 
@@ -28,15 +39,15 @@ public class IM {
     // 01 - NOVA COR
     // 00 - FECHAR
 
-    public static void salvar(BufferedImage eImagem, String eArquivo) {
-
-
+    public static void indices() {
         TX eTX = new TX();
         System.out.println("I :: " + eTX.getIndice("I"));
         System.out.println("M :: " + eTX.getIndice("M"));
         System.out.println("C :: " + eTX.getIndice("C"));
         System.out.println("S :: " + eTX.getIndice("S"));
+    }
 
+    public static void salvar(BufferedImage eImagem, String eArquivo) {
 
         System.out.println("Imagem IM - Criando");
 
@@ -56,189 +67,224 @@ public class IM {
         Int8 int8 = new Int8(0);
         Int6 int6 = new Int6(0);
 
-        int primeiro = 10;
 
+        FuncaoBeta<RefInt, int[], RefInt> procurar = new FuncaoBeta<RefInt, int[], RefInt>() {
+            @Override
+            public RefInt fazer(int[] matriz, RefInt procurado) {
 
-        try {
+                RefInt resposta = new RefInt(-1);
 
-            Arquivador arquivador = new Arquivador(eArquivo);
-
-
-            arquivador.writeByte((byte) IMAGEM_IM1);
-            arquivador.writeByte((byte) IMAGEM_IM2);
-
-            arquivador.writeByte((byte) IMAGEM_VERSAO_1);
-
-            arquivador.writeInt(largura);
-            arquivador.writeInt(altura);
-
-            int alfa_primeiro = new Color(eImagem.getRGB(0, 0)).getAlpha();
-            boolean tem_alfa = false;
-
-            for (int y = 0; y < altura; y++) {
-                for (int x = 0; x < largura; x++) {
-
-                    int alfa_corrente = new Color(eImagem.getRGB(x, y)).getAlpha();
-
-                    if (alfa_primeiro != alfa_corrente) {
-                        tem_alfa = true;
+                for (int i = 0; i < MATRIZ_TAMANHO; i++) {
+                    if (matriz[i] == procurado.get()) {
+                        resposta.set(i);
                         break;
                     }
-
                 }
-            }
 
+                return resposta;
+
+            }
+        };
+
+
+        Arquivador arquivador = new Arquivador(eArquivo);
+
+
+        arquivador.set_u8((byte) IMAGEM_IM1);
+        arquivador.set_u8((byte) IMAGEM_IM2);
+
+        arquivador.set_u8((byte) IMAGEM_VERSAO_1);
+
+        arquivador.set_u32(largura);
+        arquivador.set_u32(altura);
+
+        int alfa_primeiro = new Color(eImagem.getRGB(0, 0)).getAlpha();
+        boolean tem_alfa = false;
+
+        int contando_unico = 0;
+        int pixels_todos = altura * largura;
+
+        for (int y = 0; y < altura; y++) {
+            for (int x = 0; x < largura; x++) {
+
+                int alfa_corrente = Cor.int32_to_alfa(eImagem.getRGB(x, y));
+
+                if (alfa_primeiro == alfa_corrente) {
+                    contando_unico += 1;
+                } else {
+                    tem_alfa = true;
+                    break;
+                }
+
+            }
             if (tem_alfa) {
-                arquivador.writeByte((byte) IMAGEM_ALFA_SEM);
-                arquivador.writeByte((byte) alfa_primeiro);
+                break;
+            }
+        }
+
+        String sAlfa = "";
+        int alfa_modo = 0;
+
+        if (tem_alfa) {
+            alfa_modo = IMAGEM_ALFA_COM;
+            arquivador.set_u8((byte) IMAGEM_ALFA_COM);
+            arquivador.set_u8((byte) alfa_primeiro);
+            sAlfa = "COM";
+        } else {
+
+            if (contando_unico == pixels_todos) {
+                sAlfa = "UNICO";
+                alfa_modo = IMAGEM_ALFA_UNICO;
+
+                arquivador.set_u8((byte) IMAGEM_ALFA_UNICO);
+                arquivador.set_u8((byte) alfa_primeiro);
+
             } else {
-                arquivador.writeByte((byte) IMAGEM_ALFA_COM);
-                arquivador.writeByte((byte) 0);
+                sAlfa = "SEM";
+                alfa_modo = IMAGEM_ALFA_SEM;
+
+                arquivador.set_u8((byte) IMAGEM_ALFA_SEM);
+                arquivador.set_u8((byte) alfa_primeiro);
+
             }
+        }
 
-            System.out.println("Tem Alfa :: " + tem_alfa);
+        System.out.println("\tTem Alfa   :: " + sAlfa);
+        System.out.println("\tAlfa Valor :: " + alfa_primeiro);
 
-            int matriz[] = new int[64];
+        int matriz[] = new int[64];
 
-            for (int i = 0; i < 64; i++) {
-                matriz[i] = 0;
-            }
+        for (int i = 0; i < 64; i++) {
+            matriz[i] = 0;
+        }
 
-            int pixel_corrente = 0;
-            int repetindo = 0;
+        int pixel_corrente = 0;
+        int repetindo = 0;
+
+        //  RhoLog log = new RhoLog();
+        //    log.titulo("SALVAR IM");
+
+        for (int y = 0; y < altura; y++) {
+            for (int x = 0; x < largura; x++) {
+
+                int pixel = eImagem.getRGB(x, y);
+
+                todos += 1;
+
+                if (pixel_corrente == pixel) {
+
+                    repetir += 1;
+
+                    repetindo += 1;
+
+                    if (repetindo == 63) {
+
+                        int8.zerar();
+                        int8.set2Bits(0, 1, 0);
+
+                        int6.set(repetindo);
+                        int8.copiarComecando(2, int6.getValores(), 6);
+
+                        arquivador.set_u8((byte) int8.getInt());
+
+                        // log.adicionar("Repetir -- " + pixel_corrente + " -->> " + repetindo);
+
+                        repetindo = 0;
+                    }
+
+                } else {
+
+                    if (repetindo > 0) {
+                        int8.zerar();
+                        int8.set2Bits(0, 1, 0);
+
+                        int6.set(repetindo);
+                        int8.copiarComecando(2, int6.getValores(), 6);
+
+                        arquivador.set_u8((byte) int8.getInt());
+
+                        //  log.adicionar("Repetir -- " + pixel_corrente + " -->> " + repetindo);
+
+                        repetindo = 0;
+                    }
 
 
-            for (int y = 0; y < altura; y++) {
-                for (int x = 0; x < largura; x++) {
+                    Cor cPixel = Cor.int32_to_cor(pixel);
 
-                    int pixel = eImagem.getRGB(x, y);
+                    int pos = 0;
 
-                    todos += 1;
+                    int indice = procurar.fazer(matriz, new RefInt(pixel)).get();
 
-                    if (pixel_corrente == pixel) {
+                    pixel_corrente = pixel;
 
-                        repetir += 1;
+                    pos = ((cPixel.getAlpha()) + (cPixel.getRed()) + (cPixel.getGreen()) + (cPixel.getBlue())) % 64;
 
-                        repetindo += 1;
 
-                        if (repetindo == 63) {
+                    if (indice >= 0) {
 
-                            int8.zerar();
-                            int8.set2Bits(0, 1, 0);
+                        int6.zerar();
+                        int6.set(pos);
 
-                            int6.set(repetindo);
-                            int8.copiarComecando(2, int6.getValores(), 6);
+                        int8.zerar();
+                        int8.set2Bits(0, 1, 1);
 
-                            arquivador.writeByte((byte) int8.getInt());
+                        int8.copiarComecando(2, int6.getValores(), 6);
 
-                            if (primeiro > 0) {
-                                primeiro -= 1;
-                                //   System.out.println("Repetindo (" + repetindo + ") = " + pixel_corrente + " em " + INT_8BITS.getInt());
-                            }
+                        arquivador.set_u8((byte) int8.getInt());
 
-                            repetindo = 0;
-                        }
+                        //      log.adicionar("Paletado -- " + int6.getInt());
 
                     } else {
 
-                        if (repetindo > 0) {
-                            int8.zerar();
-                            int8.set2Bits(0, 1, 0);
+                        matriz[pos] = pixel;
 
-                            int6.set(repetindo);
-                            int8.copiarComecando(2, int6.getValores(), 6);
+                        int6.zerar();
+                        int6.set(pos);
 
-                            arquivador.writeByte((byte) int8.getInt());
 
-                            if (primeiro > 0) {
-                                primeiro -= 1;
-                                //    System.out.println("Repetindo (" + repetindo + ") = " + pixel_corrente + " em " + INT_8BITS.getInt());
-                            }
+                        int8.zerar();
+                        int8.set2Bits(0, 0, 1);
 
-                            repetindo = 0;
+
+                        int8.copiarComecando(2, int6.getValores(), 6);
+
+                        arquivador.set_u8((byte) int8.getInt());
+
+                        if (alfa_modo == IMAGEM_ALFA_COM) {
+                            arquivador.set_u8((byte) cPixel.getAlpha());
                         }
 
+                        arquivador.set_u8((byte) cPixel.getRed());
+                        arquivador.set_u8((byte) cPixel.getGreen());
+                        arquivador.set_u8((byte) cPixel.getBlue());
 
-                        Color cPixel = new Color(pixel);
-
-                        int indice = existe(matriz, pixel);
-                        pixel_corrente = cPixel.getRGB();
-
-
-                        int pos = ((cPixel.getAlpha()) + (cPixel.getRed()) + (cPixel.getGreen()) + (cPixel.getBlue())) % 64;
-
-                        if (indice >= 0) {
-
-                            int6.zerar();
-                            int6.set(pos);
-
-                            int8.zerar();
-                            int8.set2Bits(0, 1, 1);
-
-                            int8.copiarComecando(2, int6.getValores(), 6);
-
-                            arquivador.writeByte((byte) int8.getInt());
-
-                            if (primeiro > 0) {
-                                primeiro -= 1;
-                                //    System.out.println("Pixel Index (" + pos + ") = " + INT_8BITS.getInt());
-                            }
-                        } else {
-
-                            matriz[pos] = pixel;
-
-                            int6.zerar();
-                            int6.set(pos);
-
-
-                            int8.zerar();
-                            int8.set2Bits(0, 0, 1);
-
-
-                            int8.copiarComecando(2, int6.getValores(), 6);
-
-                            arquivador.writeByte((byte) int8.getInt());
-
-                            if (!tem_alfa) {
-                                arquivador.writeByte((byte) cPixel.getAlpha());
-                            }
-
-                            arquivador.writeByte((byte) cPixel.getRed());
-                            arquivador.writeByte((byte) cPixel.getGreen());
-                            arquivador.writeByte((byte) cPixel.getBlue());
-
-
-                            if (primeiro > 0) {
-                                primeiro -= 1;
-                                //   System.out.println("Novo Pixel (" + pos + ") = " + pixel + " em " + INT_8BITS.getInt() + " -->> " + INT_8BITS.get());
-                            }
-                        }
-
-
-                        fixados += 1;
+                        //     log.adicionar("Pixel -- " + pixel + " :: " + pos);
 
                     }
 
 
+                    fixados += 1;
+
                 }
+
+
             }
-
-            int8.zerar();
-            arquivador.writeByte((byte) int8.getInt());
-
-
-            arquivador.fechar();
-
-            System.out.println("Imagem IM - Terminada");
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
+        int8.zerar();
+        arquivador.set_u8((byte) int8.getInt());
 
-        System.out.println("TODOS     :: " + todos);
-        System.out.println("FIXADOS   :: " + fixados);
-        System.out.println("REPITIDOS :: " + repetir);
+
+        arquivador.encerrar();
+
+        System.out.println("\tTODOS      :: " + todos);
+        System.out.println("\tFIXADOS    :: " + fixados);
+        System.out.println("\tREPITIDOS  :: " + repetir);
+
+        //    log.salvar("/home/luan/Containers/im_salvar.txt");
+
+        System.out.println("Imagem IM - Terminada");
+
 
     }
 
@@ -254,6 +300,26 @@ public class IM {
             Arq.delete();
         }
 
+
+        FuncaoBeta<RefInt, int[], RefInt> procurar = new FuncaoBeta<RefInt, int[], RefInt>() {
+            @Override
+            public RefInt fazer(int[] matriz, RefInt procurado) {
+
+                int resposta = -1;
+
+                for (int i = 0; i < 64; i++) {
+                    if (matriz[i] == procurado.get()) {
+                        resposta = i;
+                        break;
+                    }
+                }
+
+                return new RefInt(resposta);
+
+            }
+        };
+
+
         int largura = imagem.getLargura();
         int altura = imagem.getAltura();
         int todos = 0;
@@ -265,16 +331,17 @@ public class IM {
 
         try {
             Arquivador arquivador = new Arquivador(eArquivo);
-            arquivador.writeByte((byte) IMAGEM_IM1);
-            arquivador.writeByte((byte) IMAGEM_IM2);
-            arquivador.writeByte((byte) IMAGEM_VERSAO_1);
-            arquivador.writeInt(largura);
-            arquivador.writeInt(altura);
+            arquivador.set_u8((byte) IMAGEM_IM1);
+            arquivador.set_u8((byte) IMAGEM_IM2);
+            arquivador.set_u8((byte) IMAGEM_VERSAO_1);
+            arquivador.set_u32(largura);
+            arquivador.set_u32(altura);
             int alfa_primeiro = imagem.getRGB(0, 0).getAlpha();
             boolean tem_alfa = false;
 
-            int pixel_corrente;
-            int repetindo;
+            int pixel_corrente = 0;
+            int repetindo = 0;
+
             for (int y = 0; y < altura; ++y) {
                 for (pixel_corrente = 0; pixel_corrente < largura; ++pixel_corrente) {
                     repetindo = imagem.getRGB(pixel_corrente, y).getAlpha();
@@ -286,11 +353,11 @@ public class IM {
             }
 
             if (tem_alfa) {
-                arquivador.writeByte((byte) IMAGEM_ALFA_COM);
-                arquivador.writeByte((byte) alfa_primeiro);
+                arquivador.set_u8((byte) IMAGEM_ALFA_COM);
+                arquivador.set_u8((byte) alfa_primeiro);
             } else {
-                arquivador.writeByte((byte) IMAGEM_ALFA_SEM);
-                arquivador.writeByte((byte) 0);
+                arquivador.set_u8((byte) IMAGEM_ALFA_SEM);
+                arquivador.set_u8((byte) 0);
             }
 
             System.out.println("Tem Alfa :: " + tem_alfa);
@@ -315,7 +382,7 @@ public class IM {
                             int8.set2Bits(0, 1, 0);
                             int6.set(repetindo);
                             int8.copiarComecando(2, int6.getValores(), 6);
-                            arquivador.writeByte((byte) int8.getInt());
+                            arquivador.set_u8((byte) int8.getInt());
                             if (primeiro > 0) {
                                 --primeiro;
                             }
@@ -328,7 +395,7 @@ public class IM {
                             int8.set2Bits(0, 1, 0);
                             int6.set(repetindo);
                             int8.copiarComecando(2, int6.getValores(), 6);
-                            arquivador.writeByte((byte) int8.getInt());
+                            arquivador.set_u8((byte) int8.getInt());
                             if (primeiro > 0) {
                                 --primeiro;
                             }
@@ -337,7 +404,11 @@ public class IM {
                         }
 
                         Cor cPixel = Cor.int32_to_cor(pixel);
-                        int indice = existe(matriz, pixel);
+                        //    int indice = existe(matriz, pixel);
+
+                        int indice = procurar.fazer(matriz, new RefInt(pixel)).get();
+
+
                         pixel_corrente = pixel;
                         int pos = (cPixel.getAlpha() + cPixel.getRed() + cPixel.getGreen() + cPixel.getBlue()) % 64;
                         if (indice >= 0) {
@@ -346,7 +417,7 @@ public class IM {
                             int8.zerar();
                             int8.set2Bits(0, 1, 1);
                             int8.copiarComecando(2, int6.getValores(), 6);
-                            arquivador.writeByte((byte) int8.getInt());
+                            arquivador.set_u8((byte) int8.getInt());
                             if (primeiro > 0) {
                                 --primeiro;
                             }
@@ -357,14 +428,14 @@ public class IM {
                             int8.zerar();
                             int8.set2Bits(0, 0, 1);
                             int8.copiarComecando(2, int6.getValores(), 6);
-                            arquivador.writeByte((byte) int8.getInt());
+                            arquivador.set_u8((byte) int8.getInt());
                             if (!tem_alfa) {
-                                arquivador.writeByte((byte) cPixel.getAlpha());
+                                arquivador.set_u8((byte) cPixel.getAlpha());
                             }
 
-                            arquivador.writeByte((byte) cPixel.getRed());
-                            arquivador.writeByte((byte) cPixel.getGreen());
-                            arquivador.writeByte((byte) cPixel.getBlue());
+                            arquivador.set_u8((byte) cPixel.getRed());
+                            arquivador.set_u8((byte) cPixel.getGreen());
+                            arquivador.set_u8((byte) cPixel.getBlue());
                             if (primeiro > 0) {
                                 --primeiro;
                             }
@@ -376,7 +447,7 @@ public class IM {
             }
 
             int8.zerar();
-            arquivador.writeByte((byte) int8.getInt());
+            arquivador.set_u8((byte) int8.getInt());
             arquivador.fechar();
             System.out.println("Imagem IM - Terminada");
         } catch (IOException var24) {
@@ -404,199 +475,20 @@ public class IM {
 
     public static void toPNG(String eArquivo, String eArquivoPNG) {
 
-
         System.out.println("Imagem IM - Abrindo");
 
+        Arquivador arquivador = new Arquivador(eArquivo);
 
-        int todos = 0;
-        int fixados = 0;
-        int repetir = 0;
+        BufferedImage imagem = lerDoFluxo(arquivador);
 
-        Int8 INT_8BITS = new Int8(0);
-        Int6 INT_6BITS = new Int6(0);
+        arquivador.encerrar();
 
-
-        try {
-
-            Arquivador arquivador = new Arquivador(eArquivo);
-
-            byte b1 = arquivador.readByte();
-            byte b2 = arquivador.readByte();
-
-            byte versao = arquivador.readByte();
-
-            int largura = arquivador.readInt();
-            int altura = arquivador.readInt();
-
-            System.out.println("Largura :: " + largura);
-            System.out.println("Altura  :: " + altura);
-
-            byte a1 = arquivador.readByte();
-            byte a2 = arquivador.readByte();
-
-            boolean alfa_com = false;
-            int alfa_canal = 0;
-
-            if (Inteiro.byteToInt(a1) == IMAGEM_ALFA_COM) {
-                alfa_com = true;
-                alfa_canal = Inteiro.byteToInt(a2);
-                System.out.println("Tem Alfa :: " + alfa_canal);
-            }
-
-
-            BufferedImage imagem = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_ARGB);
-
-
-            int matriz[] = new int[64];
-
-            for (int i = 0; i < 64; i++) {
-                matriz[i] = 0;
-            }
-
-            int pixel_corrente = 0;
-            int repetindo = 0;
-
-            boolean lendo = true;
-
-            int x = 0;
-            int y = 0;
-
-            while (lendo) {
-
-                byte valor = arquivador.readByte();
-
-                if (valor == (byte) 0) {
-                    lendo = false;
-                } else {
-
-                    int v = Inteiro.byteToInt(valor);
-
-                    // System.out.println("Chave :: " + v);
-
-                    INT_8BITS.set(v);
-
-                    if (INT_8BITS.getBitsInt(0, 2) == 01) {
-
-                        if (alfa_com) {
-                            int v1 = Inteiro.byteToInt(arquivador.readByte());
-                            alfa_canal = v1;
-                        }
-
-                        int v2 = Inteiro.byteToInt(arquivador.readByte());
-                        int v3 = Inteiro.byteToInt(arquivador.readByte());
-                        int v4 = Inteiro.byteToInt(arquivador.readByte());
-
-                        Color cPixel = new Color(v2, v3, v4, alfa_canal);
-
-                        //   int pos = ((cPixel.getAlpha()) + (cPixel.getRed()) + (cPixel.getGreen()) + (cPixel.getBlue())) % 64;
-
-
-                        INT_6BITS.zerar();
-                        INT_6BITS.setValor(0, INT_8BITS.getValor(2));
-                        INT_6BITS.setValor(1, INT_8BITS.getValor(3));
-                        INT_6BITS.setValor(2, INT_8BITS.getValor(4));
-                        INT_6BITS.setValor(3, INT_8BITS.getValor(5));
-                        INT_6BITS.setValor(4, INT_8BITS.getValor(6));
-                        INT_6BITS.setValor(5, INT_8BITS.getValor(7));
-
-
-                        pixel_corrente = cPixel.getRGB();
-                        matriz[INT_6BITS.getInt()] = pixel_corrente;
-
-                        imagem.setRGB(x, y, pixel_corrente);
-
-                        fixados += 1;
-                        todos += 1;
-
-                        x += 1;
-                        if (x >= largura) {
-                            x = 0;
-                            y += 1;
-                        }
-
-                        // int a = cPixel.getAlpha();
-                        // int r = cPixel.getRed();
-                        // int g = cPixel.getGreen();
-                        ///  int b = cPixel.getBlue();
-
-                        //System.out.println(v + " -->> NOVA COR :: " + pixel_corrente + " :: " + pos + " _ " + INT_6BITS.getInt() + " { " + a + "," + r + "," + g + "," + b + " } ");
-
-                    } else if (INT_8BITS.getBitsInt(0, 2) == 11) {
-
-
-                        INT_6BITS.zerar();
-                        INT_6BITS.setValor(0, INT_8BITS.getValor(2));
-                        INT_6BITS.setValor(1, INT_8BITS.getValor(3));
-                        INT_6BITS.setValor(2, INT_8BITS.getValor(4));
-                        INT_6BITS.setValor(3, INT_8BITS.getValor(5));
-                        INT_6BITS.setValor(4, INT_8BITS.getValor(6));
-                        INT_6BITS.setValor(5, INT_8BITS.getValor(7));
-
-
-                        pixel_corrente = matriz[INT_6BITS.getInt()];
-
-                        //  System.out.println("{" +INT_8BITS.getValor(0) + "" + INT_8BITS.getValor(1) + "} :: " + INT_8BITS.get() + " :::: " +  v + " -->> INDEXADA :: " + INT_8BITS.getInt() + " -->> " + INT_6BITS.getInt() + " :: " + pixel_corrente);
-
-                        imagem.setRGB(x, y, pixel_corrente);
-
-                        todos += 1;
-                        fixados += 1;
-
-                        x += 1;
-                        if (x >= largura) {
-                            x = 0;
-                            y += 1;
-                        }
-                    } else if (INT_8BITS.getBitsInt(0, 2) == 10) {
-
-                        INT_6BITS.zerar();
-                        INT_6BITS.setValor(0, INT_8BITS.getValor(2));
-                        INT_6BITS.setValor(1, INT_8BITS.getValor(3));
-                        INT_6BITS.setValor(2, INT_8BITS.getValor(4));
-                        INT_6BITS.setValor(3, INT_8BITS.getValor(5));
-                        INT_6BITS.setValor(4, INT_8BITS.getValor(6));
-                        INT_6BITS.setValor(5, INT_8BITS.getValor(7));
-
-                        //    System.out.println(v + " -->> Repetir :: " + INT_8BITS.getInt() + " -->> " + INT_6BITS.getInt());
-
-                        for (int rep = 0; rep < INT_6BITS.getInt(); rep++) {
-
-                            imagem.setRGB(x, y, pixel_corrente);
-
-                            x += 1;
-                            if (x >= largura) {
-                                x = 0;
-                                y += 1;
-                            }
-
-                            repetir += 1;
-                            todos += 1;
-
-                        }
-
-
-                    }
-
-                }
-            }
-
-
-            arquivador.fechar();
-
-            ImageUtils.exportar(imagem, eArquivoPNG);
-            if (DEBUG) {
-                System.out.println("Imagem IM - Terminada");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Imagem.exportar(imagem, eArquivoPNG);
 
         if (DEBUG) {
-            System.out.println("TODOS     :: " + todos);
-            System.out.println("FIXADOS   :: " + fixados);
-            System.out.println("REPITIDOS :: " + repetir);
+            System.out.println("Imagem IM - Terminada");
         }
+
 
     }
 
@@ -617,13 +509,13 @@ public class IM {
 
         long pos_inicio = arquivador.getPonteiro();
 
-        arquivador.writeByte((byte) IMAGEM_IM1);
-        arquivador.writeByte((byte) IMAGEM_IM2);
+        arquivador.set_u8((byte) IMAGEM_IM1);
+        arquivador.set_u8((byte) IMAGEM_IM2);
 
-        arquivador.writeByte((byte) IMAGEM_VERSAO_1);
+        arquivador.set_u8((byte) IMAGEM_VERSAO_1);
 
-        arquivador.writeInt(largura);
-        arquivador.writeInt(altura);
+        arquivador.set_u32(largura);
+        arquivador.set_u32(altura);
 
         int alfa_primeiro = new Color(eImagem.getRGB(0, 0)).getAlpha();
         boolean tem_alfa = false;
@@ -642,11 +534,11 @@ public class IM {
         }
 
         if (tem_alfa) {
-            arquivador.writeByte((byte) IMAGEM_ALFA_SEM);
-            arquivador.writeByte((byte) alfa_primeiro);
+            arquivador.set_u8((byte) IMAGEM_ALFA_SEM);
+            arquivador.set_u8((byte) alfa_primeiro);
         } else {
-            arquivador.writeByte((byte) IMAGEM_ALFA_COM);
-            arquivador.writeByte((byte) 0);
+            arquivador.set_u8((byte) IMAGEM_ALFA_COM);
+            arquivador.set_u8((byte) 0);
         }
         if (DEBUG) {
             System.out.println("Tem Alfa :: " + tem_alfa);
@@ -663,6 +555,23 @@ public class IM {
         int pixel_corrente = 0;
         int repetindo = 0;
 
+        FuncaoBeta<RefInt, int[], RefInt> procurar = new FuncaoBeta<RefInt, int[], RefInt>() {
+            @Override
+            public RefInt fazer(int[] matriz, RefInt procurado) {
+
+                int resposta = -1;
+
+                for (int i = 0; i < 64; i++) {
+                    if (matriz[i] == procurado.get()) {
+                        resposta = i;
+                        break;
+                    }
+                }
+
+                return new RefInt(resposta);
+
+            }
+        };
 
         for (int y = 0; y < altura; y++) {
             for (int x = 0; x < largura; x++) {
@@ -685,7 +594,7 @@ public class IM {
                         int6.set(repetindo);
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
                         if (primeiro > 0) {
                             primeiro -= 1;
@@ -704,7 +613,7 @@ public class IM {
                         int6.set(repetindo);
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
                         if (primeiro > 0) {
                             primeiro -= 1;
@@ -717,7 +626,10 @@ public class IM {
 
                     Color cPixel = new Color(pixel);
 
-                    int indice = existe(matriz, pixel);
+                    // int indice = existe(matriz, pixel);
+
+                    int indice = procurar.fazer(matriz, new RefInt(pixel)).get();
+
                     pixel_corrente = cPixel.getRGB();
 
 
@@ -733,7 +645,7 @@ public class IM {
 
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
                         if (primeiro > 0) {
                             primeiro -= 1;
@@ -753,15 +665,15 @@ public class IM {
 
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
                         if (!tem_alfa) {
-                            arquivador.writeByte((byte) cPixel.getAlpha());
+                            arquivador.set_u8((byte) cPixel.getAlpha());
                         }
 
-                        arquivador.writeByte((byte) cPixel.getRed());
-                        arquivador.writeByte((byte) cPixel.getGreen());
-                        arquivador.writeByte((byte) cPixel.getBlue());
+                        arquivador.set_u8((byte) cPixel.getRed());
+                        arquivador.set_u8((byte) cPixel.getGreen());
+                        arquivador.set_u8((byte) cPixel.getBlue());
 
 
                         if (primeiro > 0) {
@@ -780,7 +692,7 @@ public class IM {
         }
 
         int8.zerar();
-        arquivador.writeByte((byte) int8.getInt());
+        arquivador.set_u8((byte) int8.getInt());
 
         if (DEBUG) {
             System.out.println("TODOS     :: " + todos);
@@ -795,44 +707,54 @@ public class IM {
 
     public static BufferedImage lerDoFluxo(Arquivador arquivador) {
 
+        DEBUG = true;
+
         if (DEBUG) {
             System.out.println("Imagem IM - Abrindo");
         }
+
+        //  RhoLog log = new RhoLog();
+        //   log.titulo("ABRIR IM");
 
 
         int todos = 0;
         int fixados = 0;
         int repetir = 0;
 
-        Int8 INT_8BITS = new Int8(0);
-        Int6 INT_6BITS = new Int6(0);
+        Int8 mapa_de_8_bits = new Int8(0);
+        //  Int6 mapa_de_6_bits = new Int6(0);
 
 
-        byte b1 = arquivador.readByte();
-        byte b2 = arquivador.readByte();
+        byte b1 = arquivador.get();
+        byte b2 = arquivador.get();
 
-        byte versao = arquivador.readByte();
+        byte versao = arquivador.get();
 
-        int largura = arquivador.readInt();
-        int altura = arquivador.readInt();
+        int largura = arquivador.get_u32();
+        int altura = arquivador.get_u32();
 
         if (DEBUG) {
-            System.out.println("Largura :: " + largura);
-            System.out.println("Altura  :: " + altura);
+            System.out.println("\tLargura    :: " + largura);
+            System.out.println("\tAltura     :: " + altura);
         }
 
-        byte a1 = arquivador.readByte();
-        byte a2 = arquivador.readByte();
+        int alfa_modo = Inteiro.byteToInt(arquivador.get());
+        int alfa_canal = Inteiro.byteToInt(arquivador.get());
 
         boolean alfa_com = false;
-        int alfa_canal = 0;
 
-        if (Inteiro.byteToInt(a1) == IMAGEM_ALFA_COM) {
+        if (alfa_modo == IMAGEM_ALFA_COM) {
             alfa_com = true;
-            alfa_canal = Inteiro.byteToInt(a2);
             if (DEBUG) {
-                System.out.println("Tem Alfa :: " + alfa_canal);
+                System.out.println("\tTem Alfa   :: COM");
+                System.out.println("\tTem Alfa   :: " + alfa_canal);
             }
+        } else if (alfa_modo == IMAGEM_ALFA_UNICO) {
+            alfa_com = true;
+            System.out.println("\tTem Alfa   :: UNICO");
+            System.out.println("\tTem Alfa   :: " + alfa_canal);
+        } else if (alfa_modo == IMAGEM_ALFA_SEM) {
+            System.out.println("\tTem Alfa   :: SEM");
         }
 
 
@@ -846,7 +768,7 @@ public class IM {
         }
 
         int pixel_corrente = 0;
-        int repetindo = 0;
+        int paletado_corrente = 0;
 
         boolean lendo = true;
 
@@ -855,105 +777,97 @@ public class IM {
 
         while (lendo) {
 
-            byte valor = arquivador.readByte();
+            int valor = Inteiro.byteToInt(arquivador.get());
 
-            if (valor == (byte) 0) {
+            if (valor == TERMINAR_IMAGEM) {
                 lendo = false;
             } else {
 
-                int v = Inteiro.byteToInt(valor);
-
                 // System.out.println("Chave :: " + v);
 
-                INT_8BITS.set(v);
+                mapa_de_8_bits.set(valor);
 
-                if (INT_8BITS.getBitsInt(0, 2) == 01) {
+                if (mapa_de_8_bits.getBitsInt(0, 2) == PIXEL_NOVO) {
 
-                    if (alfa_com) {
-                        int v1 = Inteiro.byteToInt(arquivador.readByte());
-                        alfa_canal = v1;
+                    if (alfa_modo == IMAGEM_ALFA_COM) {
+                        alfa_canal = Inteiro.byteToInt(arquivador.get());
                     }
 
-                    int v2 = Inteiro.byteToInt(arquivador.readByte());
-                    int v3 = Inteiro.byteToInt(arquivador.readByte());
-                    int v4 = Inteiro.byteToInt(arquivador.readByte());
+                    int v_r = Inteiro.byteToInt(arquivador.get());
+                    int v_g = Inteiro.byteToInt(arquivador.get());
+                    int v_b = Inteiro.byteToInt(arquivador.get());
 
-                    Color cPixel = new Color(v2, v3, v4, alfa_canal);
-
-                    //   int pos = ((cPixel.getAlpha()) + (cPixel.getRed()) + (cPixel.getGreen()) + (cPixel.getBlue())) % 64;
+                    int cPixel = Cor.rgba_to_int(v_r, v_g, v_b, alfa_canal);
 
 
-                    INT_6BITS.zerar();
-                    INT_6BITS.setValor(0, INT_8BITS.getValor(2));
-                    INT_6BITS.setValor(1, INT_8BITS.getValor(3));
-                    INT_6BITS.setValor(2, INT_8BITS.getValor(4));
-                    INT_6BITS.setValor(3, INT_8BITS.getValor(5));
-                    INT_6BITS.setValor(4, INT_8BITS.getValor(6));
-                    INT_6BITS.setValor(5, INT_8BITS.getValor(7));
+                    //  mapa_de_6_bits.zerar();
+                    // mapa_de_6_bits.setArray(0, mapa_de_8_bits.getArray(2, 6));
 
+                    int posicao_indexada = mapa_de_8_bits.getParteToInt(2, 6);
 
-                    pixel_corrente = cPixel.getRGB();
-                    matriz[INT_6BITS.getInt()] = pixel_corrente;
+                    pixel_corrente = cPixel;
+                    matriz[posicao_indexada] = pixel_corrente;
 
-                    imagem.setRGB(x, y, pixel_corrente);
-
-                    fixados += 1;
-                    todos += 1;
-
-                    x += 1;
-                    if (x >= largura) {
-                        x = 0;
-                        y += 1;
-                    }
-
-                    // int a = cPixel.getAlpha();
-                    // int r = cPixel.getRed();
-                    // int g = cPixel.getGreen();
-                    ///  int b = cPixel.getBlue();
-
-                    //System.out.println(v + " -->> NOVA COR :: " + pixel_corrente + " :: " + pos + " _ " + INT_6BITS.getInt() + " { " + a + "," + r + "," + g + "," + b + " } ");
-
-                } else if (INT_8BITS.getBitsInt(0, 2) == 11) {
-
-
-                    INT_6BITS.zerar();
-                    INT_6BITS.setValor(0, INT_8BITS.getValor(2));
-                    INT_6BITS.setValor(1, INT_8BITS.getValor(3));
-                    INT_6BITS.setValor(2, INT_8BITS.getValor(4));
-                    INT_6BITS.setValor(3, INT_8BITS.getValor(5));
-                    INT_6BITS.setValor(4, INT_8BITS.getValor(6));
-                    INT_6BITS.setValor(5, INT_8BITS.getValor(7));
-
-
-                    pixel_corrente = matriz[INT_6BITS.getInt()];
-
-                    //  System.out.println("{" +INT_8BITS.getValor(0) + "" + INT_8BITS.getValor(1) + "} :: " + INT_8BITS.get() + " :::: " +  v + " -->> INDEXADA :: " + INT_8BITS.getInt() + " -->> " + INT_6BITS.getInt() + " :: " + pixel_corrente);
-
-                    imagem.setRGB(x, y, pixel_corrente);
-
-                    todos += 1;
-                    fixados += 1;
-
-                    x += 1;
-                    if (x >= largura) {
-                        x = 0;
-                        y += 1;
-                    }
-                } else if (INT_8BITS.getBitsInt(0, 2) == 10) {
-
-                    INT_6BITS.zerar();
-                    INT_6BITS.setValor(0, INT_8BITS.getValor(2));
-                    INT_6BITS.setValor(1, INT_8BITS.getValor(3));
-                    INT_6BITS.setValor(2, INT_8BITS.getValor(4));
-                    INT_6BITS.setValor(3, INT_8BITS.getValor(5));
-                    INT_6BITS.setValor(4, INT_8BITS.getValor(6));
-                    INT_6BITS.setValor(5, INT_8BITS.getValor(7));
-
-                    //    System.out.println(v + " -->> Repetir :: " + INT_8BITS.getInt() + " -->> " + INT_6BITS.getInt());
-
-                    for (int rep = 0; rep < INT_6BITS.getInt(); rep++) {
-
+                    if (x < largura && y < altura) {
                         imagem.setRGB(x, y, pixel_corrente);
+                    }
+
+                    //    log.adicionar("Pixel -- " + cPixel + " :: " + posicao_indexada);
+
+
+                    fixados += 1;
+                    todos += 1;
+
+                    x += 1;
+                    if (x >= largura) {
+                        x = 0;
+                        y += 1;
+                    }
+
+
+                } else if (mapa_de_8_bits.getBitsInt(0, 2) == PIXEL_PALETADO) {
+
+
+                    // mapa_de_6_bits.zerar();
+                    // mapa_de_6_bits.setArray(0, mapa_de_8_bits.getArray(2, 6));
+
+                    int posicao_indexada = mapa_de_8_bits.getParteToInt(2, 6);
+
+                    paletado_corrente = posicao_indexada;
+                    //   paletado_corrente = mapa_de_6_bits.getInt();
+                    pixel_corrente = matriz[posicao_indexada];
+
+                    //   log.adicionar("Paletado -- " + posicao_indexada);
+
+                    if (x < largura && y < altura) {
+                        imagem.setRGB(x, y, pixel_corrente);
+                    }
+
+                    todos += 1;
+                    fixados += 1;
+
+                    x += 1;
+                    if (x >= largura) {
+                        x = 0;
+                        y += 1;
+                    }
+                } else if (mapa_de_8_bits.getBitsInt(0, 2) == PIXEL_REPETIR) {
+
+                    //  mapa_de_6_bits.zerar();
+                    //  mapa_de_6_bits.setArray(0, mapa_de_8_bits.getArray(2, 6));
+
+                    // int repetir_vezes = mapa_de_6_bits.getInt();
+
+                    int repetir_vezes = mapa_de_8_bits.getParteToInt(2, 6);
+
+                    //     log.adicionar("Repetir -- " + pixel_corrente + " -->> " + repetir_vezes);
+
+
+                    for (int rep = 0; rep < repetir_vezes; rep++) {
+
+                        if (x < largura && y < altura) {
+                            imagem.setRGB(x, y, pixel_corrente);
+                        }
 
                         x += 1;
                         if (x >= largura) {
@@ -961,10 +875,13 @@ public class IM {
                             y += 1;
                         }
 
-                        repetir += 1;
-                        todos += 1;
+                        //   repetir += 1;
+                        //   todos += 1;
 
                     }
+
+                    repetir += repetir_vezes;
+                    todos += repetir_vezes;
 
 
                 }
@@ -972,13 +889,17 @@ public class IM {
             }
         }
 
+        //  log.salvar("/home/luan/Containers/im_abrir.txt");
+
         if (DEBUG) {
+
+
+            System.out.println("\tTODOS      :: " + todos);
+            System.out.println("\tFIXADOS    :: " + fixados);
+            System.out.println("\tREPITIDOS  :: " + repetir);
 
             System.out.println("Imagem IM - Terminada");
 
-            System.out.println("TODOS     :: " + todos);
-            System.out.println("FIXADOS   :: " + fixados);
-            System.out.println("REPITIDOS :: " + repetir);
         }
 
         return imagem;
@@ -994,18 +915,18 @@ public class IM {
         int repetir = 0;
         Int8 INT_8BITS = new Int8(0);
         Int6 INT_6BITS = new Int6(0);
-        byte b1 = arquivador.readByte();
-        byte b2 = arquivador.readByte();
-        byte versao = arquivador.readByte();
-        int largura = arquivador.readInt();
-        int altura = arquivador.readInt();
+        byte b1 = arquivador.get();
+        byte b2 = arquivador.get();
+        byte versao = arquivador.get();
+        int largura = arquivador.get_u32();
+        int altura = arquivador.get_u32();
         if (DEBUG) {
             System.out.println("Largura :: " + largura);
             System.out.println("Altura  :: " + altura);
         }
 
-        byte a1 = arquivador.readByte();
-        byte a2 = arquivador.readByte();
+        byte a1 = arquivador.get();
+        byte a2 = arquivador.get();
         boolean alfa_com = false;
         int alfa_canal = 0;
         if (Inteiro.byteToInt(a1) == IMAGEM_ALFA_COM) {
@@ -1032,7 +953,7 @@ public class IM {
 
         while (true) {
             while (lendo) {
-                byte valor = arquivador.readByte();
+                byte valor = arquivador.get();
                 if (valor == 0) {
                     lendo = false;
                 } else {
@@ -1041,13 +962,13 @@ public class IM {
                     int rep;
                     if (INT_8BITS.getBitsInt(0, 2) == 1) {
                         if (alfa_com) {
-                            rep = Inteiro.byteToInt(arquivador.readByte());
+                            rep = Inteiro.byteToInt(arquivador.get());
                             alfa_canal = rep;
                         }
 
-                        rep = Inteiro.byteToInt(arquivador.readByte());
-                        int v3 = Inteiro.byteToInt(arquivador.readByte());
-                        int v4 = Inteiro.byteToInt(arquivador.readByte());
+                        rep = Inteiro.byteToInt(arquivador.get());
+                        int v3 = Inteiro.byteToInt(arquivador.get());
+                        int v4 = Inteiro.byteToInt(arquivador.get());
 
                         Cor cPixel = new Cor(rep, v3, v4);
                         if (alfa_com) {

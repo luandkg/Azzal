@@ -15,9 +15,9 @@ import libs.tronarko.Superarkos;
 
 import libs.tronarko.Agenda.Alarme;
 import libs.tronarko.Agenda.Lembrete;
-import libs.tronarko.Utils.FluxoTemporal;
+import libs.tronarko.utils.FluxoTemporal;
 
-import libs.tronarko.Utils.Ordenador;
+import libs.tronarko.utils.Ordenador;
 import mockui.Interface.Acao;
 import mockui.Interface.BotaoCor;
 import mockui.Interface.Clicavel;

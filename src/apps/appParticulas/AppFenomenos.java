@@ -4,8 +4,8 @@ import azzal.cenarios.Cena;
 import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
-import libs.Luan.Iterador;
-import libs.Luan.Lista;
+import libs.luan.Iterador;
+import libs.luan.Lista;
 
 import java.awt.*;
 import java.util.Random;

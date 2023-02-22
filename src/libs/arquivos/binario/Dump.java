@@ -13,7 +13,7 @@ public class Dump {
 
         for (int i = 0; i < tamanho; i++) {
 
-            int iByte = Inteiro.byteToInt(arquivador.readByte());
+            int iByte = Inteiro.byteToInt(arquivador.get());
 
             String s1 = String.valueOf(iByte);
 

@@ -5,7 +5,7 @@ import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Regiao.Regiao;
 import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_attuz.Regiao.Regionalizador;
-import libs.Luan.*;
+import libs.luan.*;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.materializedview.HiperMaterializedView10K;

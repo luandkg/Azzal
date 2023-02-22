@@ -2,11 +2,10 @@ package apps.app_attuz.Servicos;
 
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import azzal.Cores;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -31,10 +30,10 @@ public class TerraFormar extends Servico {
         String arquivo_terraformando_inicio = LOCAL + "build/terraformando_inicio.png";
         String arquivo_terraformando_processo = LOCAL + "build/terraformando_processo.png";
 
-        BufferedImage planeta = ImageUtils.getImagem(arquivo_terra_formar);
+        BufferedImage planeta = Imagem.getImagem(arquivo_terra_formar);
 
 
-        ImageUtils.exportar(planeta, arquivo_terraformando_inicio);
+        Imagem.exportar(planeta, arquivo_terraformando_inicio);
 
         println("Largura = " + planeta.getWidth());
         println("Altura = " + planeta.getHeight());
@@ -48,7 +47,7 @@ public class TerraFormar extends Servico {
 
             BufferedImage cores_regioes = construir_faixa_de_cores(regioes);
 
-            ImageUtils.exportar(cores_regioes, arquivo_terraformando_processo);
+            Imagem.exportar(cores_regioes, arquivo_terraformando_processo);
 
         }
 
@@ -61,7 +60,7 @@ public class TerraFormar extends Servico {
 
         // CONSTRUIR MAPA POLITICO
 
-        BufferedImage mapa_politicamente = ImageUtils.criarEmBranco(planeta.getWidth(), planeta.getHeight());
+        BufferedImage mapa_politicamente = Imagem.criarEmBranco(planeta.getWidth(), planeta.getHeight());
 
         for (int x = 0; x < planeta.getWidth(); x++) {
             for (int y = 0; y < planeta.getHeight(); y++) {
@@ -83,14 +82,14 @@ public class TerraFormar extends Servico {
         }
 
 
-        ImageUtils.exportar(mapa_politicamente, arquivo_politicamente);
+        Imagem.exportar(mapa_politicamente, arquivo_politicamente);
 
         println("Mapa Politico = OK");
 
 
         // CONSTRUIR MAPA DE AGUA E TERRA
 
-        BufferedImage mapa_planeta = ImageUtils.criarEmBranco(planeta.getWidth(), planeta.getHeight());
+        BufferedImage mapa_planeta = Imagem.criarEmBranco(planeta.getWidth(), planeta.getHeight());
 
         for (int x = 0; x < planeta.getWidth(); x++) {
             for (int y = 0; y < planeta.getHeight(); y++) {
@@ -108,7 +107,7 @@ public class TerraFormar extends Servico {
         }
 
 
-        ImageUtils.exportar(mapa_planeta, arquivo_planeta);
+        Imagem.exportar(mapa_planeta, arquivo_planeta);
 
         println("Mapa Planeta = OK");
 
@@ -261,7 +260,7 @@ public class TerraFormar extends Servico {
         int linhas = ((cores.size()) / 5) + 1;
 
 
-        BufferedImage faixa_horizontal = ImageUtils.criarEmBranco(por_linha * 150, linhas * 130);
+        BufferedImage faixa_horizontal = Imagem.criarEmBranco(por_linha * 150, linhas * 130);
 
         Renderizador r = new Renderizador(faixa_horizontal);
 

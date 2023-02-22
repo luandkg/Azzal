@@ -3,14 +3,14 @@ package apps.appTG22;
 import libs.arquivos.IO;
 import libs.arquivos.PDF;
 import azzal.Renderizador;
-import libs.Luan.fmt;
+import libs.luan.fmt;
 import libs.dkg.DKG;
 import libs.tronarko.Tronarko;
 import libs.dkg.DKGObjeto;
 
 import java.util.ArrayList;
 
-import libs.tronarko.Utils.IntTronarko;
+import libs.tronarko.utils.IntTronarko;
 
 import libs.tronarko.Tozte;
 

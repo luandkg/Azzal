@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import libs.tronarko.Hizarkos;
-import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.utils.TozteCor;
 import libs.tronarko.Eventos.Ocorrencia.Modos;
 import libs.tronarko.Tozte;
 

@@ -5,11 +5,11 @@ import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Luan.Opcional;
+import libs.luan.Opcional;
 import libs.tronarko.Hiperarkos;
 import libs.tronarko.Superarkos;
 import libs.tronarko.Tozte;
-import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.utils.TozteCor;
 import libs.tronarko.Agenda.Alarme;
 
 import java.awt.*;

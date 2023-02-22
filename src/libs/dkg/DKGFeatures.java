@@ -1,13 +1,15 @@
 package libs.dkg;
 
 
+import libs.luan.Opcional;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class DKGFeatures {
 
-    // FEATURE 22.10.05
+    // FEATURE 22.10.05 - renomear_objetos_iguais_sequencialmente
     public static void renomear_objetos_iguais_sequencialmente(ArrayList<DKGObjetoOuAtributo> lista) {
 
         String sPrimeiro = "";
@@ -48,7 +50,7 @@ public class DKGFeatures {
     }
 
 
-    // FEATURE 22.10.10
+    // FEATURE 22.10.10 - obter_ou_criar
     public static DKGObjetoFuturo obter_ou_criar(DKGObjeto objeto_pai, String item, String eID, String eValor) {
 
 
@@ -72,7 +74,7 @@ public class DKGFeatures {
     }
 
 
-    // FEATURE 22.10.12
+    // FEATURE 22.10.12 - ordendar_objetos_texto
     public static ArrayList<DKGObjeto> ordendar_objetos_texto(ArrayList<DKGObjeto> objetos, String atributo) {
 
         Collections.sort(objetos, new Comparator() {
@@ -178,6 +180,25 @@ public class DKGFeatures {
         }
 
         return objetos;
+    }
+
+    // FEATURE 22.11.13 - obter_ou_criar
+
+    public static Opcional<DKGObjeto> getObjetoComID(ArrayList<DKGObjeto> objetos, String eObjeto, String eAtributo, String eValor) {
+
+        Opcional<DKGObjeto> ret = new Opcional<DKGObjeto>();
+
+        for (DKGObjeto proc : objetos) {
+            if (proc.getNome().contentEquals(eObjeto)) {
+                if (proc.identifique(eAtributo).getValor().contentEquals(eValor)) {
+                    ret.set(proc);
+                    break;
+                }
+            }
+        }
+
+        return ret;
+
     }
 
 }

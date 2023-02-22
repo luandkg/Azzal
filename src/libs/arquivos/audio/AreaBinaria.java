@@ -18,7 +18,7 @@ public class AreaBinaria {
 
         for (int i = 0; i < tamanho; i++) {
 
-            int iByte = Inteiro.byteToInt(arquivador.readByte());
+            int iByte = Inteiro.byteToInt(arquivador.get());
             bins.add(iByte);
 
         }
@@ -43,7 +43,7 @@ public class AreaBinaria {
         for (int i = 0; i < tamanho; i++) {
 
             if (arquivador.getPonteiro() < arquivador.getLength()){
-                int iByte = Inteiro.byteToInt(arquivador.readByte());
+                int iByte = Inteiro.byteToInt(arquivador.get());
                 bins.add(iByte);
             }
 

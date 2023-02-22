@@ -22,16 +22,16 @@ public class HiperMaterializedView {
         Arquivador.remover(eArquivo);
 
         Arquivador arquivador = new Arquivador(eArquivo);
-        arquivador.writeByte((byte) MV_CABECALHO_01);
-        arquivador.writeByte((byte) MV_CABECALHO_02);
-        arquivador.writeByte((byte) MV_CABECALHO_03);
+        arquivador.set_u8((byte) MV_CABECALHO_01);
+        arquivador.set_u8((byte) MV_CABECALHO_02);
+        arquivador.set_u8((byte) MV_CABECALHO_03);
 
 
         for (int n = 0; n < 256; n++) {
 
-            arquivador.writeByte((byte) 0);
-            arquivador.writeLong(0);
-            arquivador.writeLong(0);
+            arquivador.set_u8((byte) 0);
+            arquivador.set_u64(0);
+            arquivador.set_u64(0);
 
         }
 
@@ -47,9 +47,9 @@ public class HiperMaterializedView {
         Arquivador arquivador = new Arquivador(eArquivo);
         arquivador.setPonteiro(0);
 
-        int p1 = arquivador.organizar_to_int(arquivador.readByte());
-        int p2 = arquivador.organizar_to_int(arquivador.readByte());
-        int p3 = arquivador.organizar_to_int(arquivador.readByte());
+        int p1 = arquivador.organizar_to_int(arquivador.get());
+        int p2 = arquivador.organizar_to_int(arquivador.get());
+        int p3 = arquivador.organizar_to_int(arquivador.get());
 
         if (p1 == 40 && p2 == 77 && p3 == 76) {
             ret = true;
@@ -69,15 +69,15 @@ public class HiperMaterializedView {
 
             arquivador.setPonteiro(0);
 
-            int p1 = arquivador.organizar_to_int(arquivador.readByte());
-            int p2 = arquivador.organizar_to_int(arquivador.readByte());
-            int p3 = arquivador.organizar_to_int(arquivador.readByte());
+            int p1 = arquivador.organizar_to_int(arquivador.get());
+            int p2 = arquivador.organizar_to_int(arquivador.get());
+            int p3 = arquivador.organizar_to_int(arquivador.get());
 
             int avancar_em = colecao * (1 + 8 + 8);
 
             arquivador.setPonteiro(3 + avancar_em);
 
-            int status = arquivador.organizar_to_int(arquivador.readByte());
+            int status = arquivador.organizar_to_int(arquivador.get());
 
             if (status == 0) {
 
@@ -89,9 +89,9 @@ public class HiperMaterializedView {
 
                 for (int n = 0; n < quantidade; n++) {
 
-                    arquivador.writeByte((byte) 0);
-                    arquivador.writeByteRepetidos(8, (byte) 0);
-                    arquivador.writeByteRepetidos(CONTEUDO_TAMANHO, (byte) 0);
+                    arquivador.set_u8((byte) 0);
+                    arquivador.set_u8_em_bloco(8, (byte) 0);
+                    arquivador.set_u8_em_bloco(CONTEUDO_TAMANHO, (byte) 0);
 
                     //    System.out.println("\t\t ### MaterializedView " + n + " ate " + quantidade);
                 }
@@ -99,17 +99,17 @@ public class HiperMaterializedView {
                 long depois = arquivador.getPonteiro();
 
                 arquivador.setPonteiro(3 + avancar_em);
-                arquivador.writeByte((byte) 1);
-                arquivador.writeLong(antes);
-                arquivador.writeLong(depois);
+                arquivador.set_u8((byte) 1);
+                arquivador.set_u64(antes);
+                arquivador.set_u64(depois);
 
                 long itens = (depois - antes) / ITEM_TAMANHO;
 
                 System.out.println("HiperMaterializedView - Colecao " + colecao + " construida entre " + antes + " - " + depois + " com " + itens + " itens");
 
             } else {
-                long antes = arquivador.readLong();
-                long depois = arquivador.readLong();
+                long antes = arquivador.get_u64();
+                long depois = arquivador.get_u64();
 
                 long itens = (depois - antes) / ITEM_TAMANHO;
 
@@ -134,15 +134,15 @@ public class HiperMaterializedView {
             Arquivador arquivador = new Arquivador(eArquivo);
             arquivador.setPonteiro(0);
 
-            byte p1 = arquivador.readByte();
-            byte p2 = arquivador.readByte();
-            byte p3 = arquivador.readByte();
+            byte p1 = arquivador.get();
+            byte p2 = arquivador.get();
+            byte p3 = arquivador.get();
 
             int avancar_em = eColecao * (1 + 8 + 8);
 
             arquivador.setPonteiro(3 + avancar_em);
 
-            int status = arquivador.organizar_to_int(arquivador.readByte());
+            int status = arquivador.organizar_to_int(arquivador.get());
 
             if (status == 1) {
 
@@ -171,20 +171,20 @@ public class HiperMaterializedView {
             Arquivador arquivador = new Arquivador(eArquivo);
             arquivador.setPonteiro(0);
 
-            byte p1 = arquivador.readByte();
-            byte p2 = arquivador.readByte();
-            byte p3 = arquivador.readByte();
+            byte p1 = arquivador.get();
+            byte p2 = arquivador.get();
+            byte p3 = arquivador.get();
 
             int avancar_em = eColecao * (1 + 8 + 8);
 
             arquivador.setPonteiro(3 + avancar_em);
 
-            int status = arquivador.organizar_to_int(arquivador.readByte());
+            int status = arquivador.organizar_to_int(arquivador.get());
 
             if (status == 1) {
 
-                long antes = arquivador.readLong();
-                long depois = arquivador.readLong();
+                long antes = arquivador.get_u64();
+                long depois = arquivador.get_u64();
 
                 quantidade = (int) ((depois - antes) / ITEM_TAMANHO);
 
@@ -212,25 +212,25 @@ public class HiperMaterializedView {
 
         arquivador.setPonteiro(ponteiro_colecao);
 
-        int status = arquivador.organizar_to_int(arquivador.readByte());
+        int status = arquivador.organizar_to_int(arquivador.get());
 
         if (status == 1) {
 
-            long antes = arquivador.readLong();
-            long depois = arquivador.readLong();
+            long antes = arquivador.get_u64();
+            long depois = arquivador.get_u64();
 
             long ponteiro = antes + (eItemID * ITEM_TAMANHO);
 
             if (ponteiro < depois) {
 
                 arquivador.setPonteiro(ponteiro);
-                arquivador.writeByte((byte) 1);
+                arquivador.set_u8((byte) 1);
 
                 ArrayList<Byte> bytes = TX.toListBytes(dados);
 
-                arquivador.writeLong((long) bytes.size());
+                arquivador.set_u64((long) bytes.size());
 
-                arquivador.writeByteArray(bytes);
+                arquivador.set_u8_array(bytes);
 
             }
 
@@ -257,12 +257,12 @@ public class HiperMaterializedView {
 
         arquivador.setPonteiro(ponteiro_colecao);
 
-        int status = arquivador.organizar_to_int(arquivador.readByte());
+        int status = arquivador.organizar_to_int(arquivador.get());
 
         if (status == 1) {
 
-            long antes = arquivador.readLong();
-            long depois = arquivador.readLong();
+            long antes = arquivador.get_u64();
+            long depois = arquivador.get_u64();
 
             long ponteiro = antes + (eItemID * ITEM_TAMANHO);
 
@@ -270,13 +270,13 @@ public class HiperMaterializedView {
 
                 arquivador.setPonteiro(ponteiro);
 
-                int status_item = arquivador.organizar_to_int(arquivador.readByte());
+                int status_item = arquivador.organizar_to_int(arquivador.get());
 
                 if (status_item == 1) {
 
-                    long tam = arquivador.readLong();
+                    long tam = arquivador.get_u64();
 
-                    ArrayList<Byte> bytes = arquivador.readBytes((int) tam);
+                    ArrayList<Byte> bytes = arquivador.get_u8_bloco((int) tam);
                     quantidade = bytes.size();
 
                     dados = TX.lerDeBytes(bytes);

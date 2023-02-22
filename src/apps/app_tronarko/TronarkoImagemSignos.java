@@ -1,7 +1,7 @@
 package apps.app_tronarko;
 
-import libs.Imaginador.Efeitos;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Efeitos;
+import libs.imagem.Imagem;
 import libs.tronarko.Signos;
 
 import java.awt.image.BufferedImage;
@@ -22,17 +22,17 @@ public class TronarkoImagemSignos {
 
     public TronarkoImagemSignos() {
 
-        SIGNO_CARPA = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/carpa.png"), 64, 64);
-        SIGNO_GATO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/gato.png"), 64, 64);
-        SIGNO_GAVIAO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/gaviao.png"), 64, 64);
-        SIGNO_LEAO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/leao.png"), 64, 64);
-        SIGNO_LEOPARDO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/leopardo.png"), 64, 64);
+        SIGNO_CARPA = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/carpa.png"), 64, 64);
+        SIGNO_GATO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/gato.png"), 64, 64);
+        SIGNO_GAVIAO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/gaviao.png"), 64, 64);
+        SIGNO_LEAO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/leao.png"), 64, 64);
+        SIGNO_LEOPARDO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/leopardo.png"), 64, 64);
 
-        SIGNO_LOBO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/lobo.png"), 64, 64);
-        SIGNO_RAPOSA = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/raposa.png"), 64, 64);
-        SIGNO_SERPENTE = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/serpente.png"), 64, 64);
-        SIGNO_TIGRE = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/tigre.png"), 64, 64);
-        SIGNO_TOURO = Efeitos.reduzirComAlfa(ImageUtils.getImagem("res/signos/touro.png"), 64, 64);
+        SIGNO_LOBO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/lobo.png"), 64, 64);
+        SIGNO_RAPOSA = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/raposa.png"), 64, 64);
+        SIGNO_SERPENTE = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/serpente.png"), 64, 64);
+        SIGNO_TIGRE = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/tigre.png"), 64, 64);
+        SIGNO_TOURO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/touro.png"), 64, 64);
 
 
     }

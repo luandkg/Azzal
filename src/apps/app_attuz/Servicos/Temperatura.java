@@ -8,8 +8,8 @@ import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.Legendas.Legendar;
 import apps.app_attuz.Legendas.Legendas;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -88,7 +88,7 @@ public class Temperatura extends Servico {
         Escala mEscala = EscalasPadroes.getEscalaTemperatura();
 
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
@@ -107,7 +107,7 @@ public class Temperatura extends Servico {
         mTemperatura = Legendar.legendar(mTemperatura, Legendas.getTemperatura(), EscalasPadroes.getEscalaTemperatura(), 100, 100);
 
 
-        ImageUtils.exportar(mTemperatura, eArquivo);
+        Imagem.exportar(mTemperatura, eArquivo);
 
     }
 

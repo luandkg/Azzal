@@ -165,7 +165,7 @@ public class AppVideo extends Cena {
         if (mAberto && mCarregado) {
            // r.drawImagem(100, 100, mVideo.getImagemCorrente());
 
-            BufferedImage reduzido = libs.Imaginador.Efeitos.reduzir(mVideo.getImagemCorrente(),mVideo.getImagemCorrente().getWidth()/3,mVideo.getImagemCorrente().getHeight()/3);
+            BufferedImage reduzido = libs.imagem.Efeitos.reduzir(mVideo.getImagemCorrente(),mVideo.getImagemCorrente().getWidth()/3,mVideo.getImagemCorrente().getHeight()/3);
             r.drawImagem(100, 100, reduzido);
 
         }

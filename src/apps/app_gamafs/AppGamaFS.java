@@ -1,6 +1,6 @@
 package apps.app_gamafs;
 
-import libs.GamaFS.GamaFS;
+import libs.gama_fs.GamaFS;
 
 public class AppGamaFS {
 

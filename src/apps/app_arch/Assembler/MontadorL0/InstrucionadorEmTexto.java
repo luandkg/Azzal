@@ -2,7 +2,7 @@ package apps.app_arch.Assembler.MontadorL0;
 
 import apps.app_arch.Assembler.AST;
 import apps.app_arch.Assembler.MontadorL1.Regiao;
-import libs.OLLT.TextoDocumento;
+import libs.ollt.TextoDocumento;
 
 import java.util.ArrayList;
 

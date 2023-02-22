@@ -1,7 +1,7 @@
 package libs.tronarko.Eventos;
 
 import libs.tronarko.Tozte;
-import libs.tronarko.Utils.TozteCor;
+import libs.tronarko.utils.TozteCor;
 
 import java.awt.*;
 

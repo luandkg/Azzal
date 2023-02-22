@@ -2,8 +2,8 @@ package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
-import libs.Imaginador.Efeitos;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Efeitos;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 
@@ -13,10 +13,10 @@ public class UnirMapas {
 
         Massas massa = MassasDados.getTerraAgua(LOCAL);
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
-        BufferedImage terra = ImageUtils.getImagem(LOCAL + eArquivoTerra);
-        BufferedImage mar = ImageUtils.getImagem(LOCAL + eArquivoAgua);
+        BufferedImage terra = Imagem.getImagem(LOCAL + eArquivoTerra);
+        BufferedImage mar = Imagem.getImagem(LOCAL + eArquivoAgua);
 
         for (int y = 0; y < mapa.getHeight(); y++) {
             for (int x = 0; x < mapa.getWidth(); x++) {
@@ -29,7 +29,7 @@ public class UnirMapas {
         }
 
 
-        ImageUtils.exportar(mapa, LOCAL + eArquivoResultante);
+        Imagem.exportar(mapa, LOCAL + eArquivoResultante);
 
     }
 
@@ -37,8 +37,8 @@ public class UnirMapas {
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
-        BufferedImage img_verao = Efeitos.reduzir(ImageUtils.getImagem(LOCAL + lado_a), tectonica.getLargura() / 3, tectonica.getAltura() / 3);
-        BufferedImage img_inverno = Efeitos.reduzir(ImageUtils.getImagem(LOCAL + lado_b), tectonica.getLargura() / 3, tectonica.getAltura() / 3);
+        BufferedImage img_verao = Efeitos.reduzir(Imagem.getImagem(LOCAL + lado_a), tectonica.getLargura() / 3, tectonica.getAltura() / 3);
+        BufferedImage img_inverno = Efeitos.reduzir(Imagem.getImagem(LOCAL + lado_b), tectonica.getLargura() / 3, tectonica.getAltura() / 3);
 
         BufferedImage mapa = new BufferedImage(((tectonica.getLargura() / 3) * 2) + 20, (tectonica.getAltura() / 3) + 30, BufferedImage.TYPE_INT_RGB);
 
@@ -55,7 +55,7 @@ public class UnirMapas {
         }
 
 
-        ImageUtils.exportar(mapa, LOCAL + eArquivoResultante);
+        Imagem.exportar(mapa, LOCAL + eArquivoResultante);
 
     }
 }

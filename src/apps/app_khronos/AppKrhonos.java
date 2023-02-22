@@ -10,7 +10,7 @@ import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Luan.ArquivoTexto;
+import libs.luan.ArquivoTexto;
 import mockui.Interface.Clicavel;
 
 

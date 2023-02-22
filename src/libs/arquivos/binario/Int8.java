@@ -62,20 +62,20 @@ public class Int8 {
         return ret;
     }
 
-    public String getBits(int c,int tamanho) {
+    public String getBits(int c, int tamanho) {
         String ret = "";
 
-        for (int i = c; i < (c+tamanho); i++) {
+        for (int i = c; i < (c + tamanho); i++) {
             ret += String.valueOf(valores[i]);
         }
 
         return ret;
     }
 
-    public int getBitsInt(int c,int tamanho) {
+    public int getBitsInt(int c, int tamanho) {
         String ret = "";
 
-        for (int i = c; i < (c+tamanho); i++) {
+        for (int i = c; i < (c + tamanho); i++) {
             ret += String.valueOf(valores[i]);
         }
 
@@ -144,11 +144,51 @@ public class Int8 {
     }
 
 
-
-    public void set2Bits(int c,int p0,int p1) {
+    public void set2Bits(int c, int p0, int p1) {
         valores[c] = p0;
-        valores[c+1] = p1;
+        valores[c + 1] = p1;
     }
 
-    public int getValor(int p){return valores[p];}
+    public int getValor(int p) {
+        return valores[p];
+    }
+
+
+    public int[] getArray(int comecar, int tamanho) {
+
+        int c = comecar;
+        int t = comecar + tamanho;
+
+        int a[] = new int[tamanho];
+
+        int p = 0;
+
+        for (int i = c; i < t; i++) {
+            a[p] = valores[i];
+            p += 1;
+        }
+
+        return a;
+    }
+
+    public int getParteToInt(int comecar, int tamanho) {
+
+        int c = comecar;
+        int t = comecar + tamanho;
+
+        int ret = 0;
+
+        int elevado = 0;
+
+        for (int i = (t - 1); i >= c; i--) {
+            ret += (valores[i] * potencia(2, elevado));
+            elevado += 1;
+        }
+
+
+
+        return ret;
+
+
+    }
 }

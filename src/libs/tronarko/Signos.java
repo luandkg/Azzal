@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public  enum Signos {
 
-    TIGRE(1), RAPOSA(2), LEOPARDO(3), LEAO(4), TOURO(5), LOBO(6), GATO(7), CARPA(8), GAVIAO(9), SERPENTE(10);
+    TIGRE(1), RAPOSA(2), LEOPARDO(3), GAVIAO(4), TOURO(5), LOBO(6), GATO(7), CARPA(8), LEAO(9), SERPENTE(10);
 
     private int mValor;
 
@@ -23,12 +23,12 @@ public  enum Signos {
         mSignos.add(Signos.TIGRE.toString());
         mSignos.add(Signos.RAPOSA.toString());
         mSignos.add(Signos.LEOPARDO.toString());
-        mSignos.add(Signos.LEAO.toString());
+        mSignos.add(Signos.GAVIAO.toString());
         mSignos.add(Signos.TOURO.toString());
         mSignos.add(Signos.LOBO.toString());
         mSignos.add(Signos.GATO.toString());
         mSignos.add(Signos.CARPA.toString());
-        mSignos.add(Signos.GAVIAO.toString());
+        mSignos.add(Signos.LEAO.toString());
         mSignos.add(Signos.SERPENTE.toString());
 
         return mSignos;
@@ -47,7 +47,7 @@ public  enum Signos {
             ret = "LEOPARDO";
         }
         if (mValor == 4) {
-            ret = "LEAO";
+            ret = "GAVIAO";
         }
         if (mValor == 5) {
             ret = "TOURO";
@@ -62,7 +62,7 @@ public  enum Signos {
             ret = "CARPA";
         }
         if (mValor == 9) {
-            ret = "GAVIAO";
+            ret = "LEAO";
         }
         if (mValor == 10) {
             ret = "SERPENTE";
@@ -85,7 +85,7 @@ public  enum Signos {
                 ret = Signos.LEOPARDO;
                 break;
             case 4:
-                ret = Signos.LEAO;
+                ret = Signos.GAVIAO;
                 break;
             case 5:
                 ret = Signos.TOURO;
@@ -100,7 +100,7 @@ public  enum Signos {
                 ret = Signos.CARPA;
                 break;
             case 9:
-                ret = Signos.GAVIAO;
+                ret = Signos.LEAO;
                 break;
             case 10:
                 ret = Signos.SERPENTE;

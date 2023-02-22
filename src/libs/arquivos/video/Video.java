@@ -54,22 +54,22 @@ public class Video {
         mArquivo.setPonteiro(0);
 
 
-        byte b1 = mArquivo.readByte();
-        byte b2 = mArquivo.readByte();
-        byte b3 = mArquivo.readByte();
+        byte b1 = mArquivo.get();
+        byte b2 = mArquivo.get();
+        byte b3 = mArquivo.get();
 
         System.out.println("Cabecalho : " + b1 + "." + b2 + "." + b3);
 
-        byte p1 = mArquivo.readByte();
+        byte p1 = mArquivo.get();
 
-        long w = mArquivo.readLong();
-        long h = mArquivo.readLong();
+        long w = mArquivo.get_u64();
+        long h = mArquivo.get_u64();
 
-        byte p2 = mArquivo.readByte();
+        byte p2 = mArquivo.get();
 
-        long eTaxa = mArquivo.readLong();
+        long eTaxa = mArquivo.get_u64();
 
-        byte p3 = mArquivo.readByte();
+        byte p3 = mArquivo.get();
 
 
         mLargura = (int) w;
@@ -241,7 +241,7 @@ public class Video {
     public void lerQuadro() {
 
 
-        byte bc = mArquivo.readByte();
+        byte bc = mArquivo.get();
 
         int eModalidade = Inteiro.byteToInt(bc);
 
@@ -256,11 +256,11 @@ public class Video {
 
         if (eModalidade == FRAME_DIFERENCIAL) {
 
-            mInicioX1 = mArquivo.readInt();
-            mInicioY1 = mArquivo.readInt();
+            mInicioX1 = mArquivo.get_u32();
+            mInicioY1 = mArquivo.get_u32();
 
-            mInicioX2 = mArquivo.readInt();
-            mInicioY2 = mArquivo.readInt();
+            mInicioX2 = mArquivo.get_u32();
+            mInicioY2 = mArquivo.get_u32();
 
         }
 

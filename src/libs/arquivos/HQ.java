@@ -1,6 +1,6 @@
 package libs.arquivos;
 
-import libs.Luan.Strings;
+import libs.luan.Strings;
 
 import java.io.File;
 import java.util.ArrayList;

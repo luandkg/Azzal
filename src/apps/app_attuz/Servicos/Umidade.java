@@ -9,8 +9,8 @@ import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.MassaToQTT;
 import apps.app_attuz.Ferramentas.Normalizador;
 import azzal.utilitarios.Cor;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,7 +36,7 @@ public class Umidade extends Servico {
 
         dados.zerar();
 
-        BufferedImage mapa_colorindo = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa_colorindo = Imagem.getImagem(LOCAL + "build/planeta.png");
 
 
         boolean indo = true;
@@ -100,7 +100,7 @@ public class Umidade extends Servico {
         // aplicar_grade(tectonica, onCartografia, mapa_colorindo);
 
 
-        ImageUtils.exportar(mapa_colorindo, LOCAL + "build/umidade.png");
+        Imagem.exportar(mapa_colorindo, LOCAL + "build/umidade.png");
 
         System.out.println("Guardar Umidade - QTT");
         MassaToQTT.salvarTerra(tectonica, dados, LOCAL + "dados/umidade.qtt");

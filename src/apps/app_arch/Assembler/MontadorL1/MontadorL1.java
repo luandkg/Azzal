@@ -1,7 +1,7 @@
 package apps.app_arch.Assembler.MontadorL1;
 
 import apps.app_arch.Assembler.*;
-import libs.Luan.ArquivoTexto;
+import libs.luan.ArquivoTexto;
 
 import java.util.ArrayList;
 

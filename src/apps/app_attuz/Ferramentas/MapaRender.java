@@ -2,7 +2,7 @@ package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Assessorios.Massas;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 
@@ -26,14 +26,14 @@ public class MapaRender {
     public static void renderiza(BufferedImage mapa, Massas tectonica, int VALOR_PADRAO, Massas massa, Escala mRelevo, Normalizador normalizador, String arq) {
 
         equilibrador(tectonica, VALOR_PADRAO, massa, mRelevo, normalizador);
-        ImageUtils.exportar(Pintor.colorir(mapa, massa, mRelevo), arq);
+        Imagem.exportar(Pintor.colorir(mapa, massa, mRelevo), arq);
 
     }
 
     public static void renderiza(BufferedImage mapa, Massas tectonica, int VALOR_PADRAO, MassaComNormal eMassaComNormal, Escala mRelevo, String arq) {
 
         equilibrador(tectonica, VALOR_PADRAO, eMassaComNormal.getDados(), mRelevo, eMassaComNormal.getNormalizado());
-        ImageUtils.exportar(Pintor.colorir(mapa, eMassaComNormal.getDados(), mRelevo), arq);
+        Imagem.exportar(Pintor.colorir(mapa, eMassaComNormal.getDados(), mRelevo), arq);
 
     }
 
@@ -48,7 +48,7 @@ public class MapaRender {
 
         normalizador.equilibrar();
 
-        BufferedImage mapa = ImageUtils.getCopia(mapa_entrada);
+        BufferedImage mapa = Imagem.getCopia(mapa_entrada);
 
         for (int y = 0; y < massa.getAltura(); y++) {
             for (int x = 0; x < massa.getLargura(); x++) {
@@ -80,7 +80,7 @@ public class MapaRender {
             }
         }
 
-        ImageUtils.exportar(mapa, arq);
+        Imagem.exportar(mapa, arq);
 
     }
 }

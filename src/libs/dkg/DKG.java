@@ -42,6 +42,17 @@ public class DKG {
         return eDKG.unicoObjeto(eObjeto);
     }
 
+    public static DKGObjeto PARSER_TO_OBJETO(String dados ) {
+        DKG eDKG = new DKG();
+        eDKG.parser(dados);
+
+        if (eDKG.getObjetos().size()>0){
+            return eDKG.getObjetos().get(0);
+        }else{
+            return new DKGObjeto("");
+        }
+    }
+
 
     // IO
 

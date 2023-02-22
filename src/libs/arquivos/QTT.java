@@ -13,24 +13,24 @@ public class QTT {
 
         TX eTX = new TX();
 
-        arquivador.writeByte((byte) eTX.getIndice("Q"));
-        arquivador.writeByte((byte) eTX.getIndice("T"));
-        arquivador.writeByte((byte) eTX.getIndice("T"));
-        arquivador.writeByte((byte) eTX.getIndice("0"));
-        arquivador.writeByte((byte) eTX.getIndice("1"));
+        arquivador.set_u8((byte) eTX.getIndice("Q"));
+        arquivador.set_u8((byte) eTX.getIndice("T"));
+        arquivador.set_u8((byte) eTX.getIndice("T"));
+        arquivador.set_u8((byte) eTX.getIndice("0"));
+        arquivador.set_u8((byte) eTX.getIndice("1"));
 
-        arquivador.writeByte((byte) 100);
+        arquivador.set_u8((byte) 100);
 
-        arquivador.writeInt(eLargura);
-        arquivador.writeInt(eAltura);
+        arquivador.set_u32(eLargura);
+        arquivador.set_u32(eAltura);
 
-        arquivador.writeByte((byte) 100);
+        arquivador.set_u8((byte) 100);
 
         for (int y = 0; y < eAltura; y++) {
             for (int x = 0; x < eLargura; x++) {
 
                 int apontar = (y * eLargura) + x;
-                arquivador.writeInt(valores[apontar]);
+                arquivador.set_u32(valores[apontar]);
 
             }
         }
@@ -51,23 +51,23 @@ public class QTT {
 
         TX eTX = new TX();
 
-        arquivador.writeByte((byte) eTX.getIndice("Q"));
-        arquivador.writeByte((byte) eTX.getIndice("T"));
-        arquivador.writeByte((byte) eTX.getIndice("T"));
-        arquivador.writeByte((byte) eTX.getIndice("0"));
-        arquivador.writeByte((byte) eTX.getIndice("1"));
+        arquivador.set_u8((byte) eTX.getIndice("Q"));
+        arquivador.set_u8((byte) eTX.getIndice("T"));
+        arquivador.set_u8((byte) eTX.getIndice("T"));
+        arquivador.set_u8((byte) eTX.getIndice("0"));
+        arquivador.set_u8((byte) eTX.getIndice("1"));
 
-        arquivador.writeByte((byte) 100);
+        arquivador.set_u8((byte) 100);
 
-        arquivador.writeInt(eQTT.getLargura());
-        arquivador.writeInt(eQTT.getAltura());
+        arquivador.set_u32(eQTT.getLargura());
+        arquivador.set_u32(eQTT.getAltura());
 
-        arquivador.writeByte((byte) 100);
+        arquivador.set_u8((byte) 100);
 
         for (int y = 0; y < eQTT.getAltura(); y++) {
             for (int x = 0; x < eQTT.getLargura(); x++) {
 
-                arquivador.writeInt(eQTT.getValor(x, y));
+                arquivador.set_u32(eQTT.getValor(x, y));
 
             }
         }
@@ -84,18 +84,18 @@ public class QTT {
         Arquivador arquivador = new Arquivador(eArquivo, "r");
         arquivador.setPonteiro(0);
 
-        byte p1 = arquivador.readByte();
-        byte p2 = arquivador.readByte();
-        byte p3 = arquivador.readByte();
-        byte p4 = arquivador.readByte();
-        byte p5 = arquivador.readByte();
+        byte p1 = arquivador.get();
+        byte p2 = arquivador.get();
+        byte p3 = arquivador.get();
+        byte p4 = arquivador.get();
+        byte p5 = arquivador.get();
 
-        byte z1 = arquivador.readByte();
+        byte z1 = arquivador.get();
 
-        int largura = arquivador.readInt();
-        int altura = arquivador.readInt();
+        int largura = arquivador.get_u32();
+        int altura = arquivador.get_u32();
 
-        byte z2 = arquivador.readByte();
+        byte z2 = arquivador.get();
 
         long ePonteiroInicio = arquivador.getPonteiro();
 
@@ -104,7 +104,7 @@ public class QTT {
             int apontar = ((y * largura) + x) * 4;
 
             arquivador.setPonteiro(ePonteiroInicio + apontar);
-            valor = arquivador.readInt();
+            valor = arquivador.get_u32();
 
             //  System.out.println("x : " + x + " y : " + y + " -->> pt(" + arquivador.getPonteiro() + ") = " + valor);
         }
@@ -119,18 +119,18 @@ public class QTT {
         Arquivador arquivador = new Arquivador(eArquivo, "rw");
         arquivador.setPonteiro(0);
 
-        byte p1 = arquivador.readByte();
-        byte p2 = arquivador.readByte();
-        byte p3 = arquivador.readByte();
-        byte p4 = arquivador.readByte();
-        byte p5 = arquivador.readByte();
+        byte p1 = arquivador.get();
+        byte p2 = arquivador.get();
+        byte p3 = arquivador.get();
+        byte p4 = arquivador.get();
+        byte p5 = arquivador.get();
 
-        byte z1 = arquivador.readByte();
+        byte z1 = arquivador.get();
 
-        int largura = arquivador.readInt();
-        int altura = arquivador.readInt();
+        int largura = arquivador.get_u32();
+        int altura = arquivador.get_u32();
 
-        byte z2 = arquivador.readByte();
+        byte z2 = arquivador.get();
 
         long ePonteiroInicio = arquivador.getPonteiro();
 
@@ -139,7 +139,7 @@ public class QTT {
             int apontar = ((y * largura) + x) * 4;
 
             arquivador.setPonteiro(ePonteiroInicio + apontar);
-            arquivador.writeInt(eValor);
+            arquivador.set_u32(eValor);
 
         }
 
@@ -188,18 +188,18 @@ public class QTT {
         Arquivador arquivador = new Arquivador(eArquivo, "r");
         arquivador.setPonteiro(0);
 
-        byte p1 = arquivador.readByte();
-        byte p2 = arquivador.readByte();
-        byte p3 = arquivador.readByte();
-        byte p4 = arquivador.readByte();
-        byte p5 = arquivador.readByte();
+        byte p1 = arquivador.get();
+        byte p2 = arquivador.get();
+        byte p3 = arquivador.get();
+        byte p4 = arquivador.get();
+        byte p5 = arquivador.get();
 
-        byte z1 = arquivador.readByte();
+        byte z1 = arquivador.get();
 
-        int largura = arquivador.readInt();
-        int altura = arquivador.readInt();
+        int largura = arquivador.get_u32();
+        int altura = arquivador.get_u32();
 
-        byte z2 = arquivador.readByte();
+        byte z2 = arquivador.get();
 
 
         eQTT.setLargura(largura);
@@ -220,7 +220,7 @@ public class QTT {
                 int apontar = ((y * largura) + x) * 4;
 
                 arquivador.setPonteiro(ePonteiroInicio + apontar);
-                int valor = arquivador.readInt();
+                int valor = arquivador.get_u32();
 
 
                 eQTT.setValor(x, y, valor);

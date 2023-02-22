@@ -2,8 +2,8 @@ package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
-import libs.Luan.Iterador;
-import libs.Luan.Lista;
+import libs.luan.Iterador;
+import libs.luan.Lista;
 
 import java.awt.image.BufferedImage;
 
@@ -37,36 +37,36 @@ public class AN {
 
             System.out.println("Animacao AN - Cabecalho");
 
-            arquivador.writeByte((byte) 65);
-            arquivador.writeByte((byte) 78);
+            arquivador.set_u8((byte) 65);
+            arquivador.set_u8((byte) 78);
 
-            arquivador.writeByte((byte) 1);
+            arquivador.set_u8((byte) 1);
 
-            arquivador.writeInt(eImagens.getQuantidade());
+            arquivador.set_u32(eImagens.getQuantidade());
 
-            arquivador.writeLong((long) w);
-            arquivador.writeLong((long) h);
+            arquivador.set_u64((long) w);
+            arquivador.set_u64((long) h);
 
-            arquivador.writeInt(eChrono);
+            arquivador.set_u32(eChrono);
 
-            arquivador.writeByte((byte) 100);
+            arquivador.set_u8((byte) 100);
 
             for (mIterador.iniciar(); mIterador.continuar(); mIterador.proximo()) {
 
                 System.out.println("QUADRO : " + mIterador.getIndice());
 
-                arquivador.writeByte((byte) 200);
+                arquivador.set_u8((byte) 200);
 
                 IM.salvar_bytes(mIterador.getValor(), arquivador);
 
 
-                arquivador.writeByte((byte) 201);
+                arquivador.set_u8((byte) 201);
 
 
             }
 
 
-            arquivador.writeByte((byte) 255);
+            arquivador.set_u8((byte) 255);
 
 
             arquivador.encerrar();
@@ -115,32 +115,32 @@ public class AN {
 
         System.out.println("Imagem IM - ABRIR");
 
-        byte b1 = arquivador.readByte();
-        byte b2 = arquivador.readByte();
-        byte b3 = arquivador.readByte();
+        byte b1 = arquivador.get();
+        byte b2 = arquivador.get();
+        byte b3 = arquivador.get();
 
         System.out.println("Cabecalho : " + b1 + "." + b2 + "." + b3);
 
-        int mQuadros = arquivador.readInt();
+        int mQuadros = arquivador.get_u32();
         System.out.println("Quadros : " + mQuadros);
 
-        long w = arquivador.readLong();
-        long h = arquivador.readLong();
+        long w = arquivador.get_u64();
+        long h = arquivador.get_u64();
 
         System.out.println("Tamanho : " + w + " :: " + h);
 
-        mChrono = arquivador.readInt();
+        mChrono = arquivador.get_u32();
         System.out.println("Chrono : " + mChrono);
 
 
         mImagemLargura = (int) w;
         mImagemAltura = (int) h;
 
-        int fixo = Inteiro.byteToInt(arquivador.readByte());
+        int fixo = Inteiro.byteToInt(arquivador.get());
 
         int mQuadroID = 0;
 
-        byte bc = arquivador.readByte();
+        byte bc = arquivador.get();
         while (bc != -1) {
 
             int mTipoBloco = Inteiro.byteToInt(bc);
@@ -149,13 +149,13 @@ public class AN {
 
                 mImagens.adicionar(IM.lerDoFluxo(arquivador));
 
-                int fixo2 = Inteiro.byteToInt(arquivador.readByte());
+                int fixo2 = Inteiro.byteToInt(arquivador.get());
 
                 mQuadroID += 1;
             }
 
 
-            bc = arquivador.readByte();
+            bc = arquivador.get();
         }
 
         System.out.println("Imagens  : " + mImagens.getQuantidade());

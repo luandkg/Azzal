@@ -22,12 +22,12 @@ public class Arena {
 
     public long getAnterior() {
         mArquivo.setPonteiro(mLocal + 1);
-        return mArquivo.readLong();
+        return mArquivo.get_u64();
     }
 
     public long getProximo() {
         mArquivo.setPonteiro(mLocal + 9);
-        return mArquivo.readLong();
+        return mArquivo.get_u64();
     }
 
     public ArrayList<Quadro> getQuadros() {
@@ -44,7 +44,7 @@ public class Arena {
             mQuadros.add(new Quadro(mArquivo, i, eAntes));
             mArquivo.setPonteiro(eAntes);
 
-            long eFramePonteiro = mArquivo.readLong();
+            long eFramePonteiro = mArquivo.get_u64();
             eContador += 1;
 
         }
@@ -61,7 +61,7 @@ public class Arena {
 
         for (int i = 0; i < 100; i++) {
 
-            long eFramePonteiro = mArquivo.readLong();
+            long eFramePonteiro = mArquivo.get_u64();
             eContador += 1;
 
 
@@ -80,7 +80,7 @@ public class Arena {
 
         for (int i = 0; i < 100; i++) {
 
-            long eFramePonteiro = mArquivo.readLong();
+            long eFramePonteiro = mArquivo.get_u64();
             if (eFramePonteiro != 0) {
                 eContador += 1;
             }
@@ -100,7 +100,7 @@ public class Arena {
 
         for (int i = 0; i < 100; i++) {
 
-            long eFramePonteiro = mArquivo.readLong();
+            long eFramePonteiro = mArquivo.get_u64();
             if (eFramePonteiro == 0) {
                 eContador += 1;
             }
@@ -123,13 +123,13 @@ public class Arena {
             long ePonteiroAntes = mArquivo.getPonteiro();
 
 
-            long eFramePonteiro = mArquivo.readLong();
+            long eFramePonteiro = mArquivo.get_u64();
 
             if (eFramePonteiro == 0) {
 
 
                 mArquivo.setPonteiro(ePonteiroAntes);
-                mArquivo.writeLong(e);
+                mArquivo.set_u64(e);
                 guardou = true;
 
 

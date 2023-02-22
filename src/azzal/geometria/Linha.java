@@ -1,6 +1,6 @@
 package azzal.geometria;
 
-import libs.Luan.Lista;
+import libs.luan.Lista;
 
 public class Linha {
 

@@ -22,7 +22,7 @@ public class BZZ {
             Arquivador arquivador = new Arquivador(eArquivo);
 
             for (int v = 0; v < quantos_blocos; v++) {
-                arquivador.writeByteRepetidos(BLOCO_TAMANHO, (byte) 0);
+                arquivador.set_u8_em_bloco(BLOCO_TAMANHO, (byte) 0);
             }
 
             arquivador.fechar();
@@ -47,7 +47,7 @@ public class BZZ {
 
             if (posicionador < arquivador.getLength()) {
                 arquivador.setPonteiro(posicionador);
-                arquivador.writeByteArray(bytes);
+                arquivador.set_u8_array(bytes);
             } else {
                 System.out.println("NAO TEM ESPACO :: " + posicao);
             }
@@ -75,7 +75,7 @@ public class BZZ {
             if (posicionador < arquivador.getLength()) {
 
                 arquivador.setPonteiro(posicionador);
-                bytes = arquivador.readBytes(BLOCO_TAMANHO);
+                bytes = arquivador.get_u8_bloco(BLOCO_TAMANHO);
 
             }
 

@@ -6,7 +6,7 @@ import apps.app_attuz.Ferramentas.Local;
 import azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
-import libs.tronarko.Utils.ContadorTronarko;
+import libs.tronarko.utils.ContadorTronarko;
 
 
 import java.util.ArrayList;

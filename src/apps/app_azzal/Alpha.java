@@ -7,9 +7,9 @@ import azzal.Renderizador;
 import azzal.Windows;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Luan.Iterador;
-import libs.Luan.Lista;
-import libs.Movimento.Movettor;
+import libs.luan.Iterador;
+import libs.luan.Lista;
+import libs.movimentador.Movettor;
 
 import java.awt.*;
 import java.util.ArrayList;

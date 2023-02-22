@@ -5,9 +5,9 @@ import apps.app_attuz.Assessorios.MassasDados;
 import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.Pintor;
-import libs.Luan.Integers;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.luan.Integers;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -26,7 +26,7 @@ public class Cartografia extends Servico {
     public Cartografia(String eLOCAL) {
         LOCAL = eLOCAL;
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         CARTOGRAFIA_LARGURA = mapa.getWidth() / 18;
         CARTOGRAFIA_ALTURA = mapa.getHeight() / 18;
@@ -114,7 +114,7 @@ public class Cartografia extends Servico {
 
     private void genLatitude(String LOCAL, Escala mEscala) {
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         Massas eMassa = MassasDados.getTerraAgua(LOCAL);
 
@@ -150,14 +150,14 @@ public class Cartografia extends Servico {
 
 
 
-        ImageUtils.exportar(Pintor.colorir(mapa, eMassa, mEscala), LOCAL + "build/lat.png");
+        Imagem.exportar(Pintor.colorir(mapa, eMassa, mEscala), LOCAL + "build/lat.png");
 
 
     }
 
     private void genLongitude(String LOCAL, Escala mEscala) {
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         Massas eMassa = MassasDados.getTerraAgua(LOCAL);
         Cartografia onCartografia = new Cartografia(LOCAL);
@@ -192,7 +192,7 @@ public class Cartografia extends Servico {
             }
         }
 
-        ImageUtils.exportar(Pintor.colorir(mapa, eMassa, mEscala), LOCAL + "build/lon.png");
+        Imagem.exportar(Pintor.colorir(mapa, eMassa, mEscala), LOCAL + "build/lon.png");
 
 
     }

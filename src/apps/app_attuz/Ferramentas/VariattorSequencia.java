@@ -4,7 +4,7 @@ import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
 import apps.app_attuz.Assessorios.DadosQTT;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class VariattorSequencia {
 
         DadosQTT dadosQTT = new DadosQTT(LOCAL);
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
@@ -83,13 +83,13 @@ public class VariattorSequencia {
             int passado = (quantidade - i - 1);
             int futuro = (quantidade + i);
 
-            ImageUtils.exportar(Pintor.colorir(mapa, corrente_normalizado, mEscala), LOCAL + eArquivoPrefixo + passado + ".png");
+            Imagem.exportar(Pintor.colorir(mapa, corrente_normalizado, mEscala), LOCAL + eArquivoPrefixo + passado + ".png");
 
             eArquivos.add(LOCAL +eArquivoPrefixo + passado + ".png");
 
             if (futuro != quantidade && futuro != ((2 * quantidade) - 1)) {
 
-                ImageUtils.exportar(Pintor.colorir(mapa, corrente_normalizado, mEscala), LOCAL + eArquivoPrefixo + futuro_real + ".png");
+                Imagem.exportar(Pintor.colorir(mapa, corrente_normalizado, mEscala), LOCAL + eArquivoPrefixo + futuro_real + ".png");
 
                 eArquivos.add(LOCAL + eArquivoPrefixo + futuro_real + ".png");
 

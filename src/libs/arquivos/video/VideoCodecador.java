@@ -2,9 +2,9 @@ package libs.arquivos.video;
 
 
 import libs.arquivos.binario.Arquivador;
-import libs.Imaginador.ImageUtils;
-import libs.Luan.OrdenadorAlfaNum;
-import libs.Luan.fmt;
+import libs.imagem.Imagem;
+import libs.luan.OrdenadorAlfaNum;
+import libs.luan.fmt;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -417,20 +417,20 @@ public class VideoCodecador {
         Arquivador arquivador = new Arquivador(eArquivo);
 
 
-        arquivador.writeByte((byte) 77); // M
-        arquivador.writeByte((byte) 86); // V
-        arquivador.writeByte((byte) 49); // 1
+        arquivador.set_u8((byte) 77); // M
+        arquivador.set_u8((byte) 86); // V
+        arquivador.set_u8((byte) 49); // 1
 
-        arquivador.writeByte((byte) 1);
+        arquivador.set_u8((byte) 1);
 
-        arquivador.writeLong((long) eLargura);
-        arquivador.writeLong((long) eAltura);
+        arquivador.set_u64((long) eLargura);
+        arquivador.set_u64((long) eAltura);
 
-        arquivador.writeByte((byte) 1);
+        arquivador.set_u8((byte) 1);
 
-        arquivador.writeLong((long) 200);
+        arquivador.set_u64((long) 200);
 
-        arquivador.writeByte((byte) 1);
+        arquivador.set_u8((byte) 1);
 
 
         return new Empilhador(arquivador, eLargura, eAltura);
@@ -446,22 +446,22 @@ public class VideoCodecador {
         mArquivo.setPonteiro(0);
 
 
-        byte b1 = mArquivo.readByte();
-        byte b2 = mArquivo.readByte();
-        byte b3 = mArquivo.readByte();
+        byte b1 = mArquivo.get();
+        byte b2 = mArquivo.get();
+        byte b3 = mArquivo.get();
 
         //  System.out.println("Cabecalho : " + b1 + "." + b2 + "." + b3);
 
-        byte p1 = mArquivo.readByte();
+        byte p1 = mArquivo.get();
 
-        long w = mArquivo.readLong();
-        long h = mArquivo.readLong();
+        long w = mArquivo.get_u64();
+        long h = mArquivo.get_u64();
 
-        byte p2 = mArquivo.readByte();
+        byte p2 = mArquivo.get();
 
-        long eTaxa = mArquivo.readLong();
+        long eTaxa = mArquivo.get_u64();
 
-        byte p3 = mArquivo.readByte();
+        byte p3 = mArquivo.get();
 
 
         int mLargura = (int) w;
@@ -483,7 +483,7 @@ public class VideoCodecador {
         System.out.println("");
 
 
-        BufferedImage primeira = ImageUtils.getImagem(eArquivos.get(0));
+        BufferedImage primeira = Imagem.getImagem(eArquivos.get(0));
 
         int mLargura = primeira.getWidth();
         int mAltura = primeira.getHeight();

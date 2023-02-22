@@ -24,15 +24,15 @@ public class MaterializedView {
         Arquivador.remover(eArquivo);
 
         Arquivador arquivador = new Arquivador(eArquivo);
-        arquivador.writeByte((byte) MV_CABECALHO_01);
-        arquivador.writeByte((byte) MV_CABECALHO_02);
+        arquivador.set_u8((byte) MV_CABECALHO_01);
+        arquivador.set_u8((byte) MV_CABECALHO_02);
 
 
         for (int n = 0; n < quantidade; n++) {
 
-            arquivador.writeByte((byte) 0);
-            arquivador.writeByteRepetidos(8, (byte) 0);
-            arquivador.writeByteRepetidos(CONTEUDO_TAMANHO, (byte) 0);
+            arquivador.set_u8((byte) 0);
+            arquivador.set_u8_em_bloco(8, (byte) 0);
+            arquivador.set_u8_em_bloco(CONTEUDO_TAMANHO, (byte) 0);
 
      //       System.out.println("\t\t ### MaterializedView " + n + " de " + quantidade);
         }
@@ -57,9 +57,9 @@ public class MaterializedView {
 
             for (int n = 0; n < quantidade; n++) {
 
-                arquivador.writeByte((byte) 0);
-                arquivador.writeByteRepetidos(8, (byte) 0);
-                arquivador.writeByteRepetidos(CONTEUDO_TAMANHO, (byte) 0);
+                arquivador.set_u8((byte) 0);
+                arquivador.set_u8_em_bloco(8, (byte) 0);
+                arquivador.set_u8_em_bloco(CONTEUDO_TAMANHO, (byte) 0);
 
             //    System.out.println("\t\t ### MaterializedView " + n + " ate " + quantidade);
             }
@@ -83,8 +83,8 @@ public class MaterializedView {
             Arquivador arquivador = new Arquivador(eArquivo);
             arquivador.setPonteiro(0);
 
-            byte p1 = arquivador.readByte();
-            byte p2 = arquivador.readByte();
+            byte p1 = arquivador.get();
+            byte p2 = arquivador.get();
 
 
             quantidade = (int) ((arquivador.getLength() - 2) / ITEM_TAMANHO);
@@ -109,13 +109,13 @@ public class MaterializedView {
         long ponteiro = 2 + (id * ITEM_TAMANHO);
 
         arquivador.setPonteiro(ponteiro);
-        arquivador.writeByte((byte) 1);
+        arquivador.set_u8((byte) 1);
 
         ArrayList<Byte> bytes = TX.toListBytes(dados);
 
-        arquivador.writeLong((long) bytes.size());
+        arquivador.set_u64((long) bytes.size());
 
-        arquivador.writeByteArray(bytes);
+        arquivador.set_u8_array(bytes);
 
         arquivador.encerrar();
 
@@ -132,16 +132,16 @@ public class MaterializedView {
 
         arquivador.setPonteiro(ponteiro);
 
-        int b1 = arquivador.organizar_to_int(arquivador.readByte());
+        int b1 = arquivador.organizar_to_int(arquivador.get());
 
         int quantidade = 0;
         String dados = "";
 
         if (b1 == 1) {
 
-            long tam = arquivador.readLong();
+            long tam = arquivador.get_u64();
 
-            ArrayList<Byte> bytes = arquivador.readBytes((int) tam);
+            ArrayList<Byte> bytes = arquivador.get_u8_bloco((int) tam);
             quantidade = bytes.size();
 
             dados = TX.lerDeBytes(bytes);

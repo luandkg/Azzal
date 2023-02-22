@@ -3,7 +3,7 @@ package apps.app_attuz.Localizador;
 
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
-import libs.tronarko.Utils.StringTronarko;
+import libs.tronarko.utils.StringTronarko;
 import libs.tronarko.Tozte;
 import libs.tronarko.Hazde;
 

@@ -42,34 +42,41 @@ public class Arquivador {
     }
 
 
+    public static long GET_TAMANHO(String arquivo){
+        Arquivador arq = new Arquivador(arquivo);
+        long tamanho = arq.getLength();
+        arq.encerrar();
+        return tamanho;
+    }
 
 
-    public byte[] longToBytes(long l) {
-        byte[] result = new byte[8];
-        for (int i = 7; i >= 0; i--) {
-            result[i] = (byte) (l & 0xFF);
-            l >>= 8;
+
+
+    public byte get() {
+        try {
+            return mFile.readByte();
+        } catch (IOException e) {
+            return -1;
         }
-        return result;
-    }
-
-    public byte[] intToByte(int value) {
-        return new byte[]{
-                (byte) (value >>> 24),
-                (byte) (value >>> 16),
-                (byte) (value >>> 8),
-                (byte) value};
-    }
-
-    int bytestoInt(byte[] bytes) {
-        return ((bytes[0] & 0xFF) << 24) |
-                ((bytes[1] & 0xFF) << 16) |
-                ((bytes[2] & 0xFF) << 8) |
-                ((bytes[3] & 0xFF) << 0);
     }
 
 
-    public long readLong() {
+    public int get_u8() {
+        try {
+            byte b = mFile.readByte();
+
+            if (b >= 0) {
+                return (int) b;
+            } else {
+                return 256 + (int) b;
+            }
+
+        } catch (IOException e) {
+            return 0;
+        }
+    }
+
+    public long get_u64() {
         long result = 0;
         try {
 
@@ -88,7 +95,7 @@ public class Arquivador {
         return result;
     }
 
-    public int readInt() {
+    public int get_u32() {
         int i = 0;
 
 
@@ -109,17 +116,7 @@ public class Arquivador {
     }
 
 
-    public String organizar(byte b) {
-        String si = String.valueOf(b);
 
-        if (si.length() == 1) {
-            si = "00" + si;
-        } else if (si.length() == 2) {
-            si = "0" + si;
-        }
-
-        return si;
-    }
 
     public int organizar_to_int(byte b) {
         String si = String.valueOf(b);
@@ -147,21 +144,20 @@ public class Arquivador {
 
     }
 
-    public void writeInt(int l) {
+    public void set_u32(int l) {
 
         try {
-            mFile.write(intToByte(l));
+            mFile.write(Bytes.intToByte(l));
         } catch (IOException e) {
 
         }
 
     }
 
-    public void writeInt16(int l) {
+    public void set_u16(int l) {
 
         int v1 = l / 255;
         int v2 = l - (v1 * 255);
-
 
         try {
             mFile.write((byte) v1);
@@ -172,10 +168,10 @@ public class Arquivador {
     }
 
 
-    public void writeLong(long l) {
+    public void set_u64(long l) {
 
         try {
-            mFile.write(longToBytes(l));
+            mFile.write(Bytes.longToBytes(l));
         } catch (IOException e) {
 
         }
@@ -200,15 +196,8 @@ public class Arquivador {
         }
     }
 
-    public byte readByte() {
-        try {
-            return mFile.readByte();
-        } catch (IOException e) {
-            return -1;
-        }
-    }
 
-    public void writeByte(Byte eByte) {
+    public void set_u8(Byte eByte) {
         try {
             mFile.writeByte(eByte);
         } catch (IOException e) {
@@ -216,7 +205,7 @@ public class Arquivador {
         }
     }
 
-    public void writeByteArray(ArrayList<Byte> dados) {
+    public void set_u8_array(ArrayList<Byte> dados) {
         try {
             for (Byte b : dados) {
                 mFile.writeByte((byte) b);
@@ -228,7 +217,7 @@ public class Arquivador {
     }
 
 
-    public void writeByteRepetidos(int quantidade, Byte byte_v) {
+    public void set_u8_em_bloco(int quantidade, Byte byte_v) {
         try {
             for (int i = 0; i < quantidade; i++) {
                 mFile.writeByte((byte) byte_v);
@@ -239,7 +228,7 @@ public class Arquivador {
 
     }
 
-    public void writeByteRepetidos(long quantidade, Byte byte_v) {
+    public void set_u8_em_bloco(long quantidade, Byte byte_v) {
         try {
             for (long i = 0; i < quantidade; i++) {
                 mFile.writeByte((byte) byte_v);
@@ -266,7 +255,7 @@ public class Arquivador {
         }
     }
 
-    public ArrayList<Byte> readBytes(int eQuantidade) {
+    public ArrayList<Byte> get_u8_bloco(int eQuantidade) {
 
         ArrayList<Byte> bytes = new ArrayList<Byte>();
 
@@ -281,10 +270,10 @@ public class Arquivador {
         return bytes;
     }
 
-    public void readBufferBytes(byte[] buff,int eQuantidade) {
+    public void get_u8_em_bloco(byte[] buff, int eQuantidade) {
 
         try {
-            mFile.read(buff,0,eQuantidade);
+            mFile.read(buff, 0, eQuantidade);
         } catch (IOException e) {
 
         }

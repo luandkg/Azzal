@@ -3,7 +3,7 @@ package apps.app_attuz.Regiao;
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Ferramentas.Local;
 import azzal.utilitarios.Cor;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class Regionalizador {
     public Regionalizador(String LOCAL) {
 
         eArkazz = new Arkazz();
-        novo_politico = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
+        novo_politico = Imagem.getImagem(LOCAL + "build/politicamente.png");
 
 
     }

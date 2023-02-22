@@ -7,7 +7,7 @@ import azzal.Cores;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import azzal.Windows;
-import libs.Imaginador.Efeitos;
+import libs.imagem.Efeitos;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import mockui.Interface.Acao;

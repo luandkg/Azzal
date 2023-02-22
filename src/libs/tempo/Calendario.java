@@ -236,12 +236,12 @@ public class Calendario {
     }
 
     public static String getHora() {
-        String date = new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date());
+        String date = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
         return date;
     }
 
     public static String getHoraCompleta() {
-        String date = new SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(new Date());
+        String date = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         return date;
     }
 
@@ -577,6 +577,128 @@ public class Calendario {
 
         return String.valueOf(duracao) + " " + sufixo;
 
+    }
+
+
+    // IMPLEMENTADO 2022.11
+
+    public static final int INT_DOMINGO = 1;
+    public static final int INT_SEGUNDA = 2;
+    public static final int INT_TERCA = 3;
+    public static final int INT_QUARTA = 4;
+    public static final int INT_QUINTA = 5;
+    public static final int INT_SEXTA = 6;
+    public static final int INT_SABADO = 7;
+
+
+    public static int toIntDia(String DIA) {
+
+        int v = 0;
+
+        if (isSegunda(DIA)) {
+            v = INT_SEGUNDA;
+        } else if (isTerca(DIA)) {
+            v = INT_TERCA;
+        } else if (isQuarta(DIA)) {
+            v = INT_QUARTA;
+        } else if (isQuinta(DIA)) {
+            v = INT_QUINTA;
+        } else if (isSexta(DIA)) {
+            v = INT_SEXTA;
+        } else if (isSabado(DIA)) {
+            v = INT_SABADO;
+        } else if (isDomingo(DIA)) {
+            v = INT_DOMINGO;
+        }
+
+        return v;
+    }
+
+
+    public static boolean isSegunda(String eDia) {
+        return Calendario.SEGUNDA.contentEquals(eDia);
+    }
+
+    public static boolean isTerca(String eDia) {
+        return Calendario.TERCA.contentEquals(eDia);
+    }
+
+    public static boolean isQuarta(String eDia) {
+        return Calendario.QUARTA.contentEquals(eDia);
+    }
+
+    public static boolean isQuinta(String eDia) {
+        return Calendario.QUINTA.contentEquals(eDia);
+    }
+
+    public static boolean isSexta(String eDia) {
+        return Calendario.SEXTA.contentEquals(eDia);
+    }
+
+    public static boolean isSabado(String eDia) {
+        return Calendario.SABADO.contentEquals(eDia);
+    }
+
+    public static boolean isDomingo(String eDia) {
+        return Calendario.DOMINGO.contentEquals(eDia);
+    }
+
+
+    public static int quantos_dias_entre(Data d1, Data d2, ArrayList<Data> datas) {
+
+        int p1 = 0;
+        int p2 = 0;
+
+        int indice = 0;
+        int v = 0;
+
+        for (Data d : datas) {
+
+            if (d.isIgual(d1)) {
+                p1 = indice;
+                v += 1;
+            }
+
+            if (d.isIgual(d2)) {
+                p2 = indice;
+                v += 1;
+            }
+
+            if (v == 2) {
+                break;
+            }
+
+            indice += 1;
+
+        }
+
+        return p2 - p1;
+    }
+
+    public static String toFaixaTemporal(String tempo_AMD) {
+        String faixa_tempo = "";
+
+        if (tempo_AMD.length() == 10) {
+
+            String sDia = String.valueOf(tempo_AMD.charAt(8)) + String.valueOf(tempo_AMD.charAt(9));
+            String sMes = String.valueOf(tempo_AMD.charAt(5)) + String.valueOf(tempo_AMD.charAt(6));
+
+            faixa_tempo = sDia + " de " + Calendario.getMesPrefixo(sMes);
+
+        }
+
+        return faixa_tempo;
+    }
+
+    public static boolean isTempoEntre(int eComecar, int eTerminar, int eAgora) {
+
+        boolean ret = false;
+
+        if (eAgora >= eComecar && eAgora < eTerminar) {
+            ret = true;
+        }
+
+        return ret;
     }
 }
 

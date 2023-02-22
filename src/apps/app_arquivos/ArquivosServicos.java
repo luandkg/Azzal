@@ -2,8 +2,8 @@ package apps.app_arquivos;
 
 import libs.arquivos.*;
 import libs.arquivos.binario.Int8;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ArquivosServicos extends Servico {
         println("2 BITS :: " + int8.getBitsInt(0, 2));
 
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/relevo.png");
 
         IM.salvar(mapa, LOCAL + "build/relevo.im");
 
@@ -29,7 +29,7 @@ public class ArquivosServicos extends Servico {
 
         IM.toPNG(LOCAL + "build/relevo.im", LOCAL + "build/relevo_im.png");
 
-        IM.salvar(ImageUtils.getImagem("/home/luan/Imagens/diii.png"), "/home/luan/Imagens/eu.im");
+        IM.salvar(Imagem.getImagem("/home/luan/Imagens/diii.png"), "/home/luan/Imagens/eu.im");
         IM.toPNG("/home/luan/Imagens/eu.im", "/home/luan/Imagens/eu_im.png");
 
         TX.escreverTX("Oiiieee libs.Luan \n Qual é o seu nome ?", "/home/luan/Documentos/luan.tx");

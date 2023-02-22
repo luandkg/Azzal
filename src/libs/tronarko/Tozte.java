@@ -39,7 +39,7 @@ public class Tozte {
             ok = false;
         }
 
-        if (mTronarkos < 0 ) {
+        if (mTronarkos < 0) {
             ok = false;
         }
 
@@ -78,7 +78,7 @@ public class Tozte {
         String p2 = S(this.getHiperarko());
         String p3 = S(this.getTronarko());
 
-        return  p1 + "/" + p2 + "/" + p3;
+        return p1 + "/" + p2 + "/" + p3;
     }
 
     private String S(int valor) {
@@ -288,7 +288,7 @@ public class Tozte {
                 ret = Signos.LEOPARDO;
                 break;
             case 4:
-                ret = Signos.LEAO;
+                ret = Signos.GAVIAO;
                 break;
             case 5:
                 ret = Signos.TOURO;
@@ -303,7 +303,7 @@ public class Tozte {
                 ret = Signos.CARPA;
                 break;
             case 9:
-                ret = Signos.GAVIAO;
+                ret = Signos.LEAO;
                 break;
             case 10:
                 ret = Signos.SERPENTE;

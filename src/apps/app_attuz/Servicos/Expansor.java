@@ -12,8 +12,8 @@ import apps.app_attuz.Ferramentas.Local;
 import azzal.geometria.Ponto;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class Expansor extends Servico {
         println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
 
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "terra.png");
 
         Escala mRelevo_aquatico = EscalasPadroes.getEscalaAquatica();
 
@@ -72,7 +72,7 @@ public class Expansor extends Servico {
 
         Renderizador render = new Renderizador(maior);
         render.drawRect_Pintado(0, 0, render.getLargura(), render.getAltura(), new Cor(255, 255, 255));
-        render.drawImagem(500, 500, ImageUtils.getCopia(mapa));
+        render.drawImagem(500, 500, Imagem.getCopia(mapa));
 
         int deslocar_x = 500;
         int deslocar_y = 500;

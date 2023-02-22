@@ -5,9 +5,9 @@ import azzal.Mouse;
 import azzal.utilitarios.*;
 import azzal.Renderizador;
 import azzal.Windows;
-import libs.Griff.Griph;
-import libs.Griff.Griphattor;
-import libs.Griff.Griphizz;
+import libs.griff.Griph;
+import libs.griff.Griphattor;
+import libs.griff.Griphizz;
 
 
 import java.awt.*;

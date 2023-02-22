@@ -16,15 +16,15 @@ public class AUControlador {
 
     public int lerAmostragem(Arquivador arquivo_au, byte[] buffer, byte[] originais, byte[] copiar) {
 
-        byte primeiro = arquivo_au.readByte();
+        byte primeiro = arquivo_au.get();
 
         int numBytesRead = -1;
 
         if (primeiro == (byte) 0) {
             int pt = 0;
             for (int indice = 0; indice < (256 / 2); indice++) {
-                buffer[pt] = arquivo_au.readByte();
-                buffer[pt + 1] = arquivo_au.readByte();
+                buffer[pt] = arquivo_au.get();
+                buffer[pt + 1] = arquivo_au.get();
                 pt += 2;
             }
             numBytesRead = 256;
@@ -39,10 +39,10 @@ public class AUControlador {
 
             for (int r = 0; r < repetidos; r++) {
 
-                byte b1 = arquivo_au.readByte();
-                byte b2 = arquivo_au.readByte();
+                byte b1 = arquivo_au.get();
+                byte b2 = arquivo_au.get();
 
-                int qt = Inteiro.byteToInt(arquivo_au.readByte());
+                int qt = Inteiro.byteToInt(arquivo_au.get());
 
                 total_repetidos += qt;
 
@@ -53,7 +53,7 @@ public class AUControlador {
 
                 for (int q = 0; q < qt; q++) {
 
-                    int pos = Inteiro.byteToInt(arquivo_au.readByte());
+                    int pos = Inteiro.byteToInt(arquivo_au.get());
                     rb.guardar(pos);
                     //  System.out.println("\t\t :: " + pos);
 
@@ -67,8 +67,8 @@ public class AUControlador {
 
             int pt = 0;
             for (int indice = 0; indice < (qt_originais / 2); indice++) {
-                originais[pt] = arquivo_au.readByte();
-                originais[pt + 1] = arquivo_au.readByte();
+                originais[pt] = arquivo_au.get();
+                originais[pt + 1] = arquivo_au.get();
                 pt += 2;
             }
 
@@ -255,7 +255,7 @@ public class AUControlador {
 
             byte[] au_buffer = new byte[(int) au_total];
 
-            arquivo_au.readBufferBytes(au_buffer, (int) au_total);
+            arquivo_au.get_u8_em_bloco(au_buffer, (int) au_total);
 
             arquivo_au.encerrar();
 

@@ -1,6 +1,6 @@
 package libs.dkg;
 
-import libs.Luan.Opcional;
+import libs.luan.Opcional;
 
 import java.util.ArrayList;
 
@@ -152,6 +152,13 @@ public class DKGObjeto {
         return ret;
     }
 
+    public DKGObjeto adicionarObjeto(DKGObjeto eObjeto) {
+
+        mObjetos.add(eObjeto);
+
+        return eObjeto;
+    }
+
     public DKGObjeto criarObjeto(String eNome, String a1, String v1) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
@@ -267,30 +274,6 @@ public class DKGObjeto {
         return existeIdentificador(eNome);
     }
 
-    public String id_valor(String eNome) {
-        return identifique(eNome).getValor();
-    }
-
-    public int id_int(String eNome) {
-        return identifique(eNome).getInteiro();
-    }
-
-    public boolean id_bool(String eNome) {
-        return identifique(eNome).getBool();
-    }
-
-    public float id_float(String eNome) {
-        return identifique(eNome).getFloat();
-    }
-
-    public double id_double(String eNome) {
-        return identifique(eNome).getDouble();
-    }
-
-    public long id_long(String eNome) {
-        return identifique(eNome).getLong();
-    }
-
 
     public void limpar() {
 
@@ -300,6 +283,14 @@ public class DKGObjeto {
     }
 
     public String toDocumento() {
+
+        DKG escritor = new DKG();
+        escritor.getObjetos().add(this);
+
+        return escritor.toDocumento();
+    }
+
+    public String toString() {
 
         DKG escritor = new DKG();
         escritor.getObjetos().add(this);

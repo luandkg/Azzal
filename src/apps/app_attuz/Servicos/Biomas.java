@@ -10,9 +10,9 @@ import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.Ferramentas.MapaProximidade;
-import libs.Imaginador.ImageUtils;
-import libs.Luan.fmt;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.luan.fmt;
+import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
 
@@ -144,9 +144,9 @@ public class Biomas extends Servico {
         });
 
 
-        BufferedImage mRenderizado = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mRenderizado = Imagem.getImagem(LOCAL + "build/planeta.png");
 
-        ImageUtils.exportar(mRenderizado, LOCAL + "build/biomas.png");
+        Imagem.exportar(mRenderizado, LOCAL + "build/biomas.png");
 
 
         marcarFim();

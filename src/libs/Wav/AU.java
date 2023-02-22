@@ -64,7 +64,7 @@ public class AU {
 
         au_buffer = new byte[(int) au_total];
 
-        arquivo_au.readBufferBytes(au_buffer, (int) au_total);
+        arquivo_au.get_u8_em_bloco(au_buffer, (int) au_total);
 
         arquivo_au.encerrar();
 

@@ -4,8 +4,8 @@ import apps.app_arch.Assembler.AST;
 import apps.app_arch.Assembler.MontadorL1.Regiao;
 import apps.app_arch.I16;
 import apps.app_arch.Opcode;
-import libs.Luan.ArquivoTexto;
-import libs.OLLT.TextoDocumento;
+import libs.luan.ArquivoTexto;
+import libs.ollt.TextoDocumento;
 
 import java.io.*;
 import java.util.ArrayList;

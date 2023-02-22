@@ -1,9 +1,13 @@
 package apps.app;
 
-import apps.app_arquivos.*;
+import apps.app_arquivos.AppImagem;
 import apps.app_azzal.VamosCalcular;
+import apps.app_corretor.AppCorretor;
+import apps.app_momentum.AppMomentum;
+import apps.app_momentum.HarrempluzCreator;
 import azzal.AzzalUnico;
-import libs.Documentar.Documentar;
+import libs.documentar.Documentar;
+import libs.verkuz.VerkuzImplementador;
 
 public class AppAzzal {
 
@@ -13,10 +17,11 @@ public class AppAzzal {
 
         // AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.AppFuzz());
 
-        // AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+        //AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
         // AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         // AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
+        //AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
 
         // AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
 
@@ -58,8 +63,8 @@ public class AppAzzal {
 
         //Servittor.onServico("Arquivador", new ArquivosServicos());
 
-         AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppImagem());
-      //  AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
+        // AzzalUnico.unico("Visualizador IM", 1500, 1020, new AppImagem());
+        //  AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
 
         // AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
 
@@ -74,10 +79,12 @@ public class AppAzzal {
         //  AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
 
-        Documentar planejamento = new Documentar();
+        String ESCOLA_LOCAL = "/home/luan/Dropbox/CED 1";
 
-        planejamento.organizar("/home/luan/Dropbox/CED_01/guardado/Planejamento/pd3_8_02.txt",
-                "/home/luan/Dropbox/CED_01/guardado/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFº ELVES_PROFª. IARA_PROFº LUAN.pdf");
+
+        Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_01.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 1 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
+        Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_02.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
+
 
         // planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/pd3_8.txt",
         // "/home/luan/Dropbox/CED_01/Planejamento/PLANEJAMENTO - PROFº ELVES_PROFª.
@@ -92,7 +99,25 @@ public class AppAzzal {
 
         // AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
 
-        //  AppDG.init();
+
+        VerkuzImplementador vi = new VerkuzImplementador();
+
+        vi.init("/home/luan/IdeaProjects/Azzal/src/libs");
+        vi.init("/home/luan/IdeaProjects/Azzal/src/azzal");
+        vi.init("/home/luan/IdeaProjects/Azzal/src/mockui");
+
+        // vi.init_bibliotecas("/home/luan/IdeaProjects/Azzal/src/libs");
+        // vi.exibir();
+
+        //   vi.toClasse("/home/luan/IdeaProjects/Azzal/src/azzal_version/AzzalVersion.java","azzal_version","AzzalVersion");
+
+        //  AzzalUnico.unico("Corretor", 1100, 900, new AppCorretor());
+
+        //AppMomentum.init();
+        //HarrempluzCreator.criar();
+        //    HarrempluzCreator.visualizar();
+
+        //GGDNA.init();
 
     }
 

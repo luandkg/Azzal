@@ -3,9 +3,9 @@ package apps.AppFuzz;
 import azzal.cenarios.Cena;
 import azzal.Renderizador;
 import azzal.Windows;
-import libs.FuzzerUI.Fuzzer;
-import libs.FuzzerUI.ItemAcao;
-import libs.FuzzerUI.Listagem;
+import libs.fuzzer.Fuzzer;
+import libs.fuzzer.ItemAcao;
+import libs.fuzzer.Listagem;
 
 
 import java.awt.*;

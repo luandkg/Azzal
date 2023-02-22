@@ -13,10 +13,10 @@ import apps.app_attuz.Ferramentas.Proximattor;
 import libs.arquivos.QTT;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Servittor.Servico;
+import libs.servittor.Servico;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -59,7 +59,7 @@ public class Relevo extends Servico {
         println("Agua  " + " -->> " + massa.getProporcaoAgua());
         println("Terra " + " -->> " + massa.getProporcaoTerra());
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         Escala mRelevo = EscalasPadroes.getEscalaTerrestre();
 
@@ -129,7 +129,7 @@ public class Relevo extends Servico {
         // terra_legenda();
 
 
-        ImageUtils.exportar(mapa_renderizado, LOCAL + "build/terra.png");
+        Imagem.exportar(mapa_renderizado, LOCAL + "build/terra.png");
 
         println("-->> PRONTO !");
 
@@ -156,7 +156,7 @@ public class Relevo extends Servico {
             altitude_max = altitude_min + delta;
         }
 
-        ImageUtils.exportar(mapa_entrada, LOCAL + "build/terra.png");
+        Imagem.exportar(mapa_entrada, LOCAL + "build/terra.png");
 
     }
 
@@ -171,7 +171,7 @@ public class Relevo extends Servico {
         // println("Terra :: " + massa.getContagemTerra() + " -->> " + massa.getProporcaoTerra());
 
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         Escala mRelevo_aquatico = EscalasPadroes.getEscalaAquatica();
 
@@ -272,7 +272,7 @@ public class Relevo extends Servico {
             altitude += 100;
         }
 
-        ImageUtils.exportar(mapa_renderizado, LOCAL + "build/agua.png");
+        Imagem.exportar(mapa_renderizado, LOCAL + "build/agua.png");
 
     }
 

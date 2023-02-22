@@ -1,6 +1,6 @@
 package apps.app_attuz.SistemaEleitoral;
 
-import libs.Luan.Aleatorio;
+import libs.luan.Aleatorio;
 
 import java.util.ArrayList;
 

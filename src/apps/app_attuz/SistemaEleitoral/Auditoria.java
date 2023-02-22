@@ -2,8 +2,8 @@ package apps.app_attuz.SistemaEleitoral;
 
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Ferramentas.Local;
-import libs.Luan.Indexado;
-import libs.Luan.Indexamento;
+import libs.luan.Indexado;
+import libs.luan.Indexamento;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.materializedview.HiperMaterializedView10K;

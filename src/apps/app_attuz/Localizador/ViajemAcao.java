@@ -1,7 +1,7 @@
 package apps.app_attuz.Localizador;
 
 import libs.tronarko.Intervalos.Tron_Intervalo;
-import libs.tronarko.Utils.StringTronarko;
+import libs.tronarko.utils.StringTronarko;
 import libs.tronarko.Tron;
 
 public class ViajemAcao {

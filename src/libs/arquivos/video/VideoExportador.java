@@ -1,6 +1,6 @@
 package libs.arquivos.video;
 
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 
@@ -22,7 +22,7 @@ public class VideoExportador {
 
             BufferedImage quadro = mVideo.getImagemCorrente();
 
-            ImageUtils.exportar(quadro, eLocal + "/" + ePrefixo  + qi + ".png");
+            Imagem.exportar(quadro, eLocal + "/" + ePrefixo  + qi + ".png");
 
             qi += 1;
         }

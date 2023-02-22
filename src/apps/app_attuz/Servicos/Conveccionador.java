@@ -6,9 +6,9 @@ import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.Pintor;
 import azzal.Renderizador;
-import libs.Luan.Integers;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.luan.Integers;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -27,7 +27,7 @@ public class Conveccionador extends Servico {
     public Conveccionador(String eLOCAL) {
         LOCAL = eLOCAL;
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         CARTOGRAFIA_LARGURA = mapa.getWidth() / 18;
         CARTOGRAFIA_ALTURA = mapa.getHeight() / 18;
@@ -58,7 +58,7 @@ public class Conveccionador extends Servico {
 
     private void genConveccao(String LOCAL, Escala mEscala) {
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "terra.png");
 
         Massas eMassa = MassasDados.getTerraAgua(LOCAL);
 
@@ -88,7 +88,7 @@ public class Conveccionador extends Servico {
         }
 
 
-        ImageUtils.exportar(Pintor.colorir(mapa, eMassa, mEscala), LOCAL + "build/conveccao.png");
+        Imagem.exportar(Pintor.colorir(mapa, eMassa, mEscala), LOCAL + "build/conveccao.png");
 
 
     }
@@ -200,7 +200,7 @@ public class Conveccionador extends Servico {
 
         Escala mEscalaMovimento = EscalasPadroes.getEscalaConveccaoMovimento();
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "terra.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "terra.png");
 
         Massas eMassa = MassasDados.getAguaTerra(LOCAL);
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);
@@ -239,9 +239,9 @@ public class Conveccionador extends Servico {
 
         irSubindo(tectonica, eMassa, 0, 150);
 
-        ImageUtils.exportar(Pintor.colorir(mapa, eMassa, mEscalaMovimento), LOCAL + "build/oceano_correntes.png");
+        Imagem.exportar(Pintor.colorir(mapa, eMassa, mEscalaMovimento), LOCAL + "build/oceano_correntes.png");
 
-        Renderizador r = new Renderizador(ImageUtils.getCopia(ImageUtils.getImagem(LOCAL + "build/oceano_correntes.png")));
+        Renderizador r = new Renderizador(Imagem.getCopia(Imagem.getImagem(LOCAL + "build/oceano_correntes.png")));
 
 
         r.exportarSemAlfa(LOCAL + "build/oceano_correntes.png");

@@ -14,9 +14,9 @@ import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Imaginador.ImageUtils;
-import libs.Luan.fmt;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.luan.fmt;
+import libs.servittor.Servico;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -42,7 +42,7 @@ public class DivisaoPolitica extends Servico {
         Progressante progresso = new Progressante(tectonica.getAltura() * tectonica.getLargura());
 
 
-        Renderizador rr = new Renderizador(ImageUtils.criarEmBranco(tectonica.getLargura(), tectonica.getAltura()));
+        Renderizador rr = new Renderizador(Imagem.criarEmBranco(tectonica.getLargura(), tectonica.getAltura()));
 
         ArrayList<String> regioes = new ArrayList<String>();
         ArrayList<Ponto> reg_pontos = new ArrayList<Ponto>();
@@ -56,7 +56,7 @@ public class DivisaoPolitica extends Servico {
 
         double soma = 0;
 
-        BufferedImage novo_politico = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
+        BufferedImage novo_politico = Imagem.getImagem(LOCAL + "build/politicamente.png");
 
         Arkazz eArkazz = new Arkazz();
 

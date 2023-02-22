@@ -7,8 +7,8 @@ import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.MapaRender;
 import apps.app_attuz.Ferramentas.MassaToQTT;
 import apps.app_attuz.Ferramentas.Normalizador;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
 
@@ -27,7 +27,7 @@ public class ProximidadeDoMar extends Servico {
 
         Escala mEscala = EscalasPadroes.getEscalaDistancia();
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/planeta.png");
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
         Massas massa = MassasDados.getTerraAgua(LOCAL);
         Massas tectonica = MassasDados.getTerraAgua(LOCAL);

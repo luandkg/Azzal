@@ -1,6 +1,6 @@
 package apps.app_azzal;
 
-import libs.Luan.*;
+import libs.luan.*;
 
 public class VamosCalcular {
 

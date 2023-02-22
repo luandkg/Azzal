@@ -1,7 +1,7 @@
 package apps.appLetrum;
 
 
-import libs.Luan.ArquivoTexto;
+import libs.luan.ArquivoTexto;
 
 import java.util.ArrayList;
 

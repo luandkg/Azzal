@@ -1,7 +1,7 @@
 package libs.arquivos.video;
 
 
-import libs.Imaginador.Cinza;
+import libs.imagem.Cinza;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

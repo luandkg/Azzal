@@ -1,5 +1,6 @@
 package apps.app_arquivos;
 
+import libs.imagem.Imagem;
 import libs.arquivos.IM;
 import azzal.cenarios.Cena;
 import azzal.Cores;
@@ -33,9 +34,16 @@ public class AppImagem extends Cena {
         pequeno = new FonteRunTime(mCores.getPreto(), FonteRunTime.getTamanhoPequeno());
         micro = new FonteRunTime(mCores.getPreto(), FonteRunTime.getTamanhoMicro());
 
+        IM.salvar(Imagem.getImagem("/home/luan/Imagens/cover.jpeg"), "/home/luan/Imagens/eita.im");
 
-        mImagem = IM.abrir("/home/luan/Dropbox/CED_01/imagem.im");
+
+        // mImagem = IM.abrir("/home/luan/Dropbox/CED_01/imagem.im");
         //mImagem = IM.abrir("/home/luan/Imagens/eu.im");
+        mImagem = IM.abrir("/home/luan/Imagens/eita.im");
+
+
+      //  RhoDiff.diff("/home/luan/Containers/im_abrir.txt", "/home/luan/Containers/im_salvar.txt");
+
 
         resolucao_adequar();
 
@@ -74,11 +82,11 @@ public class AppImagem extends Cena {
     public void resolucao_adequar() {
 
         if (mImagem.getWidth() > 600 && mImagem.getHeight() < 600) {
-         //   mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight());
+            //   mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight());
         } else if (mImagem.getWidth() < 600 && mImagem.getHeight() > 600) {
-      //      mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth(), mImagem.getHeight() / 2);
+            //      mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth(), mImagem.getHeight() / 2);
         } else if (mImagem.getWidth() > 600 || mImagem.getHeight() > 600) {
-       //     mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight() / 2);
+            //     mImagem = Efeitos.reduzir(mImagem, mImagem.getWidth() / 2, mImagem.getHeight() / 2);
         }
 
     }
@@ -107,7 +115,7 @@ public class AppImagem extends Cena {
         mClicavel.onDraw(eRender);
 
 
-        eRender.drawImagem(150, 300, mImagem);
+        eRender.drawImagem(100, 300, mImagem);
 
     }
 

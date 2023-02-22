@@ -77,7 +77,7 @@
 > Banco de coleções em arquivo único
 > Essa biblioteca é ideal para armazenar objetos com vários campos de forma rápida e organizada, possui sistema de indexamento por páginas, construção de coleção não existente com a necessidade.
 
-# libs.Luan - Estruturas de Dados
+# libs.luan - Estruturas de Dados
 
 > Estruturas de dados implementadas no segundo semestre do curso de ciências das computação na disciplina de Estrutura
 de Dados da Universidade de Brasília
@@ -130,7 +130,7 @@ de Dados da Universidade de Brasília
 
 ![ZETTA BARRAS](https://github.com/luandkg/Azzal/blob/master/res/app_zetta.png)
 
-# libs.Imaginador
+# libs.imagem
 
 > Coleção de códigos para facilitar abertura de imagens, além de aplicação de efeitos.
 
@@ -139,18 +139,18 @@ de Dados da Universidade de Brasília
 
 > Aplicação de renderização de partículas AREIA e LÍQUIDO.
 
-# libs.OrganizadorQ2D
+# libs.organizadorq2d
 
 > Mapeador de regiões do espaço 2D com algoritmo para algilizar detecção de colisão de corpos.
 
 ![Organizador Espacial](https://github.com/luandkg/Azzal/blob/master/res/app_oe.png)
 
 
-# libs.Movimento
+# libs.movimentador
 
 > Algoritmos para realizar movimento de corpos no espaço 2D de forma mais harmônica e real.
 
-    - libs.Movimento Burro
-    - libs.Movimento Linear
-    - libs.Movimento Vertical
-    - libs.Movimento Inteligente
+    - libs.movimentador Burro
+    - libs.movimentador Linear
+    - libs.movimentador Vertical
+    - libs.movimentador Inteligente

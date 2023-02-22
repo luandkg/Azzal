@@ -8,7 +8,7 @@ import azzal.Teclado;
 import azzal.utilitarios.Cor;
 import azzal.Windows;
 import apps.appLetrum.Maker.FonteRunTime;
-import libs.Luan.ArquivoTexto;
+import libs.luan.ArquivoTexto;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;

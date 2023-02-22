@@ -1,7 +1,7 @@
 package libs.arquivos.video;
 
 import libs.arquivos.binario.Arquivador;
-import libs.Luan.fmt;
+import libs.luan.fmt;
 
 import javax.imageio.ImageIO;
 import java.io.File;

@@ -4,8 +4,8 @@ import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
 import apps.app_attuz.Regiao.Regiao;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,8 +28,8 @@ public class Territorios extends Servico {
 
         for (Regiao regiao : eArkazz.getRegioes()) {
 
-            BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
-            BufferedImage mapa_da_regiao = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
+            BufferedImage mapa = Imagem.getImagem(LOCAL + "build/politicamente.png");
+            BufferedImage mapa_da_regiao = Imagem.getImagem(LOCAL + "build/politicamente.png");
 
 
             int largura = mapa.getWidth();
@@ -56,7 +56,7 @@ public class Territorios extends Servico {
                 }
             }
 
-            ImageUtils.exportar(mapa_da_regiao, LOCAL + "regioes/" + regiao.getNome() + ".png");
+            Imagem.exportar(mapa_da_regiao, LOCAL + "regioes/" + regiao.getNome() + ".png");
 
             println("Regiao " + regiao.getNome() + " -- " + regiao.getCor().toString());
 

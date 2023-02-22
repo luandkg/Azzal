@@ -4,7 +4,7 @@ import apps.app_attuz.Assessorios.CadaPonto;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.Progressante;
 import apps.app_attuz.IDW.PontoIDW;
-import libs.Luan.fmt;
+import libs.luan.fmt;
 
 import java.util.ArrayList;
 

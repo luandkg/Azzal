@@ -74,7 +74,7 @@ public class Reduttor {
                         int6.set(repetindo);
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
                         if (primeiro > 0) {
                             primeiro -= 1;
@@ -93,7 +93,7 @@ public class Reduttor {
                         int6.set(repetindo);
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
                         if (primeiro > 0) {
                             primeiro -= 1;
@@ -122,7 +122,7 @@ public class Reduttor {
 
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
                         if (primeiro > 0) {
                             primeiro -= 1;
@@ -142,13 +142,13 @@ public class Reduttor {
 
                         int8.copiarComecando(2, int6.getValores(), 6);
 
-                        arquivador.writeByte((byte) int8.getInt());
+                        arquivador.set_u8((byte) int8.getInt());
 
 
-                        arquivador.writeByte((byte) cPixel.getAlpha());
-                        arquivador.writeByte((byte) cPixel.getRed());
-                        arquivador.writeByte((byte) cPixel.getGreen());
-                        arquivador.writeByte((byte) cPixel.getBlue());
+                        arquivador.set_u8((byte) cPixel.getAlpha());
+                        arquivador.set_u8((byte) cPixel.getRed());
+                        arquivador.set_u8((byte) cPixel.getGreen());
+                        arquivador.set_u8((byte) cPixel.getBlue());
 
 
                         if (primeiro > 0) {
@@ -166,7 +166,7 @@ public class Reduttor {
             }
 
             int8.zerar();
-            arquivador.writeByte((byte) int8.getInt());
+            arquivador.set_u8((byte) int8.getInt());
 
 
             arquivador.fechar();

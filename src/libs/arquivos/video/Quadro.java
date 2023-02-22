@@ -32,6 +32,6 @@ public class Quadro {
 
         mArquivo.setPonteiro(mInicio);
 
-        return mArquivo.readLong();
+        return mArquivo.get_u64();
     }
 }

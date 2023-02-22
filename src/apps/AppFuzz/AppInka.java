@@ -5,10 +5,10 @@ import azzal.cenarios.Cena;
 import azzal.Renderizador;
 import azzal.utilitarios.Cor;
 import azzal.Windows;
-import libs.FuzzerUI.Fuzzer;
-import libs.FuzzerUI.ItemAcao;
-import libs.FuzzerUI.Listagem;
-import libs.FuzzerUI.Seletor;
+import libs.fuzzer.Fuzzer;
+import libs.fuzzer.ItemAcao;
+import libs.fuzzer.Listagem;
+import libs.fuzzer.Seletor;
 
 import java.awt.*;
 

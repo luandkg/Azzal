@@ -28,9 +28,9 @@ import apps.app_attuz.Localizador.DroneCamera;
 import azzal.cenarios.Cena;
 import azzal.geometria.Ponto;
 import azzal.utilitarios.Cor;
-import libs.Imaginador.Efeitos;
-import libs.Imaginador.ImageUtils;
-import libs.Imaginador.TirarPrint;
+import libs.imagem.Efeitos;
+import libs.imagem.Imagem;
+import libs.imagem.TirarPrint;
 import apps.appLetrum.Fonte;
 import apps.appLetrum.Maker.FonteRunTime;
 import libs.tronarko.Tronarko;
@@ -94,7 +94,7 @@ public class AppAttuz extends Cena {
     private Escolhettor mEscolhettor;
     private Distanciador mDistanciador;
 
-    private BufferedImage marcador = ImageUtils.getImagem("/home/luan/Imagens/icones_mapa/marcador_32.png");
+    private BufferedImage marcador = Imagem.getImagem("/home/luan/Imagens/icones_mapa/marcador_32.png");
 
     private Oceanografia mOceanografia;
     private Regionalizador mRegionalizador;
@@ -108,8 +108,8 @@ public class AppAttuz extends Cena {
 
         mCores = new Cores();
 
-        mapa = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
-        mImagemDrone = ImageUtils.getCopia(mapa);
+        mapa = Imagem.getImagem(LOCAL + "build/politicamente.png");
+        mImagemDrone = Imagem.getCopia(mapa);
 
 
         mClicavel = new Clicavel();
@@ -587,24 +587,24 @@ public class AppAttuz extends Cena {
 
         if (mOpcionadorObrigatorio.getSelecionado().contentEquals("REGIÃO")) {
 
-            mapa = ImageUtils.getImagem(LOCAL + "build/politicamente.png");
+            mapa = Imagem.getImagem(LOCAL + "build/politicamente.png");
             mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
 
             //mapa = apenas_regiao(mapa, "Skor");
 
         } else if (mOpcionadorObrigatorio.getSelecionado().contentEquals("RELEVO")) {
 
-            mapa = ImageUtils.getImagem(LOCAL + "build/relevo.png");
+            mapa = Imagem.getImagem(LOCAL + "build/relevo.png");
             mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
 
         } else if (mOpcionadorObrigatorio.getSelecionado().contentEquals("RELEVO TERRA")) {
 
-            mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
+            mapa = Imagem.getImagem(LOCAL + "build/terra.png");
             mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
 
         } else if (mOpcionadorObrigatorio.getSelecionado().contentEquals("RELEVO OCEANO")) {
 
-            mapa = ImageUtils.getImagem(LOCAL + "build/agua.png");
+            mapa = Imagem.getImagem(LOCAL + "build/agua.png");
             mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
 
         }
@@ -628,7 +628,7 @@ public class AppAttuz extends Cena {
             }
         }
 
-        BufferedImage copia = ImageUtils.getCopia(origem);
+        BufferedImage copia = Imagem.getCopia(origem);
         for (int x = 0; x < copia.getWidth(); x++) {
             for (int y = 0; y < copia.getHeight(); y++) {
 

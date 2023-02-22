@@ -9,8 +9,8 @@ import apps.app_attuz.Assessorios.MapaUtilitario;
 import azzal.Cores;
 import azzal.geometria.Ponto;
 import azzal.Renderizador;
-import libs.Imaginador.ImageUtils;
-import libs.Servittor.Servico;
+import libs.imagem.Imagem;
+import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -43,8 +43,8 @@ public class LinhaDeRelevo extends Servico {
             return;
         }
 
-        BufferedImage mapa = ImageUtils.getImagem(LOCAL + "build/terra.png");
-        BufferedImage copia = ImageUtils.getCopia(mapa);
+        BufferedImage mapa = Imagem.getImagem(LOCAL + "build/terra.png");
+        BufferedImage copia = Imagem.getCopia(mapa);
 
         Renderizador render = new Renderizador(copia);
 
@@ -55,7 +55,7 @@ public class LinhaDeRelevo extends Servico {
         render.drawLinha(pontos.get(0).getX(), pontos.get(0).getY(), pontos.get(1).getX(), pontos.get(1).getY(), mCores.getVermelho());
 
 
-        ImageUtils.exportar(copia, LOCAL + "build/linha_de_relevo.png");
+        Imagem.exportar(copia, LOCAL + "build/linha_de_relevo.png");
 
         DadosQTT dadosQTT = new DadosQTT(LOCAL);
 

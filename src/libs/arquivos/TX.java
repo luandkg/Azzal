@@ -75,13 +75,13 @@ public class TX {
                 if (indice >= 0) {
 
                     if (indice < 255) {
-                        arquivador.writeByte((byte) indice);
+                        arquivador.set_u8((byte) indice);
                     } else {
 
                         int proximo = (indice - 255) + 1;
 
-                        arquivador.writeByte((byte) 255);
-                        arquivador.writeByte((byte) proximo);
+                        arquivador.set_u8((byte) 255);
+                        arquivador.set_u8((byte) proximo);
 
                     }
 
@@ -90,7 +90,7 @@ public class TX {
                 i += 1;
             }
 
-            arquivador.writeByte((byte) 0);
+            arquivador.set_u8((byte) 0);
 
             arquivador.fechar();
 
@@ -168,14 +168,14 @@ public class TX {
 
             while (lendo) {
 
-                int valor = Inteiro.byteToInt(arquivador.readByte());
+                int valor = arquivador.get_u8();
 
                 if (valor == 0) {
                     lendo = false;
                 } else {
                     if (valor == 255) {
 
-                        int valor2 = Inteiro.byteToInt(arquivador.readByte());
+                        int valor2 = arquivador.get_u8();
 
                         int menos = valor2 - 1;
                         texto += getCaracter(menos);
@@ -213,14 +213,14 @@ public class TX {
 
         while (lendo) {
 
-            int valor = Inteiro.byteToInt(arquivador.readByte());
+            int valor = arquivador.get_u8();
 
             if (valor == 0) {
                 lendo = false;
             } else {
                 if (valor == 255) {
 
-                    int valor2 = Inteiro.byteToInt(arquivador.readByte());
+                    int valor2 = arquivador.get_u8();
 
                     int menos = valor2 - 1;
                     texto += getCaracter(menos);
@@ -252,14 +252,14 @@ public class TX {
 
         while (lendo) {
 
-            int valor = Inteiro.byteToInt(arquivador.readByte());
+            int valor = arquivador.get_u8();
 
             if (valor == 0) {
                 lendo = false;
             } else {
                 if (valor == 255) {
 
-                    int valor2 = Inteiro.byteToInt(arquivador.readByte());
+                    int valor2 = arquivador.get_u8();
 
                     int menos = valor2 - 1;
                     texto += getCaracter(menos);
@@ -345,13 +345,13 @@ public class TX {
             if (indice >= 0) {
 
                 if (indice < 255) {
-                    arquivador.writeByte((byte) indice);
+                    arquivador.set_u8((byte) indice);
                 } else {
 
                     int proximo = (indice - 255) + 1;
 
-                    arquivador.writeByte((byte) 255);
-                    arquivador.writeByte((byte) proximo);
+                    arquivador.set_u8((byte) 255);
+                    arquivador.set_u8((byte) proximo);
 
                 }
 
@@ -360,7 +360,7 @@ public class TX {
             i += 1;
         }
 
-        arquivador.writeByte((byte) 0);
+        arquivador.set_u8((byte) 0);
 
 
         //    System.out.println("Texto TX - Terminado");

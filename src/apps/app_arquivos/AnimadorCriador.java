@@ -2,7 +2,7 @@ package apps.app_arquivos;
 
 import azzal.utilitarios.Cor;
 import libs.arquivos.AN;
-import libs.Luan.Lista;
+import libs.luan.Lista;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

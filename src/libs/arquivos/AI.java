@@ -2,8 +2,8 @@ package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
-import libs.Imaginador.Efeitos;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Efeitos;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -29,12 +29,12 @@ public class AI {
 
             Arquivador arquivador = new Arquivador(eArquivo);
 
-            arquivador.writeByte((byte) ALBUM_AI1);
-            arquivador.writeByte((byte) ALBUM_AI2);
+            arquivador.set_u8((byte) ALBUM_AI1);
+            arquivador.set_u8((byte) ALBUM_AI2);
 
-            arquivador.writeByte((byte) ALBUM_VERSAO_1);
+            arquivador.set_u8((byte) ALBUM_VERSAO_1);
 
-            arquivador.writeInt(arquivos.size());
+            arquivador.set_u32(arquivos.size());
 
 
             TX eTX = new TX();
@@ -69,7 +69,7 @@ public class AI {
 
                 long pti = arquivador.getPonteiro();
 
-                arquivador.writeByteRepetidos(100,(byte)0);
+                arquivador.set_u8_em_bloco(100,(byte)0);
 
 
                 long ptf = arquivador.getPonteiro();
@@ -79,7 +79,7 @@ public class AI {
                 ArrayList<Byte> dados = eTX.toListBytes(nome);
 
                 if (dados.size() < 100) {
-                    arquivador.writeByteArray(dados);
+                    arquivador.set_u8_array(dados);
                 } else {
                     throw new IllegalArgumentException("Tamanho de cabecalho invalido !");
                 }
@@ -87,10 +87,10 @@ public class AI {
                 arquivador.setPonteiro(ptf);
 
                 pt_inicios.add(arquivador.getPonteiro());
-                arquivador.writeLong((byte) 0);
+                arquivador.set_u64((byte) 0);
 
                 pt_terminos.add(arquivador.getPonteiro());
-                arquivador.writeLong((byte) 0);
+                arquivador.set_u64((byte) 0);
 
             }
 
@@ -98,7 +98,7 @@ public class AI {
 
                 System.out.println("\t - Imagem :: " + arquivo);
 
-                BufferedImage imagem = ImageUtils.getImagem(arquivo);
+                BufferedImage imagem = Imagem.getImagem(arquivo);
 
                 if (imagem.getWidth() >= 2000 && imagem.getHeight() >= 2000) {
                     imagem = Efeitos.reduzir(imagem, imagem.getWidth() / 3, imagem.getHeight() / 3);
@@ -114,10 +114,10 @@ public class AI {
             for (int a=0;a<arquivos.size();a++) {
 
                 arquivador.setPonteiro(pt_inicios.get(a));
-                arquivador.writeLong(inicios.get(a));
+                arquivador.set_u64(inicios.get(a));
 
                 arquivador.setPonteiro(pt_terminos.get(a));
-                arquivador.writeLong(terminos.get(a));
+                arquivador.set_u64(terminos.get(a));
 
                 System.out.println(" -->> ITEM " + a + " (" + inicios.get(a) + " :: " + terminos.get(a) + " ) -->> " + pt_inicios.get(a) + " _ " + pt_terminos.get(a));
 
@@ -159,12 +159,12 @@ public class AI {
 
             Arquivador arquivador = new Arquivador(eArquivo);
 
-            int b1 = Inteiro.byteToInt(arquivador.readByte());
-            int b2 = Inteiro.byteToInt(arquivador.readByte());
+            int b1 = Inteiro.byteToInt(arquivador.get());
+            int b2 = Inteiro.byteToInt(arquivador.get());
 
-            int v = Inteiro.byteToInt(arquivador.readByte());
+            int v = Inteiro.byteToInt(arquivador.get());
 
-            int quantidade = arquivador.readInt();
+            int quantidade = arquivador.get_u32();
 
             TX eTX = new TX();
 
@@ -177,8 +177,8 @@ public class AI {
 
                 arquivador.setPonteiro(pt + 100);
 
-                long inicio = arquivador.readLong();
-                long fim = arquivador.readLong();
+                long inicio = arquivador.get_u64();
+                long fim = arquivador.get_u64();
 
                 mImagens.add(new ImagemDoAlbum(mArquivo,item_nome, inicio, fim));
 

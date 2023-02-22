@@ -2,7 +2,7 @@ package apps.app_tronarko;
 
 import azzal.Cores;
 import azzal.Renderizador;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 import apps.appLetrum.Maker.AutoFonte;
 import libs.tronarko.Satelites.Ceu;
 import libs.tronarko.Tozte;
@@ -14,10 +14,10 @@ public class ExportarSequenciaLunar {
 
     public static void exportar(Tozte eComecar, int eQuantidade, String eArquivo) {
 
-        BufferedImage imagem = ImageUtils.criarEmBranco(1300, 1500);
+        BufferedImage imagem = Imagem.criarEmBranco(1300, 1500);
 
         if (eQuantidade > 300) {
-            imagem = ImageUtils.criarEmBranco(1300, 5500);
+            imagem = Imagem.criarEmBranco(1300, 5500);
         }
 
         Renderizador render = new Renderizador(imagem);
@@ -77,7 +77,7 @@ public class ExportarSequenciaLunar {
         }
 
 
-        ImageUtils.exportar(imagem, eArquivo);
+        Imagem.exportar(imagem, eArquivo);
 
     }
 

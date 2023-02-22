@@ -1,7 +1,7 @@
 package apps.app_attuz.Fisica;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
-import libs.Luan.fmt;
+import libs.luan.fmt;
 
 public class EquipamentosDeEngenharia {
 

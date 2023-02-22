@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.Unicidade;
-import libs.Imaginador.ImageUtils;
+import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
 
@@ -9,7 +9,7 @@ public class ObterPaletaDeCores {
 
     public static void get(String arquivo, String arqpaleta) {
 
-        BufferedImage mapa = ImageUtils.getImagem(arquivo);
+        BufferedImage mapa = Imagem.getImagem(arquivo);
 
         int mLargura = mapa.getWidth();
         int mAltura = mapa.getHeight();
@@ -54,7 +54,7 @@ public class ObterPaletaDeCores {
             }
         }
 
-        ImageUtils.exportar(copia, arqpaleta);
+        Imagem.exportar(copia, arqpaleta);
 
     }
 }

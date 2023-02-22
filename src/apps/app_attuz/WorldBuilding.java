@@ -3,7 +3,7 @@ package apps.app_attuz;
 import apps.app_attuz.Assessorios.QTTOnImagem;
 import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Servicos.*;
-import libs.Servittor.Servittor;
+import libs.servittor.Servittor;
 
 public class WorldBuilding {
 

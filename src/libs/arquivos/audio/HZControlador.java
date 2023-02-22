@@ -190,11 +190,11 @@ public class HZControlador {
 
             if (rep_contagem == 0) {
 
-                au_arquivador.writeByte((byte) 0);
+                au_arquivador.set_u8((byte) 0);
 
                 for (RepeticaoBinaria rep : z_repeticoes) {
-                    au_arquivador.writeByte((byte) rep.getB1());
-                    au_arquivador.writeByte((byte) rep.getB2());
+                    au_arquivador.set_u8((byte) rep.getB1());
+                    au_arquivador.set_u8((byte) rep.getB2());
                 }
 
                 bytes = 256 + 1;
@@ -202,21 +202,21 @@ public class HZControlador {
             } else {
 
 
-                au_arquivador.writeByte((byte) chaves);
+                au_arquivador.set_u8((byte) chaves);
 
                 bytes = 1;
 
                 for (RepeticaoBinaria rep : z_repeticoes) {
                     if (rep.getQuantidade() > 1) {
-                        au_arquivador.writeByte((byte) rep.getB1());
-                        au_arquivador.writeByte((byte) rep.getB2());
+                        au_arquivador.set_u8((byte) rep.getB1());
+                        au_arquivador.set_u8((byte) rep.getB2());
 
-                        au_arquivador.writeByte((byte) rep.getPosicoes().size());
+                        au_arquivador.set_u8((byte) rep.getPosicoes().size());
 
                         bytes += 3;
 
                         for (Integer ePosicao : rep.getPosicoes()) {
-                            au_arquivador.writeByte((byte) ((int) ePosicao));
+                            au_arquivador.set_u8((byte) ((int) ePosicao));
                             bytes += 1;
                         }
 
@@ -227,8 +227,8 @@ public class HZControlador {
 
                 for (RepeticaoBinaria rep : z_repeticoes) {
                     if (rep.getQuantidade() == 1) {
-                        au_arquivador.writeByte((byte) rep.getB1());
-                        au_arquivador.writeByte((byte) rep.getB2());
+                        au_arquivador.set_u8((byte) rep.getB1());
+                        au_arquivador.set_u8((byte) rep.getB2());
                         originais += 1;
 
                         bytes += 2;

@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-import libs.tronarko.Utils.StringTronarko;
+import libs.tronarko.utils.StringTronarko;
 import libs.hipertestes.HiperTestador;
 import libs.hipertestes.Teste;
 

@@ -4,6 +4,8 @@ import java.awt.*;
 
 public class Cor {
 
+    // FEATURE 2021.02 - Classe Cor
+
     private int mAlpha;
 
     private int mRed;
@@ -266,6 +268,17 @@ public class Cor {
 
     }
 
+    public static int int32_to_alfa(int pixel_cor) {
+
+        int b = (pixel_cor) & 0xFF;
+        int g = (pixel_cor >> 8) & 0xFF;
+        int r = (pixel_cor >> 16) & 0xFF;
+        int a = (pixel_cor >> 24) & 0xFF;
+
+        return a;
+
+    }
+
     public static Cor getInt(int eCor) {
         return getRGB(new Color(eCor));
     }
@@ -299,6 +312,7 @@ public class Cor {
         return e;
     }
 
+    // FEATURE 2022.10 - Transformacao de cores to int
 
     public static int corToInt(Cor c) {
         return rgba_to_int(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
