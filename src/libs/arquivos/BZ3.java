@@ -6,16 +6,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BZZ {
+public class BZ3 {
 
-    private static int BLOCO_TAMANHO = 10 * 1024;
+    private static int BLOCO_TAMANHO = 100 * 1024;
 
     public static void alocar(String eArquivo, int quantos_blocos) {
 
-        File Arq = new File(eArquivo);
-        if (Arq.exists()) {
-            Arq.delete();
-        }
+        IO.remova_se_existir(eArquivo);
 
         try {
 
@@ -64,7 +61,7 @@ public class BZZ {
 
         int posicionador = indice * (BLOCO_TAMANHO);
 
-       // System.out.println("PROC -->> " + indice + " :: " + posicionador);
+        // System.out.println("PROC -->> " + indice + " :: " + posicionador);
 
         ArrayList<Byte> bytes = new ArrayList<Byte>();
 
@@ -86,7 +83,7 @@ public class BZZ {
         }
 
 
-      //   System.out.println("Bytes -->> " + bytes.size());
+        //   System.out.println("Bytes -->> " + bytes.size());
 
         return TX.lerDeBytes(bytes);
 
@@ -101,16 +98,16 @@ public class BZZ {
         int comValores = 0;
         int semValores = 0;
 
-        while (indiceBZZ<blocos) {
+        while (indiceBZZ < blocos) {
 
-         //   System.out.println("BLOCO BZZ -->> " + indiceBZZ);
+            //   System.out.println("BLOCO BZZ -->> " + indiceBZZ);
 
-            String conteudo_bloco = BZZ.procurar(eArquivo, indiceBZZ);
+            String conteudo_bloco = procurar(eArquivo, indiceBZZ);
 
             if (conteudo_bloco.length() > 0) {
-                comValores+=1;
-            }else{
-                semValores+=1;
+                comValores += 1;
+            } else {
+                semValores += 1;
             }
 
             indiceBZZ += 1;
@@ -128,16 +125,16 @@ public class BZZ {
         int comValores = 0;
         int semValores = 0;
 
-        while (indiceBZZ<blocos) {
+        while (indiceBZZ < blocos) {
 
             // System.out.println("BLOCO BZZ -->> " + indiceBZZ);
 
-            String conteudo_bloco = BZZ.procurar(eArquivo, indiceBZZ);
+            String conteudo_bloco = procurar(eArquivo, indiceBZZ);
 
             if (conteudo_bloco.length() > 0) {
-                comValores+=1;
-            }else{
-                semValores+=1;
+                comValores += 1;
+            } else {
+                semValores += 1;
             }
 
             indiceBZZ += 1;
@@ -148,11 +145,16 @@ public class BZZ {
 
     public static int getQuantidadeMaxima(String eArquivo) {
 
-        Arquivador arquivador = new Arquivador(eArquivo, "r");
+        int blocos = 0;
 
-        int blocos = (int) (arquivador.getLength() / BLOCO_TAMANHO);
+        if (IO.existe(eArquivo)) {
 
-        arquivador.encerrar();
+            Arquivador arquivador = new Arquivador(eArquivo, "r");
+            blocos = (int) (arquivador.getLength() / BLOCO_TAMANHO);
+            arquivador.encerrar();
+
+        }
+
 
         return blocos;
     }

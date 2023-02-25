@@ -1,13 +1,15 @@
 package apps.app;
 
-import apps.app_arquivos.AppImagem;
 import apps.app_azzal.VamosCalcular;
-import apps.app_corretor.AppCorretor;
-import apps.app_momentum.AppMomentum;
-import apps.app_momentum.HarrempluzCreator;
-import azzal.AzzalUnico;
+import libs.arquivos.BZ3;
+import libs.arquivos.Sumario;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
+import libs.dkg.DKGUtils;
 import libs.documentar.Documentar;
 import libs.verkuz.VerkuzImplementador;
+
+import java.util.ArrayList;
 
 public class AppAzzal {
 
@@ -118,6 +120,36 @@ public class AppAzzal {
         //    HarrempluzCreator.visualizar();
 
         //GGDNA.init();
+
+
+        String arquivo_bz3 = "/home/luan/assets/letras.bz3";
+
+        Sumario eSumario = new Sumario("/home/luan/assets/letras.bz3");
+
+
+        ArrayList<DKGObjeto> alunos = new ArrayList<DKGObjeto>();
+
+        alunos.add(DKGUtils.criar("Aluno", "Nome", "Alice"));
+        alunos.add(DKGUtils.criar("Aluno", "Nome", "Carla"));
+        alunos.add(DKGUtils.criar("Aluno", "Nome", "Bruna"));
+        alunos.add(DKGUtils.criar("Aluno", "Nome", "Amanda"));
+        alunos.add(DKGUtils.criar("Aluno", "Nome", "Beatriz"));
+        alunos.add(DKGUtils.criar("Aluno", "Nome", "Ana"));
+
+        eSumario.organizar_completo(alunos, "Nome");
+
+        System.out.println("A :: " + BZ3.procurar(arquivo_bz3, 0).length());
+        System.out.println("B :: " + BZ3.procurar(arquivo_bz3, 1).length());
+        System.out.println("C :: " + BZ3.procurar(arquivo_bz3, 2).length());
+
+        for (int l = 0; l < 5; l++) {
+
+            String conjunto = BZ3.procurar(arquivo_bz3, l);
+
+            System.out.println("------------- " + l + " ---------------------");
+            System.out.println(conjunto);
+
+        }
 
     }
 

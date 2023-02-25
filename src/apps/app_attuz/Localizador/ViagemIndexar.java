@@ -1,7 +1,7 @@
 package apps.app_attuz.Localizador;
 
 import apps.app_attuz.Viagem.Viajante;
-import libs.arquivos.BZZ;
+import libs.arquivos.BZ2;
 import libs.arquivos.TX;
 import libs.dkg.DKG;
 import libs.tronarko.Hazde;
@@ -73,7 +73,7 @@ public class ViagemIndexar {
 
                 if (indice >= 0 && tt <= 5) {
                     System.out.println("Pass -->> (" + indice + " ) " + eTozteCorrente.getTexto() + " :: " + va.getObjetos().size() + " objs -->> " + tt + " kb com :: " + bytes.size());
-                    BZZ.atribuir(eArquivoBZZ, ((int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO)), viagem_aqui.toString());
+                    BZ2.atribuir(eArquivoBZZ, ((int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO)), viagem_aqui.toString());
                 }
 
 
@@ -108,7 +108,7 @@ public class ViagemIndexar {
         System.out.println(indice_chave);
 
         if (indice_chave >= 0) {
-            String conteudo = BZZ.procurar(eArquivo, indice_chave);
+            String conteudo = BZ2.procurar(eArquivo, indice_chave);
             return conteudo;
         }
 
@@ -231,7 +231,7 @@ public class ViagemIndexar {
 
         int procurando_ittas = IntTronarko.getIttas(eHazde.getArco(), eHazde.getItta());
 
-        int blocosBZZ = BZZ.getQuantidadeMaxima(eArquivo);
+        int blocosBZZ = BZ2.getQuantidadeMaxima(eArquivo);
 
         boolean enc_fim = false;
         DKGObjeto fim = null;
@@ -242,7 +242,7 @@ public class ViagemIndexar {
 
             //System.out.println("BLOCO BZZ -->> " + indiceBZZ);
 
-            String conteudo_bloco = BZZ.procurar(eArquivo, indiceBZZ);
+            String conteudo_bloco = BZ2.procurar(eArquivo, indiceBZZ);
 
 
             DKG eDKC = AutoDKG.auto(conteudo_bloco);
