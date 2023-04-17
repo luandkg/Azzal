@@ -75,7 +75,7 @@ public class DKGFeatures {
 
 
     // FEATURE 22.10.12 - ordendar_objetos_texto
-    public static ArrayList<DKGObjeto> ordendar_objetos_texto(ArrayList<DKGObjeto> objetos, String atributo) {
+    public static ArrayList<DKGObjeto> ordenar_objetos_texto(ArrayList<DKGObjeto> objetos, String atributo) {
 
         Collections.sort(objetos, new Comparator() {
             @Override
@@ -94,7 +94,21 @@ public class DKGFeatures {
         return objetos;
     }
 
-    public static ArrayList<DKGObjeto> ordendar_objetos_i32(ArrayList<DKGObjeto> objetos, String atributo) {
+    public static ArrayList<DKGObjeto> ordendar_objetos_texto_reverso(ArrayList<DKGObjeto> objetos, final String atributo) {
+        Collections.sort(objetos, new Comparator() {
+            public int compare(Object objeto_um, Object objeto_dois) {
+                DKGObjeto o1 = (DKGObjeto) objeto_um;
+                DKGObjeto o2 = (DKGObjeto) objeto_dois;
+                String p1 = o1.identifique(atributo).getValor();
+                String p2 = o2.identifique(atributo).getValor();
+                return p1.compareTo(p2) * (-1);
+            }
+        });
+        return objetos;
+    }
+
+
+    public static ArrayList<DKGObjeto> ordenar_objetos_i32(ArrayList<DKGObjeto> objetos, String atributo) {
 
         DKGObjeto temp;
         int n = objetos.size();
@@ -116,7 +130,23 @@ public class DKGFeatures {
         return objetos;
     }
 
-    public static ArrayList<DKGObjeto> ordendar_objetos_i64(ArrayList<DKGObjeto> objetos, String atributo) {
+    public static ArrayList<DKGObjeto> ordenar_objetos_i32_reverso(ArrayList<DKGObjeto> objetos, final String atributo) {
+        Collections.sort(objetos, new Comparator() {
+            public int compare(Object objeto_um, Object objeto_dois) {
+
+                DKGObjeto o1 = (DKGObjeto) objeto_um;
+                DKGObjeto o2 = (DKGObjeto) objeto_dois;
+
+                int p1 = o1.identifique(atributo).getInteiro(0);
+                int p2 = o2.identifique(atributo).getInteiro(0);
+
+                return Integer.compare(p1, p2) * (-1);
+            }
+        });
+        return objetos;
+    }
+
+    public static ArrayList<DKGObjeto> ordenar_objetos_i64(ArrayList<DKGObjeto> objetos, String atributo) {
 
         DKGObjeto temp;
         int n = objetos.size();
@@ -199,6 +229,73 @@ public class DKGFeatures {
 
         return ret;
 
+    }
+
+    // FEATURE 23.03.30 - filtrar, unicos e atributosDe
+
+    public static ArrayList<DKGObjeto> filtrar(ArrayList<DKGObjeto> objetos, String atributo_nome, int atributo_inteiro) {
+
+        ArrayList<DKGObjeto> filtrados = new ArrayList<DKGObjeto>();
+
+        for (DKGObjeto px : objetos) {
+            if (px.identifique(atributo_nome).getInteiro(0) == (atributo_inteiro)) {
+                filtrados.add(px);
+            }
+        }
+
+        return filtrados;
+    }
+
+    public static ArrayList<DKGObjeto> filtrar(ArrayList<DKGObjeto> objetos, String atributo_nome, String atributo_valor) {
+        ArrayList<DKGObjeto> filtrados = new ArrayList<DKGObjeto>();
+
+        for (DKGObjeto objeto_corrente : objetos) {
+            if (objeto_corrente.identifique(atributo_nome).isValor(atributo_valor)) {
+                filtrados.add(objeto_corrente);
+            }
+        }
+
+        return filtrados;
+    }
+
+    public static void remover_varios(DKGObjeto ePai, ArrayList<DKGObjeto> objetos) {
+
+        for (DKGObjeto px : objetos) {
+            ePai.getObjetos().remove(px);
+        }
+
+    }
+
+
+    public static ArrayList<DKGObjeto> unicos(ArrayList<DKGObjeto> objetos, String atributo_nome) {
+
+        ArrayList<String> unicidade = new ArrayList<String>();
+        ArrayList<DKGObjeto> filtrados = new ArrayList<DKGObjeto>();
+
+        for (DKGObjeto aluno : objetos) {
+            if (!unicidade.contains(aluno.identifique(atributo_nome).getValor())) {
+                filtrados.add(aluno);
+                unicidade.add(aluno.identifique("ID").getValor());
+            }
+        }
+
+        return filtrados;
+    }
+
+    public static ArrayList<String> atributosDe(ArrayList<DKGObjeto> objetos, String atributo_nome) {
+
+        ArrayList<String> unicidade = new ArrayList<String>();
+
+        for (DKGObjeto aluno : objetos) {
+
+            String turma = aluno.identifique(atributo_nome).getValor();
+            if (!unicidade.contains(turma)) {
+                unicidade.add(turma);
+            }
+
+        }
+
+        return unicidade;
     }
 
 }
