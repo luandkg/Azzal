@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-import azzal.Cores;
+import libs.azzal.Cores;
 import libs.luan.Par;
 import libs.tronarko.utils.AstroLocal;
 

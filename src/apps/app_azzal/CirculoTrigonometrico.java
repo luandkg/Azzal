@@ -1,7 +1,7 @@
 package apps.app_azzal;
 
-import azzal.geometria.Circulo;
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Circulo;
+import libs.azzal.geometria.Ponto;
 
 import java.util.ArrayList;
 

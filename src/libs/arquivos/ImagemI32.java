@@ -1,6 +1,6 @@
 package libs.arquivos;
 
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 
 public class ImagemI32 {
 

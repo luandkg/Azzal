@@ -11,11 +11,11 @@ import apps.app_attuz.IDW.PontoIDW;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Ferramentas.Proximattor;
 import libs.arquivos.QTT;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
 import libs.imagem.Imagem;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.servittor.Servico;
 
 import java.awt.*;

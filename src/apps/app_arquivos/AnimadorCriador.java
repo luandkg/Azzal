@@ -1,6 +1,6 @@
 package apps.app_arquivos;
 
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 import libs.arquivos.AN;
 import libs.luan.Lista;
 

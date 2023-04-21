@@ -1,13 +1,13 @@
 package apps.app_tronarko;
 
 
-import azzal.cenarios.Cena;
-import azzal.Cores;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import azzal.Windows;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.Windows;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.tronarko.Tronarko;
 import libs.tronarko.Tozte;
 import libs.tronarko.Hazde;
@@ -18,10 +18,10 @@ import libs.tronarko.Agenda.Lembrete;
 import libs.tronarko.utils.FluxoTemporal;
 
 import libs.tronarko.utils.Ordenador;
-import mockui.Interface.Acao;
-import mockui.Interface.BotaoCor;
-import mockui.Interface.Clicavel;
-import mockui.Marcador;
+import libs.mockui.Interface.Acao;
+import libs.mockui.Interface.BotaoCor;
+import libs.mockui.Interface.Clicavel;
+import libs.mockui.Marcador;
 
 public class AppAlarme extends Cena {
 

@@ -2,10 +2,10 @@ package apps.app_khronos.Sintaxes;
 
 import apps.app_khronos.Sintaxer;
 import apps.app_khronos.Span;
-import azzal.Cores;
-import azzal.Renderizador;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 
 import java.util.ArrayList;
 

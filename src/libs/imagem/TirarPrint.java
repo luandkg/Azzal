@@ -1,6 +1,6 @@
 package libs.imagem;
 
-import azzal.Windows;
+import libs.azzal.Windows;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -4,7 +4,7 @@ package apps.app_attuz.Arkazz;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.Caminho;
 import apps.app_attuz.Ferramentas.Local;
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 import libs.dkg.DKG;
 
 import java.util.ArrayList;

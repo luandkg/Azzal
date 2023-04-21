@@ -1,9 +1,9 @@
 package apps.app_momentum;
 
-import azzal.cenarios.Cena;
-import azzal.utilitarios.*;
-import azzal.Renderizador;
-import azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.*;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
 
 
 

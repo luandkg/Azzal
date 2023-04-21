@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.Unicidade;
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -1,6 +1,6 @@
 package libs.arquivos;
 
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 import libs.luan.RefInt;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Int6;

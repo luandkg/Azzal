@@ -1,10 +1,8 @@
 package apps.app_attuz.Ferramentas;
 
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Mapeador {
 

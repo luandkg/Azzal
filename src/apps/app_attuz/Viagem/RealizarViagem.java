@@ -2,7 +2,7 @@ package apps.app_attuz.Viagem;
 
 import apps.app_attuz.Localizador.ViagemIndexar;
 import apps.app_attuz.Ferramentas.Local;
-import azzal.utilitarios.Cronometro;
+import libs.azzal.utilitarios.Cronometro;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 

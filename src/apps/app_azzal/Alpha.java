@@ -1,12 +1,12 @@
 package apps.app_azzal;
 
-import azzal.cenarios.Cena;
-import azzal.geometria.*;
-import azzal.utilitarios.*;
-import azzal.Renderizador;
-import azzal.Windows;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.*;
+import libs.azzal.utilitarios.*;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.luan.Iterador;
 import libs.luan.Lista;
 import libs.movimentador.Movettor;

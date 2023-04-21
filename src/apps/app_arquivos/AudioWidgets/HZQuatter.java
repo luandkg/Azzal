@@ -1,10 +1,10 @@
 package apps.app_arquivos.AudioWidgets;
 
 import libs.arquivos.binario.Inteiro;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import azzal.Windows;
-import apps.appLetrum.Fonte;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.Windows;
+import apps.app_letrum.Fonte;
 
 public class HZQuatter {
 

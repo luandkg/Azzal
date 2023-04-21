@@ -2,16 +2,16 @@ package apps.app_khronos;
 
 import apps.app_khronos.Sintaxes.SintaxerDKG;
 import apps.app_khronos.Sintaxes.SintaxerSigmaz;
-import azzal.cenarios.Cena;
-import azzal.Cores;
-import azzal.geometria.Retangulo;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import azzal.Windows;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.Cores;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.Windows;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.luan.ArquivoTexto;
-import mockui.Interface.Clicavel;
+import libs.mockui.Interface.Clicavel;
 
 
 public class AppKrhonos extends Cena {

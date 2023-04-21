@@ -1,6 +1,6 @@
 package apps.app_fisica;
 
-import azzal.utilitarios.Cronometro;
+import libs.azzal.utilitarios.Cronometro;
 
 public class HiperTempo {
 

@@ -1,6 +1,6 @@
 package libs.movimentador;
 
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 
 public class Corpo {
 

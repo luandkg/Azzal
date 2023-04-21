@@ -1,12 +1,12 @@
 package apps.app_attuz.Widgets;
 
 import libs.arquivos.PreferenciasOrganizadas;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
-import mockui.Interface.Acao;
-import mockui.ToggleHorizontal;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.mockui.Interface.Acao;
+import libs.mockui.ToggleHorizontal;
 
 public class Preferencias {
 

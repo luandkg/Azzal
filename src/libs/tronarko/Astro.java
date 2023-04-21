@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 
 public class Astro {
 

@@ -2,17 +2,17 @@ package apps.app_arquivos;
 
 import libs.arquivos.AI;
 import libs.arquivos.ImagemDoAlbum;
-import azzal.cenarios.Cena;
-import azzal.Cores;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.Windows;
 import libs.imagem.Efeitos;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
-import mockui.Interface.Acao;
-import mockui.Interface.BotaoCor;
-import mockui.Interface.Clicavel;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.mockui.Interface.Acao;
+import libs.mockui.Interface.BotaoCor;
+import libs.mockui.Interface.Clicavel;
 
 import java.awt.image.BufferedImage;
 

@@ -1,9 +1,9 @@
 package apps.app_azzal;
 
 import apps.app_arch.AppArch;
-import azzal.cenarios.Cena;
-import azzal.Renderizador;
-import azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
 
 
 public class AppGlobal extends Cena {

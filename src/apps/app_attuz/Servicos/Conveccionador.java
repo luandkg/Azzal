@@ -5,7 +5,7 @@ import apps.app_attuz.Assessorios.MassasDados;
 import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.Pintor;
-import azzal.Renderizador;
+import libs.azzal.Renderizador;
 import libs.luan.Integers;
 import libs.imagem.Imagem;
 import libs.servittor.Servico;

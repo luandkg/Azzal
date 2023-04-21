@@ -2,7 +2,7 @@ package apps.app_attuz.Arkazz;
 
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Regiao.Regiao;
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 
 import java.util.ArrayList;
 

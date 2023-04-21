@@ -2,7 +2,7 @@ package apps.app_attuz.Ferramentas;
 
 import apps.app_attuz.Assessorios.CadaPonto;
 import apps.app_attuz.Assessorios.Massas;
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 
 import java.util.ArrayList;
 import java.util.Random;

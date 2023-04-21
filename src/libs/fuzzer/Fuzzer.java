@@ -1,11 +1,11 @@
 package libs.fuzzer;
 
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
-import azzal.utilitarios.Cronometro;
-import mockui.Interface.Acao;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.utilitarios.Cronometro;
+import libs.mockui.Interface.Acao;
 
 import java.util.ArrayList;
 

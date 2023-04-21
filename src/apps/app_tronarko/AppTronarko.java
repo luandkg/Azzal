@@ -1,15 +1,15 @@
 package apps.app_tronarko;
 
-import azzal.cenarios.Cena;
-import azzal.Cores;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.Windows;
 import libs.documentar.AutoInt;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.FonteDupla;
-import apps.appLetrum.FonteDuplaRunTime;
-import apps.appLetrum.Maker.FonteRunTime;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.FonteDupla;
+import apps.app_letrum.FonteDuplaRunTime;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.luan.Tempo;
 import libs.rho_benchmark.RhoBenchmark;
 import libs.tronarko.Eventos.Comunicado;
@@ -20,10 +20,10 @@ import libs.tronarko.Eventos.Momentum;
 import libs.tronarko.Satelites.*;
 import libs.tronarko.utils.TozteCor;
 import libs.tronarko.utils.TronarkoFalsum;
-import mockui.Interface.Acao;
-import mockui.Interface.BotaoCor;
-import mockui.Interface.Clicavel;
-import mockui.Marcador;
+import libs.mockui.Interface.Acao;
+import libs.mockui.Interface.BotaoCor;
+import libs.mockui.Interface.Clicavel;
+import libs.mockui.Marcador;
 
 
 import java.util.ArrayList;

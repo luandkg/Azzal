@@ -1,7 +1,7 @@
 package libs.fuzzer;
 
-import azzal.utilitarios.Cor;
-import mockui.Interface.Acao;
+import libs.azzal.utilitarios.Cor;
+import libs.mockui.Interface.Acao;
 
 public class Seletor {
 

@@ -2,12 +2,12 @@ package apps.app_attuz.Localizador;
 
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Widgets.NomesEspecificos;
-import azzal.ComplexoRender;
-import azzal.Cores;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.ComplexoRender;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,12 +1,12 @@
 package libs.movimentador;
 
-import azzal.cenarios.Cena;
-import azzal.geometria.Ponto;
-import azzal.geometria.Retangulo;
-import azzal.Teclado;
-import azzal.utilitarios.*;
-import azzal.Renderizador;
-import azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.Teclado;
+import libs.azzal.utilitarios.*;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
 import libs.organizadorq2d.OrganizadorQ2D;
 import libs.organizadorq2d.Regiao;
 

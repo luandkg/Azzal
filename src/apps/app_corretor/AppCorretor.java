@@ -1,26 +1,18 @@
 package apps.app_corretor;
 
 
-import apps.app_azzal.CirculoTrigonometrico;
-import apps.app_azzal.QuadranteColorido;
-import azzal.Cores;
-import azzal.cenarios.Cena;
-import azzal.geometria.*;
-import azzal.utilitarios.*;
-import azzal.Renderizador;
-import azzal.Windows;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.*;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
-import libs.luan.Iterador;
-import libs.luan.Lista;
-import libs.movimentador.Movettor;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Random;
 
 
 public class AppCorretor extends Cena {

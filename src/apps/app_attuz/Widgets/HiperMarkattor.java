@@ -2,7 +2,7 @@ package apps.app_attuz.Widgets;
 
 import apps.app_attuz.Assessorios.Nivelador;
 import apps.app_attuz.Ferramentas.Local;
-import mockui.Interface.Acao;
+import libs.mockui.Interface.Acao;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package apps.app_attuz.Ferramentas;
 
 
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 
 public class Caminho {
 

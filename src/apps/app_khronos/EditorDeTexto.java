@@ -1,12 +1,12 @@
 package apps.app_khronos;
 
 
-import azzal.geometria.Retangulo;
-import azzal.Renderizador;
-import azzal.Teclado;
-import azzal.utilitarios.Cor;
-import azzal.utilitarios.Cronometro;
-import apps.appLetrum.Fonte;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.Renderizador;
+import libs.azzal.Teclado;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
+import apps.app_letrum.Fonte;
 
 public class EditorDeTexto {
 

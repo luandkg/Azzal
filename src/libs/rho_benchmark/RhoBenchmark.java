@@ -1,12 +1,12 @@
 package libs.rho_benchmark;
 
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.imagem.Imagem;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.AutoFonte;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.AutoFonte;
 import libs.luan.RefBool;
 import libs.luan.RefLong;
 

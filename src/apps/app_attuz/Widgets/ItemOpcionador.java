@@ -1,6 +1,6 @@
 package apps.app_attuz.Widgets;
 
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 
 public class ItemOpcionador {
 

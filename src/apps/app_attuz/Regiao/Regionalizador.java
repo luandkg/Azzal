@@ -2,7 +2,7 @@ package apps.app_attuz.Regiao;
 
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Ferramentas.Local;
-import azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cor;
 import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;

@@ -1,6 +1,6 @@
 package apps.app_khronos;
 
-import apps.appLetrum.Fonte;
+import apps.app_letrum.Fonte;
 
 import java.util.ArrayList;
 

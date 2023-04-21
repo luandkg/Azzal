@@ -7,6 +7,9 @@ import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.DKGUtils;
 import libs.documentar.Documentar;
+import libs.luan.RefInt;
+import libs.ranking.RankeadoInteiro;
+import libs.ranking.Rankeador;
 import libs.verkuz.VerkuzImplementador;
 
 import java.util.ArrayList;
@@ -105,8 +108,8 @@ public class AppAzzal {
         VerkuzImplementador vi = new VerkuzImplementador();
 
         vi.init("/home/luan/IdeaProjects/Azzal/src/libs");
-        vi.init("/home/luan/IdeaProjects/Azzal/src/azzal");
-        vi.init("/home/luan/IdeaProjects/Azzal/src/mockui");
+        vi.init("/home/luan/IdeaProjects/Azzal/src/libs/azzal");
+        vi.init("/home/luan/IdeaProjects/Azzal/src/libs/mockui");
 
         // vi.init_bibliotecas("/home/luan/IdeaProjects/Azzal/src/libs");
         // vi.exibir();
@@ -149,6 +152,22 @@ public class AppAzzal {
             System.out.println("------------- " + l + " ---------------------");
             System.out.println(conjunto);
 
+        }
+
+
+        RankeadoInteiro<RefInt> r1 = new RankeadoInteiro<RefInt>("A", 12, null);
+        RankeadoInteiro<RefInt> r2 = new RankeadoInteiro<RefInt>("B", 25, null);
+        RankeadoInteiro<RefInt> r3 = new RankeadoInteiro<RefInt>("C", 5, null);
+
+        ArrayList<RankeadoInteiro> lista = new ArrayList<RankeadoInteiro>();
+        lista.add(r1);
+        lista.add(r2);
+        lista.add(r3);
+
+        Rankeador.ordenar(lista);
+
+        for(RankeadoInteiro item : lista){
+            System.out.println("Item - " + item.getRanking() + " -->> " + item.getNome());
         }
 
     }

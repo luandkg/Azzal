@@ -1,6 +1,6 @@
 package libs.organizadorq2d;
 
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 
 import java.util.ArrayList;
 

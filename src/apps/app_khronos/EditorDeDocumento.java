@@ -1,13 +1,13 @@
 package apps.app_khronos;
 
 
-import azzal.Cores;
-import azzal.Renderizador;
-import azzal.Teclado;
-import azzal.utilitarios.Cor;
-import azzal.utilitarios.Cronometro;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Teclado;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 
 public class EditorDeDocumento {
 

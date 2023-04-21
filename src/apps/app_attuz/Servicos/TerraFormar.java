@@ -1,9 +1,9 @@
 package apps.app_attuz.Servicos;
 
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
 import libs.imagem.Imagem;
 import libs.servittor.Servico;
 

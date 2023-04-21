@@ -1,8 +1,8 @@
 package apps.app_arquivos.AudioWidgets;
 
 import libs.arquivos.audio.HZ;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
 
 public class AudioRender {
 

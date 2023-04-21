@@ -1,7 +1,7 @@
 package apps.app_attuz.Viagem;
 
 
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 
 import java.util.ArrayList;
 import java.util.Random;

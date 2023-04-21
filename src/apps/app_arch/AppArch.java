@@ -2,14 +2,14 @@ package apps.app_arch;
 
 import apps.app_arch.Assembler.Assembler;
 import apps.app_arch.Matematica.u8;
-import azzal.cenarios.Cena;
-import azzal.geometria.Retangulo;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import azzal.utilitarios.Cronometro;
-import azzal.Windows;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.*;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
+import libs.azzal.Windows;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.*;
 
 import java.awt.*;
 import java.io.File;

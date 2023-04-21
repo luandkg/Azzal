@@ -1,7 +1,7 @@
 package apps.app_attuz.Assessorios;
 
 
-import mockui.Interface.Acao;
+import libs.mockui.Interface.Acao;
 
 public class Nivelador {
 

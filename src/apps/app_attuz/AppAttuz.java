@@ -20,19 +20,19 @@ import apps.app_attuz.Viagem.Viajante;
 import apps.app_attuz.Widgets.*;
 import libs.arquivos.PreferenciasOrganizadas;
 import libs.arquivos.QTT;
-import azzal.*;
-import mockui.Interface.Acao;
-import mockui.Interface.BotaoCor;
-import mockui.Interface.Clicavel;
+import libs.azzal.*;
+import libs.mockui.Interface.Acao;
+import libs.mockui.Interface.BotaoCor;
+import libs.mockui.Interface.Clicavel;
 import apps.app_attuz.Localizador.DroneCamera;
-import azzal.cenarios.Cena;
-import azzal.geometria.Ponto;
-import azzal.utilitarios.Cor;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.utilitarios.Cor;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 import libs.imagem.TirarPrint;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.tronarko.Tronarko;
 
 

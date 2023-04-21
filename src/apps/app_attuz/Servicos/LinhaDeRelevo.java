@@ -6,9 +6,9 @@ import apps.app_attuz.Assessorios.DadosQTT;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Assessorios.MapaUtilitario;
-import azzal.Cores;
-import azzal.geometria.Ponto;
-import azzal.Renderizador;
+import libs.azzal.Cores;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.Renderizador;
 import libs.imagem.Imagem;
 import libs.servittor.Servico;
 

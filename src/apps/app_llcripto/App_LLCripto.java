@@ -1,8 +1,8 @@
 package apps.app_llcripto;
 
-import azzal.cenarios.Cena;
-import azzal.Renderizador;
-import azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
 import libs.llcripto.LLCripto;
 
 public class App_LLCripto extends Cena {

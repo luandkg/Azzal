@@ -1,10 +1,10 @@
 package libs.documentar;
 
-import azzal.Cores;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

@@ -1,15 +1,15 @@
 package apps.app_arquivos;
 
-import azzal.utilitarios.Cronometro;
+import libs.azzal.utilitarios.Cronometro;
 import libs.arquivos.AN;
-import azzal.cenarios.Cena;
-import azzal.Renderizador;
-import azzal.utilitarios.Cor;
-import azzal.Windows;
-import apps.appLetrum.Fonte;
-import apps.appLetrum.Maker.FonteRunTime;
-import mockui.Interface.BotaoCor;
-import mockui.Interface.Clicavel;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.Windows;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.mockui.Interface.BotaoCor;
+import libs.mockui.Interface.Clicavel;
 
 import java.awt.*;
 

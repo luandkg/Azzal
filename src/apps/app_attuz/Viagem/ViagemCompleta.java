@@ -6,7 +6,7 @@ import apps.app_attuz.Ferramentas.GPS;
 import apps.app_attuz.Fisica.Unidades;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Fisica.EquipamentosDeEngenharia;
-import azzal.geometria.Ponto;
+import libs.azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.CadaObjeto;
