@@ -31,6 +31,13 @@ public class XML {
 
     }
 
+    public void parser(String texto) {
+
+        XMLParser parser = new XMLParser();
+        parser.parser(mObjetos,texto);
+
+    }
+
     public void adicionar(XMLObjeto eObjeto) {
         mObjetos.add(eObjeto);
     }
@@ -68,5 +75,26 @@ public class XML {
         }
 
     }
+
+
+    public XMLObjeto getObjeto(String eNome){
+        XMLObjeto ret = null;
+
+        for(XMLObjeto at : mObjetos){
+            if(at.getNome().contentEquals(eNome)){
+                ret=at;
+                break;
+            }
+        }
+
+        if(ret==null){
+            ret=new XMLObjeto(eNome,XML.XML_OBJETO);
+            mObjetos.add(ret);
+        }
+
+        return ret;
+    }
+
+
 
 }

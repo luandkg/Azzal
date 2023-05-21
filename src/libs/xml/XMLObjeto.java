@@ -45,6 +45,29 @@ mTipo=XML.XML_OBJETO;
 
     public ArrayList<XMLObjeto>  getObjetos(){return mObjetos;}
 
+
+
+
+    public XMLObjeto getObjeto(String eNome){
+        XMLObjeto ret = null;
+
+        for(XMLObjeto at : mObjetos){
+            if(at.getNome().contentEquals(eNome)){
+                ret=at;
+                break;
+            }
+        }
+
+        if(ret==null){
+            ret=new XMLObjeto(eNome,XML.XML_OBJETO);
+            mObjetos.add(ret);
+        }
+
+        return ret;
+    }
+
+
+
     public void adicionar(XMLObjeto eObjeto){mObjetos.add(eObjeto);}
 
 
@@ -73,5 +96,8 @@ mTipo=XML.XML_OBJETO;
 
 
     public ArrayList<XMLAtributo> getAtributos(){return mAtributos;}
+
+
+
 
     }

@@ -170,7 +170,7 @@ public class XMLParser {
         while (mIndex < mTamanho) {
             String letra = String.valueOf(mDocumento.charAt(mIndex));
 
-            if (letra.contentEquals(" ") || letra.contentEquals("\t") || letra.contentEquals("\n") || letra.contentEquals(">") || letra.contentEquals("=")) {
+            if (letra.contentEquals(" ") || letra.contentEquals("\t") || letra.contentEquals("\n") || letra.contentEquals(">") || letra.contentEquals("=")|| letra.contentEquals("/")) {
                 break;
             } else {
                 ret += letra;
