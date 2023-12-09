@@ -3,6 +3,7 @@ package libs.az;
 import libs.arquivos.binario.Arquivador;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 import libs.armazenador.Banco;
@@ -28,6 +29,9 @@ public class Colecao {
 
     }
 
+    public void zerarSequencial(){
+        AZSequenciador.zerar_sequencial(mSequencias, mNome);
+    }
 
     public boolean adicionar(DKGObjeto objeto) {
 
@@ -86,7 +90,7 @@ public class Colecao {
         mColecao.limpar();
     }
 
-    public ArrayList<ItemDoBanco> getItens() {
+    public Lista<ItemDoBanco> getItens() {
         return mColecao.getItens();
     }
 
@@ -196,5 +200,18 @@ public class Colecao {
         return ret;
     }
 
+    public Lista<DKGObjeto> getObjetos(){
+
+        Lista<ItemDoBanco> itens = getItens();
+
+        Lista<DKGObjeto> objetos = new Lista<DKGObjeto>();
+
+        for (ItemDoBanco item : itens) {
+            DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
+            objetos.adicionar(obj);
+        }
+
+        return objetos;
+    }
 
 }

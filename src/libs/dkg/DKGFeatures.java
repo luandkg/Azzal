@@ -70,6 +70,30 @@ public class DKGFeatures {
         return ret;
     }
 
+    public static DKGObjetoFuturo obter_ou_criar(Lista<DKGObjeto> objetos, String item, String eID, String eValor) {
+
+
+        DKGObjetoFuturo ret = null;
+        boolean existe = false;
+        for (DKGObjeto objeto_corrente : objetos) {
+            if (objeto_corrente.identifique(eID).getValor().contentEquals(eValor)) {
+                existe = true;
+                ret = new DKGObjetoFuturo(objeto_corrente, DKGObjetoFuturo.EXISTENTE);
+                break;
+            }
+        }
+
+        if (!existe) {
+            DKGObjeto objeto_novo = new DKGObjeto(item);
+            objetos.adicionar(objeto_novo);
+
+            objeto_novo.identifique(eID, eValor);
+            ret = new DKGObjetoFuturo(objeto_novo, DKGObjetoFuturo.NOVO);
+        }
+
+        return ret;
+    }
+
 
     // FEATURE 22.10.12 - ordendar_objetos_texto
     public static Lista<DKGObjeto> ordenar_objetos_texto(Lista<DKGObjeto> objetos, String atributo) {
@@ -82,7 +106,7 @@ public class DKGFeatures {
 
                 String vj = objetos.get(j).identifique(atributo).getValor();
                 String vi = objetos.get(i).identifique(atributo).getValor();
-                if (Ordenador.ORDENAR_STRING_NAO_SENSITIVA().emOrdem(vj, vi) == Ordenavel.MENOR) {
+                if (Ordenador.ORDENAR_STRING_NAO_SENSITIVA().emOrdem(vj, vi) == Ordenavel.MAIOR) {
                     temp = objetos.get(j);
                     objetos.set(j, objetos.get(i));
                     objetos.set(i, temp);
@@ -105,7 +129,7 @@ public class DKGFeatures {
 
                 String vj = objetos.get(j).identifique(atributo).getValor();
                 String vi = objetos.get(i).identifique(atributo).getValor();
-                if (Ordenador.ORDENAR_STRING_NAO_SENSITIVA().emOrdem(vj, vi) == Ordenavel.MAIOR) {
+                if (Ordenador.ORDENAR_STRING_NAO_SENSITIVA().emOrdem(vj, vi) == Ordenavel.MENOR) {
                     temp = objetos.get(j);
                     objetos.set(j, objetos.get(i));
                     objetos.set(i, temp);
@@ -621,6 +645,65 @@ public class DKGFeatures {
         }
 
         return ret;
+    }
+
+
+
+    public static void EXIBIR_TABELA(Lista<DKGObjeto> objetos){
+
+        Lista<DKGObjeto> colunas = new Lista<DKGObjeto>();
+
+        for (DKGObjeto obj : objetos) {
+
+            for (DKGAtributo att : obj.getAtributos()) {
+                int tamanho = att.getValor().length();
+                DKGObjetoFuturo obj_coluna = DKGFeatures.obter_ou_criar(colunas, "Coluna", "Nome", att.getNome());
+
+                if (obj_coluna.getObjeto().identifique("Tamanho").getInteiro(0) < tamanho) {
+                    obj_coluna.getObjeto().identifique("Tamanho").setInteiro(tamanho);
+                }
+
+                if (obj_coluna.getObjeto().identifique("Tamanho").getInteiro(0) < att.getNome().length()) {
+                    obj_coluna.getObjeto().identifique("Tamanho").setInteiro(att.getNome().length());
+                }
+
+            }
+        }
+
+
+        int tracos = 0;
+        for (DKGObjeto obj : colunas) {
+            int tt = obj.identifique("Tamanho").getInteiro(0) + 5 + 2;
+            tracos += tt;
+        }
+        tracos += 2;
+
+        fmt.print(fmt.repetir("-", tracos));
+
+        String cabecalho = "";
+        for (DKGObjeto obj : colunas) {
+            int tt = obj.identifique("Tamanho").getInteiro(0) + 5;
+            cabecalho += " |" + fmt.espacar_antes(obj.identifique("Nome").getValor(), tt);
+        }
+
+        fmt.print("{}", cabecalho);
+        fmt.print(fmt.repetir("-", tracos));
+
+        for (DKGObjeto obj : objetos) {
+
+            String linha = "";
+
+            for (DKGObjeto coluna : colunas) {
+                int tt = coluna.identifique("Tamanho").getInteiro(0) + 5;
+                linha += " |" + fmt.espacar_antes(obj.identifique(coluna.identifique("Nome").getValor()).getValor(), tt);
+            }
+
+            fmt.print("{}", linha + " |");
+
+        }
+        fmt.print(fmt.repetir("-", tracos));
+
+
     }
 }
 

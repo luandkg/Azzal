@@ -694,4 +694,12 @@ public class fmt {
 
     }
 
+    public static String repetir(String rep,int quantidade){
+        String s = "";
+
+        for(int v=0;v<quantidade;v++){
+            s+=rep;
+        }
+        return s;
+    }
 }

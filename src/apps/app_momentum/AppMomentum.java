@@ -9,6 +9,7 @@ import libs.luan.Indexado;
 import libs.luan.Indexamento;
 import libs.luan.Opcional;
 import libs.armazenador.*;
+import libs.luan.fmt;
 import libs.tempo.Calendario;
 
 import java.util.Random;
@@ -160,6 +161,11 @@ public class AppMomentum {
         }
 
         comparar_velocidade_de_busca(objetos, 500);
+
+
+
+
+
 
         m.fechar();
 

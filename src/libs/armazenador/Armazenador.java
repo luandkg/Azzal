@@ -4,15 +4,15 @@ package libs.armazenador;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class Armazenador {
 
     private String mArquivo;
     private Arquivador mArquivador;
-    private ArrayList<Banco> mBancos;
+    private Lista<Banco> mBancos;
 
     public static final int MAX_BANCOS = 255;
     public static final int MAX_CAPITULOS = 1024;
@@ -50,11 +50,11 @@ public class Armazenador {
         mArquivador = new Arquivador(mArquivo);
         mArquivador.setPonteiro(0);
 
-        mBancos = new ArrayList<Banco>();
+        mBancos = new Lista<Banco>();
     }
 
-    public ArrayList<Banco> getBancos() {
-        if (mBancos.size() == 0) {
+    public Lista<Banco> getBancos() {
+        if (mBancos.getQuantidade() == 0) {
             organizar_bancos();
         }
         return mBancos;
@@ -84,7 +84,7 @@ public class Armazenador {
     public void banco_criar(String eNome) {
         if (!banco_existe(eNome)) {
             interno_banco_criar(eNome);
-            mBancos.clear();
+            mBancos.limpar();
         }
     }
 
@@ -97,7 +97,7 @@ public class Armazenador {
                 mArquivador.setPonteiro(b.getLocalBanco());
                 mArquivador.set_u8((byte) 2);
 
-                mBancos.clear();
+                mBancos.limpar();
                 break;
             }
         }
@@ -124,7 +124,7 @@ public class Armazenador {
 
 
     private void organizar_bancos() {
-        mBancos.clear();
+        mBancos.limpar();
 
         mArquivador.setPonteiro(0);
 
@@ -154,7 +154,7 @@ public class Armazenador {
 
             if (st == 255) {
               //  System.out.println("\t - Banco " + banco + " -->> " + st + " --->> " + ponteiro + " :: { Local Itens = " + local_itens + " , Local Cache = " + local_cache + " , Local Indice = " + local_indice + " }");
-                mBancos.add(new Banco(this, mArquivador, banco, ponteiro, local_itens, local_cache, local_corrente, local_indice));
+                mBancos.adicionar(new Banco(this, mArquivador, banco, ponteiro, local_itens, local_cache, local_corrente, local_indice));
             }
 
         }

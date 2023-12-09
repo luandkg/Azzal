@@ -22,7 +22,7 @@ public class Debugador {
     public static void debug_momentum(Armazenador armazenador) {
 
         System.out.println("\t - Momentum " + " :: { Local Bancos = " + armazenador.getLocalBancos() + " , Local Cache = " + armazenador.getGlobalCache() + " }");
-        System.out.println("\t\t -->> Bancos                 = " + armazenador.getBancos().size());
+        System.out.println("\t\t -->> Bancos                 = " + armazenador.getBancos().getQuantidade());
         System.out.println("\t\t -->> Itens   em Cache       = " + armazenador.contagem_em_cache());
 
     }

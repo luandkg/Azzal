@@ -415,4 +415,23 @@ public class DKGObjeto {
         return lista;
     }
 
+
+
+    // ESTATICOS
+
+
+    public static DKGObjeto CRIAR_DIRETO(String nome,String a1,String v1){
+        DKGObjeto novo = new DKGObjeto(nome);
+        novo.identifique(a1,v1);
+
+        return novo;
+    }
+
+    public static DKGObjeto CRIAR_DIRETO(String nome,String a1,String v1,String a2,String v2){
+        DKGObjeto novo = new DKGObjeto(nome);
+        novo.identifique(a1,v1);
+        novo.identifique(a2,v2);
+
+        return novo;
+    }
 }

@@ -4,10 +4,10 @@ package libs.armazenador;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
-import java.util.ArrayList;
 
 public class Banco {
 
@@ -136,21 +136,21 @@ public class Banco {
         return contando.get();
     }
 
-    public ArrayList<ItemDoBanco> getItens() {
+    public Lista<ItemDoBanco> getItens() {
 
-        ArrayList<ItemDoBanco> itens = new ArrayList<ItemDoBanco>();
+        Lista<ItemDoBanco> itens = new Lista<ItemDoBanco>();
 
         Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
 
         for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
 
-            ArrayList<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
             for (Long pag : pags) {
 
                 Pagina pg = new Pagina(mArquivador, this, pag);
-                itens.addAll(pg.getItens());
+                itens.adicionar_varios(pg.getItens());
             }
 
 
@@ -348,15 +348,13 @@ public class Banco {
 
     public void limpar() {
 
-        System.out.println("Preparar para remover :: " + getItens().size());
+      //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
         int r = 0;
 
         for (ItemDoBanco item : getItens()) {
             remover(item);
-
-            System.out.println("Removendo " + r);
+       //     System.out.println("Removendo " + r);
             r += 1;
-
         }
 
     }

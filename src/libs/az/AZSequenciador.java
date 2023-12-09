@@ -71,6 +71,20 @@ public class AZSequenciador {
         return chave;
     }
 
+    public static void zerar_sequencial(Banco eBanco, String eNome) {
+
+
+        for (ItemDoBanco item : eBanco.getItens()) {
+            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
+            if (objeto.identifique("Nome").isValor(eNome)) {
+                objeto.identifique("Sequencia").setInteiro(0);
+                item.atualizar(objeto.toDocumento());
+                break;
+            }
+        }
+
+    }
+
     public static int sequencia(ItemDoBanco item) {
         DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
         return objeto.identifique("Sequencia").getInteiro(0);

@@ -2,10 +2,10 @@ package libs.armazenador;
 
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
-import java.util.ArrayList;
 
 public class Paginador {
 
@@ -57,19 +57,19 @@ public class Paginador {
         return retornar_pagina;
     }
 
-    public static ArrayList<Long> getPaginasUtilizadasDoCapitulo(Arquivador mArquivador, long capitulo_ponteiro) {
+    public static Lista<Long> getPaginasUtilizadasDoCapitulo(Arquivador mArquivador, long capitulo_ponteiro) {
 
         mArquivador.setPonteiro(capitulo_ponteiro);
 
         int pagina_status = mArquivador.get_u8();
 
-        ArrayList<Long> paginas = new ArrayList<Long>();
+        Lista<Long> paginas = new Lista<Long>();
 
         for (int pagina = 0; pagina < Armazenador.MAX_PAGINAS; pagina++) {
             long pag_local = mArquivador.get_u64();
 
             if (pag_local != 0) {
-                paginas.add(new Long(pag_local));
+                paginas.adicionar(new Long(pag_local));
             }
 
         }

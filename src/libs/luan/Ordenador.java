@@ -99,7 +99,7 @@ public class Ordenador {
 
                 int resp = Ordenavel.IGUAL;
 
-                String alfabeto_numerico = "0123456789_abcdefghijklmnopqrstuvwxyz";
+                String alfabeto_numerico = "0123456789_@abcdefghijklmnopqrstuvwxyz";
 
                 int comparar_ate = a.length();
 

@@ -2,8 +2,8 @@ package libs.armazenador;
 
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 
-import java.util.ArrayList;
 
 public class Pagina {
 
@@ -182,9 +182,9 @@ public class Pagina {
 
     }
 
-    public ArrayList<ItemDoBanco> getItens() {
+    public Lista<ItemDoBanco> getItens() {
 
-        ArrayList<ItemDoBanco> itens = new ArrayList<ItemDoBanco>();
+        Lista<ItemDoBanco> itens = new Lista<ItemDoBanco>();
 
         mArquivador.setPonteiro(mPonteiro);
 
@@ -198,7 +198,7 @@ public class Pagina {
             long pag_local = mArquivador.get_u64();
 
             if (item_status == Armazenador.ITEM_ALOCADO_OCUPADO) {
-                itens.add(new ItemDoBanco(mArquivador, mBanco, item_ponteiro, pag_local));
+                itens.adicionar(new ItemDoBanco(mArquivador, mBanco, item_ponteiro, pag_local));
             }
 
         }

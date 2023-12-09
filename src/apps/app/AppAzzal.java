@@ -9,25 +9,28 @@ import apps.app_citatte.AppCitatteModelum;
 import apps.app_citatte.CidadeGeradorAleatorio;
 import apps.app_coisas.AppClassificador;
 import apps.app_llcripto.App_LLCripto;
+import apps.app_momentum.AppMomentum;
 import apps.app_momentum.HarrempluzCreator;
 import apps.app_testes.app_testes;
+import libs.armazenador.Banco;
+import libs.armazenador.ItemDoBanco;
 import libs.arquivos.BZ3;
 import libs.arquivos.IM;
 import libs.arquivos.Sumario;
 import libs.arquivos.stacker.StackItem;
 import libs.arquivos.stacker.Stacker;
+import libs.az.AZColecionador;
+import libs.az.Colecao;
 import libs.azzal.AzzalUnico;
-import libs.dkg.DKG;
-import libs.dkg.DKGObjeto;
-import libs.dkg.DKGUtils;
+import libs.dkg.*;
 import libs.documentar.Documentar;
 import libs.imagem.Imagem;
-import libs.luan.RefInt;
-import libs.luan.Strings;
+import libs.luan.*;
 import libs.movimentador.QuadranteEspacial;
 import libs.ranking.RankeadoInteiro;
 import libs.ranking.Rankeador;
 import libs.servittor.Servittor;
+import libs.tronarko.Tronarko;
 import libs.verkuz.VerkuzImplementador;
 import libs.xlsx.XLSX;
 import libs.xml.XML;
@@ -44,12 +47,12 @@ public class AppAzzal {
 
         //AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.app_fuzz.AppFuzz());
 
-      //   AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+        //   AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         // AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
-          AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
+        // AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
 
-       //   AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
+        //   AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
         //  AzzalUnico.unico("Citatte", 2000, 1000, new AppCitatte());
 
         //  AzzalUnico.unico("Citatte Modelum", 2000, 1000, new AppCitatteModelum());
@@ -64,7 +67,7 @@ public class AppAzzal {
         //  CidadeGeradorAleatorio.render_cidade_entre_vias("melhor_de_3");
         // CidadeGeradorAleatorio.render_cidade_entre_vias("melhor_de_100");
 
-     //   app_testes.init();
+        //   app_testes.init();
 
 
         //     CidadeGeradorAleatorio.render_cidade();
@@ -107,10 +110,10 @@ public class AppAzzal {
 
         // AppGamaFS.init();
 
-       // Servittor.onServico("Arquivador", new ArquivosServicos());
+        // Servittor.onServico("Arquivador", new ArquivosServicos());
 
         // AzzalUnico.unico("Visualizador IM", 1500, 1020, new AppImagem());
-       //  AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
+        //  AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
 
         //AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
 
@@ -159,7 +162,7 @@ public class AppAzzal {
 
         //  AzzalUnico.unico("Corretor", 1100, 900, new AppCorretor());
 
-        //AppMomentum.init();
+        // AppMomentum.init();
         //HarrempluzCreator.criar();
         //  HarrempluzCreator.visualizar();
 
@@ -177,6 +180,46 @@ public class AppAzzal {
 
         // GGADF2023.init();
 
+        tron_me();
+        banco_me();
+
+    }
+
+
+    public static void tron_me() {
+
+        String arquivo_banco = "/home/luan/assets/trons.mt";
+
+        AZColecionador.checar(arquivo_banco);
+
+        AZColecionador m = new AZColecionador(arquivo_banco);
+
+        String seq = "";
+        for (int v = 0; v < 10; v++) {
+            seq += Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ");
+        }
+
+        m.getColecao("Tronakum").adicionar(DKGObjeto.CRIAR_DIRETO("Tron", "Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
+
+        m.fechar();
+
+    }
+
+
+    public static void banco_me() {
+
+        String arquivo_banco = "/home/luan/assets/trons.mt";
+
+        AZColecionador.checar(arquivo_banco);
+
+        AZColecionador m = new AZColecionador(arquivo_banco);
+
+        m.auto_analisar();
+
+        DKGFeatures.EXIBIR_TABELA(m.getColecao("@Analise").getObjetos());
+        DKGFeatures.EXIBIR_TABELA(m.getColecao("Tronakum").getObjetos());
+
+        m.fechar();
 
     }
 

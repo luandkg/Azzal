@@ -5,8 +5,8 @@ import libs.dkg.DKGObjeto;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
 import libs.armazenador.Armazenador;
+import libs.luan.Lista;
 
-import java.util.ArrayList;
 
 public class Unicidade {
 
@@ -64,7 +64,7 @@ public class Unicidade {
 
     }
 
-    public ArrayList<ItemDoBanco> getItens() {
+    public Lista<ItemDoBanco> getItens() {
         return mColecao.getItens();
     }
 }

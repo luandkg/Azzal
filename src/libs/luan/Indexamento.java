@@ -97,4 +97,39 @@ public class Indexamento {
         return ret;
     }
 
+
+    public static <T> Lista<Indexado<T>> embaralhar(Lista<T> lista) {
+
+        Lista<Indexado<T>> ret = new Lista<Indexado<T>>();
+
+        int index = 0;
+        for (T item : lista) {
+            ret.adicionar(new Indexado<T>(index, item));
+            index += 1;
+        }
+
+        Random r = new Random();
+
+        for (int e = 0; e < ret.getQuantidade(); e++) {
+
+            int p1 = r.nextInt(lista.getQuantidade());
+            int p2 = r.nextInt(lista.getQuantidade());
+
+
+            Indexado<T> v1 = ret.get(p1);
+            Indexado<T> v2 = ret.get(p2);
+
+            v1.setIndex(p2);
+            v2.setIndex(p1);
+
+            ret.set(p1, v2);
+            ret.set(p2, v1);
+
+
+        }
+
+
+        return ret;
+    }
+
 }

@@ -62,6 +62,15 @@ public class Aleatorio {
         return sorteado;
     }
 
+
+    public static String aleatorio_desses(String desses) {
+
+        int delta = desses.length();
+        Random sorte = new Random();
+        return String.valueOf(desses.charAt(sorte.nextInt(delta)));
+    }
+
+
     public static String escolha_um(ArrayList<String> opcoes) {
 
         String ret = "";
