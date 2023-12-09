@@ -4,6 +4,7 @@ import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Viagem.Viagem;
 import apps.app_attuz.Viagem.Viajante;
+import libs.luan.Lista;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class ViagemOrganizador {
             Arkazz eArkazz = new Arkazz();
 
             Viajante EU = new Viajante();
-            ArrayList<Local> cidades = eArkazz.getCidades();
+            Lista<Local> cidades = eArkazz.getCidades();
 
             while (mViagem.getTempo() < 3000) {
                 mViagem.viajar(EU, cidades);

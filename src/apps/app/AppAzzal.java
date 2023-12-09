@@ -1,34 +1,75 @@
 package apps.app;
 
+import apps.app_arquivos.*;
+import apps.app_attuz.AppAttuz;
+import apps.app_azzal.AppGlobal;
 import apps.app_azzal.VamosCalcular;
+import apps.app_citatte.AppCitatte;
+import apps.app_citatte.AppCitatteModelum;
+import apps.app_citatte.CidadeGeradorAleatorio;
+import apps.app_coisas.AppClassificador;
+import apps.app_llcripto.App_LLCripto;
+import apps.app_momentum.HarrempluzCreator;
+import apps.app_testes.app_testes;
 import libs.arquivos.BZ3;
+import libs.arquivos.IM;
 import libs.arquivos.Sumario;
+import libs.arquivos.stacker.StackItem;
+import libs.arquivos.stacker.Stacker;
+import libs.azzal.AzzalUnico;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.DKGUtils;
 import libs.documentar.Documentar;
+import libs.imagem.Imagem;
 import libs.luan.RefInt;
+import libs.luan.Strings;
+import libs.movimentador.QuadranteEspacial;
 import libs.ranking.RankeadoInteiro;
 import libs.ranking.Rankeador;
+import libs.servittor.Servittor;
 import libs.verkuz.VerkuzImplementador;
+import libs.xlsx.XLSX;
+import libs.xml.XML;
+import apps.app_arch.*;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class AppAzzal {
 
     public static void main(String[] args) {
 
-        // AzzalUnico.unico("apps.AppAzzal", 1600, 1020, new AppGlobal());
+        //AzzalUnico.unico("apps.AppAzzal", 1600, 1020, new AppGlobal());
 
-        // AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.AppFuzz.AppFuzz());
+        //AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.app_fuzz.AppFuzz());
 
-        //AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
-        // AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+        //  AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         // AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
-        //AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
+        //  AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
 
-        // AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
+          AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
+        //  AzzalUnico.unico("Citatte", 2000, 1000, new AppCitatte());
+
+        //  AzzalUnico.unico("Citatte Modelum", 2000, 1000, new AppCitatteModelum());
+
+
+        //CidadeGeradorAleatorio.init_cidades();
+        // CidadeGeradorAleatorio.init_cidade();
+        //  CidadeGeradorAleatorio.render_cidade_entre_vias("1");
+        //  CidadeGeradorAleatorio.render_cidade_entre_vias("2");
+        //  CidadeGeradorAleatorio.render_cidade_entre_vias("3");
+
+        //  CidadeGeradorAleatorio.render_cidade_entre_vias("melhor_de_3");
+        // CidadeGeradorAleatorio.render_cidade_entre_vias("melhor_de_100");
+
+     //   app_testes.init();
+
+
+        //     CidadeGeradorAleatorio.render_cidade();
+        // CidadeGeradorAleatorio.render_gama();
+
 
         //AppAttuzServittos.init();
 
@@ -39,7 +80,7 @@ public class AppAzzal {
 
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new C1());
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new CenaBanco());
-        //  AzzalUnico.unico("Quadrante Espacial", 1500, 1010, new QuadranteEspacial());
+        //   AzzalUnico.unico("Quadrante Espacial", 1500, 1010, new QuadranteEspacial());
 
         // AzzalUnico.unico("apps.AppAzzal", 1100, 800, new Fisica.Fisica());
 
@@ -49,7 +90,7 @@ public class AppAzzal {
         // AzzalUnico.unico("apps.AppAzzal", 1300, 1000, new Chiado());
         // AzzalUnico.unico("apps.AppAzzal", 1300, 1000, new CidadeCena());
 
-        // AzzalUnico.unico("Arch", 1300, 1000, new Arch.Arch());
+        // AzzalUnico.unico("Arch", 1300, 1000,new AppArch());
 
         // Assembler mAssembler = new Assembler();
         // mAssembler.compilar("res/montagem.l1", "res/montagem.l0", "res/montagem.o");
@@ -66,12 +107,12 @@ public class AppAzzal {
 
         // AppGamaFS.init();
 
-        //Servittor.onServico("Arquivador", new ArquivosServicos());
+       // Servittor.onServico("Arquivador", new ArquivosServicos());
 
         // AzzalUnico.unico("Visualizador IM", 1500, 1020, new AppImagem());
-        //  AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
+       //  AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
 
-        // AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
+        //AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
 
         // VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema_01.vi", 800, 801, "/home/luan/Imagens/ecossistema_01/S", 0, 97, ".png");
         // VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema_02.vi", 800, 801,
@@ -102,7 +143,7 @@ public class AppAzzal {
 
         // libs.Tronarko.Testes.init();
 
-        // AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
+        //    AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
 
 
         VerkuzImplementador vi = new VerkuzImplementador();
@@ -120,55 +161,22 @@ public class AppAzzal {
 
         //AppMomentum.init();
         //HarrempluzCreator.criar();
-        //    HarrempluzCreator.visualizar();
+        //  HarrempluzCreator.visualizar();
 
         //GGDNA.init();
 
 
-        String arquivo_bz3 = "/home/luan/assets/letras.bz3";
-
-        Sumario eSumario = new Sumario("/home/luan/assets/letras.bz3");
+        // AppClassificador.init();
 
 
-        ArrayList<DKGObjeto> alunos = new ArrayList<DKGObjeto>();
-
-        alunos.add(DKGUtils.criar("Aluno", "Nome", "Alice"));
-        alunos.add(DKGUtils.criar("Aluno", "Nome", "Carla"));
-        alunos.add(DKGUtils.criar("Aluno", "Nome", "Bruna"));
-        alunos.add(DKGUtils.criar("Aluno", "Nome", "Amanda"));
-        alunos.add(DKGUtils.criar("Aluno", "Nome", "Beatriz"));
-        alunos.add(DKGUtils.criar("Aluno", "Nome", "Ana"));
-
-        eSumario.organizar_completo(alunos, "Nome");
-
-        System.out.println("A :: " + BZ3.procurar(arquivo_bz3, 0).length());
-        System.out.println("B :: " + BZ3.procurar(arquivo_bz3, 1).length());
-        System.out.println("C :: " + BZ3.procurar(arquivo_bz3, 2).length());
-
-        for (int l = 0; l < 5; l++) {
-
-            String conjunto = BZ3.procurar(arquivo_bz3, l);
-
-            System.out.println("------------- " + l + " ---------------------");
-            System.out.println(conjunto);
-
-        }
+        XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
+        // vendas.exibir();
 
 
-        RankeadoInteiro<RefInt> r1 = new RankeadoInteiro<RefInt>("A", 12, null);
-        RankeadoInteiro<RefInt> r2 = new RankeadoInteiro<RefInt>("B", 25, null);
-        RankeadoInteiro<RefInt> r3 = new RankeadoInteiro<RefInt>("C", 5, null);
+        // AppFit.init();
 
-        ArrayList<RankeadoInteiro> lista = new ArrayList<RankeadoInteiro>();
-        lista.add(r1);
-        lista.add(r2);
-        lista.add(r3);
+        // GGADF2023.init();
 
-        Rankeador.ordenar(lista);
-
-        for(RankeadoInteiro item : lista){
-            System.out.println("Item - " + item.getRanking() + " -->> " + item.getNome());
-        }
 
     }
 

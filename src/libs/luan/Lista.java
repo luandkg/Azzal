@@ -1,8 +1,10 @@
 package libs.luan;
 
-public class Lista<T> {
+import java.util.Iterator;
 
-    private class Item {
+public class Lista<T> implements Iterable<T> {
+
+    public class Item {
 
         private T mValor;
         private Item mProximo;
@@ -46,6 +48,11 @@ public class Lista<T> {
         mLimite = 0;
 
         //System.out.println("Construindo Lista");
+    }
+
+
+    public Item _INTERNO_PRIMEIRO() {
+        return mPrimeiro;
     }
 
     public void adicionar(T eValor) {
@@ -139,6 +146,56 @@ public class Lista<T> {
 
     }
 
+    public void remover_indice(int indice_para_remover) {
+
+        if (mPrimeiro != null) {
+
+            Item mAnterior = null;
+            Item mCorrente = mPrimeiro;
+            int index_corrente = 0;
+
+            while (mCorrente != null) {
+
+                if (index_corrente == indice_para_remover) {
+
+                    mQuantidade -= 1;
+                    //	System.out.println("Removendo " + eValor);
+
+                    if (mAnterior == null) {
+
+                        if (mPrimeiro.getProximo() != null) {
+                            mPrimeiro = mPrimeiro.getProximo();
+                        } else {
+                            mPrimeiro = null;
+                            mUltimo = null;
+                        }
+
+                    } else {
+
+                        if (mCorrente.getProximo() == null) {
+                            mUltimo = mAnterior;
+                            mAnterior.setProximo(null);
+                            mCorrente = null;
+                        } else {
+
+                            mAnterior.setProximo(mCorrente.getProximo());
+                            mCorrente = null;
+                        }
+
+                    }
+
+                    break;
+                }
+
+                mAnterior = mCorrente;
+                mCorrente = mCorrente.getProximo();
+                index_corrente += 1;
+            }
+
+        }
+
+    }
+
     public void listarSemIndice() {
 
         Item mCorrente = mPrimeiro;
@@ -162,6 +219,31 @@ public class Lista<T> {
             mCorrente = mCorrente.getProximo();
             indice += 1;
         }
+    }
+
+    public T get(int indice) {
+
+        if (indice >= 0) {
+
+            int indicecontagem = 0;
+            Item mCorrente = mPrimeiro;
+            while (mCorrente != null) {
+
+                if (indice == indicecontagem) {
+                    return mCorrente.getValor();
+                }
+
+                indicecontagem += 1;
+                mCorrente = mCorrente.getProximo();
+            }
+
+            throw new IllegalArgumentException("Indice invalido : " + indice);
+
+        } else {
+
+            throw new IllegalArgumentException("Indice invalido : " + indice);
+        }
+
     }
 
     public T getValor(int indice) {
@@ -190,6 +272,39 @@ public class Lista<T> {
     }
 
     public void setValor(int indice, T eValor) {
+
+        if (indice >= 0) {
+
+            int indicecontagem = 0;
+            Item mCorrente = mPrimeiro;
+            boolean trocou = false;
+
+            while (mCorrente != null) {
+
+                if (indice == indicecontagem) {
+                    mCorrente.setValor(eValor);
+                    trocou = true;
+                    break;
+                }
+
+                indicecontagem += 1;
+                mCorrente = mCorrente.getProximo();
+
+            }
+
+            if (!trocou) {
+                throw new IllegalArgumentException("Indice invalido : " + indice);
+            }
+
+        } else {
+
+            throw new IllegalArgumentException("Indice invalido : " + indice);
+
+        }
+
+    }
+
+    public void set(int indice, T eValor) {
 
         if (indice >= 0) {
 
@@ -356,8 +471,15 @@ public class Lista<T> {
 
     public Iterador<T> getIterador() {
         Iterador<T> eIterador = new Iterador<T>(this);
+        eIterador.iniciar();
         return eIterador;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return getIterador().iterator();
+    }
+
 
     public void paraCada(EmCada emCada) {
 
@@ -371,16 +493,55 @@ public class Lista<T> {
 
     }
 
-    public void opereCada(T resultado,Operacao emCada) {
+    public void opereCada(T resultado, Operacao emCada) {
 
         Iterador<T> passador = getIterador();
 
         for (passador.iniciar(); passador.continuar(); passador.proximo()) {
 
-            emCada.fazer(passador.getValor(),resultado);
+            emCada.fazer(passador.getValor(), resultado);
 
         }
 
+    }
+
+
+    public void adicionar_varios(Lista<T> varios) {
+
+        for (T item : varios) {
+            adicionar(item);
+        }
+    }
+
+
+    public static <T1> Lista<T1> TIRAR_COPIA(Lista<T1> original) {
+        Lista<T1> copia = new Lista<T1>();
+
+        for (T1 valor : original) {
+            copia.adicionar(valor);
+        }
+
+        return copia;
+    }
+
+    public static <T> Lista<T> EMBARALHAR(Lista<T> lista) {
+
+
+        for (int i = 0; i < lista.getQuantidade(); i++) {
+
+            int p1 = Aleatorio.aleatorio(lista.getQuantidade());
+            int p2 = Aleatorio.aleatorio(lista.getQuantidade());
+
+            T c1 = lista.getValor(p1);
+            T c2 = lista.getValor(p2);
+
+            lista.setValor(p1, c2);
+            lista.setValor(p2, c1);
+
+        }
+
+
+        return lista;
     }
 
 }

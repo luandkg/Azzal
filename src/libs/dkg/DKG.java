@@ -2,18 +2,16 @@ package libs.dkg;
 
 import libs.dkg.IO.EscritorDKG;
 import libs.dkg.IO.ParserDKG;
+import libs.luan.Lista;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class DKG {
 
-    private ArrayList<DKGObjeto> mDKGObjetos;
+    private Lista<DKGObjeto> mDKGObjetos;
 
     public DKG() {
-
-        mDKGObjetos = new ArrayList<DKGObjeto>();
-
+        mDKGObjetos = new Lista<DKGObjeto>();
     }
 
 
@@ -46,7 +44,7 @@ public class DKG {
         DKG eDKG = new DKG();
         eDKG.parser(dados);
 
-        if (eDKG.getObjetos().size()>0){
+        if (eDKG.getObjetos().getQuantidade()>0){
             return eDKG.getObjetos().get(0);
         }else{
             return new DKGObjeto("");
@@ -96,14 +94,14 @@ public class DKG {
 
     // OBJETO
 
-    public ArrayList<DKGObjeto> getObjetos() {
+    public Lista<DKGObjeto> getObjetos() {
         return mDKGObjetos;
     }
 
     public DKGObjeto criarObjeto(String eNome) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mDKGObjetos.add(ret);
+        mDKGObjetos.adicionar(ret);
 
         return ret;
     }
@@ -125,7 +123,7 @@ public class DKG {
 
         if (!enc) {
             ret = new DKGObjeto(eNome);
-            mDKGObjetos.add(ret);
+            mDKGObjetos.adicionar(ret);
         }
 
         return ret;
@@ -136,7 +134,7 @@ public class DKG {
         for (DKGObjeto mDKGObjeto : mDKGObjetos) {
 
             if (mDKGObjeto == eDKGObjeto) {
-                mDKGObjetos.remove(eDKGObjeto);
+                mDKGObjetos.remover(eDKGObjeto);
                 break;
             }
 
@@ -149,7 +147,7 @@ public class DKG {
         for (DKGObjeto mDKGObjeto : mDKGObjetos) {
 
             if (mDKGObjeto.getNome().contentEquals(eNome)) {
-                mDKGObjetos.remove(mDKGObjeto);
+                mDKGObjetos.remover(mDKGObjeto);
                 break;
             }
 
@@ -209,12 +207,12 @@ public class DKG {
 
     // FEATURE 22.09
 
-    public ArrayList<String> toListaDeString(String atributo){
+    public Lista<String> toListaDeString(String atributo){
 
-        ArrayList<String> ls = new ArrayList<String>();
+        Lista<String> ls = new Lista<String>();
 
         for (DKGObjeto objeto : getObjetos()) {
-            ls.add(objeto.identifique(atributo).getValor());
+            ls.adicionar(objeto.identifique(atributo).getValor());
         }
 
         return ls;
@@ -231,12 +229,12 @@ public class DKG {
     }
 
     // FEATURE 22.10
-    public ArrayList<DKGObjetoOuAtributo> getTodos(){
+    public Lista<DKGObjetoOuAtributo> getTodos(){
 
-        ArrayList<DKGObjetoOuAtributo> lista = new ArrayList<DKGObjetoOuAtributo>();
+        Lista<DKGObjetoOuAtributo> lista = new Lista<DKGObjetoOuAtributo>();
 
         for (DKGObjeto obj : getObjetos()) {
-            lista.add(new DKGObjetoOuAtributo(obj));
+            lista.adicionar(new DKGObjetoOuAtributo(obj));
         }
         return lista;
     }

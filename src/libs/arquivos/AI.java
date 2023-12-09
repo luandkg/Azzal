@@ -4,6 +4,7 @@ import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
+import libs.luan.Lista;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,7 +17,7 @@ public class AI {
     private static int ALBUM_AI2 = 30;
     private static int ALBUM_VERSAO_1 = 100;
 
-    public static void criar(ArrayList<String> arquivos, String eArquivo) {
+    public static void criar(Lista<String> arquivos, String eArquivo) {
 
         File Arq = new File(eArquivo);
         if (Arq.exists()) {
@@ -34,16 +35,16 @@ public class AI {
 
             arquivador.set_u8((byte) ALBUM_VERSAO_1);
 
-            arquivador.set_u32(arquivos.size());
+            arquivador.set_u32(arquivos.getQuantidade());
 
 
             TX eTX = new TX();
 
-            ArrayList<Long> pt_inicios = new ArrayList<Long>();
-            ArrayList<Long> pt_terminos = new ArrayList<Long>();
+            Lista<Long> pt_inicios = new Lista<Long>();
+            Lista<Long> pt_terminos = new Lista<Long>();
 
-            ArrayList<Long> inicios = new ArrayList<Long>();
-            ArrayList<Long> terminos = new ArrayList<Long>();
+            Lista<Long> inicios = new Lista<Long>();
+            Lista<Long> terminos = new Lista<Long>();
 
             long eCabecalho = arquivador.getPonteiro();
 
@@ -76,20 +77,20 @@ public class AI {
 
                 arquivador.setPonteiro(pti);
 
-                ArrayList<Byte> dados = eTX.toListBytes(nome);
+                Lista<Byte> dados = eTX.toListaBytes(nome);
 
-                if (dados.size() < 100) {
-                    arquivador.set_u8_array(dados);
+                if (dados.getQuantidade() < 100) {
+                    arquivador.set_u8_lista(dados);
                 } else {
                     throw new IllegalArgumentException("Tamanho de cabecalho invalido !");
                 }
 
                 arquivador.setPonteiro(ptf);
 
-                pt_inicios.add(arquivador.getPonteiro());
+                pt_inicios.adicionar(arquivador.getPonteiro());
                 arquivador.set_u64((byte) 0);
 
-                pt_terminos.add(arquivador.getPonteiro());
+                pt_terminos.adicionar(arquivador.getPonteiro());
                 arquivador.set_u64((byte) 0);
 
             }
@@ -105,13 +106,13 @@ public class AI {
                 }
 
 
-                inicios.add(arquivador.getPonteiro());
+                inicios.adicionar(arquivador.getPonteiro());
                 IM.salvar_bytes(imagem, arquivador);
-                terminos.add(arquivador.getPonteiro());
+                terminos.adicionar(arquivador.getPonteiro());
 
             }
 
-            for (int a=0;a<arquivos.size();a++) {
+            for (int a=0;a<arquivos.getQuantidade();a++) {
 
                 arquivador.setPonteiro(pt_inicios.get(a));
                 arquivador.set_u64(inicios.get(a));
@@ -136,14 +137,14 @@ public class AI {
     }
 
     private String mArquivo;
-    private ArrayList<ImagemDoAlbum> mImagens;
+    private Lista<ImagemDoAlbum> mImagens;
 
     public AI() {
         mArquivo = "";
-        mImagens = new ArrayList<ImagemDoAlbum>();
+        mImagens = new Lista<ImagemDoAlbum>();
     }
 
-    public ArrayList<ImagemDoAlbum> getImagens() {
+    public Lista<ImagemDoAlbum> getImagens() {
         return mImagens;
     }
 
@@ -151,7 +152,7 @@ public class AI {
 
         mArquivo = eArquivo;
 
-        mImagens.clear();
+        mImagens.limpar();
 
         try {
 
@@ -180,7 +181,7 @@ public class AI {
                 long inicio = arquivador.get_u64();
                 long fim = arquivador.get_u64();
 
-                mImagens.add(new ImagemDoAlbum(mArquivo,item_nome, inicio, fim));
+                mImagens.adicionar(new ImagemDoAlbum(mArquivo,item_nome, inicio, fim));
 
                 arquivador.setPonteiro(pt + 100 + 8 + 8);
             }

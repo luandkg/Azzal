@@ -25,7 +25,7 @@ public class AppVideo extends Cena {
 
     Clicavel mClicavel;
 
-     String eArquivoAbrir = "/home/luan/Vídeos/vi/ecossistema_02.vi";
+     String eArquivoAbrir = "/home/luan/Vídeos/vi/ecossistema_v2.vi";
     // String eArquivoAbrir = "/home/luan/Vídeos/vi/alunos_v2.vi";
    // String eArquivoAbrir = "/home/luan/Imagens/Arkazz/build/temperatura.vi";
 
@@ -68,7 +68,7 @@ public class AppVideo extends Cena {
 
         mTotal = mVideo.getQuadrosTotal();
 
-        System.out.println("\t - Arenas  = " + mVideo.getArenas().size());
+        System.out.println("\t - Arenas  = " + mVideo.getArenas().getQuantidade());
         System.out.println("\t - Quadros = " + mTotal);
         System.out.println("\t - Duracao = " + mVideo.getSegundosTotal() + " s");
         System.out.println("\t - Duracao = " + mVideo.getTempoTotalFormatado());

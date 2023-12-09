@@ -301,8 +301,15 @@ public class fmt {
 
     // PRINT
 
+    public static void print() {
+        System.out.println("");
+    }
+
     public static void print(String texto) {
         System.out.println(texto);
+    }
+    public static void print(int inteiro) {
+        System.out.println(inteiro);
     }
 
     public static void print(String texto, Object o1) {
@@ -571,6 +578,18 @@ public class fmt {
 
         return s;
     }
+
+    public static String espacar_antes(long n, int t) {
+
+        String s = String.valueOf(n);
+
+        while (s.length() < t) {
+            s = " " + s;
+        }
+
+        return s;
+    }
+
 
     public static String espacar_depois(String s, int t) {
 

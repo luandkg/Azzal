@@ -10,6 +10,7 @@ import libs.azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.CadaObjeto;
+import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefString;
 import libs.luan.fmt;
@@ -145,7 +146,7 @@ public class ViagemCompleta {
 
         Arkazz eArkazz = new Arkazz();
 
-        ArrayList<Local> cidades_locais = eArkazz.getCidades();
+        Lista<Local> cidades_locais = eArkazz.getCidades();
 
         Opcional<Local> mapa_pos_anterior = new Opcional<>();
 

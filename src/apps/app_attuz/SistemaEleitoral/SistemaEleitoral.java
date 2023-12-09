@@ -9,6 +9,7 @@ import libs.luan.Indexado;
 import libs.luan.Indexamento;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 import libs.materializedview.HiperMaterializedView10K;
 import libs.materializedview.MaterializedView10K;
 
@@ -20,7 +21,7 @@ public class SistemaEleitoral {
 
         Arkazz eArkazz = new Arkazz();
 
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
         int isAdulto = 18;
         int isObrigatorio = 60;
@@ -137,7 +138,7 @@ public class SistemaEleitoral {
         eleicao.embaralhar();
 
         Arkazz eArkazz = new Arkazz();
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
 
         int isAdulto = 18;
@@ -420,7 +421,7 @@ public class SistemaEleitoral {
     public static void assistindo_debate(String local_populacao, String cargo_politico, int chance, String canditado) {
 
         Arkazz eArkazz = new Arkazz();
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
 
         int isAdulto = 18;
@@ -522,7 +523,7 @@ public class SistemaEleitoral {
     public static void indecisao(String local_populacao, Eleicao eleicao) {
 
         Arkazz eArkazz = new Arkazz();
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
 
         int isAdulto = 18;
@@ -627,7 +628,7 @@ public class SistemaEleitoral {
     public static void limpar_pensamento_politico(String local_populacao) {
 
         Arkazz eArkazz = new Arkazz();
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
 
         int isAdulto = 18;
@@ -677,7 +678,7 @@ public class SistemaEleitoral {
     public static void visualizar_pensamento_politico(String local_populacao, Eleicao eleicao) {
 
         Arkazz eArkazz = new Arkazz();
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
 
         int isAdulto = 18;

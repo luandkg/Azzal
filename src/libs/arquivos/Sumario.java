@@ -41,7 +41,7 @@ public class Sumario {
                 String valor_primeira_letra = String.valueOf(valor.charAt(0));
 
                 if (letra.contentEquals(valor_primeira_letra)) {
-                    objetos_itens.getObjetos().add(o);
+                    objetos_itens.getObjetos().adicionar(o);
                 }
             }
 

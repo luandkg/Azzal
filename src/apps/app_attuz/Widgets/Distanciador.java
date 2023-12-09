@@ -8,6 +8,7 @@ import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.luan.Lista;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
@@ -79,7 +80,7 @@ public class Distanciador {
         }
     }
 
-    public void draw(Renderizador render, ArrayList<Local> mLocais) {
+    public void draw(Renderizador render, Lista<Local> mLocais) {
 
         pequeno.setRenderizador(render);
 

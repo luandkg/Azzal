@@ -70,11 +70,96 @@ public class Aleatorio {
 
         if (opcoes.size() == 0) {
             ret = "";
-        } else if (opcoes.size() == 0) {
+        } else if (opcoes.size() == 1) {
             ret = opcoes.get(0);
         } else {
             int sorteado = sorte.nextInt(opcoes.size());
             ret = opcoes.get(sorteado);
+        }
+
+
+        return ret;
+    }
+
+    public static <T> T escolha_um(Lista<T> opcoes) {
+
+        T ret = null;
+
+        Random sorte = new Random();
+
+        if (opcoes.getQuantidade() == 0) {
+            ret = null;
+        } else if (opcoes.getQuantidade() == 1) {
+            ret = opcoes.get(0);
+        } else {
+            int sorteado = sorte.nextInt(opcoes.getQuantidade());
+            ret = opcoes.get(sorteado);
+        }
+
+
+        return ret;
+    }
+
+    public static <T> T escolha_um(Vetor<T> opcoes) {
+
+        T ret = null;
+
+        Random sorte = new Random();
+
+        if (opcoes.getCapacidade() == 0) {
+            ret = null;
+        } else if (opcoes.getCapacidade() == 1) {
+            ret = opcoes.get(0);
+        } else {
+            int sorteado = sorte.nextInt(opcoes.getCapacidade());
+            ret = opcoes.get(sorteado);
+        }
+
+
+        return ret;
+    }
+
+
+    public static <T> Lista<T> criarCaixaDeEscolhaUnica(Vetor<T> opcoes) {
+        Lista<T> candidatos = new Lista<T>();
+
+        for (T item : opcoes) {
+            candidatos.adicionar(item);
+        }
+
+        return candidatos;
+
+    }
+
+
+    public static <T> Lista<T> criarCaixaDeEscolhaUnica(Lista<T> opcoes) {
+        Lista<T> candidatos = new Lista<T>();
+
+        for (T item : opcoes) {
+            candidatos.adicionar(item);
+        }
+
+        return candidatos;
+
+    }
+
+
+    public static <T> T escolha_um_sem_repetir(Lista<T> candidatos) {
+
+
+        T ret = null;
+
+        Random sorte = new Random();
+
+        if (candidatos.getQuantidade() == 0) {
+            ret = null;
+        } else if (candidatos.getQuantidade() == 1) {
+            ret = candidatos.get(0);
+            candidatos.remover_indice(0);
+        } else {
+            int sorteado = sorte.nextInt(candidatos.getQuantidade());
+            ret = candidatos.get(sorteado);
+            candidatos.remover_indice(sorteado);
         }
 
 

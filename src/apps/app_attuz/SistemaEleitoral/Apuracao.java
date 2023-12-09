@@ -6,6 +6,7 @@ import libs.luan.Indexado;
 import libs.luan.Indexamento;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 import libs.materializedview.HiperMaterializedView10K;
 import libs.materializedview.MaterializedView;
 import libs.materializedview.MaterializedView10K;
@@ -57,7 +58,7 @@ public class Apuracao {
         System.out.println("Realizando contagem de cidadão obrigados a votar");
         Arkazz eArkazz = new Arkazz();
 
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
         int isAdulto = 18;
         int isObrigatorio = 60;

@@ -29,7 +29,7 @@ public class GuiaDeViagem {
             viagemCorrente.abrir(eArquivo);
             DKGObjeto vaCorrente = viagemCorrente.unicoObjeto("Viagem");
 
-            va.getObjetos().addAll(vaCorrente.getObjetos());
+            va.getObjetos().adicionar_varios(vaCorrente.getObjetos());
         }
 
 

@@ -1,11 +1,18 @@
 package apps.app_attuz.Ferramentas;
 
+import libs.luan.Embaralhar;
 import libs.azzal.geometria.Linha;
 import libs.azzal.geometria.Ponto;
+import libs.luan.Lista;
+import libs.luan.Opcional;
 
 import java.util.ArrayList;
 
 public class Espaco2D {
+
+    public static int distancia_entre_pontos(Ponto p1, Ponto p2) {
+        return distancia_entre_pontos(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    }
 
     public static int distancia_entre_pontos(int x1, int y1, int x2, int y2) {
         return (int) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
@@ -22,6 +29,10 @@ public class Espaco2D {
         }
 
         return ret;
+    }
+
+    public static ArrayList<Ponto> getPontosDeLinha(Ponto origem, Ponto destino) {
+        return getPontosDeLinha(new Linha(origem.getX(), origem.getY(), destino.getX(), destino.getY()));
     }
 
     public static ArrayList<Ponto> getPontosDeLinha(int eX, int eY, int eX2, int eY2) {
@@ -148,5 +159,62 @@ public class Espaco2D {
         return pontos;
 
     }
+
+
+    public static Opcional<Ponto> GET_MAIS_PROXIMO(Ponto ir_comecar, Lista<Ponto> possiveis) {
+
+        boolean existe_proximo = false;
+
+        int distancia = 0;
+        Ponto proximo = null;
+
+        for (Ponto prox : possiveis) {
+            if (prox.isDiferente(ir_comecar)) {
+
+                if (!existe_proximo) {
+                    distancia = Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY());
+                    existe_proximo = true;
+                    proximo = prox;
+                } else {
+                    if (Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY()) < distancia) {
+                        distancia = Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY());
+                        proximo = prox;
+                    }
+                }
+
+            }
+        }
+
+        if (existe_proximo) {
+            return Opcional.OK(proximo);
+        }
+
+        return Opcional.CANCEL();
+    }
+
+    public static Opcional<Ponto> GET_UM_DOS_MAIS_PROXIMO(Ponto ir_comecar, int max_distancia, Lista<Ponto> possiveis) {
+
+
+        Lista<Ponto> candidatos = new Lista<Ponto>();
+
+        for (Ponto prox : possiveis) {
+            if (prox.isDiferente(ir_comecar)) {
+
+                int distancia = Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY());
+                if (distancia <= max_distancia) {
+                    candidatos.adicionar(prox);
+                }
+
+            }
+        }
+
+        if (candidatos.getQuantidade() > 0) {
+            Embaralhar.emabaralhe(candidatos);
+            return Opcional.OK(candidatos.get(0));
+        }
+
+        return Opcional.CANCEL();
+    }
+
 
 }

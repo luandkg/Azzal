@@ -6,6 +6,7 @@ import apps.app_attuz.Ferramentas.Local;
 import libs.azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 import libs.tronarko.utils.ContadorTronarko;
 
 
@@ -42,7 +43,7 @@ public class Viagem {
         return mPercurso;
     }
 
-    public void viajar(Viajante EU, ArrayList<Local> mLocais) {
+    public void viajar(Viajante EU, Lista<Local> mLocais) {
 
         mTempo += 1;
 
@@ -152,7 +153,7 @@ public class Viagem {
 
     }
 
-    public void marcarCidades(String eArquivo, ArrayList<Local> mLocais) {
+    public void marcarCidades(String eArquivo, Lista<Local> mLocais) {
 
         System.out.println("------- ABRINDO -------");
 
@@ -229,7 +230,7 @@ public class Viagem {
 
                 ePonto.identifique("Tozte", tg.getTozteComArkoIttas());
 
-                sViagem.getObjetos().add(ePonto);
+                sViagem.getObjetos().adicionar(ePonto);
                 acampamento += 1;
 
             }
@@ -276,7 +277,7 @@ public class Viagem {
             System.out.println("libs.Tronarko :: " + tozte + " -->> " + getTronarko(tozte));
 
             if (getTronarko(tozte).contentEquals(qual)) {
-                v2.getObjetos().add(ePonto);
+                v2.getObjetos().adicionar(ePonto);
 
                 int ittas = Integer.parseInt(getIttas(tozte));
                 int arkos = Integer.parseInt(getArko(tozte));

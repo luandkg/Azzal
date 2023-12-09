@@ -1,5 +1,7 @@
 package libs.arquivos.binario;
 
+import libs.luan.Lista;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -206,6 +208,17 @@ public class Arquivador {
     }
 
     public void set_u8_array(ArrayList<Byte> dados) {
+        try {
+            for (Byte b : dados) {
+                mFile.writeByte((byte) b);
+            }
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    public void set_u8_lista(Lista<Byte> dados) {
         try {
             for (Byte b : dados) {
                 mFile.writeByte((byte) b);

@@ -1,14 +1,15 @@
 package apps.app_attuz.Servicos;
 
 import apps.app_attuz.Ferramentas.Local;
+import libs.luan.Lista;
 
 import java.util.ArrayList;
 
 public class Oceanografia {
 
-    private ArrayList<Local> mMares;
+    private Lista<Local> mMares;
 
-    public Oceanografia(ArrayList<Local> eMares) {
+    public Oceanografia(Lista<Local> eMares) {
         mMares = eMares;
     }
 

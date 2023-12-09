@@ -1,6 +1,10 @@
 package libs.tempo;
 
+import libs.luan.Lista;
+import libs.luan.Strings;
+
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -700,5 +704,101 @@ public class Calendario {
 
         return ret;
     }
+
+
+    public static Lista<Data> listar_datas_entre(Data comecar, Data terminar) {
+
+        Lista<Data> ls = new Lista<Data>();
+
+
+        // System.out.println(comecar.getTempoLegivel());
+        // System.out.println(terminar.getTempoLegivel());
+
+
+        LocalDate data_comecar = LocalDate.parse(Strings.numero_zerado(comecar.getAno()) + "-" + Strings.numero_zerado(comecar.getMes()) + "-" + Strings.numero_zerado(comecar.getDia()));
+        LocalDate data_terminar = LocalDate.parse(Strings.numero_zerado(terminar.getAno()) + "-" + Strings.numero_zerado(terminar.getMes()) + "-" + Strings.numero_zerado(terminar.getDia()));
+
+        while (!data_comecar.isAfter(data_terminar)) {
+
+            int dia = data_comecar.getDayOfMonth();
+            int mes = data_comecar.getMonthValue();
+            int ano = data_comecar.getYear();
+            int dia_da_semana = data_comecar.getDayOfWeek().getValue();
+
+            DiaSemanal ds = DiaSemanal.Domingo;
+
+            if (dia_da_semana == 0) {
+                ds = DiaSemanal.Domingo;
+            } else if (dia_da_semana == 1) {
+                ds = DiaSemanal.Segunda;
+            } else if (dia_da_semana == 2) {
+                ds = DiaSemanal.Terca;
+            } else if (dia_da_semana == 3) {
+                ds = DiaSemanal.Quarta;
+            } else if (dia_da_semana == 4) {
+                ds = DiaSemanal.Quinta;
+            } else if (dia_da_semana == 5) {
+                ds = DiaSemanal.Sexta;
+            } else if (dia_da_semana == 6) {
+                ds = DiaSemanal.Sabado;
+
+            }
+
+            ls.adicionar(new Data(ano, mes, dia, ds));
+
+            data_comecar = data_comecar.plusDays(1);
+        }
+
+
+        return ls;
+    }
+
+
+    public static int contar_ate(Lista<Data> datas, Data proc) {
+
+        int v = 0;
+
+        for (Data d : datas) {
+            if (d.isIgual(proc)) {
+                break;
+            }
+
+
+            v += 1;
+        }
+
+        return v;
+    }
+
+
+    public static Lista<Data> toDatas(Lista<String> s_datas) {
+        Lista<Data> ret = new Lista<Data>();
+
+        for (String s_data : s_datas) {
+            ret.adicionar(Data.toData(s_data));
+        }
+
+        return ret;
+    }
+
+    public static boolean data_contem(Lista<Data> datas, Data data_proc) {
+        boolean ret = false;
+
+        for (Data data_corrente : datas) {
+            if (data_corrente.isIgual(data_proc)) {
+                ret = true;
+                break;
+            }
+        }
+
+        return ret;
+    }
+
+    public static void adicionar_unico(Lista<Data> datas, Data data_adicionar) {
+        if (!data_contem(datas, data_adicionar)) {
+            datas.adicionar(data_adicionar.getCopia());
+        }
+    }
+
 }
 

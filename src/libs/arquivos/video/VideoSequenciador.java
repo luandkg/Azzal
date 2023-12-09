@@ -1,12 +1,12 @@
 package libs.arquivos.video;
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 import libs.luan.fmt;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class VideoSequenciador {
 
@@ -20,10 +20,10 @@ public class VideoSequenciador {
         Arquivador.remover(eArquivo);
 
 
-        ArrayList<String> mArquivos = new ArrayList<String>();
+        Lista<String> mArquivos = new Lista<String>();
 
         for (int c = inicio; c < fim; c++) {
-            mArquivos.add(eRecurso + String.valueOf(c) + eSufixo);
+            mArquivos.adicionar(eRecurso + String.valueOf(c) + eSufixo);
         }
 
 

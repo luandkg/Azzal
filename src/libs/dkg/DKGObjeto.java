@@ -1,5 +1,6 @@
 package libs.dkg;
 
+import libs.luan.Lista;
 import libs.luan.Opcional;
 
 import java.util.ArrayList;
@@ -7,14 +8,14 @@ import java.util.ArrayList;
 public class DKGObjeto {
 
     private String mNome;
-    private ArrayList<DKGAtributo> mAtributos;
-    private ArrayList<DKGObjeto> mObjetos;
+    private Lista<DKGAtributo> mAtributos;
+    private Lista<DKGObjeto> mObjetos;
 
     public DKGObjeto(String eNome) {
         mNome = eNome;
 
-        mAtributos = new ArrayList<DKGAtributo>();
-        mObjetos = new ArrayList<DKGObjeto>();
+        mAtributos = new Lista<DKGAtributo>();
+        mObjetos = new Lista<DKGObjeto>();
 
     }
 
@@ -64,7 +65,7 @@ public class DKGObjeto {
 
         if (enc == false) {
             ret = new DKGAtributo(eNome, "");
-            mAtributos.add(ret);
+            mAtributos.adicionar(ret);
         }
 
         return ret;
@@ -127,34 +128,34 @@ public class DKGObjeto {
 
         if (enc == false) {
             ret = new DKGAtributo(eNome, eValor);
-            mAtributos.add(ret);
+            mAtributos.adicionar(ret);
         }
 
         return ret;
     }
 
-    public ArrayList<DKGAtributo> getAtributos() {
+    public Lista<DKGAtributo> getAtributos() {
         return mAtributos;
     }
 
 
     // OBJETO
 
-    public ArrayList<DKGObjeto> getObjetos() {
+    public Lista<DKGObjeto> getObjetos() {
         return mObjetos;
     }
 
     public DKGObjeto criarObjeto(String eNome) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mObjetos.add(ret);
+        mObjetos.adicionar(ret);
 
         return ret;
     }
 
     public DKGObjeto adicionarObjeto(DKGObjeto eObjeto) {
 
-        mObjetos.add(eObjeto);
+        mObjetos.adicionar(eObjeto);
 
         return eObjeto;
     }
@@ -162,7 +163,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, String v1) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mObjetos.add(ret);
+        mObjetos.adicionar(ret);
 
         ret.identifique(a1, v1);
 
@@ -172,7 +173,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, String v1, String a2, String v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mObjetos.add(ret);
+        mObjetos.adicionar(ret);
 
         ret.identifique(a1, v1);
         ret.identifique(a2, v2);
@@ -183,7 +184,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, int v1, String a2, int v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mObjetos.add(ret);
+        mObjetos.adicionar(ret);
 
         ret.identifique(a1, v1);
         ret.identifique(a2, v2);
@@ -194,7 +195,7 @@ public class DKGObjeto {
     public DKGObjeto criarObjeto(String eNome, String a1, double v1, String a2, double v2) {
 
         DKGObjeto ret = new DKGObjeto(eNome);
-        mObjetos.add(ret);
+        mObjetos.adicionar(ret);
 
         ret.identifique(a1, v1);
         ret.identifique(a2, v2);
@@ -220,7 +221,7 @@ public class DKGObjeto {
 
         if (enc == false) {
             ret = new DKGObjeto(eNome);
-            mObjetos.add(ret);
+            mObjetos.adicionar(ret);
         }
 
         return ret;
@@ -231,7 +232,7 @@ public class DKGObjeto {
         for (DKGObjeto mDKGObjeto : mObjetos) {
 
             if (mDKGObjeto == eDKGObjeto) {
-                mObjetos.remove(eDKGObjeto);
+                mObjetos.remover(eDKGObjeto);
                 break;
             }
 
@@ -244,7 +245,7 @@ public class DKGObjeto {
         for (DKGObjeto mDKGObjeto : mObjetos) {
 
             if (mDKGObjeto.getNome().contentEquals(eNome)) {
-                mObjetos.remove(mDKGObjeto);
+                mObjetos.remover(mDKGObjeto);
                 break;
             }
 
@@ -277,15 +278,15 @@ public class DKGObjeto {
 
     public void limpar() {
 
-        getAtributos().clear();
-        getObjetos().clear();
+        getAtributos().limpar();
+        getObjetos().limpar();
 
     }
 
     public String toDocumento() {
 
         DKG escritor = new DKG();
-        escritor.getObjetos().add(this);
+        escritor.getObjetos().adicionar(this);
 
         return escritor.toDocumento();
     }
@@ -293,7 +294,7 @@ public class DKGObjeto {
     public String toString() {
 
         DKG escritor = new DKG();
-        escritor.getObjetos().add(this);
+        escritor.getObjetos().adicionar(this);
 
         return escritor.toDocumento();
     }
@@ -319,7 +320,7 @@ public class DKGObjeto {
     public void adicionarObjetosDe(DKGObjeto eEmissor) {
 
         for (DKGObjeto passando_objeto : eEmissor.getObjetos()) {
-            mObjetos.add(passando_objeto);
+            mObjetos.adicionar(passando_objeto);
         }
 
     }
@@ -341,7 +342,7 @@ public class DKGObjeto {
 
             if (!existe) {
                 DKGAtributo atributo = new DKGAtributo(copiando_atributo.getNome(), copiando_atributo.getValor());
-                mAtributos.add(atributo);
+                mAtributos.adicionar(atributo);
             }
         }
 

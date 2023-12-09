@@ -4,6 +4,7 @@ import apps.app_attuz.Ferramentas.Local;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import apps.app_letrum.Fonte;
+import libs.luan.Lista;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class ListaDeCidades {
         }
     }
 
-    public void onDraw(Renderizador g, ArrayList<Local> mLocais) {
+    public void onDraw(Renderizador g, Lista<Local> mLocais) {
 
         int ex = 40;
         int ey = 40;

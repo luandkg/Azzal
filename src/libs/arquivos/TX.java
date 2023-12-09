@@ -2,6 +2,7 @@ package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
+import libs.luan.Lista;
 
 import java.io.File;
 import java.io.IOException;
@@ -138,6 +139,47 @@ public class TX {
         }
 
         bytes.add((byte) 0);
+
+        return bytes;
+
+    }
+
+    public static Lista<Byte> toListaBytes(String eConteudo) {
+
+        TX eTX = new TX();
+
+        int i = 0;
+        int o = eConteudo.length();
+
+        Lista<Byte> bytes = new Lista<Byte>();
+
+
+        //System.out.println("Texto TX - Iniciado");
+
+        while (i < o) {
+            String letra = String.valueOf(eConteudo.charAt(i));
+
+            int indice = eTX.getIndice(letra);
+
+            if (indice >= 0) {
+
+                if (indice < 255) {
+                    bytes.adicionar((byte) indice);
+                } else {
+
+                    int proximo = (indice - 255) + 1;
+
+                    bytes.adicionar((byte) 255);
+                    bytes.adicionar((byte) proximo);
+
+                }
+
+            }
+
+            i += 1;
+        }
+
+        bytes.adicionar((byte) 0);
 
         return bytes;
 

@@ -6,6 +6,7 @@ import libs.luan.Indexado;
 import libs.luan.Indexamento;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 import libs.materializedview.HiperMaterializedView10K;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Auditoria {
 
         Arkazz eArkazz = new Arkazz();
 
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
         ArrayList<Urna> urnas = new ArrayList<Urna>();
 
         ArrayList<CargoApuracao> cargos = new ArrayList<CargoApuracao>();

@@ -4,8 +4,7 @@ package libs.dkg.IO;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.DKGAtributo;
-
-import java.util.ArrayList;
+import libs.luan.Lista;
 
 public class ParserDKG {
 
@@ -16,18 +15,18 @@ public class ParserDKG {
     private int mIndex;
     private int mMaximo;
 
-    private ArrayList<String> mErros;
+    private Lista<String> mErros;
 
     public ParserDKG() {
 
         mDocumento = "";
         mIndex = 0;
         mMaximo = 0;
-        mErros = new ArrayList<String>();
+        mErros = new Lista<String>();
 
     }
 
-    public ArrayList<String> getErros() {
+    public Lista<String> getErros() {
         return mErros;
     }
 
@@ -37,9 +36,9 @@ public class ParserDKG {
 
     public void parse(String eDocumento, DKG eEmpacotador) {
 
-        mErros.clear();
+        mErros.limpar();
 
-        eEmpacotador.getObjetos().clear();
+        eEmpacotador.getObjetos().limpar();
 
         // mPacotes = new ArrayList<Pacote>();
 
@@ -160,12 +159,12 @@ public class ParserDKG {
         return ret;
     }
 
-    private void parserObjeto(ArrayList<DKGObjeto> lsPacotes) {
+    private void parserObjeto(Lista<DKGObjeto> lsPacotes) {
 
         String Palavra = Textum.decodifica(esperarPalavra());
 
         DKGObjeto NovoPacote = new DKGObjeto(Palavra);
-        lsPacotes.add(NovoPacote);
+        lsPacotes.adicionar(NovoPacote);
 
         boolean esperar_dp1 = EsperarPor(":");
         boolean esperar_dp2 = EsperarPor(":");
@@ -176,7 +175,7 @@ public class ParserDKG {
             dentroObjeto(NovoPacote);
 
         } else {
-            mErros.add("ERRO : Era esperado :: { ");
+            mErros.adicionar("ERRO : Era esperado :: { ");
 
         }
 
@@ -206,7 +205,7 @@ public class ParserDKG {
                 break;
 
             } else {
-                mErros.add(mIndex + " : " + l);
+                mErros.adicionar(mIndex + " : " + l);
 
             }
 
@@ -276,12 +275,12 @@ public class ParserDKG {
         return ret;
     }
 
-    private void parserAtributo(ArrayList<DKGAtributo> ls_Identificadores) {
+    private void parserAtributo(Lista<DKGAtributo> ls_Identificadores) {
 
         String NomeIdentificador = Textum.decodifica(esperarPalavra());
 
         DKGAtributo IDC = new DKGAtributo(NomeIdentificador);
-        ls_Identificadores.add(IDC);
+        ls_Identificadores.adicionar(IDC);
 
         if (EsperarPor("=")) {
             // System.out.println("Achou =");

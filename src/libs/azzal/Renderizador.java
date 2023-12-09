@@ -457,11 +457,11 @@ public class Renderizador {
 
         int iCor = eCor.getValor();
 
-        for (int mX = eRetangulo.getX(); mX < mX2; mX++) {
+        for (int mX = eRetangulo.getX(); mX <= mX2; mX++) {
 
             int mY2 = eRetangulo.getY() + eRetangulo.getAltura();
 
-            for (int mY = eRetangulo.getY(); mY < mY2; mY++) {
+            for (int mY = eRetangulo.getY(); mY <= mY2; mY++) {
                 drawPixelBruto(mX, mY, iCor);
             }
 
@@ -588,6 +588,11 @@ public class Renderizador {
     public void drawCirculoCentralizado_Pintado(int eX, int eY, int eRaio, Cor eCor) {
         drawCirculo_Pintado(eX - eRaio, eY - eRaio, eRaio, eCor);
     }
+
+    public void drawCirculoCentralizado_Pintado(Ponto ponto, int eRaio, Cor eCor) {
+        drawCirculo_Pintado(ponto.getX() - eRaio, ponto.getY() - eRaio, eRaio, eCor);
+    }
+
     public void drawCirculo_Pintado(Circulo eCirculo, Cor eCor) {
 
         int x = eCirculo.getRaio();

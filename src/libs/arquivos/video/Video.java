@@ -4,10 +4,10 @@ package libs.arquivos.video;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
 import libs.arquivos.IM;
+import libs.luan.Lista;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Video {
 
@@ -384,18 +384,18 @@ public class Video {
     }
 
 
-    public ArrayList<Arena> getArenas() {
+    public Lista<Arena> getArenas() {
 
-        ArrayList<Arena> mArenas = new ArrayList<Arena>();
+        Lista<Arena> mArenas = new Lista<Arena>();
 
-        mArenas.add(mArenaInicial);
+        mArenas.adicionar(mArenaInicial);
 
         Arena eQuadroPercursor = mArenaInicial;
 
 
         while (eQuadroPercursor.getProximo() != 0) {
             eQuadroPercursor = new Arena(mArquivo, eQuadroPercursor.getProximo());
-            mArenas.add(eQuadroPercursor);
+            mArenas.adicionar(eQuadroPercursor);
         }
 
         return mArenas;

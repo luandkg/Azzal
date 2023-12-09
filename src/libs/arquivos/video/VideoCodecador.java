@@ -3,15 +3,14 @@ package libs.arquivos.video;
 
 import libs.arquivos.binario.Arquivador;
 import libs.imagem.Imagem;
-import libs.luan.OrdenadorAlfaNum;
+import libs.luan.Lista;
+import libs.luan.Ordenador;
 import libs.luan.fmt;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class VideoCodecador {
 
@@ -44,15 +43,15 @@ public class VideoCodecador {
         File folder = new File(eLocal);
         File[] listOfFiles = folder.listFiles();
 
-        ArrayList<String> mArquivos = new ArrayList<String>();
+        Lista<String> mArquivos = new Lista<String>();
 
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                mArquivos.add(listOfFiles[i].getAbsolutePath());
+                mArquivos.adicionar(listOfFiles[i].getAbsolutePath());
             }
         }
 
-        if (mArquivos.size() > 2) {
+        if (mArquivos.getQuantidade() > 2) {
 
             BufferedImage mIMG_01 = null;
             BufferedImage mIMG_02 = null;
@@ -185,16 +184,16 @@ public class VideoCodecador {
         System.out.println("");
 
 
-        String eLocal = "/home/luan/IdeaProjects/Azzal/res/ecossistema";
+        String eLocal = "/home/luan/Imagens/ecossistema_01";
 
         File folder = new File(eLocal);
         File[] listOfFiles = folder.listFiles();
 
-        ArrayList<String> mArquivos = new ArrayList<String>();
+        Lista<String> mArquivos = new Lista<String>();
 
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                mArquivos.add(listOfFiles[i].getAbsolutePath());
+                mArquivos.adicionar(listOfFiles[i].getAbsolutePath());
             }
         }
 
@@ -205,7 +204,8 @@ public class VideoCodecador {
         Temporizador mCrono = new Temporizador();
         mCrono.marqueInicio();
 
-        Collections.sort(mArquivos, new OrdenadorAlfaNum());
+        Ordenador.ordenar_lista_crescente(mArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
+
 
         System.out.println("\t - ARQUIVO = " + eArquivo);
         System.out.println("");
@@ -287,11 +287,11 @@ public class VideoCodecador {
         File folder = new File(eLocal);
         File[] listOfFiles = folder.listFiles();
 
-        ArrayList<String> mArquivos = new ArrayList<String>();
+        Lista<String> mArquivos = new Lista<String>();
 
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                mArquivos.add(listOfFiles[i].getAbsolutePath());
+                mArquivos.adicionar(listOfFiles[i].getAbsolutePath());
             }
         }
 
@@ -302,7 +302,7 @@ public class VideoCodecador {
         Temporizador mCrono = new Temporizador();
         mCrono.marqueInicio();
 
-        Collections.sort(mArquivos, new OrdenadorAlfaNum());
+        Ordenador.ordenar_lista_crescente(mArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         System.out.println("\t - ARQUIVO = video.vi");
         System.out.println("");
@@ -476,7 +476,7 @@ public class VideoCodecador {
 
     }
 
-    public static void criar(String eArquivo, ArrayList<String> eArquivos) {
+    public static void criar(String eArquivo, Lista<String> eArquivos) {
 
         System.out.println("");
         System.out.println("------------------------- VIDEO_CODECADOR --------------------------");
@@ -507,7 +507,7 @@ public class VideoCodecador {
 
         boolean mCarregado = true;
 
-        Collections.sort(eArquivos, new OrdenadorAlfaNum());
+        Ordenador.ordenar_lista_crescente(eArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         for (String eArquivoParaFrame : eArquivos) {
 

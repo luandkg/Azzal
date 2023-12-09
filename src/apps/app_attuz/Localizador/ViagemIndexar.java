@@ -22,16 +22,16 @@ public class ViagemIndexar {
         DKG t2 = new DKG();
         t2.abrir(eArquivoViagem);
 
-        System.out.println("Itens :: " + t2.unicoObjeto("Viagem").getObjetos().size());
+        System.out.println("Itens :: " + t2.unicoObjeto("Viagem").getObjetos().getQuantidade());
 
         StringTronarko st = new StringTronarko();
 
-        if (t2.unicoObjeto("Viagem").getObjetos().size() > 0) {
+        if (t2.unicoObjeto("Viagem").getObjetos().getQuantidade() > 0) {
 
 
             int primeiro = Integer.parseInt(st.getTronarko(t2.unicoObjeto("Viagem").getObjetos().get(0).identifique("Tozte").getValor()));
 
-            int ultimo_indice = t2.unicoObjeto("Viagem").getObjetos().size() - 1;
+            int ultimo_indice = t2.unicoObjeto("Viagem").getObjetos().getQuantidade() - 1;
 
             int ultimo_tronarko = Integer.parseInt(st.getTronarko(t2.unicoObjeto("Viagem").getObjetos().get(ultimo_indice).identifique("Tozte").getValor()));
             int ultimo_hiperarko = Integer.parseInt(st.getHiperarko(t2.unicoObjeto("Viagem").getObjetos().get(ultimo_indice).identifique("Tozte").getValor()));
@@ -59,7 +59,7 @@ public class ViagemIndexar {
 
 
                     if (f_tozte.contentEquals(eTozteCorrente.getTexto())) {
-                        va.getObjetos().add(o);
+                        va.getObjetos().adicionar(o);
                     }
 
                 }
@@ -72,7 +72,7 @@ public class ViagemIndexar {
                 int indice = (int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO);
 
                 if (indice >= 0 && tt <= 5) {
-                    System.out.println("Pass -->> (" + indice + " ) " + eTozteCorrente.getTexto() + " :: " + va.getObjetos().size() + " objs -->> " + tt + " kb com :: " + bytes.size());
+                    System.out.println("Pass -->> (" + indice + " ) " + eTozteCorrente.getTexto() + " :: " + va.getObjetos().getQuantidade() + " objs -->> " + tt + " kb com :: " + bytes.size());
                     BZ2.atribuir(eArquivoBZZ, ((int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO)), viagem_aqui.toString());
                 }
 

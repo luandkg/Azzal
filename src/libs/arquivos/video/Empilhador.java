@@ -3,10 +3,10 @@ package libs.arquivos.video;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.IM;
+import libs.luan.Lista;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Empilhador {
 
@@ -203,7 +203,7 @@ public class Empilhador {
 
 
         if (eFrame.getWidth() != mLargura) {
-            throw new IllegalArgumentException("Largura incompativel");
+            throw new IllegalArgumentException("Largura incompativel - " + eFrame.getWidth() + " :: "+mLargura);
         }
 
         if (eFrame.getHeight() != mAltura) {
@@ -701,9 +701,9 @@ public class Empilhador {
 
         int eContagem = 0;
 
-        ArrayList<Arena> mQuadros = new ArrayList<Arena>();
+        Lista<Arena> mQuadros = new Lista<Arena>();
 
-        mQuadros.add(mArenaInicial);
+        mQuadros.adicionar(mArenaInicial);
 
         Arena eQuadroPercursor = mArenaInicial;
 

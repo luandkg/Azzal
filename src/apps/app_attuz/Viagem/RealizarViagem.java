@@ -3,6 +3,7 @@ package apps.app_attuz.Viagem;
 import apps.app_attuz.Localizador.ViagemIndexar;
 import apps.app_attuz.Ferramentas.Local;
 import libs.azzal.utilitarios.Cronometro;
+import libs.luan.Lista;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 
@@ -21,7 +22,7 @@ public class RealizarViagem {
 
     }
 
-    public void viajar(Tronarko eTronarko, Viagem mViagem, Viajante EU, ArrayList<Local> mLocais) {
+    public void viajar(Tronarko eTronarko, Viagem mViagem, Viajante EU, Lista<Local> mLocais) {
 
         mCron.esperar();
         if (mCron.foiEsperado()) {

@@ -1,5 +1,7 @@
 package libs.arquivos;
 
+import libs.luan.Lista;
+import libs.luan.Ordenador;
 import libs.luan.Strings;
 
 import java.io.File;
@@ -11,15 +13,16 @@ public class HQ {
 
         File dir = new File(eImagens);
 
-        ArrayList<String> arquivos = new ArrayList<String>();
+        Lista<String> arquivos = new Lista<String>();
 
         for (File eArquivoImagem : dir.listFiles()) {
             if (eArquivoImagem.getPath().endsWith(".im") || eArquivoImagem.getPath().endsWith(".png") || eArquivoImagem.getPath().endsWith(".jpg") || eArquivoImagem.getPath().endsWith(".jpeg") || eArquivoImagem.getPath().endsWith(".bmp")) {
-                arquivos.add(eArquivoImagem.getPath());
+                arquivos.adicionar(eArquivoImagem.getPath());
             }
         }
 
-        Strings.ordenar(arquivos);
+
+        Ordenador.ordenar_lista_crescente(arquivos,Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         AI.criar(arquivos, eArquivo);
 

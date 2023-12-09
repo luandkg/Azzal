@@ -2,10 +2,7 @@ package apps.app_attuz.SistemaEleitoral;
 
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Ferramentas.Local;
-import libs.luan.Aleatorio;
-import libs.luan.Indexado;
-import libs.luan.Indexamento;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.materializedview.HiperMaterializedView10K;
@@ -41,7 +38,7 @@ public class Votacao {
         eleicao.embaralhar();
         Arkazz eArkazz = new Arkazz();
 
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
         ArrayList<Urna> sessoes_de_votacao = new ArrayList<Urna>();
 
         int HORARIO_COMECAR_ARCO = 3;

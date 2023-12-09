@@ -1,8 +1,7 @@
 package libs.arquivos.video;
 
 import libs.arquivos.binario.Arquivador;
-
-import java.util.ArrayList;
+import libs.luan.Lista;
 
 public class Arena {
 
@@ -30,9 +29,9 @@ public class Arena {
         return mArquivo.get_u64();
     }
 
-    public ArrayList<Quadro> getQuadros() {
+    public Lista<Quadro> getQuadros() {
 
-        ArrayList<Quadro> mQuadros = new ArrayList<Quadro>();
+        Lista<Quadro> mQuadros = new Lista<Quadro>();
 
         int eContador = 0;
 
@@ -41,7 +40,7 @@ public class Arena {
         for (int i = 0; i < 100; i++) {
 
             long eAntes = mArquivo.getPonteiro();
-            mQuadros.add(new Quadro(mArquivo, i, eAntes));
+            mQuadros.adicionar(new Quadro(mArquivo, i, eAntes));
             mArquivo.setPonteiro(eAntes);
 
             long eFramePonteiro = mArquivo.get_u64();

@@ -1,7 +1,5 @@
 package libs.dkg;
 
-import libs.dkg.DKGObjeto;
-
 public class DKGUtils {
 
 

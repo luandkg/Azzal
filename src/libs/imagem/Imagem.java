@@ -35,9 +35,7 @@ public class Imagem {
 
         for (int y = 0; y < altura; y++) {
             for (int x = 0; x < largura; x++) {
-
                 copia.setRGB(x, y, eImagem.getRGB(x, y));
-
             }
         }
 

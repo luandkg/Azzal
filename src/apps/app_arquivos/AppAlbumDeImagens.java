@@ -69,7 +69,7 @@ public class AppAlbumDeImagens extends Cena {
 
         mSelecionado += 1;
 
-        if (mSelecionado >= mAlbumCorrente.getImagens().size()) {
+        if (mSelecionado >= mAlbumCorrente.getImagens().getQuantidade()) {
             mSelecionado = 0;
         }
 
@@ -86,7 +86,7 @@ public class AppAlbumDeImagens extends Cena {
         mSelecionado -= 1;
 
         if (mSelecionado < 0) {
-            mSelecionado = mAlbumCorrente.getImagens().size() - 1;
+            mSelecionado = mAlbumCorrente.getImagens().getQuantidade() - 1;
         }
 
         System.out.println(" -->> " + mAlbumCorrente.getImagens().get(mSelecionado).getNome());

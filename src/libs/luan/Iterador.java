@@ -1,6 +1,8 @@
 package libs.luan;
 
-public class Iterador<T> {
+import java.util.Iterator;
+
+public class Iterador<T> implements Iterable<T> {
 
     private Lista<T> mLista;
     private Vetor<T> mVetor;
@@ -11,6 +13,8 @@ public class Iterador<T> {
     private int mQuantidade;
 
     private int mTipo;
+
+    private Lista.Item mCorrente = null;
 
     public Iterador(Lista<T> eLista) {
 
@@ -47,6 +51,7 @@ public class Iterador<T> {
 
         if (mTipo == 0) {
             mQuantidade = mLista.getQuantidade();
+            mCorrente = mLista._INTERNO_PRIMEIRO();
         } else if (mTipo == 1) {
             mQuantidade = mVetor.getCapacidade();
         }
@@ -74,6 +79,7 @@ public class Iterador<T> {
 
             if (mFinalizado == false) {
                 mIndice += 1;
+                mCorrente=mCorrente.getProximo();
             }
 
             if (mIndice >= mQuantidade) {
@@ -108,7 +114,8 @@ public class Iterador<T> {
         }
 
         if (mTipo == 0) {
-            return mLista.getValor(mIndice);
+            return (T) mCorrente.getValor();
+            //   return mLista.getValor(mIndice);
         } else if (mTipo == 1) {
             return mVetor.get(mIndice);
         }
@@ -149,7 +156,7 @@ public class Iterador<T> {
         } else {
 
 
-            if ((mIndice + 1) < mQuantidade) {
+            if ((mIndice) < mQuantidade) {
                 return true;
             } else {
                 return false;
@@ -239,5 +246,29 @@ public class Iterador<T> {
 
         }
 
+    }
+
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+
+            @Override
+            public boolean hasNext() {
+                return temDepois();
+            }
+
+            @Override
+            public T next() {
+                T objeto = getValor();
+                proximo();
+                return objeto;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException("no changes allowed");
+            }
+        };
     }
 }

@@ -1,16 +1,13 @@
 package libs.dkg;
 
 
-import libs.luan.Opcional;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import libs.luan.*;
+import libs.tempo.Data;
 
 public class DKGFeatures {
 
     // FEATURE 22.10.05 - renomear_objetos_iguais_sequencialmente
-    public static void renomear_objetos_iguais_sequencialmente(ArrayList<DKGObjetoOuAtributo> lista) {
+    public static void renomear_objetos_iguais_sequencialmente(Lista<DKGObjetoOuAtributo> lista) {
 
         String sPrimeiro = "";
         boolean isPrimeiro = true;
@@ -75,43 +72,58 @@ public class DKGFeatures {
 
 
     // FEATURE 22.10.12 - ordendar_objetos_texto
-    public static ArrayList<DKGObjeto> ordenar_objetos_texto(ArrayList<DKGObjeto> objetos, String atributo) {
-
-        Collections.sort(objetos, new Comparator() {
-            @Override
-            public int compare(Object objeto_um, Object objeto_dois) {
-
-                DKGObjeto o1 = (DKGObjeto) objeto_um;
-                DKGObjeto o2 = (DKGObjeto) objeto_dois;
-
-                String p1 = o1.identifique(atributo).getValor();
-                String p2 = o2.identifique(atributo).getValor();
-
-                return (p1.compareTo(p2));
-            }
-        });
-
-        return objetos;
-    }
-
-    public static ArrayList<DKGObjeto> ordendar_objetos_texto_reverso(ArrayList<DKGObjeto> objetos, final String atributo) {
-        Collections.sort(objetos, new Comparator() {
-            public int compare(Object objeto_um, Object objeto_dois) {
-                DKGObjeto o1 = (DKGObjeto) objeto_um;
-                DKGObjeto o2 = (DKGObjeto) objeto_dois;
-                String p1 = o1.identifique(atributo).getValor();
-                String p2 = o2.identifique(atributo).getValor();
-                return p1.compareTo(p2) * (-1);
-            }
-        });
-        return objetos;
-    }
-
-
-    public static ArrayList<DKGObjeto> ordenar_objetos_i32(ArrayList<DKGObjeto> objetos, String atributo) {
+    public static Lista<DKGObjeto> ordenar_objetos_texto(Lista<DKGObjeto> objetos, String atributo) {
 
         DKGObjeto temp;
-        int n = objetos.size();
+        int n = objetos.getQuantidade();
+
+        for (int j = 0; j < n - 1; j++) {
+            for (int i = j + 1; i < n; i++) {
+
+                String vj = objetos.get(j).identifique(atributo).getValor();
+                String vi = objetos.get(i).identifique(atributo).getValor();
+                if (Ordenador.ORDENAR_STRING_NAO_SENSITIVA().emOrdem(vj, vi) == Ordenavel.MENOR) {
+                    temp = objetos.get(j);
+                    objetos.set(j, objetos.get(i));
+                    objetos.set(i, temp);
+                }
+
+            }
+        }
+
+        return objetos;
+
+    }
+
+    public static Lista<DKGObjeto> ordendar_objetos_texto_reverso(Lista<DKGObjeto> objetos, final String atributo) {
+
+        DKGObjeto temp;
+        int n = objetos.getQuantidade();
+
+        for (int j = 0; j < n - 1; j++) {
+            for (int i = j + 1; i < n; i++) {
+
+                String vj = objetos.get(j).identifique(atributo).getValor();
+                String vi = objetos.get(i).identifique(atributo).getValor();
+                if (Ordenador.ORDENAR_STRING_NAO_SENSITIVA().emOrdem(vj, vi) == Ordenavel.MAIOR) {
+                    temp = objetos.get(j);
+                    objetos.set(j, objetos.get(i));
+                    objetos.set(i, temp);
+                }
+
+            }
+        }
+
+        return objetos;
+
+
+    }
+
+
+    public static Lista<DKGObjeto> ordenar_objetos_i32(Lista<DKGObjeto> objetos, String atributo) {
+
+        DKGObjeto temp;
+        int n = objetos.getQuantidade();
 
         for (int j = 0; j < n - 1; j++) {
             for (int i = j + 1; i < n; i++) {
@@ -130,26 +142,31 @@ public class DKGFeatures {
         return objetos;
     }
 
-    public static ArrayList<DKGObjeto> ordenar_objetos_i32_reverso(ArrayList<DKGObjeto> objetos, final String atributo) {
-        Collections.sort(objetos, new Comparator() {
-            public int compare(Object objeto_um, Object objeto_dois) {
+    public static Lista<DKGObjeto> ordenar_objetos_i32_reverso(Lista<DKGObjeto> objetos, final String atributo) {
+        DKGObjeto temp;
+        int n = objetos.getQuantidade();
 
-                DKGObjeto o1 = (DKGObjeto) objeto_um;
-                DKGObjeto o2 = (DKGObjeto) objeto_dois;
+        for (int j = 0; j < n - 1; j++) {
+            for (int i = j + 1; i < n; i++) {
 
-                int p1 = o1.identifique(atributo).getInteiro(0);
-                int p2 = o2.identifique(atributo).getInteiro(0);
+                int vj = objetos.get(j).identifique(atributo).getInteiro(0);
+                int vi = objetos.get(i).identifique(atributo).getInteiro(0);
 
-                return Integer.compare(p1, p2) * (-1);
+                if (vj > vi) {
+                    temp = objetos.get(j);
+                    objetos.set(j, objetos.get(i));
+                    objetos.set(i, temp);
+                }
             }
-        });
+        }
+
         return objetos;
     }
 
-    public static ArrayList<DKGObjeto> ordenar_objetos_i64(ArrayList<DKGObjeto> objetos, String atributo) {
+    public static Lista<DKGObjeto> ordenar_objetos_i64(Lista<DKGObjeto> objetos, String atributo) {
 
         DKGObjeto temp;
-        int n = objetos.size();
+        int n = objetos.getQuantidade();
 
         for (int j = 0; j < n - 1; j++) {
             for (int i = j + 1; i < n; i++) {
@@ -168,10 +185,10 @@ public class DKGFeatures {
         return objetos;
     }
 
-    public static ArrayList<DKGObjeto> ordendar_objetos_f32(ArrayList<DKGObjeto> objetos, String atributo) {
+    public static Lista<DKGObjeto> ordendar_objetos_f32(Lista<DKGObjeto> objetos, String atributo) {
 
         DKGObjeto temp;
-        int n = objetos.size();
+        int n = objetos.getQuantidade();
 
         for (int j = 0; j < n - 1; j++) {
             for (int i = j + 1; i < n; i++) {
@@ -190,10 +207,31 @@ public class DKGFeatures {
         return objetos;
     }
 
-    public static ArrayList<DKGObjeto> ordendar_objetos_f64(ArrayList<DKGObjeto> objetos, String atributo) {
+    public static Lista<DKGObjeto> ordendar_objetos_f64(Lista<DKGObjeto> objetos, String atributo) {
 
         DKGObjeto temp;
-        int n = objetos.size();
+        int n = objetos.getQuantidade();
+
+        for (int j = 0; j < n - 1; j++) {
+            for (int i = j + 1; i < n; i++) {
+
+                double vj = objetos.get(j).identifique(atributo).getDouble(0.0);
+                double vi = objetos.get(i).identifique(atributo).getDouble(0.0);
+
+                if (vj > vi) {
+                    temp = objetos.get(j);
+                    objetos.set(j, objetos.get(i));
+                    objetos.set(i, temp);
+                }
+            }
+        }
+
+        return objetos;
+    }
+
+    public static Lista<DKGObjeto> ordendar_objetos_f64_reverso(Lista<DKGObjeto> objetos, final String atributo) {
+        DKGObjeto temp;
+        int n = objetos.getQuantidade();
 
         for (int j = 0; j < n - 1; j++) {
             for (int i = j + 1; i < n; i++) {
@@ -214,7 +252,7 @@ public class DKGFeatures {
 
     // FEATURE 22.11.13 - obter_ou_criar
 
-    public static Opcional<DKGObjeto> getObjetoComID(ArrayList<DKGObjeto> objetos, String eObjeto, String eAtributo, String eValor) {
+    public static Opcional<DKGObjeto> getObjetoComID(Lista<DKGObjeto> objetos, String eObjeto, String eAtributo, String eValor) {
 
         Opcional<DKGObjeto> ret = new Opcional<DKGObjeto>();
 
@@ -233,64 +271,64 @@ public class DKGFeatures {
 
     // FEATURE 23.03.30 - filtrar, unicos e atributosDe
 
-    public static ArrayList<DKGObjeto> filtrar(ArrayList<DKGObjeto> objetos, String atributo_nome, int atributo_inteiro) {
+    public static Lista<DKGObjeto> filtrar(Lista<DKGObjeto> objetos, String atributo_nome, int atributo_inteiro) {
 
-        ArrayList<DKGObjeto> filtrados = new ArrayList<DKGObjeto>();
+        Lista<DKGObjeto> filtrados = new Lista<DKGObjeto>();
 
         for (DKGObjeto px : objetos) {
             if (px.identifique(atributo_nome).getInteiro(0) == (atributo_inteiro)) {
-                filtrados.add(px);
+                filtrados.adicionar(px);
             }
         }
 
         return filtrados;
     }
 
-    public static ArrayList<DKGObjeto> filtrar(ArrayList<DKGObjeto> objetos, String atributo_nome, String atributo_valor) {
-        ArrayList<DKGObjeto> filtrados = new ArrayList<DKGObjeto>();
+    public static Lista<DKGObjeto> filtrar(Lista<DKGObjeto> objetos, String atributo_nome, String atributo_valor) {
+        Lista<DKGObjeto> filtrados = new Lista<DKGObjeto>();
 
         for (DKGObjeto objeto_corrente : objetos) {
             if (objeto_corrente.identifique(atributo_nome).isValor(atributo_valor)) {
-                filtrados.add(objeto_corrente);
+                filtrados.adicionar(objeto_corrente);
             }
         }
 
         return filtrados;
     }
 
-    public static void remover_varios(DKGObjeto ePai, ArrayList<DKGObjeto> objetos) {
+    public static void remover_varios(DKGObjeto ePai, Lista<DKGObjeto> objetos) {
 
         for (DKGObjeto px : objetos) {
-            ePai.getObjetos().remove(px);
+            ePai.getObjetos().remover(px);
         }
 
     }
 
 
-    public static ArrayList<DKGObjeto> unicos(ArrayList<DKGObjeto> objetos, String atributo_nome) {
+    public static Lista<DKGObjeto> unicos(Lista<DKGObjeto> objetos, String atributo_nome) {
 
-        ArrayList<String> unicidade = new ArrayList<String>();
-        ArrayList<DKGObjeto> filtrados = new ArrayList<DKGObjeto>();
+        Lista<String> unicidade = new Lista<String>();
+        Lista<DKGObjeto> filtrados = new Lista<DKGObjeto>();
 
         for (DKGObjeto aluno : objetos) {
-            if (!unicidade.contains(aluno.identifique(atributo_nome).getValor())) {
-                filtrados.add(aluno);
-                unicidade.add(aluno.identifique("ID").getValor());
+            if (!unicidade.existe(aluno.identifique(atributo_nome).getValor())) {
+                filtrados.adicionar(aluno);
+                unicidade.adicionar(aluno.identifique("ID").getValor());
             }
         }
 
         return filtrados;
     }
 
-    public static ArrayList<String> atributosDe(ArrayList<DKGObjeto> objetos, String atributo_nome) {
+    public static Lista<String> atributosDe(Lista<DKGObjeto> objetos, String atributo_nome) {
 
-        ArrayList<String> unicidade = new ArrayList<String>();
+        Lista<String> unicidade = new Lista<String>();
 
         for (DKGObjeto aluno : objetos) {
 
             String turma = aluno.identifique(atributo_nome).getValor();
-            if (!unicidade.contains(turma)) {
-                unicidade.add(turma);
+            if (!unicidade.existe(turma)) {
+                unicidade.adicionar(turma);
             }
 
         }
@@ -298,5 +336,291 @@ public class DKGFeatures {
         return unicidade;
     }
 
+    public static Lista<String> filtrar_unicos(Lista<DKGObjeto> objetos, String att) {
+
+        Lista<String> ret = new Lista<>();
+
+        for (DKGObjeto item : objetos) {
+
+            String valor = item.identifique(att).getValor();
+            if (!ret.existe(valor)) {
+                ret.adicionar(valor);
+            }
+        }
+
+
+        return ret;
+    }
+
+    public static int contagem_igual(Lista<DKGObjeto> objetos, String att, String att_valor) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).isValor(att_valor)) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_inteiro_somar(Lista<DKGObjeto> objetos, String att) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            contagem += item.identifique(att).getInteiro();
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_double_maior(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() > valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_double_maior_igual(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() >= valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_double_menor(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() < valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_double_menor_igual(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() <= valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_double_igual(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() == valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_double_diferente(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() != valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+
+    public static String exibir_em_lista(Lista<DKGObjeto> objetos, String att) {
+        String ret = "";
+
+        for (DKGObjeto item : objetos) {
+            ret += item.identifique(att).getValor() + " ";
+        }
+
+        return ret;
+    }
+
+
+    public static Lista<DKGObjeto> filtrar_double_maior_igual(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        Lista<DKGObjeto> ret = new Lista<DKGObjeto>();
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() >= valor_ref) {
+                ret.adicionar(item);
+            }
+        }
+
+        return ret;
+    }
+
+    public static Lista<DKGObjeto> filtrar_double_menor(Lista<DKGObjeto> objetos, String att, double valor_ref) {
+
+        Lista<DKGObjeto> ret = new Lista<DKGObjeto>();
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getDouble() < valor_ref) {
+                ret.adicionar(item);
+            }
+        }
+
+        return ret;
+    }
+
+    public static double somar_double(Lista<DKGObjeto> objetos, String att) {
+
+        double valor = 0.0;
+
+        for (DKGObjeto item : objetos) {
+            valor += item.identifique(att).getDouble();
+        }
+
+        return valor;
+    }
+
+
+    public static int contagem_data_igual(Lista<DKGObjeto> objetos, String att, Data att_data) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (Data.toData(item.identifique(att).getValor()).isIgual(att_data)) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+
+    public static int contagem_inteiro_maior_igual(Lista<DKGObjeto> objetos, String att, int valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getInteiro() >= valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+    public static int contagem_inteiro_menor(Lista<DKGObjeto> objetos, String att, int valor_ref) {
+
+        int contagem = 0;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(att).getInteiro() < valor_ref) {
+                contagem += 1;
+            }
+        }
+
+        return contagem;
+    }
+
+
+    public static Lista<DKGObjeto> clonagem(Lista<DKGObjeto> objetos) {
+
+        Lista<DKGObjeto> copia = new Lista<DKGObjeto>();
+
+        for (DKGObjeto item : objetos) {
+            copia.adicionar(item);
+        }
+
+        return copia;
+    }
+
+
+    public static Lista<String> filtrar_double_3_maiores_unicos(Lista<DKGObjeto> objetos, String att_nome) {
+
+        Lista<DKGObjeto> copia = clonagem(objetos);
+        ordendar_objetos_f64_reverso(copia, att_nome);
+
+        Lista<String> unicos = new Lista<>();
+
+        for (DKGObjeto item : copia) {
+
+            String valor = fmt.doubleNumC2(item.identifique(att_nome).getDouble());
+            if (!unicos.existe(String.valueOf(valor))) {
+                unicos.adicionar(String.valueOf(valor));
+            }
+
+            if (unicos.getQuantidade() >= 3) {
+                break;
+            }
+        }
+
+        return unicos;
+    }
+
+
+    public static Lista<String> filtrar_double_3_menores_unicos(Lista<DKGObjeto> objetos, String att_nome) {
+
+        Lista<DKGObjeto> copia = clonagem(objetos);
+        ordendar_objetos_f64(copia, att_nome);
+
+        Lista<String> unicos = new Lista<>();
+
+        for (DKGObjeto item : copia) {
+
+            String valor = fmt.doubleNumC2(item.identifique(att_nome).getDouble());
+            if (!unicos.existe(String.valueOf(valor))) {
+                unicos.adicionar(String.valueOf(valor));
+            }
+
+            if (unicos.getQuantidade() >= 3) {
+                break;
+            }
+        }
+
+        return unicos;
+    }
+
+    public static DKGObjeto objeto_unico(Lista<DKGObjeto> objetos, String nome, String atributo, String valor) {
+        boolean existe = false;
+        DKGObjeto ret = null;
+
+        for (DKGObjeto item : objetos) {
+            if (item.identifique(atributo).isValor(valor)) {
+                existe = true;
+                ret = item;
+                break;
+            }
+        }
+
+        if (!existe) {
+            ret = new DKGObjeto(nome);
+            ret.identifique(atributo, valor);
+            objetos.adicionar(ret);
+        }
+
+        return ret;
+    }
 }
 

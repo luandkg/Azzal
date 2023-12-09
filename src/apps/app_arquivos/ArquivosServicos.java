@@ -3,10 +3,10 @@ package apps.app_arquivos;
 import libs.arquivos.*;
 import libs.arquivos.binario.Int8;
 import libs.imagem.Imagem;
+import libs.luan.Lista;
 import libs.servittor.Servico;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class ArquivosServicos extends Servico {
 
@@ -45,14 +45,14 @@ public class ArquivosServicos extends Servico {
 
         // memoriaDump("/home/luan/Documentos/luan.tx",300);
 
-        ArrayList<String> arquivos = new ArrayList<String>();
-        arquivos.add("/home/luan/Imagens/Circulo-Cromatico.jpg");
-        arquivos.add("/home/luan/Imagens/Festa.png");
-        arquivos.add("/home/luan/Imagens/diii.png");
-        arquivos.add("/home/luan/Imagens/sketches-mountain-brushes.jpg");
-        arquivos.add("/home/luan/Imagens/2021/2021 09/2021-08-30 16.18.34.jpg");
+        Lista<String> arquivos = new Lista<String>();
+        arquivos.adicionar("/home/luan/Imagens/Circulo-Cromatico.jpg");
+        arquivos.adicionar("/home/luan/Imagens/2155_2.png");
+        arquivos.adicionar("/home/luan/Imagens/diii.png");
+        arquivos.adicionar("/home/luan/Imagens/downloadable-c2473584-0bc7-4674-9273-d129ba115bd7.png");
+        arquivos.adicionar("/home/luan/Imagens/2021/2021 09/2021-08-30 16.18.34.jpg");
 
-        //AI.criar(arquivos, "/home/luan/Imagens/luan.ai");
+        AI.criar(arquivos, "/home/luan/Imagens/luan.ai");
 
         AI minha = new AI();
         minha.abrir("/home/luan/Imagens/luan.ai");

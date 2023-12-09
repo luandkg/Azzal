@@ -21,6 +21,7 @@ import apps.app_attuz.Widgets.*;
 import libs.arquivos.PreferenciasOrganizadas;
 import libs.arquivos.QTT;
 import libs.azzal.*;
+import libs.luan.Lista;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
@@ -38,7 +39,6 @@ import libs.tronarko.Tronarko;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class AppAttuz extends Cena {
 
@@ -51,10 +51,10 @@ public class AppAttuz extends Cena {
 
     private Clicavel mClicavel;
 
-    private ArrayList<Local> mLocais;
-    private ArrayList<Local> mMares;
+    private Lista<Local> mLocais;
+    private Lista<Local> mMares;
 
-    private ArrayList<Caminho> mCaminhos;
+    private Lista<Caminho> mCaminhos;
 
     private Viajante EU;
     private Viagem mViagem;
@@ -114,13 +114,13 @@ public class AppAttuz extends Cena {
 
         mClicavel = new Clicavel();
 
-        mLocais = new ArrayList<Local>();
-        mMares = new ArrayList<Local>();
+        mLocais = new Lista<Local>();
+        mMares = new Lista<Local>();
 
         mRelevo = EscalasPadroes.getEscalaTerrestre();
 
 
-        mCaminhos = new ArrayList<Caminho>();
+        mCaminhos = new Lista<Caminho>();
 
         mDroneCamera = new DroneCamera(mCores);
 
@@ -144,7 +144,7 @@ public class AppAttuz extends Cena {
 
 
         mOceanografia = new Oceanografia(mMares);
-        mOpcionadorObrigatorio = new OpcionadorObrigatorio(600, 20);
+        mOpcionadorObrigatorio = new OpcionadorObrigatorio(600, 60);
 
         mOpcionadorObrigatorio.setCabecalho("TIPO DE MAPA : ");
 

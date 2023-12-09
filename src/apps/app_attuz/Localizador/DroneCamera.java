@@ -8,6 +8,7 @@ import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.luan.Lista;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,7 +35,7 @@ public class DroneCamera {
 
     }
 
-    public BufferedImage onGravar(BufferedImage mapa, int x, int y, int eu_x, int eu_y, ArrayList<Local> mLocais) {
+    public BufferedImage onGravar(BufferedImage mapa, int x, int y, int eu_x, int eu_y, Lista<Local> mLocais) {
 
         int height = mapa.getHeight();
         int width = mapa.getWidth();
@@ -85,7 +86,7 @@ public class DroneCamera {
 
     }
 
-    public void droneOrganizar(int ox, int oy, BufferedImage eImagemDrone, ArrayList<Local> mLocais) {
+    public void droneOrganizar(int ox, int oy, BufferedImage eImagemDrone, Lista<Local> mLocais) {
 
         Renderizador gg = new Renderizador(eImagemDrone);
 

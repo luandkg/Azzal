@@ -25,7 +25,7 @@ public class Populacionar {
 
         Arkazz eArkazz = new Arkazz();
 
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
 
         // Construir arquivos das cidades com pessoas em branco
@@ -254,7 +254,7 @@ public class Populacionar {
     public static void analisar_pessoas(String local_populacao) {
 
         Arkazz eArkazz = new Arkazz();
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
 
         int isAdulto = 18;
@@ -359,7 +359,7 @@ public class Populacionar {
 
         Arkazz eArkazz = new Arkazz();
 
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
         for (Indexado<Local> cidade : Indexamento.indexe(cidades)) {
 
@@ -388,7 +388,7 @@ public class Populacionar {
     public static void mostrar_populacoes(String local_populacao) {
 
         Arkazz eArkazz = new Arkazz();
-        ArrayList<Local> cidades = eArkazz.getCidades();
+        Lista<Local> cidades = eArkazz.getCidades();
 
         int populacao = 0;
 

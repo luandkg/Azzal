@@ -1,6 +1,6 @@
 package libs.dkg;
 
-import java.util.ArrayList;
+import libs.luan.Lista;
 
 public class DKGColecao {
 
@@ -8,12 +8,12 @@ public class DKGColecao {
     // DATA : 2023 03 25
 
 
-    private ArrayList<DKGGrupo> mGrupos;
-    private ArrayList<DKGObjeto> mObjetos;
+    private Lista<DKGGrupo> mGrupos;
+    private Lista<DKGObjeto> mObjetos;
 
-    public DKGColecao(ArrayList<DKGObjeto> eObjetos, String atributo_nome) {
+    public DKGColecao(Lista<DKGObjeto> eObjetos, String atributo_nome) {
 
-        mGrupos = new ArrayList<DKGGrupo>();
+        mGrupos = new Lista<DKGGrupo>();
         mObjetos = eObjetos;
 
         for (DKGObjeto objeto : mObjetos) {
@@ -24,16 +24,16 @@ public class DKGColecao {
         }
     }
 
-    public ArrayList<DKGObjeto> getObjetos() {
+    public Lista<DKGObjeto> getObjetos() {
         return mObjetos;
     }
 
-    public ArrayList<DKGGrupo> getGrupos() {
+    public Lista<DKGGrupo> getGrupos() {
         return mGrupos;
     }
 
     public int getQuantidade() {
-        return mObjetos.size();
+        return mObjetos.getQuantidade();
     }
 
     public DKGGrupo getGrupo(String eNome) {
@@ -50,7 +50,7 @@ public class DKGColecao {
 
         if (!enc) {
             ret = new DKGGrupo(eNome);
-            mGrupos.add(ret);
+            mGrupos.adicionar(ret);
         }
 
         return ret;

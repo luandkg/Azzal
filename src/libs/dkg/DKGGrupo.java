@@ -1,15 +1,15 @@
 package libs.dkg;
 
-import java.util.ArrayList;
+import libs.luan.Lista;
 
 public class DKGGrupo {
 
     private String mNome;
-    private ArrayList<DKGObjeto> mObjetos;
+    private Lista<DKGObjeto> mObjetos;
 
     public DKGGrupo(String eNome) {
         mNome = eNome;
-        mObjetos = new ArrayList<DKGObjeto>();
+        mObjetos = new Lista<DKGObjeto>();
     }
 
 
@@ -18,10 +18,10 @@ public class DKGGrupo {
     }
 
     public void adicionar(DKGObjeto eObjeto) {
-        mObjetos.add(eObjeto);
+        mObjetos.adicionar(eObjeto);
     }
 
-    public ArrayList<DKGObjeto> getObjetos() {
+    public Lista<DKGObjeto> getObjetos() {
         return mObjetos;
     }
 

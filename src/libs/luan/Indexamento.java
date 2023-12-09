@@ -66,4 +66,35 @@ public class Indexamento {
 
         return ret;
     }
+
+
+    public static <T> Lista<Indexado<T>> indexe(Vetor<T> lista) {
+
+        Lista<Indexado<T>> ret = new Lista<Indexado<T>>();
+
+        int index = 0;
+        for (T item : lista) {
+            ret.adicionar(new Indexado<T>(index, item));
+            index += 1;
+        }
+
+
+        return ret;
+    }
+
+
+    public static <T> Lista<Indexado<T>> indexe(Lista<T> lista) {
+
+        Lista<Indexado<T>> ret = new Lista<Indexado<T>>();
+
+        int index = 0;
+        for (T item : lista) {
+            ret.adicionar(new Indexado<T>(index, item));
+            index += 1;
+        }
+
+
+        return ret;
+    }
+
 }

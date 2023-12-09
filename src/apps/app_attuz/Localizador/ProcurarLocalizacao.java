@@ -194,7 +194,7 @@ public class ProcurarLocalizacao {
 
                 //   System.out.println("Ref :: " + valor + " em " + eTozteRef_min);
 
-                eViagemCache.getObjetos().add(ePonto);
+                eViagemCache.getObjetos().adicionar(ePonto);
             }
 
         }

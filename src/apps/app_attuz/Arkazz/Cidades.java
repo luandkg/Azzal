@@ -10,6 +10,7 @@ import libs.dkg.DKG;
 import java.util.ArrayList;
 
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 
 public class Cidades {
 
@@ -97,7 +98,7 @@ public class Cidades {
     }
 
 
-    public static String getNomeMaisProximo(ArrayList<Local> mLocais, int px, int py, int ate) {
+    public static String getNomeMaisProximo(Lista<Local> mLocais, int px, int py, int ate) {
 
         String ret = "";
         int menor = ate;
@@ -118,7 +119,7 @@ public class Cidades {
 
 
 
-    public static Local getLocalizacao(ArrayList<Local> cidades,String eNome){
+    public static Local getLocalizacao(Lista<Local> cidades,String eNome){
 
         for(Local l : cidades){
             if (l.getNome().contentEquals(eNome)){

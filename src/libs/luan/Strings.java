@@ -56,6 +56,35 @@ public class Strings {
         return linhas;
     }
 
+    public static ArrayList<String> dividir_em_partes(String texto, int fixo) {
+        ArrayList<String> linhas = new ArrayList<String>();
+
+        int i = 0;
+        int e = 0;
+
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            linha += c;
+
+            i += 1;
+            e += 1;
+
+            if (e >= fixo) {
+                e = 0;
+                linhas.add(linha);
+                linha = "";
+            }
+        }
+        if (linha.length() > 0) {
+            linhas.add(linha);
+        }
+        return linhas;
+    }
+
 
     public static ArrayList<String> ordenar(ArrayList<String> entradas) {
 
@@ -77,5 +106,116 @@ public class Strings {
         return entradas;
     }
 
+    public static String exibir_lista_em_linha(ArrayList<String> lista) {
+        String ret = "";
+
+        for (String item : lista) {
+            ret += item + " ";
+        }
+
+        return ret;
+    }
+
+    public static String numero_zerado(int v) {
+        String s = String.valueOf(v);
+        if (s.length() == 1) {
+            return "0" + s;
+        } else {
+            return s;
+        }
+    }
+
+    public static String numero_zerado(String v) {
+        String s = String.valueOf(v);
+        if (s.length() == 1) {
+            return "0" + s;
+        } else {
+            return s;
+        }
+    }
+
+
+    public static String GET_REVERSO_ATE(String texto, String ate) {
+
+        String ret = "";
+
+        int o = texto.length() - 1;
+
+        while (o >= 0) {
+            String letra = String.valueOf(texto.charAt(o));
+            if (letra.contentEquals(ate)) {
+                break;
+            }
+            ret = letra + ret;
+            o -= 1;
+        }
+
+        return ret;
+
+    }
+
+
+    public static String exibir_justificado(String texto, int tamanho) {
+
+        String justificado = "";
+
+        int i = 0;
+        int o = texto.length();
+
+        String palavra = "";
+        String linha = "";
+
+        while (i < o) {
+            String letra = String.valueOf(texto.charAt(i));
+            if (letra.contentEquals(" ")) {
+                String linha_futura = "";
+
+                if (linha.length() == 0) {
+                    linha_futura = palavra;
+                } else {
+                    linha_futura = linha + " " + palavra;
+                }
+
+                if (linha_futura.length() >= tamanho) {
+                    justificado += linha_futura + "\n";
+                    linha = "";
+                } else {
+                    linha = linha_futura;
+                }
+
+                palavra = "";
+            } else {
+                palavra += letra;
+            }
+            i += 1;
+        }
+
+        if (linha.length() > 0 || palavra.length() > 0) {
+            String linha_futura = linha + " " + palavra;
+            justificado += linha_futura + "\n";
+        }
+
+        return justificado;
+
+    }
+
+
+    public static int indice(String conjunto, String letra) {
+
+        int indice_retornar = 0;
+
+        int o = conjunto.length();
+        while (indice_retornar < o) {
+            String proc_letra = String.valueOf(conjunto.charAt(indice_retornar));
+            if (proc_letra.contentEquals(letra)) {
+                break;
+            }
+            indice_retornar += 1;
+        }
+
+
+        return indice_retornar;
+
+    }
 
 }

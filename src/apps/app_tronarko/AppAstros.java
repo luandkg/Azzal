@@ -105,7 +105,7 @@ public class AppAstros extends Cena {
         signo_x += 40;
         mBotoes.add(botao_organizado(signo_x, 100, Signos.LEOPARDO));
         signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 100, Signos.LEAO));
+        mBotoes.add(botao_organizado(signo_x, 100, Signos.GAVIAO));
         signo_x += 40;
         mBotoes.add(botao_organizado(signo_x, 100, Signos.TOURO));
 
@@ -117,7 +117,7 @@ public class AppAstros extends Cena {
         signo_x += 40;
         mBotoes.add(botao_organizado(signo_x, 150, Signos.CARPA));
         signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 150, Signos.GAVIAO));
+        mBotoes.add(botao_organizado(signo_x, 150, Signos.LEAO));
         signo_x += 40;
         mBotoes.add(botao_organizado(signo_x, 150, Signos.SERPENTE));
         signo_x += 40;

@@ -13,6 +13,11 @@ public class Cores {
     private Cor mAzul;
     private Cor mVerde;
     private Cor mBranco;
+    private Cor mTurquesa;
+
+    private Cor mCinza;
+    private Cor mMarrom;
+    private Cor mRosa;
 
     public Cores() {
 
@@ -22,8 +27,14 @@ public class Cores {
         mAzul = Cor.getRGB(Color.blue);
         mVerde = Cor.getRGB(Color.green);
 
+        mTurquesa = Cor.getHexCor("#6A1B9A");
+        mCinza = Cor.getHexCor("#90A4AE");
+        mMarrom = Cor.getHexCor("#8D6E63");
+        mRosa = Cor.getHexCor("#E91E63");
+
         mBranco = Cor.getRGB(Color.white);
         mPreto = Cor.getRGB(Color.black);
+
 
     }
 
@@ -55,6 +66,19 @@ public class Cores {
         return mAzul;
     }
 
+    public Cor getTurquesa() {
+        return mTurquesa;
+    }
+
+    public Cor getCinza() {
+        return mCinza;
+    }
+    public Cor getMarrom() {
+        return mMarrom;
+    }
+    public Cor getRosa() {
+        return mRosa;
+    }
     public static Cor hexToCor(String colorStr) {
         return new Cor(
                 Integer.valueOf(colorStr.substring(1, 3), 16),

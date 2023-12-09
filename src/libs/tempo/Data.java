@@ -312,4 +312,8 @@ public class Data {
     }
 
 
+    public Data getCopia(){
+        return new Data(mAno,mMes,mDia,mDiaSemanal);
+    }
+
 }

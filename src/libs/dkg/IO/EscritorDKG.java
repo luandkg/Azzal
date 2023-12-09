@@ -3,8 +3,7 @@ package libs.dkg.IO;
 
 import libs.dkg.DKGAtributo;
 import libs.dkg.DKGObjeto;
-
-import java.util.ArrayList;
+import libs.luan.Lista;
 
 public class EscritorDKG {
 
@@ -31,15 +30,15 @@ public class EscritorDKG {
     }
 
 
-    public void montar(String ePrefixo, ArrayList<DKGObjeto> lsPacotes) {
+    public void montar(String ePrefixo, Lista<DKGObjeto> lsPacotes) {
 
         for (DKGObjeto PacoteC : lsPacotes) {
 
-            if (PacoteC.getObjetos().size() == 0 && PacoteC.getAtributos().size() == 0) {
+            if (PacoteC.getObjetos().getQuantidade() == 0 && PacoteC.getAtributos().getQuantidade() == 0) {
 
                 adicionarLinha(ePrefixo + "!" + Textum.codifica(PacoteC.getNome()) + " :: { } ");
 
-            } else if (PacoteC.getObjetos().size() == 0 && PacoteC.getAtributos().size() > 0) {
+            } else if (PacoteC.getObjetos().getQuantidade() == 0 && PacoteC.getAtributos().getQuantidade() > 0) {
 
                 String eIdentificadores = "";
 
@@ -49,7 +48,7 @@ public class EscritorDKG {
 
                 adicionarLinha(ePrefixo + "!" + Textum.codifica(PacoteC.getNome()) + " :: { " + eIdentificadores + " } ");
 
-            } else if (PacoteC.getObjetos().size() > 0) {
+            } else if (PacoteC.getObjetos().getQuantidade() > 0) {
 
                 adicionarLinha(ePrefixo + "!" + Textum.codifica(PacoteC.getNome()) + " :: { ");
 

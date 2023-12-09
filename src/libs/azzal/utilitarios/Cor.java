@@ -72,6 +72,15 @@ public class Cor {
         }
     }
 
+    public boolean isDiferente(Cor eCor) {
+        if (this.getRed() == eCor.getRed() && this.getGreen() == eCor.getGreen() && this.getBlue() == eCor.getBlue()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 
     public boolean alphaIgual(Cor eCor) {
         if (this.getAlpha() == eCor.getAlpha()) {
@@ -332,5 +341,9 @@ public class Cor {
 
     public String toString() {
         return "{" + mRed + "." + mGreen + "." + mBlue + "." + mAlpha + "}";
+    }
+
+    public String toRGBString() {
+        return "{" + mRed + "." + mGreen + "." + mBlue + "}";
     }
 }
