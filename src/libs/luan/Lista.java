@@ -544,4 +544,14 @@ public class Lista<T> implements Iterable<T> {
         return lista;
     }
 
+
+
+    public void adicionar_como_primeiro(T eObjeto){
+
+        Item novo_primeiro = new Item(eObjeto);
+        novo_primeiro.mProximo=mPrimeiro;
+
+        mPrimeiro=novo_primeiro;
+        mQuantidade+=1;
+    }
 }

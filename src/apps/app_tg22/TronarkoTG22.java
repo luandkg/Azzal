@@ -7,6 +7,7 @@ import apps.app_letrum.Fonte;
 import apps.app_letrum.FonteDupla;
 import apps.app_letrum.FonteDuplaRunTime;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.luan.Lista;
 import libs.luan.fmt;
 import libs.tronarko.*;
 import libs.tronarko.Eventos.Eventum;
@@ -15,7 +16,6 @@ import libs.tronarko.utils.StringTronarko;
 import libs.tronarko.utils.TozteCor;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class TronarkoTG22 {
 
@@ -40,7 +40,7 @@ public class TronarkoTG22 {
 
         mCores = new Cores();
 
-        mTextoMuitoGrande= new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 25);
+        mTextoMuitoGrande = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 25);
         mTextoGrande = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 20);
 
         mTextoPequeno = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 11);
@@ -57,7 +57,7 @@ public class TronarkoTG22 {
         mHoje = mTronarkum.getTozte();
     }
 
-    public void draw(Renderizador r, ArrayList<Ficha> projeto, ArrayList<Tozte> interrompidos, ArrayList<Tozte> toztes_personal, double META_ALTURA, double META_PESO) {
+    public void draw(Renderizador r, Lista<Ficha> projeto, Lista<Tozte> interrompidos, Lista<Tozte> toztes_personal, double META_ALTURA, double META_PESO) {
 
 
         r.limpar(mCores.getBranco());
@@ -72,26 +72,26 @@ public class TronarkoTG22 {
         mTextoGrande.escreva(20, 20, "PROJETO TG22 - LUAN FREITAS");
 
 
-        ArrayList<TozteCor> mInfos = new ArrayList<TozteCor>();
+        Lista<TozteCor> mInfos = new Lista<TozteCor>();
 
         StringTronarko st = new StringTronarko();
 
         for (Tozte f : toztes_personal) {
-            mInfos.add(new TozteCor("personal", f, Cor.getHexCor("#7CB342").toColor()));
+            mInfos.adicionar(new TozteCor("personal", f, Cor.getHexCor("#7CB342").toColor()));
         }
 
         for (Tozte f : interrompidos) {
-            mInfos.add(new TozteCor("interrompido", f, new Color(250, 50, 23)));
+            mInfos.adicionar(new TozteCor("interrompido", f, new Color(250, 50, 23)));
         }
 
-        if (projeto.size() > 0) {
+        if (projeto.getQuantidade() > 0) {
 
 
             Tozte ultimo = st.parseTozte(projeto.get(0).getTozte());
-            Tozte primeiro = st.parseTozte(projeto.get(projeto.size() - 1).getTozte());
+            Tozte primeiro = st.parseTozte(projeto.get(projeto.getQuantidade() - 1).getTozte());
 
             while (primeiro.isMenorIgualQue(ultimo)) {
-                mInfos.add(new TozteCor("TG22", primeiro, new Color(255, 165, 23)));
+                mInfos.adicionar(new TozteCor("TG22", primeiro, new Color(255, 165, 23)));
                 primeiro = primeiro.adicionar_Superarko(1);
             }
 
@@ -113,7 +113,7 @@ public class TronarkoTG22 {
 
         mTextoMuitoGrande.escreva(CAIXA_X - 10, CAIXA_Y, String.valueOf(TRONARKO_PRIMEIRO));
 
-        CAIXA_Y+=40;
+        CAIXA_Y += 40;
 
         draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 1, 0, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
         draw_hiperarko(r, mHoje, mInfos, TRONARKO_PRIMEIRO, 3, 1, CAIXA_X, CAIXA_Y, CAIXA_ALTURA);
@@ -133,7 +133,7 @@ public class TronarkoTG22 {
         CAIXA_Y = 1050;
 
         mTextoMuitoGrande.escreva(CAIXA_PRIMEIRA_X - 10, CAIXA_Y, String.valueOf(TRONARKO_SEGUNDO));
-        CAIXA_Y+=40;
+        CAIXA_Y += 40;
 
 
         draw_hiperarko(r, mHoje, mInfos, TRONARKO_SEGUNDO, 1, 0, CAIXA_PRIMEIRA_X, CAIXA_Y, CAIXA_ALTURA);
@@ -143,7 +143,7 @@ public class TronarkoTG22 {
         int RX = 950;
         int RY = 90;
 
-        double peso_primeiro = projeto.get(projeto.size() - 1).getPeso();
+        double peso_primeiro = projeto.get(projeto.getQuantidade() - 1).getPeso();
 
         mTextoGrande.escreva(RX, RY, "MEU PROJETO");
 
@@ -158,10 +158,10 @@ public class TronarkoTG22 {
         mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- META ", fmt.espacar_antes("" + fmt.f2zerado(META_PESO), 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
         RY += 35;
 
-        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INIT ", fmt.espacar_antes("" + fmt.f2zerado(projeto.get(projeto.size() - 1).getPeso()), 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(projeto.get(projeto.size() - 1).getPeso(), projeto.get(projeto.size() - 1).getAltura())) + " fuzz ) ");
+        mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INIT ", fmt.espacar_antes("" + fmt.f2zerado(projeto.get(projeto.getQuantidade() - 1).getPeso()), 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(projeto.get(projeto.getQuantidade() - 1).getPeso(), projeto.get(projeto.getQuantidade() - 1).getAltura())) + " fuzz ) ");
         RY += 20;
 
-        if (projeto.size() > 0) {
+        if (projeto.getQuantidade() > 0) {
 
             double peso_atual = projeto.get(0).getPeso();
 
@@ -192,10 +192,10 @@ public class TronarkoTG22 {
                 mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- DURAÇÃO   ", IntTronarko.getSuperarkosDiferenca(comecou, eTronarko.getTozte().toString()) + " superarkos !");
                 RY += 20;
 
-                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INTERROMPIDO   ", interrompidos.size() + " superarkos !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- INTERROMPIDO   ", interrompidos.getQuantidade() + " superarkos !");
                 RY += 20;
 
-                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- PERSONAL   ", toztes_personal.size() + " superarkos !");
+                mTextoPequeno.escreveLinha(RY, RX, RX + coluna_dois, "- PERSONAL   ", toztes_personal.getQuantidade() + " superarkos !");
                 RY += 20;
 
             } else {
@@ -291,15 +291,15 @@ public class TronarkoTG22 {
 
     }
 
-    public static ArrayList<Ficha> toReverso(ArrayList<Ficha> historico) {
-        ArrayList<Ficha> ret = new ArrayList<Ficha>();
+    public static Lista<Ficha> toReverso(Lista<Ficha> historico) {
+        Lista<Ficha> ret = new Lista<Ficha>();
         for (Ficha f : historico) {
-            ret.add(0, f);
+            ret.adicionar_como_primeiro(f);
         }
         return ret;
     }
 
-    public void draw_hiperarko(Renderizador r, Tozte Hoje, ArrayList<TozteCor> mInfos, int eTronarko, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
+    public void draw_hiperarko(Renderizador r, Tozte Hoje, Lista<TozteCor> mInfos, int eTronarko, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
 
 
         if (Hoje.getHiperarko() == (mHiperarko)) {
@@ -315,19 +315,16 @@ public class TronarkoTG22 {
             if ((Hoje.getTronarko() == eTronarko) && (Hoje.getHiperarko() == mHiperarko)) {
 
                 if (eMega.contentEquals(Hoje.Superarko_capital())) {
-                    mTextoPequeno.escrevaSelecionada((CAIXA_X - 10) + (s * 40),
-                            ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
+                    mTextoPequeno.escrevaSelecionada((CAIXA_X - 10) + (s * 40), ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
 
                 } else {
-                    mTextoPequeno.escreva((CAIXA_X - 10) + (s * 40),
-                            ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
+                    mTextoPequeno.escreva((CAIXA_X - 10) + (s * 40), ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
 
                 }
 
             } else {
 
-                mTextoPequeno.escreva((CAIXA_X - 10) + (s * 40),
-                        ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
+                mTextoPequeno.escreva((CAIXA_X - 10) + (s * 40), ((CAIXA_ALTURA * Faixador) + 30) + CAIXA_Y, eMega);
 
             }
 
@@ -461,7 +458,7 @@ public class TronarkoTG22 {
         Tozte mAntes = mAtualmente.adicionar_Superarko(-50);
         Tozte mDepois = mAtualmente.adicionar_Superarko(+50);
 
-        ArrayList<TozteCor> mInfos = mEnventum.getToztesComCorEmIntervalo(mAntes, mDepois);
+        Lista<TozteCor> mInfos = mEnventum.getToztesComCorEmIntervalo(mAntes, mDepois);
 
         for (TozteCor eTozteCor : mInfos) {
             System.out.println(" -->> " + eTozteCor.getNome() + " :: " + eTozteCor.getTozte().getTexto() + " -->> " + getDistancia(mAtualmente, eTozteCor.getTozte()));

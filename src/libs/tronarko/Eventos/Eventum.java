@@ -1,8 +1,8 @@
 package libs.tronarko.Eventos;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
+import libs.luan.Lista;
 import libs.tronarko.Hizarkos;
 import libs.tronarko.utils.TozteCor;
 import libs.tronarko.Eventos.Ocorrencia.Modos;
@@ -10,39 +10,39 @@ import libs.tronarko.Tozte;
 
 public class Eventum {
 
-    private ArrayList<AvisarPequenoEvento> mPequenosEventos;
-    private ArrayList<AvisarGrandeEvento> mGrandesEventos;
+    private Lista<AvisarPequenoEvento> mPequenosEventos;
+    private Lista<AvisarGrandeEvento> mGrandesEventos;
 
     public Eventum() {
 
-        mPequenosEventos = new ArrayList<AvisarPequenoEvento>();
-        mGrandesEventos = new ArrayList<AvisarGrandeEvento>();
+        mPequenosEventos = new Lista<AvisarPequenoEvento>();
+        mGrandesEventos = new Lista<AvisarGrandeEvento>();
 
-        ArrayList<Ocorrencia> mOcorrencias = new ArrayList<Ocorrencia>();
+        Lista<Ocorrencia> mOcorrencias = new Lista<Ocorrencia>();
 
-        mOcorrencias.add(new Ocorrencia("Festival Reciclum Tron", 1, 1, 1, 1, 1));
-        mOcorrencias.add(new Ocorrencia("Festival do Vento", 26, 1, 6500, 1, 1));
-        mOcorrencias.add(new Ocorrencia("Festival da Água", 41, 7, 6501, 1, 1));
-        mOcorrencias.add(new Ocorrencia("Festival do Fogo", 15, 6, 6502, 1, 1));
-        mOcorrencias.add(new Ocorrencia("Festival da Terra", 5, 8, 6503, 1, 1));
-        mOcorrencias.add(new Ocorrencia("Festival Reciclum Tron", 50, 10, 1, 1, 1));
+        mOcorrencias.adicionar(new Ocorrencia("Festival Reciclum Tron", 1, 1, 1, 1, 1));
+        mOcorrencias.adicionar(new Ocorrencia("Festival do Vento", 26, 1, 6500, 1, 1));
+        mOcorrencias.adicionar(new Ocorrencia("Festival da Água", 41, 7, 6501, 1, 1));
+        mOcorrencias.adicionar(new Ocorrencia("Festival do Fogo", 15, 6, 6502, 1, 1));
+        mOcorrencias.adicionar(new Ocorrencia("Festival da Terra", 5, 8, 6503, 1, 1));
+        mOcorrencias.adicionar(new Ocorrencia("Festival Reciclum Tron", 50, 10, 1, 1, 1));
 
-        mOcorrencias.add(new Ocorrencia("Aposta do Trovão", 45, 2, 6507, 1, 3));
+        mOcorrencias.adicionar(new Ocorrencia("Aposta do Trovão", 45, 2, 6507, 1, 3));
 
-        mOcorrencias.add(new Ocorrencia("Corrida dos Ventos", 26, 1, 6500, 5, 3));
-        mOcorrencias.add(new Ocorrencia("Olimpíadas de Trannor", 11, 3, 6444, 32, 4));
-        mOcorrencias.add(new Ocorrencia("Grande Competição de Izzator", 11, 4, 6500, 25, 5));
+        mOcorrencias.adicionar(new Ocorrencia("Corrida dos Ventos", 26, 1, 6500, 5, 3));
+        mOcorrencias.adicionar(new Ocorrencia("Olimpíadas de Trannor", 11, 3, 6444, 32, 4));
+        mOcorrencias.adicionar(new Ocorrencia("Grande Competição de Izzator", 11, 4, 6500, 25, 5));
 
-        mOcorrencias.add(new Ocorrencia("Fuga do Labirinto", 1, 5, 5227, 20, 4));
-        mOcorrencias.add(new Ocorrencia("Cruzada das Águas", 41, 7, 6501, 5, 3));
-        mOcorrencias.add(new Ocorrencia("Emboscada da Terra", 5, 8, 6503, 10, 3));
+        mOcorrencias.adicionar(new Ocorrencia("Fuga do Labirinto", 1, 5, 5227, 20, 4));
+        mOcorrencias.adicionar(new Ocorrencia("Cruzada das Águas", 41, 7, 6501, 5, 3));
+        mOcorrencias.adicionar(new Ocorrencia("Emboscada da Terra", 5, 8, 6503, 10, 3));
 
-        mOcorrencias.add(new Ocorrencia("Jornada do Fogo", 15, 6, 6502, 5, 3));
+        mOcorrencias.adicionar(new Ocorrencia("Jornada do Fogo", 15, 6, 6502, 5, 3));
 
-        mOcorrencias.add(new Ocorrencia("Festival da Colheita", 26, 10, 6200, 5, 1));
+        mOcorrencias.adicionar(new Ocorrencia("Festival da Colheita", 26, 10, 6200, 5, 1));
 
-        mOcorrencias.add(new Ocorrencia("Batalha dos Imperadores", 30, 1, 5382, 39, 5));
-        mOcorrencias.add(new Ocorrencia("Torneio de Hazzo", 11, 9, 5431, 10, 2));
+        mOcorrencias.adicionar(new Ocorrencia("Batalha dos Imperadores", 30, 1, 5382, 39, 5));
+        mOcorrencias.adicionar(new Ocorrencia("Torneio de Hazzo", 11, 9, 5431, 10, 2));
 
         for (Ocorrencia OcorrenciaC : mOcorrencias) {
 
@@ -50,12 +50,12 @@ public class Eventum {
 
                 if (OcorrenciaC.getQuantidade() == 1) {
 
-                    mPequenosEventos.add(new AvisarPequenoEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
+                    mPequenosEventos.adicionar(new AvisarPequenoEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
                             OcorrenciaC.getSuperarko(), OcorrenciaC.getTronarkoInicio(), OcorrenciaC.getIntervaloTronarko(), 10, 10));
 
                 } else if (OcorrenciaC.getQuantidade() > 1) {
 
-                    mGrandesEventos.add(new AvisarGrandeEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
+                    mGrandesEventos.adicionar(new AvisarGrandeEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
                             OcorrenciaC.getSuperarko(), OcorrenciaC.getHiperarko(), OcorrenciaC.getSuperarkoFim(),
                             OcorrenciaC.getIntervaloTronarko(), OcorrenciaC.getTronarkoInicio(), 100, 15));
 
@@ -68,13 +68,13 @@ public class Eventum {
                 if (OcorrenciaC.getQuantidade() == 1) {
 
 
-                    mPequenosEventos.add(new AvisarPequenoEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
+                    mPequenosEventos.adicionar(new AvisarPequenoEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
                             OcorrenciaC.getSuperarko(), OcorrenciaC.getTronarkoInicio(), OcorrenciaC.getIntervaloTronarko(), 10, 10));
 
 
                 } else if (OcorrenciaC.getQuantidade() > 1) {
 
-                    mGrandesEventos.add(new AvisarGrandeEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
+                    mGrandesEventos.adicionar(new AvisarGrandeEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
                             OcorrenciaC.getSuperarko(), OcorrenciaC.getHiperarko(), OcorrenciaC.getSuperarkoFim(),
                             OcorrenciaC.getIntervaloTronarko(), OcorrenciaC.getTronarkoInicio(), 100, 15));
 
@@ -86,18 +86,18 @@ public class Eventum {
 
     }
 
-    public ArrayList<Ocorrencia> getOcorrencias() {
-        ArrayList<Ocorrencia> ret = new ArrayList<Ocorrencia>();
+    public Lista<Ocorrencia> getOcorrencias() {
+        Lista<Ocorrencia> ret = new Lista<Ocorrencia>();
 
         for (AvisarPequenoEvento P : mPequenosEventos) {
 
-            ret.add(new Ocorrencia(P.getNome(), P.getSuperarko(), P.getHiperarko(), P.getTronarkoInicio(), 1, P.getIntervalo()));
+            ret.adicionar(new Ocorrencia(P.getNome(), P.getSuperarko(), P.getHiperarko(), P.getTronarkoInicio(), 1, P.getIntervalo()));
 
         }
 
         for (AvisarGrandeEvento G : mGrandesEventos) {
 
-            ret.add(new Ocorrencia(G.getNome(), G.getSuperarkoInicio(), G.getHiperarkoInicio(), G.getInicio(),
+            ret.adicionar(new Ocorrencia(G.getNome(), G.getSuperarkoInicio(), G.getHiperarkoInicio(), G.getInicio(),
                     G.getDuracao(), G.getIntervalo()));
 
         }
@@ -105,9 +105,9 @@ public class Eventum {
         return ret;
     }
 
-    public void OrdenarPequenosEventos(ArrayList<AvisarPequenoEvento> Entrada) {
+    public void OrdenarPequenosEventos(Lista<AvisarPequenoEvento> Entrada) {
 
-        int n = Entrada.size();
+        int n = Entrada.getQuantidade();
         AvisarPequenoEvento temp = null;
 
         for (int i = 0; i < n; i++) {
@@ -125,9 +125,9 @@ public class Eventum {
 
     }
 
-    public void OrdenarGrandesEventos(ArrayList<AvisarGrandeEvento> Entrada) {
+    public void OrdenarGrandesEventos(Lista<AvisarGrandeEvento> Entrada) {
 
-        int n = Entrada.size();
+        int n = Entrada.getQuantidade();
         AvisarGrandeEvento temp = null;
 
         for (int i = 0; i < n; i++) {
@@ -145,9 +145,9 @@ public class Eventum {
 
     }
 
-    public void OrdenarGrandesAvisos(ArrayList<Avisar> Entrada) {
+    public void OrdenarGrandesAvisos(Lista<Avisar> Entrada) {
 
-        int n = Entrada.size();
+        int n = Entrada.getQuantidade();
         Avisar temp = null;
 
         for (int i = 0; i < n; i++) {
@@ -165,12 +165,12 @@ public class Eventum {
 
     }
 
-    public ArrayList<AvisarPequenoEvento> getAvisosPequenosEventos() {
+    public Lista<AvisarPequenoEvento> getAvisosPequenosEventos() {
 
-        ArrayList<AvisarPequenoEvento> mOrdenados = new ArrayList<AvisarPequenoEvento>();
+        Lista<AvisarPequenoEvento> mOrdenados = new Lista<AvisarPequenoEvento>();
 
         for (AvisarPequenoEvento P : mPequenosEventos) {
-            mOrdenados.add(P);
+            mOrdenados.adicionar(P);
         }
 
         OrdenarPequenosEventos(mOrdenados);
@@ -178,12 +178,12 @@ public class Eventum {
         return mOrdenados;
     }
 
-    public ArrayList<AvisarGrandeEvento> getAvisosGrandesEventos() {
+    public Lista<AvisarGrandeEvento> getAvisosGrandesEventos() {
 
-        ArrayList<AvisarGrandeEvento> mBaguncados = new ArrayList<AvisarGrandeEvento>();
+        Lista<AvisarGrandeEvento> mBaguncados = new Lista<AvisarGrandeEvento>();
 
         for (AvisarGrandeEvento P : mGrandesEventos) {
-            mBaguncados.add(P);
+            mBaguncados.adicionar(P);
         }
 
         OrdenarGrandesEventos(mBaguncados);
@@ -191,26 +191,26 @@ public class Eventum {
         return mBaguncados;
     }
 
-    public ArrayList<String> Eventos_De(int eTronarko) {
+    public Lista<String> Eventos_De(int eTronarko) {
 
-        ArrayList<String> ret = new ArrayList<String>();
+        Lista<String> ret = new Lista<String>();
 
         for (PequenoEvento P : ProximosPequenosEventos(eTronarko)) {
-            ret.add(P.toString());
+            ret.adicionar(P.toString());
 
         }
 
         for (GrandeEvento P : ProximosGrandesEventos(eTronarko)) {
-            ret.add(P.toString());
+            ret.adicionar(P.toString());
         }
         return ret;
     }
 
-    public ArrayList<PequenoEvento> ProximosPequenosEventos(int eTronarko) {
+    public Lista<PequenoEvento> ProximosPequenosEventos(int eTronarko) {
 
-        ArrayList<PequenoEvento> ret = new ArrayList<PequenoEvento>();
+        Lista<PequenoEvento> ret = new Lista<PequenoEvento>();
 
-        ArrayList<AvisarPequenoEvento> mPequenosEventos = getAvisosPequenosEventos();
+        Lista<AvisarPequenoEvento> mPequenosEventos = getAvisosPequenosEventos();
 
         OrdenarPequenosEventos(mPequenosEventos);
 
@@ -228,7 +228,7 @@ public class Eventum {
             Tozte TozteC = new Tozte(TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(), tronarko_inicio);
 
             if (TozteC.getTronarko() == eTronarko) {
-                ret.add(new PequenoEvento(TozteCorrente.getNome(), TozteC));
+                ret.adicionar(new PequenoEvento(TozteCorrente.getNome(), TozteC));
             }
 
         }
@@ -238,7 +238,7 @@ public class Eventum {
 
     public void ListarPequenosEventosDe(String eGrandeEvento, int eAteTronarko) {
 
-        int tamanho = mPequenosEventos.size();
+        int tamanho = mPequenosEventos.getQuantidade();
         int indice = 0;
 
         while (indice < tamanho) {
@@ -263,7 +263,7 @@ public class Eventum {
 
     public void ListarGrandesEventos(String eGrandeEvento, int eAteTronarko) {
 
-        int tamanho = mGrandesEventos.size();
+        int tamanho = mGrandesEventos.getQuantidade();
         int indice = 0;
 
         while (indice < tamanho) {
@@ -289,7 +289,7 @@ public class Eventum {
     public void ListarEventos_Entre(int eDeTronarko, int eAteTronarko) {
 
 
-        ArrayList<Avisar> Avisos = new ArrayList<Avisar>();
+        Lista<Avisar> Avisos = new Lista<Avisar>();
 
         for (AvisarPequenoEvento TozteCorrente : mPequenosEventos) {
 
@@ -299,7 +299,7 @@ public class Eventum {
             while (TronarkoInicio < eAteTronarko) {
 
                 if (TronarkoInicio >= eDeTronarko) {
-                    Avisos.add(new Avisar(TozteCorrente.getNome(), TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(), TronarkoInicio, Edicao));
+                    Avisos.adicionar(new Avisar(TozteCorrente.getNome(), TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(), TronarkoInicio, Edicao));
                 }
 
                 TronarkoInicio += TozteCorrente.getIntervalo();
@@ -316,7 +316,7 @@ public class Eventum {
             while (TronarkoInicio < eAteTronarko) {
 
                 if (TronarkoInicio >= eDeTronarko) {
-                    Avisos.add(new Avisar(TozteCorrente.getNome(), TozteCorrente.getSuperarkoInicio(), TozteCorrente.getHiperarkoInicio(), TronarkoInicio, Edicao));
+                    Avisos.adicionar(new Avisar(TozteCorrente.getNome(), TozteCorrente.getSuperarkoInicio(), TozteCorrente.getHiperarkoInicio(), TronarkoInicio, Edicao));
                 }
 
                 TronarkoInicio += TozteCorrente.getIntervalo();
@@ -335,7 +335,7 @@ public class Eventum {
 
     public void ListarPequenosEventos_Entre(String eGrandeEvento, int eDeTronarko, int eAteTronarko) {
 
-        int tamanho = mPequenosEventos.size();
+        int tamanho = mPequenosEventos.getQuantidade();
         int indice = 0;
 
         while (indice < tamanho) {
@@ -364,7 +364,7 @@ public class Eventum {
 
     public void ListarGrandesEventos_Entre(String eGrandeEvento, int eDeTronarko, int eAteTronarko) {
 
-        int tamanho = mGrandesEventos.size();
+        int tamanho = mGrandesEventos.getQuantidade();
         int indice = 0;
 
         while (indice < tamanho) {
@@ -391,9 +391,9 @@ public class Eventum {
         }
     }
 
-    public ArrayList<GrandeEvento> ProximosGrandesEventos(int eTronarko) {
+    public Lista<GrandeEvento> ProximosGrandesEventos(int eTronarko) {
 
-        ArrayList<AvisarGrandeEvento> SAT = new ArrayList<AvisarGrandeEvento>();
+        Lista<AvisarGrandeEvento> SAT = new Lista<AvisarGrandeEvento>();
         for (AvisarGrandeEvento TozteCorrente : mGrandesEventos) {
 
             int Edicao = 1;
@@ -412,13 +412,13 @@ public class Eventum {
             SATC.setTronarko(TronarkoInicio);
             SATC.setEdicao(Edicao);
 
-            SAT.add(SATC);
+            SAT.adicionar(SATC);
 
         }
 
         OrdenarGrandesEventos(SAT);
 
-        ArrayList<GrandeEvento> mRetorno = new ArrayList<GrandeEvento>();
+        Lista<GrandeEvento> mRetorno = new Lista<GrandeEvento>();
 
         for (AvisarGrandeEvento AvisoCorrente : SAT) {
 
@@ -428,7 +428,7 @@ public class Eventum {
                     AvisoCorrente.getTronarko());
 
             if (eInicio.getTronarko() == eTronarko) {
-                mRetorno.add(new GrandeEvento(AvisoCorrente.getNome(), AvisoCorrente.getIntervalo(),
+                mRetorno.adicionar(new GrandeEvento(AvisoCorrente.getNome(), AvisoCorrente.getIntervalo(),
                         AvisoCorrente.getInicio(), eInicio, eFim, AvisoCorrente.getEdicao()));
             }
 
@@ -437,15 +437,15 @@ public class Eventum {
         return mRetorno;
     }
 
-    public ArrayList<String> EventosDoTozte(Tozte TozteC) {
-        ArrayList<String> ret = new ArrayList<String>();
+    public Lista<String> EventosDoTozte(Tozte TozteC) {
+        Lista<String> ret = new Lista<String>();
 
         for (AvisarPequenoEvento EventoCorrente : mPequenosEventos) {
 
             if (EventoCorrente.getSuperarko() == TozteC.getSuperarko()
                     && EventoCorrente.getHiperarko() == TozteC.getHiperarko()) {
 
-                ret.add(EventoCorrente.getNome() + "  ->  [ " + EventoCorrente.getSuperarko() + "/"
+                ret.adicionar(EventoCorrente.getNome() + "  ->  [ " + EventoCorrente.getSuperarko() + "/"
                         + EventoCorrente.getHiperarko() + "/" + TozteC.getTronarko() + " ]");
 
             }
@@ -455,15 +455,15 @@ public class Eventum {
         return ret;
     }
 
-    public ArrayList<String> GrandesEventosDoTozte(Tozte TozteC, ArrayList<AvisarGrandeEvento> lsGrandesEventos) {
-        ArrayList<String> ret = new ArrayList<String>();
+    public Lista<String> GrandesEventosDoTozte(Tozte TozteC, Lista<AvisarGrandeEvento> lsGrandesEventos) {
+        Lista<String> ret = new Lista<String>();
 
         for (AvisarGrandeEvento GE : lsGrandesEventos) {
 
             if (GE.getSuperarkoInicio() == TozteC.getSuperarko() && GE.getHiperarkoInicio() == TozteC.getHiperarko()
                     && GE.getTronarko() == TozteC.getTronarko()) {
 
-                ret.add(GE.getNome() + "  ->  [ " + GE.getSuperarkoInicio() + "/" + GE.getHiperarkoInicio() + "/"
+                ret.adicionar(GE.getNome() + "  ->  [ " + GE.getSuperarkoInicio() + "/" + GE.getHiperarkoInicio() + "/"
                         + GE.getTronarko() + " a " + GE.getSuperarkoFim() + "/" + GE.getHiperarkoFim() + "/"
                         + GE.getTronarko() + " ] a cada " + GE.getIntervalo() + " desde " + GE.getInicio()
                         + " Edicao : " + GE.getEdicao());
@@ -475,12 +475,12 @@ public class Eventum {
         return ret;
     }
 
-    private ArrayList<AvisarGrandeEvento> GrandesEventos_EntreTronarkos(int MinTronarko, int MaxTronarko) {
+    private Lista<AvisarGrandeEvento> GrandesEventos_EntreTronarkos(int MinTronarko, int MaxTronarko) {
 
-        int tamanho = mGrandesEventos.size();
+        int tamanho = mGrandesEventos.getQuantidade();
         int indice = 0;
 
-        ArrayList<AvisarGrandeEvento> SAT = new ArrayList<AvisarGrandeEvento>();
+        Lista<AvisarGrandeEvento> SAT = new Lista<AvisarGrandeEvento>();
 
         while (indice < tamanho) {
             AvisarGrandeEvento TozteCorrente = mGrandesEventos.get(indice);
@@ -501,7 +501,7 @@ public class Eventum {
                     SATC.setTronarko(TronarkoInicio);
                     SATC.setEdicao(Edicao);
 
-                    SAT.add(SATC);
+                    SAT.adicionar(SATC);
 
                 }
 
@@ -520,10 +520,10 @@ public class Eventum {
 
     }
 
-    public ArrayList<String> EventosDesde(Tozte TozteC, int eSuperarkos) {
-        ArrayList<String> ret = new ArrayList<String>();
+    public Lista<String> EventosDesde(Tozte TozteC, int eSuperarkos) {
+        Lista<String> ret = new Lista<String>();
 
-        ArrayList<AvisarGrandeEvento> GrandesEventosEntreTronarkos = GrandesEventos_EntreTronarkos(TozteC.getTronarko(),
+        Lista<AvisarGrandeEvento> GrandesEventosEntreTronarkos = GrandesEventos_EntreTronarkos(TozteC.getTronarko(),
                 TozteC.adicionar_Superarko(eSuperarkos).getTronarko());
 
         for (int i = 0; i < eSuperarkos; i++) {
@@ -532,16 +532,16 @@ public class Eventum {
 
             for (String eS : EventosDoTozte(Novo)) {
                 String NovoString = eS;
-                if (!ret.contains(NovoString)) {
-                    ret.add(NovoString);
+                if (!ret.existe(NovoString)) {
+                    ret.adicionar(NovoString);
                 }
             }
 
             for (String eS : GrandesEventosDoTozte(Novo, GrandesEventosEntreTronarkos)) {
                 String NovoString = eS;
 
-                if (!ret.contains(NovoString)) {
-                    ret.add(NovoString);
+                if (!ret.existe(NovoString)) {
+                    ret.adicionar(NovoString);
                 }
             }
 
@@ -551,9 +551,9 @@ public class Eventum {
 
     }
 
-    public ArrayList<TozteCor> getLegenda(ArrayList<TozteCor> ToztesComCor) {
+    public Lista<TozteCor> getLegenda(Lista<TozteCor> ToztesComCor) {
 
-        ArrayList<TozteCor> ToztesComCorUnico = new ArrayList<TozteCor>();
+        Lista<TozteCor> ToztesComCorUnico = new Lista<TozteCor>();
         for (TozteCor e : ToztesComCor) {
             boolean enc = false;
 
@@ -567,12 +567,12 @@ public class Eventum {
 
             if (enc == false) {
                 e.adicionar_Tozte(e.getTozte());
-                ToztesComCorUnico.add(e);
+                ToztesComCorUnico.adicionar(e);
             }
         }
 
 
-        int n = ToztesComCorUnico.size();
+        int n = ToztesComCorUnico.getQuantidade();
         TozteCor temp = null;
 
         for (int i = 0; i < n; i++) {
@@ -592,11 +592,11 @@ public class Eventum {
         return ToztesComCorUnico;
     }
 
-    private ArrayList<TozteCor> removerMenorPorMaior(String eMaior, ArrayList<TozteCor> lsToztesComCor) {
+    private Lista<TozteCor> removerMenorPorMaior(String eMaior, Lista<TozteCor> lsToztesComCor) {
 
-        ArrayList<TozteCor> mRet = new ArrayList<TozteCor>();
+        Lista<TozteCor> mRet = new Lista<TozteCor>();
         for (TozteCor eTozteCor : lsToztesComCor) {
-            mRet.add(eTozteCor);
+            mRet.adicionar(eTozteCor);
         }
 
         boolean remover = false;
@@ -626,7 +626,7 @@ public class Eventum {
 
             for (TozteCor u : mRet) {
                 if (u.getNome().contentEquals(RemoverEsse)) {
-                    mRet.remove(u);
+                    mRet.remover(u);
                     break;
                 }
             }
@@ -636,12 +636,12 @@ public class Eventum {
         return mRet;
     }
 
-    public ArrayList<TozteCor> getToztesComCor(int eTronarko) {
+    public Lista<TozteCor> getToztesComCor(int eTronarko) {
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
 
         for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
-            ToztesComCor.add(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+            ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
         }
 
         for (GrandeEvento e : ProximosGrandesEventos(eTronarko)) {
@@ -649,7 +649,7 @@ public class Eventum {
             ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
             for (Tozte T1 : e.getToztes()) {
-                ToztesComCor.add(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
             }
         }
 
@@ -658,7 +658,7 @@ public class Eventum {
     }
 
 
-    public void alinhar_eventos(ArrayList<TozteCor> infos) {
+    public void alinhar_eventos(Lista<TozteCor> infos) {
 
         String mPassadoInfoNome = "";
 
@@ -675,13 +675,13 @@ public class Eventum {
 
     }
 
-    public ArrayList<TozteCor> getToztesComCorHiperarko(int eHiperarko, int eTronarko) {
+    public Lista<TozteCor> getToztesComCorHiperarko(int eHiperarko, int eTronarko) {
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
 
         for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
 
-            ToztesComCor.add(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+            ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
         }
 
@@ -690,15 +690,15 @@ public class Eventum {
             ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
             for (Tozte T1 : e.getToztes()) {
-                ToztesComCor.add(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
             }
         }
 
-        ArrayList<TozteCor> mFiltrando = new ArrayList<TozteCor>();
+        Lista<TozteCor> mFiltrando = new Lista<TozteCor>();
         for (TozteCor e : ToztesComCor) {
 
             if (e.getTozte().getHiperarko() == eHiperarko) {
-                mFiltrando.add(e);
+                mFiltrando.adicionar(e);
             }
 
         }
@@ -706,7 +706,7 @@ public class Eventum {
         return mFiltrando;
     }
 
-    public ArrayList<TozteCor> getToztesComCorEmIntervalo(Tozte eAntes, Tozte eDepois) {
+    public Lista<TozteCor> getToztesComCorEmIntervalo(Tozte eAntes, Tozte eDepois) {
 
 
         System.out.println("-->> ANTES : " + eAntes.getTexto());
@@ -720,7 +720,7 @@ public class Eventum {
         }
 
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
 
         if (eAntes.getTronarko() == eDepois.getTronarko()) {
 
@@ -728,7 +728,7 @@ public class Eventum {
 
             for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
 
-                ToztesComCor.add(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+                ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
             }
 
@@ -737,7 +737,7 @@ public class Eventum {
                 ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
                 for (Tozte T1 : e.getToztes()) {
-                    ToztesComCor.add(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                    ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
                 }
             }
 
@@ -751,7 +751,7 @@ public class Eventum {
 
                 for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
 
-                    ToztesComCor.add(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+                    ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
                 }
 
@@ -760,7 +760,7 @@ public class Eventum {
                     ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
                     for (Tozte T1 : e.getToztes()) {
-                        ToztesComCor.add(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                        ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
                     }
                 }
 
@@ -768,12 +768,12 @@ public class Eventum {
 
         }
 
-        ArrayList<TozteCor> mFiltrando = new ArrayList<TozteCor>();
+        Lista<TozteCor> mFiltrando = new Lista<TozteCor>();
 
         for (TozteCor e : ToztesComCor) {
 
             if (e.getTozte().isMaiorIgualQue(eAntes) && e.getTozte().isMenorIgualQue(eDepois)) {
-                mFiltrando.add(e);
+                mFiltrando.adicionar(e);
             }
 
         }
@@ -782,15 +782,15 @@ public class Eventum {
         return mFiltrando;
     }
 
-    public ArrayList<TozteCor> getToztesComCorHizarko(int eTronarko) {
+    public Lista<TozteCor> getToztesComCorHizarko(int eTronarko) {
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
 
         Tozte eTozte = new Tozte(1, 1, eTronarko);
 
         for (int n = 0; n < 500; n++) {
 
-            ToztesComCor.add(new TozteCor(eTozte.getHizarko().toString(), eTozte, getHizarkoCor(eTozte.getHizarko())));
+            ToztesComCor.adicionar(new TozteCor(eTozte.getHizarko().toString(), eTozte, getHizarkoCor(eTozte.getHizarko())));
 
             eTozte = eTozte.adicionar_Superarko(1);
         }

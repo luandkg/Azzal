@@ -1,7 +1,6 @@
 package libs.tronarko;
 
-import java.util.ArrayList;
-
+import libs.luan.Lista;
 import libs.tronarko.Intervalos.Tozte_Intervalo;
 
 public class Tozte {
@@ -794,13 +793,13 @@ public class Tozte {
         return resposta;
     }
 
-    public ArrayList<Tozte_Intervalo> getEpocas() {
-        ArrayList<Tozte_Intervalo> Epocas = new ArrayList<Tozte_Intervalo>();
+    public Lista<Tozte_Intervalo> getEpocas() {
+        Lista<Tozte_Intervalo> Epocas = new Lista<Tozte_Intervalo>();
 
-        Epocas.add((new Tozte_Intervalo("CRIACAO", new Tozte(1, 1, 1), new Tozte(50, 10, 325))));
-        Epocas.add((new Tozte_Intervalo("DEUSES", new Tozte(1, 1, 326), new Tozte(50, 10, 5299))));
-        Epocas.add((new Tozte_Intervalo("REINOS", new Tozte(1, 1, 5300), new Tozte(50, 10, 6199))));
-        Epocas.add((new Tozte_Intervalo("IMPERIOS", new Tozte(1, 1, 6200), new Tozte(50, 10, 10000))));
+        Epocas.adicionar((new Tozte_Intervalo("CRIACAO", new Tozte(1, 1, 1), new Tozte(50, 10, 325))));
+        Epocas.adicionar((new Tozte_Intervalo("DEUSES", new Tozte(1, 1, 326), new Tozte(50, 10, 5299))));
+        Epocas.adicionar((new Tozte_Intervalo("REINOS", new Tozte(1, 1, 5300), new Tozte(50, 10, 6199))));
+        Epocas.adicionar((new Tozte_Intervalo("IMPERIOS", new Tozte(1, 1, 6200), new Tozte(50, 10, 10000))));
 
         return Epocas;
     }

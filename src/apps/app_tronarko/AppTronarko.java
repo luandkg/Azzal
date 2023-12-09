@@ -10,6 +10,7 @@ import apps.app_letrum.Fonte;
 import apps.app_letrum.FonteDupla;
 import apps.app_letrum.FonteDuplaRunTime;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.luan.Lista;
 import libs.luan.Tempo;
 import libs.rho_benchmark.RhoBenchmark;
 import libs.tronarko.Eventos.Comunicado;
@@ -25,8 +26,6 @@ import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 import libs.mockui.Marcador;
 
-
-import java.util.ArrayList;
 
 public class AppTronarko extends Cena {
 
@@ -74,7 +73,7 @@ public class AppTronarko extends Cena {
     private HiperarkoWidget mHiperarkoWidgetSelecionado;
     private TronarkoImagemSignos mTronarkoImagemSignos;
 
-    private ArrayList<TozteCor> mEventos;
+    private Lista<TozteCor> mEventos;
 
     private RhoBenchmark mRhoBenchmark;
 
@@ -323,7 +322,7 @@ public class AppTronarko extends Cena {
         int AVISO_X = 950;
         int AVISO_Y = 500;
 
-        ArrayList<TozteCor> eventos = mEventum.getLegenda(mEventos);
+        Lista<TozteCor> eventos = mEventum.getLegenda(mEventos);
 
         for (TozteCor tozte_evento : eventos) {
 

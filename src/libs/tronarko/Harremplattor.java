@@ -1,82 +1,81 @@
 package libs.tronarko;
 
 import libs.azzal.Cores;
+import libs.luan.Lista;
 import libs.luan.Par;
 import libs.tronarko.utils.AstroLocal;
 
-import java.util.ArrayList;
-
 public class Harremplattor {
 
-    public static ArrayList<Par<String, String>> get(Signos eSigno, Tozte eTozte) {
+    public static Lista<Par<String, String>> get(Signos eSigno, Tozte eTozte) {
 
-        ArrayList<Par<String, String>> lista = new ArrayList<Par<String, String>>();
-
-
-        ArrayList<String> cores = LISTA_DE_CORES();
-        ArrayList<String> sentimentos = LISTA_DE_SENTIMENTOS();
-        ArrayList<String> escolhas = LISTA_DE_ESCOLHAS();
-        ArrayList<String> direcoes = LISTA_DE_DIRECOES();
-        ArrayList<String> consoantes = LISTA_DE_CONSOANTES();
-        ArrayList<String> vogais = LISTA_DE_VOGAIS();
-        ArrayList<String> elementos = LISTA_DE_ELEMENTOS();
-        ArrayList<String> letras = LISTA_DE_LETRAS();
-
-        ArrayList<String> n10 = LISTA_DE_NUMEROS_SIMPLES();
-        ArrayList<String> n100 = LISTA_DE_NUMEROS_COMPLEXOS();
-        ArrayList<String> numeros_do_jogo = LISTA_DE_NUMEROS_JOGO();
+        Lista<Par<String, String>> lista = new Lista<Par<String, String>>();
 
 
-        ArrayList<AstroLocal> mLocais = getLocais(eSigno, eTozte);
+        Lista<String> cores = LISTA_DE_CORES();
+        Lista<String> sentimentos = LISTA_DE_SENTIMENTOS();
+        Lista<String> escolhas = LISTA_DE_ESCOLHAS();
+        Lista<String> direcoes = LISTA_DE_DIRECOES();
+        Lista<String> consoantes = LISTA_DE_CONSOANTES();
+        Lista<String> vogais = LISTA_DE_VOGAIS();
+        Lista<String> elementos = LISTA_DE_ELEMENTOS();
+        Lista<String> letras = LISTA_DE_LETRAS();
 
-        lista.add(new Par<String, String>("Sentimento", sentimentos.get(distancia(mLocais, "A", "Vermelho") % sentimentos.size())));
-        lista.add(new Par<String, String>("Cor", cores.get(distancia(mLocais, "A", "Amarelo") % cores.size())));
-        lista.add(new Par<String, String>("Elemento", elementos.get(distancia(mLocais, "A", "Azul") % elementos.size())));
-        lista.add(new Par<String, String>("Direção", direcoes.get(distancia(mLocais, "A", "Laranja") % direcoes.size())));
-        lista.add(new Par<String, String>("Escolha", escolhas.get(distancia(mLocais, "A", "Verde") % escolhas.size())));
+        Lista<String> n10 = LISTA_DE_NUMEROS_SIMPLES();
+        Lista<String> n100 = LISTA_DE_NUMEROS_COMPLEXOS();
+        Lista<String> numeros_do_jogo = LISTA_DE_NUMEROS_JOGO();
 
 
-        lista.add(new Par<String, String>("N10", n10.get(distancia(mLocais, "B", "Vermelho") % n10.size())));
-        lista.add(new Par<String, String>("N100", n100.get(distancia(mLocais, "B", "Laranja") % n100.size())));
+        Lista<AstroLocal> mLocais = getLocais(eSigno, eTozte);
 
-        lista.add(new Par<String, String>("Letra", letras.get(distancia(mLocais, "C", "Azul") % letras.size())));
-        lista.add(new Par<String, String>("Consoante", consoantes.get(distancia(mLocais, "C", "Verde") % consoantes.size())));
-        lista.add(new Par<String, String>("Vogal", vogais.get(distancia(mLocais, "C", "Vermelho") % vogais.size())));
+        lista.adicionar(new Par<String, String>("Sentimento", sentimentos.get(distancia(mLocais, "A", "Vermelho") % sentimentos.getQuantidade())));
+        lista.adicionar(new Par<String, String>("Cor", cores.get(distancia(mLocais, "A", "Amarelo") % cores.getQuantidade())));
+        lista.adicionar(new Par<String, String>("Elemento", elementos.get(distancia(mLocais, "A", "Azul") % elementos.getQuantidade())));
+        lista.adicionar(new Par<String, String>("Direção", direcoes.get(distancia(mLocais, "A", "Laranja") % direcoes.getQuantidade())));
+        lista.adicionar(new Par<String, String>("Escolha", escolhas.get(distancia(mLocais, "A", "Verde") % escolhas.getQuantidade())));
+
+
+        lista.adicionar(new Par<String, String>("N10", n10.get(distancia(mLocais, "B", "Vermelho") % n10.getQuantidade())));
+        lista.adicionar(new Par<String, String>("N100", n100.get(distancia(mLocais, "B", "Laranja") % n100.getQuantidade())));
+
+        lista.adicionar(new Par<String, String>("Letra", letras.get(distancia(mLocais, "C", "Azul") % letras.getQuantidade())));
+        lista.adicionar(new Par<String, String>("Consoante", consoantes.get(distancia(mLocais, "C", "Verde") % consoantes.getQuantidade())));
+        lista.adicionar(new Par<String, String>("Vogal", vogais.get(distancia(mLocais, "C", "Vermelho") % vogais.getQuantidade())));
 
         for (int v = 0; v < 100; v++) {
             slicer_numerico(numeros_do_jogo);
         }
 
-        String j1 = numeros_do_jogo.get(distancia(mLocais, "A", "Vermelho") % numeros_do_jogo.size());
+        String j1 = numeros_do_jogo.get(distancia(mLocais, "A", "Vermelho") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j1);
         //slicer_numerico(numeros_do_jogo);
 
-        String j2 = numeros_do_jogo.get(distancia(mLocais, "B", "Amarelo") % numeros_do_jogo.size());
+        String j2 = numeros_do_jogo.get(distancia(mLocais, "B", "Amarelo") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j2);
         // slicer_numerico(numeros_do_jogo);
 
 
-        String j3 = numeros_do_jogo.get(distancia(mLocais, "C", "Azul") % numeros_do_jogo.size());
+        String j3 = numeros_do_jogo.get(distancia(mLocais, "C", "Azul") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j3);
         // slicer_numerico(numeros_do_jogo);
 
-        String j4 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "B", "Laranja") % numeros_do_jogo.size());
+        String j4 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "B", "Laranja") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j4);
         // slicer_numerico(numeros_do_jogo);
 
-        String j5 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "B", "Verde") % numeros_do_jogo.size());
+        String j5 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "B", "Verde") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j5);
         //  slicer_numerico(numeros_do_jogo);
 
-        String j6 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "C", "Vermelho") % numeros_do_jogo.size());
+        String j6 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "C", "Vermelho") % numeros_do_jogo.getQuantidade());
 
 
-        lista.add(new Par<String, String>("Jogo", j1 + " " + j2 + " " + j3 + " " + j4 + " " + j5 + " " + j6));
+        lista.adicionar(new Par<String, String>("Jogo", j1 + " " + j2 + " " + j3 + " " + j4 + " " + j5 + " " + j6));
 
 
         return lista;
@@ -93,26 +92,26 @@ public class Harremplattor {
     }
 
 
-    public static void slicer_numerico_retirar(ArrayList<String> sequencia, String item) {
+    public static void slicer_numerico_retirar(Lista<String> sequencia, String item) {
         int index = 0;
         for (String proc : sequencia) {
             if (proc.contentEquals(item)) {
-                sequencia.remove(index);
+                sequencia.remover_indice(index);
                 break;
             }
             index += 1;
         }
     }
 
-    public static void slicer_numerico(ArrayList<String> sequencia) {
+    public static void slicer_numerico(Lista<String> sequencia) {
 
-        int p1 = sequencia.size() / 4;
-        int p2 = sequencia.size();
+        int p1 = sequencia.getQuantidade() / 4;
+        int p2 = sequencia.getQuantidade();
 
 
         for (int n1 = p1; n1 < p2; n1++) {
 
-            int n2 = (sequencia.size() - 1) - n1;
+            int n2 = (sequencia.getQuantidade() - 1) - n1;
 
             String v_origem = sequencia.get(n1);
             String v_destino = sequencia.get(n2);
@@ -125,94 +124,94 @@ public class Harremplattor {
 
     }
 
-    public static ArrayList<AstroLocal> getLocais(Signos eSigno, Tozte eTozte) {
+    public static Lista<AstroLocal> getLocais(Signos eSigno, Tozte eTozte) {
 
-        ArrayList<AstroLocal> mLocais = new ArrayList<AstroLocal>();
+        Lista<AstroLocal> mLocais = new Lista<AstroLocal>();
 
         for (AstroLocal p : getEixos(eSigno)) {
-            mLocais.add(p);
+            mLocais.adicionar(p);
         }
 
         for (Astro p : getAstros(eTozte)) {
-            mLocais.add(new AstroLocal(p.getNome(), p.getPosX(), p.getPosY()));
+            mLocais.adicionar(new AstroLocal(p.getNome(), p.getPosX(), p.getPosY()));
         }
 
         return mLocais;
 
     }
 
-    public static ArrayList<AstroLocal> getEixos(Signos eSigno) {
+    public static Lista<AstroLocal> getEixos(Signos eSigno) {
 
 
-        ArrayList<AstroLocal> mEixos = new ArrayList<AstroLocal>();
+        Lista<AstroLocal> mEixos = new Lista<AstroLocal>();
 
         if (eSigno == Signos.LEAO) {
 
-            mEixos.add(new AstroLocal("A", 600, 200));
-            mEixos.add(new AstroLocal("B", 1200, 400));
-            mEixos.add(new AstroLocal("C", 400, 800));
+            mEixos.adicionar(new AstroLocal("A", 600, 200));
+            mEixos.adicionar(new AstroLocal("B", 1200, 400));
+            mEixos.adicionar(new AstroLocal("C", 400, 800));
 
         } else if (eSigno == Signos.CARPA) {
 
-            mEixos.add(new AstroLocal("A", 800, 300));
-            mEixos.add(new AstroLocal("B", 1500, 600));
-            mEixos.add(new AstroLocal("C", 300, 200));
+            mEixos.adicionar(new AstroLocal("A", 800, 300));
+            mEixos.adicionar(new AstroLocal("B", 1500, 600));
+            mEixos.adicionar(new AstroLocal("C", 300, 200));
 
         } else if (eSigno == Signos.GATO) {
 
 
-            mEixos.add(new AstroLocal("A", 800, 900));
-            mEixos.add(new AstroLocal("B", 300, 900));
-            mEixos.add(new AstroLocal("C", 600, 300));
+            mEixos.adicionar(new AstroLocal("A", 800, 900));
+            mEixos.adicionar(new AstroLocal("B", 300, 900));
+            mEixos.adicionar(new AstroLocal("C", 600, 300));
 
         } else if (eSigno == Signos.GAVIAO) {
 
 
-            mEixos.add(new AstroLocal("A", 300, 200));
-            mEixos.add(new AstroLocal("B", 1400, 300));
-            mEixos.add(new AstroLocal("C", 600, 800));
+            mEixos.adicionar(new AstroLocal("A", 300, 200));
+            mEixos.adicionar(new AstroLocal("B", 1400, 300));
+            mEixos.adicionar(new AstroLocal("C", 600, 800));
 
         } else if (eSigno == Signos.LEOPARDO) {
 
 
-            mEixos.add(new AstroLocal("A", 800, 300));
-            mEixos.add(new AstroLocal("B", 800, 600));
-            mEixos.add(new AstroLocal("C", 600, 900));
+            mEixos.adicionar(new AstroLocal("A", 800, 300));
+            mEixos.adicionar(new AstroLocal("B", 800, 600));
+            mEixos.adicionar(new AstroLocal("C", 600, 900));
 
         } else if (eSigno == Signos.LOBO) {
 
 
-            mEixos.add(new AstroLocal("A", 100, 500));
-            mEixos.add(new AstroLocal("B", 1200, 600));
-            mEixos.add(new AstroLocal("C", 600, 900));
+            mEixos.adicionar(new AstroLocal("A", 100, 500));
+            mEixos.adicionar(new AstroLocal("B", 1200, 600));
+            mEixos.adicionar(new AstroLocal("C", 600, 900));
 
         } else if (eSigno == Signos.RAPOSA) {
 
 
-            mEixos.add(new AstroLocal("A", 200, 600));
-            mEixos.add(new AstroLocal("B", 1300, 700));
-            mEixos.add(new AstroLocal("C", 1400, 600));
+            mEixos.adicionar(new AstroLocal("A", 200, 600));
+            mEixos.adicionar(new AstroLocal("B", 1300, 700));
+            mEixos.adicionar(new AstroLocal("C", 1400, 600));
 
         } else if (eSigno == Signos.SERPENTE) {
 
 
-            mEixos.add(new AstroLocal("A", 500, 200));
-            mEixos.add(new AstroLocal("B", 1200, 300));
-            mEixos.add(new AstroLocal("C", 600, 800));
+            mEixos.adicionar(new AstroLocal("A", 500, 200));
+            mEixos.adicionar(new AstroLocal("B", 1200, 300));
+            mEixos.adicionar(new AstroLocal("C", 600, 800));
 
         } else if (eSigno == Signos.TIGRE) {
 
 
-            mEixos.add(new AstroLocal("A", 1200, 800));
-            mEixos.add(new AstroLocal("B", 1200, 300));
-            mEixos.add(new AstroLocal("C", 600, 800));
+            mEixos.adicionar(new AstroLocal("A", 1200, 800));
+            mEixos.adicionar(new AstroLocal("B", 1200, 300));
+            mEixos.adicionar(new AstroLocal("C", 600, 800));
 
         } else if (eSigno == Signos.TOURO) {
 
 
-            mEixos.add(new AstroLocal("A", 800, 200));
-            mEixos.add(new AstroLocal("B", 1200, 900));
-            mEixos.add(new AstroLocal("C", 1000, 800));
+            mEixos.adicionar(new AstroLocal("A", 800, 200));
+            mEixos.adicionar(new AstroLocal("B", 1200, 900));
+            mEixos.adicionar(new AstroLocal("C", 1000, 800));
 
         }
 
@@ -221,18 +220,18 @@ public class Harremplattor {
     }
 
 
-    public static ArrayList<Astro> getAstros(Tozte eTozte) {
+    public static Lista<Astro> getAstros(Tozte eTozte) {
 
 
-        ArrayList<Astro> mAstros = new ArrayList<Astro>();
+        Lista<Astro> mAstros = new Lista<Astro>();
 
         Cores mCores = new Cores();
 
-        mAstros.add(new Astro("Vermelho", mCores.getVermelho(), 400, 200, 1200, 700, 5, 1, 100));
-        mAstros.add(new Astro("Amarelo", mCores.getAmarelo(), 500, 300, 1300, 500, 10, -1, 150));
-        mAstros.add(new Astro("Azul", mCores.getAzul(), 1300, 300, 400, 800, 15, 1, 80));
-        mAstros.add(new Astro("Verde", mCores.getVerde(), 600, 150, 600, 900, 6, -1, 50));
-        mAstros.add(new Astro("Laranja", mCores.getLaranja(), 350, 600, 1300, 600, 20, -1, 60));
+        mAstros.adicionar(new Astro("Vermelho", mCores.getVermelho(), 400, 200, 1200, 700, 5, 1, 100));
+        mAstros.adicionar(new Astro("Amarelo", mCores.getAmarelo(), 500, 300, 1300, 500, 10, -1, 150));
+        mAstros.adicionar(new Astro("Azul", mCores.getAzul(), 1300, 300, 400, 800, 15, 1, 80));
+        mAstros.adicionar(new Astro("Verde", mCores.getVerde(), 600, 150, 600, 900, 6, -1, 50));
+        mAstros.adicionar(new Astro("Laranja", mCores.getLaranja(), 350, 600, 1300, 600, 20, -1, 60));
 
 
         long harrem = (long) eTozte.getMegarkoDoTronarko() + ((long) eTozte.getTronarko() * 50);
@@ -280,7 +279,7 @@ public class Harremplattor {
     }
 
 
-    public static int normalizar_triangulacao(ArrayList<AstroLocal> tudo, String a, String b, String c) {
+    public static int normalizar_triangulacao(Lista<AstroLocal> tudo, String a, String b, String c) {
         int v1 = distancia(tudo, a, b);
         int v2 = distancia(tudo, b, c);
         int v3 = distancia(tudo, a, c);
@@ -289,7 +288,7 @@ public class Harremplattor {
     }
 
 
-    public static int distancia(ArrayList<AstroLocal> tudo, String a, String b) {
+    public static int distancia(Lista<AstroLocal> tudo, String a, String b) {
 
         int e = 0;
 
@@ -320,178 +319,178 @@ public class Harremplattor {
 
     }
 
-    public static ArrayList<String> LISTA_DE_CORES() {
+    public static Lista<String> LISTA_DE_CORES() {
 
-        ArrayList<String> cores = new ArrayList<String>();
+        Lista<String> cores = new Lista<String>();
 
-        cores.add("AMARELO");
-        cores.add("VERDE");
-        cores.add("VERMELHO");
-        cores.add("AZUL");
-        cores.add("PRETO");
-        cores.add("BRANCO");
-        cores.add("ROSA");
-        cores.add("LARANJA");
-        cores.add("MARROM");
-        cores.add("CINZA");
-        cores.add("ROXO");
+        cores.adicionar("AMARELO");
+        cores.adicionar("VERDE");
+        cores.adicionar("VERMELHO");
+        cores.adicionar("AZUL");
+        cores.adicionar("PRETO");
+        cores.adicionar("BRANCO");
+        cores.adicionar("ROSA");
+        cores.adicionar("LARANJA");
+        cores.adicionar("MARROM");
+        cores.adicionar("CINZA");
+        cores.adicionar("ROXO");
 
         return cores;
     }
 
-    public static ArrayList<String> LISTA_DE_SENTIMENTOS() {
+    public static Lista<String> LISTA_DE_SENTIMENTOS() {
 
-        ArrayList<String> sentimentos = new ArrayList<String>();
+        Lista<String> sentimentos = new Lista<String>();
 
-        sentimentos.add("DIVERSÃO");
-        sentimentos.add("ANSIEDADE");
-        sentimentos.add("ESTRANHAMENTO");
-        sentimentos.add("DESEJO");
-        sentimentos.add("EXCITAÇÃO");
-        sentimentos.add("TEMOR");
-        sentimentos.add("MEDO");
-        sentimentos.add("HORROR");
-        sentimentos.add("TÉDIO");
-        sentimentos.add("CALMA");
-        sentimentos.add("EMPATIA");
-        sentimentos.add("DÚVIDA");
-        sentimentos.add("NOJO");
-        sentimentos.add("ENCANTAMENTO");
-        sentimentos.add("NOSTALGIA");
-        sentimentos.add("SATISFAÇÃO");
-        sentimentos.add("ADORAÇÃO");
-        sentimentos.add("ADMIRAÇÃO");
-        sentimentos.add("APREÇO");
-        sentimentos.add("INVEJA");
-        sentimentos.add("ROMANCE");
-        sentimentos.add("TRISTEZA");
-        sentimentos.add("SUPRESA");
-        sentimentos.add("SIMPATIA");
-        sentimentos.add("TRIUNFO");
-        sentimentos.add("INTERESSE");
-        sentimentos.add("ALEGRIA");
+        sentimentos.adicionar("DIVERSÃO");
+        sentimentos.adicionar("ANSIEDADE");
+        sentimentos.adicionar("ESTRANHAMENTO");
+        sentimentos.adicionar("DESEJO");
+        sentimentos.adicionar("EXCITAÇÃO");
+        sentimentos.adicionar("TEMOR");
+        sentimentos.adicionar("MEDO");
+        sentimentos.adicionar("HORROR");
+        sentimentos.adicionar("TÉDIO");
+        sentimentos.adicionar("CALMA");
+        sentimentos.adicionar("EMPATIA");
+        sentimentos.adicionar("DÚVIDA");
+        sentimentos.adicionar("NOJO");
+        sentimentos.adicionar("ENCANTAMENTO");
+        sentimentos.adicionar("NOSTALGIA");
+        sentimentos.adicionar("SATISFAÇÃO");
+        sentimentos.adicionar("ADORAÇÃO");
+        sentimentos.adicionar("ADMIRAÇÃO");
+        sentimentos.adicionar("APREÇO");
+        sentimentos.adicionar("INVEJA");
+        sentimentos.adicionar("ROMANCE");
+        sentimentos.adicionar("TRISTEZA");
+        sentimentos.adicionar("SUPRESA");
+        sentimentos.adicionar("SIMPATIA");
+        sentimentos.adicionar("TRIUNFO");
+        sentimentos.adicionar("INTERESSE");
+        sentimentos.adicionar("ALEGRIA");
 
 
         return sentimentos;
     }
 
 
-    public static ArrayList<String> LISTA_DE_ESCOLHAS() {
+    public static Lista<String> LISTA_DE_ESCOLHAS() {
 
-        ArrayList<String> escolhas = new ArrayList<String>();
+        Lista<String> escolhas = new Lista<String>();
 
-        escolhas.add("SIM");
-        escolhas.add("NÃO");
+        escolhas.adicionar("SIM");
+        escolhas.adicionar("NÃO");
 
         return escolhas;
     }
 
 
-    public static ArrayList<String> LISTA_DE_ELEMENTOS() {
+    public static Lista<String> LISTA_DE_ELEMENTOS() {
 
-        ArrayList<String> elementos = new ArrayList<String>();
+        Lista<String> elementos = new Lista<String>();
 
-        elementos.add("ÁGUA");
-        elementos.add("FOGO");
-        elementos.add("TERRA");
-        elementos.add("AR");
+        elementos.adicionar("ÁGUA");
+        elementos.adicionar("FOGO");
+        elementos.adicionar("TERRA");
+        elementos.adicionar("AR");
 
         return elementos;
     }
 
-    public static ArrayList<String> LISTA_DE_DIRECOES() {
+    public static Lista<String> LISTA_DE_DIRECOES() {
 
-        ArrayList<String> direcoes = new ArrayList<String>();
+        Lista<String> direcoes = new Lista<String>();
 
-        direcoes.add("NORTE");
-        direcoes.add("SUL");
-        direcoes.add("LESTE");
-        direcoes.add("OESTE");
-        direcoes.add("NORDESTE");
-        direcoes.add("NOROESTE");
-        direcoes.add("SUDESTE");
-        direcoes.add("SUDOESTE");
+        direcoes.adicionar("NORTE");
+        direcoes.adicionar("SUL");
+        direcoes.adicionar("LESTE");
+        direcoes.adicionar("OESTE");
+        direcoes.adicionar("NORDESTE");
+        direcoes.adicionar("NOROESTE");
+        direcoes.adicionar("SUDESTE");
+        direcoes.adicionar("SUDOESTE");
 
         return direcoes;
     }
 
-    public static ArrayList<String> LISTA_DE_CONSOANTES() {
+    public static Lista<String> LISTA_DE_CONSOANTES() {
 
-        ArrayList<String> consoantes = new ArrayList<String>();
+        Lista<String> consoantes = new Lista<String>();
         String s_consoantes = "BCDFGHJKLMNPQRSTVWXYZ";
 
         for (int i = 0; i < s_consoantes.length(); i++) {
-            consoantes.add(String.valueOf(s_consoantes.charAt(i)));
+            consoantes.adicionar(String.valueOf(s_consoantes.charAt(i)));
         }
 
         return consoantes;
     }
 
-    public static ArrayList<String> LISTA_DE_VOGAIS() {
+    public static Lista<String> LISTA_DE_VOGAIS() {
 
-        ArrayList<String> vogais = new ArrayList<String>();
+        Lista<String> vogais = new Lista<String>();
         String s_vogais = "AEIOU";
 
         for (int i = 0; i < s_vogais.length(); i++) {
-            vogais.add(String.valueOf(s_vogais.charAt(i)));
+            vogais.adicionar(String.valueOf(s_vogais.charAt(i)));
         }
 
         return vogais;
     }
 
 
-    public static ArrayList<String> LISTA_DE_LETRAS() {
+    public static Lista<String> LISTA_DE_LETRAS() {
 
-        ArrayList<String> letras = new ArrayList<String>();
+        Lista<String> letras = new Lista<String>();
         String s_letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         for (int i = 0; i < s_letras.length(); i++) {
-            letras.add(String.valueOf(s_letras.charAt(i)));
+            letras.adicionar(String.valueOf(s_letras.charAt(i)));
         }
 
         return letras;
     }
 
-    public static ArrayList<String> LISTA_DE_NUMEROS_SIMPLES() {
+    public static Lista<String> LISTA_DE_NUMEROS_SIMPLES() {
 
-        ArrayList<String> numeros = new ArrayList<String>();
+        Lista<String> numeros = new Lista<String>();
 
         for (int i = 0; i < 10; i++) {
             String si = String.valueOf(i);
             if(si.length()==1){
                 si="0" + si;
             }
-            numeros.add(si);
+            numeros.adicionar(si);
         }
 
         return numeros;
     }
 
-    public static ArrayList<String> LISTA_DE_NUMEROS_COMPLEXOS() {
+    public static Lista<String> LISTA_DE_NUMEROS_COMPLEXOS() {
 
-        ArrayList<String> numeros = new ArrayList<String>();
+        Lista<String> numeros = new Lista<String>();
 
         for (int i = 0; i < 100; i++) {
             String si = String.valueOf(i);
             if(si.length()==1){
                 si="0" + si;
             }
-            numeros.add(si);
+            numeros.adicionar(si);
         }
 
         return numeros;
     }
 
-    public static ArrayList<String> LISTA_DE_NUMEROS_JOGO() {
+    public static Lista<String> LISTA_DE_NUMEROS_JOGO() {
 
-        ArrayList<String> numeros = new ArrayList<String>();
+        Lista<String> numeros = new Lista<String>();
 
         for (int i = 0; i < 60; i++) {
             String si = String.valueOf(i);
             if(si.length()==1){
                 si="0" + si;
             }
-            numeros.add(si);
+            numeros.adicionar(si);
         }
 
         return numeros;

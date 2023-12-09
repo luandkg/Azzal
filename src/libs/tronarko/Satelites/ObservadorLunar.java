@@ -1,7 +1,7 @@
 package libs.tronarko.Satelites;
 
-import java.util.ArrayList;
 
+import libs.luan.Lista;
 import libs.tronarko.Tronarko;
 import libs.tronarko.Tozte;
 import libs.tronarko.Satelites.MapaCelestial.Allux;
@@ -47,9 +47,9 @@ public class ObservadorLunar {
 		return mEttoC;
 	}
 	
-	public ArrayList<Tozte_Intervalo> mostrar(Tozte TozteInicial, int eQuantidade) {
+	public Lista<Tozte_Intervalo> mostrar(Tozte TozteInicial, int eQuantidade) {
 
-		ArrayList<Tozte_Intervalo> ret = new ArrayList<Tozte_Intervalo>();
+		Lista<Tozte_Intervalo> ret = new Lista<Tozte_Intervalo>();
 
 		Tozte ProcurarEscuridao = new Tozte(TozteInicial.getSuperarko(), TozteInicial.getHiperarko(),
 				TozteInicial.getTronarko());
@@ -83,13 +83,13 @@ public class ObservadorLunar {
 
 				//System.out.println( "\n " + Nome + " : " + E1.toString() + " a " + (E1.adicionar_Superarko(Temp -1).toString()) + " com : " + Temp + " Superarkos ::: " + difa);
 
-				ret.add(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
+				ret.adicionar(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
 
 			} else {
 
 				//System.out.println( "\n " + Nome + " : " + E1.toString() + " a " + (E1.adicionar_Superarko(Temp - 1).toString())+ " com : " + Temp + " Superarkos ::: " + Intervalor);
 
-				ret.add(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
+				ret.adicionar(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
 
 			}
 

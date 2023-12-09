@@ -1,7 +1,6 @@
 package libs.tronarko.Eventos;
 
-import java.util.ArrayList;
-
+import libs.luan.Lista;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
 
@@ -16,18 +15,18 @@ public class Comunicum {
     }
 
 
-    public ArrayList<String> Comunicar_Tozte(Tozte TozteProcurar) {
+    public Lista<String> Comunicar_Tozte(Tozte TozteProcurar) {
 
-        ArrayList<String> ret = new ArrayList<String>();
+        Lista<String> ret = new Lista<String>();
 
-        ret.addAll(Comunicar_PequenosEventos_NOVO(TozteProcurar));
-        ret.addAll(Comunicar_GrandesEventos_NOVO(TozteProcurar));
+        ret.adicionar_varios(Comunicar_PequenosEventos_NOVO(TozteProcurar));
+        ret.adicionar_varios(Comunicar_GrandesEventos_NOVO(TozteProcurar));
 
         return ret;
     }
 
-    public ArrayList<String> Comunicar_PequenosEventos_NOVO(Tozte TozteProcurar) {
-        ArrayList<String> ret = new ArrayList<String>();
+    public Lista<String> Comunicar_PequenosEventos_NOVO(Tozte TozteProcurar) {
+        Lista<String> ret = new Lista<String>();
 
         for (AvisarPequenoEvento AvisoC : mEventum.getAvisosPequenosEventos()) {
 
@@ -49,7 +48,7 @@ public class Comunicum {
 
                     if (TozteProcurar.isIgual(eCorrente)) {
 
-                        ret.add("Estamos no " + AvisoC.getNome());
+                        ret.adicionar("Estamos no " + AvisoC.getNome());
 
                     } else {
 
@@ -61,9 +60,9 @@ public class Comunicum {
                             long Falta = eCorrente.getSuperarkosTotal() - TozteProcurar.getSuperarkosTotal();
 
                             if (Falta == 1) {
-                                ret.add("Falta : " + (Falta) + " Superarko para " + AvisoC.getNome());
+                                ret.adicionar("Falta : " + (Falta) + " Superarko para " + AvisoC.getNome());
                             } else if (Falta > 1) {
-                                ret.add("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
+                                ret.adicionar("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
                             }
 
                         } else if (TozteProcurar.isMenorIgualQue(eAvisoFim) && TozteProcurar.isMaiorQue(eCorrente)) {
@@ -72,9 +71,9 @@ public class Comunicum {
                             long Passou = TozteProcurar.getSuperarkosTotal() - eCorrente.getSuperarkosTotal();
 
                             if (Passou == 1) {
-                                ret.add("Passou : " + (Passou) + " Superarko após " + AvisoC.getNome());
+                                ret.adicionar("Passou : " + (Passou) + " Superarko após " + AvisoC.getNome());
                             } else if (Passou > 1) {
-                                ret.add("Passaram : " + (Passou) + " Superarkos após " + AvisoC.getNome());
+                                ret.adicionar("Passaram : " + (Passou) + " Superarkos após " + AvisoC.getNome());
                             }
 
                         }
@@ -90,8 +89,8 @@ public class Comunicum {
         return ret;
     }
 
-    public ArrayList<String> Comunicar_GrandesEventos_NOVO(Tozte TozteProcurar) {
-        ArrayList<String> ret = new ArrayList<String>();
+    public Lista<String> Comunicar_GrandesEventos_NOVO(Tozte TozteProcurar) {
+        Lista<String> ret = new Lista<String>();
 
         for (AvisarGrandeEvento AvisoC : mEventum.getAvisosGrandesEventos()) {
 
@@ -116,13 +115,13 @@ public class Comunicum {
                         // ret.add(" - Grande Evento Ocorrendo !");
 
                         if (TozteProcurar.isIgual(eInicio)) {
-                            ret.add("Hoje é o Inicio de : " + AvisoC.getNome());
+                            ret.adicionar("Hoje é o Inicio de : " + AvisoC.getNome());
 
                         } else if (TozteProcurar.isIgual(eFim)) {
-                            ret.add("Hoje é o Fim de : " + AvisoC.getNome());
+                            ret.adicionar("Hoje é o Fim de : " + AvisoC.getNome());
 
                         } else {
-                            ret.add("Estamos no " + AvisoC.getNome());
+                            ret.adicionar("Estamos no " + AvisoC.getNome());
 
                         }
 
@@ -136,9 +135,9 @@ public class Comunicum {
                             long Falta = eInicio.getSuperarkosTotal() - TozteProcurar.getSuperarkosTotal();
 
                             if (Falta == 1) {
-                                ret.add("Falta : " + (Falta) + " Superarko para " + AvisoC.getNome());
+                                ret.adicionar("Falta : " + (Falta) + " Superarko para " + AvisoC.getNome());
                             } else if (Falta > 1) {
-                                ret.add("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
+                                ret.adicionar("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
                             }
 
                         } else if (TozteProcurar.isMenorIgualQue(eAvisoFim) && TozteProcurar.isMaiorQue(eFim)) {
@@ -147,9 +146,9 @@ public class Comunicum {
                             long Passou = TozteProcurar.getSuperarkosTotal() - eFim.getSuperarkosTotal();
 
                             if (Passou == 1) {
-                                ret.add("Passou : " + (Passou) + " Superarko após " + AvisoC.getNome());
+                                ret.adicionar("Passou : " + (Passou) + " Superarko após " + AvisoC.getNome());
                             } else if (Passou > 1) {
-                                ret.add("Passaram : " + (Passou) + " Superarkos após " + AvisoC.getNome());
+                                ret.adicionar("Passaram : " + (Passou) + " Superarkos após " + AvisoC.getNome());
                             }
 
                         }
@@ -172,7 +171,7 @@ public class Comunicum {
 
         for (int i = 0; i < 500; i++) {
 
-            if (Comunicar_Tozte(TozteC).size() > 0) {
+            if (Comunicar_Tozte(TozteC).getQuantidade() > 0) {
 
                 System.out.printf("\n--------------------------------" + TozteC.toString()
                         + "------------------------------------------\n");
@@ -196,7 +195,7 @@ public class Comunicum {
 
         for (int i = 0; i < 500; i++) {
 
-            if (Comunicar_Tozte(TozteC).size() > 0) {
+            if (Comunicar_Tozte(TozteC).getQuantidade() > 0) {
 
                 boolean listarEsse = false;
 
@@ -229,7 +228,7 @@ public class Comunicum {
 
     }
 
-    public static Comunicado obterComunicado(ArrayList<TozteCor> eventos, Tozte de) {
+    public static Comunicado obterComunicado(Lista<TozteCor> eventos, Tozte de) {
 
         int menor = 0;
         boolean primeiro = true;

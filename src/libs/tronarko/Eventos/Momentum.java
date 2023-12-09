@@ -1,9 +1,8 @@
 package libs.tronarko.Eventos;
 
+import libs.luan.Lista;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
-
-import java.util.ArrayList;
 
 public class Momentum {
 
@@ -17,7 +16,7 @@ public class Momentum {
 
         Eventum mEventum = new Eventum();
 
-        ArrayList<TozteCor> mInfos = mEventum.getToztesComCorEmIntervalo(mAntes, mDepois);
+        Lista<TozteCor> mInfos = mEventum.getToztesComCorEmIntervalo(mAntes, mDepois);
 
         for (TozteCor eTozteCor : mInfos) {
 

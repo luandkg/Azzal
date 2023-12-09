@@ -1,15 +1,15 @@
 package libs.tronarko.Agenda;
 
+import libs.luan.Lista;
 import libs.tronarko.Hazde;
 import libs.tronarko.Superarkos;
 import libs.tronarko.Tozte;
 
-import java.util.ArrayList;
 
 public class Alarme {
 
-    private ArrayList<Lembrete> mLembretes;
-    private ArrayList<LembreteSuperarko> mSLembretes;
+    private Lista<Lembrete> mLembretes;
+    private Lista<LembreteSuperarko> mSLembretes;
 
 
     private boolean mDispensar;
@@ -24,8 +24,8 @@ public class Alarme {
 
     public Alarme() {
 
-        mLembretes = new ArrayList<Lembrete>();
-        mSLembretes = new ArrayList<LembreteSuperarko>();
+        mLembretes = new Lista<Lembrete>();
+        mSLembretes = new Lista<LembreteSuperarko>();
 
 
         mDispensar = false;
@@ -37,28 +37,28 @@ public class Alarme {
 
     public void marcarSimples(Tozte eTozte, Hazde eHazde) {
 
-        mLembretes.add(new Lembrete(eTozte, eHazde));
+        mLembretes.adicionar(new Lembrete(eTozte, eHazde));
 
     }
 
     public void marcarSuperarko(Superarkos eSuperarkos, Hazde eHazde) {
 
-        mSLembretes.add(new LembreteSuperarko(eSuperarkos, eHazde));
+        mSLembretes.adicionar(new LembreteSuperarko(eSuperarkos, eHazde));
 
     }
 
     public void limparTudo() {
-        mLembretes.clear();
-        mSLembretes.clear();
+        mLembretes.limpar();
+        mSLembretes.limpar();
     }
 
-    public ArrayList<Lembrete> getLembretes(Tozte eHoje) {
+    public Lista<Lembrete> getLembretes(Tozte eHoje) {
 
-        ArrayList<Lembrete> mLembrar = new ArrayList<Lembrete>();
+        Lista<Lembrete> mLembrar = new Lista<Lembrete>();
 
         for (Lembrete eLembrete : mLembretes) {
             if (eLembrete.getTozte().isIgual(eHoje)) {
-                mLembrar.add(eLembrete);
+                mLembrar.adicionar(eLembrete);
             }
         }
 
@@ -66,7 +66,7 @@ public class Alarme {
 
             if (eLembrete.getSuperarkos() == eHoje.getSuperarko_Status()) {
 
-                mLembrar.add(new Lembrete(eHoje.getCopia(), eLembrete.getHazde()));
+                mLembrar.adicionar(new Lembrete(eHoje.getCopia(), eLembrete.getHazde()));
 
             }
 

@@ -5,6 +5,7 @@ import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.tronarko.Hiperarkos;
 import libs.tronarko.Superarkos;
@@ -13,7 +14,6 @@ import libs.tronarko.utils.TozteCor;
 import libs.tronarko.Agenda.Alarme;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 
 public class HiperarkoWidget {
@@ -275,7 +275,7 @@ public class HiperarkoWidget {
     }
 
 
-    public void draw_hiperarko_com_infos(Renderizador r, Tozte mHoje, ArrayList<TozteCor> mInfos) {
+    public void draw_hiperarko_com_infos(Renderizador r, Tozte mHoje, Lista<TozteCor> mInfos) {
 
         TextoPequeno.setRenderizador(r);
         TextoPequeno_Sel.setRenderizador(r);

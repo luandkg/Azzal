@@ -3,6 +3,7 @@ package apps.app_tg22;
 import libs.arquivos.IO;
 import libs.arquivos.PDF;
 import libs.azzal.Renderizador;
+import libs.luan.Lista;
 import libs.luan.fmt;
 import libs.dkg.DKG;
 import libs.tronarko.Tronarko;
@@ -18,9 +19,9 @@ public class TG22 {
 
     public static void init() {
 
-        ArrayList<Ficha> projeto = iniciar_projeto();
-        ArrayList<Tozte> interrompidos = new ArrayList<Tozte>();
-        ArrayList<Tozte> personal = new ArrayList<Tozte>();
+        Lista<Ficha> projeto = iniciar_projeto();
+        Lista<Tozte> interrompidos = new Lista<Tozte>();
+        Lista<Tozte> personal = new Lista<Tozte>();
 
         periodo(Tronarko.getData(15, 5, 2022), Tronarko.getData(29, 5, 2022), projeto, interrompidos);
 
@@ -71,48 +72,48 @@ public class TG22 {
     }
 
 
-    public static void cadastrar(String eTozte, double eAltura, double ePeso, ArrayList<Ficha> historico) {
-        historico.add(new Ficha(eTozte, Corpo.getAltura(eAltura), Corpo.getPeso(ePeso)));
+    public static void cadastrar(String eTozte, double eAltura, double ePeso, Lista<Ficha> historico) {
+        historico.adicionar(new Ficha(eTozte, Corpo.getAltura(eAltura), Corpo.getPeso(ePeso)));
     }
 
-    public static ArrayList<Ficha> toFicharios(ArrayList<Ficha> historico) {
-        ArrayList<Ficha> ret = new ArrayList<Ficha>();
+    public static Lista<Ficha> toFicharios(Lista<Ficha> historico) {
+        Lista<Ficha> ret = new Lista<Ficha>();
         for (Ficha f : historico) {
             if (f.isFichario()) {
-                ret.add(f);
+                ret.adicionar(f);
             }
         }
         return ret;
     }
 
-    public static ArrayList<Ficha> toInterrompidos(ArrayList<Ficha> historico) {
-        ArrayList<Ficha> ret = new ArrayList<Ficha>();
+    public static Lista<Ficha> toInterrompidos(Lista<Ficha> historico) {
+        Lista<Ficha> ret = new Lista<Ficha>();
         for (Ficha f : historico) {
             if (!f.isFichario()) {
-                ret.add(f);
+                ret.adicionar(f);
             }
         }
         return ret;
     }
 
-    public static void periodo(Tozte eTozte, Tozte eFim, ArrayList<Ficha> historico, ArrayList<Tozte> interrompido) {
+    public static void periodo(Tozte eTozte, Tozte eFim, Lista<Ficha> historico, Lista<Tozte> interrompido) {
 
         Tozte passando = eTozte.getCopia();
 
         while (passando.isMenorIgualQue(eFim)) {
-            historico.add(new Ficha(passando.getTextoZerado()));
-            interrompido.add(passando.getCopia());
+            historico.adicionar(new Ficha(passando.getTextoZerado()));
+            interrompido.adicionar(passando.getCopia());
             passando = passando.adicionar_Superarko(1);
         }
 
     }
 
 
-    public static ArrayList<Ficha> iniciar_projeto() {
-        return new ArrayList<Ficha>();
+    public static Lista<Ficha> iniciar_projeto() {
+        return new Lista<Ficha>();
     }
 
-    public static void mostrar(ArrayList<Ficha> projeto, double META_ALTURA, double META_PESO) {
+    public static void mostrar(Lista<Ficha> projeto, double META_ALTURA, double META_PESO) {
 
         Tronarko eTronarko = new Tronarko();
 
@@ -123,10 +124,10 @@ public class TG22 {
         System.out.println("");
         System.out.println("\t - META :: " + fmt.espacar_antes("" + fmt.f2zerado(META_PESO), 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(META_PESO, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
 
-        if (projeto.size() > 0) {
+        if (projeto.getQuantidade() > 0) {
 
             double peso_atual = projeto.get(0).getPeso();
-            double peso_primeiro = projeto.get(projeto.size() - 1).getPeso();
+            double peso_primeiro = projeto.get(projeto.getQuantidade() - 1).getPeso();
 
             System.out.println("\t - HOJE :: " + fmt.espacar_antes("" + peso_atual, 6) + " moz em ( " + fmt.doubleNumC2(Corpo.getNivel(peso_atual, Corpo.getAltura(META_ALTURA))) + " fuzz ) ");
 
@@ -166,7 +167,7 @@ public class TG22 {
 
             int ESPACAMENTO_RESULTADO = 22;
 
-            double pesoInicio = projeto.get(projeto.size() - 1).getPeso();
+            double pesoInicio = projeto.get(projeto.getQuantidade() - 1).getPeso();
 
             for (Ficha eFicha : projeto) {
 
@@ -213,7 +214,7 @@ public class TG22 {
 
     }
 
-    public static void registrar(ArrayList<Ficha> projeto, double META_ALTURA, double META_PESO) {
+    public static void registrar(Lista<Ficha> projeto, double META_ALTURA, double META_PESO) {
 
         DKG eDKG = new DKG();
 

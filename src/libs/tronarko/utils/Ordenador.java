@@ -1,5 +1,6 @@
 package libs.tronarko.utils;
 
+import libs.luan.Lista;
 import libs.tronarko.Agenda.Lembrete;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
@@ -69,9 +70,9 @@ public class Ordenador {
 
 	}
 
-	public static ArrayList<Lembrete> OrdenarLembretes(ArrayList<Lembrete> entradas) {
+	public static Lista<Lembrete> OrdenarLembretes(Lista<Lembrete> entradas) {
 
-		int n = entradas.size();
+		int n = entradas.getQuantidade();
 		Lembrete temp = null;
 
 		for (int i = 0; i < n; i++) {

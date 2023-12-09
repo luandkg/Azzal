@@ -1,6 +1,7 @@
 package libs.tronarko.Satelites;
 
-import java.util.ArrayList;
+
+import libs.luan.Lista;
 
 public class Agrupador {
 
@@ -16,18 +17,18 @@ public class Agrupador {
 	private int ACUMULADOR_Ettizz;
 	private int ACUMULADOR_Unnizz;
 
-	private ArrayList<HiperFases> mHiperFases;
+	private Lista<HiperFases> mHiperFases;
 
 	public Agrupador() {
 
-		mHiperFases = new ArrayList<HiperFases>();
+		mHiperFases = new Lista<HiperFases>();
 
 		limpar();
 
 	}
 
 	public void guardar(HiperFases eHiperFase) {
-		mHiperFases.add(eHiperFase);
+		mHiperFases.adicionar(eHiperFase);
 	}
 
 	public void limpar() {

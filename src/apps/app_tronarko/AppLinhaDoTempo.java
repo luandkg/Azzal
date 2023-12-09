@@ -1,7 +1,5 @@
 package apps.app_tronarko;
 
-import java.util.ArrayList;
-
 
 import libs.azzal.cenarios.Cena;
 import libs.azzal.Cores;
@@ -10,6 +8,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.tronarko.utils.TozteCor;
 import libs.tronarko.Tronarko;
@@ -213,7 +212,7 @@ public class AppLinhaDoTempo extends Cena {
 
         //Hoje = Hoje.adicionar_Tronarko(5);
 
-        ArrayList<TozteCor> mInfos = EventumC.getToztesComCorHiperarko(mHoje.getHiperarko(), mHoje.getTronarko());
+        Lista<TozteCor> mInfos = EventumC.getToztesComCorHiperarko(mHoje.getHiperarko(), mHoje.getTronarko());
 
 
         int LX = 50;

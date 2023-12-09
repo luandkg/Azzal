@@ -1,7 +1,5 @@
 package libs.dkg;
 
-import libs.dkg.IO.EscritorDKG;
-import libs.dkg.IO.ParserDKG;
 import libs.luan.Lista;
 
 import java.io.*;

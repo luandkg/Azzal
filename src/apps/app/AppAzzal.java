@@ -44,12 +44,12 @@ public class AppAzzal {
 
         //AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.app_fuzz.AppFuzz());
 
-        //  AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+      //   AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         // AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
-        //  AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
+          AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
 
-          AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
+       //   AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
         //  AzzalUnico.unico("Citatte", 2000, 1000, new AppCitatte());
 
         //  AzzalUnico.unico("Citatte Modelum", 2000, 1000, new AppCitatteModelum());
