@@ -1,5 +1,8 @@
 package libs.tronarko;
 
+import libs.luan.Igualavel;
+import libs.luan.Ordenavel;
+
 public class Tron {
 
     private Hazde mHazdeC;
@@ -401,5 +404,35 @@ public class Tron {
         }
 
         return resposta;
+    }
+
+
+    public static Igualavel<Tron> IGUALDADE() {
+        return new Igualavel<Tron>() {
+            @Override
+            public boolean is(Tron a, Tron b) {
+                return a.isIgual(b);
+            }
+        };
+    }
+    public static Ordenavel<Tron> ORDENADOR() {
+        return new Ordenavel<Tron>() {
+            @Override
+            public int emOrdem(Tron a, Tron b) {
+
+
+                int resp = Ordenavel.IGUAL;
+
+                if (a.isMaiorQue(b)) {
+                    resp = Ordenavel.MAIOR;
+                } else if (a.isMenorrQue(b)) {
+                    resp = Ordenavel.MENOR;
+                }
+
+
+                return resp;
+            }
+        };
+
     }
 }

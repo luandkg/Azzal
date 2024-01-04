@@ -1,5 +1,6 @@
 package libs.pesquisador.pesquisa;
 
+
 import libs.pesquisador.pesquisa.quantitativo.FormularioDePesquisaQuantitativa;
 
 public interface Entrevista <T>{

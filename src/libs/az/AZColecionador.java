@@ -78,7 +78,11 @@ public class AZColecionador {
             obj_analise.identifique("BID").setLong(b.getID());
             obj_analise.identifique("Nome").setValor(b.getNome());
 
-            obj_analise.identifique("Itens").setLong(b.getItensContagem());
+            long itens_alocados = b.getItensAlocadosContagem();
+            long itens_utilizados = b.getItensContagem();
+
+            obj_analise.identifique("Itens_Disponiveis").setLong(itens_alocados);
+            obj_analise.identifique("Itens_Utilizados").setLong(itens_utilizados);
 
             obj_analise.identifique("Disponibilidade").setInteiro(b.getDisponibilidade());
             obj_analise.identifique("Usabilidadade").setInteiro(b.getUsabilidade());
@@ -99,5 +103,7 @@ public class AZColecionador {
         for(DKGObjeto obj_analise : DKGFeatures.ordenar_objetos_texto(objetos_analisados,"Nome")){
             colecao_analise.adicionar(obj_analise);
         }
+
+       // colecao_analise.primeiro_campo("ID");
     }
 }

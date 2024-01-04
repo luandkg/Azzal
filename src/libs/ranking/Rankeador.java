@@ -1,49 +1,91 @@
 package libs.ranking;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import libs.luan.Lista;
+import libs.luan.Ordenador;
+import libs.luan.Ordenavel;
+
 
 public class Rankeador {
 
-
-    public static ArrayList<RankeadoInteiro> ordenar(ArrayList<RankeadoInteiro> itens) {
-
-        Collections.sort(itens, new Comparator() {
+    public static Ordenavel<RankeadoInteiro> ORDENAVEL_RANKEADO_INTEIRO() {
+        return new Ordenavel<RankeadoInteiro>() {
             @Override
-            public int compare(Object objeto_um, Object objeto_dois) {
-                return Integer.compare((((RankeadoInteiro) objeto_um).getRanking()), (((RankeadoInteiro) objeto_dois).getRanking()));
+            public int emOrdem(RankeadoInteiro a, RankeadoInteiro b) {
+
+
+                int resp = Ordenavel.IGUAL;
+
+                if (a.getRanking() > b.getRanking()) {
+                    resp = Ordenavel.MAIOR;
+                } else if (a.getRanking() < b.getRanking()) {
+                    resp = Ordenavel.MENOR;
+                }
+
+
+                return resp;
             }
-        });
+        };
+
+    }
+
+
+    public static<TRef> Lista<RankeadoInteiro<TRef>> ordenar(Lista<RankeadoInteiro<TRef>> itens) {
+
+
+        int n = itens.getQuantidade();
+        RankeadoInteiro<TRef> temp = null;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+
+                int ordem = ORDENAVEL_RANKEADO_INTEIRO().emOrdem(itens.get(j - 1), itens.get(j));
+
+                if (ordem == Ordenavel.MAIOR) {
+                    temp = itens.get(j - 1);
+                    itens.set(j - 1, itens.get(j));
+                    itens.set(j, temp);
+                }
+
+            }
+        }
 
         return itens;
     }
 
-    public static ArrayList<RankeadoInteiro> ordenar_inverso(ArrayList<RankeadoInteiro> itens) {
+    public static<TRef> Lista<RankeadoInteiro<TRef>> ordenar_inverso(Lista<RankeadoInteiro<TRef>> itens) {
 
-        Collections.sort(itens, new Comparator() {
-            @Override
-            public int compare(Object objeto_um, Object objeto_dois) {
-                return Integer.compare((((RankeadoInteiro) objeto_um).getRanking()), (((RankeadoInteiro) objeto_dois).getRanking())) * (-1);
+        int n = itens.getQuantidade();
+        RankeadoInteiro<TRef> temp = null;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+
+                int ordem = ORDENAVEL_RANKEADO_INTEIRO().emOrdem(itens.get(j - 1), itens.get(j));
+
+                if (ordem == Ordenavel.MENOR) {
+                    temp = itens.get(j - 1);
+                    itens.set(j - 1, itens.get(j));
+                    itens.set(j, temp);
+                }
+
             }
-        });
-
+        }
         return itens;
     }
 
-    public static ArrayList<RankeadoInteiro> getCopia(ArrayList<RankeadoInteiro> itens) {
+    public static Lista<RankeadoInteiro> getCopia(Lista<RankeadoInteiro> itens) {
 
-        ArrayList<RankeadoInteiro> copia = new ArrayList<RankeadoInteiro>();
+        Lista<RankeadoInteiro> copia = new Lista<RankeadoInteiro>();
         for (RankeadoInteiro a : itens) {
-            copia.add(a);
+            copia.adicionar(a);
         }
 
         return copia;
     }
 
 
-    public static int getMaiorChave(ArrayList<RankeadoInteiro> itens) {
+    public static int getMaiorChave(Lista<RankeadoInteiro> itens) {
 
         int maior = Integer.MIN_VALUE;
 
@@ -56,7 +98,7 @@ public class Rankeador {
         return maior;
     }
 
-    public static int getMenorChave(ArrayList<RankeadoInteiro> itens) {
+    public static int getMenorChave(Lista<RankeadoInteiro> itens) {
 
         int menor = Integer.MAX_VALUE;
 
@@ -69,7 +111,7 @@ public class Rankeador {
         return menor;
     }
 
-    public static int somarChaves(ArrayList<RankeadoInteiro> itens) {
+    public static int somarChaves(Lista<RankeadoInteiro> itens) {
 
         int somando = 0;
 
@@ -80,18 +122,18 @@ public class Rankeador {
         return somando;
     }
 
-    public static ArrayList<Integer> selecionar_maiores(ArrayList<RankeadoInteiro> itens, int quantidade) {
+    public static<T1> Lista<Integer> selecionar_maiores(Lista<RankeadoInteiro<T1>> itens, int quantidade) {
 
-        ArrayList<RankeadoInteiro> mais = new ArrayList<RankeadoInteiro>();
-        for (RankeadoInteiro a : itens) {
-            mais.add(a);
+        Lista<RankeadoInteiro<T1>> mais = new Lista<RankeadoInteiro<T1>>();
+        for (RankeadoInteiro<T1> a : itens) {
+            mais.adicionar(a);
         }
 
         Rankeador.ordenar_inverso(mais);
 
-        ArrayList<Integer> selecionados = new ArrayList<Integer>();
+        Lista<Integer> selecionados = new Lista<Integer>();
 
-        for (RankeadoInteiro a : mais) {
+        for (RankeadoInteiro<T1> a : mais) {
 
             boolean existe = false;
             int valor = a.getRanking();
@@ -104,8 +146,8 @@ public class Rankeador {
             }
 
             if (!existe) {
-                selecionados.add(valor);
-                if (selecionados.size() >= quantidade) {
+                selecionados.adicionar(valor);
+                if (selecionados.getQuantidade() >= quantidade) {
                     break;
                 }
             }
@@ -115,16 +157,16 @@ public class Rankeador {
         return selecionados;
     }
 
-    public static ArrayList<Integer> selecionar_menores(ArrayList<RankeadoInteiro> itens, int quantidade) {
+    public static<TRef> Lista<Integer> selecionar_menores(Lista<RankeadoInteiro<TRef>> itens, int quantidade) {
 
-        ArrayList<RankeadoInteiro> mais = new ArrayList<RankeadoInteiro>();
-        for (RankeadoInteiro a : itens) {
-            mais.add(a);
+        Lista<RankeadoInteiro<TRef>> mais = new Lista<RankeadoInteiro<TRef>>();
+        for (RankeadoInteiro<TRef> a : itens) {
+            mais.adicionar(a);
         }
 
         Rankeador.ordenar(mais);
 
-        ArrayList<Integer> selecionados = new ArrayList<Integer>();
+        Lista<Integer> selecionados = new Lista<Integer>();
 
         for (RankeadoInteiro a : mais) {
 
@@ -139,8 +181,8 @@ public class Rankeador {
             }
 
             if (!existe) {
-                selecionados.add(valor);
-                if (selecionados.size() >= quantidade) {
+                selecionados.adicionar(valor);
+                if (selecionados.getQuantidade() >= quantidade) {
                     break;
                 }
             }
@@ -150,9 +192,9 @@ public class Rankeador {
         return selecionados;
     }
 
-    public static ArrayList<RankeadoInteiro> limitar_do_grupo(ArrayList<RankeadoInteiro> itens, ArrayList<Integer> limites) {
+    public static Lista<RankeadoInteiro> limitar_do_grupo(Lista<RankeadoInteiro> itens, Lista<Integer> limites) {
 
-        ArrayList<RankeadoInteiro> selecionados = new ArrayList<RankeadoInteiro>();
+        Lista<RankeadoInteiro> selecionados = new Lista<RankeadoInteiro>();
 
         for (RankeadoInteiro a : itens) {
 
@@ -167,7 +209,7 @@ public class Rankeador {
             }
 
             if (existe) {
-                selecionados.add(a);
+                selecionados.adicionar(a);
             }
 
         }

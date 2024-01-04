@@ -1,5 +1,6 @@
 package libs.ranking;
 
+import libs.luan.Lista;
 import libs.matematica.Matematica;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class AlfaClassificador {
 
     }
 
-    public void classificar(ArrayList<RankeadoInteiro> todos) {
+    public void classificar(Lista<RankeadoInteiro> todos) {
 
         mC1 = 0;
         mC2 = 0;

@@ -702,4 +702,42 @@ public class fmt {
         }
         return s;
     }
+
+    public static String zerado(int v,int quantidade){
+        String s = String.valueOf(v);
+        while(s.length()<quantidade){
+            s="0"+s;
+        }
+        return s;
+    }
+
+
+    public static String centralizar(String nome,int tracos){
+        int metade = (tracos / 2) ;
+        metade -= nome.length() / 2;
+
+        int completa = 0;
+
+        int completando = metade+nome.length()+1;
+        while(completando<=tracos){
+            completando+=1;
+            completa+=1;
+        }
+
+      return  fmt.format("{}{}{}", fmt.repetir(" ", metade), nome, fmt.repetir(" ", completa));
+
+
+    }
+
+    public static String centralizar(int valor,int tracos){
+    return centralizar(String.valueOf(valor),tracos);
+    }
+
+
+    // FEATURE 2024 01 02
+    public static void exibir_lado_a_lado(Lista<String> lado_a,String entre,Lista<String> lado_b){
+        for(int index=0;index<lado_a.getQuantidade();index++){
+            fmt.print("{}{}{}",lado_a.get(index),entre,lado_b.get(index));
+        }
+    }
 }

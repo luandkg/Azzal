@@ -12,6 +12,7 @@ import apps.app_llcripto.App_LLCripto;
 import apps.app_momentum.AppMomentum;
 import apps.app_momentum.HarrempluzCreator;
 import apps.app_testes.app_testes;
+import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
 import libs.arquivos.BZ3;
@@ -19,6 +20,7 @@ import libs.arquivos.IM;
 import libs.arquivos.Sumario;
 import libs.arquivos.stacker.StackItem;
 import libs.arquivos.stacker.Stacker;
+import libs.az.AZ;
 import libs.az.AZColecionador;
 import libs.az.Colecao;
 import libs.azzal.AzzalUnico;
@@ -30,7 +32,11 @@ import libs.movimentador.QuadranteEspacial;
 import libs.ranking.RankeadoInteiro;
 import libs.ranking.Rankeador;
 import libs.servittor.Servittor;
+import libs.tronarko.Hazde;
+import libs.tronarko.Intervalos.Hazde_Intervalo;
+import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
+import libs.tronarko.utils.StringTronarko;
 import libs.verkuz.VerkuzImplementador;
 import libs.xlsx.XLSX;
 import libs.xml.XML;
@@ -131,8 +137,8 @@ public class AppAzzal {
         String ESCOLA_LOCAL = "/home/luan/Dropbox/CED 1";
 
 
-        Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_01.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 1 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
-        Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_02.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
+      //  Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_01.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 1 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
+    //    Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_02.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
 
 
         // planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/pd3_8.txt",
@@ -151,9 +157,9 @@ public class AppAzzal {
 
         VerkuzImplementador vi = new VerkuzImplementador();
 
-        vi.init("/home/luan/IdeaProjects/Azzal/src/libs");
-        vi.init("/home/luan/IdeaProjects/Azzal/src/libs/azzal");
-        vi.init("/home/luan/IdeaProjects/Azzal/src/libs/mockui");
+        vi.init("/home/luan/dev/Azzal/src/libs");
+        vi.init("/home/luan/dev/Azzal/src/libs/azzal");
+        vi.init("/home/luan/dev/Azzal/src/libs/mockui");
 
         // vi.init_bibliotecas("/home/luan/IdeaProjects/Azzal/src/libs");
         // vi.exibir();
@@ -169,10 +175,10 @@ public class AppAzzal {
         //GGDNA.init();
 
 
-        // AppClassificador.init();
+        AppClassificador.init();
 
 
-        XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
+       // XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
         // vendas.exibir();
 
 
@@ -182,7 +188,10 @@ public class AppAzzal {
 
         tron_me();
         banco_me();
+        
+        AppFerias.recesso_2024_janeiro();
 
+        // sequenciador();
     }
 
 
@@ -190,18 +199,62 @@ public class AppAzzal {
 
         String arquivo_banco = "/home/luan/assets/trons.mt";
 
-        AZColecionador.checar(arquivo_banco);
+        String seq = Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ", 10);
 
-        AZColecionador m = new AZColecionador(arquivo_banco);
+        AZ.INSERIR(arquivo_banco, "Tronakum", DKGObjeto.CRIAR_DIRETO("Tron", "Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
 
-        String seq = "";
-        for (int v = 0; v < 10; v++) {
-            seq += Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ");
+        AZ.LIMPAR(arquivo_banco, "TronakumDiario");
+
+
+        Lista<DKGObjeto> tronarko_logs = AZ.GET_COLECAO(arquivo_banco, "Tronakum");
+
+
+        Unico<Tozte> toztes = new Unico<Tozte>(Tozte.IGUALDADE());
+
+        StringTronarko st = new StringTronarko();
+
+        for (DKGObjeto obj : tronarko_logs) {
+            Tozte proc_tozte = st.getTozteDeComplexo(obj.identifique("Agora").getValor());
+
+            if (toztes.item(proc_tozte)) {
+
+                int quantidade = 0;
+
+                Extremos<Hazde> hazde_extremos = new Extremos<Hazde>(Hazde.ORDENADOR());
+
+                hazde_extremos.set(st.getHazdeDeComplexo(obj.identifique("Agora").getValor()));
+
+                for (DKGObjeto obj2 : tronarko_logs) {
+                    Tozte proc_tozte_aqui = st.getTozteDeComplexo(obj2.identifique("Agora").getValor());
+
+                    if (proc_tozte_aqui.isIgual(proc_tozte)) {
+                        Hazde proc_hazde = st.getHazdeDeComplexo(obj2.identifique("Agora").getValor());
+
+                        hazde_extremos.set(proc_hazde);
+
+                        quantidade += 1;
+                    }
+                }
+
+                fmt.print("TOZTE - {} :: {}", proc_tozte.getTextoZerado(), quantidade);
+                fmt.print("\t Primeiro - {}", hazde_extremos.getMenor().getTextoZerado());
+                fmt.print("\t Recente  - {}", hazde_extremos.getMaior().getTextoZerado());
+
+                DKGObjeto info = new DKGObjeto("Info");
+                info.identifique("Tozte", proc_tozte.getTextoZerado());
+                info.identifique("Quantidade", quantidade);
+
+                info.identifique("Primeiro", hazde_extremos.getMenor().getTextoZerado());
+                info.identifique("Recente", hazde_extremos.getMaior().getTextoZerado());
+                info.identifique("Intervalo", new Hazde_Intervalo("I",hazde_extremos.getMenor(),hazde_extremos.getMaior()).getDiferencaZerado());
+
+                AZ.INSERIR(arquivo_banco, "TronakumDiario", info);
+
+            }
+
+
         }
 
-        m.getColecao("Tronakum").adicionar(DKGObjeto.CRIAR_DIRETO("Tron", "Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
-
-        m.fechar();
 
     }
 
@@ -210,17 +263,23 @@ public class AppAzzal {
 
         String arquivo_banco = "/home/luan/assets/trons.mt";
 
-        AZColecionador.checar(arquivo_banco);
+        AZ.ATUALIZAR(arquivo_banco);
 
-        AZColecionador m = new AZColecionador(arquivo_banco);
+        AZ.EXIBIR_COLECAO(arquivo_banco, "@Analise");
+        AZ.EXIBIR_COLECAO(arquivo_banco, "Tronakum");
+        AZ.EXIBIR_COLECAO(arquivo_banco, "TronakumDiario");
 
-        m.auto_analisar();
-
-        DKGFeatures.EXIBIR_TABELA(m.getColecao("@Analise").getObjetos());
-        DKGFeatures.EXIBIR_TABELA(m.getColecao("Tronakum").getObjetos());
-
-        m.fechar();
 
     }
+
+
+    public static void sequenciador() {
+
+        for (Integer indice : Seq.SEQUENCIE(0, 100)) {
+            fmt.print("{}", indice);
+        }
+
+    }
+
 
 }

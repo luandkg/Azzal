@@ -18,11 +18,8 @@ public class Paleta {
 
     public void criar(String eNome, Cor eCor) {
         if (!existeChave(eNome)) {
-
             mCores.adicionar(eNome, eCor);
-
         } else {
-
             throw new IllegalArgumentException("Ja existe uma cor com esse nome : " + eNome);
         }
 
@@ -30,17 +27,13 @@ public class Paleta {
 
 
     public Cor getCor(String eNome) {
-
         return mCores.obter(eNome);
-
     }
 
     public void remover(String eChave) {
-
         if (existeChave(eChave)) {
             mCores.remover(eChave);
         } else {
-
             throw new IllegalArgumentException("Cor nao encontrada : " + eChave);
         }
     }

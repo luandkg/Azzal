@@ -1,5 +1,9 @@
 package libs.ranking;
 
+import libs.luan.Lista;
+import libs.luan.Ordenador;
+import libs.luan.Ordenavel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,60 +12,71 @@ public class RankeadorDouble {
 
     // DOUBLE
 
-    public static ArrayList<RankeadoDouble> ordenar(ArrayList<RankeadoDouble> itens) {
-
-        Collections.sort(itens, new Comparator() {
+    public static Ordenavel<RankeadoDouble> ORDENAVEL_RANKEADO_DOUBLE() {
+        return new Ordenavel<RankeadoDouble>() {
             @Override
-            public int compare(Object objeto_um, Object objeto_dois) {
-                return Double.compare((((RankeadoDouble) objeto_um).getRanking()), (((RankeadoDouble) objeto_dois).getRanking()));
+            public int emOrdem(RankeadoDouble a, RankeadoDouble b) {
+
+
+                int resp = Ordenavel.IGUAL;
+
+                if (a.getRanking() > b.getRanking()) {
+                    resp = Ordenavel.MAIOR;
+                } else if (a.getRanking() < b.getRanking()) {
+                    resp = Ordenavel.MENOR;
+                }
+
+
+                return resp;
             }
-        });
+        };
+
+    }
+
+
+    public static Lista<RankeadoDouble> ordenar(Lista<RankeadoDouble> itens) {
+
+        Ordenador.ordenar_lista_crescente(itens, ORDENAVEL_RANKEADO_DOUBLE());
 
         return itens;
     }
 
-    public static ArrayList<RankeadoDouble> ordenar_inverso(ArrayList<RankeadoDouble> itens) {
+    public static Lista<RankeadoDouble> ordenar_inverso(Lista<RankeadoDouble> itens) {
 
-        Collections.sort(itens, new Comparator() {
-            @Override
-            public int compare(Object objeto_um, Object objeto_dois) {
-                return Double.compare((((RankeadoDouble) objeto_um).getRanking()), (((RankeadoDouble) objeto_dois).getRanking())) * (-1);
-            }
-        });
-
+        Ordenador.ordenar_lista_decrescente(itens, ORDENAVEL_RANKEADO_DOUBLE());
         return itens;
     }
 
 
-    public static ArrayList<RankeadoDouble> getCopia(ArrayList<RankeadoDouble> itens) {
-        ArrayList<RankeadoDouble> mais = new ArrayList<RankeadoDouble>();
+    public static Lista<RankeadoDouble> getCopia(Lista<RankeadoDouble> itens) {
+        Lista<RankeadoDouble> mais = new Lista<RankeadoDouble>();
         for (RankeadoDouble a : itens) {
-            mais.add(a);
+            mais.adicionar(a);
         }
         return mais;
     }
 
-    public static ArrayList<RankeadoDouble> filtrar_maior_ou_igual(ArrayList<RankeadoDouble> itens, double referencia) {
-        ArrayList<RankeadoDouble> mais = new ArrayList<RankeadoDouble>();
+    public static Lista<RankeadoDouble> filtrar_maior_ou_igual(Lista<RankeadoDouble> itens, double referencia) {
+        Lista<RankeadoDouble> mais = new Lista<RankeadoDouble>();
         for (RankeadoDouble a : itens) {
             if (a.getRanking() >= referencia) {
-                mais.add(a);
+                mais.adicionar(a);
             }
         }
         return mais;
     }
 
 
-    public static ArrayList<Double> selecionar_maiores(ArrayList<RankeadoDouble> itens, int quantidade) {
+    public static Lista<Double> selecionar_maiores(Lista<RankeadoDouble> itens, int quantidade) {
 
-        ArrayList<RankeadoDouble> mais = new ArrayList<RankeadoDouble>();
+        Lista<RankeadoDouble> mais = new Lista<RankeadoDouble>();
         for (RankeadoDouble a : itens) {
-            mais.add(a);
+            mais.adicionar(a);
         }
 
         RankeadorDouble.ordenar_inverso(mais);
 
-        ArrayList<Double> selecionados = new ArrayList<Double>();
+        Lista<Double> selecionados = new Lista<Double>();
 
         for (RankeadoDouble a : mais) {
 
@@ -76,8 +91,8 @@ public class RankeadorDouble {
             }
 
             if (!existe) {
-                selecionados.add(valor);
-                if (selecionados.size() >= quantidade) {
+                selecionados.adicionar(valor);
+                if (selecionados.getQuantidade() >= quantidade) {
                     break;
                 }
             }
@@ -87,16 +102,16 @@ public class RankeadorDouble {
         return selecionados;
     }
 
-    public static ArrayList<Double> selecionar_menores(ArrayList<RankeadoDouble> itens, int quantidade) {
+    public static Lista<Double> selecionar_menores(Lista<RankeadoDouble> itens, int quantidade) {
 
-        ArrayList<RankeadoDouble> mais = new ArrayList<RankeadoDouble>();
+        Lista<RankeadoDouble> mais = new Lista<RankeadoDouble>();
         for (RankeadoDouble a : itens) {
-            mais.add(a);
+            mais.adicionar(a);
         }
 
         RankeadorDouble.ordenar(mais);
 
-        ArrayList<Double> selecionados = new ArrayList<Double>();
+        Lista<Double> selecionados = new Lista<Double>();
 
         for (RankeadoDouble a : mais) {
 
@@ -111,8 +126,8 @@ public class RankeadorDouble {
             }
 
             if (!existe) {
-                selecionados.add(valor);
-                if (selecionados.size() >= quantidade) {
+                selecionados.adicionar(valor);
+                if (selecionados.getQuantidade() >= quantidade) {
                     break;
                 }
             }
@@ -122,9 +137,9 @@ public class RankeadorDouble {
         return selecionados;
     }
 
-    public static ArrayList<RankeadoDouble> limitar(ArrayList<RankeadoDouble> itens, ArrayList<Double> limites) {
+    public static Lista<RankeadoDouble> limitar(Lista<RankeadoDouble> itens, Lista<Double> limites) {
 
-        ArrayList<RankeadoDouble> selecionados = new ArrayList<RankeadoDouble>();
+        Lista<RankeadoDouble> selecionados = new Lista<RankeadoDouble>();
 
         for (RankeadoDouble a : itens) {
 
@@ -139,7 +154,7 @@ public class RankeadorDouble {
             }
 
             if (existe) {
-                selecionados.add(a);
+                selecionados.adicionar(a);
             }
 
         }
@@ -148,7 +163,7 @@ public class RankeadorDouble {
     }
 
 
-    public static double getMedia(ArrayList<RankeadoDouble> itens) {
+    public static double getMedia(Lista<RankeadoDouble> itens) {
 
         double somando = 0;
         int contando = 0;

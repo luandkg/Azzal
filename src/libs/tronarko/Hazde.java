@@ -1,5 +1,8 @@
 package libs.tronarko;
 
+import libs.luan.Igualavel;
+import libs.luan.Ordenavel;
+
 public class Hazde {
 
     private int mArkos;
@@ -422,6 +425,37 @@ public class Hazde {
 
     public int getIttasTotal() {
         return (mArkos * 100) + mIttas;
+    }
+
+
+    public static Igualavel<Hazde> IGUALDADE() {
+        return new Igualavel<Hazde>() {
+            @Override
+            public boolean is(Hazde a, Hazde b) {
+                return a.isIgual(b);
+            }
+        };
+    }
+
+    public static Ordenavel<Hazde> ORDENADOR() {
+        return new Ordenavel<Hazde>() {
+            @Override
+            public int emOrdem(Hazde a, Hazde b) {
+
+
+                int resp = Ordenavel.IGUAL;
+
+                if (a.isMaior(b)) {
+                    resp = Ordenavel.MAIOR;
+                } else if (a.isMenor(b)) {
+                    resp = Ordenavel.MENOR;
+                }
+
+
+                return resp;
+            }
+        };
+
     }
 }
 

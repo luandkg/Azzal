@@ -2,6 +2,7 @@ package libs.dkg;
 
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.fmt;
 
 import java.util.ArrayList;
 
@@ -433,5 +434,33 @@ public class DKGObjeto {
         novo.identifique(a2,v2);
 
         return novo;
+    }
+
+
+    // FEATURE 2024.01.02
+    public void rearranjar(String eNome,int ePosicao){
+
+        DKGAtributo a1 = mAtributos.get(ePosicao);
+        int v1 = ePosicao;
+
+        DKGAtributo a2 = null;
+        int v2 = 0;
+
+        boolean enc = false;
+
+for(DKGAtributo a : mAtributos){
+    if(a.getNome().contentEquals(eNome)){
+        a2=a;
+        enc=true;
+        break;
+    }
+    v2+=1;
+}
+
+        if(enc){
+            mAtributos.set(v1,a2);
+            mAtributos.set(v2,a1);
+        }
+
     }
 }

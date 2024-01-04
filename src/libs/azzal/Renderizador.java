@@ -23,7 +23,6 @@ public class Renderizador {
     private int mAltura;
 
     private Lista<Luz> mLuzes;
-    private Iterador<Luz> mLuzes_Iterador;
 
     private boolean mAmbiente_Existe;
     private Cor mAmbiente;
@@ -41,7 +40,6 @@ public class Renderizador {
         mMapaDeLuz = new int[mLargura * mAltura];
 
         mLuzes = new Lista<Luz>();
-        mLuzes_Iterador = new Iterador<Luz>(mLuzes);
 
 
         mAmbiente_Existe = false;
@@ -80,8 +78,6 @@ public class Renderizador {
 
         int eTam = mPixels.length;
 
-        //int[] img_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
-
         for (int yi = 0; yi < img.getHeight(); yi++) {
             for (int xi = 0; xi < img.getWidth(); xi++) {
 
@@ -93,8 +89,6 @@ public class Renderizador {
                 if (ePox >= 0 && ePox < eTam) {
                     if (rx >= 0 && rx < mLargura && ry >= 0 && ry < mAltura) {
                         mPixels[ePox] = img.getRGB(xi, yi);
-                        // mPixels[ePox] = img_Pixels[(yi*img.getWidth() )+ xi];
-
                     }
                 }
             }
@@ -1108,19 +1102,19 @@ public class Renderizador {
         }
 
 
-        for (mLuzes_Iterador.iniciar(); mLuzes_Iterador.continuar(); mLuzes_Iterador.proximo()) {
+        for (Luz luz : mLuzes) {
 
-            System.out.println(" -->> " + mLuzes_Iterador.getValor().getCor().toString());
+            System.out.println(" -->> " + luz.getCor().toString());
 
 
-            int eX_Inicio = mLuzes_Iterador.getValor().getX_Inicio();
-            int eX_Fim = mLuzes_Iterador.getValor().getX_Fim();
+            int eX_Inicio = luz.getX_Inicio();
+            int eX_Fim = luz.getX_Fim();
 
-            int eY_Inicio = mLuzes_Iterador.getValor().getY_Inicio();
-            int eY_Fim = mLuzes_Iterador.getValor().getY_Fim();
+            int eY_Inicio = luz.getY_Inicio();
+            int eY_Fim = luz.getY_Fim();
 
-            Cor eCor = mLuzes_Iterador.getValor().getCor();
-            int eTam = mLuzes_Iterador.getValor().getTamanho();
+            Cor eCor = luz.getCor();
+            int eTam = luz.getTamanho();
 
 
             //  System.out.println("X ->> " + eX_Inicio + " :: " + eX_Fim);
@@ -1234,19 +1228,19 @@ public class Renderizador {
         }
 
 
-        for (mLuzes_Iterador.iniciar(); mLuzes_Iterador.continuar(); mLuzes_Iterador.proximo()) {
+        for (Luz luz : mLuzes) {
 
             //   System.out.println(" -->> " + mLuzes_Iterador.getValor().getCor().toString());
 
 
-            int eX_Inicio = mLuzes_Iterador.getValor().getX_Inicio();
-            int eX_Fim = mLuzes_Iterador.getValor().getX_Fim();
+            int eX_Inicio = luz.getX_Inicio();
+            int eX_Fim = luz.getX_Fim();
 
-            int eY_Inicio = mLuzes_Iterador.getValor().getY_Inicio();
-            int eY_Fim = mLuzes_Iterador.getValor().getY_Fim();
+            int eY_Inicio =luz.getY_Inicio();
+            int eY_Fim = luz.getY_Fim();
 
-            Cor eCor = mLuzes_Iterador.getValor().getCor();
-            int eTam = mLuzes_Iterador.getValor().getTamanho();
+            Cor eCor = luz.getCor();
+            int eTam =luz.getTamanho();
 
 
             //  System.out.println("X ->> " + eX_Inicio + " :: " + eX_Fim);

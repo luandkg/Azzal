@@ -37,6 +37,7 @@ public class Colecao {
 
         int chave = AZSequenciador.aumentar_sequencial(mSequencias, mNome);
         objeto.identifique("ID").setInteiro(chave);
+        objeto.rearranjar("ID",0);
         long endereco = mColecao.adicionar(objeto.toDocumento());
 
         mColecao.set(chave, endereco);
@@ -95,6 +96,19 @@ public class Colecao {
     }
 
 
+    public void primeiro_campo(String ePrimeiro){
+
+        for(ItemDoBanco item: getItens()){
+
+            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
+
+            objeto.rearranjar(ePrimeiro,0);
+
+            item.atualizar(objeto.toString());
+
+        }
+
+    }
 
 
     public void indexar(String eArquivoIndice) {

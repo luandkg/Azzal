@@ -1,6 +1,7 @@
 package libs.tronarko;
 
 import libs.luan.RefInt;
+import libs.tronarko.Intervalos.Tozte_Intervalo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -242,5 +243,11 @@ public class Tronarko {
         return diferenca_de_dias;
     }
 
+    public static long SUPERARKOS_ENTRE_COM(Tozte inicio,Tozte fim){
+        return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkos();
+    }
+    public static long SUPERARKOS_ENTRE_COM_FIM(Tozte inicio,Tozte fim){
+        return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkosComFim();
+    }
 
 }

@@ -1,6 +1,9 @@
 package libs.tronarko;
 
+import libs.luan.Igualavel;
 import libs.luan.Lista;
+import libs.luan.Ordenavel;
+import libs.ranking.RankeadoDouble;
 import libs.tronarko.Intervalos.Tozte_Intervalo;
 
 public class Tozte {
@@ -849,5 +852,35 @@ public class Tozte {
     }
 
 
+
+    public static Igualavel<Tozte> IGUALDADE() {
+        return new Igualavel<Tozte>() {
+            @Override
+            public boolean is(Tozte a, Tozte b) {
+                return a.isIgual(b);
+            }
+        };
+    }
+
+    public static Ordenavel<Tozte> ORDENADOR() {
+        return new Ordenavel<Tozte>() {
+            @Override
+            public int emOrdem(Tozte a, Tozte b) {
+
+
+                int resp = Ordenavel.IGUAL;
+
+                if (a.isMaiorQue(b)) {
+                    resp = Ordenavel.MAIOR;
+                } else if (a.isMenorQue(b)) {
+                    resp = Ordenavel.MENOR;
+                }
+
+
+                return resp;
+            }
+        };
+
+    }
 }
 

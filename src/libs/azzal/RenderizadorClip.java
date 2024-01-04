@@ -16,9 +16,7 @@ public class RenderizadorClip {
     public void drawPixelBruto(int eX, int eY, int eCor) {
 
         if (eX >= mArea.getX() && eX < mArea.getX2() && eY >= mArea.getY() && eY < mArea.getY2()) {
-
             mRenderizador.drawPixelBruto(eX,eY,eCor);
-
         }
 
 

@@ -1,21 +1,22 @@
 package libs.azzal.cenarios;
 
-import java.util.ArrayList;
+
+import libs.luan.Lista;
 
 public class Cenarios {
 
-	private ArrayList<Cenario> mCenarios;
+	private Lista<Cenario> mCenarios;
 	private int mID;
 
 	public Cenarios() {
-		mCenarios = new ArrayList<Cenario>();
+		mCenarios = new Lista<Cenario>();
 		mID = 0;
 	}
 
 	public int CriarCenario(Cena eCena) {
 
 		Cenario eCenario = new Cenario(mID, eCena);
-		mCenarios.add(eCenario);
+		mCenarios.adicionar(eCenario);
 		mID += 1;
 
 		return eCenario.getID();
@@ -36,7 +37,7 @@ public class Cenarios {
 
 		for (Cenario mCenario : mCenarios) {
 			if (mCenario.getID() == eID) {
-				mCenarios.remove(mCenario);
+				mCenarios.remover(mCenario);
 				break;
 			}
 		}

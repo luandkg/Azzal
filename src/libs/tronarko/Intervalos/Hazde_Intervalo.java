@@ -1,5 +1,6 @@
 package libs.tronarko.Intervalos;
 
+import libs.luan.fmt;
 import libs.tronarko.Hazde;
 
 public  class Hazde_Intervalo {
@@ -95,6 +96,27 @@ public  class Hazde_Intervalo {
         }
 
         return mArkos + ":" + mIttas + ":" + mEttons;
+
+    }
+
+    public String getDiferencaZerado() {
+
+        int mArkos = 0;
+        int mEttons = getTotalEttons();
+
+        int mIttas = 0;
+
+        while (mEttons >= 100) {
+            mEttons -= 100;
+            mIttas += 1;
+        }
+
+        while (mIttas >= 100) {
+            mIttas -= 100;
+            mArkos += 1;
+        }
+
+        return fmt.zerado(mArkos,2)  + ":" + fmt.zerado(mIttas,2) + ":" + fmt.zerado(mEttons,2);
 
     }
 

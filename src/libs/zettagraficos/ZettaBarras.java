@@ -6,13 +6,14 @@ import libs.azzal.geometria.Retangulo;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Posicionador;
+import libs.luan.Lista;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class ZettaBarras {
 
-    private ArrayList<Integer> mValores;
+    private Lista<Integer> mValores;
 
     private int mLimite;
     private int mMinimo;
@@ -32,7 +33,7 @@ public class ZettaBarras {
 
     public ZettaBarras() {
 
-        mValores = new ArrayList<Integer>();
+        mValores = new Lista<Integer>();
         mLimite = 10;
 
         mMinimo = 0;
@@ -85,10 +86,10 @@ public class ZettaBarras {
     }
 
     public void adicionar(int eValor) {
-        mValores.add(eValor);
-        if (mValores.size() > mLimite) {
-            while (mValores.size() > mLimite) {
-                mValores.remove(0);
+        mValores.adicionar(eValor);
+        if (mValores.getQuantidade() > mLimite) {
+            while (mValores.getQuantidade() > mLimite) {
+                mValores.remover_indice(0);
             }
         }
     }
@@ -98,7 +99,7 @@ public class ZettaBarras {
     }
 
     public int getQuantidade() {
-        return mValores.size();
+        return mValores.getQuantidade();
     }
 
     public int getEspaco() {

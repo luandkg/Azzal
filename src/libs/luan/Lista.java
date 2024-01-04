@@ -401,6 +401,17 @@ public class Lista<T> implements Iterable<T> {
 
     }
 
+    public boolean existe(Igualavel<T> eIgualador,T procurado){
+
+        for(T valor : this){
+            if(eIgualador.is(procurado,valor)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public int contar(T eValor) {
 
         int retorno = 0;
@@ -524,6 +535,49 @@ public class Lista<T> implements Iterable<T> {
         return copia;
     }
 
+    public static <T> void ORDENAR_CRESCENTE(Lista<T> lista, Ordenavel<T> algoritmo_de_ordenacao) {
+
+        int n = lista.getQuantidade();
+        T temp = null;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+
+                int ordem = algoritmo_de_ordenacao.emOrdem(lista.get(j - 1), lista.get(j));
+
+                if (ordem == Ordenavel.MAIOR) {
+                    temp = lista.get(j - 1);
+                    lista.set(j - 1, lista.get(j));
+                    lista.set(j, temp);
+                }
+
+            }
+        }
+
+    }
+
+    public static <T> void ORDENAR_DECRESCENTE(Lista<T> lista, Ordenavel<T> algoritmo_de_ordenacao) {
+
+        int n = lista.getQuantidade();
+        T temp = null;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+
+                int ordem = algoritmo_de_ordenacao.emOrdem(lista.get(j - 1), lista.get(j));
+
+                if (ordem == Ordenavel.MENOR) {
+                    temp = lista.get(j - 1);
+                    lista.set(j - 1, lista.get(j));
+                    lista.set(j, temp);
+                }
+
+            }
+        }
+
+    }
+
+
     public static <T> Lista<T> EMBARALHAR(Lista<T> lista) {
 
 
@@ -554,4 +608,8 @@ public class Lista<T> implements Iterable<T> {
         mPrimeiro=novo_primeiro;
         mQuantidade+=1;
     }
+
+
+
+
 }

@@ -218,4 +218,11 @@ public class Strings {
 
     }
 
+
+    public static void println(Lista<String> ls){
+        for(String item : ls){
+            fmt.print("{}",item);
+        }
+    }
+
 }

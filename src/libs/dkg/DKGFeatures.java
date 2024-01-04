@@ -686,7 +686,7 @@ public class DKGFeatures {
             cabecalho += " |" + fmt.espacar_antes(obj.identifique("Nome").getValor(), tt);
         }
 
-        fmt.print("{}", cabecalho);
+        fmt.print("{}", cabecalho+ " |");
         fmt.print(fmt.repetir("-", tracos));
 
         for (DKGObjeto obj : objetos) {

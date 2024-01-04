@@ -2,8 +2,10 @@ package apps.app_coisas;
 
 import libs.arquivos.BZ3;
 import libs.arquivos.Sumario;
+import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.dkg.DKGUtils;
+import libs.luan.Lista;
 import libs.luan.RefInt;
 import libs.ranking.RankeadoInteiro;
 import libs.ranking.Rankeador;
@@ -30,16 +32,17 @@ public class AppClassificador {
 
         eSumario.organizar_completo(alunos, "Nome");
 
-        System.out.println("A :: " + BZ3.procurar(arquivo_bz3, 0).length());
-        System.out.println("B :: " + BZ3.procurar(arquivo_bz3, 1).length());
-        System.out.println("C :: " + BZ3.procurar(arquivo_bz3, 2).length());
-
-        for (int l = 0; l < 5; l++) {
+        for (int l = 0; l < Sumario.LETRAS; l++) {
 
             String conjunto = BZ3.procurar(arquivo_bz3, l);
 
-            System.out.println("------------- " + l + " ---------------------");
-            System.out.println(conjunto);
+            DKGObjeto itens = DKG.PARSER_TO_OBJETO(conjunto);
+            System.out.println( Sumario.getLetra(l)  + " :: " + itens.getObjetos().getQuantidade());
+
+            if(itens.getObjetos().getQuantidade()>0){
+                System.out.println("------------- " + l + " ---------------------");
+                System.out.println(conjunto);
+            }
 
         }
 
@@ -48,14 +51,14 @@ public class AppClassificador {
         RankeadoInteiro<RefInt> r2 = new RankeadoInteiro<RefInt>("B", 25, null);
         RankeadoInteiro<RefInt> r3 = new RankeadoInteiro<RefInt>("C", 5, null);
 
-        ArrayList<RankeadoInteiro> lista = new ArrayList<RankeadoInteiro>();
-        lista.add(r1);
-        lista.add(r2);
-        lista.add(r3);
+        Lista<RankeadoInteiro<RefInt>> lista = new Lista<RankeadoInteiro<RefInt>>();
+        lista.adicionar(r1);
+        lista.adicionar(r2);
+        lista.adicionar(r3);
 
-        Rankeador.ordenar(lista);
+        Rankeador.ordenar( lista);
 
-        for(RankeadoInteiro item : lista){
+        for(RankeadoInteiro<RefInt> item : lista){
             System.out.println("Item - " + item.getRanking() + " -->> " + item.getNome());
         }
 
