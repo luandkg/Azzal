@@ -46,11 +46,6 @@ public class Colecao {
     }
 
 
-    // public boolean adicionar_sem_chave(DKGObjeto objeto) {
-    //     mColecao.adicionar(objeto.toString());
-    //      return false;
-    //  }
-
     public void remover_por_chave(int eID) {
 
         for (ItemDoBanco item : mColecao.getItens()) {

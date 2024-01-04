@@ -45,7 +45,7 @@ public class DKGAtributo {
     }
 
     public void setLong(long eValor) {
-        mValor = String.valueOf(eValor);
+        mValor = Long.toUnsignedString(eValor);
     }
 
     public String getValor() {
@@ -140,14 +140,14 @@ public class DKGAtributo {
 
 
     public long getLong() {
-        return Long.parseLong(getValor());
+        return Long.parseUnsignedLong(getValor());
     }
 
     public long getLong(long valorPadrao) {
         if (getValor().length() == 0) {
             setLong(valorPadrao);
         } else {
-            valorPadrao = Long.parseLong(getValor());
+            valorPadrao = Long.parseUnsignedLong(getValor());
         }
 
         return valorPadrao;

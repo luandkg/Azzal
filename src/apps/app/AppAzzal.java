@@ -12,6 +12,8 @@ import apps.app_llcripto.App_LLCripto;
 import apps.app_momentum.AppMomentum;
 import apps.app_momentum.HarrempluzCreator;
 import apps.app_testes.app_testes;
+import libs.aqz.AQZ;
+import libs.aqz.MigrarToAQZ;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
@@ -33,6 +35,7 @@ import libs.movimentador.QuadranteEspacial;
 import libs.ranking.RankeadoInteiro;
 import libs.ranking.Rankeador;
 import libs.servittor.Servittor;
+import libs.tempo.Calendario;
 import libs.tronarko.Hazde;
 import libs.tronarko.Intervalos.Hazde_Intervalo;
 import libs.tronarko.Tozte;
@@ -138,8 +141,8 @@ public class AppAzzal {
         String ESCOLA_LOCAL = "/home/luan/Dropbox/CED 1";
 
 
-      //  Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_01.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 1 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
-    //    Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_02.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
+        //  Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_01.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 1 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
+        //    Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_02.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
 
 
         // planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/pd3_8.txt",
@@ -153,7 +156,7 @@ public class AppAzzal {
 
         // libs.Tronarko.Testes.init();
 
-            AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
+        //   AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
 
 
         VerkuzImplementador vi = new VerkuzImplementador();
@@ -176,10 +179,10 @@ public class AppAzzal {
         //GGDNA.init();
 
 
-     //   AppClassificador.init();
+        //   AppClassificador.init();
 
 
-       // XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
+        // XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
         // vendas.exibir();
 
 
@@ -187,11 +190,12 @@ public class AppAzzal {
 
         // GGADF2023.init();
 
-        tron_me();
-        banco_me();
-        
-        AppFerias.recesso_2024_janeiro();
+        //  tron_me();
+        //   banco_me();
 
+        //  AppFerias.recesso_2024_janeiro();
+
+        aqz_geral();
 
         // sequenciador();
     }
@@ -199,16 +203,16 @@ public class AppAzzal {
 
     public static void tron_me() {
 
-        String arquivo_banco = "/home/luan/assets/trons.mt";
+        String arquivo_banco = "/home/luan/assets/initum.aqz";
 
         String seq = Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ", 10);
 
-        AZ.INSERIR(arquivo_banco, "Tronakum", DKGObjeto.CRIAR_DIRETO("Tron", "Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
+        AQZ.INSERIR(arquivo_banco, "Tronakum", DKGObjeto.CRIAR_DIRETO("Tron", "Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
 
-        AZ.LIMPAR(arquivo_banco, "TronakumDiario");
+        AQZ.LIMPAR_TUDO(arquivo_banco, "TronakumDiario");
 
 
-        Lista<DKGObjeto> tronarko_logs = AZ.GET_COLECAO(arquivo_banco, "Tronakum");
+        Lista<DKGObjeto> tronarko_logs = AQZ.COLECAO_ITENS(arquivo_banco, "Tronakum");
 
 
         Unico<Tozte> toztes = new Unico<Tozte>(Tozte.IGUALDADE());
@@ -248,9 +252,9 @@ public class AppAzzal {
 
                 info.identifique("Primeiro", hazde_extremos.getMenor().getTextoZerado());
                 info.identifique("Recente", hazde_extremos.getMaior().getTextoZerado());
-                info.identifique("Intervalo", new Hazde_Intervalo("I",hazde_extremos.getMenor(),hazde_extremos.getMaior()).getDiferencaZerado());
+                info.identifique("Intervalo", new Hazde_Intervalo("I", hazde_extremos.getMenor(), hazde_extremos.getMaior()).getDiferencaZerado());
 
-                AZ.INSERIR(arquivo_banco, "TronakumDiario", info);
+                AQZ.INSERIR(arquivo_banco, "TronakumDiario", info);
 
             }
 
@@ -263,13 +267,15 @@ public class AppAzzal {
 
     public static void banco_me() {
 
-        String arquivo_banco = "/home/luan/assets/trons.mt";
+        String arquivo_banco = "/home/luan/assets/initum.aqz";
 
-        AZ.ATUALIZAR(arquivo_banco);
+        AQZ.AUTO_ANALISAR(arquivo_banco);
+        AQZ.ANALISAR(arquivo_banco);
 
-        AZ.EXIBIR_COLECAO(arquivo_banco, "@Analise");
-        AZ.EXIBIR_COLECAO(arquivo_banco, "Tronakum");
-        AZ.EXIBIR_COLECAO(arquivo_banco, "TronakumDiario");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Analise");
+
+        AQZ.EXIBIR_COLECAO(arquivo_banco, "Tronakum");
+        AQZ.EXIBIR_COLECAO(arquivo_banco, "TronakumDiario");
 
 
     }
@@ -283,5 +289,53 @@ public class AppAzzal {
 
     }
 
+    public static void aqz_geral() {
+
+        String arquivo_banco = "/home/luan/assets/initum.aqz";
+
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Valores");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tronakum");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "TronakumDiario");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo");
+
+        //AQZ.LIMPAR_TUDO(arquivo_banco,"VALORES");
+
+        String arquivo_banco_trons = "/home/luan/assets/trons.mt";
+
+        //  MigrarToAQZ.MIGRAR(arquivo_banco_trons,"Tronakum",arquivo_banco,"Tronakum");
+        //  MigrarToAQZ.MIGRAR(arquivo_banco_trons,"TronakumDiario",arquivo_banco,"TronakumDiario");
+
+
+        AQZ.COLECOES_EXIBIR(arquivo_banco);
+
+        String antes = Calendario.getTempoCompleto();
+        for (int v = 0; v < 100; v++) {
+
+            long numero_sequencial = AQZ.QUANTIDADE(arquivo_banco, "VALORES");
+
+            String seq = Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ", 10);
+
+            AQZ.INSERIR(arquivo_banco, "VALORES", DKGObjeto.CRIAR_DIRETO("Item", "Sequencial", numero_sequencial, "Valor", seq));
+            fmt.print("Inserindo :: {}", v);
+        }
+        String depois = Calendario.getTempoCompleto();
+
+        AQZ.EXIBIR_COLECAO(arquivo_banco, "VALORES");
+        AQZ.INSERIR(arquivo_banco, "Tempo", DKGObjeto.CRIAR_DIRETO("Tempo", "Inicio", antes, "Termino", depois));
+        AQZ.EXIBIR_COLECAO(arquivo_banco, "Tempo");
+
+        AQZ.COLECOES_DESTRUIR(arquivo_banco, "Drafts");
+
+
+        AQZ.AUTO_ANALISAR(arquivo_banco);
+        AQZ.ANALISAR(arquivo_banco);
+
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Init");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Bancos");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Sequencias");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@AutoAnalise");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Analise");
+
+    }
 
 }

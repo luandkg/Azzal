@@ -436,6 +436,14 @@ public class DKGObjeto {
         return novo;
     }
 
+    public static DKGObjeto CRIAR_DIRETO(String nome,String a1,long v1,String a2,String v2){
+        DKGObjeto novo = new DKGObjeto(nome);
+        novo.identifique(a1).setLong(v1);
+        novo.identifique(a2,v2);
+
+        return novo;
+    }
+
 
     // FEATURE 2024.01.02
     public void rearranjar(String eNome,int ePosicao){

@@ -361,4 +361,8 @@ public class Armazenador {
     public long contagem_em_cache() {
         return LocalCache.getItensEmCacheContagem(mArquivador, getGlobalCache());
     }
+
+
+
+    public Arquivador getArquivador(){return mArquivador;}
 }
