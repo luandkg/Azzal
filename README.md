@@ -88,6 +88,7 @@ de Dados da Universidade de Brasília
 4. Par
 5. Iterador
 6. String
+7. Unico
 
 > Algoritmos implementados 
 
@@ -95,6 +96,8 @@ de Dados da Universidade de Brasília
 2. Opcional
 3. Integers
 4. Strings
+5. Texto
+6. TextoDocumento
 
 > Classes referenciáveis
 
@@ -108,9 +111,9 @@ de Dados da Universidade de Brasília
 > Tempo : Classe responsável por trabalhar com datas e horarios, ela será atualizada com outra versão que desenvolvi no projeto appEscola
 
 
-# libs.arquivos - Meus formatos de arquivos
+# Biblioteca Arquivos - Meus formatos de arquivos
 
-> Pacote com formatos de arquivados criados por mim mesmo ( hehehe )
+> Pacote com formatos de arquivados criados por eu mesmo ( hehehe )
 
     - IM : Formato de Imagem
     - AI : Formato de Álbum de Imagens
@@ -118,13 +121,33 @@ de Dados da Universidade de Brasília
     - BZ : Formato de Blocos de Textos Indexados
     - HZ : Formato de Áudio : @ESTOU_ESTUDANDO
     - VI : Formato de Vídeo : @NAO_TEM_AUDIO
+    - BZ : Formato de seção pre-alocada ( BZ2 = 10Kb | BZ3 = 100Kb )
+
+    - CacheIndexado : Formato de seção pre-alocada expandível
+    - Sumario : Formato de indexamento pela primeira letra
+    - QTT : Formato de acesso direto em 2 dimenções
+    - Stacker : Formato de guarda de blocos nomeados de bytes contínuos
 
     - Arquivador : Classe para abrir/escrever arquivos
 
     - Int8 : Mapeador de 8 bits
     - Int6 : Mapeador de 6 bits
 
-# libs.zettagraficos
+# Biblioteca AZ / ARMAZENADOR : Banco de Dados
+
+> Banco de dados organizado por Coleções
+> 
+> Os objetos das coleções são arquivados em DKGObjeto
+> 
+> As coleções possuem ID Sequencial configurável
+
+# ENTT
+
+> Organizador de entidades abstratas para análise grandes volumes de dados
+> 
+> Os conjuntos de dados são formados por Entidades e seus atributos especificados por Tags de Chave/Valor
+
+# Zetta Gráficos
 
 > Pacote ZettaBarras para desenhos de gráficos de barras e pontos.
 
@@ -134,6 +157,11 @@ de Dados da Universidade de Brasília
 
 > Coleção de códigos para facilitar abertura de imagens, além de aplicação de efeitos.
 
+
+# Biblioteca LLCripto 
+
+> Algoritmo para realizar criptografica de dados
+![Organizador Espacial](https://github.com/luandkg/Azzal/blob/master/res/llcripto.png)
 
 # Partículas
 

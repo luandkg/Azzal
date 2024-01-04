@@ -27,6 +27,7 @@ import libs.azzal.AzzalUnico;
 import libs.dkg.*;
 import libs.documentar.Documentar;
 import libs.imagem.Imagem;
+import libs.llcripto.LLCripto;
 import libs.luan.*;
 import libs.movimentador.QuadranteEspacial;
 import libs.ranking.RankeadoInteiro;
@@ -152,7 +153,7 @@ public class AppAzzal {
 
         // libs.Tronarko.Testes.init();
 
-        //    AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
+            AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
 
 
         VerkuzImplementador vi = new VerkuzImplementador();
@@ -175,7 +176,7 @@ public class AppAzzal {
         //GGDNA.init();
 
 
-        AppClassificador.init();
+     //   AppClassificador.init();
 
 
        // XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
@@ -190,6 +191,7 @@ public class AppAzzal {
         banco_me();
         
         AppFerias.recesso_2024_janeiro();
+
 
         // sequenciador();
     }

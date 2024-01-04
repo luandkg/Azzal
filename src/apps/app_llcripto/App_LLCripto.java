@@ -14,10 +14,18 @@ public class App_LLCripto extends Cena {
 
         // LLCripto.demonstracao();
 
-        byte[] valores = LLCripto.criptografar("Luan Alves Freitas", "1992");
+        String entrada = "Luan Alves Freitas";
+        String chave = "1992";
 
-        System.out.println("CIFRAR   :: " + LLCripto.bytes_to_sequencia(valores));
-        System.out.println("DECIFRAR :: " + LLCripto.descriptografar(valores, "1992a"));
+        byte[] valores = LLCripto.criptografar(entrada, chave);
+
+        System.out.println("ALGORITMO LLCRIPTO");
+        System.out.println("---------------------------------------");
+        System.out.println("CHAVE    :: " + chave);
+        System.out.println("ENTRADA  :: " +entrada);
+        System.out.println("---------------------------------------");
+        System.out.println("CIFRAR   :: " + "{ "+LLCripto.bytes_to_sequencia(valores) + " }");
+        System.out.println("DECIFRAR :: " + LLCripto.descriptografar(valores, chave));
 
     }
 
