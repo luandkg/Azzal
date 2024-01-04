@@ -161,7 +161,7 @@ de Dados da Universidade de Brasília
 # Biblioteca LLCripto 
 
 > Algoritmo para realizar criptografica de dados
-![Organizador Espacial](https://github.com/luandkg/Azzal/blob/master/res/llcripto.png)
+![LLCripto](https://github.com/luandkg/Azzal/blob/master/res/llcripto.png)
 
 # Partículas
 
