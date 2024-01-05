@@ -1,5 +1,8 @@
 package libs.luan;
 
+import libs.arquivos.binario.Inteiro;
+
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Strings {
@@ -223,6 +226,47 @@ public class Strings {
         for(String item : ls){
             fmt.print("{}",item);
         }
+    }
+
+    public static int STRING_HASH_C10(String texto) {
+
+        int limite = 1000;
+        int valor = 0;
+
+        int i = 0;
+        byte[] bytes = texto.getBytes(StandardCharsets.UTF_8);
+        int o = bytes.length;
+
+        while (i < o) {
+            int c = Inteiro.byteToInt(bytes[i]);
+            valor += c;
+            if (valor >= limite) {
+                valor -= limite;
+            }
+            i += 1;
+        }
+
+        return valor;
+
+    }
+
+
+    public static Hasher<String> HASH() {
+        return new Hasher<String>() {
+            @Override
+            public int hash(String eObjeto) {
+                return STRING_HASH_C10(eObjeto);
+            }
+        };
+    }
+
+    public static Igualdade<String> IGUALDADE() {
+        return new Igualdade<String>() {
+            @Override
+            public boolean isIgual(String v1, String v2) {
+                return v1.contentEquals(v2);
+            }
+        };
     }
 
 }
