@@ -89,7 +89,7 @@ public class AQZInterna {
         }
 
         boolean existe = false;
-boolean criado = false;
+        boolean criado = false;
 
         for (ItemDoBanco item : s_bancos.getItens()) {
             DKGObjeto obj_colecao = DKG.PARSER_TO_OBJETO(item.lerTexto());
@@ -102,7 +102,7 @@ boolean criado = false;
 
         for (ItemDoBanco item : s_bancos.getItens()) {
             DKGObjeto obj_colecao = DKG.PARSER_TO_OBJETO(item.lerTexto());
-            if (obj_colecao.identifique("Status").isValor("DESTRUIDO") ) {
+            if (obj_colecao.identifique("Status").isValor("DESTRUIDO")) {
 
                 String nome_antigo = obj_colecao.identifique("Nome").getValor();
 
@@ -138,12 +138,12 @@ boolean criado = false;
                 obj_colecao.identifique("DDA", Calendario.getTempoCompleto());
 
                 item.atualizar(obj_colecao.toDocumento());
-                criado=true;
+                criado = true;
                 return;
             }
         }
 
-        if(criado){
+        if (criado) {
             return;
         }
 
@@ -345,9 +345,9 @@ boolean criado = false;
                 obj_colecao.identifique("Status").setValor("DESTRUIDO");
                 AZSequenciador.zerar_sequencial(s_sequencias, colecao_nome);
 
-                 //   fmt.print("DESTRUINDO :: {}", obj_colecao.toDocumento());
+                //   fmt.print("DESTRUINDO :: {}", obj_colecao.toDocumento());
 
-                    item.atualizar(obj_colecao.toDocumento());
+                item.atualizar(obj_colecao.toDocumento());
                 break;
             }
 
