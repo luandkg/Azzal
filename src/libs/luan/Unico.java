@@ -27,10 +27,11 @@ public class Unico <T> implements Iterable<T>{
     public int getQuantidade(){return mLista.getQuantidade();}
 
 
-    @Override
     public Iterator<T> iterator() {
-        return mLista.getIterador().iterator();
+        return new Lista.IteradorDaLista<T>(mLista);
     }
+
+
 
 
     public static <T1> Unico<T1> TIRAR_COPIA(Unico<T1> original) {

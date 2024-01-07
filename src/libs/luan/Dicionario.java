@@ -42,14 +42,14 @@ public class Dicionario<T> {
     }
 
 
-    public T obter(String eNome) {
+    public T obter(String eChave) {
         T eCor = null;
 
         boolean enc = false;
 
         for (mIterador.iniciar(); mIterador.continuar(); mIterador.proximo()) {
 
-            if (mIterador.getValor().getChave().contentEquals(eNome)) {
+            if (mIterador.getValor().getChave().contentEquals(eChave)) {
                 eCor = mIterador.getValor().getValor();
                 enc = true;
                 break;
@@ -59,7 +59,7 @@ public class Dicionario<T> {
         }
 
         if (!enc) {
-            throw new IllegalArgumentException("Item nao encontrado : " + eNome);
+            throw new IllegalArgumentException("Item nao encontrado : " + eChave);
         }
         return eCor;
     }

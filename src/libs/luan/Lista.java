@@ -4,36 +4,36 @@ import java.util.Iterator;
 
 public class Lista<T> implements Iterable<T> {
 
-    public class Item {
+    public static class Item<T1> {
 
-        private T mValor;
-        private Item mProximo;
+        private T1 mValor;
+        private Item<T1> mProximo;
 
-        public Item(T eValor) {
+        public Item(T1 eValor) {
             mValor = eValor;
             mProximo = null;
         }
 
-        public void setValor(T eValor) {
+        public void setValor(T1 eValor) {
             this.mValor = eValor;
         }
 
-        public T getValor() {
+        public T1 getValor() {
             return this.mValor;
         }
 
-        public void setProximo(Item eProximo) {
+        public void setProximo(Item<T1> eProximo) {
             this.mProximo = eProximo;
         }
 
-        public Item getProximo() {
+        public Item<T1> getProximo() {
             return this.mProximo;
         }
 
     }
 
-    private Item mPrimeiro;
-    private Item mUltimo;
+    private Item<T> mPrimeiro;
+    private Item<T> mUltimo;
     private int mQuantidade;
 
     private boolean mLimitada;
@@ -221,15 +221,15 @@ public class Lista<T> implements Iterable<T> {
         }
     }
 
-    public T get(int indice) {
+    public T get(int index) {
 
-        if (indice >= 0) {
+        if (index >= 0) {
 
             int indicecontagem = 0;
-            Item mCorrente = mPrimeiro;
+            Item<T> mCorrente = mPrimeiro;
             while (mCorrente != null) {
 
-                if (indice == indicecontagem) {
+                if (index == indicecontagem) {
                     return mCorrente.getValor();
                 }
 
@@ -237,11 +237,11 @@ public class Lista<T> implements Iterable<T> {
                 mCorrente = mCorrente.getProximo();
             }
 
-            throw new IllegalArgumentException("Indice invalido : " + indice);
+            throw new IllegalArgumentException("Indice invalido : " + index);
 
         } else {
 
-            throw new IllegalArgumentException("Indice invalido : " + indice);
+            throw new IllegalArgumentException("Indice invalido : " + index);
         }
 
     }
@@ -251,7 +251,7 @@ public class Lista<T> implements Iterable<T> {
         if (indice >= 0) {
 
             int indicecontagem = 0;
-            Item mCorrente = mPrimeiro;
+            Item<T> mCorrente = mPrimeiro;
             while (mCorrente != null) {
 
                 if (indice == indicecontagem) {
@@ -304,9 +304,9 @@ public class Lista<T> implements Iterable<T> {
 
     }
 
-    public void set(int indice, T eValor) {
+    public void set(int index, T eValor) {
 
-        if (indice >= 0) {
+        if (index >= 0) {
 
             int indicecontagem = 0;
             Item mCorrente = mPrimeiro;
@@ -314,7 +314,7 @@ public class Lista<T> implements Iterable<T> {
 
             while (mCorrente != null) {
 
-                if (indice == indicecontagem) {
+                if (index == indicecontagem) {
                     mCorrente.setValor(eValor);
                     trocou = true;
                     break;
@@ -326,12 +326,12 @@ public class Lista<T> implements Iterable<T> {
             }
 
             if (!trocou) {
-                throw new IllegalArgumentException("Indice invalido : " + indice);
+                throw new IllegalArgumentException("Indice invalido : " + index);
             }
 
         } else {
 
-            throw new IllegalArgumentException("Indice invalido : " + indice);
+            throw new IllegalArgumentException("Indice invalido : " + index);
 
         }
 
@@ -480,37 +480,61 @@ public class Lista<T> implements Iterable<T> {
 
     // SUPER FUNCOES
 
-    public Iterador<T> getIterador() {
-        Iterador<T> eIterador = new Iterador<T>(this);
-        eIterador.iniciar();
-        return eIterador;
-    }
 
-    @Override
+
     public Iterator<T> iterator() {
-        return getIterador().iterator();
+        return new IteradorDaLista(this);
+    }
+
+    public static class IteradorDaLista<T> implements Iterator<T> {
+
+        int index = 0;
+        int quantidade = 0;
+        Item<T> i_corrente;
+
+        public IteradorDaLista(Lista<T> eLista) {
+            index = 0;
+            quantidade = eLista.getQuantidade();
+            i_corrente = eLista.mPrimeiro;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < quantidade;
+        }
+
+        @Override
+        public T next() {
+            T eValor = i_corrente.getValor();
+
+            index += 1;
+            i_corrente = i_corrente.getProximo();
+
+            return eValor;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException("not supported yet");
+
+        }
     }
 
 
-    public void paraCada(EmCada emCada) {
+    public void paraCada(EmCada<T> emCada) {
 
-        Iterador<T> passador = getIterador();
 
-        for (passador.iniciar(); passador.continuar(); passador.proximo()) {
-
-            emCada.fazer(passador.getValor());
-
+        for (T item : this) {
+            emCada.fazer(item);
         }
 
     }
 
-    public void opereCada(T resultado, Operacao emCada) {
+    public void opereCada(T resultado, Operacao<T> emCada) {
 
-        Iterador<T> passador = getIterador();
 
-        for (passador.iniciar(); passador.continuar(); passador.proximo()) {
+        for (T item : this) {
 
-            emCada.fazer(passador.getValor(), resultado);
+            emCada.fazer(item, resultado);
 
         }
 
@@ -611,5 +635,66 @@ public class Lista<T> implements Iterable<T> {
 
 
 
+    public Opcional<T> procurar(T procurado, Igualdade<T> igualdade) {
+
+        for (T item : this) {
+            if (igualdade.isIgual(item, procurado)) {
+                return Opcional.OK(item);
+            }
+        }
+
+        return Opcional.CANCEL();
+    }
+
+    public void removerIndex(int remover_index) {
+
+        int index = 0;
+
+        if (mPrimeiro != null) {
+
+            Item mAnterior = null;
+            Item mCorrente = mPrimeiro;
+
+            while (mCorrente != null) {
+
+                if (index == remover_index) {
+
+                    mQuantidade -= 1;
+                    //	System.out.println("Removendo " + eValor);
+
+                    if (mAnterior == null) {
+
+                        if (mPrimeiro.getProximo() != null) {
+                            mPrimeiro = mPrimeiro.getProximo();
+                        } else {
+                            mPrimeiro = null;
+                            mUltimo = null;
+                        }
+
+                    } else {
+
+                        if (mCorrente.getProximo() == null) {
+                            mUltimo = mAnterior;
+                            mAnterior.setProximo(null);
+                            mCorrente = null;
+                        } else {
+
+                            mAnterior.setProximo(mCorrente.getProximo());
+                            mCorrente = null;
+                        }
+
+                    }
+
+                    break;
+                }
+
+                mAnterior = mCorrente;
+                mCorrente = mCorrente.getProximo();
+                index += 1;
+            }
+
+        }
+
+    }
 
 }

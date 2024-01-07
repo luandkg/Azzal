@@ -740,4 +740,310 @@ public class fmt {
             fmt.print("{}{}{}",lado_a.get(index),entre,lado_b.get(index));
         }
     }
+
+    public static void listar_strings(String prefixo, ArrayList<String> lista) {
+
+        for (String aa : lista) {
+            System.out.println(prefixo + aa);
+        }
+
+    }
+
+    public static String double_to_virgular(double d) {
+        String s = String.valueOf(d);
+        s = s.replace(".", ",");
+
+        return s;
+    }
+
+
+    public static String metros_to_kilometros(double d) {
+
+        if (d >= 1000) {
+            int min = 0;
+            while (d >= 1000) {
+                d -= 1000;
+                min += 1;
+            }
+
+            return min + " km " + d + " m";
+
+        } else {
+            return d + " m";
+        }
+
+
+    }
+
+    public static String metros_to_kilometros_v2(double d) {
+
+        if (d >= 1000) {
+            int min = 0;
+            while (d >= 1000) {
+                d -= 1000;
+                min += 1;
+            }
+
+            return min + "." + ((int) d) + " km ";
+
+        } else {
+            return d + " m";
+        }
+
+
+    }
+
+    public static String format_strings(ArrayList<String> ls) {
+
+        String ret = "";
+
+        for (String s : ls) {
+            ret += s + "\n";
+        }
+
+        return ret;
+    }
+
+    public static String verticalmente(ArrayList<String> s_linhas) {
+
+        ArrayList<String> horizontal = new ArrayList<String>();
+
+        int maximo = 0;
+
+        for (String linha : s_linhas) {
+            if (linha.length() > maximo) {
+                maximo = linha.length();
+            }
+        }
+
+        for (int a = 0; a < maximo; a++) {
+            horizontal.add("");
+        }
+
+
+        int ii = 0;
+
+        while (ii < maximo) {
+
+            for (String linha : s_linhas) {
+                int o = linha.length();
+                if (ii < o) {
+                    horizontal.set(ii, horizontal.get(ii) + String.valueOf(linha.charAt(ii)));
+                } else {
+                    horizontal.set(ii, horizontal.get(ii) + " ");
+                }
+            }
+
+            ii += 1;
+        }
+
+
+        int e = horizontal.size() - 1;
+        String ss = "";
+
+        while (e > 0) {
+            ss += horizontal.get(e) + "\n";
+            e -= 1;
+        }
+
+        return ss;
+    }
+
+    public static String numero_zerado_c2(int v) {
+        String sValor = String.valueOf(v);
+        if (sValor.length() == 1) {
+            sValor = "0" + sValor;
+        }
+        return sValor;
+    }
+
+    public static String numero_zerado_c2(RefInt v) {
+        String sValor = String.valueOf(v.get());
+        if (sValor.length() == 1) {
+            sValor = "0" + sValor;
+        }
+        return sValor;
+    }
+
+    public static String numero_zerado_c2(RefLong v) {
+        String sValor = String.valueOf(v.get());
+        if (sValor.length() == 1) {
+            sValor = "0" + sValor;
+        }
+        return sValor;
+    }
+
+    public static void println() {
+        System.out.println();
+    }
+
+    public static void println(String s) {
+        System.out.println(s);
+    }
+
+    public static void cabecalho(String s, int t) {
+        String ss = s + "-";
+        while (ss.length() < t) {
+            ss += "-";
+        }
+        fmt.println("--------------------- " + ss);
+        fmt.println("");
+    }
+
+    public static void sessao(String s, int t) {
+        String ss = s + "-";
+        while (ss.length() < t) {
+            ss += "-";
+        }
+        fmt.println("--------------------- " + ss);
+    }
+
+    public static void sessao_dados(String s, String v, int t) {
+        fmt.println("\t >> " + fmt.espacar_depois(s, t) + " = " + v);
+    }
+
+    public static void sessao_dados(String s, int v, int t) {
+        fmt.println("\t >> " + fmt.espacar_depois(s, t) + " = " + v);
+    }
+
+    public static String coluna_tab(String s, int t) {
+        return s + "\t";
+    }
+
+    public static String coluna_tab(int i, int t) {
+        return String.valueOf(i) + "\t";
+    }
+
+
+    public static String formatar_tempo_ate_minutos(long segundos) {
+        String tempo = "";
+
+        if (segundos >= 60) {
+
+            int min = 0;
+
+            while (segundos >= 60) {
+                segundos -= 60;
+                min += 1;
+            }
+
+            if (segundos == 0) {
+                tempo = min + " min";
+            } else {
+                tempo = min + " min " + segundos + " s";
+            }
+
+        } else {
+            tempo = segundos + " s";
+        }
+
+        return tempo;
+    }
+
+    public static String formatar_tempo(long segundos) {
+        String tempo = "";
+
+        if (segundos >= 60) {
+
+            int min = 0;
+
+            while (segundos >= 60) {
+                segundos -= 60;
+                min += 1;
+            }
+
+            if (min > 60) {
+
+                int horas = 0;
+                while (min >= 60) {
+                    min -= 60;
+                    horas += 1;
+                }
+
+                if (min == 0 && segundos == 0) {
+                    tempo = horas + " h";
+                } else if (min > 0 && segundos == 0) {
+                    tempo = horas + " h " + min + " min";
+                } else {
+                    tempo = horas + " h " + min + " min " + segundos + " s";
+                }
+
+            } else {
+                if (segundos == 0) {
+                    tempo = min + " min";
+                } else {
+                    tempo = min + " min " + segundos + " s";
+                }
+            }
+
+
+        } else {
+            tempo = segundos + " s";
+        }
+
+        return tempo;
+    }
+
+    public static String f2(double numero) {
+        String s = String.valueOf(numero);
+        String f = "";
+
+        int e = 0;
+        int c = 2;
+
+        boolean ja = false;
+
+        int i = 0;
+        int o = s.length();
+        while (i < o) {
+            String letra = String.valueOf(s.charAt(i));
+            if (letra.contentEquals(".")) {
+                ja = true;
+                f += letra;
+            } else {
+                if (!ja) {
+                    f += letra;
+                } else {
+                    if (e < c) {
+                        f += letra;
+                    }
+                    e += 1;
+                }
+            }
+            i += 1;
+        }
+
+        return f;
+    }
+
+    public static String f2Porcentagem(double numero) {
+        return f2(numero) + " %";
+    }
+
+
+
+    public static String getTempoEmMilissegundosFormatado(long ms) {
+
+        int s = 0;
+
+        while (ms >= 1000) {
+            ms -= 1000;
+            s += 1;
+        }
+
+        if (s >= 60) {
+            int min = 0;
+            while (s >= 60) {
+                s -= 60;
+                min += 1;
+            }
+
+            return min + " min " + s + " s";
+
+        } else {
+            return s + " s";
+        }
+
+
+    }
 }
