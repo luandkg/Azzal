@@ -1,5 +1,10 @@
 package apps.app_arch;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import apps.app_arch.Assembler.Assembler;
 import apps.app_arch.Matematica.u8;
 import apps.app_letrum.Fonte;
@@ -10,13 +15,6 @@ import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Retangulo;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
-
-import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-
 
 public class AppArch extends Cena {
 
@@ -47,14 +45,14 @@ public class AppArch extends Cena {
             u8 valor_c = u8.sub(valor_a, valor_b);
 
             System.out.println(valor_a.getString() + "-" + valor_b.getString() + " = " + valor_c.getString());
-            System.out.println(valor_a.getByteNormalizado() + "-" + valor_b.getByteNormalizado() + " = " + valor_c.getByteNormalizado());
+            System.out.println(valor_a.getByteNormalizado() + "-" + valor_b.getByteNormalizado() + " = "
+                    + valor_c.getByteNormalizado());
 
         }
 
-
         eWindows.setTitle("Arch - libs.Luan Freitas");
 
-        //  mLetramentoPreto = new Letramento(new FontePadrao());
+        // mLetramentoPreto = new Letramento(new FontePadrao());
         mLetramentoPreto = new FonteRunTime(new Cor(0, 0, 0), 15);
 
         mMemoria = new Memoria();
@@ -64,7 +62,6 @@ public class AppArch extends Cena {
         System.out.println("Memoria : " + Utils.getKb(mMemoria.getCapacidade()));
 
         // progSomador();
-
 
         I16 ENTRY_POINT = new I16((byte) 0, (byte) 0);
 
@@ -84,14 +81,12 @@ public class AppArch extends Cena {
                 eInicio += 1;
             }
 
-
             mFile.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         mCPU.getPC().set(ENTRY_POINT);
         mCPU.getExecutando().set(Opcode.EXECUTANDO);
@@ -105,7 +100,6 @@ public class AppArch extends Cena {
         mAntes.set(VIDEO_POINT);
 
     }
-
 
     public String toBits(final byte val) {
         final StringBuilder result = new StringBuilder();
@@ -140,7 +134,6 @@ public class AppArch extends Cena {
 
             dump();
 
-
             mMemoria.set(mAntes, (byte) 0);
 
             mAntes = I16.sum(VIDEO_POINT, mCPU.getPC());
@@ -151,7 +144,6 @@ public class AppArch extends Cena {
 
     }
 
-
     public void dump() {
 
         System.out.println("----------------------------------------------------------------");
@@ -160,16 +152,19 @@ public class AppArch extends Cena {
         System.out.println("CUR_I8  : " + Utils.getI8(mCPU.getCurI8()));
         System.out.println("CUR_I16 : " + Utils.getI16(mCPU.getCurI16()));
         System.out.println("");
-        System.out.println("REG_A   : " + Utils.getI8(mCPU.getRegA()) + "       " + "REG_E   : " + Utils.getI16(mCPU.getRegE()));
-        System.out.println("REG_B   : " + Utils.getI8(mCPU.getRegB()) + "       " + "REG_F   : " + Utils.getI16(mCPU.getRegF()));
-        System.out.println("REG_C   : " + Utils.getI8(mCPU.getRegC()) + "       " + "REG_G   : " + Utils.getI16(mCPU.getRegG()));
-        System.out.println("REG_D   : " + Utils.getI8(mCPU.getRegD()) + "       " + "REG_H   : " + Utils.getI16(mCPU.getRegH()));
+        System.out.println(
+                "REG_A   : " + Utils.getI8(mCPU.getRegA()) + "       " + "REG_E   : " + Utils.getI16(mCPU.getRegE()));
+        System.out.println(
+                "REG_B   : " + Utils.getI8(mCPU.getRegB()) + "       " + "REG_F   : " + Utils.getI16(mCPU.getRegF()));
+        System.out.println(
+                "REG_C   : " + Utils.getI8(mCPU.getRegC()) + "       " + "REG_G   : " + Utils.getI16(mCPU.getRegG()));
+        System.out.println(
+                "REG_D   : " + Utils.getI8(mCPU.getRegD()) + "       " + "REG_H   : " + Utils.getI16(mCPU.getRegH()));
         System.out.println("");
 
-        //  memoriaDump(0, 100, 10);
+        // memoriaDump(0, 100, 10);
 
     }
-
 
     public void memoriaDump(int eInicio, int eTamanho, int eLinha) {
 
@@ -180,7 +175,6 @@ public class AppArch extends Cena {
             int iByte = (mMemoria.get(i) & 0xFF);
 
             String s1 = String.valueOf(iByte);
-
 
             if (s1.length() == 1) {
                 s1 = "00" + s1;
@@ -204,38 +198,43 @@ public class AppArch extends Cena {
 
         mRenderizador.limpar(Color.WHITE);
 
-
         mLetramentoPreto.setRenderizador(mRenderizador);
 
         mLetramentoPreto.escreveLinha(100, 1000, 1170, "INSTRUÇÕES       ", ": " + mInstrucoes);
         mLetramentoPreto.escreveLinha(125, 1000, 1170, "TEMPO       ", ": " + mTempo);
         mLetramentoPreto.escreveLinha(150, 1000, 1170, "VELOCIDADE       ", ": " + mVelocidade);
 
-
         renderMemoriaDump(mRenderizador, 0, 300, 10);
-
 
         int menos = 100;
 
-        mLetramentoPreto.escreveLinha(100, 700 - menos, 820 - menos, "EX       ", ": " + Utils.getI8(mCPU.getExecutando()));
+        mLetramentoPreto.escreveLinha(100, 700 - menos, 820 - menos, "EX       ",
+                ": " + Utils.getI8(mCPU.getExecutando()));
         mLetramentoPreto.escreveLinha(125, 700 - menos, 820 - menos, "PC       ", ": " + Utils.getI16(mCPU.getPC()));
         mLetramentoPreto.escreveLinha(150, 700 - menos, 820 - menos, "CUR::I8  ", ": " + Utils.getI8(mCPU.getCurI8()));
-        mLetramentoPreto.escreveLinha(175, 700 - menos, 820 - menos, "CUR::I16 ", ": " + Utils.getI16(mCPU.getCurI16()));
+        mLetramentoPreto.escreveLinha(175, 700 - menos, 820 - menos, "CUR::I16 ",
+                ": " + Utils.getI16(mCPU.getCurI16()));
 
         mLetramentoPreto.escreveLinha(225, 700 - menos, 820 - menos, "REG::A   ", ": " + Utils.getI8(mCPU.getRegA()));
-        mLetramentoPreto.escreveLinha(225, 1000 - menos, 1120 - menos, "REG::E   ", ": " + Utils.getI16(mCPU.getRegE()));
+        mLetramentoPreto.escreveLinha(225, 1000 - menos, 1120 - menos, "REG::E   ",
+                ": " + Utils.getI16(mCPU.getRegE()));
 
         mLetramentoPreto.escreveLinha(250, 700 - menos, 820 - menos, "REG::B   ", ": " + Utils.getI8(mCPU.getRegB()));
-        mLetramentoPreto.escreveLinha(250, 1000 - menos, 1120 - menos, "REG::F   ", ": " + Utils.getI16(mCPU.getRegF()));
+        mLetramentoPreto.escreveLinha(250, 1000 - menos, 1120 - menos, "REG::F   ",
+                ": " + Utils.getI16(mCPU.getRegF()));
 
         mLetramentoPreto.escreveLinha(275, 700 - menos, 820 - menos, "REG::C   ", ": " + Utils.getI8(mCPU.getRegC()));
-        mLetramentoPreto.escreveLinha(275, 1000 - menos, 1120 - menos, "REG::G   ", ": " + Utils.getI16(mCPU.getRegG()));
+        mLetramentoPreto.escreveLinha(275, 1000 - menos, 1120 - menos, "REG::G   ",
+                ": " + Utils.getI16(mCPU.getRegG()));
 
         mLetramentoPreto.escreveLinha(300, 700 - menos, 820 - menos, "REG::D   ", ": " + Utils.getI8(mCPU.getRegD()));
-        mLetramentoPreto.escreveLinha(300, 1000 - menos, 1120 - menos, "REG::H   ", ": " + Utils.getI16(mCPU.getRegH()));
+        mLetramentoPreto.escreveLinha(300, 1000 - menos, 1120 - menos, "REG::H   ",
+                ": " + Utils.getI16(mCPU.getRegH()));
 
-        mLetramentoPreto.escreveLinha(350, 700 - menos, 820 - menos, "O8       ", ": " + mProcessador.getObs(mCPU.getO8()));
-        mLetramentoPreto.escreveLinha(375, 700 - menos, 820 - menos, "O16      ", ": " + mProcessador.getObs(mCPU.getO16()));
+        mLetramentoPreto.escreveLinha(350, 700 - menos, 820 - menos, "O8       ",
+                ": " + mProcessador.getObs(mCPU.getO8()));
+        mLetramentoPreto.escreveLinha(375, 700 - menos, 820 - menos, "O16      ",
+                ": " + mProcessador.getObs(mCPU.getO16()));
 
         I16 videoCursor = new I16(VIDEO_POINT);
 
@@ -245,13 +244,13 @@ public class AppArch extends Cena {
                 byte b = mMemoria.get(videoCursor);
 
                 if (b != (byte) 0) {
-                    mRenderizador.drawRect_Pintado(new Retangulo(650 + (x * 10), 500 + (y * 10), 10, 10), Cor.getRGB(Color.BLACK));
+                    mRenderizador.drawRect_Pintado(new Retangulo(650 + (x * 10), 500 + (y * 10), 10, 10),
+                            Cor.getRGB(Color.BLACK));
                 }
                 mRenderizador.drawRect(new Retangulo(650 + (x * 10), 500 + (y * 10), 10, 10), Cor.getRGB(Color.RED));
                 videoCursor.aumentar((byte) 1);
             }
         }
-
 
     }
 
@@ -270,7 +269,6 @@ public class AppArch extends Cena {
             int iByte = (mMemoria.get(i) & 0xFF);
 
             String s1 = String.valueOf(iByte);
-
 
             if (s1.length() == 1) {
                 s1 = "00" + s1;
