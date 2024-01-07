@@ -1,16 +1,15 @@
 package libs.xml;
 
+import libs.luan.Lista;
 import libs.luan.Texto;
 
-import java.util.ArrayList;
 
 public class XML {
 
     // DESENVOLVEDOR : LUAN ALVES FREITAS
     // DATA : 2023 05 21
 
-    private ArrayList<XMLObjeto> mObjetos;
-
+    private Lista<XMLObjeto> mObjetos;
 
 
     public static final int XML_PROCESSADOR = 0;
@@ -20,28 +19,27 @@ public class XML {
 
 
     public XML() {
-        mObjetos = new ArrayList<XMLObjeto>();
+        mObjetos = new Lista<XMLObjeto>();
     }
 
 
     public void abrir(String arquivo) {
 
         XMLParser parser = new XMLParser();
-        parser.parser(mObjetos,Texto.arquivo_ler(arquivo));
+        parser.parser(mObjetos, Texto.arquivo_ler(arquivo));
 
     }
 
     public void parser(String texto) {
 
         XMLParser parser = new XMLParser();
-        parser.parser(mObjetos,texto);
+        parser.parser(mObjetos, texto);
 
     }
 
     public void adicionar(XMLObjeto eObjeto) {
-        mObjetos.add(eObjeto);
+        mObjetos.adicionar(eObjeto);
     }
-
 
 
     public void exibir() {
@@ -77,24 +75,49 @@ public class XML {
     }
 
 
-    public XMLObjeto getObjeto(String eNome){
+    public XMLObjeto getObjeto(String eNome) {
         XMLObjeto ret = null;
 
-        for(XMLObjeto at : mObjetos){
-            if(at.getNome().contentEquals(eNome)){
-                ret=at;
+        for (XMLObjeto at : mObjetos) {
+            if (at.getNome().contentEquals(eNome)) {
+                ret = at;
                 break;
             }
         }
 
-        if(ret==null){
-            ret=new XMLObjeto(eNome,XML.XML_OBJETO);
-            mObjetos.add(ret);
+        if (ret == null) {
+            ret = new XMLObjeto(eNome, XML.XML_OBJETO);
+            mObjetos.adicionar(ret);
         }
 
         return ret;
     }
 
+    public void exibir_objetos() {
+
+        for (XMLObjeto obj : mObjetos) {
+            System.out.println("-->> " + obj.getNome());
+
+            for (XMLAtributo at : obj.getAtributos()) {
+                System.out.println("\t - " + at.getNome() + " = " + at.getValor());
+            }
+
+            for (XMLObjeto obj_filho : obj.getObjetos()) {
+                System.out.println("\t - XML_OBJETO(" + obj_filho.getNome() + ")");
+            }
+
+        }
+    }
+
+    public Lista<XMLObjeto> getObjetos() {
+        return mObjetos;
+    }
+
+    public static XML PARSER_XML(String conteudo) {
+        XML documento = new XML();
+        documento.parser(conteudo);
+        return documento;
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package libs.xml;
 
-import java.util.ArrayList;
+import libs.luan.Lista;
+
 
 public class XMLParser {
 
@@ -8,7 +9,7 @@ public class XMLParser {
     private int mIndex;
     private int mTamanho;
 
-    public XMLParser(){
+    public XMLParser() {
 
         mDocumento = "";
         mIndex = 0;
@@ -17,10 +18,9 @@ public class XMLParser {
     }
 
 
+    public void parser(Lista<XMLObjeto> mObjetos, String texto) {
 
-    public void parser(ArrayList<XMLObjeto> mObjetos,String texto) {
-
-        mObjetos.clear();
+        mObjetos.limpar();
 
         mDocumento = texto;
         mIndex = 0;
@@ -40,7 +40,7 @@ public class XMLParser {
 
     }
 
-    public boolean parser_objeto(ArrayList<XMLObjeto> objetos_raiz) {
+    public boolean parser_objeto(Lista<XMLObjeto> objetos_raiz) {
 
         boolean deve_sair_do_objeto_pai = false;
 
@@ -53,7 +53,7 @@ public class XMLParser {
             XMLObjeto obj_com = new XMLObjeto("", XML.XML_COMENTARIO);
             obj_com.setConteudo(comentario);
 
-            objetos_raiz.add(obj_com);
+            objetos_raiz.adicionar(obj_com);
             return false;
 
         } else if (letra_primeira.contentEquals("/")) {
@@ -67,7 +67,7 @@ public class XMLParser {
             mIndex += 1;
             String nome = getNome();
             XMLObjeto proc = new XMLObjeto("?" + nome, XML.XML_PROCESSADOR);
-            objetos_raiz.add(proc);
+            objetos_raiz.adicionar(proc);
 
             boolean deve_fechar = false;
 
@@ -99,7 +99,7 @@ public class XMLParser {
 
             String nome = getNome();
             XMLObjeto proc = new XMLObjeto(nome);
-            objetos_raiz.add(proc);
+            objetos_raiz.adicionar(proc);
 
             boolean deve_fechar = false;
             boolean deve_entrar = false;
@@ -170,7 +170,7 @@ public class XMLParser {
         while (mIndex < mTamanho) {
             String letra = String.valueOf(mDocumento.charAt(mIndex));
 
-            if (letra.contentEquals(" ") || letra.contentEquals("\t") || letra.contentEquals("\n") || letra.contentEquals(">") || letra.contentEquals("=")|| letra.contentEquals("/")) {
+            if (letra.contentEquals(" ") || letra.contentEquals("\t") || letra.contentEquals("\n") || letra.contentEquals(">") || letra.contentEquals("=") || letra.contentEquals("/")) {
                 break;
             } else {
                 ret += letra;
@@ -296,7 +296,7 @@ public class XMLParser {
                         String proxima_letra = String.valueOf(mDocumento.charAt(mIndex));
                         if (proxima_letra.contentEquals("-")) {
                             deve_sair = true;
-                            mIndex+=2;
+                            mIndex += 2;
                             break;
 
                         }
@@ -305,7 +305,7 @@ public class XMLParser {
                         }
 
                     }
-                }else{
+                } else {
                     ret += letra;
                 }
 
@@ -321,10 +321,11 @@ public class XMLParser {
 
         return ret;
     }
-    public String retirar_quebra(String s){
 
-        while(s.endsWith(" ") || s.endsWith("\t")||s.endsWith("\n")){
-            s=s.substring(0,s.length()-1);
+    public String retirar_quebra(String s) {
+
+        while (s.endsWith(" ") || s.endsWith("\t") || s.endsWith("\n")) {
+            s = s.substring(0, s.length() - 1);
         }
 
         return s;
