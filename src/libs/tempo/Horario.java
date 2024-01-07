@@ -71,4 +71,23 @@ public class Horario {
 
         return v1 - v2;
     }
+
+    public String getTempoSemSegundos() {
+
+
+        String sh = String.valueOf(mHora);
+        if (sh.length() == 1) {
+            sh = "0" + sh;
+        }
+
+        String sm = String.valueOf(mMinutos);
+        if (sm.length() == 1) {
+            sm = "0" + sm;
+        }
+
+
+
+        return sh + ":" + sm ;
+    }
+
 }

@@ -1,5 +1,7 @@
 package libs.tempo;
 
+import libs.luan.fmt;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -24,5 +26,14 @@ public class Tempo {
     public static long getTempoNano(){
         return  System.nanoTime();
     }
+
+    public static String getIntervalo(long d1,long d2){
+        return  fmt.getTempoFormatado(d2-d1);
+    }
+
+    public static long getTempoMillis(){
+        return  System.currentTimeMillis();
+    }
+
 
 }

@@ -2,7 +2,9 @@ package libs.tempo;
 
 import libs.luan.Lista;
 import libs.luan.Strings;
+import libs.luan.fmt;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -100,6 +102,12 @@ public class Calendario {
 
         return min;
     }
+
+    public static String getHoraMinuto() {
+        String date = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+        return date;
+    }
+
 
     public static boolean isIgual(String a, String b) {
         return a.contentEquals(b);
@@ -800,5 +808,533 @@ public class Calendario {
         }
     }
 
+    public static long getTempoMillis() {
+        return System.currentTimeMillis();
+    }
+
+    public static long getTempoSegundos() {
+        return System.currentTimeMillis() / 1000;
+    }
+
+    public static String getIntervalo(long d1, long d2) {
+        return fmt.getTempoFormatado(d2 - d1);
+    }
+
+
+
+
+    public static String GET_DATA_DE_AMDHM(String tempo){
+
+        String ano = tempo.substring(0, 4);
+        String mes = tempo.substring(5, 7);
+        String dia = tempo.substring(8, 10);
+
+        return dia + "/" + mes + "/" + ano;
+    }
+    public static String GET_HORAMIN_DE_AMDHM(String tempo){
+
+        String hora = tempo.substring(11, 13);
+        String min = tempo.substring(14, 16);
+
+        return hora + ":" + min;
+    }
+
+    public static Horario SEGUNDOS_TO_HORARIO(int s) {
+
+        int h = 0;
+        int m = 0;
+        while (s >= 60) {
+            m += 1;
+            s -= 60;
+        }
+
+        while (m >= 60) {
+            m -= 60;
+            h += 1;
+        }
+
+        return new Horario(h, m, s);
+    }
+
+    public static Data getDataAnterior(Data essa) {
+
+        Data antes = null;
+        for (Data data_corrente : Calendario.listar_datas_entre("01/01/" + (essa.getAno() - 1), "31/12/" + essa.getAno())) {
+            if (data_corrente.isIgual(essa)) {
+                break;
+            }
+            antes = data_corrente;
+        }
+        return antes;
+    }
+
+
+    public static String DATA_HORA_TO_BRASIL(String data_horario) {
+
+        //  fmt.println("Entrada : " + data_horario);
+        int FUSO_BRASIL = -3;
+
+        String data = data_horario.substring(0, 10);
+        String horario = data_horario.substring(11, 16);
+
+        int horario_hora = Integer.parseInt(horario.substring(0, 2)) + FUSO_BRASIL;
+
+        if (horario_hora < 0) {
+            horario_hora = 24 + horario_hora;
+
+            Data data_corrente = Data.toData(data.replace("-", "_"));
+
+
+            int data_dia = data_corrente.getDia();
+            int data_mes = data_corrente.getMes();
+            int data_ano = data_corrente.getAno();
+
+            Data nova = new Data(data_ano, data_mes, data_dia);
+            Data antes = Calendario.getDataAnterior(nova);
+
+            // throw new RuntimeException("Hora ::" + data + " -->> " + antes.getTempo());
+            data = antes.getTempo().replace("_", "-");
+        }
+
+
+        String horario_minuto = horario.substring(3, 5);
+
+        String s_horario_hora = String.valueOf(horario_hora);
+        if (s_horario_hora.length() == 1) {
+            s_horario_hora = "0" + s_horario_hora;
+        }
+
+        horario = data + "T" + s_horario_hora + ":" + horario_minuto;
+
+        // fmt.println("Data    : " + data);
+        //  fmt.println("Horario : " + horario);
+        //  fmt.println("Hora    : " + horario_hora);
+        //   fmt.println("Minuto  : " + horario_minuto);
+
+        return horario;
+        //  throw new RuntimeException("PARE");
+
+    }
+
+
+    public static String GMT_DATA(String data_hora) {
+        return data_hora.substring(0, 10);
+    }
+
+    public static String GMT_HORA_MINUTO(String data_hora) {
+        return data_hora.substring(11, 16);
+    }
+
+
+    public static ArrayList<Data> listar_datas_entre(String data_corrente, String ultima_data) {
+
+        ArrayList<Data> ls = new ArrayList<Data>();
+
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date dateTime = sf.parse(data_corrente);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dateTime);
+            int DIA = cal.get(Calendar.DAY_OF_MONTH);
+            int MES = cal.get(Calendar.MONTH) + 1;
+            int ANO = cal.get(Calendar.YEAR);
+            int DDS = cal.get(Calendar.DAY_OF_WEEK);
+
+            DiaSemanal DIA_DA_SEMANA = toDiaSemanal(DDS);
+
+            //System.out.println("DATA -->>> " + dateTime);
+            //System.out.println("D -->>> " +DIA);
+            // System.out.println("M -->>> " + MES);
+            //System.out.println("A -->>> " + ANO);
+            // System.out.println("S -->>> " + DIA_DA_SEMANA.toString());
+
+
+            Date fim_dateTime = sf.parse(ultima_data);
+
+            Calendar fim_cal = Calendar.getInstance();
+            fim_cal.setTime(fim_dateTime);
+            int FIM_DIA = fim_cal.get(Calendar.DAY_OF_MONTH);
+            int FIM_MES = fim_cal.get(Calendar.MONTH) + 1;
+            int FIM_ANO = fim_cal.get(Calendar.YEAR);
+
+
+            Data inicio = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+            Data fim = new Data(FIM_ANO, FIM_MES, FIM_DIA, DIA_DA_SEMANA);
+
+            //System.out.println("I :: " + inicio.getTempoLegivel());
+            //System.out.println("F :: " + fim.getTempoLegivel());
+
+            Data corrente1 = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+            ls.add(corrente1);
+
+            while (inicio.isDiferente(fim)) {
+
+                Date dt = sf.parse(DIA + "/" + MES + "/" + ANO);
+                Calendar c = Calendar.getInstance();
+                c.setTime(dt);
+                c.add(Calendar.DATE, 1);
+                dt = c.getTime();
+                c.setTime(dt);
+
+                DIA = c.get(Calendar.DAY_OF_MONTH);
+                MES = c.get(Calendar.MONTH) + 1;
+                ANO = c.get(Calendar.YEAR);
+                DDS = c.get(Calendar.DAY_OF_WEEK);
+
+                DIA_DA_SEMANA = toDiaSemanal(DDS);
+
+                //System.out.println("DATA -->>> " + dt);
+                //System.out.println("\tD -->>> " +DIA);
+                //System.out.println("\tM -->>> " + MES);
+                //System.out.println("\tA -->>> " + ANO);
+                // System.out.println("\tS -->>> " + DIA_DA_SEMANA.toString());
+
+                Data corrente = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+                ls.add(corrente);
+                inicio = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return ls;
+    }
+
+    public static DiaSemanal toDiaSemanal(int DDS) {
+        DiaSemanal DIA_DA_SEMANA = DiaSemanal.Domingo;
+        if (DDS == 1) {
+            DIA_DA_SEMANA = DiaSemanal.Domingo;
+        } else if (DDS == 2) {
+            DIA_DA_SEMANA = DiaSemanal.Segunda;
+        } else if (DDS == 3) {
+            DIA_DA_SEMANA = DiaSemanal.Terca;
+        } else if (DDS == 4) {
+            DIA_DA_SEMANA = DiaSemanal.Quarta;
+        } else if (DDS == 5) {
+            DIA_DA_SEMANA = DiaSemanal.Quinta;
+        } else if (DDS == 6) {
+            DIA_DA_SEMANA = DiaSemanal.Sexta;
+        } else if (DDS == 7) {
+            DIA_DA_SEMANA = DiaSemanal.Sabado;
+        }
+        return DIA_DA_SEMANA;
+    }
+
+    public static ArrayList<Data> GET_SEMANA_DATAS(ArrayList<Data> datas, int semana) {
+        ArrayList<Data> ls = new ArrayList<Data>();
+
+        int semana_proxima = semana + 1;
+
+        for (Data ds : datas) {
+            if (ds.getSemana() == semana) {
+                ls.add(ds);
+            }
+            if (ds.getSemana() == semana_proxima) {
+                break;
+            }
+        }
+
+        return ls;
+    }
+
+    public static void MARCAR_SEMANA(ArrayList<Data> DATAS_SEQUENCIAIS, Data DataCorrente) {
+
+        for (Data d : DATAS_SEQUENCIAIS) {
+            if (d.isIgual(DataCorrente)) {
+                DataCorrente.setDiaSemanal(d.getDiaSemanal());
+                DataCorrente.setSemana(d.getSemana());
+                break;
+            }
+        }
+
+    }
+
+    public static void SEQUENCIAR_SEMANAS(ArrayList<Data> DATAS_SEQUENCIAIS) {
+
+        int semana_id = 0;
+
+        for (Data d : DATAS_SEQUENCIAIS) {
+
+            if (d.getDiaSemanal() == DiaSemanal.Domingo) {
+                semana_id += 1;
+            }
+
+            d.setSemana(semana_id);
+
+        }
+
+        int si = -1;
+
+        for (Data d : DATAS_SEQUENCIAIS) {
+            if (d.getSemana() != si) {
+                si = d.getSemana();
+            }
+        }
+
+    }
+
+    public static String GET_PRIMEIRA_DATA(int eAno) {
+        return "01/01/" + String.valueOf(eAno);
+    }
+
+    public static String GET_ULTIMA_DATA(int eAno) {
+        return "31/12/" + String.valueOf(eAno);
+    }
+
+    public static int DIAS_TO_SEGUNDOS(int v) {
+        return (v) * (24 * 60 * 60);
+    }
+
+    public static int HORAS_TO_SEGUNDOS(int v) {
+        return (v) * (60 * 60);
+    }
+
+    public static int MINUTOS_TO_SEGUNDOS(int v) {
+        return (v) * (60);
+    }
+
+    public static int CALCULAR_IDADE_HUMANA(Data aniversiario, Data referencia) {
+        int ddn_ano = aniversiario.getAno();
+        int ddn_mes = aniversiario.getMes();
+        int ddn_dia = aniversiario.getDia();
+
+        int idade = referencia.getAno() - ddn_ano;
+
+        if (ddn_mes > referencia.getMes()) {
+            idade -= 1;
+        } else if (ddn_mes == referencia.getMes()) {
+            if (ddn_dia > referencia.getDia()) {
+                idade -= 1;
+            }
+        }
+
+        return idade;
+    }
+
+
+    public static ArrayList<Data> filtrar_mes(ArrayList<Data> datas, int mes) {
+        ArrayList<Data> ret = new ArrayList<Data>();
+
+        for (Data d : datas) {
+            if (d.getMes() == mes) {
+                ret.add(d);
+            }
+        }
+
+        return ret;
+    }
+
+
+    public static ArrayList<Data> FILTRAR_MES_E_ANO(ArrayList<Data> mDatas, int mes, int ano) {
+        ArrayList<Data> datas_mes = new ArrayList<Data>();
+
+        for (Data data : mDatas) {
+            if (data.getMes() == mes && data.getAno() == ano) {
+                datas_mes.add(data);
+            }
+        }
+        return datas_mes;
+    }
+
+
+    public static ArrayList<String> GET_TITULOS_DIAS_COM3() {
+        ArrayList<String> ls = new ArrayList<String>();
+
+        ls.add("DOM");
+        ls.add("SEG");
+        ls.add("TER");
+        ls.add("QUA");
+        ls.add("QUI");
+        ls.add("SEX");
+        ls.add("SAB");
+
+
+        return ls;
+    }
+
+    public static boolean temEssaData(Data data, ArrayList<Data> datas) {
+        boolean ret = false;
+
+        for (Data d : datas) {
+            if (d.isIgual(data)) {
+                ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+
+    public static String DATA_INVERTER(String data) {
+        String inversa = "";
+
+        String dia_1 = String.valueOf(data.charAt(0));
+        String dia_2 = String.valueOf(data.charAt(1));
+
+        String mes_1 = String.valueOf(data.charAt(3));
+        String mes_2 = String.valueOf(data.charAt(4));
+
+        String ano_1 = String.valueOf(data.charAt(6));
+        String ano_2 = String.valueOf(data.charAt(7));
+        String ano_3 = String.valueOf(data.charAt(8));
+        String ano_4 = String.valueOf(data.charAt(9));
+
+        String s_ano = ano_1 + ano_2 + ano_3 + ano_4;
+        String s_mes = mes_1 + mes_2;
+        String s_dia = dia_1 + dia_2;
+
+        inversa = s_ano + "_" + s_mes + "_" + s_dia;
+
+        return inversa;
+    }
+
+    public static String DATA_COM_TRACO_INFERIOR(String data) {
+        return data.replace("/", "_");
+    }
+
+    public static String DATA_GET_DIA(String data) {
+        String dia_1 = String.valueOf(data.charAt(0));
+        String dia_2 = String.valueOf(data.charAt(1));
+
+        return dia_1 + dia_2;
+    }
+
+    public static String DATA_GET_MES(String data) {
+        String dia_1 = String.valueOf(data.charAt(3));
+        String dia_2 = String.valueOf(data.charAt(4));
+
+        return dia_1 + dia_2;
+    }
+
+    public static boolean isDataValida(ArrayList<String> datas, String data) {
+        boolean ret = false;
+        for (String at : datas) {
+            if (at.contentEquals(data)) {
+                ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+
+    public static Data GET_SEMANA_INICIO(ArrayList<Data> datas, int semana) {
+        Data d = new Data(1, 1, 1);
+
+        for (Data ds : datas) {
+            if (ds.getSemana() == semana) {
+                d = ds;
+                break;
+            }
+        }
+
+        return d;
+    }
+
+    public static Data GET_SEMANA_FIM(ArrayList<Data> datas, int semana) {
+        Data d = new Data(1, 1, 1);
+
+        int semana_proxima = semana + 1;
+
+        for (Data ds : datas) {
+            if (ds.getSemana() == semana) {
+                d = ds;
+            }
+            if (ds.getSemana() == semana_proxima) {
+                break;
+            }
+        }
+
+        return d;
+    }
+
+    public static int contar_datas_entre(String data_corrente, String ultima_data) {
+
+        int contagem = 0;
+
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date dateTime = sf.parse(data_corrente);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dateTime);
+            int DIA = cal.get(Calendar.DAY_OF_MONTH);
+            int MES = cal.get(Calendar.MONTH) + 1;
+            int ANO = cal.get(Calendar.YEAR);
+            int DDS = cal.get(Calendar.DAY_OF_WEEK);
+
+            DiaSemanal DIA_DA_SEMANA = toDiaSemanal(DDS);
+
+            //System.out.println("DATA -->>> " + dateTime);
+            //System.out.println("D -->>> " +DIA);
+            // System.out.println("M -->>> " + MES);
+            //System.out.println("A -->>> " + ANO);
+            // System.out.println("S -->>> " + DIA_DA_SEMANA.toString());
+
+
+            Date fim_dateTime = sf.parse(ultima_data);
+
+            Calendar fim_cal = Calendar.getInstance();
+            fim_cal.setTime(fim_dateTime);
+            int FIM_DIA = fim_cal.get(Calendar.DAY_OF_MONTH);
+            int FIM_MES = fim_cal.get(Calendar.MONTH) + 1;
+            int FIM_ANO = fim_cal.get(Calendar.YEAR);
+
+
+            Data inicio = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+            Data fim = new Data(FIM_ANO, FIM_MES, FIM_DIA, DIA_DA_SEMANA);
+
+            //System.out.println("I :: " + inicio.getTempoLegivel());
+            //System.out.println("F :: " + fim.getTempoLegivel());
+
+            Data corrente1 = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+            contagem += 1;
+
+            while (inicio.isDiferente(fim)) {
+
+                Date dt = sf.parse(DIA + "/" + MES + "/" + ANO);
+                Calendar c = Calendar.getInstance();
+                c.setTime(dt);
+                c.add(Calendar.DATE, 1);
+                dt = c.getTime();
+                c.setTime(dt);
+
+                DIA = c.get(Calendar.DAY_OF_MONTH);
+                MES = c.get(Calendar.MONTH) + 1;
+                ANO = c.get(Calendar.YEAR);
+                DDS = c.get(Calendar.DAY_OF_WEEK);
+
+                DIA_DA_SEMANA = toDiaSemanal(DDS);
+
+                //System.out.println("DATA -->>> " + dt);
+                //System.out.println("\tD -->>> " +DIA);
+                //System.out.println("\tM -->>> " + MES);
+                //System.out.println("\tA -->>> " + ANO);
+                // System.out.println("\tS -->>> " + DIA_DA_SEMANA.toString());
+
+                Data corrente = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+                contagem += 1;
+                inicio = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return contagem;
+    }
+    public static String getTempoCompletoSemSegundos() {
+        return getData() + " " + getHoraMinuto();
+    }
+
+
+
+    public static ArrayList<Data> listar_datas_entre_anos(int ano_inicio, int ano_fim) {
+        return listar_datas_entre("01/01/" + ano_inicio, "31/12/" + ano_fim);
+    }
 }
 
