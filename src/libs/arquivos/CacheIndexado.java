@@ -85,7 +85,7 @@ public class CacheIndexado {
 
 
         Arquivador arquivar = new Arquivador(eArquivo);
-        arquivar.setPonteiro(2L + ((long)indice * (long)TAMANHO_ITEM));
+        arquivar.setPonteiro(2L + ((long) indice * (long) TAMANHO_ITEM));
 
         byte[] bytes = dados.getBytes(StandardCharsets.UTF_8);
 

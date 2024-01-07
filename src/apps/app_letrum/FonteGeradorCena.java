@@ -54,7 +54,6 @@ public class FonteGeradorCena extends Cena {
         V30 = new FonteRunTime(mCores.getVermelho(), 30);
 
 
-
         mEditorDeTexto = new EditorDeTexto(500, 600, T30);
         mEditorDeTexto.setTexto("MAÇÃ");
 

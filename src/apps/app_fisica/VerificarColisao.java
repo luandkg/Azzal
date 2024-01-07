@@ -16,7 +16,7 @@ public class VerificarColisao {
 
         mEncontroC4C1 = false;
         mC4C1 = false;
-        mJaColidiu=false;
+        mJaColidiu = false;
     }
 
     public boolean colidiu() {
@@ -30,7 +30,7 @@ public class VerificarColisao {
                 mEncontroC4C1 = true;
                 mC4C1 = true;
                 ret = true;
-                mJaColidiu=true;
+                mJaColidiu = true;
             }
 
         } else if (mEncontroC4C1 && mC4C1) {
@@ -45,7 +45,7 @@ public class VerificarColisao {
     }
 
     public void retirarColisao() {
-         mJaColidiu = false;
+        mJaColidiu = false;
     }
 
 }

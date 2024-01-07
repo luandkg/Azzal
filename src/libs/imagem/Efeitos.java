@@ -37,25 +37,23 @@ public class Efeitos {
         return blackAndWhiteImg;
     }
 
-    public static BufferedImage reduzir(BufferedImage img,int nova_largura,int nova_altura) {
+    public static BufferedImage reduzir(BufferedImage img, int nova_largura, int nova_altura) {
 
         BufferedImage reduzida = new BufferedImage(nova_largura, nova_altura, BufferedImage.TYPE_INT_RGB);
 
         Graphics2D graphics = reduzida.createGraphics();
-        graphics.drawImage(img, 0, 0, nova_largura, nova_altura,null);
+        graphics.drawImage(img, 0, 0, nova_largura, nova_altura, null);
 
         return reduzida;
     }
 
 
-
-
-    public static BufferedImage reduzirComAlfa(BufferedImage img,int nova_largura,int nova_altura) {
+    public static BufferedImage reduzirComAlfa(BufferedImage img, int nova_largura, int nova_altura) {
 
         BufferedImage reduzida = new BufferedImage(nova_largura, nova_altura, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D graphics = reduzida.createGraphics();
-        graphics.drawImage(img, 0, 0, nova_largura, nova_altura,null);
+        graphics.drawImage(img, 0, 0, nova_largura, nova_altura, null);
 
         return reduzida;
     }

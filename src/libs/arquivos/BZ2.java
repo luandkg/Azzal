@@ -64,7 +64,7 @@ public class BZ2 {
 
         int posicionador = indice * (BLOCO_TAMANHO);
 
-       // System.out.println("PROC -->> " + indice + " :: " + posicionador);
+        // System.out.println("PROC -->> " + indice + " :: " + posicionador);
 
         ArrayList<Byte> bytes = new ArrayList<Byte>();
 
@@ -86,7 +86,7 @@ public class BZ2 {
         }
 
 
-      //   System.out.println("Bytes -->> " + bytes.size());
+        //   System.out.println("Bytes -->> " + bytes.size());
 
         return TX.lerDeBytes(bytes);
 
@@ -101,16 +101,16 @@ public class BZ2 {
         int comValores = 0;
         int semValores = 0;
 
-        while (indiceBZZ<blocos) {
+        while (indiceBZZ < blocos) {
 
-         //   System.out.println("BLOCO BZZ -->> " + indiceBZZ);
+            //   System.out.println("BLOCO BZZ -->> " + indiceBZZ);
 
             String conteudo_bloco = BZ2.procurar(eArquivo, indiceBZZ);
 
             if (conteudo_bloco.length() > 0) {
-                comValores+=1;
-            }else{
-                semValores+=1;
+                comValores += 1;
+            } else {
+                semValores += 1;
             }
 
             indiceBZZ += 1;
@@ -128,16 +128,16 @@ public class BZ2 {
         int comValores = 0;
         int semValores = 0;
 
-        while (indiceBZZ<blocos) {
+        while (indiceBZZ < blocos) {
 
             // System.out.println("BLOCO BZZ -->> " + indiceBZZ);
 
             String conteudo_bloco = BZ2.procurar(eArquivo, indiceBZZ);
 
             if (conteudo_bloco.length() > 0) {
-                comValores+=1;
-            }else{
-                semValores+=1;
+                comValores += 1;
+            } else {
+                semValores += 1;
             }
 
             indiceBZZ += 1;

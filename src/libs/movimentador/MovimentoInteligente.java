@@ -55,15 +55,15 @@ public class MovimentoInteligente implements Movimento {
         int antes_x = mCorpo.getX();
         int antes_y = mCorpo.getY();
 
-        if (mDirecao==0) {
+        if (mDirecao == 0) {
 
-        } else if (mDirecao==1) {
+        } else if (mDirecao == 1) {
             mCorpo.setPos(mCorpo.getX() + 1, mCorpo.getY());
-        } else if (mDirecao==2) {
+        } else if (mDirecao == 2) {
             mCorpo.setPos(mCorpo.getX() - 1, mCorpo.getY());
-        } else if (mDirecao==3) {
+        } else if (mDirecao == 3) {
             mCorpo.setPos(mCorpo.getX(), mCorpo.getY() + 1);
-        } else if (mDirecao==4) {
+        } else if (mDirecao == 4) {
             mCorpo.setPos(mCorpo.getX(), mCorpo.getY() - 1);
         }
 

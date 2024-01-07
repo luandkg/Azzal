@@ -38,7 +38,7 @@ public class MovimentoVertical implements Movimento {
                 mDirecao = 2;
             }
 
-            if (mCorpo.getMax().getY()>0){
+            if (mCorpo.getMax().getY() > 0) {
                 mRepetir = eSorte.nextInt(mCorpo.getMax().getY());
             }
 

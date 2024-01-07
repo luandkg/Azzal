@@ -22,7 +22,7 @@ public class VideoExportador {
 
             BufferedImage quadro = mVideo.getImagemCorrente();
 
-            Imagem.exportar(quadro, eLocal + "/" + ePrefixo  + qi + ".png");
+            Imagem.exportar(quadro, eLocal + "/" + ePrefixo + qi + ".png");
 
             qi += 1;
         }

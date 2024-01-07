@@ -1,10 +1,10 @@
 package apps.app_fuzz;
 
 import apps.app_azzal.TransicionadorDeCena;
-import libs.azzal.cenarios.Cena;
-import libs.azzal.utilitarios.*;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
 
 
 public class AppFuzz extends Cena {
@@ -23,7 +23,7 @@ public class AppFuzz extends Cena {
 
         mTransicionador.iniciarCenas();
 
-        mCor=   Cor.getHexCor("#0d191e");
+        mCor = Cor.getHexCor("#0d191e");
 
     }
 
@@ -36,7 +36,7 @@ public class AppFuzz extends Cena {
     @Override
     public void draw(Renderizador mRenderizador) {
 
-        mTransicionador.drawComCor(mRenderizador,mCor);
+        mTransicionador.drawComCor(mRenderizador, mCor);
     }
 
 

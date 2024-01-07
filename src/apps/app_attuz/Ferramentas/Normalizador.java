@@ -7,7 +7,7 @@ public class Normalizador {
     private boolean zerado = true;
     private double delta = 0;
     private double dec = 0;
-    private double tx = 0 ;
+    private double tx = 0;
 
     private boolean atualizar;
 
@@ -54,14 +54,14 @@ public class Normalizador {
 
     }
 
-    public void stock(){
+    public void stock() {
 
         System.out.println("Maior      :: " + maior);
-          System.out.println("Menor      :: " + menor);
-         System.out.println("Delta      :: " + delta);
-         System.out.println("Taxa       :: " + tx);
-          System.out.println("Escalas    :: " + mEscalas);
-          System.out.println("T. Esc     :: " + dec);
+        System.out.println("Menor      :: " + menor);
+        System.out.println("Delta      :: " + delta);
+        System.out.println("Taxa       :: " + tx);
+        System.out.println("Escalas    :: " + mEscalas);
+        System.out.println("T. Esc     :: " + dec);
     }
 
     public void equilibrar() {
@@ -81,7 +81,7 @@ public class Normalizador {
         }
 
 
-       // double valor = ((double) eValor - (double) menor) / delta;
+        // double valor = ((double) eValor - (double) menor) / delta;
 
         //double fluxo = valor*dec;
 

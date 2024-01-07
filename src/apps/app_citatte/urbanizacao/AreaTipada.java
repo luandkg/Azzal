@@ -65,7 +65,12 @@ public class AreaTipada {
         return mArea;
     }
 
-    public Ponto getLocalizacao(){return new Ponto(mArea.getX(),mArea.getY());}
-    public Ponto getCentroLocalizacao(){return new Ponto(mArea.getX()+mArea.getLargura()/2,mArea.getY()+mArea.getAltura()/2);}
+    public Ponto getLocalizacao() {
+        return new Ponto(mArea.getX(), mArea.getY());
+    }
+
+    public Ponto getCentroLocalizacao() {
+        return new Ponto(mArea.getX() + mArea.getLargura() / 2, mArea.getY() + mArea.getAltura() / 2);
+    }
 
 }

@@ -34,7 +34,7 @@ public class MaterializedView {
             arquivador.set_u8_em_bloco(8, (byte) 0);
             arquivador.set_u8_em_bloco(CONTEUDO_TAMANHO, (byte) 0);
 
-     //       System.out.println("\t\t ### MaterializedView " + n + " de " + quantidade);
+            //       System.out.println("\t\t ### MaterializedView " + n + " de " + quantidade);
         }
 
 
@@ -61,7 +61,7 @@ public class MaterializedView {
                 arquivador.set_u8_em_bloco(8, (byte) 0);
                 arquivador.set_u8_em_bloco(CONTEUDO_TAMANHO, (byte) 0);
 
-            //    System.out.println("\t\t ### MaterializedView " + n + " ate " + quantidade);
+                //    System.out.println("\t\t ### MaterializedView " + n + " ate " + quantidade);
             }
 
 
@@ -151,7 +151,7 @@ public class MaterializedView {
         arquivador.encerrar();
 
 
-      //  System.out.println("-->> MATERIALIZED VIEW GET (" + id + ") :: " + ponteiro + " dados = " + quantidade);
+        //  System.out.println("-->> MATERIALIZED VIEW GET (" + id + ") :: " + ponteiro + " dados = " + quantidade);
 
         return dados;
     }

@@ -15,7 +15,7 @@ public class Tag {
         mValor = eValor;
     }
 
-    public boolean is_nome(String eNome){
+    public boolean is_nome(String eNome) {
         return mNome.contentEquals(eNome);
     }
 

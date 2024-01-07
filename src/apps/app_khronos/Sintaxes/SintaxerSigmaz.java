@@ -2,10 +2,10 @@ package apps.app_khronos.Sintaxes;
 
 import apps.app_khronos.Sintaxer;
 import apps.app_khronos.Span;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class SintaxerSigmaz implements Sintaxer {
     private ArrayList<String> tipos;
     private ArrayList<String> debug;
 
-    public SintaxerSigmaz(String eNome,int eTamanho) {
+    public SintaxerSigmaz(String eNome, int eTamanho) {
 
         preto = new FonteRunTime(Cores.hexToCor("#ebdbb2"), eNome, eTamanho);
         vermelho = new FonteRunTime(Cores.hexToCor("#cc241d"), eNome, eTamanho);
@@ -156,7 +156,7 @@ public class SintaxerSigmaz implements Sintaxer {
                     spans.add(s);
                     montando = "";
                     isTexto = false;
-                }else{
+                } else {
                     montando += letra;
                 }
 
@@ -167,11 +167,11 @@ public class SintaxerSigmaz implements Sintaxer {
         }
 
         if (montando.length() > 0) {
-            if (isTexto){
-                Span s = new Span(montando );
+            if (isTexto) {
+                Span s = new Span(montando);
                 s.especializar();
                 spans.add(s);
-            }else{
+            } else {
                 spans.add(new Span(montando));
             }
         }

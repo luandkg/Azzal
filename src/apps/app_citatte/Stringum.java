@@ -86,7 +86,7 @@ public class Stringum {
 
         }
 
-        int ultimo = tabela_de_frequencias.getQuantidade()-1;
+        int ultimo = tabela_de_frequencias.getQuantidade() - 1;
         int index = 0;
 
         for (Par<String, Integer> freq : tabela_de_frequencias) {
@@ -101,7 +101,7 @@ public class Stringum {
         return ret;
     }
 
-    public static<T> String EXIBIR_EM_LISTA_TIPADA(Lista<T> lista) {
+    public static <T> String EXIBIR_EM_LISTA_TIPADA(Lista<T> lista) {
         String ret = "";
 
         for (T item : lista) {

@@ -41,7 +41,7 @@ public class Entidade {
         return tag.getValor();
     }
 
-    public int atInt(String eNome ) {
+    public int atInt(String eNome) {
         Tag tag = proc_at(eNome);
         return tag.asInt();
     }
@@ -53,17 +53,18 @@ public class Entidade {
         return tag.asInt();
     }
 
-    public long atLong(String eNome ) {
+    public long atLong(String eNome) {
         Tag tag = proc_at(eNome);
         return tag.asLong();
     }
+
     public long atLong(String eNome, long eValor) {
         Tag tag = proc_at(eNome);
         tag.setLong(eValor);
         return tag.asLong();
     }
 
-    public double atDouble(String eNome ) {
+    public double atDouble(String eNome) {
         Tag tag = proc_at(eNome);
         return tag.asDouble();
     }
@@ -97,10 +98,9 @@ public class Entidade {
     // FUNCOES ESPECIAIS
 
 
-    public int somar(String a1,String a2){
-        return atInt(a1)+atInt(a2);
+    public int somar(String a1, String a2) {
+        return atInt(a1) + atInt(a2);
     }
-
 
 
 }

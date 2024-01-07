@@ -1,22 +1,21 @@
 package apps.app_tronarko;
 
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
 import libs.luan.Par;
-import libs.tronarko.*;
-import libs.tronarko.Satelites.Ceu;
-
-import libs.tronarko.utils.AstroLocal;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
+import libs.tronarko.*;
+import libs.tronarko.Satelites.Ceu;
+import libs.tronarko.utils.AstroLocal;
 
 import java.util.ArrayList;
 
@@ -224,7 +223,7 @@ public class AppAstros extends Cena {
 
         int i = 1;
         for (BotaoCor botao : mBotoes) {
-            mTextoPequeno.escreva(botao.getX()+7, botao.getY()+12, String.valueOf(Signos.get(i).toString().charAt(0)));
+            mTextoPequeno.escreva(botao.getX() + 7, botao.getY() + 12, String.valueOf(Signos.get(i).toString().charAt(0)));
             i += 1;
         }
 

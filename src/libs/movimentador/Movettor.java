@@ -80,18 +80,17 @@ public class Movettor {
         mX += vX;
 
 
-
         if (mX < mMinimumX) {
-            mX = mMinimumX+100;
-            if(vX<0){
+            mX = mMinimumX + 100;
+            if (vX < 0) {
                 vX = (-1) * vX;
             }
         }
 
 
         if (mX > mMaximumX) {
-            mX = mMaximumX-100;
-            if(vX>0){
+            mX = mMaximumX - 100;
+            if (vX > 0) {
                 vX = (-1) * vX;
             }
         }

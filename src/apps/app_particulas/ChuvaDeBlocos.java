@@ -1,10 +1,13 @@
 package apps.app_particulas;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.geometria.*;
-import libs.azzal.utilitarios.*;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.utilitarios.Colisor;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Paleta;
 import libs.luan.Iterador;
 import libs.luan.Lista;
 
@@ -15,7 +18,7 @@ import java.util.Random;
 public class ChuvaDeBlocos extends Cena {
 
 
-   private Paleta mPaleta;
+    private Paleta mPaleta;
 
     private Lista<Retangulo> mCaiu;
     private boolean tem;
@@ -31,8 +34,6 @@ public class ChuvaDeBlocos extends Cena {
         tem = false;
 
 
-
-
         mPaleta = new Paleta();
         mPaleta.criar("Alfa", new Cor(120, 50, 60));
         mPaleta.criar("Beta", new Cor(156, 39, 176));
@@ -44,7 +45,7 @@ public class ChuvaDeBlocos extends Cena {
         mPaleta.criar("Iota", new Cor(63, 81, 181));
         mPaleta.criar("Omega", new Cor(255, 235, 59));
 
-         eColisor = new Colisor();
+        eColisor = new Colisor();
         mChao = new Retangulo(100, 600, 600, 50);
 
     }
@@ -58,7 +59,6 @@ public class ChuvaDeBlocos extends Cena {
 
     @Override
     public void update(double dt) {
-
 
 
         if (!tem) {
@@ -150,7 +150,6 @@ public class ChuvaDeBlocos extends Cena {
         Retangulo mE = new Retangulo(200, 0, 500, 700);
 
         mRenderizador.espelhar(new Ponto(800, 300), mE);
-
 
 
     }

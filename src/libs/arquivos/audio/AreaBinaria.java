@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AreaBinaria {
 
-    public ArrayList<Integer> getArea(String eArquivo, int inicio,int tamanho) {
+    public ArrayList<Integer> getArea(String eArquivo, int inicio, int tamanho) {
 
         Arquivador arquivador = new Arquivador(eArquivo);
 
@@ -32,7 +32,7 @@ public class AreaBinaria {
         return bins;
     }
 
-    public ArrayList<Integer> getAreaGrande(String eArquivo, long inicio,long tamanho) {
+    public ArrayList<Integer> getAreaGrande(String eArquivo, long inicio, long tamanho) {
 
         Arquivador arquivador = new Arquivador(eArquivo);
 
@@ -42,7 +42,7 @@ public class AreaBinaria {
 
         for (int i = 0; i < tamanho; i++) {
 
-            if (arquivador.getPonteiro() < arquivador.getLength()){
+            if (arquivador.getPonteiro() < arquivador.getLength()) {
                 int iByte = Inteiro.byteToInt(arquivador.get());
                 bins.add(iByte);
             }
@@ -59,19 +59,19 @@ public class AreaBinaria {
         return bins;
     }
 
-    public ArrayList<Integer> getAreaGrandeBuffer(byte[] buffer, long inicio,long tamanho) {
+    public ArrayList<Integer> getAreaGrandeBuffer(byte[] buffer, long inicio, long tamanho) {
 
 
         ArrayList<Integer> bins = new ArrayList<Integer>();
 
-int pt = (int)inicio;
+        int pt = (int) inicio;
 
         for (int i = 0; i < tamanho; i++) {
 
-            if (pt < buffer.length){
+            if (pt < buffer.length) {
                 int iByte = Inteiro.byteToInt(buffer[pt]);
                 bins.add(iByte);
-                pt+=1;
+                pt += 1;
             }
 
 
@@ -111,7 +111,7 @@ int pt = (int)inicio;
 
     }
 
-    public void mostrar(ArrayList<Integer> bins,int colunas) {
+    public void mostrar(ArrayList<Integer> bins, int colunas) {
 
         int tamanho = bins.size();
         int eLinha = colunas;

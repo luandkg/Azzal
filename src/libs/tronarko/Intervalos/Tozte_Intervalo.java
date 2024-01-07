@@ -2,7 +2,7 @@ package libs.tronarko.Intervalos;
 
 import libs.tronarko.Tozte;
 
-public  class Tozte_Intervalo {
+public class Tozte_Intervalo {
 
     private String mNome;
     private Tozte mInicio;

@@ -174,7 +174,7 @@ public class RhoBenchmark {
                     if (is_primeiro) {
                         retirar = valor;
                         is_primeiro = false;
-                    }else{
+                    } else {
                         if (valor < retirar) {
                             retirar = valor;
                         }

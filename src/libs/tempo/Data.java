@@ -7,6 +7,7 @@ public class Data {
     private int mDia;
     private DiaSemanal mDiaSemanal;
     private int mSemana;
+
     public Data(int eAno, int eMes, int eDia, DiaSemanal eDiaSemanal) {
         mAno = eAno;
         mMes = eMes;
@@ -314,8 +315,8 @@ public class Data {
     }
 
 
-    public Data getCopia(){
-        return new Data(mAno,mMes,mDia,mDiaSemanal);
+    public Data getCopia() {
+        return new Data(mAno, mMes, mDia, mDiaSemanal);
     }
 
     public void setDiaSemanal(DiaSemanal ds) {
@@ -392,7 +393,7 @@ public class Data {
         return ret;
     }
 
-    public boolean isIgualAnoEMes( int eAno,int eMes) {
+    public boolean isIgualAnoEMes(int eAno, int eMes) {
         if (this.getAno() == eAno) {
             if (this.getMes() == eMes) {
                 return true;

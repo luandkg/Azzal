@@ -189,12 +189,12 @@ public class FonteGerador {
         eDocumentoJAVA += "\n  }";
         eDocumentoJAVA += "\n  }";
 
-       // eDocumentoJAVA += "\nprivate void init_letras() {";
+        // eDocumentoJAVA += "\nprivate void init_letras() {";
 
-       // for (String eLetra : mLetras) {
+        // for (String eLetra : mLetras) {
         //    eDocumentoJAVA += "\n\t" + eLetra;
-      //  }
-    //    eDocumentoJAVA += "\n}";
+        //  }
+        //    eDocumentoJAVA += "\n}";
 
         ArrayList<String> m10 = new ArrayList<String>();
 
@@ -230,25 +230,25 @@ public class FonteGerador {
                 } else {
                     if (mAntesEra) {
                         mAntesEra = false;
-                     //   if (mContando == 2) {
-                     //       mC2.add(String.valueOf(mInicioX));
-                      //  } else if (mContando == 3) {
-                     //       mC3.add(String.valueOf(mInicioX));
-                     //   } else if (mContando == 4) {
-                      //      mC4.add(String.valueOf(mInicioX));
-                     //   } else if (mContando == 5) {
-                     //       mC5.add(String.valueOf(mInicioX));
-                     //   } else if (mContando == 6) {
-                     //       mC6.add(String.valueOf(mInicioX));
-                     //   } else if (mContando == 7) {
-                     //       mC7.add(String.valueOf(mInicioX));
-                     //   } else if (mContando == 8) {
-                     //       mC8.add(String.valueOf(mInicioX));
-                    //    } else if (mContando == 9) {
-                     //       mC9.add(String.valueOf(mInicioX));
-                     //   } else {
-                            m10.add("mMontagem.mapear(" + mInicioX + "," + yi + "," + mContando + ");");
-                       // }
+                        //   if (mContando == 2) {
+                        //       mC2.add(String.valueOf(mInicioX));
+                        //  } else if (mContando == 3) {
+                        //       mC3.add(String.valueOf(mInicioX));
+                        //   } else if (mContando == 4) {
+                        //      mC4.add(String.valueOf(mInicioX));
+                        //   } else if (mContando == 5) {
+                        //       mC5.add(String.valueOf(mInicioX));
+                        //   } else if (mContando == 6) {
+                        //       mC6.add(String.valueOf(mInicioX));
+                        //   } else if (mContando == 7) {
+                        //       mC7.add(String.valueOf(mInicioX));
+                        //   } else if (mContando == 8) {
+                        //       mC8.add(String.valueOf(mInicioX));
+                        //    } else if (mContando == 9) {
+                        //       mC9.add(String.valueOf(mInicioX));
+                        //   } else {
+                        m10.add("mMontagem.mapear(" + mInicioX + "," + yi + "," + mContando + ");");
+                        // }
                         mInicioX = 0;
                         mContando = 0;
                     }
@@ -257,14 +257,14 @@ public class FonteGerador {
             }
 
 
-          //  organizar("2", yi, mC2, m10);
-          //  organizar("3", yi, mC3, m10);
-          //  organizar("4", yi, mC4, m10);
-          //  organizar("5", yi, mC5, m10);
-         //   organizar("6", yi, mC6, m10);
-          //  organizar("7", yi, mC7, m10);
-        //    organizar("8", yi, mC8, m10);
-          //  organizar("9", yi, mC9, m10);
+            //  organizar("2", yi, mC2, m10);
+            //  organizar("3", yi, mC3, m10);
+            //  organizar("4", yi, mC4, m10);
+            //  organizar("5", yi, mC5, m10);
+            //   organizar("6", yi, mC6, m10);
+            //  organizar("7", yi, mC7, m10);
+            //    organizar("8", yi, mC8, m10);
+            //  organizar("9", yi, mC9, m10);
 
 
         }

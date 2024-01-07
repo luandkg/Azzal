@@ -132,13 +132,12 @@ public class Arena {
                 guardou = true;
 
 
-
                 break;
             } else {
-              //  System.out.println(i + " de 100 ocupado com " + eFramePonteiro);
+                //  System.out.println(i + " de 100 ocupado com " + eFramePonteiro);
             }
 
-            mArquivo.setPonteiro(ePonteiroAntes+8);
+            mArquivo.setPonteiro(ePonteiroAntes + 8);
 
 
         }

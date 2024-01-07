@@ -1,7 +1,5 @@
 package apps.app_attuz.Assessorios;
 
-import apps.app_attuz.Assessorios.Escala;
-
 import java.awt.*;
 
 public class EscalasPadroes {

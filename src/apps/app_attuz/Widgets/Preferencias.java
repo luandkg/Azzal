@@ -1,10 +1,10 @@
 package apps.app_attuz.Widgets;
 
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.PreferenciasOrganizadas;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
 import libs.mockui.Interface.Acao;
 import libs.mockui.ToggleHorizontal;
 
@@ -39,7 +39,7 @@ public class Preferencias {
     }
 
 
-    public void onClique(int px,int py){
+    public void onClique(int px, int py) {
 
         mMostrarMarcadores.foiClicado(px - 3, py - 5);
         mMostrarCidades.foiClicado(px - 3, py - 5);
@@ -117,8 +117,6 @@ public class Preferencias {
                 salvarConf();
             }
         });
-
-
 
 
         mMostrarEU = new ToggleHorizontal(1400, 40, "MOSTRAR PERCURSO", true);

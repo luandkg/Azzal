@@ -1,6 +1,8 @@
 package libs.az;
 
-import libs.armazenador.*;
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
+import libs.armazenador.ItemDoBanco;
 import libs.dkg.DKGFeatures;
 import libs.dkg.DKGObjeto;
 import libs.luan.Lista;
@@ -100,10 +102,10 @@ public class AZColecionador {
 
         }
 
-        for(DKGObjeto obj_analise : DKGFeatures.ordenar_objetos_texto(objetos_analisados,"Nome")){
+        for (DKGObjeto obj_analise : DKGFeatures.ordenar_objetos_texto(objetos_analisados, "Nome")) {
             colecao_analise.adicionar(obj_analise);
         }
 
-       // colecao_analise.primeiro_campo("ID");
+        // colecao_analise.primeiro_campo("ID");
     }
 }

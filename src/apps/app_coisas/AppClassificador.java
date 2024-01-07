@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class AppClassificador {
 
-    public static void init(){
+    public static void init() {
 
         String arquivo_bz3 = "/home/luan/assets/letras.bz3";
 
@@ -37,9 +37,9 @@ public class AppClassificador {
             String conjunto = BZ3.procurar(arquivo_bz3, l);
 
             DKGObjeto itens = DKG.PARSER_TO_OBJETO(conjunto);
-            System.out.println( Sumario.getLetra(l)  + " :: " + itens.getObjetos().getQuantidade());
+            System.out.println(Sumario.getLetra(l) + " :: " + itens.getObjetos().getQuantidade());
 
-            if(itens.getObjetos().getQuantidade()>0){
+            if (itens.getObjetos().getQuantidade() > 0) {
                 System.out.println("------------- " + l + " ---------------------");
                 System.out.println(conjunto);
             }
@@ -56,9 +56,9 @@ public class AppClassificador {
         lista.adicionar(r2);
         lista.adicionar(r3);
 
-        Rankeador.ordenar( lista);
+        Rankeador.ordenar(lista);
 
-        for(RankeadoInteiro<RefInt> item : lista){
+        for (RankeadoInteiro<RefInt> item : lista) {
             System.out.println("Item - " + item.getRanking() + " -->> " + item.getNome());
         }
 

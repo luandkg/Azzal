@@ -1,9 +1,9 @@
 package apps.app_fuzz;
 
 
-import libs.azzal.cenarios.Cena;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
 import libs.fuzzer.Fuzzer;
 import libs.fuzzer.Menu;
 
@@ -25,10 +25,10 @@ public class AppBaz extends Cena {
 
         menu_principal = new ArrayList<libs.fuzzer.Menu>();
 
-        libs.fuzzer.Menu SLT_A = mFuzzer.onMenu(menu_principal,400, 50, 140, 60, "TIPO A");
-        libs.fuzzer.Menu SLT_B = mFuzzer.onMenu(menu_principal,400 + (1 * 160), 50, 140, 60, "TIPO B");
-        libs.fuzzer.Menu SLT_C = mFuzzer.onMenu(menu_principal,400 + (2 * 160), 50, 140, 60, "TIPO C");
-        Menu SLT_D = mFuzzer.onMenu(menu_principal,400 + (3 * 160), 50, 140, 60, "TIPO D");
+        libs.fuzzer.Menu SLT_A = mFuzzer.onMenu(menu_principal, 400, 50, 140, 60, "TIPO A");
+        libs.fuzzer.Menu SLT_B = mFuzzer.onMenu(menu_principal, 400 + (1 * 160), 50, 140, 60, "TIPO B");
+        libs.fuzzer.Menu SLT_C = mFuzzer.onMenu(menu_principal, 400 + (2 * 160), 50, 140, 60, "TIPO C");
+        Menu SLT_D = mFuzzer.onMenu(menu_principal, 400 + (3 * 160), 50, 140, 60, "TIPO D");
 
 
         mFuzzer.onBotao(80, 300, 150, 30, "FUNC A");

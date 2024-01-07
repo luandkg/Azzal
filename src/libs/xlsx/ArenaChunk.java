@@ -20,7 +20,7 @@ public class ArenaChunk {
         mChunks.add(copia);
     }
 
-    public  int getLength(){
+    public int getLength() {
         int tamanho = 0;
         for (ByteChunk chunk : mChunks) {
             tamanho += chunk.getLength();
@@ -28,7 +28,7 @@ public class ArenaChunk {
         return tamanho;
     }
 
-    public  ByteChunk unir(){
+    public ByteChunk unir() {
 
         int tamanho = getLength();
 
@@ -48,7 +48,7 @@ public class ArenaChunk {
 
         }
 
-        return new ByteChunk(bytes,tamanho);
+        return new ByteChunk(bytes, tamanho);
     }
 
 

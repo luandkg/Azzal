@@ -1,9 +1,9 @@
 package apps.app_metropoles;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Teclado;
 import libs.azzal.Renderizador;
+import libs.azzal.Teclado;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
 
 import java.awt.*;
 
@@ -147,14 +147,13 @@ public class CidadeCena extends Cena {
                 mDQT2Reverso.fecharDireita();
             }
 
-            if (isAutomatico){
+            if (isAutomatico) {
                 if (mT2.getVolume() > 10 || mT3.getVolume() > 10) {
                     mDQT2Reverso.abrir();
                 } else {
                     mDQT2Reverso.fechar();
                 }
             }
-
 
 
             mDQT2.conectar(Pressao.Entrando, mC2);

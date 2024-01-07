@@ -37,7 +37,11 @@ public class Rota {
         mAvenidas = eAvenidas;
     }
 
-    public void marcarComSucesso(){mSucesso=true;}
+    public void marcarComSucesso() {
+        mSucesso = true;
+    }
 
-    public boolean teveSucesso(){return mSucesso;}
+    public boolean teveSucesso() {
+        return mSucesso;
+    }
 }

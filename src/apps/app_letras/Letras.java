@@ -202,11 +202,11 @@ public class Letras extends Cena {
                 } else {
                     mT3 -= rd.nextInt(3);
                 }
-                if (mT3>15){
+                if (mT3 > 15) {
                     mT3 = rd.nextInt(15) + 5;
                 }
 
-                if (mT3<0){
+                if (mT3 < 0) {
                     mT3 = rd.nextInt(15) + 5;
                 }
             }

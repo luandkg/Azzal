@@ -21,7 +21,7 @@ public class Empilhador {
     private Arena mArenaCorrente;
     private BufferedImage mUltimoFrame;
 
-    private  long mTotal;
+    private long mTotal;
     private long mUsou;
 
     private final int FRAME_KEYFRAME = 50;
@@ -34,8 +34,8 @@ public class Empilhador {
     private final int QUADRUM_INTERMEDIUM = 31;
     private final int QUADRUM_FINALIZAR = 32;
 
-    private  int tipo_anterior ;
-    private  int dif_contador ;
+    private int tipo_anterior;
+    private int dif_contador;
 
     public Empilhador(Arquivador eArquivo, int eLargura, int eAltura) {
 
@@ -54,8 +54,8 @@ public class Empilhador {
         mTotal = 0;
         mUsou = 0;
 
-        tipo_anterior-=1;
-        dif_contador=0;
+        tipo_anterior -= 1;
+        dif_contador = 0;
 
     }
 
@@ -91,8 +91,8 @@ public class Empilhador {
         mTotal = 0;
         mUsou = 0;
 
-        tipo_anterior-=1;
-        dif_contador=0;
+        tipo_anterior -= 1;
+        dif_contador = 0;
     }
 
 
@@ -203,7 +203,7 @@ public class Empilhador {
 
 
         if (eFrame.getWidth() != mLargura) {
-            throw new IllegalArgumentException("Largura incompativel - " + eFrame.getWidth() + " :: "+mLargura);
+            throw new IllegalArgumentException("Largura incompativel - " + eFrame.getWidth() + " :: " + mLargura);
         }
 
         if (eFrame.getHeight() != mAltura) {

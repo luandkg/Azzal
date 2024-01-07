@@ -69,7 +69,7 @@ public class EditorDeTexto {
         mLetramento.escreva(mX, mY, mTexto);
 
 
-        mRenderizador.drawRect_Pintado(new Retangulo(mX, mY +  mLetramento.getAltura() + 5, mTamanhoComprimento, 2), Cor.getHexCor("#8bc34a"));
+        mRenderizador.drawRect_Pintado(new Retangulo(mX, mY + mLetramento.getAltura() + 5, mTamanhoComprimento, 2), Cor.getHexCor("#8bc34a"));
 
         if (mEstaEditando && mMostrarMarcador) {
 
@@ -383,7 +383,6 @@ public class EditorDeTexto {
             setTexto(getTexto() + "/");
         } else if (mTeclado.foiPressionado(KeyEvent.VK_EQUALS)) {
             setTexto(getTexto() + "=");
-
 
 
         } else if (mTeclado.foiPressionado(KeyEvent.VK_BACK_SPACE)) {

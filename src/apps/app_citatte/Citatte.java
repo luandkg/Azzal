@@ -116,7 +116,7 @@ public class Citatte {
         for (AreaAdministravel area : getAreasAdministraveis()) {
 
             for (Ponto pt : av.getPontos()) {
-                if (Espaco2D.distancia_entre_pontos(pt.getX(), pt.getY(), area.getCentroLocalizacao().getX(), area.getCentroLocalizacao().getY())<=proximidade){
+                if (Espaco2D.distancia_entre_pontos(pt.getX(), pt.getY(), area.getCentroLocalizacao().getX(), area.getCentroLocalizacao().getY()) <= proximidade) {
                     areas.adicionar(area);
                 }
 

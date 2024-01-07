@@ -3,9 +3,9 @@ package apps.app_attuz.Localizador;
 
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
-import libs.tronarko.utils.StringTronarko;
-import libs.tronarko.Tozte;
 import libs.tronarko.Hazde;
+import libs.tronarko.Tozte;
+import libs.tronarko.utils.StringTronarko;
 
 import java.util.ArrayList;
 
@@ -136,12 +136,12 @@ public class GuiaDeViagem {
 
             String visita_comecar = ePonto.identifique("Tozte").getValor();
 
-            if (org<100){
-                org=0;
+            if (org < 100) {
+                org = 0;
                 System.out.println("\t -->> Organizando :: " + visita_comecar);
             }
 
-            org+=1;
+            org += 1;
 
             int t = Integer.parseInt(st.getTronarko(visita_comecar));
             int h = Integer.parseInt(st.getHiperarko(visita_comecar));
@@ -163,15 +163,15 @@ public class GuiaDeViagem {
 
                 trilha_comecou = "";
 
-                if (chegou_cidade.length()==0){
-                    chegou_cidade=visita_comecar;
+                if (chegou_cidade.length() == 0) {
+                    chegou_cidade = visita_comecar;
                 }
 
                 ePonto.identifique("ChegouCidade", chegou_cidade);
 
             } else {
 
-                chegou_cidade="";
+                chegou_cidade = "";
 
                 ePonto.identifique("Saiu", cidade_anterior);
 
@@ -192,7 +192,6 @@ public class GuiaDeViagem {
         eDKC.salvar(saida);
 
     }
-
 
 
 }

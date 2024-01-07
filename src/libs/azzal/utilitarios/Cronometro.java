@@ -20,7 +20,7 @@ public class Cronometro {
 
         long agora = System.nanoTime();
 
-        if ((agora- mTempo_inicio) >= mEsperar) {
+        if ((agora - mTempo_inicio) >= mEsperar) {
             mTempo_inicio = agora;
             mEsperado = true;
         }

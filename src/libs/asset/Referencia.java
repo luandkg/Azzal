@@ -7,8 +7,8 @@ public class Referencia {
 
     public Referencia(long eRef1, long eRef2) {
 
-        mRef1=eRef1;
-        mRef2=eRef2;
+        mRef1 = eRef1;
+        mRef2 = eRef2;
 
     }
 

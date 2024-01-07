@@ -3,18 +3,17 @@ package apps.app_attuz.Widgets;
 import apps.app_attuz.Arkazz.Cidades;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Fisica.EquipamentosDeEngenharia;
-import libs.azzal.geometria.Ponto;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Renderizador;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Distanciador {
 

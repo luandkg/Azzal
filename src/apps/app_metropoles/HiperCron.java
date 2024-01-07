@@ -11,7 +11,7 @@ public class HiperCron {
     public HiperCron(long eEsperar) {
 
         mAcumulando = 0;
-        mEsperar = eEsperar*100;
+        mEsperar = eEsperar * 100;
         mEsperado = false;
     }
 

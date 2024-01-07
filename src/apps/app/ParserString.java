@@ -15,7 +15,7 @@ public class ParserString {
         indice = 0;
     }
 
-    public long getQuantidadeDeBytes(){
+    public long getQuantidadeDeBytes() {
         return mString.getBytes(StandardCharsets.UTF_8).length;
     }
 

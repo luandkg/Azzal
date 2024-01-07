@@ -8,12 +8,12 @@ public class RepeticaoBinaria {
     private int mQuantidade;
     private ArrayList<Integer> mPosicoes;
 
-private byte b1;
-private byte b2;
+    private byte b1;
+    private byte b2;
 
-    public RepeticaoBinaria(byte e1,byte e2,String eValor) {
-        b1=e1;
-        b2=e2;
+    public RepeticaoBinaria(byte e1, byte e2, String eValor) {
+        b1 = e1;
+        b2 = e2;
         mValor = eValor;
         mQuantidade = 1;
         mPosicoes = new ArrayList<Integer>();
@@ -22,6 +22,7 @@ private byte b2;
     public byte getB1() {
         return b1;
     }
+
     public byte getB2() {
         return b2;
     }
@@ -43,5 +44,7 @@ private byte b2;
     }
 
 
-    public  ArrayList<Integer> getPosicoes(){return mPosicoes;}
+    public ArrayList<Integer> getPosicoes() {
+        return mPosicoes;
+    }
 }

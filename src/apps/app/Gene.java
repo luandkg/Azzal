@@ -9,7 +9,7 @@ public class Gene {
     private String mPosicao;
     private String mAlelos;
 
-    public Gene(String eCodigo, String eRSID,String eCromossomo, String ePosicao, String eAlelos) {
+    public Gene(String eCodigo, String eRSID, String eCromossomo, String ePosicao, String eAlelos) {
         mCodigo = eCodigo;
         mRSID = eRSID;
         mCromossomo = eCromossomo;
@@ -18,7 +18,7 @@ public class Gene {
 
     }
 
-    public String getRSID(){
+    public String getRSID() {
         return mRSID;
     }
 
@@ -73,10 +73,10 @@ public class Gene {
             gene.avancar();
         }
 
-        if(juntando.length()>0){
+        if (juntando.length() > 0) {
             alelos = juntando;
         }
 
-        return new Gene(codigo,rsid, cromossomo, posicao, alelos);
+        return new Gene(codigo, rsid, cromossomo, posicao, alelos);
     }
 }

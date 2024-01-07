@@ -40,7 +40,7 @@ public class FonteDuplaRunTime implements FonteDupla {
 
         int largura = getLarguraDe(frase);
 
-       // mFonte1.getRenderizador().drawRect(x, y, largura, mFonte1.getAltura(), mFonte1.getCor());
+        // mFonte1.getRenderizador().drawRect(x, y, largura, mFonte1.getAltura(), mFonte1.getCor());
 
     }
 

@@ -1,12 +1,11 @@
 package apps.app_fuzz;
 
-import libs.azzal.cenarios.Cena;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
 import libs.fuzzer.Fuzzer;
 import libs.fuzzer.ItemAcao;
 import libs.fuzzer.Listagem;
-
 
 import java.awt.*;
 
@@ -66,7 +65,6 @@ public class AppOcca extends Cena {
 
 
         mFuzzer.onDraw(mRenderizador);
-
 
 
     }

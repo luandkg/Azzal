@@ -390,7 +390,7 @@ public class LLCripto {
         LLCRIPT_ORIGNUM.definirLinha(2, 9, 10, 11, 12);
         LLCRIPT_ORIGNUM.definirLinha(3, 13, 14, 15, 16);
 
-       // System.out.println("Matrix Originum");
+        // System.out.println("Matrix Originum");
         //System.out.println(LLCRIPT_ORIGNUM.getView());
 
 
@@ -421,20 +421,20 @@ public class LLCripto {
         }
 
         // INICIAR CRIPTOGRAFIA
-       // System.out.println("Matrix Re-Originum");
-       // System.out.println(LLCRIPT_RE_ORIGNUM.getView());
+        // System.out.println("Matrix Re-Originum");
+        // System.out.println(LLCRIPT_RE_ORIGNUM.getView());
 
 
         byte[] bytes = mensagem.getBytes(StandardCharsets.UTF_8);
 
 
         //System.out.println("Dados   : " + mensagem);
-       // System.out.println("Tamanho : " + bytes.length);
-       // System.out.println("INDO :: " + bytes_to_sequencia(bytes));
+        // System.out.println("Tamanho : " + bytes.length);
+        // System.out.println("INDO :: " + bytes_to_sequencia(bytes));
 
         ArrayList<Quadrante> quadrantes = bytes_to_quadrantes(bytes);
 
-     //   listar_quadrantes(quadrantes);
+        //   listar_quadrantes(quadrantes);
 
         //System.out.println("");
 
@@ -457,7 +457,7 @@ public class LLCripto {
             }
 
             //System.out.println("QUADRO : " + qi + " -->> PONTO CENTRAL = " + ponto_central_normalizado + " TORQUE = " + torque_normalizado);
-           // System.out.println(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
+            // System.out.println(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
 
             criptados.add(montagem);
 
@@ -466,7 +466,7 @@ public class LLCripto {
             qi += 1;
         }
 
-       // System.out.println("-->> VOLTAR");
+        // System.out.println("-->> VOLTAR");
 
         int tamanho_voltar = criptados.size() * LLCRIPT_TAMANHO_BLOCO;
 
@@ -490,7 +490,7 @@ public class LLCripto {
             for (int qv = 0; qv < LLCRIPT_TAMANHO_BLOCO; qv++) {
                 int valor = quadro.getDireto(qv);
 
-                valores[indice_total] = (byte)valor;
+                valores[indice_total] = (byte) valor;
 
                 indice_total += 1;
             }
@@ -546,8 +546,6 @@ public class LLCripto {
         // System.out.println(LLCRIPT_RE_ORIGNUM.getView());
 
 
-
-
         byte obter_tamanho[] = new byte[4];
 
         obter_tamanho[0] = (byte) cifra[0];
@@ -559,7 +557,7 @@ public class LLCripto {
 
         byte valores_bytes[] = new byte[tamanho_obtido];
 
-     int   indice_total = 4;
+        int indice_total = 4;
         int montando_texto = 0;
 
         while (montando_texto < tamanho_obtido) {
@@ -574,7 +572,7 @@ public class LLCripto {
 
         //listar_quadrantes(voltar_quadrantes);
 
-       // System.out.println("");
+        // System.out.println("");
 
         //System.out.println("-->> DESAPLICAR METODO");
         ArrayList<Quadrante> descriptados = new ArrayList<Quadrante>();
@@ -613,12 +611,12 @@ public class LLCripto {
 
         byte[] bytes_do_texto = quadrantes_to_bytes(descriptados, tamanho_obtido);
 
-       // System.out.println("VOLTOU Tamanho :: " + tamanho_obtido);
-       // System.out.println("VOLTOU Tamanho buf :: " + bytes_do_texto.length);
-      //  System.out.println("VOLTOU :: " + bytes_to_sequencia(cifra));
-      //  System.out.println("TRADUÇÃO :: " + new String(bytes_do_texto));
+        // System.out.println("VOLTOU Tamanho :: " + tamanho_obtido);
+        // System.out.println("VOLTOU Tamanho buf :: " + bytes_do_texto.length);
+        //  System.out.println("VOLTOU :: " + bytes_to_sequencia(cifra));
+        //  System.out.println("TRADUÇÃO :: " + new String(bytes_do_texto));
 
         return new String(bytes_do_texto);
     }
 
-    }
+}

@@ -30,7 +30,7 @@ public class Progressante {
 
     }
 
-    public void vazio(int eValor ) {
+    public void vazio(int eValor) {
 
         double agora = ((double) eValor / (double) mMaximo) * 100.0;
         int agora_i = (int) agora;

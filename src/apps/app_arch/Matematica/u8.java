@@ -274,7 +274,7 @@ public class u8 {
                     boolean mFuturo = b1.getParte(f);
                     if (mFuturo) {
                         mConseguiu = true;
-                      //  b1.setParte(f, false);
+                        //  b1.setParte(f, false);
                         break;
                     } else {
                         carry.add(f);

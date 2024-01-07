@@ -1,40 +1,9 @@
 package apps.app;
 
-import apps.app_arquivos.*;
-import apps.app_attuz.AppAttuz;
-import apps.app_azzal.AppGlobal;
 import apps.app_azzal.VamosCalcular;
-import apps.app_citatte.AppCitatte;
-import apps.app_citatte.AppCitatteModelum;
-import apps.app_citatte.CidadeGeradorAleatorio;
-import apps.app_coisas.AppClassificador;
-import apps.app_llcripto.App_LLCripto;
-import apps.app_momentum.AppMomentum;
-import apps.app_momentum.HarrempluzCreator;
-import apps.app_testes.app_testes;
 import libs.aqz.AQZ;
-import libs.aqz.MigrarToAQZ;
-import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
-import libs.arquivos.BZ3;
-import libs.arquivos.IM;
-import libs.arquivos.Sumario;
-import libs.arquivos.stacker.StackItem;
-import libs.arquivos.stacker.Stacker;
-import libs.az.AZ;
-import libs.az.AZColecionador;
-import libs.az.Colecao;
-import libs.azzal.AzzalUnico;
-import libs.dkg.*;
-import libs.documentar.Documentar;
-import libs.imagem.Imagem;
-import libs.llcripto.LLCripto;
+import libs.dkg.DKGObjeto;
 import libs.luan.*;
-import libs.movimentador.QuadranteEspacial;
-import libs.ranking.RankeadoInteiro;
-import libs.ranking.Rankeador;
-import libs.servittor.Servittor;
 import libs.tempo.Calendario;
 import libs.tronarko.Hazde;
 import libs.tronarko.Intervalos.Hazde_Intervalo;
@@ -42,12 +11,6 @@ import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
 import libs.verkuz.VerkuzImplementador;
-import libs.xlsx.XLSX;
-import libs.xml.XML;
-import apps.app_arch.*;
-
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class AppAzzal {
 
@@ -190,14 +153,19 @@ public class AppAzzal {
 
         // GGADF2023.init();
 
-        //  tron_me();
+        tron_me();
         //   banco_me();
 
         //  AppFerias.recesso_2024_janeiro();
 
-        aqz_geral();
+        // aqz_geral();
 
         // sequenciador();
+
+
+        Projettum.init_geral();
+
+
     }
 
 
@@ -206,6 +174,7 @@ public class AppAzzal {
         String arquivo_banco = "/home/luan/assets/initum.aqz";
 
         String seq = Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ", 10);
+
 
         AQZ.INSERIR(arquivo_banco, "Tronakum", DKGObjeto.CRIAR_DIRETO("Tron", "Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
 
@@ -261,6 +230,13 @@ public class AppAzzal {
 
         }
 
+
+        AQZ.DEFINIR_VIEW(arquivo_banco, "VW_TronakumDiario_ITQ", "TronakumDiario", Strings.CRIAR_LISTA("ID", "Tozte", "Quantidade"));
+        AQZ.DEFINIR_VIEW(arquivo_banco, "VW_TronakumDiario", "TronakumDiario", Strings.CRIAR_LISTA("ID", "Tozte", "Quantidade", "Primeiro", "Recente", "Intervalo"));
+
+
+        AQZ.EXIBIR_VIEW(arquivo_banco, "VW_TronakumDiario_ITQ");
+        AQZ.EXIBIR_VIEW(arquivo_banco, "VW_TronakumDiario");
 
     }
 
@@ -335,6 +311,29 @@ public class AppAzzal {
         AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Sequencias");
         AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@AutoAnalise");
         AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Analise");
+
+
+    }
+
+
+    public static void banco_testes() {
+
+        String arquivo_banco = "/home/luan/assets/max.aqz";
+
+        for (int id = 0; id <= 10000; id++) {
+            // AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tronakum_"+id);
+            //  fmt.print("Banco :: "+"Tronakum_"+id);
+        }
+
+        AQZ.AUTO_ANALISAR(arquivo_banco);
+        AQZ.ANALISAR(arquivo_banco);
+
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Init");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Bancos");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Sequencias");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@AutoAnalise");
+        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Analise");
+
 
     }
 

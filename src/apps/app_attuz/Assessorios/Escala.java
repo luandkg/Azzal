@@ -8,7 +8,7 @@ public class Escala {
 
     public Escala() {
         mMaximo = 0;
-        mMinimo=0;
+        mMinimo = 0;
         valores = new int[100];
         for (int i = 0; i < 100; i++) {
             valores[i] = 0;
@@ -16,7 +16,7 @@ public class Escala {
     }
 
     public Escala(int eMinimo, int eMaximo) {
-        mMinimo=eMinimo;
+        mMinimo = eMinimo;
         mMaximo = eMaximo;
         valores = new int[100];
         for (int i = 0; i < 100; i++) {
@@ -31,13 +31,14 @@ public class Escala {
     public int getMinimo() {
         return mMinimo;
     }
+
     public int set(int c, int v) {
         return valores[c] = v;
     }
 
     public int get(int c) {
-        if (c<0){
-            c=0;
+        if (c < 0) {
+            c = 0;
         }
         return valores[c];
     }

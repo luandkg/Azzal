@@ -1,7 +1,6 @@
 package libs.armazenador;
 
 
-
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
@@ -153,7 +152,7 @@ public class Armazenador {
 
 
             if (st == 255) {
-              //  System.out.println("\t - Banco " + banco + " -->> " + st + " --->> " + ponteiro + " :: { Local Itens = " + local_itens + " , Local Cache = " + local_cache + " , Local Indice = " + local_indice + " }");
+                //  System.out.println("\t - Banco " + banco + " -->> " + st + " --->> " + ponteiro + " :: { Local Itens = " + local_itens + " , Local Cache = " + local_cache + " , Local Indice = " + local_indice + " }");
                 mBancos.adicionar(new Banco(this, mArquivador, banco, ponteiro, local_itens, local_cache, local_corrente, local_indice));
             }
 
@@ -363,6 +362,7 @@ public class Armazenador {
     }
 
 
-
-    public Arquivador getArquivador(){return mArquivador;}
+    public Arquivador getArquivador() {
+        return mArquivador;
+    }
 }

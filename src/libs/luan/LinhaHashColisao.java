@@ -11,11 +11,16 @@ public class LinhaHashColisao<T1, T2> {
         mValor = eValor;
     }
 
-    public T1 getChave(){return mChave;}
-    public T2 getValor(){return mValor;}
+    public T1 getChave() {
+        return mChave;
+    }
 
-    public void setValor(T2 eValor){
-        mValor=eValor;
+    public T2 getValor() {
+        return mValor;
+    }
+
+    public void setValor(T2 eValor) {
+        mValor = eValor;
     }
 
 }

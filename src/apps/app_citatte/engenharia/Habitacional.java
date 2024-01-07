@@ -255,7 +255,7 @@ public class Habitacional {
 
             if (tipo >= 75) {
                 if (EngenhariaDeObras.is_tudo_preto(mCidade, pos_x, pos_y, 20, 10)) {
-                    if (!eCitatte.tem_construcao( pos_x, pos_y, 20, 10)) {
+                    if (!eCitatte.tem_construcao(pos_x, pos_y, 20, 10)) {
                         mCidade.drawRect(pos_x, pos_y, 20, 10, mCores.getTurquesa());
                         eCitatte.area_criar(new Retangulo(pos_x, pos_y, 20, 10), "AV(" + avenida.getID() + ")");
                     }
@@ -265,7 +265,7 @@ public class Habitacional {
                 pos_y += 22;
             } else if (tipo >= 50 && tipo < 75) {
                 if (EngenhariaDeObras.is_tudo_preto(mCidade, pos_x, pos_y, 10, 10)) {
-                    if (!eCitatte.tem_construcao( pos_x, pos_y, 10, 10)) {
+                    if (!eCitatte.tem_construcao(pos_x, pos_y, 10, 10)) {
                         mCidade.drawRect(pos_x, pos_y, 10, 10, mCores.getTurquesa());
                         eCitatte.area_criar(new Retangulo(pos_x, pos_y, 10, 10), "AV(" + avenida.getID() + ")");
                     }
@@ -275,7 +275,7 @@ public class Habitacional {
                 pos_y += 12;
             } else if (tipo >= 25 && tipo < 50) {
                 if (EngenhariaDeObras.is_tudo_preto(mCidade, pos_x, pos_y, 5, 10)) {
-                    if (!eCitatte.tem_construcao( pos_x, pos_y, 5, 10)) {
+                    if (!eCitatte.tem_construcao(pos_x, pos_y, 5, 10)) {
                         mCidade.drawRect(pos_x, pos_y, 5, 10, mCores.getTurquesa());
                         eCitatte.area_criar(new Retangulo(pos_x, pos_y, 5, 10), "AV(" + avenida.getID() + ")");
                     }
@@ -285,7 +285,7 @@ public class Habitacional {
                 pos_y += 7;
             } else {
                 if (EngenhariaDeObras.is_tudo_preto(mCidade, pos_x, pos_y, 5, 5)) {
-                    if (!eCitatte.tem_construcao( pos_x, pos_y, 5, 5)) {
+                    if (!eCitatte.tem_construcao(pos_x, pos_y, 5, 5)) {
                         mCidade.drawRect(pos_x, pos_y, 5, 5, mCores.getTurquesa());
                         eCitatte.area_criar(new Retangulo(pos_x, pos_y, 5, 5), "AV(" + avenida.getID() + ")");
                     }

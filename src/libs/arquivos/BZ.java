@@ -1,6 +1,7 @@
 package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,13 +63,13 @@ public class BZ {
 
         int posicionador = indice * (5 * 1024);
 
-       // System.out.println("PROC -->> " + indice + " :: " + posicionador);
+        // System.out.println("PROC -->> " + indice + " :: " + posicionador);
 
         ArrayList<Byte> bytes = new ArrayList<Byte>();
 
         try {
 
-            Arquivador arquivador = new Arquivador(eArquivo,"r");
+            Arquivador arquivador = new Arquivador(eArquivo, "r");
 
             if (posicionador < arquivador.getLength()) {
 
@@ -85,7 +86,7 @@ public class BZ {
 
         TX eTX = new TX();
 
-       // System.out.println("Bytes -->> " + bytes.size());
+        // System.out.println("Bytes -->> " + bytes.size());
 
         return eTX.lerDeBytes(bytes);
 

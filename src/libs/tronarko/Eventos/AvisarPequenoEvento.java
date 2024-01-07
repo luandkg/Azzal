@@ -2,119 +2,121 @@ package libs.tronarko.Eventos;
 
 public class AvisarPequenoEvento {
 
-	private String eNome = "";
-	private int eHiperarko = 0;
-	private int eSuperarko = 0;
-	private int eTronarkoInicio = 0;
+    private String eNome = "";
+    private int eHiperarko = 0;
+    private int eSuperarko = 0;
+    private int eTronarkoInicio = 0;
 
-	private int eAntes = 0;
-	private int eDepois = 0;
+    private int eAntes = 0;
+    private int eDepois = 0;
 
-	private int eIntervalo = 0;
-	private int mTronarko = 0;
-	private int mEdicao = 0;
+    private int eIntervalo = 0;
+    private int mTronarko = 0;
+    private int mEdicao = 0;
 
-	public AvisarPequenoEvento(String aNome, int aHiperarko, int aSuperarko, int aTronarkoInicio, int aIntervalo,
-			int aAntes, int aDepois) {
-		eNome = aNome;
-		eHiperarko = aHiperarko;
-		eSuperarko = aSuperarko;
-		eTronarkoInicio = aTronarkoInicio;
-		eAntes = aAntes;
-		eDepois = aDepois;
+    public AvisarPequenoEvento(String aNome, int aHiperarko, int aSuperarko, int aTronarkoInicio, int aIntervalo,
+                               int aAntes, int aDepois) {
+        eNome = aNome;
+        eHiperarko = aHiperarko;
+        eSuperarko = aSuperarko;
+        eTronarkoInicio = aTronarkoInicio;
+        eAntes = aAntes;
+        eDepois = aDepois;
 
-		eIntervalo = aIntervalo;
+        eIntervalo = aIntervalo;
 
-	}
+    }
 
-	public int getInicio() {return eTronarkoInicio;}
-	
-	public int getOrdem() {
-		return eSuperarko + ((eHiperarko - 1) * 50) + (mTronarko * 500);
-	}
+    public int getInicio() {
+        return eTronarkoInicio;
+    }
 
-	public String getNome() {
-		return eNome;
-	}
+    public int getOrdem() {
+        return eSuperarko + ((eHiperarko - 1) * 50) + (mTronarko * 500);
+    }
 
-	public int getHiperarko() {
-		return eHiperarko;
-	}
+    public String getNome() {
+        return eNome;
+    }
 
-	public int getSuperarko() {
-		return eSuperarko;
-	}
+    public int getHiperarko() {
+        return eHiperarko;
+    }
 
-	public int getTronarkoInicio() {
-		return eTronarkoInicio;
-	}
+    public int getSuperarko() {
+        return eSuperarko;
+    }
 
-	public int getIntervalo() {
-		return eIntervalo;
-	}
+    public int getTronarkoInicio() {
+        return eTronarkoInicio;
+    }
 
-	public int getAntes() {
-		return eAntes;
-	}
+    public int getIntervalo() {
+        return eIntervalo;
+    }
 
-	public int getDepois() {
-		return eDepois;
-	}
+    public int getAntes() {
+        return eAntes;
+    }
 
-	public int getTronarko() {
-		return mTronarko;
-	}
+    public int getDepois() {
+        return eDepois;
+    }
 
-	public void setTronarko(int eTronarko) {
-		mTronarko = eTronarko;
-	}
+    public int getTronarko() {
+        return mTronarko;
+    }
 
-	public int getEdicao() {
-		return mEdicao;
-	}
+    public void setTronarko(int eTronarko) {
+        mTronarko = eTronarko;
+    }
 
-	public void setEdicao(int eEdicao) {
-		mEdicao = eEdicao;
-	}
+    public int getEdicao() {
+        return mEdicao;
+    }
 
-	public int getTronarkoProximoDe(int eProcurarTronarko) {
+    public void setEdicao(int eEdicao) {
+        mEdicao = eEdicao;
+    }
+
+    public int getTronarkoProximoDe(int eProcurarTronarko) {
 
 
-		int ProcurandoTronarko = this.getInicio();
-		while (ProcurandoTronarko < eProcurarTronarko) {
-			ProcurandoTronarko += this.getIntervalo();
-		}
+        int ProcurandoTronarko = this.getInicio();
+        while (ProcurandoTronarko < eProcurarTronarko) {
+            ProcurandoTronarko += this.getIntervalo();
+        }
 
-		return ProcurandoTronarko;
-	}
+        return ProcurandoTronarko;
+    }
 
-	public int getEdicaoroximoDe(int eProcurarTronarko) {
+    public int getEdicaoroximoDe(int eProcurarTronarko) {
 
-		int Edicao = 1;
+        int Edicao = 1;
 
-		int ProcurandoTronarko = this.getInicio();
-		while (ProcurandoTronarko < eProcurarTronarko) {
-			ProcurandoTronarko += this.getIntervalo();
-			Edicao += 1;
-		}
+        int ProcurandoTronarko = this.getInicio();
+        while (ProcurandoTronarko < eProcurarTronarko) {
+            ProcurandoTronarko += this.getIntervalo();
+            Edicao += 1;
+        }
 
-		return Edicao;
-	}
-	
-	public String toString() {
+        return Edicao;
+    }
 
-		String st = "";
+    public String toString() {
 
-		if (eIntervalo == 1) {
-			st = " Tronarko";
-		}
-		if (eIntervalo > 1) {
-			st = " Tronarkos";
-		}
-		
-		
-		return "\t - " + this.getNome() + "  ->  [ " + this.getSuperarko() + "/" + this.getHiperarko() + " ] a cada "
-				+ this.getIntervalo() + st + " desde " + this.getTronarkoInicio();
+        String st = "";
 
-	}
+        if (eIntervalo == 1) {
+            st = " Tronarko";
+        }
+        if (eIntervalo > 1) {
+            st = " Tronarkos";
+        }
+
+
+        return "\t - " + this.getNome() + "  ->  [ " + this.getSuperarko() + "/" + this.getHiperarko() + " ] a cada "
+                + this.getIntervalo() + st + " desde " + this.getTronarkoInicio();
+
+    }
 }

@@ -44,8 +44,8 @@ public class Menu {
         });
     }
 
-    public void setValor(boolean e){
-        mValor=e;
+    public void setValor(boolean e) {
+        mValor = e;
         if (mValor) {
             mEixo = new Cor(0, 255, 0);
         } else {

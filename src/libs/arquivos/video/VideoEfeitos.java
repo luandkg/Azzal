@@ -11,9 +11,9 @@ import java.io.IOException;
 
 public class VideoEfeitos {
 
-    public Arenar guardarFrame(Empilhador eCriador , BufferedImage eFrame) {
+    public Arenar guardarFrame(Empilhador eCriador, BufferedImage eFrame) {
 
-        Arenar f4 = eCriador.empurrarQuadro( eFrame);
+        Arenar f4 = eCriador.empurrarQuadro(eFrame);
 
         String s4 = "Local = " + f4.getLocal() + " Tipo = " + f4.getTipoFrame().toString();
         System.out.println("adicionando " + eCriador.getFrameCorrente() + " - " + s4);
@@ -22,13 +22,13 @@ public class VideoEfeitos {
 
     }
 
-    public Arenar efeitoRepetirQuadro(Empilhador eCriador , BufferedImage eFrame, int eQuantidade) {
+    public Arenar efeitoRepetirQuadro(Empilhador eCriador, BufferedImage eFrame, int eQuantidade) {
 
         Arenar f4 = null;
 
         for (int p = 0; p < eQuantidade; p++) {
 
-            f4 = eCriador.empurrarQuadro( eFrame);
+            f4 = eCriador.empurrarQuadro(eFrame);
 
             String sProlongamento = "Local = " + f4.getLocal() + " Tipo = " + f4.getTipoFrame().toString();
             System.out.println("Repetindo " + eCriador.getFrameCorrente() + " - " + sProlongamento);
@@ -39,7 +39,7 @@ public class VideoEfeitos {
 
     }
 
-    public void efeitoPretoEBrancoPiscar(Empilhador eCriador , BufferedImage eFrame, int eQuantidade) {
+    public void efeitoPretoEBrancoPiscar(Empilhador eCriador, BufferedImage eFrame, int eQuantidade) {
 
         Cinza eCinza = new Cinza();
 
@@ -48,11 +48,11 @@ public class VideoEfeitos {
 
         for (int p = 0; p < eQuantidade; p++) {
 
-            Arenar fpb = eCriador.empurrarQuadro( ePretoEBranco);
+            Arenar fpb = eCriador.empurrarQuadro(ePretoEBranco);
             String sProlongamento = "Local = " + fpb.getLocal() + " Tipo = " + fpb.getTipoFrame().toString();
             System.out.println("Preto " + eCriador.getFrameCorrente() + " - " + sProlongamento);
 
-            Arenar fcol = eCriador.empurrarQuadro( eColorida);
+            Arenar fcol = eCriador.empurrarQuadro(eColorida);
             String sCol = "Local = " + fcol.getLocal() + " Tipo = " + fcol.getTipoFrame().toString();
             System.out.println("Colorido " + eCriador.getFrameCorrente() + " - " + sCol);
 
@@ -60,7 +60,7 @@ public class VideoEfeitos {
 
     }
 
-    public void efeitoMudarCenaHorizontalDuasPartes(Empilhador eCriador , BufferedImage eAntes, BufferedImage eDepois, int eQuantidade) {
+    public void efeitoMudarCenaHorizontalDuasPartes(Empilhador eCriador, BufferedImage eAntes, BufferedImage eDepois, int eQuantidade) {
 
 
         int eLargura = eCriador.getLargura();
@@ -131,7 +131,7 @@ public class VideoEfeitos {
             }
 
 
-            eCriador.empurrarQuadro( mFrameCorrente);
+            eCriador.empurrarQuadro(mFrameCorrente);
 
         }
 

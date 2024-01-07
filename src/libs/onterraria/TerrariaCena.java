@@ -76,8 +76,6 @@ public class TerrariaCena extends Cena {
         }
 
 
-
-
         for (int x = 0; x < 100; x++) {
             for (int y = 0; y < 60; y++) {
                 mRenderizador.drawRect(new Quadrado(50 + (x * 10), 50 + (y * 10), 10), new Cor(0, 0, 0));
@@ -87,7 +85,7 @@ public class TerrariaCena extends Cena {
         for (libs.azzal.geometria.Ponto ePonto : mReferente) {
             mRenderizador.drawRect_Pintado(new Quadrado(ePonto.getX(), ePonto.getY(), 5), new Cor(0, 255, 0));
         }
-        
+
     }
 
 

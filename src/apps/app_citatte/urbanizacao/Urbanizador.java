@@ -2,9 +2,9 @@ package apps.app_citatte.urbanizacao;
 
 import apps.app_citatte.AreaAdministravel;
 import apps.app_citatte.Citatte;
-import apps.app_citatte.engenharia.RosaDosVentos;
 import apps.app_citatte.Stringum;
 import apps.app_citatte.engenharia.AvenidaViaria;
+import apps.app_citatte.engenharia.RosaDosVentos;
 import apps.app_citatte.transito.Rota;
 import apps.app_citatte.transito.Transito;
 import libs.azzal.Cores;

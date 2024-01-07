@@ -16,7 +16,7 @@ public class Tom {
 
     }
 
-    public int getInt(){
+    public int getInt() {
 
         int v = ((a & 0xFF) << 24) |
                 ((b & 0xFF) << 16) |

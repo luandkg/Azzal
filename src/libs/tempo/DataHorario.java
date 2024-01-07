@@ -10,7 +10,7 @@ public class DataHorario {
     private int mMinutos;
     private int mSegundos;
 
-    public DataHorario(int eAno, int eMes, int eDia,int h, int m, int s){
+    public DataHorario(int eAno, int eMes, int eDia, int h, int m, int s) {
 
         mAno = eAno;
         mMes = eMes;
@@ -22,7 +22,7 @@ public class DataHorario {
 
     }
 
-    public DataHorario(String eAno, String eMes, String eDia,String h, String m, String s){
+    public DataHorario(String eAno, String eMes, String eDia, String h, String m, String s) {
 
         mAno = Integer.parseInt(eAno);
         mMes = Integer.parseInt(eMes);
@@ -59,25 +59,27 @@ public class DataHorario {
     }
 
 
-    public String toTempo(){return mAno+"_" + D(mMes)+"_"+D(mDia) +  " - " + D(mHora)+"_"+D(mMinutos)+"_"+D(mSegundos);}
+    public String toTempo() {
+        return mAno + "_" + D(mMes) + "_" + D(mDia) + " - " + D(mHora) + "_" + D(mMinutos) + "_" + D(mSegundos);
+    }
 
-    private String D(int d){
+    private String D(int d) {
         String ds = String.valueOf(d);
-        if(ds.length()==1){
-            return "0"+ds;
+        if (ds.length() == 1) {
+            return "0" + ds;
         }
         return ds;
     }
 
-    public void copiarDe(DataHorario entrada){
+    public void copiarDe(DataHorario entrada) {
 
-        mAno=entrada.getAno();
-        mMes=entrada.getMes();
-        mDia=entrada.getDia();
+        mAno = entrada.getAno();
+        mMes = entrada.getMes();
+        mDia = entrada.getDia();
 
-        mHora=entrada.getHora();
-        mMinutos=entrada.getMinutos();
-        mSegundos=entrada.getSegundos();
+        mHora = entrada.getHora();
+        mMinutos = entrada.getMinutos();
+        mSegundos = entrada.getSegundos();
 
     }
 }

@@ -17,18 +17,18 @@ public class Viajante {
     private String mIndoPara;
 
 
-    private int mPensando ;
-    private int mIndo ;
-    private int mDormindo ;
+    private int mPensando;
+    private int mIndo;
+    private int mDormindo;
 
 
     public Viajante() {
         mX = 0;
         mY = 0;
 
-        mPensando=1;
-        mIndo=1;
-        mDormindo=1;
+        mPensando = 1;
+        mIndo = 1;
+        mDormindo = 1;
 
         mAtitude = mDormindo;
         mTempo = 2;
@@ -44,9 +44,9 @@ public class Viajante {
         mY = eY;
 
 
-        mPensando=1;
-        mIndo=1;
-        mDormindo=1;
+        mPensando = 1;
+        mIndo = 1;
+        mDormindo = 1;
 
         mAtitude = mDormindo;
         mTempo = 2;
@@ -131,11 +131,11 @@ public class Viajante {
         mRota.add(new Ponto(ex, ey));
     }
 
-    public void obterRota(ArrayList<Ponto> rota){
+    public void obterRota(ArrayList<Ponto> rota) {
 
         limparTrilha();
 
-        for(Ponto ePonto : rota){
+        for (Ponto ePonto : rota) {
             adicionarRota(ePonto.getX(), ePonto.getY());
         }
 
@@ -169,8 +169,16 @@ public class Viajante {
         return mIndoPara;
     }
 
-    public int getPensando(){return mPensando;}
-    public int getIndo(){return mIndo;}
-    public int getDormindo(){return mDormindo;}
+    public int getPensando() {
+        return mPensando;
+    }
+
+    public int getIndo() {
+        return mIndo;
+    }
+
+    public int getDormindo() {
+        return mDormindo;
+    }
 
 }

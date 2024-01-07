@@ -2,17 +2,16 @@ package apps.app_attuz.Localizador;
 
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Widgets.NomesEspecificos;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.ComplexoRender;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
 import libs.luan.Lista;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class DroneCamera {
 
@@ -64,9 +63,9 @@ public class DroneCamera {
                     int quadrado_x = (xCenter - i) * (xCenter - i);
                     int quadrado_y = (yCenter - j) * (yCenter - j);
 
-                   // if (Math.sqrt(quadrado_x + quadrado_y) <= raio) {
-                        img.setRGB(i, j, mapa.getRGB(ix, iy));
-                  //  }
+                    // if (Math.sqrt(quadrado_x + quadrado_y) <= raio) {
+                    img.setRGB(i, j, mapa.getRGB(ix, iy));
+                    //  }
 
                 }
 

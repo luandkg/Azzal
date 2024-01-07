@@ -13,6 +13,7 @@ public class LittleEndianInt {
 
     /**
      * Converts little endian value to big endian
+     *
      * @return Big Endian int
      */
     public int convert() {

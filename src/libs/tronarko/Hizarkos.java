@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-public  enum Hizarkos {
+public enum Hizarkos {
 
     HITTARIUM(1), DEGGOVIUM(2), NUZTIUM(3), HARBARIUM(4);
 

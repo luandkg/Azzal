@@ -43,7 +43,7 @@ public class Exibittor {
 
     public void exibir_dados(String item) {
 
-        item = "       " + item+ "       ---->>      ";
+        item = "       " + item + "       ---->>      ";
 
         String cabecalho_completo = fmt.espacar_depois(item, 2 * mTamanho);
 
@@ -55,7 +55,7 @@ public class Exibittor {
         mDados.clear();
     }
 
-    public static void nova_secao(String titulo){
+    public static void nova_secao(String titulo) {
         System.out.println("");
         System.out.println(titulo);
         System.out.println("");

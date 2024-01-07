@@ -19,7 +19,7 @@ public class Bytes {
                 (byte) value};
     }
 
-    public static  int bytestoInt(byte[] bytes) {
+    public static int bytestoInt(byte[] bytes) {
         return ((bytes[0] & 0xFF) << 24) |
                 ((bytes[1] & 0xFF) << 16) |
                 ((bytes[2] & 0xFF) << 8) |

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ExcluirMarcacao {
 
-    public void excluir(ArrayList<Local> mMarcacoes, Escala mRelevo){
+    public void excluir(ArrayList<Local> mMarcacoes, Escala mRelevo) {
 
         ArrayList<Local> remover = new ArrayList<Local>();
 

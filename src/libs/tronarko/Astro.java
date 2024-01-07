@@ -18,28 +18,32 @@ public class Astro {
     private int mPosX;
     private int mPosY;
 
-    public Astro(String eNome, Cor eCor, int ex1, int ey1, int ex2, int ey2,int ePasso,int eTaxa,int eMaximo) {
-        mNome=eNome;
+    public Astro(String eNome, Cor eCor, int ex1, int ey1, int ex2, int ey2, int ePasso, int eTaxa, int eMaximo) {
+        mNome = eNome;
         mCor = eCor;
         mx1 = ex1;
         my1 = ey1;
         mx2 = ex2;
         my2 = ey2;
         mPasso = ePasso;
-        mTaxa=eTaxa;
-        mMaximo=eMaximo;
+        mTaxa = eTaxa;
+        mMaximo = eMaximo;
 
-        mPosX=0;
-        mPosY=0;
+        mPosX = 0;
+        mPosY = 0;
     }
 
     public Cor getCor() {
         return mCor;
     }
 
-    public int getTaxa(){return mTaxa;}
+    public int getTaxa() {
+        return mTaxa;
+    }
 
-    public int getMaximo(){return mMaximo;}
+    public int getMaximo() {
+        return mMaximo;
+    }
 
     public int getX1() {
         return mx1;
@@ -69,15 +73,22 @@ public class Astro {
         mTaxa = eTaxa;
     }
 
-    public String getNome(){return mNome;}
-
-
-    public void setPos(int ex,int ey){
-        mPosX=ex;
-        mPosY=ey;
+    public String getNome() {
+        return mNome;
     }
 
-    public int getPosX(){return mPosX;}
-    public int getPosY(){return mPosY;}
+
+    public void setPos(int ex, int ey) {
+        mPosX = ex;
+        mPosY = ey;
+    }
+
+    public int getPosX() {
+        return mPosX;
+    }
+
+    public int getPosY() {
+        return mPosY;
+    }
 
 }

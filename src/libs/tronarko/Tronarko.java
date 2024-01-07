@@ -62,8 +62,8 @@ public class Tronarko {
         int ano = c.get(Calendar.YEAR);
 
 
-        Hazde eHazde = getHora(eHora,eMinuto,eSegundo,eMilisegundo);
-        Tozte eTozte = getData(dia,mes,ano);
+        Hazde eHazde = getHora(eHora, eMinuto, eSegundo, eMilisegundo);
+        Tozte eTozte = getData(dia, mes, ano);
 
         return new Tron(eHazde, eTozte);
     }
@@ -96,14 +96,14 @@ public class Tronarko {
     public static Tozte getData(int eDia, int eMes, int eAno) {
 
         // System.out.printf("\nHCC : %s",eData);
-        
+
         String sDia = S(eDia);
         String sMes = S(eMes);
         String sAno = S(eAno);
 
         String DATA_AQUI = sDia + "/" + sMes + "/" + sAno;
 
-        RefInt diferenca_de_dias = new RefInt(getDias(DATA_INICIO,DATA_AQUI));
+        RefInt diferenca_de_dias = new RefInt(getDias(DATA_INICIO, DATA_AQUI));
 
 
         RefInt iTronarko = new RefInt(TRONARKO_INICIO);
@@ -243,10 +243,11 @@ public class Tronarko {
         return diferenca_de_dias;
     }
 
-    public static long SUPERARKOS_ENTRE_COM(Tozte inicio,Tozte fim){
+    public static long SUPERARKOS_ENTRE_COM(Tozte inicio, Tozte fim) {
         return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkos();
     }
-    public static long SUPERARKOS_ENTRE_COM_FIM(Tozte inicio,Tozte fim){
+
+    public static long SUPERARKOS_ENTRE_COM_FIM(Tozte inicio, Tozte fim) {
         return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkosComFim();
     }
 

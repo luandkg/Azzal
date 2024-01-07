@@ -1,12 +1,12 @@
 package apps.app_attuz.Localizador;
 
 import libs.tronarko.Intervalos.Tron_Intervalo;
-import libs.tronarko.utils.StringTronarko;
 import libs.tronarko.Tron;
+import libs.tronarko.utils.StringTronarko;
 
 public class ViajemAcao {
 
-    public static void onVisita(String cidade_chegou, String cidade_agora){
+    public static void onVisita(String cidade_chegou, String cidade_agora) {
 
         System.out.println("\t - Cheguei :: " + cidade_chegou);
         System.out.println("\t - Agora   :: " + cidade_agora);
@@ -28,7 +28,7 @@ public class ViajemAcao {
         int a_a = Integer.parseInt(st.getArkoFormatoComplexo(cidade_agora));
         int a_i = Integer.parseInt(st.getIttasFormatoComplexo(cidade_agora));
 
-        Tron_Intervalo ti = new Tron_Intervalo("",new Tron(v_a,v_i,0,vs,vh,vt),new Tron(a_a,a_i,0,as,ah,at));
+        Tron_Intervalo ti = new Tron_Intervalo("", new Tron(v_a, v_i, 0, vs, vh, vt), new Tron(a_a, a_i, 0, as, ah, at));
 
 
         System.out.println("\t - Duracao :: " + ti.getIntervalo());
@@ -36,7 +36,7 @@ public class ViajemAcao {
 
     }
 
-    public static void onEscurcao(String viagem_comecou, String viagem_agora){
+    public static void onEscurcao(String viagem_comecou, String viagem_agora) {
 
         System.out.println("\t - Comecei :: " + viagem_comecou);
         System.out.println("\t - Agora   :: " + viagem_agora);
@@ -58,7 +58,7 @@ public class ViajemAcao {
         int a_a = Integer.parseInt(st.getArkoFormatoComplexo(viagem_agora));
         int a_i = Integer.parseInt(st.getIttasFormatoComplexo(viagem_agora));
 
-        Tron_Intervalo ti = new Tron_Intervalo("",new Tron(v_a,v_i,0,vs,vh,vt),new Tron(a_a,a_i,0,as,ah,at));
+        Tron_Intervalo ti = new Tron_Intervalo("", new Tron(v_a, v_i, 0, vs, vh, vt), new Tron(a_a, a_i, 0, as, ah, at));
 
 
         System.out.println("\t - Duracao :: " + ti.getIntervalo());

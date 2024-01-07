@@ -1,19 +1,17 @@
 package apps.app_attuz.Arkazz;
 
 
-import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.Caminho;
+import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.Local;
 import libs.azzal.geometria.Ponto;
 import libs.dkg.DKG;
-
-import java.util.ArrayList;
-
 import libs.dkg.DKGObjeto;
 import libs.luan.Lista;
 
-public class Cidades {
+import java.util.ArrayList;
 
+public class Cidades {
 
 
     public static void salvar(ArrayList<Local> mLocais, String eArquivo) {
@@ -118,11 +116,10 @@ public class Cidades {
     }
 
 
+    public static Local getLocalizacao(Lista<Local> cidades, String eNome) {
 
-    public static Local getLocalizacao(Lista<Local> cidades,String eNome){
-
-        for(Local l : cidades){
-            if (l.getNome().contentEquals(eNome)){
+        for (Local l : cidades) {
+            if (l.getNome().contentEquals(eNome)) {
                 return l;
             }
         }

@@ -42,7 +42,7 @@ public class Imagem {
         return copia;
     }
 
-    public static BufferedImage criarEmBranco(int largura,int altura) {
+    public static BufferedImage criarEmBranco(int largura, int altura) {
 
 
         BufferedImage imagem = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);

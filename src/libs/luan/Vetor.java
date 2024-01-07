@@ -2,7 +2,7 @@ package libs.luan;
 
 import java.util.Iterator;
 
-public class Vetor<T> implements Iterable<T>{
+public class Vetor<T> implements Iterable<T> {
 
     private T mDados[];
     private int mCapacidade;
@@ -18,7 +18,7 @@ public class Vetor<T> implements Iterable<T>{
 
     }
 
-    public Vetor(int eCapacidade,T eValorInicial) {
+    public Vetor(int eCapacidade, T eValorInicial) {
 
         mDados = (T[]) new Object[eCapacidade];
         mCapacidade = eCapacidade;
@@ -27,7 +27,7 @@ public class Vetor<T> implements Iterable<T>{
             throw new IllegalArgumentException("A capacidade deve ser maior que 0 ");
         }
 
-        for(int index=0;index<eCapacidade;index++){
+        for (int index = 0; index < eCapacidade; index++) {
             mDados[index] = eValorInicial;
         }
 

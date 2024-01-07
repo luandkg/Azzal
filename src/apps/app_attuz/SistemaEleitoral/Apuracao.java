@@ -119,10 +119,10 @@ public class Apuracao {
     }
 
 
-    public static void realizar_apuracao_das_urnas_tempo_real(int cidadaos_obrigados, String local_territorios,String local_urnas) {
+    public static void realizar_apuracao_das_urnas_tempo_real(int cidadaos_obrigados, String local_territorios, String local_urnas) {
 
 
-        ApuracaoEmTempoReal tempo_real = new ApuracaoEmTempoReal(cidadaos_obrigados,local_territorios, local_urnas);
+        ApuracaoEmTempoReal tempo_real = new ApuracaoEmTempoReal(cidadaos_obrigados, local_territorios, local_urnas);
 
 
         while (tempo_real.tem_mais_urnas()) {
@@ -130,7 +130,6 @@ public class Apuracao {
         }
 
         tempo_real.exibir();
-
 
 
     }

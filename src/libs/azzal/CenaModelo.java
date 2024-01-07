@@ -1,7 +1,7 @@
 package libs.azzal;
 
 import libs.azzal.cenarios.Cena;
-import libs.azzal.utilitarios.*;
+import libs.azzal.utilitarios.Cor;
 
 
 public class CenaModelo extends Cena {

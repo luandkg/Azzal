@@ -17,11 +17,11 @@ public class Matematica {
         return porcentagem;
     }
 
-    public static String toNumeroPortugues(String valor){
+    public static String toNumeroPortugues(String valor) {
         return valor.replace(".", ",");
     }
 
-    public static String toNumeroDouble(String valor){
+    public static String toNumeroDouble(String valor) {
         return valor.replace(",", ".");
     }
 
@@ -70,7 +70,7 @@ public class Matematica {
             }
 
             if (!teveSegundaPsrte) {
-                numero=false;
+                numero = false;
             }
         }
 

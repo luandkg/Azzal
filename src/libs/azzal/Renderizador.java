@@ -3,7 +3,6 @@ package libs.azzal;
 import libs.azzal.geometria.*;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Luz;
-import libs.luan.Iterador;
 import libs.luan.Lista;
 
 import javax.imageio.ImageIO;
@@ -119,7 +118,7 @@ public class Renderizador {
                         int alpha = 0xFF & (cor >> 24);
 
                         if (alpha == 255) {
-                           mPixels[ePox] = cor;
+                            mPixels[ePox] = cor;
                         }
 
 
@@ -1236,11 +1235,11 @@ public class Renderizador {
             int eX_Inicio = luz.getX_Inicio();
             int eX_Fim = luz.getX_Fim();
 
-            int eY_Inicio =luz.getY_Inicio();
+            int eY_Inicio = luz.getY_Inicio();
             int eY_Fim = luz.getY_Fim();
 
             Cor eCor = luz.getCor();
-            int eTam =luz.getTamanho();
+            int eTam = luz.getTamanho();
 
 
             //  System.out.println("X ->> " + eX_Inicio + " :: " + eX_Fim);

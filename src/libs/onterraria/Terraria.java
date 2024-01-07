@@ -56,15 +56,15 @@ public class Terraria {
                         int dif = ePonto.getResto() - LATIDUDE_MIN.getResto();
 
                         double tax = (double) (dif) / (double) ESPECTRO_LARGURA;
-                        int real = (int) ((1.0-tax )* LARGURA);
+                        int real = (int) ((1.0 - tax) * LARGURA);
 
-                       // System.out.println("Aqui : " + ePonto.getResto());
+                        // System.out.println("Aqui : " + ePonto.getResto());
                         //System.out.println("Min : " + LATIDUDE_MIN.getResto());
                         //System.out.println("Dif : " + dif);
-                       // System.out.println("Tax : " + tax);
+                        // System.out.println("Tax : " + tax);
                         //System.out.println("Tax : " + real);
 
-                        n=real;
+                        n = real;
                     }
 
                 }
@@ -106,13 +106,13 @@ public class Terraria {
                         double tax = (double) (dif) / (double) ESPECTRO_ALTURA;
                         int real = (int) (tax * ALTURA);
 
-                       // System.out.println("Aqui : " + ePonto.getResto());
-                       // System.out.println("Min : " + LONTITUDE_MIN.getResto());
-                       // System.out.println("Dif : " + dif);
-                      //  System.out.println("Tax : " + tax);
-                       // System.out.println("Tax : " + real);
+                        // System.out.println("Aqui : " + ePonto.getResto());
+                        // System.out.println("Min : " + LONTITUDE_MIN.getResto());
+                        // System.out.println("Dif : " + dif);
+                        //  System.out.println("Tax : " + tax);
+                        // System.out.println("Tax : " + real);
 
-                        n=real;
+                        n = real;
                     }
 
                 }

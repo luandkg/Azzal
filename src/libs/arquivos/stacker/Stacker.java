@@ -140,15 +140,15 @@ public class Stacker {
 
         Arquivador arquivar = new Arquivador(eArquivo);
 
-          System.out.println("Tamanho :: " + arquivar.getLength());
+        System.out.println("Tamanho :: " + arquivar.getLength());
 
         arquivar.setPonteiro(0);
 
         int b1 = Inteiro.byteToInt(arquivar.get());
         int b2 = Inteiro.byteToInt(arquivar.get());
 
-          System.out.println("B1 :: " + b1);
-           System.out.println("B2 :: " + b2);
+        System.out.println("B1 :: " + b1);
+        System.out.println("B2 :: " + b2);
 
         int status = Inteiro.byteToInt(arquivar.get());
 
@@ -183,8 +183,6 @@ public class Stacker {
 
         return itens;
     }
-
-
 
 
     public static Opcional<StackItem> buscar_item(String eArquivo, String eNome) {

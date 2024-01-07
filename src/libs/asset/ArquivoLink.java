@@ -13,10 +13,10 @@ public class ArquivoLink {
     private long mInicio;
     private long mFim;
 
-    public ArquivoLink(AssetContainer eAssetContainer, String eNome,String eoNome, long eInicio, long eFim) {
+    public ArquivoLink(AssetContainer eAssetContainer, String eNome, String eoNome, long eInicio, long eFim) {
 
         mNome = eNome;
-        mONome=eoNome;
+        mONome = eoNome;
         mInicio = eInicio;
         mFim = eFim;
 
@@ -42,8 +42,7 @@ public class ArquivoLink {
 
     private void abrir() {
 
-        mArquivo = new Arquivo(mAssetContainer,mArquivo.getReferencia(),new AssetRef(mONome,12,mInicio,mFim));
-
+        mArquivo = new Arquivo(mAssetContainer, mArquivo.getReferencia(), new AssetRef(mONome, 12, mInicio, mFim));
 
 
     }

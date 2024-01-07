@@ -852,7 +852,6 @@ public class Tozte {
     }
 
 
-
     public static Igualavel<Tozte> IGUALDADE() {
         return new Igualavel<Tozte>() {
             @Override

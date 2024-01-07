@@ -10,8 +10,8 @@ public class Opcode {
     public final static byte readi8 = (byte) 10;
     public final static byte readi16 = (byte) 11;
 
-    public final static byte get8= (byte) 8;
-    public final static byte get16= (byte) 9;
+    public final static byte get8 = (byte) 8;
+    public final static byte get16 = (byte) 9;
 
     public final static byte setRegA = (byte) 12;
     public final static byte setRegB = (byte) 13;
@@ -32,13 +32,13 @@ public class Opcode {
     public final static byte addI16 = (byte) 30;
     public final static byte subI16 = (byte) 31;
     public final static byte muxI16 = (byte) 32;
-    public final static byte divI16= (byte) 33;
-    public final static byte movI16= (byte) 34;
+    public final static byte divI16 = (byte) 33;
+    public final static byte movI16 = (byte) 34;
 
 
     public final static byte setGoto = (byte) 100;
 
-    public final static byte sendi8= (byte) 90;
+    public final static byte sendi8 = (byte) 90;
 
 
     public final static byte encerrar = (byte) 255;
@@ -109,9 +109,11 @@ public class Opcode {
     public static boolean isMovI8(I8 eValor) {
         return (eValor.getByte() == Opcode.movI8);
     }
+
     public static boolean isMovI16(I8 eValor) {
         return (eValor.getByte() == Opcode.movI16);
     }
+
     public static boolean isSendi8(I8 eValor) {
         return (eValor.getByte() == Opcode.sendi8);
     }

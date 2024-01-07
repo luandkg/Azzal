@@ -1,14 +1,14 @@
 package apps.app_arquivos;
 
-import libs.azzal.utilitarios.Cronometro;
-import libs.arquivos.video.Video;
-import libs.arquivos.video.LinhaDoTempo;
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.arquivos.video.LinhaDoTempo;
+import libs.arquivos.video.Video;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 
@@ -25,9 +25,9 @@ public class AppVideo extends Cena {
 
     Clicavel mClicavel;
 
-     String eArquivoAbrir = "/home/luan/Vídeos/vi/ecossistema_v2.vi";
+    String eArquivoAbrir = "/home/luan/Vídeos/vi/ecossistema_v2.vi";
     // String eArquivoAbrir = "/home/luan/Vídeos/vi/alunos_v2.vi";
-   // String eArquivoAbrir = "/home/luan/Imagens/Arkazz/build/temperatura.vi";
+    // String eArquivoAbrir = "/home/luan/Imagens/Arkazz/build/temperatura.vi";
 
 
     private boolean mAberto = false;
@@ -87,7 +87,7 @@ public class AppVideo extends Cena {
         mVideo.abrir(eArquivoAbrir);
 
         mCron = new Cronometro(mVideo.getTaxa());
-          mCron = new Cronometro(5);
+        mCron = new Cronometro(5);
 
         mAberto = true;
 
@@ -163,9 +163,9 @@ public class AppVideo extends Cena {
 
 
         if (mAberto && mCarregado) {
-           // r.drawImagem(100, 100, mVideo.getImagemCorrente());
+            // r.drawImagem(100, 100, mVideo.getImagemCorrente());
 
-            BufferedImage reduzido = libs.imagem.Efeitos.reduzir(mVideo.getImagemCorrente(),mVideo.getImagemCorrente().getWidth()/3,mVideo.getImagemCorrente().getHeight()/3);
+            BufferedImage reduzido = libs.imagem.Efeitos.reduzir(mVideo.getImagemCorrente(), mVideo.getImagemCorrente().getWidth() / 3, mVideo.getImagemCorrente().getHeight() / 3);
             r.drawImagem(100, 100, reduzido);
 
         }

@@ -137,7 +137,6 @@ public class FonteJavaGerador {
         documento += "\n\t }";
 
 
-
         documento += "\n \tpublic int getLarguraDe(String frase) {";
         documento += "\n \t\t     int i = 0;";
         documento += "\n \t\t    int o = frase.length();";

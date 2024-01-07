@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-public  enum Superarkos {
+public enum Superarkos {
 
     ALFA(1), BETA(2), GAMA(3), DELTA(4), EPSILON(5), IOTA(6), KAPA(7), ZETA(8), SIGMA(9), OMEGA(10);
 

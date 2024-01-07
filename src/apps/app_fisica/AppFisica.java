@@ -57,7 +57,7 @@ public class AppFisica extends Cena {
 
     public AppFisica() {
 
-        mLetramentoPreto = new FonteRunTime(new Cor(255,0,0),10);
+        mLetramentoPreto = new FonteRunTime(new Cor(255, 0, 0), 10);
 
         zerar();
 
@@ -103,7 +103,7 @@ public class AppFisica extends Cena {
     @Override
     public void iniciar(Windows eWindows) {
         eWindows.setTitle("Cena 1 - libs.Luan Freitas");
-        mTeclado=eWindows.getTeclado();
+        mTeclado = eWindows.getTeclado();
     }
 
     @Override

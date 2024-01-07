@@ -48,8 +48,8 @@ public class Horario {
     }
 
 
-    public long getValor(){
-        return (mHora*60*60) + (mMinutos*60) + mSegundos;
+    public long getValor() {
+        return (mHora * 60 * 60) + (mMinutos * 60) + mSegundos;
     }
 
 
@@ -86,8 +86,7 @@ public class Horario {
         }
 
 
-
-        return sh + ":" + sm ;
+        return sh + ":" + sm;
     }
 
 }

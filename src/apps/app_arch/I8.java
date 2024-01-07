@@ -19,6 +19,7 @@ public class I8 {
     public void set(I8 v1) {
         m = v1.getByte();
     }
+
     public byte getByte() {
         return m;
     }

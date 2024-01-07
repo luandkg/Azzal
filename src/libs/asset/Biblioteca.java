@@ -73,12 +73,12 @@ public class Biblioteca {
 
                 for (Arquivo eArquivo : mAssetContainer.getArquivos()) {
                     boolean incluir = false;
-                    for(String eExt : mExtensoes){
-                        if (eArquivo.getNome().endsWith(eExt)){
-                            incluir=true;
+                    for (String eExt : mExtensoes) {
+                        if (eArquivo.getNome().endsWith(eExt)) {
+                            incluir = true;
                         }
                     }
-                    if (incluir){
+                    if (incluir) {
                         mArquivos.add(eArquivo);
                     }
                 }
@@ -86,23 +86,23 @@ public class Biblioteca {
                     abrirLocal(ePasta);
                 }
 
-            } else   if (eLocal.contentEquals("/")){
+            } else if (eLocal.contentEquals("/")) {
 
-                for(Arquivo eArquivo : mAssetContainer.getArquivos()){
+                for (Arquivo eArquivo : mAssetContainer.getArquivos()) {
                     boolean incluir = false;
-                    for(String eExt : mExtensoes){
-                        if (eArquivo.getNome().endsWith(eExt)){
-                            incluir=true;
+                    for (String eExt : mExtensoes) {
+                        if (eArquivo.getNome().endsWith(eExt)) {
+                            incluir = true;
                         }
                     }
-                    if (incluir){
+                    if (incluir) {
                         mArquivos.add(eArquivo);
                     }
                 }
                 for (Pasta ePasta : mAssetContainer.getPastas()) {
                     abrirLocal(ePasta);
                 }
-            }else{
+            } else {
                 Pasta ePasta = mAssetContainer.getPastaCaminho(eLocal);
 
                 abrirLocal(ePasta);
@@ -112,61 +112,59 @@ public class Biblioteca {
         }
     }
 
-    private void abrirLocal(Pasta ePasta){
+    private void abrirLocal(Pasta ePasta) {
 
 
+        Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
 
-            Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
+        fu.setPonteiro(ePasta.getInicio());
 
-            fu.setPonteiro(ePasta.getInicio());
+        int v = 0;
 
-            int v = 0;
+        while (v != 13) {
+            v = (int) fu.get();
 
-            while (v != 13) {
-                v = (int) fu.get();
+            if (v == 11) {
 
-                if (v == 11) {
+                String s1 = StringView.deArquivador(fu, 100);
 
-                    String s1 = StringView.deArquivador(fu,100);
+                long r1 = fu.getPonteiro();
+                long l2 = fu.get_u64();
 
-                    long r1 = fu.getPonteiro();
-                    long l2 = fu.get_u64();
+                long r2 = fu.getPonteiro();
 
-                    long r2 = fu.getPonteiro();
+                long l3 = fu.get_u64();
 
-                    long l3 = fu.get_u64();
-
-                    abrirLocal(new Pasta(mAssetContainer, new Referencia(r1, r2),new AssetRef(s1, 11, l2, l3)));
+                abrirLocal(new Pasta(mAssetContainer, new Referencia(r1, r2), new AssetRef(s1, 11, l2, l3)));
 
 
-                } else if (v == 12) {
+            } else if (v == 12) {
 
-                    String s1 = StringView.deArquivador(fu,100);
+                String s1 = StringView.deArquivador(fu, 100);
 
-                    long r1 = fu.getPonteiro();
-                    long l2 = fu.get_u64();
+                long r1 = fu.getPonteiro();
+                long l2 = fu.get_u64();
 
-                    long r2 = fu.getPonteiro();
-                    long l3 = fu.get_u64();
+                long r2 = fu.getPonteiro();
+                long l3 = fu.get_u64();
 
-                    Arquivo eArquivo = new Arquivo(mAssetContainer,new Referencia(r1, r2), new AssetRef(s1, 12, l2, l3));
+                Arquivo eArquivo = new Arquivo(mAssetContainer, new Referencia(r1, r2), new AssetRef(s1, 12, l2, l3));
 
-                    boolean incluir = false;
-                    for(String eExt : mExtensoes){
-                        if (eArquivo.getNome().endsWith(eExt)){
-                            incluir=true;
-                        }
+                boolean incluir = false;
+                for (String eExt : mExtensoes) {
+                    if (eArquivo.getNome().endsWith(eExt)) {
+                        incluir = true;
                     }
-                    if (incluir){
-                        mArquivos.add(eArquivo);
-                    }
-
-
                 }
+                if (incluir) {
+                    mArquivos.add(eArquivo);
+                }
+
+
             }
+        }
 
-            fu.encerrar();
-
+        fu.encerrar();
 
 
     }

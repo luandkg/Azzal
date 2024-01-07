@@ -28,7 +28,7 @@ public class XLSX {
 
         for (Documento doc : documentos) {
 //            System.out.println(doc.getNome() + " :: " + doc.getConteudo().length());
-       }
+        }
 
         for (Documento doc : documentos) {
             if (doc.getNome().contentEquals("xl/sharedStrings.xml")) {
@@ -51,8 +51,8 @@ public class XLSX {
         for (Documento doc : documentos) {
             if (doc.getNome().contentEquals("xl/workbook.xml")) {
 
-             //   System.out.println("WORK BOOK");
-              //  System.out.println(doc.getConteudo());
+                //   System.out.println("WORK BOOK");
+                //  System.out.println(doc.getConteudo());
 
                 XML xml = new XML();
                 xml.parser(doc.getConteudo());
@@ -164,11 +164,11 @@ public class XLSX {
 
                     ArenaChunk chunks = new ArenaChunk();
 
-                    byte [] buffer = new byte[1024];
+                    byte[] buffer = new byte[1024];
                     int len = 0;
 
                     while ((len = zis.read(buffer)) > 0) {
-                        chunks.adicionar(buffer,len);
+                        chunks.adicionar(buffer, len);
                     }
 
 

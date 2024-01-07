@@ -40,15 +40,15 @@ public class Cinza {
 
     public static int[] derivar(int rgb) {
         int r = (rgb >> 16) & 0xFF;
-        int g = (rgb >>  8) & 0xFF;
-        int b = (rgb >>  0) & 0xFF;
-        return new int[] { r, g, b };
+        int g = (rgb >> 8) & 0xFF;
+        int b = (rgb >> 0) & 0xFF;
+        return new int[]{r, g, b};
     }
 
     public static int integrar(int[] rgb) {
         int r = (rgb[0] & 0xFF) << 16;
-        int g = (rgb[1] & 0xFF) <<  8;
-        int b = (rgb[2] & 0xFF) <<  0;
+        int g = (rgb[1] & 0xFF) << 8;
+        int b = (rgb[2] & 0xFF) << 0;
         return r | g | b;
     }
 

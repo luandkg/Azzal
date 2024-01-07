@@ -156,8 +156,8 @@ public class StringTronarko {
             }
             i += 1;
         }
-        if (s4.length()==0){
-            s4="0";
+        if (s4.length() == 0) {
+            s4 = "0";
         }
         return s4;
     }
@@ -215,8 +215,8 @@ public class StringTronarko {
             i += 1;
         }
 
-        if (s5.length()==0){
-            s5="0";
+        if (s5.length() == 0) {
+            s5 = "0";
         }
         return s5;
     }

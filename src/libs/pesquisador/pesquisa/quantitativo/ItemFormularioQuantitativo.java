@@ -7,12 +7,12 @@ public class ItemFormularioQuantitativo {
 
     public ItemFormularioQuantitativo() {
         mRespondido = false;
-        mResposta =0;
+        mResposta = 0;
     }
 
 
     public boolean foiRespondido() {
-        return mRespondido ;
+        return mRespondido;
     }
 
     public void responder(int eResposta) {
@@ -20,6 +20,8 @@ public class ItemFormularioQuantitativo {
         mRespondido = true;
     }
 
-    public int getResposta(){return mResposta;}
+    public int getResposta() {
+        return mResposta;
+    }
 
 }

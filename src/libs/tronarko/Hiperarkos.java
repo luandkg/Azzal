@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-public  enum Hiperarkos {
+public enum Hiperarkos {
 
     DAZTO(1), HERTO(2), PURGO(3), NOPTO(4), FENCO(5), MOZTO(6), CARGO(7), RIZNO(8), SACNO(9), TORNO(10);
 
@@ -61,31 +61,31 @@ public  enum Hiperarkos {
                 ret = "1 - " + Hiperarkos.DAZTO.toString();
                 break;
             case 2:
-                ret = "2 - " +Hiperarkos.HERTO.toString();
+                ret = "2 - " + Hiperarkos.HERTO.toString();
                 break;
             case 3:
-                ret = "3 - " +Hiperarkos.PURGO.toString();
+                ret = "3 - " + Hiperarkos.PURGO.toString();
                 break;
             case 4:
-                ret = "4 - " +Hiperarkos.NOPTO.toString();
+                ret = "4 - " + Hiperarkos.NOPTO.toString();
                 break;
             case 5:
-                ret = "5 - " +Hiperarkos.FENCO.toString();
+                ret = "5 - " + Hiperarkos.FENCO.toString();
                 break;
             case 6:
-                ret = "6 - " +Hiperarkos.MOZTO.toString();
+                ret = "6 - " + Hiperarkos.MOZTO.toString();
                 break;
             case 7:
-                ret = "7 - " +Hiperarkos.CARGO.toString();
+                ret = "7 - " + Hiperarkos.CARGO.toString();
                 break;
             case 8:
-                ret = "8 - " +Hiperarkos.RIZNO.toString();
+                ret = "8 - " + Hiperarkos.RIZNO.toString();
                 break;
             case 9:
-                ret = "9 - " +Hiperarkos.SACNO.toString();
+                ret = "9 - " + Hiperarkos.SACNO.toString();
                 break;
             case 10:
-                ret = "10 - " +Hiperarkos.TORNO.toString();
+                ret = "10 - " + Hiperarkos.TORNO.toString();
                 break;
         }
 

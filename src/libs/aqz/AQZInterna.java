@@ -490,16 +490,16 @@ public class AQZInterna {
     }
 
 
-    public void views_criar(String view_nome,String colecao_nome,Lista<String> colunas) {
+    public void views_criar(String view_nome, String colecao_nome, Lista<String> colunas) {
 
         Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
         Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
 
-        if(!views_existe(view_nome)){
+        if (!views_existe(view_nome)) {
 
 
             DKGObjeto init_views = new DKGObjeto("INIT");
-            ItemDoBanco ref_init_views= null;
+            ItemDoBanco ref_init_views = null;
             boolean init_views_existe = false;
 
             for (ItemDoBanco item : s_inits.getItens()) {
@@ -541,18 +541,18 @@ public class AQZInterna {
 
             int view_id = init_views.identifique("Corrente").getInteiro(0);
 
-            init_views.identifique("Corrente",   init_views.identifique("Corrente").getInteiro(0)+  init_views.identifique("Sequencia").getInteiro(0));
+            init_views.identifique("Corrente", init_views.identifique("Corrente").getInteiro(0) + init_views.identifique("Sequencia").getInteiro(0));
             ref_init_views.atualizar(init_views.toDocumento());
 
             DKGObjeto obj_view = new DKGObjeto("View");
-            obj_view.identifique("ID",view_id);
-            obj_view.identifique("Nome",view_nome.toUpperCase());
-            obj_view.identifique("NomeOriginal",view_nome);
-            obj_view.identifique("Banco",colecao_nome.toUpperCase());
+            obj_view.identifique("ID", view_id);
+            obj_view.identifique("Nome", view_nome.toUpperCase());
+            obj_view.identifique("NomeOriginal", view_nome);
+            obj_view.identifique("Banco", colecao_nome.toUpperCase());
 
-            for(String coluna : colunas){
+            for (String coluna : colunas) {
                 DKGObjeto obj_view_coluna = obj_view.criarObjeto("Coluna");
-                obj_view_coluna.identifique("Nome",coluna);
+                obj_view_coluna.identifique("Nome", coluna);
             }
 
 
@@ -577,30 +577,30 @@ public class AQZInterna {
     }
 
     public boolean views_existe(String view_nome) {
-        view_nome=view_nome.toUpperCase();
+        view_nome = view_nome.toUpperCase();
 
         Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
         Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
 
         for (ItemDoBanco item : s_views.getItens()) {
             DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
-           if(obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)){
-               return true;
-           }
+            if (obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)) {
+                return true;
+            }
         }
 
         return false;
     }
 
     public DKGObjeto views_obter(String view_nome) {
-        view_nome=view_nome.toUpperCase();
+        view_nome = view_nome.toUpperCase();
 
         Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
         Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
 
         for (ItemDoBanco item : s_views.getItens()) {
             DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
-            if(obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)){
+            if (obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)) {
                 return obj;
             }
         }
@@ -610,15 +610,15 @@ public class AQZInterna {
 
 
     public void views_remover(String view_nome) {
-        view_nome=view_nome.toUpperCase();
+        view_nome = view_nome.toUpperCase();
 
         Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
         Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
 
         for (ItemDoBanco item : s_views.getItens()) {
             DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
-            if(obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)){
-              s_views.remover(item);
+            if (obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)) {
+                s_views.remover(item);
                 break;
             }
         }

@@ -20,7 +20,6 @@ public class EngenhariaDeObras {
         }
 
 
-
         fmt.print("ORGANIZANDO CRUZAMENTOS : PROCESSAR");
 
         int p_25 = avenidas.getQuantidade() / 4;

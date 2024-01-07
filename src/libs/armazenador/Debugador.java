@@ -10,7 +10,7 @@ public class Debugador {
         debug_momentum(AZColecionador.getMomentum());
     }
 
-    public static void debug_colecionador_completo(AZColecionador AZColecionador){
+    public static void debug_colecionador_completo(AZColecionador AZColecionador) {
 
         Debugador.debug_colecionador(AZColecionador);
         for (Banco banco : AZColecionador.getMomentum().getBancos()) {
@@ -46,7 +46,6 @@ public class Debugador {
         System.out.println("\t\t -->> Tamanho Cheio              =  " + fmt.espacar_depois(String.valueOf(banco.getTamanhoCheio()), 10) + " :: " + fmt.formatar_tamanho(banco.getTamanhoCheio()));
         System.out.println("\t\t -->> Tamanho Alocado            =  " + fmt.espacar_depois(String.valueOf(banco.getTamanho()), 10) + " :: " + fmt.formatar_tamanho(banco.getTamanho()));
         System.out.println("\t\t -->> Tamanho Utilizado          =  " + fmt.espacar_depois(String.valueOf(banco.getTamanhoUtilizado()), 10) + " :: " + fmt.formatar_tamanho(banco.getTamanhoUtilizado()));
-
 
 
         System.out.println("\t\t -->> Indice  Paginas            =  " + banco.getIndicePaginasContagem());

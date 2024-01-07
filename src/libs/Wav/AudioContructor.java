@@ -7,7 +7,7 @@ import libs.arquivos.audio.RepetidorBinario;
 
 public class AudioContructor {
 
-    public static void init(){
+    public static void init() {
 
         CriarWav mCriarWAV = new CriarWav();
         mCriarWAV.criarArquivo("/home/luan/Música/musicas_hz/luan.wav");
@@ -48,7 +48,6 @@ public class AudioContructor {
         // HZControlador.converterToHZ("/home/luan/Música/musicas_hz/blurred.wav", "/home/luan/Música/musicas_hz/blurred.hz");
 
         //HZControlador.converterToHZ("/home/luan/Música/musicas_hz/Contraste.wav");
-
 
 
         boolean tocar = false;

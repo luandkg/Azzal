@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-public  enum Modarkos {
+public enum Modarkos {
 
     OZZ(0), AZZ(1);
 

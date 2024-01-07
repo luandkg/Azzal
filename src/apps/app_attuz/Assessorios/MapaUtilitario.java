@@ -6,7 +6,6 @@ import libs.azzal.geometria.Ponto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -161,8 +160,8 @@ public class MapaUtilitario {
 
         for (Local eCorrente : mLocais) {
 
-           DKGObjeto obj= pontos.criarObjeto("Pontos", "x", eCorrente.getX(), "y", eCorrente.getY());
-            obj.identifique("nome",eCorrente.getNome());
+            DKGObjeto obj = pontos.criarObjeto("Pontos", "x", eCorrente.getX(), "y", eCorrente.getY());
+            obj.identifique("nome", eCorrente.getNome());
 
         }
 
@@ -181,7 +180,7 @@ public class MapaUtilitario {
         for (DKGObjeto eCorrente : pontos.getObjetos()) {
 
 
-            mLocais.add(new Local( eCorrente.identifique("nome").getValor(), eCorrente.identifique("x").getInteiro(), eCorrente.identifique("y").getInteiro()));
+            mLocais.add(new Local(eCorrente.identifique("nome").getValor(), eCorrente.identifique("x").getInteiro(), eCorrente.identifique("y").getInteiro()));
 
         }
 
@@ -200,7 +199,7 @@ public class MapaUtilitario {
         for (DKGObjeto eCorrente : pontos.getObjetos()) {
 
 
-            mLocais.add(new Ponto( eCorrente.identifique("x").getInteiro(), eCorrente.identifique("y").getInteiro()));
+            mLocais.add(new Ponto(eCorrente.identifique("x").getInteiro(), eCorrente.identifique("y").getInteiro()));
 
         }
 
@@ -241,7 +240,7 @@ public class MapaUtilitario {
         ArrayList<Local> pontos = new ArrayList<Local>();
 
         for (Local ePonto : locais) {
-            pontos.add(new Local(ePonto.getNome(),ePonto.getX(), ePonto.getY()));
+            pontos.add(new Local(ePonto.getNome(), ePonto.getX(), ePonto.getY()));
         }
 
         for (Local ePonto : pontos) {

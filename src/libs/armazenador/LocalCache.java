@@ -33,7 +33,7 @@ public class LocalCache {
         return contagem;
     }
 
-    public static void tentar_guardar_em_cache(Arquivador mArquivador,long mLocalCache,long ponteiro_guardar) {
+    public static void tentar_guardar_em_cache(Arquivador mArquivador, long mLocalCache, long ponteiro_guardar) {
 
         mArquivador.setPonteiro(mLocalCache);
 
@@ -67,7 +67,7 @@ public class LocalCache {
 
     }
 
-    public static long getItemDoCacheERemove(Arquivador mArquivador,long mLocalCache) {
+    public static long getItemDoCacheERemove(Arquivador mArquivador, long mLocalCache) {
 
         mArquivador.setPonteiro(mLocalCache);
 
@@ -103,7 +103,7 @@ public class LocalCache {
         return ret;
     }
 
-    public static void guardar(Arquivador mArquivador,long obter_item_do_cache,String conteudo){
+    public static void guardar(Arquivador mArquivador, long obter_item_do_cache, String conteudo) {
 
         mArquivador.setPonteiro(obter_item_do_cache);
 

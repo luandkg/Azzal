@@ -1,7 +1,6 @@
 package apps.app_citatte;
 
 import apps.app_citatte.cidade_beta.AnaliseCitatte;
-import apps.app_citatte.cidade_beta.CitatteBetaConstrutor;
 import apps.app_citatte.cidade_beta.Uttoza;
 import apps.app_citatte.engenharia.EngenhariaRodoviaria;
 import apps.app_citatte.urbanizacao.Urbanizador;

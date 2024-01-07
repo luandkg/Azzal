@@ -79,7 +79,6 @@ public class GamaFS {
         System.out.println("Dados :: " + pos_dados);
 
 
-
         // MARCAR OCUPADOS
         arquivador.setPonteiro(cluter_inicio);
         for (int b = 0; b < ocupados; b++) {
@@ -107,13 +106,13 @@ public class GamaFS {
             arquivador.setPonteiro(cluster_raiz);
             arquivador.set_u64(cluster_raiz_id);
 
-            long esc =  (cluster_raiz_id * (4 * 1024));
+            long esc = (cluster_raiz_id * (4 * 1024));
 
-            System.out.println("Escrever em :: " +esc );
+            System.out.println("Escrever em :: " + esc);
             arquivador.setPonteiro((cluster_raiz_id * (4 * 1024)));
-            arquivador.set_u8((byte)150);
-            arquivador.set_u8((byte)80);
-            arquivador.set_u8((byte)30);
+            arquivador.set_u8((byte) 150);
+            arquivador.set_u8((byte) 80);
+            arquivador.set_u8((byte) 30);
 
         }
 
@@ -171,7 +170,7 @@ public class GamaFS {
 
         int I7 = Inteiro.byteToInt(mArquivador.get());
 
-        DADOS_INICO=mArquivador.getPonteiro();
+        DADOS_INICO = mArquivador.getPonteiro();
 
         System.out.println("\t - Raiz     = " + raiz);
         System.out.println("\t - Dados    = " + DADOS_INICO);

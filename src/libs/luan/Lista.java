@@ -401,10 +401,10 @@ public class Lista<T> implements Iterable<T> {
 
     }
 
-    public boolean existe(Igualavel<T> eIgualador,T procurado){
+    public boolean existe(Igualavel<T> eIgualador, T procurado) {
 
-        for(T valor : this){
-            if(eIgualador.is(procurado,valor)){
+        for (T valor : this) {
+            if (eIgualador.is(procurado, valor)) {
                 return true;
             }
         }
@@ -479,7 +479,6 @@ public class Lista<T> implements Iterable<T> {
     }
 
     // SUPER FUNCOES
-
 
 
     public Iterator<T> iterator() {
@@ -623,16 +622,14 @@ public class Lista<T> implements Iterable<T> {
     }
 
 
-
-    public void adicionar_como_primeiro(T eObjeto){
+    public void adicionar_como_primeiro(T eObjeto) {
 
         Item novo_primeiro = new Item(eObjeto);
-        novo_primeiro.mProximo=mPrimeiro;
+        novo_primeiro.mProximo = mPrimeiro;
 
-        mPrimeiro=novo_primeiro;
-        mQuantidade+=1;
+        mPrimeiro = novo_primeiro;
+        mQuantidade += 1;
     }
-
 
 
     public Opcional<T> procurar(T procurado, Igualdade<T> igualdade) {

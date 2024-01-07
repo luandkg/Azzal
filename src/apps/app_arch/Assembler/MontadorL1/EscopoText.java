@@ -25,7 +25,7 @@ public class EscopoText {
     }
 
 
-    public void init(){
+    public void init() {
 
         while (mCodigo.getIndex() < mCodigo.getTamanho()) {
 

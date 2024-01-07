@@ -31,7 +31,7 @@ public class BarraDeProgresso {
 
     }
 
-    public static void progresso(Renderizador r, int px, int py, int tamanho, int maximo, int completo,Cor eCor) {
+    public static void progresso(Renderizador r, int px, int py, int tamanho, int maximo, int completo, Cor eCor) {
 
 
         double eTaxa = (double) tamanho / (double) maximo;

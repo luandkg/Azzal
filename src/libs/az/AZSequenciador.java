@@ -1,21 +1,21 @@
 package libs.az;
 
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
+import libs.armazenador.ItemDoBanco;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.luan.Opcional;
-import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
-import libs.armazenador.Armazenador;
 
 public class AZSequenciador {
 
-    public static void verificar_banco(Armazenador m, String eBancoNome){
+    public static void verificar_banco(Armazenador m, String eBancoNome) {
         if (!m.banco_existe(eBancoNome)) {
             m.banco_criar(eBancoNome);
         }
     }
 
-    public static Banco organizar_banco(Armazenador m, String eBancoNome){
+    public static Banco organizar_banco(Armazenador m, String eBancoNome) {
         if (!m.banco_existe(eBancoNome)) {
             m.banco_criar(eBancoNome);
         }
@@ -65,7 +65,7 @@ public class AZSequenciador {
 
                 break;
             }
-             // System.out.println(objeto.toDocumento());
+            // System.out.println(objeto.toDocumento());
         }
 
         return chave;

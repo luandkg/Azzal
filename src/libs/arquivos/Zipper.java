@@ -12,7 +12,7 @@ import java.util.zip.ZipInputStream;
 
 public class Zipper {
 
-    public static Lista<Documento> EXTRAIR_DOCUMENTOS_COM_EXTENSAO(String eArquivo,String eExtensao) {
+    public static Lista<Documento> EXTRAIR_DOCUMENTOS_COM_EXTENSAO(String eArquivo, String eExtensao) {
         Lista<Documento> documentos = new Lista<Documento>();
 
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(eArquivo))) {
@@ -24,11 +24,11 @@ public class Zipper {
 
                     ArenaChunk chunks = new ArenaChunk();
 
-                    byte [] buffer = new byte[1024];
+                    byte[] buffer = new byte[1024];
                     int len = 0;
 
                     while ((len = zis.read(buffer)) > 0) {
-                        chunks.adicionar(buffer,len);
+                        chunks.adicionar(buffer, len);
                     }
 
 

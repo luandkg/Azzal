@@ -7,19 +7,29 @@ public class RhoSlot {
     private long mInicio;
     private long mFim;
 
-    public RhoSlot(String eNome,long eInicio,long eFim){
-        mNome=eNome;
-        mInicio=eInicio;
-        mFim=eFim;
+    public RhoSlot(String eNome, long eInicio, long eFim) {
+        mNome = eNome;
+        mInicio = eInicio;
+        mFim = eFim;
     }
-    public String getNome(){return mNome;}
 
-    public long getInicio(){return mInicio;}
-    public long getFim(){return mFim;}
+    public String getNome() {
+        return mNome;
+    }
 
-    public long getTempo(){return mFim-mInicio;}
+    public long getInicio() {
+        return mInicio;
+    }
 
-    public boolean isDoTipo(String tipo){
+    public long getFim() {
+        return mFim;
+    }
+
+    public long getTempo() {
+        return mFim - mInicio;
+    }
+
+    public boolean isDoTipo(String tipo) {
         return mNome.contentEquals(tipo);
     }
 }

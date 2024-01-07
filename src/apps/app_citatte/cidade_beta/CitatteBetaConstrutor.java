@@ -342,20 +342,20 @@ public class CitatteBetaConstrutor {
 
                 mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0), mCores.getAzul());
 
-             //   mCidade.drawPixel(item.identifique("X").getInteiro(0)+1, item.identifique("Y").getInteiro(0), mCores.getAzul());
-             //   mCidade.drawPixel(item.identifique("X").getInteiro(0)-1, item.identifique("Y").getInteiro(0), mCores.getAzul());
+                //   mCidade.drawPixel(item.identifique("X").getInteiro(0)+1, item.identifique("Y").getInteiro(0), mCores.getAzul());
+                //   mCidade.drawPixel(item.identifique("X").getInteiro(0)-1, item.identifique("Y").getInteiro(0), mCores.getAzul());
 
-              //  mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0)+1, mCores.getAzul());
-              //  mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0)-1, mCores.getAzul());
+                //  mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0)+1, mCores.getAzul());
+                //  mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0)-1, mCores.getAzul());
 
             } else if (item.identifique("Tipo").isValor("Avenida")) {
                 mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0), mCores.getAmarelo());
 
-              ///  mCidade.drawPixel(item.identifique("X").getInteiro(0)+1, item.identifique("Y").getInteiro(0), mCores.getAmarelo());
-               // mCidade.drawPixel(item.identifique("X").getInteiro(0)-1, item.identifique("Y").getInteiro(0), mCores.getAmarelo());
+                ///  mCidade.drawPixel(item.identifique("X").getInteiro(0)+1, item.identifique("Y").getInteiro(0), mCores.getAmarelo());
+                // mCidade.drawPixel(item.identifique("X").getInteiro(0)-1, item.identifique("Y").getInteiro(0), mCores.getAmarelo());
 
                 //mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0)+1, mCores.getAmarelo());
-               // mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0)-1, mCores.getAmarelo());
+                // mCidade.drawPixel(item.identifique("X").getInteiro(0), item.identifique("Y").getInteiro(0)-1, mCores.getAmarelo());
 
             }
         }
@@ -414,7 +414,7 @@ public class CitatteBetaConstrutor {
     }
 
 
-    public  Lista<Ponto> organizar_habitavel(Lista<Ponto> habitavel, Lista<Ponto> rua, Lista<Ponto> avenida){
+    public Lista<Ponto> organizar_habitavel(Lista<Ponto> habitavel, Lista<Ponto> rua, Lista<Ponto> avenida) {
 
         Lista<Ponto> eixos_moradias_pode_construir = new Lista<Ponto>();
 

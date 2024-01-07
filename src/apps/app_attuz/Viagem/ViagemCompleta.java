@@ -3,20 +3,20 @@ package apps.app_attuz.Viagem;
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Arkazz.Cidades;
 import apps.app_attuz.Ferramentas.GPS;
-import apps.app_attuz.Fisica.Unidades;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Fisica.EquipamentosDeEngenharia;
+import apps.app_attuz.Fisica.Unidades;
 import libs.azzal.geometria.Ponto;
+import libs.dkg.CadaObjeto;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
-import libs.dkg.CadaObjeto;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefString;
 import libs.luan.fmt;
+import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
-import libs.tronarko.Hazde;
 
 import java.util.ArrayList;
 

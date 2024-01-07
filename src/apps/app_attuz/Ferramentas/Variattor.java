@@ -15,7 +15,7 @@ public class Variattor {
         variacoes = new double[tectonica.getAltura() * tectonica.getLargura()];
         tem_variacoes = new boolean[tectonica.getAltura() * tectonica.getLargura()];
 
-        mLargura=tectonica.getLargura();
+        mLargura = tectonica.getLargura();
 
 
         for (int y = 0; y < tectonica.getAltura(); y++) {
@@ -53,7 +53,7 @@ public class Variattor {
         return tem_variacoes[(y * mLargura) + x];
     }
 
-    public double getVariacao(int x,int y){
+    public double getVariacao(int x, int y) {
         return variacoes[(y * mLargura) + x];
     }
 }

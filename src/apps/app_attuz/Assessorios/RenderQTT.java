@@ -19,9 +19,9 @@ public class RenderQTT {
         for (int y = 0; y < my; y++) {
             for (int x = 0; x < mx; x++) {
 
-                if (x == y){
+                if (x == y) {
                     valores[(y * mx) + x] = 10;
-                }else{
+                } else {
                     valores[(y * mx) + x] = 0;
                 }
 
@@ -29,7 +29,7 @@ public class RenderQTT {
             }
         }
 
-       // QTT.guardar(eArquivoQTT, mx, my, valores);
+        // QTT.guardar(eArquivoQTT, mx, my, valores);
 
 
         QTT eQTT = QTT.getTudo(eArquivoQTT);

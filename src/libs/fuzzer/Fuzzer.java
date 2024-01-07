@@ -95,13 +95,13 @@ public class Fuzzer {
     }
 
 
-    public Menu onMenu(ArrayList<Menu> menu_principal,int x, int y, int l, int a, String texto) {
+    public Menu onMenu(ArrayList<Menu> menu_principal, int x, int y, int l, int a, String texto) {
 
         Botao eBotao = new Botao(x, y, l, a, texto);
 
         eBotao.setVariacao(new Cor(200, 30, 0), new Cor(200, 30, 0));
 
-        Menu mn = new Menu(eBotao,menu_principal);
+        Menu mn = new Menu(eBotao, menu_principal);
         mAcionadores.add(eBotao);
 
         mMenus.add(mn);
@@ -201,8 +201,6 @@ public class Fuzzer {
         for (Botao eBotao : mBotoesAcoes) {
             onBotaoAcao(mRenderizador, eBotao);
         }
-
-
 
 
         for (Seletor eSeletor : mSeletores) {

@@ -18,9 +18,9 @@ public class AvenidaViaria {
         mPontos = new Lista<Ponto>();
         mCruzamentos = new Lista<Ponto>();
 
-        mRosaDosVentos="";
-        mAvenidaSequencia=0;
-        mLoteSequencia=0;
+        mRosaDosVentos = "";
+        mAvenidaSequencia = 0;
+        mLoteSequencia = 0;
     }
 
     public int getID() {
@@ -208,25 +208,32 @@ public class AvenidaViaria {
     }
 
 
-    public String getRosaDosVentos(){return mRosaDosVentos;}
-    public void setRosaDosVentos(String v){
-        mRosaDosVentos=v;
+    public String getRosaDosVentos() {
+        return mRosaDosVentos;
+    }
+
+    public void setRosaDosVentos(String v) {
+        mRosaDosVentos = v;
     }
 
 
-    public void setAvenidaSequencia(int seq){
-        mAvenidaSequencia=seq;
+    public void setAvenidaSequencia(int seq) {
+        mAvenidaSequencia = seq;
     }
 
-    public int getAvenidaSequencia(){return mAvenidaSequencia;}
-
-    public void zerarLoteSequencia(){
-        mLoteSequencia=1;
+    public int getAvenidaSequencia() {
+        return mAvenidaSequencia;
     }
 
-    public int getLoteSequencia(){return mLoteSequencia;}
+    public void zerarLoteSequencia() {
+        mLoteSequencia = 1;
+    }
 
-    public void proximoLote(){
-        mLoteSequencia+=1;
+    public int getLoteSequencia() {
+        return mLoteSequencia;
+    }
+
+    public void proximoLote() {
+        mLoteSequencia += 1;
     }
 }

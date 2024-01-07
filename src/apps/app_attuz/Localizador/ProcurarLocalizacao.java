@@ -3,11 +3,11 @@ package apps.app_attuz.Localizador;
 import apps.app_attuz.Viagem.Viajante;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.tronarko.Hazde;
+import libs.tronarko.Tozte;
+import libs.tronarko.utils.StringTronarko;
 
 import java.io.File;
-import libs.tronarko.utils.StringTronarko;
-import libs.tronarko.Tozte;
-import libs.tronarko.Hazde;
 
 public class ProcurarLocalizacao {
 
@@ -89,7 +89,7 @@ public class ProcurarLocalizacao {
                     isVisitando = true;
                     isViajando = false;
 
-                    momento= ePonto.identifique("Momento").getValor();
+                    momento = ePonto.identifique("Momento").getValor();
                     cidade_chegou = ePonto.identifique("ChegouCidade").getValor();
 
                 } else {
@@ -126,7 +126,7 @@ public class ProcurarLocalizacao {
         System.out.println("TO :: " + ultimo);
 
         if (isVisitando) {
-            ViajemAcao.onVisita(cidade_chegou,visita_comecar);
+            ViajemAcao.onVisita(cidade_chegou, visita_comecar);
         }
 
         if (isViajando) {

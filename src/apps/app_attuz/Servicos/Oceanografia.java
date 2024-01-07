@@ -3,8 +3,6 @@ package apps.app_attuz.Servicos;
 import apps.app_attuz.Ferramentas.Local;
 import libs.luan.Lista;
 
-import java.util.ArrayList;
-
 public class Oceanografia {
 
     private Lista<Local> mMares;
@@ -22,7 +20,7 @@ public class Oceanografia {
         double dPX1 = (double) px;
         double dPY1 = (double) py;
 
-      //  System.out.println("Local :: " + px + " - " + py);
+        //  System.out.println("Local :: " + px + " - " + py);
 
         for (Local mar : mMares) {
 

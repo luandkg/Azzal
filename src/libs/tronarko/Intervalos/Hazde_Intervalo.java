@@ -3,7 +3,7 @@ package libs.tronarko.Intervalos;
 import libs.luan.fmt;
 import libs.tronarko.Hazde;
 
-public  class Hazde_Intervalo {
+public class Hazde_Intervalo {
 
     private String mNome;
     private Hazde mInicio;
@@ -116,7 +116,7 @@ public  class Hazde_Intervalo {
             mArkos += 1;
         }
 
-        return fmt.zerado(mArkos,2)  + ":" + fmt.zerado(mIttas,2) + ":" + fmt.zerado(mEttons,2);
+        return fmt.zerado(mArkos, 2) + ":" + fmt.zerado(mIttas, 2) + ":" + fmt.zerado(mEttons, 2);
 
     }
 

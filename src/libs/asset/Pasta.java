@@ -67,47 +67,47 @@ public class Pasta {
         if (getInicio() != getFim()) {
 
 
-                Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
+            Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
 
-                fu.setPonteiro(getInicio());
-                int v = 0;
+            fu.setPonteiro(getInicio());
+            int v = 0;
 
-                while (v != 13) {
-                    v = (int) fu.get_u8();
+            while (v != 13) {
+                v = (int) fu.get_u8();
 
-                    if (v == 11) {
+                if (v == 11) {
 
-                        String s1 = StringView.deArquivador(fu,100);
+                    String s1 = StringView.deArquivador(fu, 100);
 
-                        long r1 = fu.getPonteiro();
+                    long r1 = fu.getPonteiro();
 
-                        long l2 = fu.get_u64();
+                    long l2 = fu.get_u64();
 
-                        long r2 = fu.getPonteiro();
+                    long r2 = fu.getPonteiro();
 
-                        long l3 = fu.get_u64();
+                    long l3 = fu.get_u64();
 
 
-                        mPastas.add(new Pasta(mAssetContainer,new Referencia(r1, r2), new AssetRef(s1, 11, l2, l3)));
+                    mPastas.add(new Pasta(mAssetContainer, new Referencia(r1, r2), new AssetRef(s1, 11, l2, l3)));
 
-                    } else if (v == 12) {
+                } else if (v == 12) {
 
-                        String s1 = StringView.deArquivador(fu,100);
+                    String s1 = StringView.deArquivador(fu, 100);
 
-                        long r1 = fu.getPonteiro();
+                    long r1 = fu.getPonteiro();
 
-                        long l2 = fu.get_u64();
+                    long l2 = fu.get_u64();
 
-                        long r2 = fu.getPonteiro();
+                    long r2 = fu.getPonteiro();
 
-                        long l3 = fu.get_u64();
+                    long l3 = fu.get_u64();
 
-                        mArquivos.add(new Arquivo(mAssetContainer,new Referencia(r1, r2), new AssetRef(s1, 12, l2, l3)));
+                    mArquivos.add(new Arquivo(mAssetContainer, new Referencia(r1, r2), new AssetRef(s1, 12, l2, l3)));
 
-                    }
                 }
+            }
 
-                fu.encerrar();
+            fu.encerrar();
 
         }
 

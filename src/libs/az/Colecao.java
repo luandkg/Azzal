@@ -1,16 +1,14 @@
 package libs.az;
 
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
+import libs.armazenador.ItemDoBanco;
 import libs.arquivos.binario.Arquivador;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
-import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
-import libs.armazenador.Armazenador;
-
-import java.util.ArrayList;
 
 public class Colecao {
 
@@ -29,7 +27,7 @@ public class Colecao {
 
     }
 
-    public void zerarSequencial(){
+    public void zerarSequencial() {
         AZSequenciador.zerar_sequencial(mSequencias, mNome);
     }
 
@@ -37,7 +35,7 @@ public class Colecao {
 
         int chave = AZSequenciador.aumentar_sequencial(mSequencias, mNome);
         objeto.identifique("ID").setInteiro(chave);
-        objeto.rearranjar("ID",0);
+        objeto.rearranjar("ID", 0);
         long endereco = mColecao.adicionar(objeto.toDocumento());
 
         mColecao.set(chave, endereco);
@@ -91,13 +89,13 @@ public class Colecao {
     }
 
 
-    public void primeiro_campo(String ePrimeiro){
+    public void primeiro_campo(String ePrimeiro) {
 
-        for(ItemDoBanco item: getItens()){
+        for (ItemDoBanco item : getItens()) {
 
             DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
 
-            objeto.rearranjar(ePrimeiro,0);
+            objeto.rearranjar(ePrimeiro, 0);
 
             item.atualizar(objeto.toString());
 
@@ -209,7 +207,7 @@ public class Colecao {
         return ret;
     }
 
-    public Lista<DKGObjeto> getObjetos(){
+    public Lista<DKGObjeto> getObjetos() {
 
         Lista<ItemDoBanco> itens = getItens();
 

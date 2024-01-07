@@ -44,14 +44,12 @@ public class Arquivador {
     }
 
 
-    public static long GET_TAMANHO(String arquivo){
+    public static long GET_TAMANHO(String arquivo) {
         Arquivador arq = new Arquivador(arquivo);
         long tamanho = arq.getLength();
         arq.encerrar();
         return tamanho;
     }
-
-
 
 
     public byte get() {
@@ -116,8 +114,6 @@ public class Arquivador {
 
         return i;
     }
-
-
 
 
     public int organizar_to_int(byte b) {

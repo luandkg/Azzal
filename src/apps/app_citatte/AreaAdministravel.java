@@ -11,7 +11,7 @@ public class AreaAdministravel {
 
     public AreaAdministravel(Retangulo eArea, String eNome) {
         mArea = eArea;
-        mNome =eNome;
+        mNome = eNome;
     }
 
 
@@ -19,13 +19,24 @@ public class AreaAdministravel {
         return mArea.isDentro(px, py);
     }
 
-    public String getNome(){return mNome;}
+    public String getNome() {
+        return mNome;
+    }
 
-    public void setNome(String eNome){mNome=eNome;}
+    public void setNome(String eNome) {
+        mNome = eNome;
+    }
 
 
-    public Ponto getLocalizacao(){return new Ponto(mArea.getX(),mArea.getY());}
-    public Ponto getCentroLocalizacao(){return new Ponto(mArea.getX()+mArea.getLargura()/2,mArea.getY()+mArea.getAltura()/2);}
+    public Ponto getLocalizacao() {
+        return new Ponto(mArea.getX(), mArea.getY());
+    }
 
-    public Retangulo getArea(){return mArea;}
+    public Ponto getCentroLocalizacao() {
+        return new Ponto(mArea.getX() + mArea.getLargura() / 2, mArea.getY() + mArea.getAltura() / 2);
+    }
+
+    public Retangulo getArea() {
+        return mArea;
+    }
 }

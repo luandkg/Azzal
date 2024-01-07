@@ -89,13 +89,13 @@ public class Matriz {
 
                 for (int x = 0; x < mColunas; x++) {
 
-                    if (y2<0){
-                        set(x, y,String.valueOf( eNovaLinha.charAt(x)));
-                    }else{
+                    if (y2 < 0) {
+                        set(x, y, String.valueOf(eNovaLinha.charAt(x)));
+                    } else {
                         set(x, y, get(x, y2));
                     }
 
-                 //   System.out.println("Descendo - " + x + " : " + y + " com " + x + " : " + y2);
+                    //   System.out.println("Descendo - " + x + " : " + y + " com " + x + " : " + y2);
                 }
 
             }

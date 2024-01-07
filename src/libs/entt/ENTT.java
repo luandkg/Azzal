@@ -37,7 +37,7 @@ public class ENTT {
         for (Entidade e : mEntts) {
             if (e.atInt(eNome) < menor) {
                 ret = e;
-                menor=e.atInt(eNome);
+                menor = e.atInt(eNome);
             }
         }
 
@@ -52,7 +52,7 @@ public class ENTT {
         for (Entidade e : mEntts) {
             if (e.atInt(eNome) > maior) {
                 ret = e;
-                maior=e.atInt(eNome);
+                maior = e.atInt(eNome);
             }
         }
 

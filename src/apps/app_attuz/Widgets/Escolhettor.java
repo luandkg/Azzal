@@ -2,9 +2,9 @@ package apps.app_attuz.Widgets;
 
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Assessorios.Nivelador;
+import apps.app_letrum.Fonte;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
-import apps.app_letrum.Fonte;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 

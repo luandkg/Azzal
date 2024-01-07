@@ -1,16 +1,19 @@
 package apps.app_tg22;
 
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.FonteDupla;
 import apps.app_letrum.FonteDuplaRunTime;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.luan.fmt;
-import libs.tronarko.*;
 import libs.tronarko.Eventos.Eventum;
+import libs.tronarko.Hiperarkos;
+import libs.tronarko.Superarkos;
+import libs.tronarko.Tozte;
+import libs.tronarko.Tronarko;
 import libs.tronarko.utils.IntTronarko;
 import libs.tronarko.utils.StringTronarko;
 import libs.tronarko.utils.TozteCor;

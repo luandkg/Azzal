@@ -1,9 +1,5 @@
 package libs.luan;
 
-import apps.app_attuz.SistemaEleitoral.Candidato;
-import libs.luan.Aleatorio;
-import libs.luan.Lista;
-
 public class Embaralhar {
 
 

@@ -107,7 +107,7 @@ public class app_testes {
         fmt.print("{}", Stringum.EXIBIR_EM_LISTA_TIPADA(valores));
 
 
-         VideoCodecador.init("/home/luan/Vídeos/vi/ecossistema_v2.vi");
+        VideoCodecador.init("/home/luan/Vídeos/vi/ecossistema_v2.vi");
 
     }
 }

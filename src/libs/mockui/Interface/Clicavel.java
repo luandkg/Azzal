@@ -25,7 +25,7 @@ public class Clicavel {
 
     public BotaoCor criarBotaoCor(BotaoCor eBotaoCor) {
         mAcionadores.add(eBotaoCor);
-        mDesenhadores.add(0,eBotaoCor);
+        mDesenhadores.add(0, eBotaoCor);
         return eBotaoCor;
     }
 
@@ -34,6 +34,7 @@ public class Clicavel {
         mDesenhadores.add(eBotaoCor);
         return eBotaoCor;
     }
+
     public void update(double dt, int px, int py, boolean ePrecionado) {
 
         mClicado = false;

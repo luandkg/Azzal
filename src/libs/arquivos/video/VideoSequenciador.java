@@ -56,7 +56,7 @@ public class VideoSequenciador {
 
                 Arenar eArenar = eEmpilhador.empurrarQuadro(ImageIO.read(new File(eArquivoParaFrame)));
 
-                System.out.println("\t - FRAME SUCESSO :: " + eArenar.getStatus().replace("$ARQUIVO",eArquivoParaFrame));
+                System.out.println("\t - FRAME SUCESSO :: " + eArenar.getStatus().replace("$ARQUIVO", eArquivoParaFrame));
 
             } catch (IOException e) {
                 mCarregado = false;

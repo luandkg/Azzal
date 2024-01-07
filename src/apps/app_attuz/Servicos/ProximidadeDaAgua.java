@@ -1,10 +1,6 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Assessorios.Progressante;
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Escala;
+import apps.app_attuz.Assessorios.*;
 import apps.app_attuz.Ferramentas.MapaRender;
 import apps.app_attuz.Ferramentas.MassaToQTT;
 import apps.app_attuz.Ferramentas.Normalizador;
@@ -62,7 +58,7 @@ public class ProximidadeDaAgua extends Servico {
         MapaRender.renderiza(Imagem.getImagem(LOCAL + "build/planeta.png"), tectonica, tectonica.getTerra(), massa, mEscala, normalizador, LOCAL + "build/agua_distancia.png");
 
         System.out.println("Guardar Proximidade - QTT");
-        MassaToQTT.salvarTerra(tectonica,massa, LOCAL + "dados/agua_distancia.qtt");
+        MassaToQTT.salvarTerra(tectonica, massa, LOCAL + "dados/agua_distancia.qtt");
 
 
         marcarFim();

@@ -6,7 +6,7 @@ public class Espectrum {
 
     public static int[] normalizado(byte[] audio_buffer) {
 
-        int[] valorado = new int[(256/2)];
+        int[] valorado = new int[(256 / 2)];
 
         int chave = 0;
 
@@ -17,10 +17,10 @@ public class Espectrum {
 
             short value = (short) (((va & 0xFF) << 8) | (vb & 0xFF));
 
-            int valor = (int)value;
+            int valor = (int) value;
 
             valorado[chave] = valor;
-            chave+=1;
+            chave += 1;
 
         }
 

@@ -33,7 +33,7 @@ public class Comandos {
 
         ArrayList<Comando> ls_sugestoes = new ArrayList<Comando>();
 
-        if (iniciar.length()>0){
+        if (iniciar.length() > 0) {
             for (Comando c : mComandos) {
                 if (c.comecaCom(iniciar)) {
                     ls_sugestoes.add(c);

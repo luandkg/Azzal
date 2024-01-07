@@ -48,7 +48,7 @@ public class AZ {
     }
 
 
-    public static void EXIBIR_COLECAO(String arquivo_banco,String colecao_nome) {
+    public static void EXIBIR_COLECAO(String arquivo_banco, String colecao_nome) {
 
         AZColecionador.checar(arquivo_banco);
 
@@ -67,7 +67,7 @@ public class AZ {
 
         AZColecionador m = new AZColecionador(arquivo_banco);
 
-        Lista<DKGObjeto>  colecao = m.getColecao(colecao_nome).getObjetos();
+        Lista<DKGObjeto> colecao = m.getColecao(colecao_nome).getObjetos();
 
         m.fechar();
 

@@ -1,27 +1,25 @@
 package apps.app_tronarko;
 
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
-import libs.tronarko.Tronarko;
-import libs.tronarko.Tozte;
-import libs.tronarko.Hazde;
-import libs.tronarko.Superarkos;
-
-import libs.tronarko.Agenda.Alarme;
-import libs.tronarko.Agenda.Lembrete;
-import libs.tronarko.utils.FluxoTemporal;
-
-import libs.tronarko.utils.Ordenador;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 import libs.mockui.Marcador;
+import libs.tronarko.Agenda.Alarme;
+import libs.tronarko.Agenda.Lembrete;
+import libs.tronarko.Hazde;
+import libs.tronarko.Superarkos;
+import libs.tronarko.Tozte;
+import libs.tronarko.Tronarko;
+import libs.tronarko.utils.FluxoTemporal;
+import libs.tronarko.utils.Ordenador;
 
 public class AppAlarme extends Cena {
 
@@ -237,18 +235,18 @@ public class AppAlarme extends Cena {
 
                 Cor eCor = eHiperarkoWidget.getCorEventos();
 
-                int evento_modo = mAlarme.getModo(lembrete, mTocar,mTozteSelecionado, mHoje, mAgora);
+                int evento_modo = mAlarme.getModo(lembrete, mTocar, mTozteSelecionado, mHoje, mAgora);
 
                 switch (evento_modo) {
-                    case Alarme.EVENTO_PASSADO : {
+                    case Alarme.EVENTO_PASSADO: {
                         Marcador.marcar(r, px, py - 3, 20, 5, mCores.getAzul(), mCores.getBranco());
                         break;
                     }
-                    case Alarme.EVENTO_TOCANDO : {
+                    case Alarme.EVENTO_TOCANDO: {
                         Marcador.marcar(r, px, py - 3, 20, 5, mHiperarkoWidget.getCorTocando(), mCores.getBranco());
                         break;
                     }
-                    case Alarme.EVENTO_FUTURO : {
+                    case Alarme.EVENTO_FUTURO: {
                         r.drawRect_Pintado(px, py - 3, 20, 20, eCor);
                         break;
                     }

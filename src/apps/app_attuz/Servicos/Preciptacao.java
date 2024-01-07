@@ -1,14 +1,11 @@
 package apps.app_attuz.Servicos;
 
 
-import apps.app_attuz.Assessorios.Progressante;
-import apps.app_attuz.Assessorios.CadaPonto;
-import apps.app_attuz.Assessorios.DadosQTT;
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Escala;
-import apps.app_attuz.Ferramentas.*;
+import apps.app_attuz.Assessorios.*;
+import apps.app_attuz.Ferramentas.MapaRender;
+import apps.app_attuz.Ferramentas.MassaComNormal;
+import apps.app_attuz.Ferramentas.MassaToQTT;
+import apps.app_attuz.Ferramentas.Normalizador;
 import apps.app_attuz.Legendas.Legendar;
 import apps.app_attuz.Legendas.Legendas;
 import libs.imagem.Imagem;
@@ -80,7 +77,6 @@ public class Preciptacao extends Servico {
 
             }
         });
-
 
 
         BufferedImage mRenderizado = MapaRender.renderizaImagem(Imagem.getImagem(LOCAL + "build/planeta.png"), tectonica, tectonica.getTerra(), preciptacao_massa, mEscala);

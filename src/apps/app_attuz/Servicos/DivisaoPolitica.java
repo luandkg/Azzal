@@ -2,18 +2,14 @@ package apps.app_attuz.Servicos;
 
 
 import apps.app_attuz.Arkazz.Arkazz;
-import apps.app_attuz.Assessorios.Progressante;
-import apps.app_attuz.Assessorios.CadaPonto;
-import apps.app_attuz.Assessorios.DadosQTT;
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.*;
 import apps.app_attuz.Regiao.Regiao;
-import libs.arquivos.audio.RefInt;
-import libs.azzal.geometria.Ponto;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.arquivos.audio.RefInt;
+import libs.azzal.Renderizador;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.utilitarios.Cor;
 import libs.imagem.Imagem;
 import libs.luan.fmt;
 import libs.servittor.Servico;

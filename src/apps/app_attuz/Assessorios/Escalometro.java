@@ -2,7 +2,7 @@ package apps.app_attuz.Assessorios;
 
 public class Escalometro {
 
-    public void exemplo(){
+    public void exemplo() {
 
         escalar(0, 100, 50);
         escalar(0, 300, 150);

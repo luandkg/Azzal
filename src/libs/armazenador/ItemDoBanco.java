@@ -56,7 +56,7 @@ public class ItemDoBanco {
     public String lerTextoLinearizado() {
         mArquivador.setPonteiro(mPonteiroDados);
         TX eTX = new TX();
-        return eTX.lerFluxoLimitado(mArquivador, Armazenador.TAMANHO_ITEM).replace("\n","");
+        return eTX.lerFluxoLimitado(mArquivador, Armazenador.TAMANHO_ITEM).replace("\n", "");
     }
 
     public void atualizar(String texto) {

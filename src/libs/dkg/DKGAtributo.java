@@ -120,20 +120,20 @@ public class DKGAtributo {
     }
 
 
-    public boolean isValor(String deve_ser){
+    public boolean isValor(String deve_ser) {
         boolean ret = false;
 
-        if (mValor.contentEquals(deve_ser)){
-            ret=true;
+        if (mValor.contentEquals(deve_ser)) {
+            ret = true;
         }
         return ret;
     }
 
-    public boolean isValor(int deve_ser){
+    public boolean isValor(int deve_ser) {
         boolean ret = false;
 
-        if (getInteiro()==deve_ser){
-            ret=true;
+        if (getInteiro() == deve_ser) {
+            ret = true;
         }
         return ret;
     }

@@ -1,41 +1,36 @@
 package apps.app_attuz;
 
 import apps.app_attuz.Arkazz.Arkazz;
-import apps.app_attuz.Assessorios.Escala;
-import apps.app_attuz.Assessorios.MapaUtilitario;
-import apps.app_attuz.Assessorios.Nivelador;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.*;
 import apps.app_attuz.Ferramentas.Caminho;
 import apps.app_attuz.Ferramentas.Local;
-import apps.app_attuz.Widgets.ListaDeCidades;
-import apps.app_attuz.Widgets.NomesEspecificos;
+import apps.app_attuz.Localizador.DroneCamera;
 import apps.app_attuz.Regiao.Regiao;
 import apps.app_attuz.Regiao.Regionalizador;
-import apps.app_attuz.Servicos.*;
+import apps.app_attuz.Servicos.Oceanografia;
 import apps.app_attuz.Viagem.RealizarViagem;
 import apps.app_attuz.Viagem.Viagem;
 import apps.app_attuz.Viagem.Viajante;
 import apps.app_attuz.Widgets.*;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.PreferenciasOrganizadas;
 import libs.arquivos.QTT;
-import libs.azzal.*;
-import libs.luan.Lista;
-import libs.mockui.Interface.Acao;
-import libs.mockui.Interface.BotaoCor;
-import libs.mockui.Interface.Clicavel;
-import apps.app_attuz.Localizador.DroneCamera;
+import libs.azzal.ComplexoRender;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 import libs.imagem.TirarPrint;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
+import libs.luan.Lista;
+import libs.mockui.Interface.Acao;
+import libs.mockui.Interface.BotaoCor;
+import libs.mockui.Interface.Clicavel;
 import libs.tronarko.Tronarko;
-
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -329,7 +324,7 @@ public class AppAttuz extends Cena {
         }
 
 
-       // mRealizarViagem.viajar(eTronarko, mViagem, EU, mLocais);
+        // mRealizarViagem.viajar(eTronarko, mViagem, EU, mLocais);
 
 
         if (mClicavel.getClicado()) {

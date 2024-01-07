@@ -33,7 +33,7 @@ public class LapsoTemporal {
         Data ret = null;
         for (Data d : mDatas) {
             if (d.isIgual(eData)) {
-                ret=d;
+                ret = d;
                 break;
             }
         }

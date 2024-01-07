@@ -1,16 +1,16 @@
 package apps.app_momentum;
 
+import libs.armazenador.Debugador;
+import libs.armazenador.ItemDoBanco;
 import libs.asset.Arquivo;
 import libs.asset.AssetContainer;
 import libs.asset.AssetCreator;
-import libs.az.Colecao;
 import libs.az.AZColecionador;
+import libs.az.Colecao;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.luan.Opcional;
 import libs.luan.fmt;
-import libs.armazenador.ItemDoBanco;
-import libs.armazenador.Debugador;
 
 public class HarrempluzCreator {
 

@@ -13,6 +13,7 @@ public class LittleEndianShort {
 
     /**
      * Converts little endian to big endian
+     *
      * @return Big Endian short
      */
     public short convert() {

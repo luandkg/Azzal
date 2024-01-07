@@ -30,7 +30,7 @@ public class Rankeador {
     }
 
 
-    public static<TRef> Lista<RankeadoInteiro<TRef>> ordenar(Lista<RankeadoInteiro<TRef>> itens) {
+    public static <TRef> Lista<RankeadoInteiro<TRef>> ordenar(Lista<RankeadoInteiro<TRef>> itens) {
 
 
         int n = itens.getQuantidade();
@@ -53,7 +53,7 @@ public class Rankeador {
         return itens;
     }
 
-    public static<TRef> Lista<RankeadoInteiro<TRef>> ordenar_inverso(Lista<RankeadoInteiro<TRef>> itens) {
+    public static <TRef> Lista<RankeadoInteiro<TRef>> ordenar_inverso(Lista<RankeadoInteiro<TRef>> itens) {
 
         int n = itens.getQuantidade();
         RankeadoInteiro<TRef> temp = null;
@@ -122,7 +122,7 @@ public class Rankeador {
         return somando;
     }
 
-    public static<T1> Lista<Integer> selecionar_maiores(Lista<RankeadoInteiro<T1>> itens, int quantidade) {
+    public static <T1> Lista<Integer> selecionar_maiores(Lista<RankeadoInteiro<T1>> itens, int quantidade) {
 
         Lista<RankeadoInteiro<T1>> mais = new Lista<RankeadoInteiro<T1>>();
         for (RankeadoInteiro<T1> a : itens) {
@@ -157,7 +157,7 @@ public class Rankeador {
         return selecionados;
     }
 
-    public static<TRef> Lista<Integer> selecionar_menores(Lista<RankeadoInteiro<TRef>> itens, int quantidade) {
+    public static <TRef> Lista<Integer> selecionar_menores(Lista<RankeadoInteiro<TRef>> itens, int quantidade) {
 
         Lista<RankeadoInteiro<TRef>> mais = new Lista<RankeadoInteiro<TRef>>();
         for (RankeadoInteiro<TRef> a : itens) {

@@ -100,11 +100,11 @@ public class Mouse extends MouseAdapter {
         return dY - mY;
     }
 
-    public int getMovendoX(){
+    public int getMovendoX() {
         return getX() + getDeltaX();
     }
 
-    public int getMovendoY(){
+    public int getMovendoY() {
         return getY() + getDeltaY();
     }
 }

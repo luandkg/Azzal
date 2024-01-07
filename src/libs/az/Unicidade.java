@@ -1,10 +1,10 @@
 package libs.az;
 
-import libs.dkg.DKG;
-import libs.dkg.DKGObjeto;
+import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
-import libs.armazenador.Armazenador;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
 import libs.luan.Lista;
 
 

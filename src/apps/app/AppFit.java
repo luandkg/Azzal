@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class AppFit {
 
-    public static void init(){
+    public static void init() {
 
         System.out.println("FIT --- CONECTANDO");
 
@@ -32,7 +32,7 @@ public class AppFit {
         } catch (ProtocolException e) {
             System.out.println("ERRO = " + e.getMessage());
         }
-      //  conn.setRequestProperty("Accept", "application/json");
+        //  conn.setRequestProperty("Accept", "application/json");
         conn.setRequestProperty("User-Agent", "Mozilla/5.0");
 
         try {
@@ -52,7 +52,7 @@ public class AppFit {
 
         String output = "";
         String line;
-        if(br!=null){
+        if (br != null) {
 
             while (true) {
                 try {
@@ -66,10 +66,9 @@ public class AppFit {
         }
 
 
-
         System.out.println("DADOS = ");
 
-        for(String parte : Strings.dividir_em_partes(output,100)){
+        for (String parte : Strings.dividir_em_partes(output, 100)) {
             System.out.println(parte);
         }
 

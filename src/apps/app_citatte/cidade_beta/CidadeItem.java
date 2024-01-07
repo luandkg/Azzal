@@ -8,16 +8,24 @@ public class CidadeItem extends Ponto {
     public static final int ESTRADA = 2;
 
     private int mTipo;
-    public CidadeItem(int eTipo,int px,int py){
-        super(px,py);
-        mTipo=eTipo;
+
+    public CidadeItem(int eTipo, int px, int py) {
+        super(px, py);
+        mTipo = eTipo;
     }
 
 
-    public int getTipo(){return mTipo;}
+    public int getTipo() {
+        return mTipo;
+    }
 
 
-    public boolean isLote(){return mTipo==LOTE;}
-    public boolean isEstrada(){return mTipo==ESTRADA;}
+    public boolean isLote() {
+        return mTipo == LOTE;
+    }
+
+    public boolean isEstrada() {
+        return mTipo == ESTRADA;
+    }
 
 }

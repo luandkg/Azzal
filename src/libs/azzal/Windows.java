@@ -5,10 +5,8 @@ import libs.arquivos.audio.HZControlador;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.cenarios.Cenarios;
 
-
+import javax.swing.*;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
 
 
 public class Windows extends JFrame implements Runnable {

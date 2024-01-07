@@ -64,14 +64,14 @@ public class Dicionario<T> {
         return eCor;
     }
 
-    public void remover(String eChave){
+    public void remover(String eChave) {
 
         boolean enc = false;
 
         for (mIterador.iniciar(); mIterador.continuar(); mIterador.proximo()) {
 
             if (mIterador.getValor().getChave().contentEquals(eChave)) {
-                mLista.remover( mIterador.getValor());
+                mLista.remover(mIterador.getValor());
                 enc = true;
                 break;
             }

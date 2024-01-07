@@ -70,7 +70,7 @@ public class AI {
 
                 long pti = arquivador.getPonteiro();
 
-                arquivador.set_u8_em_bloco(100,(byte)0);
+                arquivador.set_u8_em_bloco(100, (byte) 0);
 
 
                 long ptf = arquivador.getPonteiro();
@@ -112,7 +112,7 @@ public class AI {
 
             }
 
-            for (int a=0;a<arquivos.getQuantidade();a++) {
+            for (int a = 0; a < arquivos.getQuantidade(); a++) {
 
                 arquivador.setPonteiro(pt_inicios.get(a));
                 arquivador.set_u64(inicios.get(a));
@@ -173,7 +173,7 @@ public class AI {
 
                 long pt = arquivador.getPonteiro();
 
-                String item_nome = eTX.lerFluxoLimitado(arquivador,100);
+                String item_nome = eTX.lerFluxoLimitado(arquivador, 100);
 
 
                 arquivador.setPonteiro(pt + 100);
@@ -181,7 +181,7 @@ public class AI {
                 long inicio = arquivador.get_u64();
                 long fim = arquivador.get_u64();
 
-                mImagens.adicionar(new ImagemDoAlbum(mArquivo,item_nome, inicio, fim));
+                mImagens.adicionar(new ImagemDoAlbum(mArquivo, item_nome, inicio, fim));
 
                 arquivador.setPonteiro(pt + 100 + 8 + 8);
             }

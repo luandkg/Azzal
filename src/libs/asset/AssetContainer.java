@@ -93,14 +93,14 @@ public class AssetContainer {
         Arquivador fu = new Arquivador(eArquivo);
         fu.inicio();
 
-        mCabecalho = StringView.deArquivador(fu,100);
-        mVersao = StringView.deArquivador(fu,100);
+        mCabecalho = StringView.deArquivador(fu, 100);
+        mVersao = StringView.deArquivador(fu, 100);
 
         long rd1 = fu.getPonteiro();
-        mCriado = StringView.deArquivador(fu,100);
+        mCriado = StringView.deArquivador(fu, 100);
 
         long rd2 = fu.getPonteiro();
-        mFinalizado = StringView.deArquivador(fu,100);
+        mFinalizado = StringView.deArquivador(fu, 100);
 
         mDataReferencia = new Referencia(rd1, rd2);
 
@@ -120,7 +120,7 @@ public class AssetContainer {
 
             if (v == 11) {
 
-                String s1 = StringView.deArquivador(fu,100);
+                String s1 = StringView.deArquivador(fu, 100);
 
                 long r1 = fu.getPonteiro();
                 long l2 = fu.get_u64();
@@ -132,7 +132,7 @@ public class AssetContainer {
 
             } else if (v == 12) {
 
-                String s1 = StringView.deArquivador(fu,100);
+                String s1 = StringView.deArquivador(fu, 100);
 
                 long r1 = fu.getPonteiro();
                 long l2 = fu.get_u64();
@@ -141,9 +141,9 @@ public class AssetContainer {
                 long l3 = fu.get_u64();
 
                 mArquivos.add(new Arquivo(this, new Referencia(r1, r2), new AssetRef(s1, 12, l2, l3)));
-            }else{
-             //   System.out.println("ERRO -- " + v);
-               // break;
+            } else {
+                //   System.out.println("ERRO -- " + v);
+                // break;
             }
         }
 

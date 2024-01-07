@@ -1,13 +1,13 @@
 package apps.app_arquivos;
 
-import libs.azzal.utilitarios.Cronometro;
-import libs.arquivos.AN;
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.arquivos.AN;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 
@@ -82,7 +82,7 @@ public class AppAnimacao extends Cena {
 
             if (mCron.foiEsperado()) {
 
-                if (temAberto){
+                if (temAberto) {
                     i += 1;
                     if (i >= mAN.getQuantidade()) {
                         i = 0;
@@ -123,7 +123,7 @@ public class AppAnimacao extends Cena {
 
         mClicavel.onDraw(r);
 
-        mEscritor.escreva(20, 80,  "LARGURA : " + mAN.getLargura());
+        mEscritor.escreva(20, 80, "LARGURA : " + mAN.getLargura());
         mEscritor.escreva(20, 100, "ALTURA  : " + mAN.getAltura());
         mEscritor.escreva(20, 120, "TEMPO   : " + mAN.getChrono());
         mEscritor.escreva(20, 140, "QUADRO  : " + i + " de " + (mAN.getQuantidade() - 1));

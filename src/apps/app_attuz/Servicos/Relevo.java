@@ -1,21 +1,15 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Assessorios.Escala;
-import apps.app_attuz.Assessorios.MapaUtilitario;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.MassasDados;
+import apps.app_attuz.Assessorios.*;
 import apps.app_attuz.Ferramentas.*;
 import apps.app_attuz.IDW.AlgoritmoIDW;
 import apps.app_attuz.IDW.PontoIDW;
-import apps.app_attuz.Ferramentas.Local;
-import apps.app_attuz.Ferramentas.Proximattor;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.QTT;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import libs.imagem.Imagem;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
 import libs.servittor.Servico;
 
 import java.awt.*;

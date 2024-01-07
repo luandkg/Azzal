@@ -1,13 +1,11 @@
 package apps.app_attuz.Viagem;
 
-import apps.app_attuz.Localizador.ViagemIndexar;
 import apps.app_attuz.Ferramentas.Local;
+import apps.app_attuz.Localizador.ViagemIndexar;
 import libs.azzal.utilitarios.Cronometro;
 import libs.luan.Lista;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
-
-import java.util.ArrayList;
 
 public class RealizarViagem {
 

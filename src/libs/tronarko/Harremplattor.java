@@ -457,8 +457,8 @@ public class Harremplattor {
 
         for (int i = 0; i < 10; i++) {
             String si = String.valueOf(i);
-            if(si.length()==1){
-                si="0" + si;
+            if (si.length() == 1) {
+                si = "0" + si;
             }
             numeros.adicionar(si);
         }
@@ -472,8 +472,8 @@ public class Harremplattor {
 
         for (int i = 0; i < 100; i++) {
             String si = String.valueOf(i);
-            if(si.length()==1){
-                si="0" + si;
+            if (si.length() == 1) {
+                si = "0" + si;
             }
             numeros.adicionar(si);
         }
@@ -487,8 +487,8 @@ public class Harremplattor {
 
         for (int i = 0; i < 60; i++) {
             String si = String.valueOf(i);
-            if(si.length()==1){
-                si="0" + si;
+            if (si.length() == 1) {
+                si = "0" + si;
             }
             numeros.adicionar(si);
         }

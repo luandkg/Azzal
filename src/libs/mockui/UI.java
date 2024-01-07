@@ -13,7 +13,7 @@ public class UI {
         mLetramento = eLetramento;
     }
 
-    public void renderToggle(Renderizador mRenderizador,Toggle eToggle) {
+    public void renderToggle(Renderizador mRenderizador, Toggle eToggle) {
 
 
         if (eToggle.getStatus()) {

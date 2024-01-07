@@ -2,7 +2,7 @@ package libs.tronarko;
 
 import java.util.ArrayList;
 
-public  enum Signos {
+public enum Signos {
 
     TIGRE(1), RAPOSA(2), LEOPARDO(3), GAVIAO(4), TOURO(5), LOBO(6), GATO(7), CARPA(8), LEAO(9), SERPENTE(10);
 

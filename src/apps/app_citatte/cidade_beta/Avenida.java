@@ -116,8 +116,8 @@ public class Avenida {
 
         if (mTipo == HORIZONTAL) {
 
-            for(Ponto px : getPontos()){
-                mCidade.drawPixel(px.getX(),px.getY(),avenida_cor);
+            for (Ponto px : getPontos()) {
+                mCidade.drawPixel(px.getX(), px.getY(), avenida_cor);
             }
 
 
@@ -125,7 +125,7 @@ public class Avenida {
             int o = mPontosA.getQuantidade();
             for (Ponto p : mPontosA) {
                 if (i + 1 < o) {
-                 //   mCidade.drawLinha(p.getX(), p.getY() + 2, mPontosA.get(i + 1).getX(), mPontosA.get(i + 1).getY() + 2, avenida_cor);
+                    //   mCidade.drawLinha(p.getX(), p.getY() + 2, mPontosA.get(i + 1).getX(), mPontosA.get(i + 1).getY() + 2, avenida_cor);
                 }
                 //  mCidade.drawRect_Pintado(p.getX(), p.getY(), 5, 5, mCores.getAmarelo());
                 i += 1;
@@ -135,21 +135,21 @@ public class Avenida {
             o = mPontosB.getQuantidade();
             for (Ponto p : mPontosB) {
                 if (i + 1 < o) {
-                 //   mCidade.drawLinha(p.getX(), p.getY() + 2, mPontosB.get(i + 1).getX(), mPontosB.get(i + 1).getY() + 2, avenida_cor);
+                    //   mCidade.drawLinha(p.getX(), p.getY() + 2, mPontosB.get(i + 1).getX(), mPontosB.get(i + 1).getY() + 2, avenida_cor);
                 }
                 //    mCidade.drawRect_Pintado(p.getX(), p.getY(), 5, 5, mCores.getAmarelo());
                 i += 1;
             }
         } else if (mTipo == VERTICAL) {
-            for(Ponto px : getPontos()){
-                mCidade.drawPixel(px.getX(),px.getY(),avenida_cor);
+            for (Ponto px : getPontos()) {
+                mCidade.drawPixel(px.getX(), px.getY(), avenida_cor);
             }
 
             int i = 0;
             int o = mPontosA.getQuantidade();
             for (Ponto p : mPontosA) {
                 if (i + 1 < o) {
-                  //  mCidade.drawLinha(p.getX() + 2, p.getY(), mPontosA.get(i + 1).getX() + 2, mPontosA.get(i + 1).getY(), avenida_cor);
+                    //  mCidade.drawLinha(p.getX() + 2, p.getY(), mPontosA.get(i + 1).getX() + 2, mPontosA.get(i + 1).getY(), avenida_cor);
                 }
                 //   mCidade.drawRect_Pintado(p.getX(), p.getY(), 5, 5, mCores.getAmarelo());
                 i += 1;
@@ -159,7 +159,7 @@ public class Avenida {
             o = mPontosB.getQuantidade();
             for (Ponto p : mPontosB) {
                 if (i + 1 < o) {
-               //     mCidade.drawLinha(p.getX() + 2, p.getY(), mPontosB.get(i + 1).getX() + 2, mPontosB.get(i + 1).getY(), avenida_cor);
+                    //     mCidade.drawLinha(p.getX() + 2, p.getY(), mPontosB.get(i + 1).getX() + 2, mPontosB.get(i + 1).getY(), avenida_cor);
                 }
                 //   mCidade.drawRect_Pintado(p.getX(), p.getY(), 5, 5, mCores.getAmarelo());
                 i += 1;

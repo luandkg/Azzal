@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-public  enum Epocas {
+public enum Epocas {
 
     CRIACAO(0), DEUSES(1), REINOS(2), IMPERIOS(3);
 

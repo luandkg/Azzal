@@ -77,7 +77,7 @@ public class ArquivosServicos extends Servico {
 
         // VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema.vi",800,801,"/home/luan/Imagens/ecossistema/S", 0, 97, ".png");
 
-      //  HQ.criarHQ("/home/luan/Imagens/HQ/Corporação-X 01.hq", "/home/luan/Imagens/HQ/Corporação-X 01 (2021)(Renegados-MdHQ)");
+        //  HQ.criarHQ("/home/luan/Imagens/HQ/Corporação-X 01.hq", "/home/luan/Imagens/HQ/Corporação-X 01 (2021)(Renegados-MdHQ)");
 
         //HZControlador.converterToHZ("/home/luan/Downloads/top (online-audio-converter.com).wav", "/home/luan/Música/musicas_hz/top.hz");
 

@@ -255,18 +255,18 @@ public class Linha {
             cy = mY1;
         } else {
 
-            int dx =0;
-            int dy =0;
+            int dx = 0;
+            int dy = 0;
 
             if (mX2 > mX1) {
                 dx = mX2 - mX1;
-            }else{
+            } else {
                 dx = mX1 - mX2;
             }
 
             if (mY2 > mY1) {
                 dy = mY2 - mY1;
-            }else{
+            } else {
                 dy = mY1 - mY2;
             }
 
@@ -276,13 +276,13 @@ public class Linha {
 
             if (mX2 > mX1) {
                 cx = mX1 + dx;
-            }else{
+            } else {
                 cx = mX2 + dx;
             }
 
             if (mY2 > mY1) {
                 cy = mY1 + dy;
-            }else{
+            } else {
                 cy = mY2 + dy;
             }
 

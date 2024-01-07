@@ -9,7 +9,6 @@ import libs.dkg.DKGObjeto;
 import libs.luan.Lista;
 import libs.tronarko.utils.ContadorTronarko;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -167,7 +166,7 @@ public class Viagem {
         DKG sDKC = new DKG();
         DKGObjeto sViagem = sDKC.unicoObjeto("Viagem");
 
-        ContadorTronarko tg = new ContadorTronarko(46,4,7002);
+        ContadorTronarko tg = new ContadorTronarko(46, 4, 7002);
 
         Random r = new Random();
 
@@ -246,7 +245,7 @@ public class Viagem {
     }
 
 
-    public void separar(String eArquivo,String qual) {
+    public void separar(String eArquivo, String qual) {
 
 
         System.out.println("------- ABRINDO -------");
@@ -284,7 +283,7 @@ public class Viagem {
                 int sup = Integer.parseInt(getSuperarko(tozte));
                 int hip = Integer.parseInt(getHiperarko(tozte));
 
-                int valor = (hip*50*10*100) + (sup*10*100) + (arkos*100) + ittas;
+                int valor = (hip * 50 * 10 * 100) + (sup * 10 * 100) + (arkos * 100) + ittas;
 
                 ePonto.identifique("Valor", valor);
             }
@@ -309,6 +308,7 @@ public class Viagem {
 
         return ret;
     }
+
     public String getHiperarko(String tozte) {
         String ret = "";
 
@@ -322,6 +322,7 @@ public class Viagem {
 
         return ret;
     }
+
     public String getTronarko(String tozte) {
         String ret = "";
 

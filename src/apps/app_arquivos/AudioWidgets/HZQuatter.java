@@ -1,10 +1,10 @@
 package apps.app_arquivos.AudioWidgets;
 
+import apps.app_letrum.Fonte;
 import libs.arquivos.binario.Inteiro;
 import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
 import libs.azzal.Windows;
-import apps.app_letrum.Fonte;
+import libs.azzal.utilitarios.Cor;
 
 public class HZQuatter {
 
@@ -148,7 +148,7 @@ public class HZQuatter {
 
         int c = 0;
 
-        int[] valorado = new int[(256/2)];
+        int[] valorado = new int[(256 / 2)];
 
         int chave = 0;
 
@@ -164,14 +164,14 @@ public class HZQuatter {
 
             short value = (short) (((va & 0xFF) << 8) | (vb & 0xFF));
 
-        //    int valor = ((int) value)/200;
+            //    int valor = ((int) value)/200;
 
-            int valor = (int)value;
+            int valor = (int) value;
 
             valorado[chave] = valor;
-chave+=1;
+            chave += 1;
 
-           // texto.escreva(600 + coluna, 300 + linha, String.valueOf(valor));
+            // texto.escreva(600 + coluna, 300 + linha, String.valueOf(valor));
 
             c += 1;
             coluna += 100;

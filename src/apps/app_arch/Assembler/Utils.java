@@ -58,6 +58,7 @@ public class Utils {
 
         return mIdentificador;
     }
+
     public String getNumero() {
 
         String mIdentificador = "";
@@ -79,10 +80,8 @@ public class Utils {
     }
 
     public boolean isEspaco(String eValor) {
-        return eValor.contentEquals(" ") || eValor.contentEquals("\n") || eValor.contentEquals("\t")|| eValor.contentEquals("\r");
+        return eValor.contentEquals(" ") || eValor.contentEquals("\n") || eValor.contentEquals("\t") || eValor.contentEquals("\r");
     }
-
-
 
 
     public boolean isPonto(String eValor) {
@@ -105,6 +104,7 @@ public class Utils {
     public boolean isMenor(String eValor) {
         return eValor.contentEquals("<");
     }
+
     public boolean isMaior(String eValor) {
         return eValor.contentEquals(">");
     }

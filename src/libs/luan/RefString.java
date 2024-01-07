@@ -22,19 +22,19 @@ public class RefString {
 
     // COMPARADORES
 
-    public boolean isIgual(String outra){
+    public boolean isIgual(String outra) {
         return mValor.contentEquals(outra);
     }
 
-    public boolean isDiferente(String outra){
+    public boolean isDiferente(String outra) {
         return !mValor.contentEquals(outra);
     }
 
-    public boolean isIgual(RefString outra){
+    public boolean isIgual(RefString outra) {
         return mValor.contentEquals(outra.get());
     }
 
-    public boolean isDiferente(RefString outra){
+    public boolean isDiferente(RefString outra) {
         return !mValor.contentEquals(outra.get());
     }
 }

@@ -12,7 +12,7 @@ public class ItemFormularioQualitativo {
 
 
     public boolean foiRespondido() {
-        return mRespondido ;
+        return mRespondido;
     }
 
     public void responder(String eResposta) {
@@ -20,5 +20,7 @@ public class ItemFormularioQualitativo {
         mRespondido = true;
     }
 
-    public String getResposta(){return mResposta;}
+    public String getResposta() {
+        return mResposta;
+    }
 }

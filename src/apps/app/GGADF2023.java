@@ -3,8 +3,6 @@ package apps.app;
 import apps.app_citatte.Stringum;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
-import libs.arquivos.stacker.StackItem;
-import libs.arquivos.stacker.Stacker;
 import libs.dkg.DKG;
 import libs.dkg.DKGFeatures;
 import libs.dkg.DKGObjeto;
@@ -14,7 +12,6 @@ import libs.tempo.Calendario;
 import libs.tempo.Data;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 public class GGADF2023 {
 
@@ -205,7 +202,7 @@ public class GGADF2023 {
         DKG documento_alunos = DKG.PARSER(GET_ITEM(arquivo, 3));
         Lista<String> turmas = DKGFeatures.filtrar_unicos(documento_alunos.unicoObjeto("Alunos").getObjetos(), "Turma");
 
-        Ordenador.ordenar_lista_crescente(turmas,Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
+        Ordenador.ordenar_lista_crescente(turmas, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         fmt.print("TURMAS              = " + Stringum.EXIBIR_EM_LISTA_TIPADA(turmas));
         fmt.print();

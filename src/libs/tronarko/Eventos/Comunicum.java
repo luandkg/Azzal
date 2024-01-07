@@ -247,15 +247,13 @@ public class Comunicum {
 
                 int esse = esse1;
 
-                if (tozte_evento.getNome().contains("Tron")){
-                    if (esse2<esse1){
-                        esse=esse2;
+                if (tozte_evento.getNome().contains("Tron")) {
+                    if (esse2 < esse1) {
+                        esse = esse2;
                     }
-                   // System.out.println("Esse 1 :: " + esse1);
-                   // System.out.println("Esse 2 :: " + esse2);
+                    // System.out.println("Esse 1 :: " + esse1);
+                    // System.out.println("Esse 2 :: " + esse2);
                 }
-
-
 
 
                 if (esse <= 0) {

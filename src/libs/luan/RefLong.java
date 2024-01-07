@@ -33,10 +33,9 @@ public class RefLong {
         return new RefLong(valor);
     }
 
-    public static RefLong SUBTRAIR(RefLong a,RefLong b){
-        return new RefLong(a.get()-b.get());
+    public static RefLong SUBTRAIR(RefLong a, RefLong b) {
+        return new RefLong(a.get() - b.get());
     }
-
 
 
 }

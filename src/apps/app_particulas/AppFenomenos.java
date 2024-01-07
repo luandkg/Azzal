@@ -1,9 +1,12 @@
 package apps.app_particulas;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.utilitarios.*;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
+import libs.azzal.utilitarios.Paleta;
+import libs.azzal.utilitarios.TransformadorDeCor;
 import libs.luan.Iterador;
 import libs.luan.Lista;
 
@@ -377,7 +380,7 @@ public class AppFenomenos extends Cena {
         int ex = 100;
         int ex2 = 500;
 
-        int ey = 800-(mTamanhoCopo-mTamanho);
+        int ey = 800 - (mTamanhoCopo - mTamanho);
 
 
         for (int a = 0; a < 40; a++) {

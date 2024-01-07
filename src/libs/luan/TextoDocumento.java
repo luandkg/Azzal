@@ -9,7 +9,7 @@ public class TextoDocumento {
     }
 
     public void adicionarLinha() {
-        mTexto +=  "\n";
+        mTexto += "\n";
     }
 
 

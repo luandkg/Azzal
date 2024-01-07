@@ -3,8 +3,8 @@ package libs.pesquisador.pesquisa;
 
 import libs.pesquisador.pesquisa.quantitativo.FormularioDePesquisaQuantitativa;
 
-public interface Entrevista <T>{
+public interface Entrevista<T> {
 
-     void realizar(FormularioDePesquisaQuantitativa eFormulario, T eOrganismo) ;
+    void realizar(FormularioDePesquisaQuantitativa eFormulario, T eOrganismo);
 
 }

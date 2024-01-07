@@ -138,31 +138,31 @@ public class RefInt {
 
     // ESTATICAS
 
-    public static RefInt somar(RefInt a,RefInt b){
-        return new RefInt(a.get()+b.get());
+    public static RefInt somar(RefInt a, RefInt b) {
+        return new RefInt(a.get() + b.get());
     }
 
-    public static RefInt subtrair(RefInt a,RefInt b){
-        return new RefInt(a.get()-b.get());
+    public static RefInt subtrair(RefInt a, RefInt b) {
+        return new RefInt(a.get() - b.get());
     }
 
-    public static RefInt multiplicar(RefInt a,RefInt b){
-        return new RefInt(a.get()*b.get());
+    public static RefInt multiplicar(RefInt a, RefInt b) {
+        return new RefInt(a.get() * b.get());
     }
 
-    public static RefInt dividir(RefInt a,RefInt b){
-        return new RefInt(a.get()/b.get());
+    public static RefInt dividir(RefInt a, RefInt b) {
+        return new RefInt(a.get() / b.get());
     }
 
 
-    public  void reduzir(  RefInt menor, int valor) {
+    public void reduzir(RefInt menor, int valor) {
         while (get() >= valor) {
             subtrair(valor);
             menor.somar(1);
         }
     }
 
-    public  void aumentar(  RefInt menor, int valor) {
+    public void aumentar(RefInt menor, int valor) {
         while (get() <= (valor * (-1))) {
             somar(valor);
             menor.subtrair(1);

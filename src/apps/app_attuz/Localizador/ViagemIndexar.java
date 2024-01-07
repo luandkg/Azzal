@@ -3,13 +3,13 @@ package apps.app_attuz.Localizador;
 import apps.app_attuz.Viagem.Viajante;
 import libs.arquivos.BZ2;
 import libs.arquivos.TX;
+import libs.dkg.AutoDKG;
 import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
 import libs.tronarko.Hazde;
+import libs.tronarko.Tozte;
 import libs.tronarko.utils.IntTronarko;
 import libs.tronarko.utils.StringTronarko;
-import libs.tronarko.Tozte;
-import libs.dkg.DKGObjeto;
-import libs.dkg.AutoDKG;
 
 import java.util.ArrayList;
 

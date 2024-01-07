@@ -3,18 +3,17 @@ package apps.app_attuz.Ferramentas;
 
 import libs.azzal.geometria.Linha;
 import libs.azzal.geometria.Ponto;
-import libs.azzal.utilitarios.Cor;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GPS {
 
-    public static ArrayList<Ponto> criarRota(Ponto p1,Ponto p2) {
-        return criarRota(p1.getX(),p1.getY(),p2.getX(),p2.getY());
+    public static ArrayList<Ponto> criarRota(Ponto p1, Ponto p2) {
+        return criarRota(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
-        public static ArrayList<Ponto> criarRota(int estou_x, int estou_y, int ir_x, int ir_y) {
+    public static ArrayList<Ponto> criarRota(int estou_x, int estou_y, int ir_x, int ir_y) {
 
         ArrayList<Ponto> rota = new ArrayList<Ponto>();
 
@@ -129,15 +128,16 @@ public class GPS {
     }
 
 
-    public  static ArrayList<Ponto> criarRotaReta(int eX, int eY, int eX2, int eY2) {
+    public static ArrayList<Ponto> criarRotaReta(int eX, int eY, int eX2, int eY2) {
         return criarRotaReta(new Linha(eX, eY, eX2, eY2));
     }
-    public  static ArrayList<Ponto> criarRotaReta(Ponto p1,Ponto p2) {
-        return criarRotaReta(new Linha(p1,p2));
+
+    public static ArrayList<Ponto> criarRotaReta(Ponto p1, Ponto p2) {
+        return criarRotaReta(new Linha(p1, p2));
     }
 
 
-        public static ArrayList<Ponto> criarRotaReta(Linha eLinha) {
+    public static ArrayList<Ponto> criarRotaReta(Linha eLinha) {
 
         ArrayList<Ponto> rota = new ArrayList<Ponto>();
 

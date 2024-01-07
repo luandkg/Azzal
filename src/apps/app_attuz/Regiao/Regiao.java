@@ -8,11 +8,16 @@ public class Regiao {
     private Cor mCor;
 
     public Regiao(String eNome, Cor eCor) {
-        mNome=eNome;
-        mCor=eCor;
+        mNome = eNome;
+        mCor = eCor;
     }
 
-    public String getNome(){return mNome;}
-    public Cor getCor(){return mCor;}
+    public String getNome() {
+        return mNome;
+    }
+
+    public Cor getCor() {
+        return mCor;
+    }
 
 }

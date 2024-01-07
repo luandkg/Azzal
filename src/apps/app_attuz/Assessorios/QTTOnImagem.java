@@ -27,7 +27,7 @@ public class QTTOnImagem {
 
                     int nivel = valor / 100;
                     if (nivel >= mRelevoTerra.getMaximo()) {
-                        nivel = mRelevoTerra.getMaximo()-1;
+                        nivel = mRelevoTerra.getMaximo() - 1;
                     }
 
                     imagem.setRGB(x, y, mRelevoTerra.get(nivel));
@@ -36,7 +36,7 @@ public class QTTOnImagem {
 
                     int nivel = ((-1) * valor) / 100;
                     if (nivel >= mRelevoAgua.getMaximo()) {
-                        nivel = mRelevoAgua.getMaximo()-1;
+                        nivel = mRelevoAgua.getMaximo() - 1;
                     }
 
                     imagem.setRGB(x, y, mRelevoAgua.get(nivel));
@@ -53,26 +53,26 @@ public class QTTOnImagem {
 
     public static void umidade(String LOCAL, String eArquivoQTT, String eArquivoImagem) {
 
-        renderSoTerra(LOCAL,eArquivoQTT,EscalasPadroes.getEscalaUmidade(),eArquivoImagem);
+        renderSoTerra(LOCAL, eArquivoQTT, EscalasPadroes.getEscalaUmidade(), eArquivoImagem);
 
     }
 
     public static void mar_distancia(String LOCAL, String eArquivoQTT, String eArquivoImagem) {
 
-        renderSoTerra(LOCAL,eArquivoQTT,EscalasPadroes.getEscalaDistancia(),eArquivoImagem);
+        renderSoTerra(LOCAL, eArquivoQTT, EscalasPadroes.getEscalaDistancia(), eArquivoImagem);
 
     }
 
     public static void temperatura(String LOCAL, String eArquivoQTT, String eArquivoImagem) {
 
-        renderSoTerra(LOCAL,eArquivoQTT,EscalasPadroes.getEscalaTemperatura(),eArquivoImagem);
+        renderSoTerra(LOCAL, eArquivoQTT, EscalasPadroes.getEscalaTemperatura(), eArquivoImagem);
 
     }
 
 
     public static void renderSoTerra(String LOCAL, String eArquivoQTT, Escala mEscala, String eArquivoImagem) {
 
-        Massas tectonica =MassasDados.getTerraAgua(LOCAL);
+        Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
         QTT eQTT = QTT.getTudo(eArquivoQTT);
 
@@ -86,13 +86,13 @@ public class QTTOnImagem {
 
                 if (tectonica.isTerra(x, y)) {
 
-                    int nivel = valor ;
+                    int nivel = valor;
                     if (nivel >= mEscala.getMaximo()) {
-                        nivel = mEscala.getMaximo()-1;
+                        nivel = mEscala.getMaximo() - 1;
                     }
 
                     imagem.setRGB(x, y, mEscala.get(nivel));
-                }else{
+                } else {
                     imagem.setRGB(x, y, mEscala.get(0));
                 }
 
@@ -104,9 +104,9 @@ public class QTTOnImagem {
 
     }
 
-    public static void renderDuplo(String LOCAL, String eArquivoQTT, Escala mEscalaTerra,Escala mEscalaAgua, String eArquivoImagem) {
+    public static void renderDuplo(String LOCAL, String eArquivoQTT, Escala mEscalaTerra, Escala mEscalaAgua, String eArquivoImagem) {
 
-        Massas tectonica =MassasDados.getTerraAgua(LOCAL);
+        Massas tectonica = MassasDados.getTerraAgua(LOCAL);
 
         QTT eQTT = QTT.getTudo(eArquivoQTT);
 
@@ -120,16 +120,16 @@ public class QTTOnImagem {
 
                 if (tectonica.isTerra(x, y)) {
 
-                    int nivel = valor ;
+                    int nivel = valor;
                     if (nivel >= mEscalaTerra.getMaximo()) {
-                        nivel = mEscalaTerra.getMaximo()-1;
+                        nivel = mEscalaTerra.getMaximo() - 1;
                     }
 
                     imagem.setRGB(x, y, mEscalaTerra.get(nivel));
-                }else{
-                    int nivel = valor ;
+                } else {
+                    int nivel = valor;
                     if (nivel >= mEscalaAgua.getMaximo()) {
-                        nivel = mEscalaAgua.getMaximo()-1;
+                        nivel = mEscalaAgua.getMaximo() - 1;
                     }
 
                     imagem.setRGB(x, y, mEscalaAgua.get(nivel));

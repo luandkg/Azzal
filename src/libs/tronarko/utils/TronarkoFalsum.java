@@ -34,7 +34,6 @@ public class TronarkoFalsum {
     }
 
 
-
     public Tozte getTozte() {
         return mCorrente.getTozte();
     }
@@ -43,11 +42,11 @@ public class TronarkoFalsum {
         return mCorrente.getHazde();
     }
 
-    public void sincronizar(int agora,int mais) {
+    public void sincronizar(int agora, int mais) {
 
         if (agora != mPassado) {
             mPassado = agora;
-           // System.out.println("Mudar :: " + agora + " -- " + mCorrente.getTextoZerado());
+            // System.out.println("Mudar :: " + agora + " -- " + mCorrente.getTextoZerado());
             avancar(mais);
         }
 

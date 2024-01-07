@@ -2,14 +2,14 @@ package apps.app_arch;
 
 import apps.app_arch.Assembler.Assembler;
 import apps.app_arch.Matematica.u8;
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Retangulo;
-import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
-import libs.azzal.Windows;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.*;
 
 import java.awt.*;
 import java.io.File;
@@ -55,7 +55,7 @@ public class AppArch extends Cena {
         eWindows.setTitle("Arch - libs.Luan Freitas");
 
         //  mLetramentoPreto = new Letramento(new FontePadrao());
-        mLetramentoPreto = new FonteRunTime(new Cor(0,0,0),15);
+        mLetramentoPreto = new FonteRunTime(new Cor(0, 0, 0), 15);
 
         mMemoria = new Memoria();
         mCPU = new CPU();
@@ -143,7 +143,7 @@ public class AppArch extends Cena {
 
             mMemoria.set(mAntes, (byte) 0);
 
-            mAntes = I16.sum(VIDEO_POINT,mCPU.getPC());
+            mAntes = I16.sum(VIDEO_POINT, mCPU.getPC());
 
             mMemoria.set(mAntes, (byte) 200);
 

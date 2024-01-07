@@ -264,25 +264,25 @@ public class ZettaBarras {
 
                 if (mMaiorDoGrupo) {
                     if (eOrginal == eMaior) {
-                        mCorSelecionada=(mCorMaiorBarra);
+                        mCorSelecionada = (mCorMaiorBarra);
                     }
                 }
 
                 if (mMenorDoGrupo) {
                     if (eOrginal == eMenor) {
-                        mCorSelecionada=(mCorMenorBarra);
+                        mCorSelecionada = (mCorMenorBarra);
                     }
                 }
 
                 g.drawRect_Pintado(new Retangulo((eX + eLargura) - ls - l, comecar, l - 1, eTamanho), (mCorSelecionada));
 
-             //   g.drawString(eOrginal + "", (eX + eLargura) - ls - (l / 2), eY + eAltura + 20);
+                //   g.drawString(eOrginal + "", (eX + eLargura) - ls - (l / 2), eY + eAltura + 20);
 
                 ls += l;
             }
         }
 
-     g.drawRect_Pintado(new Retangulo(eX, eY + eAltura + 30, eLargura, 10), (mCorBarra));
+        g.drawRect_Pintado(new Retangulo(eX, eY + eAltura + 30, eLargura, 10), (mCorBarra));
 
     }
 
@@ -345,13 +345,13 @@ public class ZettaBarras {
 
                 if (mMaiorDoGrupo) {
                     if (eOrginal == eMaior) {
-                        mCorSelecionada=mCorMaiorBarra;
+                        mCorSelecionada = mCorMaiorBarra;
                     }
                 }
 
                 if (mMenorDoGrupo) {
                     if (eOrginal == eMenor) {
-                        mCorSelecionada=mCorMenorBarra;
+                        mCorSelecionada = mCorMenorBarra;
 
                     }
                 }
@@ -437,44 +437,43 @@ public class ZettaBarras {
 
                 if (mMaiorDoGrupo) {
                     if (eOrginal == eMaior) {
-                        mCorSelecionada=(mCorMaiorBarra);
+                        mCorSelecionada = (mCorMaiorBarra);
                     }
                 }
 
                 if (mMenorDoGrupo) {
                     if (eOrginal == eMenor) {
-                        mCorSelecionada=(mCorMenorBarra);
+                        mCorSelecionada = (mCorMenorBarra);
                     }
                 }
-
 
 
                 if (primeiro) {
                     primeiro = false;
                 } else {
 
-                    g.drawLinha(new Linha(ePonto.getX(), ePonto.getY(),( (eX + eLargura) - ls - l)+5, comecar+5), mCorBarra);
+                    g.drawLinha(new Linha(ePonto.getX(), ePonto.getY(), ((eX + eLargura) - ls - l) + 5, comecar + 5), mCorBarra);
 
                 }
 
-              //  g.drawRect_Pintado(new Retangulo(((eX + eLargura) - ls - l), comecar, 10, 10), (mCorSelecionada));
+                //  g.drawRect_Pintado(new Retangulo(((eX + eLargura) - ls - l), comecar, 10, 10), (mCorSelecionada));
                 g.drawCirculo(ePos.getCirculo(((eX + eLargura) - ls - l), comecar, 5), (mCorSelecionada));
 
                 ePonto.setPos((eX + eLargura) - ls - l, comecar);
 
                 if (mMaiorDoGrupo) {
                     if (eOrginal == eMaior) {
-                        mCorSelecionada=(mCorMaiorBarra);
+                        mCorSelecionada = (mCorMaiorBarra);
                     }
                 }
 
                 if (mMenorDoGrupo) {
                     if (eOrginal == eMenor) {
-                        mCorSelecionada=(mCorMenorBarra);
+                        mCorSelecionada = (mCorMenorBarra);
                     }
                 }
 
-              //  g.drawString(eOrginal + "", (eX + eLargura) - ls - (l / 2), eY + eAltura + 20);
+                //  g.drawString(eOrginal + "", (eX + eLargura) - ls - (l / 2), eY + eAltura + 20);
 
                 ls += l;
             }

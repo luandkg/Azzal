@@ -40,7 +40,7 @@ public class Seq implements Iterable<Integer> {
     }
 
 
-    public static Seq SEQUENCIE(int minimo,int maximo) {
+    public static Seq SEQUENCIE(int minimo, int maximo) {
         return new Seq(minimo, maximo);
 
     }

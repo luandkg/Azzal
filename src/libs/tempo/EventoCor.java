@@ -7,11 +7,16 @@ public class EventoCor {
     private String mEvento;
     private Cor mCor;
 
-    public EventoCor(String evento, Cor eCor){
-        mEvento=evento;
-        mCor=eCor;
+    public EventoCor(String evento, Cor eCor) {
+        mEvento = evento;
+        mCor = eCor;
     }
 
-    public String getEvento(){return mEvento;}
-    public Cor getCor(){return mCor;}
+    public String getEvento() {
+        return mEvento;
+    }
+
+    public Cor getCor() {
+        return mCor;
+    }
 }

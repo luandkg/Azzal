@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class TirarPrint {
 
-    public static void print(Windows eWindows, String eArquivo){
+    public static void print(Windows eWindows, String eArquivo) {
 
         BufferedImage sc = new BufferedImage(eWindows.getLargura(), eWindows.getAltura(), BufferedImage.TYPE_INT_ARGB);
 

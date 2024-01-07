@@ -5,25 +5,26 @@ public class Temporizador {
     private long mInicio;
     private long mFim;
 
-    public Temporizador(){
+    public Temporizador() {
 
-        mInicio=0;
-        mFim=0;
+        mInicio = 0;
+        mFim = 0;
 
     }
 
-    public void marqueInicio(){
-        mInicio=System.currentTimeMillis();
+    public void marqueInicio() {
+        mInicio = System.currentTimeMillis();
     }
 
-    public void marqueFim(){
-        mFim=System.currentTimeMillis();
+    public void marqueFim() {
+        mFim = System.currentTimeMillis();
     }
 
-    public long getInicio(){
+    public long getInicio() {
         return mInicio;
     }
-    public long getFim(){
+
+    public long getFim() {
         return mFim;
     }
 

@@ -34,7 +34,7 @@ public class Secao {
         return mDatas;
     }
 
-    public void criarData(String aTipado,String eNome, String eValor) {
+    public void criarData(String aTipado, String eNome, String eValor) {
 
         AST eAST = new AST(aTipado);
         eAST.setValor(eNome);

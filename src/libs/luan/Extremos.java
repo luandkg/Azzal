@@ -16,8 +16,13 @@ public class Extremos<T> {
         mOrdenavel = ordenavel;
     }
 
-    public T getMenor(){return mMenor;}
-    public T getMaior(){return mMaior;}
+    public T getMenor() {
+        return mMenor;
+    }
+
+    public T getMaior() {
+        return mMaior;
+    }
 
 
     public void set(T valor) {
@@ -26,11 +31,11 @@ public class Extremos<T> {
             mMenor = valor;
             mMaior = valor;
         } else {
-            if (mOrdenavel.emOrdem(valor, mMenor)==Ordenavel.MENOR) {
-                mMenor=valor;
+            if (mOrdenavel.emOrdem(valor, mMenor) == Ordenavel.MENOR) {
+                mMenor = valor;
             }
-            if (mOrdenavel.emOrdem(valor, mMaior)==Ordenavel.MAIOR) {
-                mMaior=valor;
+            if (mOrdenavel.emOrdem(valor, mMaior) == Ordenavel.MAIOR) {
+                mMaior = valor;
             }
         }
 

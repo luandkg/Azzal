@@ -68,12 +68,12 @@ public class HiperTestador {
         }
 
 
-    long tempo = (FIM - INICIO) / 1000000;
+        long tempo = (FIM - INICIO) / 1000000;
 
         System.out.println("----------------------------------------------------");
-        System.out.println("TESTES   :: "+CONTADOR_TESTES);
-        System.out.println("DURACAO  :: "+tempo +" ms");
-        System.out.println("STATUS   :: "+testes_status);
+        System.out.println("TESTES   :: " + CONTADOR_TESTES);
+        System.out.println("DURACAO  :: " + tempo + " ms");
+        System.out.println("STATUS   :: " + testes_status);
 
-}
+    }
 }

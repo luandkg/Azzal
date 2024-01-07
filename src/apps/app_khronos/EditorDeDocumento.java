@@ -1,13 +1,13 @@
 package apps.app_khronos;
 
 
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.Teclado;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
 
 public class EditorDeDocumento {
 
@@ -24,7 +24,6 @@ public class EditorDeDocumento {
     private Fonte mNumeroSelecionado;
 
 
-
     private int mTamanhoComprimento;
     private boolean mTabulado;
     private boolean mTemSintaxe;
@@ -38,7 +37,7 @@ public class EditorDeDocumento {
     private String mFonte_Nome;
     private int mFonte_Tamanho;
 
-    public EditorDeDocumento(int eX, int eY ) {
+    public EditorDeDocumento(int eX, int eY) {
 
         mX = eX;
         mY = eY;
@@ -48,11 +47,11 @@ public class EditorDeDocumento {
         mEstaEditando = false;
         mTamanhoComprimento = 0;
 
-        mFonte_Nome="Ubuntu";
-        mFonte_Tamanho= FonteRunTime.getTamanhoMedio();
+        mFonte_Nome = "Ubuntu";
+        mFonte_Tamanho = FonteRunTime.getTamanhoMedio();
 
         mTextoNormal = new FonteRunTime(Cores.hexToCor("#ebdbb2"), mFonte_Nome, mFonte_Tamanho);
-        mNumeroSelecionado = new FonteRunTime(Cores.hexToCor("#cc241d"), mFonte_Nome,mFonte_Tamanho);
+        mNumeroSelecionado = new FonteRunTime(Cores.hexToCor("#cc241d"), mFonte_Nome, mFonte_Tamanho);
 
         mTabulado = false;
 
@@ -68,15 +67,20 @@ public class EditorDeDocumento {
         mMostrarCursor = true;
     }
 
-    public String getFonteNome(){return mFonte_Nome;}
-    public int getFonteTamanho(){return mFonte_Tamanho;}
+    public String getFonteNome() {
+        return mFonte_Nome;
+    }
+
+    public int getFonteTamanho() {
+        return mFonte_Tamanho;
+    }
 
 
     public void clicar(double dt, int px, int py, boolean isPressionado) {
         mRecebedor.getDocumento().clicar(initLinha, px, py, isPressionado, mX, mY, mTextoNormal);
     }
 
-    public void organizarTexto(){
+    public void organizarTexto() {
         mRecebedor.getDocumento().organizarLinhas();
     }
 
@@ -94,7 +98,6 @@ public class EditorDeDocumento {
         mTamanhoComprimento = 30;
 
         mRecebedor.getDocumento().organizarLinhas();
-
 
 
         int lo = initLinha + maxLinhas;
@@ -120,8 +123,6 @@ public class EditorDeDocumento {
     public void setCursorFim() {
         mRecebedor.getDocumento().setCursorFim();
     }
-
-
 
 
     public void mostrarCursor(boolean e) {
@@ -155,9 +156,9 @@ public class EditorDeDocumento {
                 if (li >= initLinha && li < ultima_linha) {
                     mSintaxer.onRender(mRenderizador, linha, mX, corrente_y);
 
-                    if (li == mRecebedor.getDocumento().getCurY()){
+                    if (li == mRecebedor.getDocumento().getCurY()) {
                         mNumeroSelecionado.escreva(mX - 40, corrente_y, String.valueOf(li));
-                    }else{
+                    } else {
                         mTextoNormal.escreva(mX - 40, corrente_y, String.valueOf(li));
                     }
 
@@ -252,7 +253,7 @@ public class EditorDeDocumento {
         mSintaxer = eSintaxer;
     }
 
-    public void semSintaxer(){
+    public void semSintaxer() {
         mTemSintaxe = false;
         mSintaxer = null;
     }
@@ -300,17 +301,17 @@ public class EditorDeDocumento {
         }
     }
 
-    public void visualizar_primeira_linha(){
-        initLinha=0;
+    public void visualizar_primeira_linha() {
+        initLinha = 0;
         mRecebedor.getDocumento().setCurY(0);
     }
 
-    public void visualizar_ultima_linha(){
+    public void visualizar_ultima_linha() {
 
         organizarTexto();
-        initLinha = mRecebedor.getDocumento().getLinhas().size()-maxLinhas;
-        if (initLinha<0){
-            initLinha=0;
+        initLinha = mRecebedor.getDocumento().getLinhas().size() - maxLinhas;
+        if (initLinha < 0) {
+            initLinha = 0;
         }
         mRecebedor.getDocumento().setCurX(0);
         mRecebedor.getDocumento().setCurY(initLinha);

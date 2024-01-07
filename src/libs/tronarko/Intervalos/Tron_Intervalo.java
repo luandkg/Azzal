@@ -3,7 +3,7 @@ package libs.tronarko.Intervalos;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tron;
 
-public  class Tron_Intervalo {
+public class Tron_Intervalo {
 
     private String mNome;
     private Tron mInicio;
@@ -144,7 +144,7 @@ public  class Tron_Intervalo {
             mSuperarkos += 1;
         }
 
-        return (mSuperarkos *1000) + (mArkos*100) + mIttas;
+        return (mSuperarkos * 1000) + (mArkos * 100) + mIttas;
 
     }
 

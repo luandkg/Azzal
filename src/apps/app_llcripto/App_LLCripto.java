@@ -1,8 +1,8 @@
 package apps.app_llcripto;
 
-import libs.azzal.cenarios.Cena;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
 import libs.llcripto.LLCripto;
 
 public class App_LLCripto extends Cena {
@@ -22,9 +22,9 @@ public class App_LLCripto extends Cena {
         System.out.println("ALGORITMO LLCRIPTO");
         System.out.println("---------------------------------------");
         System.out.println("CHAVE    :: " + chave);
-        System.out.println("ENTRADA  :: " +entrada);
+        System.out.println("ENTRADA  :: " + entrada);
         System.out.println("---------------------------------------");
-        System.out.println("CIFRAR   :: " + "{ "+LLCripto.bytes_to_sequencia(valores) + " }");
+        System.out.println("CIFRAR   :: " + "{ " + LLCripto.bytes_to_sequencia(valores) + " }");
         System.out.println("DECIFRAR :: " + LLCripto.descriptografar(valores, chave));
 
     }

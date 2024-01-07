@@ -3,15 +3,13 @@ package apps.app_attuz.Populacionar;
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Ferramentas.Local;
 import apps.app_attuz.Regiao.Regiao;
-import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_attuz.Regiao.Regionalizador;
-import libs.luan.*;
+import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.*;
 import libs.materializedview.HiperMaterializedView10K;
 import libs.materializedview.MaterializedView10K;
-
-import java.util.ArrayList;
 
 public class Populacionar {
 

@@ -6,15 +6,22 @@ public class RankeadoInteiro<T> {
     private T mObjeto;
     private int mRanking;
 
-    public RankeadoInteiro(String nome, int eRanking, T eObjeto){
-        mNome=nome;
-        mRanking=eRanking;
-        mObjeto=eObjeto;
+    public RankeadoInteiro(String nome, int eRanking, T eObjeto) {
+        mNome = nome;
+        mRanking = eRanking;
+        mObjeto = eObjeto;
     }
 
-    public String getNome(){return mNome;}
-    public int getRanking(){return mRanking;}
+    public String getNome() {
+        return mNome;
+    }
 
-    public T getObjeto(){return mObjeto;}
+    public int getRanking() {
+        return mRanking;
+    }
+
+    public T getObjeto() {
+        return mObjeto;
+    }
 
 }

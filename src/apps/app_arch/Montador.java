@@ -50,13 +50,13 @@ public class Montador {
         set(Opcode.setRegD);
     }
 
-    public void addI8(byte b1 ,byte b2) {
+    public void addI8(byte b1, byte b2) {
         set(Opcode.addI8);
         set(b1);
         set(b2);
     }
 
-    public void movI8(byte b1 ,byte b2) {
+    public void movI8(byte b1, byte b2) {
         set(Opcode.movI8);
         set(b1);
         set(b2);

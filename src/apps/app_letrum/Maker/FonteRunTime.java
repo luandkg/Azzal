@@ -37,7 +37,7 @@ public class FonteRunTime implements Fonte {
 
         int quantidade = sequencia.length();
         for (int v = 0; v < quantidade; v++) {
-            mLetras.add(new Letra(String.valueOf(sequencia.charAt(v)), 0, 0,0,0));
+            mLetras.add(new Letra(String.valueOf(sequencia.charAt(v)), 0, 0, 0, 0));
         }
 
         int eLinhas = 1;
@@ -111,7 +111,7 @@ public class FonteRunTime implements Fonte {
 
     }
 
-    public FonteRunTime(Cor eCor,String eNome, int eTamanho) {
+    public FonteRunTime(Cor eCor, String eNome, int eTamanho) {
 
         mCor = eCor;
         ESCREVA_COR = mCor.getValor();
@@ -126,7 +126,7 @@ public class FonteRunTime implements Fonte {
 
         int quantidade = sequencia.length();
         for (int v = 0; v < quantidade; v++) {
-            mLetras.add(new Letra(String.valueOf(sequencia.charAt(v)), 0, 0,0,0));
+            mLetras.add(new Letra(String.valueOf(sequencia.charAt(v)), 0, 0, 0, 0));
         }
 
         int eLinhas = 1;
@@ -200,7 +200,7 @@ public class FonteRunTime implements Fonte {
 
     }
 
-    public FonteRunTime(Cor eCor,String eNome, int eTamanho,boolean isBold) {
+    public FonteRunTime(Cor eCor, String eNome, int eTamanho, boolean isBold) {
 
         mCor = eCor;
         ESCREVA_COR = mCor.getValor();
@@ -215,7 +215,7 @@ public class FonteRunTime implements Fonte {
 
         int quantidade = sequencia.length();
         for (int v = 0; v < quantidade; v++) {
-            mLetras.add(new Letra(String.valueOf(sequencia.charAt(v)), 0, 0,0,0));
+            mLetras.add(new Letra(String.valueOf(sequencia.charAt(v)), 0, 0, 0, 0));
         }
 
         int eLinhas = 1;
@@ -249,9 +249,9 @@ public class FonteRunTime implements Fonte {
 
         g.setColor(Color.BLACK);
 
-        if (isBold){
+        if (isBold) {
             g.setFont(new Font(eNome, Font.BOLD, eTamanho));
-        }else{
+        } else {
             g.setFont(new Font(eNome, Font.PLAIN, eTamanho));
         }
 
@@ -370,7 +370,7 @@ public class FonteRunTime implements Fonte {
         }
     }
 
-    public void escrevaComOutraCor(int x, int y, String frase,Cor eOutraCor) {
+    public void escrevaComOutraCor(int x, int y, String frase, Cor eOutraCor) {
 
 
         int i = 0;
@@ -460,7 +460,11 @@ public class FonteRunTime implements Fonte {
         return x;
     }
 
-    public Renderizador getRenderizador(){return mRenderizador;}
+    public Renderizador getRenderizador() {
+        return mRenderizador;
+    }
 
-    public Cor getCor(){return mCor;}
+    public Cor getCor() {
+        return mCor;
+    }
 }

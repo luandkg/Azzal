@@ -15,7 +15,7 @@ public class DKGUtils {
         return o;
     }
 
-    public static DKGObjeto criar(String nome, String c1, String v1,String c2,String v2) {
+    public static DKGObjeto criar(String nome, String c1, String v1, String c2, String v2) {
 
         DKGObjeto o = new DKGObjeto(nome);
         o.identifique(c1, v1);
@@ -24,7 +24,7 @@ public class DKGUtils {
         return o;
     }
 
-    public static DKGObjeto criar(String nome, String c1, String v1,String c2,String v2,String c3,String v3) {
+    public static DKGObjeto criar(String nome, String c1, String v1, String c2, String v2, String c3, String v3) {
 
         DKGObjeto o = new DKGObjeto(nome);
         o.identifique(c1, v1);

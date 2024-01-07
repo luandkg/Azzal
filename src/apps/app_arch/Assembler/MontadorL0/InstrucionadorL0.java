@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class InstrucionadorL0 {
 
-    public int instrucao_MOV(int eAntes,AST eInstrucao, ArrayList<AST> mMontandoInstrucoes, ArrayList<AST> mTodos, ArrayList<String> mErros) {
+    public int instrucao_MOV(int eAntes, AST eInstrucao, ArrayList<AST> mMontandoInstrucoes, ArrayList<AST> mTodos, ArrayList<String> mErros) {
 
 
         if (eInstrucao.getBranch("TO").getSubValor().contentEquals("REG") && eInstrucao.getBranch("FROM").getSubValor().contentEquals("VAR")) {
@@ -51,7 +51,7 @@ public class InstrucionadorL0 {
             AST eTo = getVar(mTodos, eInstrucao.getBranch("TO").getValor());
 
 
-            System.out.println(" -->> Movendo " +eTo.getBranch("POS").getValor() );
+            System.out.println(" -->> Movendo " + eTo.getBranch("POS").getValor());
 
 
             if (eTo.mesmoTipo("I8")) {
@@ -96,7 +96,7 @@ public class InstrucionadorL0 {
         return eAntes;
     }
 
-    public int instrucao_ADD(int eAntes,AST eInstrucao, ArrayList<AST> mMontandoInstrucoes, ArrayList<AST> mTodos, ArrayList<String> mErros) {
+    public int instrucao_ADD(int eAntes, AST eInstrucao, ArrayList<AST> mMontandoInstrucoes, ArrayList<AST> mTodos, ArrayList<String> mErros) {
 
 
         if (eInstrucao.getBranch("TO").getSubValor().contentEquals("REG") && eInstrucao.getBranch("FROM").getSubValor().contentEquals("VAR")) {
@@ -154,14 +154,14 @@ public class InstrucionadorL0 {
         return eAntes;
     }
 
-    public int instrucao_JMP(int eAntes,AST eInstrucao, ArrayList<AST> mMontandoInstrucoes, ArrayList<AST> mTodos, ArrayList<String> mErros) {
+    public int instrucao_JMP(int eAntes, AST eInstrucao, ArrayList<AST> mMontandoInstrucoes, ArrayList<AST> mTodos, ArrayList<String> mErros) {
 
         AST eCorrente = new AST("JMP");
         eCorrente.setValor(eInstrucao.getValor());
         eCorrente.unico("POS").setValor(String.valueOf(eAntes));
         mMontandoInstrucoes.add(eCorrente);
 
-        eAntes+=3;
+        eAntes += 3;
 
         return eAntes;
     }

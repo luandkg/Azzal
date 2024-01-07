@@ -6,11 +6,16 @@ public class Documento {
     private String mConteudo;
 
 
-    public Documento(String eNome,String eConteudo){
-        mNome=eNome;
-        mConteudo=eConteudo;
+    public Documento(String eNome, String eConteudo) {
+        mNome = eNome;
+        mConteudo = eConteudo;
     }
 
-    public String getNome(){return mNome;}
-    public String getConteudo(){return mConteudo;}
+    public String getNome() {
+        return mNome;
+    }
+
+    public String getConteudo() {
+        return mConteudo;
+    }
 }

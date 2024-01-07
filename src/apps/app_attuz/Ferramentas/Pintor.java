@@ -16,10 +16,10 @@ public class Pintor {
 
                 int n = eMassa.getValor(x, y);
 
-                if (n<eEscala.getMaximo()){
+                if (n < eEscala.getMaximo()) {
                     mapa.setRGB(x, y, eEscala.get(n));
-                }else{
-                    mapa.setRGB(x, y, eEscala.get(eEscala.getMaximo()-1));
+                } else {
+                    mapa.setRGB(x, y, eEscala.get(eEscala.getMaximo() - 1));
                 }
 
             }

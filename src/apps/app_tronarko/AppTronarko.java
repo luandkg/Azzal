@@ -1,30 +1,33 @@
 package apps.app_tronarko;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
-import libs.documentar.AutoInt;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.FonteDupla;
 import apps.app_letrum.FonteDuplaRunTime;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
+import libs.documentar.AutoInt;
 import libs.luan.Lista;
 import libs.luan.Tempo;
-import libs.rho_benchmark.RhoBenchmark;
-import libs.tronarko.Eventos.Comunicado;
-import libs.tronarko.Eventos.Comunicum;
-import libs.tronarko.Eventos.Eventum;
-import libs.tronarko.*;
-import libs.tronarko.Eventos.Momentum;
-import libs.tronarko.Satelites.*;
-import libs.tronarko.utils.TozteCor;
-import libs.tronarko.utils.TronarkoFalsum;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 import libs.mockui.Marcador;
+import libs.rho_benchmark.RhoBenchmark;
+import libs.tronarko.Eventos.Comunicado;
+import libs.tronarko.Eventos.Comunicum;
+import libs.tronarko.Eventos.Eventum;
+import libs.tronarko.Eventos.Momentum;
+import libs.tronarko.Hazde;
+import libs.tronarko.Satelites.Ceu;
+import libs.tronarko.Tozte;
+import libs.tronarko.Tron;
+import libs.tronarko.Tronarko;
+import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.TronarkoFalsum;
 
 
 public class AppTronarko extends Cena {

@@ -7,14 +7,18 @@ public class Span {
 
     public Span(String eTexto) {
         mTexto = eTexto;
-        mEspecial=false;
+        mEspecial = false;
     }
 
-    public void especializar(){mEspecial=true;}
+    public void especializar() {
+        mEspecial = true;
+    }
 
     public String getTexto() {
         return mTexto;
     }
 
-    public boolean isEspecial(){return mEspecial;}
+    public boolean isEspecial() {
+        return mEspecial;
+    }
 }

@@ -130,11 +130,10 @@ public class HZ {
         continuar = true;
     }
 
-    public void re_iniciar()
-    {
+    public void re_iniciar() {
         au_lendo = 0;
         ptr = new RefInt();
-        continuar=true;
+        continuar = true;
         terminou = false;
 
     }

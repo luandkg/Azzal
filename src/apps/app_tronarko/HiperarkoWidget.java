@@ -1,17 +1,17 @@
 package apps.app_tronarko;
 
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.tronarko.Agenda.Alarme;
 import libs.tronarko.Hiperarkos;
 import libs.tronarko.Superarkos;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
-import libs.tronarko.Agenda.Alarme;
 
 import java.awt.*;
 

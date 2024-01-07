@@ -58,8 +58,8 @@ public class C1 extends Cena {
 
         mCron = new Cronometro(50);
 
-        mLetramentoPreto = new FonteRunTime(new Cor(255,0,0),10);
-        mLetramentoVermelho = new FonteRunTime(new Cor(255,0,0),10);
+        mLetramentoPreto = new FonteRunTime(new Cor(255, 0, 0), 10);
+        mLetramentoVermelho = new FonteRunTime(new Cor(255, 0, 0), 10);
         //   m3 = new LetramentoColorido(Cor.getHexCor("#99d066"));
         //   m4 = new LetramentoColorido(Cor.getHexCor("#ffd54f"));
 

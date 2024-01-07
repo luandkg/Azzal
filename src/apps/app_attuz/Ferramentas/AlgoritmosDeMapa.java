@@ -251,7 +251,7 @@ public class AlgoritmosDeMapa {
         return tudo;
     }
 
-    public ArrayList<Ponto> contorno_de_area_de(ArrayList<Ponto> mLocais,int r) {
+    public ArrayList<Ponto> contorno_de_area_de(ArrayList<Ponto> mLocais, int r) {
 
         ArrayList<Ponto> tudo = new ArrayList<Ponto>();
 

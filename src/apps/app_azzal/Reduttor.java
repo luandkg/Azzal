@@ -51,10 +51,10 @@ public class Reduttor {
             for (int i = 0; i < t4; i++) {
 
 
-                tc.a = byteBuffer[i*4];
-                tc.b = byteBuffer[(i*4)+1];
-                tc.c = byteBuffer[(i*4)+2];
-                tc.d = byteBuffer[(i*4)+3];
+                tc.a = byteBuffer[i * 4];
+                tc.b = byteBuffer[(i * 4) + 1];
+                tc.c = byteBuffer[(i * 4) + 2];
+                tc.d = byteBuffer[(i * 4) + 3];
 
                 int pixel = tc.getInt();
 

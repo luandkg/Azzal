@@ -1,6 +1,5 @@
 package apps.app_citatte.cidade_beta;
 
-import apps.app_citatte.cidade_beta.Avenida;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.geometria.Ponto;
@@ -43,7 +42,7 @@ public class Uttoza {
 
         for (int v = 0; v < 5 + sorte.nextInt(15); v++) {
 
-            int quantidade =    draw_vertical(pos_x, pos_y, mCidade,avenidas);
+            int quantidade = draw_vertical(pos_x, pos_y, mCidade, avenidas);
 
             if (quantidade < 10) {
                 pos_x += quantidade * 60;
@@ -70,10 +69,10 @@ public class Uttoza {
         }
 
         for (Avenida av1 : avenidas) {
-            if(av1.isConectada()){
-                av1.draw(mCidade,mCores.getLaranja());
-            }else{
-            //    av1.draw(mCidade,mCores.getBranco());
+            if (av1.isConectada()) {
+                av1.draw(mCidade, mCores.getLaranja());
+            } else {
+                //    av1.draw(mCidade,mCores.getBranco());
             }
         }
 
@@ -92,7 +91,7 @@ public class Uttoza {
         //  int px_i = 50 + sorte.nextInt(100);
         //int py_i = 200 + sorte.nextInt(100);
 
-        Avenida avenida = new Avenida(avenidas.getQuantidade(),Avenida.HORIZONTAL);
+        Avenida avenida = new Avenida(avenidas.getQuantidade(), Avenida.HORIZONTAL);
         avenidas.adicionar(avenida);
 
         for (int vi = 0; vi < peca_quantidade; vi++) {
@@ -109,7 +108,7 @@ public class Uttoza {
         return peca_quantidade;
     }
 
-    public int draw_vertical(int px_i, int py_i, Renderizador mCidade,Lista<Avenida> avenidas) {
+    public int draw_vertical(int px_i, int py_i, Renderizador mCidade, Lista<Avenida> avenidas) {
 
         // HORIZONTAL
 
@@ -121,7 +120,7 @@ public class Uttoza {
         //  int px_i = 50 + sorte.nextInt(100);
         //int py_i = 200 + sorte.nextInt(100);
 
-        Avenida avenida = new Avenida(avenidas.getQuantidade(),Avenida.VERTICAL);
+        Avenida avenida = new Avenida(avenidas.getQuantidade(), Avenida.VERTICAL);
         avenidas.adicionar(avenida);
 
         for (int vi = 0; vi < peca_quantidade; vi++) {

@@ -48,7 +48,7 @@ public class Teclado implements KeyListener {
 
         int tecla = e.getKeyCode();
 
-     //   System.out.println("Tecla :: " + tecla);
+        //   System.out.println("Tecla :: " + tecla);
 
         if (tecla >= 0 && tecla < 255) {
 
@@ -112,7 +112,6 @@ public class Teclado implements KeyListener {
 
         return false;
     }
-
 
 
     public boolean estaPressionado(int eTecla) {

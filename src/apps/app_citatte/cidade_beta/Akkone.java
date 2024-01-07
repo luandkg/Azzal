@@ -62,7 +62,7 @@ public class Akkone {
 
         habitavel = habitaveis.getQuantidade();
 
-      // retirar_brancos();
+        // retirar_brancos();
 
 
         boolean criar_rotas_pequenas = false;
@@ -184,7 +184,7 @@ public class Akkone {
     }
 
 
-    public void retirar_brancos(Renderizador mCidade,Lista<Ponto> habitaveis){
+    public void retirar_brancos(Renderizador mCidade, Lista<Ponto> habitaveis) {
 
         Cores mCores = new Cores();
 

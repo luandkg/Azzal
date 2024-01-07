@@ -42,133 +42,130 @@ public class Anexado {
             //   System.out.println("Iniciar Leitura Extrum");
 
 
+            Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
+
+            if (mAssetContainer.temApendice()) {
+
+                fu.setPonteiro(mAssetContainer.getExtrumPonteiro());
 
 
-                Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
+                byte b1 = fu.get();
+                b1 = fu.get();
 
-                if (mAssetContainer.temApendice()) {
+                while (b1 != (byte) 55) {
 
-                    fu.setPonteiro(mAssetContainer.getExtrumPonteiro());
-
-
-                    byte b1 = fu.get();
-                    b1 = fu.get();
-
-                    while (b1 != (byte) 55) {
-
-                        // System.out.println("B1 : " + b1);
+                    // System.out.println("B1 : " + b1);
 
 
-                        if (b1 == (byte) 51) {
+                    if (b1 == (byte) 51) {
 
 
-                            Listador eListador = new Listador(mAssetContainer, StringView.deArquivador(fu, 100));
+                        Listador eListador = new Listador(mAssetContainer, StringView.deArquivador(fu, 100));
 
-                            //System.out.println("Dentro Listador : " + eListador.getNome());
+                        //System.out.println("Dentro Listador : " + eListador.getNome());
 
-                            b1 = fu.get();
+                        b1 = fu.get();
 
-                            // System.out.println("Dentro Listador : " + b1);
+                        // System.out.println("Dentro Listador : " + b1);
 
-                            while (b1 != (byte) 13) {
+                        while (b1 != (byte) 13) {
 
-                                if (b1 == (byte) 11) {
+                            if (b1 == (byte) 11) {
 
-                                    long r1 = fu.getPonteiro();
-                                    long eInicio = fu.get_u64();
+                                long r1 = fu.getPonteiro();
+                                long eInicio = fu.get_u64();
 
-                                    long r2 = fu.getPonteiro();
-                                    long eFim = fu.get_u64();
+                                long r2 = fu.getPonteiro();
+                                long eFim = fu.get_u64();
 
-                                    eListador.adicionar(new Pasta(this.mAssetContainer, new Referencia(r1, r2), new AssetRef(11, eInicio, eFim)));
+                                eListador.adicionar(new Pasta(this.mAssetContainer, new Referencia(r1, r2), new AssetRef(11, eInicio, eFim)));
 
-                                    //  System.out.println("\t - Local " + eLocal);
-                                }
-                                b1 = fu.get();
-                                if (b1 == (byte) -1) {
-                                    break;
-                                }
+                                //  System.out.println("\t - Local " + eLocal);
                             }
-
-
-                            mListadores.add(eListador);
-
-
-                        } else if (b1 == (byte) 52) {
-
-                            Biblioteca eListador = new Biblioteca(mAssetContainer, StringView.deArquivador(fu, 100));
-
-                            // System.out.println("Dentro Biblioteca : " + eListador.getNome());
-
                             b1 = fu.get();
-
-                            // System.out.println("Dentro Biblioteca : " + b1);
-
-                            while (b1 != (byte) 13) {
-
-                                if (b1 == (byte) 11) {
-                                    String eLocal = StringView.deArquivador(fu, 1024);
-                                    eListador.adicionar(eLocal);
-
-                                    //  System.out.println("\t - Local " + eLocal);
-                                }
-                                b1 = fu.get();
-                                if (b1 == (byte) -1) {
-                                    break;
-                                }
+                            if (b1 == (byte) -1) {
+                                break;
                             }
+                        }
 
+
+                        mListadores.add(eListador);
+
+
+                    } else if (b1 == (byte) 52) {
+
+                        Biblioteca eListador = new Biblioteca(mAssetContainer, StringView.deArquivador(fu, 100));
+
+                        // System.out.println("Dentro Biblioteca : " + eListador.getNome());
+
+                        b1 = fu.get();
+
+                        // System.out.println("Dentro Biblioteca : " + b1);
+
+                        while (b1 != (byte) 13) {
+
+                            if (b1 == (byte) 11) {
+                                String eLocal = StringView.deArquivador(fu, 1024);
+                                eListador.adicionar(eLocal);
+
+                                //  System.out.println("\t - Local " + eLocal);
+                            }
                             b1 = fu.get();
-
-                            // System.out.println("Dentro Biblioteca : " + b1);
-
-                            while (b1 != (byte) 13) {
-
-                                if (b1 == (byte) 11) {
-                                    String eLocal = StringView.deArquivador(fu, 100);
-                                    eListador.adicionarExtensao(eLocal);
-
-                                    //   System.out.println("\t - Extensao " + eLocal);
-                                }
-                                b1 = fu.get();
-                                if (b1 == (byte) -1) {
-                                    break;
-                                }
+                            if (b1 == (byte) -1) {
+                                break;
                             }
-
-                            mBibliotecas.add(eListador);
-
-                        } else if (b1 == (byte) 53) {
-
-                            String s1 = StringView.deArquivador(fu, 100);
-                            String s2 = StringView.deArquivador(fu, 100);
-
-
-                            ArquivoLink eArquivoLink = new ArquivoLink(mAssetContainer, s1, s2, fu.get_u64(), fu.get_u64());
-                            mArquivosLink.add(eArquivoLink);
-
-
-                        } else if (b1 == (byte) 54) {
-
-                            String s1 = StringView.deArquivador(fu, 100);
-                            String s2 = StringView.deArquivador(fu, 100);
-
-                            PastaLink eArquivoLink = new PastaLink(mAssetContainer, s1, s2, fu.get_u64(), fu.get_u64());
-                            mPastasLink.add(eArquivoLink);
-
-
                         }
 
                         b1 = fu.get();
-                        if (b1 == (byte) -1) {
-                            break;
+
+                        // System.out.println("Dentro Biblioteca : " + b1);
+
+                        while (b1 != (byte) 13) {
+
+                            if (b1 == (byte) 11) {
+                                String eLocal = StringView.deArquivador(fu, 100);
+                                eListador.adicionarExtensao(eLocal);
+
+                                //   System.out.println("\t - Extensao " + eLocal);
+                            }
+                            b1 = fu.get();
+                            if (b1 == (byte) -1) {
+                                break;
+                            }
                         }
+
+                        mBibliotecas.add(eListador);
+
+                    } else if (b1 == (byte) 53) {
+
+                        String s1 = StringView.deArquivador(fu, 100);
+                        String s2 = StringView.deArquivador(fu, 100);
+
+
+                        ArquivoLink eArquivoLink = new ArquivoLink(mAssetContainer, s1, s2, fu.get_u64(), fu.get_u64());
+                        mArquivosLink.add(eArquivoLink);
+
+
+                    } else if (b1 == (byte) 54) {
+
+                        String s1 = StringView.deArquivador(fu, 100);
+                        String s2 = StringView.deArquivador(fu, 100);
+
+                        PastaLink eArquivoLink = new PastaLink(mAssetContainer, s1, s2, fu.get_u64(), fu.get_u64());
+                        mPastasLink.add(eArquivoLink);
+
+
                     }
 
-
+                    b1 = fu.get();
+                    if (b1 == (byte) -1) {
+                        break;
+                    }
                 }
-                fu.encerrar();
 
+
+            }
+            fu.encerrar();
 
 
         }
@@ -312,103 +309,100 @@ public class Anexado {
     public void salvar() {
 
 
+        Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
+
+        if (mAssetContainer.temApendice()) {
+
+            fu.setPonteiro(mAssetContainer.getExtrumPonteiro());
+
+            fu.set_u8((byte) 50);
 
 
-            Arquivador fu = new Arquivador(mAssetContainer.getArquivo());
+            for (Listador mListadorC : getListadores()) {
 
-            if (mAssetContainer.temApendice()) {
+                fu.set_u8((byte) 51);
+                fu.set_u8_array(StringView.toBytes(mListadorC.getNome(), 100));
 
-                fu.setPonteiro(mAssetContainer.getExtrumPonteiro());
+                fu.set_u8((byte) 10);
 
-                fu.set_u8((byte) 50);
-
-
-                for (Listador mListadorC : getListadores()) {
-
-                    fu.set_u8((byte) 51);
-                    fu.set_u8_array(StringView.toBytes(mListadorC.getNome(),100));
-
-                    fu.set_u8((byte) 10);
-
-                    for (Pasta eLocal : mListadorC.getLocais()) {
-                        fu.set_u8((byte) 11);
-                        fu.set_u64(eLocal.getInicio());
-                        fu.set_u64(eLocal.getFim());
-                    }
-
-                    fu.set_u8((byte) 13);
-
+                for (Pasta eLocal : mListadorC.getLocais()) {
+                    fu.set_u8((byte) 11);
+                    fu.set_u64(eLocal.getInicio());
+                    fu.set_u64(eLocal.getFim());
                 }
 
-                for (Biblioteca mListadorC : getBibliotecas()) {
+                fu.set_u8((byte) 13);
 
-                    //System.out.println("Criando Bib " + mListadorC.getNome() + " : " + mListadorC.getLocais().size() + " : " + mListadorC.getExtensoes().size());
+            }
 
-                    fu.set_u8((byte) 52);
-                    fu.set_u8_array(StringView.toBytes(mListadorC.getNome(),100));
+            for (Biblioteca mListadorC : getBibliotecas()) {
 
-                    fu.set_u8((byte) 10);
+                //System.out.println("Criando Bib " + mListadorC.getNome() + " : " + mListadorC.getLocais().size() + " : " + mListadorC.getExtensoes().size());
 
-                    for (String eLocal : mListadorC.getLocais()) {
-                        fu.set_u8((byte) 11);
-                        fu.set_u8_array(StringView.toBytes(eLocal,1024));
-                    }
+                fu.set_u8((byte) 52);
+                fu.set_u8_array(StringView.toBytes(mListadorC.getNome(), 100));
 
-                    fu.set_u8((byte) 13);
+                fu.set_u8((byte) 10);
 
-                    for (String eLocal : mListadorC.getExtensoes()) {
-                        fu.set_u8((byte) 11);
-                        fu.set_u8_array(StringView.toBytes(eLocal,100));
-                        // System.out.println("Salvando ext : " + eLocal);
-                    }
-
-                    fu.set_u8((byte) 13);
-
+                for (String eLocal : mListadorC.getLocais()) {
+                    fu.set_u8((byte) 11);
+                    fu.set_u8_array(StringView.toBytes(eLocal, 1024));
                 }
 
-                for (ArquivoLink mListadorC : getArquivosLink()) {
+                fu.set_u8((byte) 13);
 
-                    //System.out.println("Criando Bib " + mListadorC.getNome() + " : " + mListadorC.getLocais().size() + " : " + mListadorC.getExtensoes().size());
-
-                    fu.set_u8((byte) 53);
-
-                    fu.set_u8_array(StringView.toBytes(mListadorC.getNome(),100));
-                    fu.set_u8_array(StringView.toBytes(mListadorC.getArquivo().getNome(),100));
-
-                    System.out.println("Criando Arquivo Link : " + mListadorC.getNome());
-
-
-                    fu.set_u64(mListadorC.getArquivo().getInicio());
-                    fu.set_u64(mListadorC.getArquivo().getFim());
-
-
+                for (String eLocal : mListadorC.getExtensoes()) {
+                    fu.set_u8((byte) 11);
+                    fu.set_u8_array(StringView.toBytes(eLocal, 100));
+                    // System.out.println("Salvando ext : " + eLocal);
                 }
 
-                for (PastaLink mListadorC : getPastasLink()) {
+                fu.set_u8((byte) 13);
 
-                    //System.out.println("Criando Bib " + mListadorC.getNome() + " : " + mListadorC.getLocais().size() + " : " + mListadorC.getExtensoes().size());
+            }
 
-                    fu.set_u8((byte) 54);
+            for (ArquivoLink mListadorC : getArquivosLink()) {
 
-                    fu.set_u8_array(StringView.toBytes(mListadorC.getNome(),100));
-                    fu.set_u8_array(StringView.toBytes(mListadorC.getPasta().getNome(),100));
+                //System.out.println("Criando Bib " + mListadorC.getNome() + " : " + mListadorC.getLocais().size() + " : " + mListadorC.getExtensoes().size());
 
-                    System.out.println("Criando Pasta Link : " + mListadorC.getNome());
+                fu.set_u8((byte) 53);
+
+                fu.set_u8_array(StringView.toBytes(mListadorC.getNome(), 100));
+                fu.set_u8_array(StringView.toBytes(mListadorC.getArquivo().getNome(), 100));
+
+                System.out.println("Criando Arquivo Link : " + mListadorC.getNome());
 
 
-                    fu.set_u64(mListadorC.getPasta().getInicio());
-                    fu.set_u64(mListadorC.getPasta().getFim());
-
-
-                }
-
-                fu.set_u8((byte) 55);
+                fu.set_u64(mListadorC.getArquivo().getInicio());
+                fu.set_u64(mListadorC.getArquivo().getFim());
 
 
             }
 
-            fu.encerrar();
+            for (PastaLink mListadorC : getPastasLink()) {
 
+                //System.out.println("Criando Bib " + mListadorC.getNome() + " : " + mListadorC.getLocais().size() + " : " + mListadorC.getExtensoes().size());
+
+                fu.set_u8((byte) 54);
+
+                fu.set_u8_array(StringView.toBytes(mListadorC.getNome(), 100));
+                fu.set_u8_array(StringView.toBytes(mListadorC.getPasta().getNome(), 100));
+
+                System.out.println("Criando Pasta Link : " + mListadorC.getNome());
+
+
+                fu.set_u64(mListadorC.getPasta().getInicio());
+                fu.set_u64(mListadorC.getPasta().getFim());
+
+
+            }
+
+            fu.set_u8((byte) 55);
+
+
+        }
+
+        fu.encerrar();
 
 
     }

@@ -13,7 +13,6 @@ public class AlfaClassificador {
     private int mC2;
 
 
-
     public AlfaClassificador(int eQ1) {
         mQ1 = eQ1;
 
@@ -33,11 +32,11 @@ public class AlfaClassificador {
 
             int atividades = a.getRanking();
 
-                if (atividades >= mQ1) {
-                    mC1 += 1;
-                } else {
-                    mC2 += 1;
-                }
+            if (atividades >= mQ1) {
+                mC1 += 1;
+            } else {
+                mC2 += 1;
+            }
 
 
         }
@@ -53,11 +52,9 @@ public class AlfaClassificador {
     }
 
 
-
     public int getC12() {
         return mC1 + mC2;
     }
-
 
 
     public double getP1() {
@@ -65,15 +62,13 @@ public class AlfaClassificador {
     }
 
     public double getP2() {
-        return nivelar(mC2, (mC1 + mC2 ));
+        return nivelar(mC2, (mC1 + mC2));
     }
-
 
 
     public double getP12() {
-        return nivelar(mC1 + mC2, (mC1 + mC2 ));
+        return nivelar(mC1 + mC2, (mC1 + mC2));
     }
-
 
 
     public double nivelar(int acc, int todos) {

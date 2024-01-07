@@ -92,7 +92,7 @@ public class EscopoData {
         }
 
 
-        mSecao.criarData(aTipado,eNome, eValor);
+        mSecao.criarData(aTipado, eNome, eValor);
 
     }
 

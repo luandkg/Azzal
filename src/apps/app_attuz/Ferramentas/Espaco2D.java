@@ -1,8 +1,8 @@
 package apps.app_attuz.Ferramentas;
 
-import libs.luan.Embaralhar;
 import libs.azzal.geometria.Linha;
 import libs.azzal.geometria.Ponto;
+import libs.luan.Embaralhar;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 

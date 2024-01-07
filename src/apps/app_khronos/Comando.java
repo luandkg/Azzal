@@ -21,6 +21,7 @@ public class Comando {
     public boolean isIgual(String c) {
         return mComando.contentEquals(c);
     }
+
     public boolean comecaCom(String c) {
         return mComando.startsWith(c);
     }

@@ -1,10 +1,10 @@
 package apps.app_fuzz;
 
 
-import libs.azzal.cenarios.Cena;
 import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
 import libs.fuzzer.Fuzzer;
 import libs.fuzzer.ItemAcao;
 import libs.fuzzer.Listagem;
@@ -77,7 +77,6 @@ public class AppInka extends Cena {
         mFuzzer.setRenderizador(mRenderizador);
 
 
-
         mFuzzer.pequeno_escreva(600, 400, "[QUADRO DE DADOS]");
         mFuzzer.normal_escreva(600, 450, "[QUADRO DE DADOS]");
 
@@ -105,13 +104,13 @@ public class AppInka extends Cena {
         int recuo_afastamento = 50;
 
         mRenderizador.drawLinha(px, py, px, py + recuo_afastamento, eCor); // Coluna Esquerda
-        mRenderizador.drawLinha(px, py + recuo_afastamento+recuo_altura, px, py +recuo_altura +(altura - recuo_altura), eCor); // Coluna Esquerda
+        mRenderizador.drawLinha(px, py + recuo_afastamento + recuo_altura, px, py + recuo_altura + (altura - recuo_altura), eCor); // Coluna Esquerda
 
-        mRenderizador.drawLinha(px, py+50, px + recuo_largura, py+50, eCor); // Linha Superior Recuo
-        mRenderizador.drawLinha(px, py+50+recuo_altura, px + recuo_largura, py+50+recuo_altura, eCor); // Linha Inferior Recuo
-        mRenderizador.drawLinha(px + recuo_largura, py+50, px + recuo_largura, py+50+recuo_altura, eCor); // Coluna Direita Recuo
+        mRenderizador.drawLinha(px, py + 50, px + recuo_largura, py + 50, eCor); // Linha Superior Recuo
+        mRenderizador.drawLinha(px, py + 50 + recuo_altura, px + recuo_largura, py + 50 + recuo_altura, eCor); // Linha Inferior Recuo
+        mRenderizador.drawLinha(px + recuo_largura, py + 50, px + recuo_largura, py + 50 + recuo_altura, eCor); // Coluna Direita Recuo
 
-        mRenderizador.drawRect_Pintado(px+5, py+recuo_afastamento + 5, recuo_largura-10,recuo_altura-10, sCor);
+        mRenderizador.drawRect_Pintado(px + 5, py + recuo_afastamento + 5, recuo_largura - 10, recuo_altura - 10, sCor);
 
     }
 

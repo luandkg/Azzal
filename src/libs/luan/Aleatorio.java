@@ -70,7 +70,7 @@ public class Aleatorio {
         return String.valueOf(desses.charAt(sorte.nextInt(delta)));
     }
 
-    public static String aleatorio_desses(String desses,int quantidade) {
+    public static String aleatorio_desses(String desses, int quantidade) {
 
         int delta = desses.length();
         Random sorte = new Random();
@@ -83,7 +83,6 @@ public class Aleatorio {
 
         return seq;
     }
-
 
 
     public static String escolha_um(ArrayList<String> opcoes) {

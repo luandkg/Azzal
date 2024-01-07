@@ -15,14 +15,14 @@ public class Tron {
 
     }
 
-    public Tron(Hazde eHazde,Tozte eTozte) {
+    public Tron(Hazde eHazde, Tozte eTozte) {
 
         mHazdeC = new Hazde(eHazde.getArco(), eHazde.getItta(), eHazde.getUzzon());
         mTozteC = new Tozte(eTozte.getSuperarko(), eTozte.getHiperarko(), eTozte.getTronarko());
 
     }
 
-    public Tron(Hazde eHazde,int _superarko, int _hiperarko, int _tronarko) {
+    public Tron(Hazde eHazde, int _superarko, int _hiperarko, int _tronarko) {
 
         mHazdeC = new Hazde(eHazde.getArco(), eHazde.getItta(), eHazde.getUzzon());
         mTozteC = new Tozte(_superarko, _hiperarko, _tronarko);
@@ -44,7 +44,6 @@ public class Tron {
     public String getTexto() {
         return mHazdeC.getTexto() + " " + mTozteC.getTexto();
     }
-
 
 
     public String getTextoZerado() {
@@ -76,7 +75,7 @@ public class Tron {
             p6 = "0" + p6;
         }
 
-        texto = p1 + "/" + p2 + "/" + p3 + " " + p4 +":" + p5 + ":" + p6;
+        texto = p1 + "/" + p2 + "/" + p3 + " " + p4 + ":" + p5 + ":" + p6;
 
         return texto;
     }
@@ -107,7 +106,7 @@ public class Tron {
         }
 
 
-        texto = p1 + "/" + p2 + "/" + p3 + " " + p4 +":" + p5 ;
+        texto = p1 + "/" + p2 + "/" + p3 + " " + p4 + ":" + p5;
 
         return texto;
     }
@@ -415,6 +414,7 @@ public class Tron {
             }
         };
     }
+
     public static Ordenavel<Tron> ORDENADOR() {
         return new Ordenavel<Tron>() {
             @Override

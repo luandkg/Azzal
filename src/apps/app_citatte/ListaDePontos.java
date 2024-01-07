@@ -6,18 +6,18 @@ import libs.luan.Lista;
 public class ListaDePontos {
 
 
-    public static void adicionar_unicamente(Ponto pt, Lista<Ponto> pontos){
+    public static void adicionar_unicamente(Ponto pt, Lista<Ponto> pontos) {
 
-        boolean existe=false;
+        boolean existe = false;
 
-        for(Ponto proc : pontos){
-            if(proc.isIgual(pt)){
-                existe=true;
+        for (Ponto proc : pontos) {
+            if (proc.isIgual(pt)) {
+                existe = true;
                 break;
             }
         }
 
-        if(!existe){
+        if (!existe) {
             pontos.adicionar(pt);
         }
     }

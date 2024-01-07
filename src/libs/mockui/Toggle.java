@@ -48,8 +48,12 @@ public class Toggle {
         mTAY = eY;
     }
 
-    public int getTextoAlinhamentoX(){return mTAX;}
+    public int getTextoAlinhamentoX() {
+        return mTAX;
+    }
 
-    public int getTextoAlinhamentoY(){return mTAY;}
+    public int getTextoAlinhamentoY() {
+        return mTAY;
+    }
 
 }

@@ -821,9 +821,7 @@ public class Calendario {
     }
 
 
-
-
-    public static String GET_DATA_DE_AMDHM(String tempo){
+    public static String GET_DATA_DE_AMDHM(String tempo) {
 
         String ano = tempo.substring(0, 4);
         String mes = tempo.substring(5, 7);
@@ -831,7 +829,8 @@ public class Calendario {
 
         return dia + "/" + mes + "/" + ano;
     }
-    public static String GET_HORAMIN_DE_AMDHM(String tempo){
+
+    public static String GET_HORAMIN_DE_AMDHM(String tempo) {
 
         String hora = tempo.substring(11, 13);
         String min = tempo.substring(14, 16);
@@ -1327,10 +1326,10 @@ public class Calendario {
 
         return contagem;
     }
+
     public static String getTempoCompletoSemSegundos() {
         return getData() + " " + getHoraMinuto();
     }
-
 
 
     public static ArrayList<Data> listar_datas_entre_anos(int ano_inicio, int ano_fim) {

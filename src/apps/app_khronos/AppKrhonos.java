@@ -2,14 +2,14 @@ package apps.app_khronos;
 
 import apps.app_khronos.Sintaxes.SintaxerDKG;
 import apps.app_khronos.Sintaxes.SintaxerSigmaz;
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Cores;
-import libs.azzal.geometria.Retangulo;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.utilitarios.Cor;
 import libs.luan.ArquivoTexto;
 import libs.mockui.Interface.Clicavel;
 
@@ -39,7 +39,7 @@ public class AppKrhonos extends Cena {
         mCores = new Cores();
 
 
-        branco_acinzentado = new FonteRunTime(Cores.hexToCor("#ebdbb2"), "Ubuntu",FonteRunTime.getTamanhoPequeno());
+        branco_acinzentado = new FonteRunTime(Cores.hexToCor("#ebdbb2"), "Ubuntu", FonteRunTime.getTamanhoPequeno());
         escuro = new FonteRunTime(new Cor(0, 0, 0), "Ubuntu", FonteRunTime.getTamanhoPequeno());
 
         mClicavel = new Clicavel();
@@ -64,8 +64,8 @@ public class AppKrhonos extends Cena {
 
         // txt_abrir("/home/luan/IdeaProjects/Escola/res/coisas.dkg");
         //  txt_abrir("/home/luan/IdeaProjects/Azzal/src/apps.AppAzzal/C1.java");
-       // txt_abrir("/home/luan/IdeaProjects/Sigmaz/res/99 - modelagem.sigmaz");
-      //  txt_abrir("/home/luan/Imagens/Simples/mares.dkg");
+        // txt_abrir("/home/luan/IdeaProjects/Sigmaz/res/99 - modelagem.sigmaz");
+        //  txt_abrir("/home/luan/Imagens/Simples/mares.dkg");
 
         txt_abrir("/home/luan/Imagens/Simples/teste.dkg");
 
@@ -85,9 +85,9 @@ public class AppKrhonos extends Cena {
         mEditorDeTexto.semSintaxer();
 
         if (eArquivo.endsWith(".sigmaz")) {
-            mEditorDeTexto.setSintaxer(new SintaxerSigmaz(mEditorDeTexto.getFonteNome(),mEditorDeTexto.getFonteTamanho()));
+            mEditorDeTexto.setSintaxer(new SintaxerSigmaz(mEditorDeTexto.getFonteNome(), mEditorDeTexto.getFonteTamanho()));
         } else if (eArquivo.endsWith(".dkg")) {
-            mEditorDeTexto.setSintaxer(new SintaxerDKG(mEditorDeTexto.getFonteNome(),mEditorDeTexto.getFonteTamanho()));
+            mEditorDeTexto.setSintaxer(new SintaxerDKG(mEditorDeTexto.getFonteNome(), mEditorDeTexto.getFonteTamanho()));
         }
 
     }
@@ -140,7 +140,7 @@ public class AppKrhonos extends Cena {
 
                 } else if (comando.contentEquals("sv")) {
 
-                    ArquivoTexto.arquivo_escrever(mArquivo,mEditorDeTexto.getTexto());
+                    ArquivoTexto.arquivo_escrever(mArquivo, mEditorDeTexto.getTexto());
 
 
                 } else if (comando.contentEquals("editar")) {

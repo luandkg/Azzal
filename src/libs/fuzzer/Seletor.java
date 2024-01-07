@@ -22,10 +22,10 @@ public class Seletor {
 
         if (mValor == mValorInicial) {
             mValor = mValorProximo;
-            mEixo = new Cor(0,255,0);
+            mEixo = new Cor(0, 255, 0);
         } else {
             mValor = eValorInicial;
-            mEixo = new Cor(50,130,50);
+            mEixo = new Cor(50, 130, 50);
         }
 
 
@@ -34,10 +34,10 @@ public class Seletor {
             public void onClique() {
                 if (mValor == mValorInicial) {
                     mValor = mValorProximo;
-                    mEixo = new Cor(0,255,0);
+                    mEixo = new Cor(0, 255, 0);
                 } else {
                     mValor = eValorInicial;
-                    mEixo = new Cor(50,130,50);
+                    mEixo = new Cor(50, 130, 50);
                 }
             }
         });

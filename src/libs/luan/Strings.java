@@ -224,9 +224,9 @@ public class Strings {
     }
 
 
-    public static void println(Lista<String> ls){
-        for(String item : ls){
-            fmt.print("{}",item);
+    public static void println(Lista<String> ls) {
+        for (String item : ls) {
+            fmt.print("{}", item);
         }
     }
 
@@ -292,20 +292,20 @@ public class Strings {
     }
 
 
-    public static Lista<String> CRIAR_LISTA(String a){
+    public static Lista<String> CRIAR_LISTA(String a) {
         Lista<String> lista = new Lista<String>();
         lista.adicionar(a);
         return lista;
     }
 
-    public static Lista<String> CRIAR_LISTA(String a,String b){
+    public static Lista<String> CRIAR_LISTA(String a, String b) {
         Lista<String> lista = new Lista<String>();
         lista.adicionar(a);
         lista.adicionar(b);
         return lista;
     }
 
-    public static Lista<String> CRIAR_LISTA(String a,String b,String c){
+    public static Lista<String> CRIAR_LISTA(String a, String b, String c) {
         Lista<String> lista = new Lista<String>();
         lista.adicionar(a);
         lista.adicionar(b);
@@ -313,7 +313,7 @@ public class Strings {
         return lista;
     }
 
-    public static Lista<String> CRIAR_LISTA(String a,String b,String c,String d){
+    public static Lista<String> CRIAR_LISTA(String a, String b, String c, String d) {
         Lista<String> lista = new Lista<String>();
         lista.adicionar(a);
         lista.adicionar(b);
@@ -322,7 +322,7 @@ public class Strings {
         return lista;
     }
 
-    public static Lista<String> CRIAR_LISTA(String a,String b,String c,String d,String e){
+    public static Lista<String> CRIAR_LISTA(String a, String b, String c, String d, String e) {
         Lista<String> lista = new Lista<String>();
         lista.adicionar(a);
         lista.adicionar(b);
@@ -332,7 +332,7 @@ public class Strings {
         return lista;
     }
 
-    public static Lista<String> CRIAR_LISTA(String a,String b,String c,String d,String e,String f){
+    public static Lista<String> CRIAR_LISTA(String a, String b, String c, String d, String e, String f) {
         Lista<String> lista = new Lista<String>();
         lista.adicionar(a);
         lista.adicionar(b);
@@ -778,16 +778,16 @@ public class Strings {
 
     public static ArrayList<String> UNIR_LISTAS_UNICAMENTE(ArrayList<String> la, ArrayList<String> lb) {
 
-        ArrayList<String>  lc = new ArrayList<String> ();
+        ArrayList<String> lc = new ArrayList<String>();
 
         for (String a : la) {
-            if(!lc.contains(a)){
+            if (!lc.contains(a)) {
                 lc.add(a);
             }
         }
 
         for (String b : lb) {
-            if(!lc.contains(b)){
+            if (!lc.contains(b)) {
                 lc.add(b);
             }
         }
@@ -1069,7 +1069,6 @@ public class Strings {
     }
 
 
-
     public static String exibir_lista_em_linhas(ArrayList<String> lista) {
         String ret = "";
 
@@ -1244,7 +1243,6 @@ public class Strings {
     }
 
 
-
     public static String GET_REVERSO_DEPOIS_DE(String texto, String depois_de) {
 
         String ret = "";
@@ -1361,7 +1359,7 @@ public class Strings {
     }
 
 
-    public static String CRIAR_SIGLA(String entrada){
+    public static String CRIAR_SIGLA(String entrada) {
 
         entrada = entrada.replace("-", " ");
         entrada = entrada.replace("º", " ");
@@ -1384,6 +1382,7 @@ public class Strings {
         return resultado_sigla;
 
     }
+
     public static ArrayList<String> embaralhar(ArrayList<String> entradas) {
 
         int n = entradas.size();

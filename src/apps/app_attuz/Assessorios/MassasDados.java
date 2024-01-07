@@ -6,21 +6,21 @@ import java.awt.image.BufferedImage;
 
 public class MassasDados {
 
-    public static Massas getTerraAgua(String LOCAL){
+    public static Massas getTerraAgua(String LOCAL) {
 
 
         int TERRA = 1;
-       int AGUA = 0;
+        int AGUA = 0;
 
 
         BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
 
-        int  mLargura = mapa.getWidth();
+        int mLargura = mapa.getWidth();
         int mAltura = mapa.getHeight();
 
-        int  mContagemTerra = 0;
-        int  mContagemAgua = 0;
+        int mContagemTerra = 0;
+        int mContagemAgua = 0;
 
         int[] valores = new int[mLargura * mAltura];
 
@@ -50,21 +50,21 @@ public class MassasDados {
             }
         }
 
-        return new Massas(TERRA,AGUA,mLargura,mAltura,mContagemTerra,mContagemAgua,valores);
+        return new Massas(TERRA, AGUA, mLargura, mAltura, mContagemTerra, mContagemAgua, valores);
     }
 
-    public static Massas getAguaTerra(String LOCAL){
+    public static Massas getAguaTerra(String LOCAL) {
 
         int TERRA = 0;
         int AGUA = 1;
 
         BufferedImage mapa = Imagem.getImagem(LOCAL + "build/planeta.png");
 
-        int  mLargura = mapa.getWidth();
+        int mLargura = mapa.getWidth();
         int mAltura = mapa.getHeight();
 
-        int  mContagemTerra = 0;
-        int  mContagemAgua = 0;
+        int mContagemTerra = 0;
+        int mContagemAgua = 0;
 
         int[] valores = new int[mLargura * mAltura];
 
@@ -94,12 +94,12 @@ public class MassasDados {
             }
         }
 
-        return new Massas(TERRA,AGUA,mLargura,mAltura,mContagemTerra,mContagemAgua,valores);
+        return new Massas(TERRA, AGUA, mLargura, mAltura, mContagemTerra, mContagemAgua, valores);
     }
 
     public static Massas getMassaContinental(String LOCAL) {
 
-       int TERRA = 1;
+        int TERRA = 1;
         int AGUA = 0;
 
 
@@ -107,11 +107,11 @@ public class MassasDados {
 
         BufferedImage mapa = Imagem.getImagem(arqTerra);
 
-        int   mLargura = mapa.getWidth();
-        int   mAltura = mapa.getHeight();
+        int mLargura = mapa.getWidth();
+        int mAltura = mapa.getHeight();
 
-        int  mContagemTerra = 0;
-        int  mContagemAgua = 0;
+        int mContagemTerra = 0;
+        int mContagemAgua = 0;
 
         int[] valores = new int[mLargura * mAltura];
 
@@ -141,7 +141,7 @@ public class MassasDados {
             }
         }
 
-        return new Massas(TERRA,AGUA,mLargura,mAltura,mContagemTerra,mContagemAgua,valores);
+        return new Massas(TERRA, AGUA, mLargura, mAltura, mContagemTerra, mContagemAgua, valores);
 
     }
 

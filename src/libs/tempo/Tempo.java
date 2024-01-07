@@ -23,16 +23,16 @@ public class Tempo {
         return getData() + " " + getHoraCompleta();
     }
 
-    public static long getTempoNano(){
-        return  System.nanoTime();
+    public static long getTempoNano() {
+        return System.nanoTime();
     }
 
-    public static String getIntervalo(long d1,long d2){
-        return  fmt.getTempoFormatado(d2-d1);
+    public static String getIntervalo(long d1, long d2) {
+        return fmt.getTempoFormatado(d2 - d1);
     }
 
-    public static long getTempoMillis(){
-        return  System.currentTimeMillis();
+    public static long getTempoMillis() {
+        return System.currentTimeMillis();
     }
 
 

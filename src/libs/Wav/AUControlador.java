@@ -300,7 +300,7 @@ public class AUControlador {
         AU eAU = new AU(eArquivo);
 
         return eAU;
-}
+    }
 
     public static boolean continuar_slice(AU eAU) {
         return eAU.continuar && (eAU.au_lendo < eAU.au_total && !eAU.terminou);
@@ -311,18 +311,17 @@ public class AUControlador {
 
         eAU.mais = lerAmostragemBuffer(eAU.ptr, eAU.au_buffer, eAU.buffer, eAU.originais, eAU.copiar);
 
-        if (eAU.mais >0) {
+        if (eAU.mais > 0) {
 
             eAU.au_lendo += eAU.mais;
 
-           // System.out.println("Amostra -->> " + eAU.mais + " :: " + eAU.au_lendo);
+            // System.out.println("Amostra -->> " + eAU.mais + " :: " + eAU.au_lendo);
 
             eAU.lineIn.write(eAU.buffer, 0, eAU.mais);
 
-        }else{
+        } else {
             eAU.continuar = false;
         }
-
 
 
     }

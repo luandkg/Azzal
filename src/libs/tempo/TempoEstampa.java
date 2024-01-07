@@ -25,6 +25,7 @@ public class TempoEstampa {
     public int getAntes(int aMin) {
         return getValor() - (aMin * 60);
     }
+
     public int getDepois(int aMin) {
         return getValor() + (aMin * 60);
     }

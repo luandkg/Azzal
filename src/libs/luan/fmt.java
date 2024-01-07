@@ -308,6 +308,7 @@ public class fmt {
     public static void print(String texto) {
         System.out.println(texto);
     }
+
     public static void print(int inteiro) {
         System.out.println(inteiro);
     }
@@ -694,50 +695,50 @@ public class fmt {
 
     }
 
-    public static String repetir(String rep,int quantidade){
+    public static String repetir(String rep, int quantidade) {
         String s = "";
 
-        for(int v=0;v<quantidade;v++){
-            s+=rep;
+        for (int v = 0; v < quantidade; v++) {
+            s += rep;
         }
         return s;
     }
 
-    public static String zerado(int v,int quantidade){
+    public static String zerado(int v, int quantidade) {
         String s = String.valueOf(v);
-        while(s.length()<quantidade){
-            s="0"+s;
+        while (s.length() < quantidade) {
+            s = "0" + s;
         }
         return s;
     }
 
 
-    public static String centralizar(String nome,int tracos){
-        int metade = (tracos / 2) ;
+    public static String centralizar(String nome, int tracos) {
+        int metade = (tracos / 2);
         metade -= nome.length() / 2;
 
         int completa = 0;
 
-        int completando = metade+nome.length()+1;
-        while(completando<=tracos){
-            completando+=1;
-            completa+=1;
+        int completando = metade + nome.length() + 1;
+        while (completando <= tracos) {
+            completando += 1;
+            completa += 1;
         }
 
-      return  fmt.format("{}{}{}", fmt.repetir(" ", metade), nome, fmt.repetir(" ", completa));
+        return fmt.format("{}{}{}", fmt.repetir(" ", metade), nome, fmt.repetir(" ", completa));
 
 
     }
 
-    public static String centralizar(int valor,int tracos){
-    return centralizar(String.valueOf(valor),tracos);
+    public static String centralizar(int valor, int tracos) {
+        return centralizar(String.valueOf(valor), tracos);
     }
 
 
     // FEATURE 2024 01 02
-    public static void exibir_lado_a_lado(Lista<String> lado_a,String entre,Lista<String> lado_b){
-        for(int index=0;index<lado_a.getQuantidade();index++){
-            fmt.print("{}{}{}",lado_a.get(index),entre,lado_b.get(index));
+    public static void exibir_lado_a_lado(Lista<String> lado_a, String entre, Lista<String> lado_b) {
+        for (int index = 0; index < lado_a.getQuantidade(); index++) {
+            fmt.print("{}{}{}", lado_a.get(index), entre, lado_b.get(index));
         }
     }
 
@@ -1019,7 +1020,6 @@ public class fmt {
     public static String f2Porcentagem(double numero) {
         return f2(numero) + " %";
     }
-
 
 
     public static String getTempoEmMilissegundosFormatado(long ms) {

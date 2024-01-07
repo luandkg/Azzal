@@ -85,7 +85,7 @@ public class QuadranteColorido {
 
         //  r.drawRect(mx ,regua_y,255,30,new Cor(0,0,0));
 
-        r.drawRect_Pintado(mx + (255-escala) - 5, regua_y + 10, 10, 10, new Cor(getVermelho(), getVerde(), getAzul()));
+        r.drawRect_Pintado(mx + (255 - escala) - 5, regua_y + 10, 10, 10, new Cor(getVermelho(), getVerde(), getAzul()));
 
     }
 

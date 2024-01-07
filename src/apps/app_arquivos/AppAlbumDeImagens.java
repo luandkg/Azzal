@@ -1,15 +1,15 @@
 package apps.app_arquivos;
 
-import libs.arquivos.AI;
-import libs.arquivos.ImagemDoAlbum;
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
-import libs.imagem.Efeitos;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.arquivos.AI;
+import libs.arquivos.ImagemDoAlbum;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
+import libs.imagem.Efeitos;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;

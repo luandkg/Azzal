@@ -69,9 +69,9 @@ public class Arquivo {
 
 
     public String getNomeCompleto() {
-        if (mNomeCompleto.length()==0){
+        if (mNomeCompleto.length() == 0) {
             return getNome();
-        }else{
+        } else {
             return mNomeCompleto;
         }
     }

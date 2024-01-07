@@ -34,10 +34,9 @@ public class Documentar {
     }
 
 
-
     private static void pngToPDF(String eFonte, String eDestino) {
 
-        String eComando = "img2pdf " + " '" + eFonte + "' " + " -o " +   "'" + eDestino + "'";
+        String eComando = "img2pdf " + " '" + eFonte + "' " + " -o " + "'" + eDestino + "'";
 
         final ArrayList<String> commands = new ArrayList<String>();
         commands.add("/bin/bash");
@@ -85,7 +84,7 @@ public class Documentar {
 
     }
 
-    private static void removerArquivo(String eArquivo){
+    private static void removerArquivo(String eArquivo) {
         if (new File(eArquivo).exists()) {
             File remover = new File(eArquivo);
             remover.delete();

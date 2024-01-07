@@ -12,7 +12,7 @@ public class EscopoSection {
     private ArrayList<String> mErros;
     private Utils mUtils;
 
-    public EscopoSection(RefString eCodigo, ArrayList<Secao> eSecoes, ArrayList<String>eErros) {
+    public EscopoSection(RefString eCodigo, ArrayList<Secao> eSecoes, ArrayList<String> eErros) {
         mCodigo = eCodigo;
         mSecoes = eSecoes;
         mErros = eErros;

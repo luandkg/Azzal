@@ -1,6 +1,6 @@
 package libs.tronarko;
 
-public  enum Periarkos {
+public enum Periarkos {
 
     UD(1), AD(2), ED(3), OD(4);
 

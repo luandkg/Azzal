@@ -29,8 +29,16 @@ public class Ceu {
     }
 
 
-    public Satelite getAllux(){return mAllux;}
-    public Satelite getEttos(){return mEttos;}
-    public Satelite getUnnos(){return mUnnos;}
+    public Satelite getAllux() {
+        return mAllux;
+    }
+
+    public Satelite getEttos() {
+        return mEttos;
+    }
+
+    public Satelite getUnnos() {
+        return mUnnos;
+    }
 
 }

@@ -34,8 +34,9 @@ public class PreferenciasOrganizadas {
         String v = eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).getValor();
         return v;
     }
-    public void setOpcao(String eSecao, String eAtributo,String eValor) {
-         eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).setValor(eValor);
+
+    public void setOpcao(String eSecao, String eAtributo, String eValor) {
+        eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).setValor(eValor);
     }
 
     public boolean getLogico(String eSecao, String eAtributo) {

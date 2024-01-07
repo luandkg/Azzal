@@ -219,10 +219,10 @@ public class Quadrado {
         int eMetade = mTamanho / 2;
         int eTamMetade = eTam / 2;
 
-        return new Quadrado(mX+eMetade-eTamMetade, mY + eMetade - eTamMetade, eTam);
+        return new Quadrado(mX + eMetade - eTamMetade, mY + eMetade - eTamMetade, eTam);
     }
 
-    public Triangulo getTriangulo_ABC(){
+    public Triangulo getTriangulo_ABC() {
         Triangulo mT = new Triangulo();
 
         mT.setA(this.getPonto_A());
@@ -232,7 +232,7 @@ public class Quadrado {
         return mT;
     }
 
-    public Triangulo getTriangulo_ACD(){
+    public Triangulo getTriangulo_ACD() {
         Triangulo mT = new Triangulo();
 
         mT.setA(this.getPonto_A());
@@ -242,7 +242,7 @@ public class Quadrado {
         return mT;
     }
 
-    public Triangulo getTriangulo_ABD(){
+    public Triangulo getTriangulo_ABD() {
         Triangulo mT = new Triangulo();
 
         mT.setA(this.getPonto_A());
@@ -252,7 +252,7 @@ public class Quadrado {
         return mT;
     }
 
-    public Triangulo getTriangulo_BCD(){
+    public Triangulo getTriangulo_BCD() {
         Triangulo mT = new Triangulo();
 
         mT.setA(this.getPonto_B());

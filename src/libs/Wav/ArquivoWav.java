@@ -65,7 +65,7 @@ public class ArquivoWav {
      * @return Returns false if failed read or incorrect wave data
      * @throws Exception
      */
-    public boolean open()  {
+    public boolean open() {
         try {
             return readHeader();
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class ArquivoWav {
         return false;
     }
 
-    public void close()   {
+    public void close() {
         try {
             inputStream.close();
         } catch (IOException e) {
@@ -152,10 +152,10 @@ public class ArquivoWav {
         inputStream.read(intByteBuffer);
         subchunk2ID = bytesToInt(intByteBuffer);
         if (subchunk2ID != SUBCHUNK2ID)
-          //  throw new Exception("INVALID DATA HEADER");
+            //  throw new Exception("INVALID DATA HEADER");
 
-        //Subchunk2Size
-        inputStream.read(shortByteBuffer);
+            //Subchunk2Size
+            inputStream.read(shortByteBuffer);
         subchunk2Size = new LittleEndianInt(bytesToShort(shortByteBuffer));
 
         //Everything loaded fine

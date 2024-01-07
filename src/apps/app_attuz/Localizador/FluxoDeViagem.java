@@ -1,9 +1,9 @@
 package apps.app_attuz.Localizador;
 
 import libs.dkg.DKGObjeto;
+import libs.tronarko.Tozte;
 import libs.tronarko.utils.IntTronarko;
 import libs.tronarko.utils.StringTronarko;
-import libs.tronarko.Tozte;
 
 import java.util.ArrayList;
 
@@ -62,8 +62,8 @@ public class FluxoDeViagem {
 
         if (andando_tempo > 0) {
 
-            System.out.println("\t      Velocidade          -->> " +  EquipamentosDeViagem.getVelocidade_StgzIttas(viagem_percurso,andando_tempo));
-            System.out.println("\t      Velocidade          -->> " +  EquipamentosDeViagem.getVelocidade_StgzArko(viagem_percurso,andando_tempo));
+            System.out.println("\t      Velocidade          -->> " + EquipamentosDeViagem.getVelocidade_StgzIttas(viagem_percurso, andando_tempo));
+            System.out.println("\t      Velocidade          -->> " + EquipamentosDeViagem.getVelocidade_StgzArko(viagem_percurso, andando_tempo));
 
         }
     }

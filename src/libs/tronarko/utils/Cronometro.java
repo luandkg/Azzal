@@ -41,7 +41,7 @@ public class Cronometro {
     }
 
     public void atualizar() {
-        mAtualizado_Superarkos =  eTronarko.getTozte().getSuperarkosTotal();
+        mAtualizado_Superarkos = eTronarko.getTozte().getSuperarkosTotal();
         mAtualizado_Ettons = eTronarko.getHazde().getTotalEttons();
     }
 
@@ -63,9 +63,9 @@ public class Cronometro {
 
         long esperou = (esp_Superarkos * mSuperarko_Ettons) + esp_Ettons;
 
-        if(esperou >= mEsperar){
+        if (esperou >= mEsperar) {
             return mEsperar;
-        }else{
+        } else {
             return esperou;
         }
 

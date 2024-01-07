@@ -79,7 +79,7 @@ public class Iterador<T> implements Iterable<T> {
 
             if (mFinalizado == false) {
                 mIndice += 1;
-                mCorrente=mCorrente.getProximo();
+                mCorrente = mCorrente.getProximo();
             }
 
             if (mIndice >= mQuantidade) {

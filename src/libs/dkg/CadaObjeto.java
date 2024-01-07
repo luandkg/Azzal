@@ -6,11 +6,15 @@ public abstract class CadaObjeto {
 
     public abstract void dentro(DKGObjeto objeto);
 
-    public void cancelar(){
-        mDeveContinuar=false;
+    public void cancelar() {
+        mDeveContinuar = false;
     }
 
-    public boolean deveContinuar(){return mDeveContinuar;}
+    public boolean deveContinuar() {
+        return mDeveContinuar;
+    }
 
-    public boolean foiCancelado(){return !mDeveContinuar;}
+    public boolean foiCancelado() {
+        return !mDeveContinuar;
+    }
 }

@@ -1,13 +1,13 @@
 package apps.app_attuz.Servicos;
 
+import apps.app_attuz.Assessorios.Escala;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.Pintor;
 import libs.azzal.Renderizador;
-import libs.luan.Integers;
 import libs.imagem.Imagem;
+import libs.luan.Integers;
 import libs.servittor.Servico;
 
 import java.awt.*;
@@ -36,7 +36,6 @@ public class Conveccionador extends Servico {
         mAltura = mapa.getHeight();
 
     }
-
 
 
     @Override

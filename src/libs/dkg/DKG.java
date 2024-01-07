@@ -42,13 +42,13 @@ public class DKG {
         return eDKG.unicoObjeto(eObjeto);
     }
 
-    public static DKGObjeto PARSER_TO_OBJETO(String dados ) {
+    public static DKGObjeto PARSER_TO_OBJETO(String dados) {
         DKG eDKG = new DKG();
         eDKG.parser(dados);
 
-        if (eDKG.getObjetos().getQuantidade()>0){
+        if (eDKG.getObjetos().getQuantidade() > 0) {
             return eDKG.getObjetos().get(0);
-        }else{
+        } else {
             return new DKGObjeto("");
         }
     }
@@ -193,7 +193,7 @@ public class DKG {
 
     // FEATURE 22.09
 
-    public Lista<String> toListaDeString(String atributo){
+    public Lista<String> toListaDeString(String atributo) {
 
         Lista<String> ls = new Lista<String>();
 
@@ -210,12 +210,12 @@ public class DKG {
     }
 
     // FEATURE 22.09
-    public DKGObjeto unicamente(String ePrimeiro, String eSegundo,String eTerceiro) {
+    public DKGObjeto unicamente(String ePrimeiro, String eSegundo, String eTerceiro) {
         return unicoObjeto(ePrimeiro).unicoObjeto(eSegundo).unicoObjeto(eTerceiro);
     }
 
     // FEATURE 22.10
-    public Lista<DKGObjetoOuAtributo> getTodos(){
+    public Lista<DKGObjetoOuAtributo> getTodos() {
 
         Lista<DKGObjetoOuAtributo> lista = new Lista<DKGObjetoOuAtributo>();
 
@@ -224,7 +224,6 @@ public class DKG {
         }
         return lista;
     }
-
 
 
     // PARSER TEXTUM
@@ -238,11 +237,9 @@ public class DKG {
     private Lista<String> mParserErros;
 
 
-
     public Lista<String> getErros() {
         return mParserErros;
     }
-
 
 
     // PARSER
@@ -523,16 +520,13 @@ public class DKG {
     }
 
 
-
-
-
     // SERIALIZAR
 
 
     private String mSerializando = "";
 
 
-    public String serializar(Lista<DKGObjeto> ls_objetos){
+    public String serializar(Lista<DKGObjeto> ls_objetos) {
         mSerializando = "";
         serializar_objetos("", ls_objetos);
         return mSerializando;
@@ -541,7 +535,6 @@ public class DKG {
     public void serializando_adicionarLinha(String eLinha) {
         mSerializando += eLinha + "\n";
     }
-
 
 
     private void serializar_objetos(String ePrefixo, Lista<DKGObjeto> ls_objetos) {
@@ -567,12 +560,12 @@ public class DKG {
                 serializando_adicionarLinha(ePrefixo + "!" + codifica(PacoteC.getNome()) + " :: { ");
 
                 for (DKGAtributo IdentificadorC : PacoteC.getAtributos()) {
-                    serializando_adicionarLinha(ePrefixo+"  @" + codifica(IdentificadorC.getNome()) + " = " + "\"" + codifica(IdentificadorC.getValor()) + "\"");
+                    serializando_adicionarLinha(ePrefixo + "  @" + codifica(IdentificadorC.getNome()) + " = " + "\"" + codifica(IdentificadorC.getValor()) + "\"");
                 }
 
                 serializar_objetos(ePrefixo + "  ", PacoteC.getObjetos());
 
-                serializando_adicionarLinha(ePrefixo+ "}");
+                serializando_adicionarLinha(ePrefixo + "}");
 
             }
 

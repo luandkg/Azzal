@@ -51,7 +51,7 @@ public class CenaLetrador extends Cena {
     public CenaLetrador() {
 
 
-        mLetramento = new FonteRunTime(new Cor(255,0,0),10);
+        mLetramento = new FonteRunTime(new Cor(255, 0, 0), 10);
 
         mIniciar = new Retangulo(1000, 400, 100, 25);
         mTerminar = new Retangulo(1150, 400, 100, 25);
@@ -271,8 +271,7 @@ public class CenaLetrador extends Cena {
     }
 
 
-
-    public void carregar(){
+    public void carregar() {
 
         mAcima.clear();
         mAbaixo.clear();
@@ -392,7 +391,6 @@ public class CenaLetrador extends Cena {
 
         mRenderizador.drawRect_Pintado(mIniciar, new Cor(0, 255, 0));
         mRenderizador.drawRect_Pintado(mTerminar, new Cor(255, 0, 0));
-
 
 
     }

@@ -369,9 +369,9 @@ public class RenderSetoresColoridos {
         for (AvenidaViaria avenida : mCitatte.getAvenidas()) {
 
             if (avenida.isTerminal() || avenida.isPrimaria()) {
-                EngenhariaRodoviaria.draw_avenida_com_cor(mCitatte.get(),avenida,mCores.getVermelho());
+                EngenhariaRodoviaria.draw_avenida_com_cor(mCitatte.get(), avenida, mCores.getVermelho());
             } else {
-                EngenhariaRodoviaria.draw_avenida_com_cor(mCitatte.get(),avenida,mCores.getBranco());
+                EngenhariaRodoviaria.draw_avenida_com_cor(mCitatte.get(), avenida, mCores.getBranco());
 
             }
 

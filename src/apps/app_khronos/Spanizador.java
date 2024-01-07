@@ -49,7 +49,7 @@ public class Spanizador {
                     spans.add(s);
                     montando = "";
                     isTexto = false;
-                }else{
+                } else {
                     montando += letra;
                 }
 
@@ -60,11 +60,11 @@ public class Spanizador {
         }
 
         if (montando.length() > 0) {
-            if (isTexto){
-                Span s = new Span(montando );
+            if (isTexto) {
+                Span s = new Span(montando);
                 s.especializar();
                 spans.add(s);
-            }else{
+            } else {
                 spans.add(new Span(montando));
             }
         }

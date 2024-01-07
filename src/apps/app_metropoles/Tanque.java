@@ -1,8 +1,8 @@
 package apps.app_metropoles;
 
+import libs.azzal.Renderizador;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.geometria.Retangulo;
-import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 
 public class Tanque {
@@ -105,9 +105,9 @@ public class Tanque {
 
                 if (this.getVolume() > 0) {
 
-                   // System.out.println(" -->> PASS");
+                    // System.out.println(" -->> PASS");
 
-                  //  System.out.println("\t - Volume Antes :: " + this.getVolume());
+                    //  System.out.println("\t - Volume Antes :: " + this.getVolume());
 
                     int eVazao = eCano.getVazao();
 
@@ -119,10 +119,10 @@ public class Tanque {
                     }
 
 
-                   // System.out.println("\t - Entrando :: " + eQuantidade);
-                 //   System.out.println("\t - Voltando :: " + eSobrou);
+                    // System.out.println("\t - Entrando :: " + eQuantidade);
+                    //   System.out.println("\t - Voltando :: " + eSobrou);
 
-                   // System.out.println("\t - Volume Depois :: " + this.getVolume());
+                    // System.out.println("\t - Volume Depois :: " + this.getVolume());
 
                 }
 
@@ -142,10 +142,10 @@ public class Tanque {
 
                         if (voltar <= 0) {
                             eCano.getEixos().get(eCano.getEixos().size() - 1).esvaziar();
-                            mVolume+=eVazao;
-                        }else{
+                            mVolume += eVazao;
+                        } else {
                             eCano.getEixos().get(eCano.getEixos().size() - 1).encher(voltar);
-                            mVolume=mCapacidade;
+                            mVolume = mCapacidade;
                         }
 
                         organizarVolume();
@@ -159,8 +159,6 @@ public class Tanque {
 
         }
     }
-
-
 
 
     public int getVolume() {

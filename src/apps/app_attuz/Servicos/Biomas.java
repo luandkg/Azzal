@@ -1,15 +1,10 @@
 package apps.app_attuz.Servicos;
 
 
-import apps.app_attuz.Assessorios.Progressante;
-import apps.app_attuz.Assessorios.CadaPonto;
-import apps.app_attuz.Assessorios.DadosQTT;
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Escala;
-import apps.app_attuz.Ferramentas.*;
+import apps.app_attuz.Assessorios.*;
 import apps.app_attuz.Ferramentas.MapaProximidade;
+import apps.app_attuz.Ferramentas.MassaComNormal;
+import apps.app_attuz.Ferramentas.Normalizador;
 import libs.imagem.Imagem;
 import libs.luan.fmt;
 import libs.servittor.Servico;

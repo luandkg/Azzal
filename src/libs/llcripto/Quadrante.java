@@ -67,20 +67,20 @@ public class Quadrante {
 
     }
 
-    public int calcularPontoCentral(){
+    public int calcularPontoCentral() {
         int v = 0;
 
-        v+=get(1,1) + get(1,2);
-        v+=get(2,1) + get(2,2);
+        v += get(1, 1) + get(1, 2);
+        v += get(2, 1) + get(2, 2);
 
         return v;
     }
 
-    public int calcularTorque(){
+    public int calcularTorque() {
         int v = 0;
 
-        v+=get(0,0) + get(0,3);
-        v+=get(3,0) + get(3,3);
+        v += get(0, 0) + get(0, 3);
+        v += get(3, 0) + get(3, 3);
 
         return v;
     }

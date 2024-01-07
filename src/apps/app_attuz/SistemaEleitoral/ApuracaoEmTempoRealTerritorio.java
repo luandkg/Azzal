@@ -22,11 +22,11 @@ public class ApuracaoEmTempoRealTerritorio {
 
     public int total_de_urnas = 0;
 
-    public ApuracaoEmTempoRealTerritorio(String territorio, int urnas,int cidadaos_obrigados) {
+    public ApuracaoEmTempoRealTerritorio(String territorio, int urnas, int cidadaos_obrigados) {
 
         mTerritorio = territorio;
         mCidadaos_obrigados = cidadaos_obrigados;
-        total_de_urnas=urnas;
+        total_de_urnas = urnas;
 
         cargos = new ArrayList<CargoApuracao>();
 

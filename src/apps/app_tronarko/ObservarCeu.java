@@ -44,11 +44,10 @@ public class ObservarCeu {
                     todas += 1;
                 }
 
-                if (todas==3){
+                if (todas == 3) {
                     eComecou = hoje.getCopia();
                     encontrou = true;
                 }
-
 
 
             } else {

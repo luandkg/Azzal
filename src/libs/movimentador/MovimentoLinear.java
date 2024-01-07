@@ -44,35 +44,34 @@ public class MovimentoLinear implements Movimento {
         int antes_x = mCorpo.getX();
         int antes_y = mCorpo.getY();
 
-        if (mDirecao==0) {
+        if (mDirecao == 0) {
 
-        } else if (mDirecao==1) {
+        } else if (mDirecao == 1) {
             mCorpo.setPos(mCorpo.getX() + 1, mCorpo.getY());
-        } else if (mDirecao==2) {
+        } else if (mDirecao == 2) {
             mCorpo.setPos(mCorpo.getX() - 1, mCorpo.getY());
-        } else if (mDirecao==3) {
+        } else if (mDirecao == 3) {
             mCorpo.setPos(mCorpo.getX(), mCorpo.getY() + 1);
-        } else if (mDirecao==4) {
+        } else if (mDirecao == 4) {
             mCorpo.setPos(mCorpo.getX(), mCorpo.getY() - 1);
         }
 
         if (mCorpo.getX() < mCorpo.getMin().getX()) {
             mCorpo.setX(antes_x);
-            mDirecao=-1;
+            mDirecao = -1;
         }
         if (mCorpo.getY() < mCorpo.getMin().getY()) {
             mCorpo.setX(antes_x);
-            mDirecao=-1;
+            mDirecao = -1;
         }
         if (mCorpo.getX() > mCorpo.getMax().getX()) {
             mCorpo.setY(antes_y);
-            mDirecao=-1;
+            mDirecao = -1;
         }
         if (mCorpo.getY() > mCorpo.getMax().getY()) {
             mCorpo.setY(antes_y);
-            mDirecao=-1;
+            mDirecao = -1;
         }
-
 
 
     }

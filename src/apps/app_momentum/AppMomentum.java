@@ -1,15 +1,16 @@
 package apps.app_momentum;
 
-import libs.az.Colecao;
+import libs.armazenador.Banco;
+import libs.armazenador.Debugador;
+import libs.armazenador.ItemDoBanco;
 import libs.az.AZColecionador;
+import libs.az.Colecao;
 import libs.az.Unicidade;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.luan.Indexado;
 import libs.luan.Indexamento;
 import libs.luan.Opcional;
-import libs.armazenador.*;
-import libs.luan.fmt;
 import libs.tempo.Calendario;
 
 import java.util.Random;
@@ -163,10 +164,6 @@ public class AppMomentum {
         comparar_velocidade_de_busca(objetos, 500);
 
 
-
-
-
-
         m.fechar();
 
     }
@@ -209,7 +206,6 @@ public class AppMomentum {
 
 
     }
-
 
 
 }

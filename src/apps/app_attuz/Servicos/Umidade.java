@@ -1,11 +1,6 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Assessorios.CadaPonto;
-import apps.app_attuz.Assessorios.Massas;
-import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.DadosQTT;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Escala;
+import apps.app_attuz.Assessorios.*;
 import apps.app_attuz.Ferramentas.MassaToQTT;
 import apps.app_attuz.Ferramentas.Normalizador;
 import libs.azzal.utilitarios.Cor;

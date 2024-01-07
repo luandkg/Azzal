@@ -53,12 +53,12 @@ public class InstrucionadorEmTexto {
         String mDestino = "";
         String mOrigem = "";
 
-      //  if (eInstrucao.getBranch("TO").getSubValor().contentEquals("REG") && eInstrucao.getBranch("FROM").getSubValor().contentEquals("REG")) {
-            mDestino = "#" + eInstrucao.getValor();
-            mOrigem = "@" + eInstrucao.getSubValor();
+        //  if (eInstrucao.getBranch("TO").getSubValor().contentEquals("REG") && eInstrucao.getBranch("FROM").getSubValor().contentEquals("REG")) {
+        mDestino = "#" + eInstrucao.getValor();
+        mOrigem = "@" + eInstrucao.getSubValor();
         //} else {
         //    mErros.add("Sendi8 estranho -- " + eInstrucao.getBranch("TO").getSubValor() + " -> " + eInstrucao.getBranch("FROM").getSubValor());
-       // }
+        // }
 
         String eLinha = "SENDI8 " + mDestino + " , " + mOrigem;
 

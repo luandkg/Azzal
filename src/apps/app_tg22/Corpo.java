@@ -14,6 +14,6 @@ public class Corpo {
         double p = ePeso;
         double a = eAltura;
 
-        return ((p) / (a * a))*3.14;
+        return ((p) / (a * a)) * 3.14;
     }
 }

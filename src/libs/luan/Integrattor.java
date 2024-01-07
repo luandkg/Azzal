@@ -1,16 +1,16 @@
 package libs.luan;
 
+import libs.arquivos.binario.Inteiro;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-
-import libs.arquivos.binario.Inteiro;
 
 public class Integrattor {
 
 
     public static String GET(String dados) {
 
-        String s_dados = dados ;
+        String s_dados = dados;
 
         byte[] bytes = s_dados.getBytes(StandardCharsets.UTF_8);
 
@@ -52,7 +52,7 @@ public class Integrattor {
             verificado += String.valueOf(ALFABETO.charAt(chaves.get(c)));
         }
 
-        return verificado ;
+        return verificado;
     }
 
     public static String GET_DIFFER(String la, String lb) {

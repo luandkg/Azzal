@@ -46,8 +46,13 @@ public class BotaoCor {
         return mTemVariacao;
     }
 
-    public Cor getCorPressionado(){return mCorPressionada;}
-    public Cor getCorNormal(){return mCorNormal;}
+    public Cor getCorPressionado() {
+        return mCorPressionada;
+    }
+
+    public Cor getCorNormal() {
+        return mCorNormal;
+    }
 
     public int getX() {
         return mRetangulo.getX();

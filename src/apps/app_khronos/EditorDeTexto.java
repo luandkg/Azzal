@@ -1,12 +1,12 @@
 package apps.app_khronos;
 
 
-import libs.azzal.geometria.Retangulo;
+import apps.app_letrum.Fonte;
 import libs.azzal.Renderizador;
 import libs.azzal.Teclado;
+import libs.azzal.geometria.Retangulo;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
-import apps.app_letrum.Fonte;
 
 public class EditorDeTexto {
 
@@ -24,7 +24,7 @@ public class EditorDeTexto {
     private OnRecebedorDeTeclado mRecebedor;
 
     private boolean mMostrarCursor;
-private boolean mMostrarBarraInferior;
+    private boolean mMostrarBarraInferior;
 
     public EditorDeTexto(int eX, int eY, Fonte eLetramento) {
 
@@ -43,13 +43,14 @@ private boolean mMostrarBarraInferior;
         mRecebedor.simplificar();
 
         mMostrarCursor = true;
-        mMostrarBarraInferior=true;
+        mMostrarBarraInferior = true;
     }
 
 
     public void setMostrarCursor(boolean e) {
         mMostrarCursor = e;
     }
+
     public void setMostrarBarraInferior(boolean e) {
         mMostrarBarraInferior = e;
     }

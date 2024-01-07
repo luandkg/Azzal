@@ -1,14 +1,14 @@
 package apps.app_attuz.Servicos;
 
+import apps.app_attuz.Assessorios.DadosQTT;
+import apps.app_attuz.Assessorios.MapaUtilitario;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.DadosQTT;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.Local;
-import apps.app_attuz.Assessorios.MapaUtilitario;
 import libs.azzal.Cores;
-import libs.azzal.geometria.Ponto;
 import libs.azzal.Renderizador;
+import libs.azzal.geometria.Ponto;
 import libs.imagem.Imagem;
 import libs.servittor.Servico;
 
@@ -71,7 +71,7 @@ public class LinhaDeRelevo extends Servico {
 
             int altitude = (dadosQTT.getAltura(ePonto.getX(), ePonto.getY()) / 100) * 30;
 
-           // System.out.println(ePonto.getX() + "::" + ePonto.getY() + " -->> " + altitude);
+            // System.out.println(ePonto.getX() + "::" + ePonto.getY() + " -->> " + altitude);
 
             montar.drawRect_Pintado(lar, 500 - altitude, 1, altitude, mCores.getLaranja());
             lar += 1;

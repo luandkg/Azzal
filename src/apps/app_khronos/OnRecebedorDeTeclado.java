@@ -455,7 +455,7 @@ public class OnRecebedorDeTeclado {
             String mTexto = mOnDocumento.inserir(mOnDocumento.getTexto(), pos, mais);
             mOnDocumento.setTexto(mTexto);
 
-            if (mais.length()>0){
+            if (mais.length() > 0) {
                 mOnDocumento.organizarLinhas();
             }
 

@@ -11,269 +11,267 @@ import libs.tronarko.Intervalos.Tozte_Intervalo;
 
 public class ObservadorLunar {
 
-	private String Nome;
+    private String Nome;
 
-	private Fases mALLUX_FASE;
-	private Fases mETTOS_FASE;
-	private Fases mUNNOS_FASE;
+    private Fases mALLUX_FASE;
+    private Fases mETTOS_FASE;
+    private Fases mUNNOS_FASE;
 
-	private Ettos mEttoC;
-	private Unnos mUnnoC;
-	private Allux mAlluxC;
+    private Ettos mEttoC;
+    private Unnos mUnnoC;
+    private Allux mAlluxC;
 
-	public ObservadorLunar(String eNome, Fases eAllux, Fases eEttos, Fases eUnnos) {
+    public ObservadorLunar(String eNome, Fases eAllux, Fases eEttos, Fases eUnnos) {
 
-		Nome = eNome;
-		mALLUX_FASE = eAllux;
-		mETTOS_FASE = eEttos;
-		mUNNOS_FASE = eUnnos;
+        Nome = eNome;
+        mALLUX_FASE = eAllux;
+        mETTOS_FASE = eEttos;
+        mUNNOS_FASE = eUnnos;
 
-		mEttoC = new Ettos();
-		mUnnoC = new Unnos();
-		mAlluxC = new Allux();
+        mEttoC = new Ettos();
+        mUnnoC = new Unnos();
+        mAlluxC = new Allux();
 
-	}
-	
-	
-	public Allux getAllux() {
-		return mAlluxC;
-	}
+    }
 
-	public Unnos getUnnos() {
-		return mUnnoC;
-	}
-	
-	public Ettos getEttos() {
-		return mEttoC;
-	}
-	
-	public Lista<Tozte_Intervalo> mostrar(Tozte TozteInicial, int eQuantidade) {
 
-		Lista<Tozte_Intervalo> ret = new Lista<Tozte_Intervalo>();
+    public Allux getAllux() {
+        return mAlluxC;
+    }
 
-		Tozte ProcurarEscuridao = new Tozte(TozteInicial.getSuperarko(), TozteInicial.getHiperarko(),
-				TozteInicial.getTronarko());
+    public Unnos getUnnos() {
+        return mUnnoC;
+    }
 
-		boolean primeira = true;
-		long ST = 0;
-		long Intervalor = 0;
+    public Ettos getEttos() {
+        return mEttoC;
+    }
 
-		for (int e = 0; e < eQuantidade; e++) {
+    public Lista<Tozte_Intervalo> mostrar(Tozte TozteInicial, int eQuantidade) {
 
-			Tozte E1 = Proxima(ProcurarEscuridao);
-			int Temp = Quantidade(E1);
+        Lista<Tozte_Intervalo> ret = new Lista<Tozte_Intervalo>();
 
-			if (primeira == false) {
+        Tozte ProcurarEscuridao = new Tozte(TozteInicial.getSuperarko(), TozteInicial.getHiperarko(),
+                TozteInicial.getTronarko());
 
-				long diff = E1.getSuperarkosTotal() - ST;
-				Intervalor = diff;
+        boolean primeira = true;
+        long ST = 0;
+        long Intervalor = 0;
 
-			}
+        for (int e = 0; e < eQuantidade; e++) {
 
-			ST = E1.getSuperarkosTotal();
+            Tozte E1 = Proxima(ProcurarEscuridao);
+            int Temp = Quantidade(E1);
 
-			if (primeira) {
+            if (primeira == false) {
 
-				Tozte A1 = Anterior(TozteInicial);
-				long Tempa = Quantidade(A1);
+                long diff = E1.getSuperarkosTotal() - ST;
+                Intervalor = diff;
 
-				Tozte A2 = A1.adicionar_Superarko((int) Tempa);
+            }
 
-				long difa = TozteInicial.getSuperarkosTotal() - A2.getSuperarkosTotal();
+            ST = E1.getSuperarkosTotal();
 
-				//System.out.println( "\n " + Nome + " : " + E1.toString() + " a " + (E1.adicionar_Superarko(Temp -1).toString()) + " com : " + Temp + " Superarkos ::: " + difa);
+            if (primeira) {
 
-				ret.adicionar(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
+                Tozte A1 = Anterior(TozteInicial);
+                long Tempa = Quantidade(A1);
 
-			} else {
+                Tozte A2 = A1.adicionar_Superarko((int) Tempa);
 
-				//System.out.println( "\n " + Nome + " : " + E1.toString() + " a " + (E1.adicionar_Superarko(Temp - 1).toString())+ " com : " + Temp + " Superarkos ::: " + Intervalor);
+                long difa = TozteInicial.getSuperarkosTotal() - A2.getSuperarkosTotal();
 
-				ret.adicionar(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
+                //System.out.println( "\n " + Nome + " : " + E1.toString() + " a " + (E1.adicionar_Superarko(Temp -1).toString()) + " com : " + Temp + " Superarkos ::: " + difa);
 
-			}
+                ret.adicionar(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
 
-			ProcurarEscuridao = E1.adicionar_Superarko(Temp);
-			primeira = false;
-		}
+            } else {
 
-		return ret;
+                //System.out.println( "\n " + Nome + " : " + E1.toString() + " a " + (E1.adicionar_Superarko(Temp - 1).toString())+ " com : " + Temp + " Superarkos ::: " + Intervalor);
 
-	}
+                ret.adicionar(new Tozte_Intervalo(Nome, E1, (E1.adicionar_Superarko(Temp - 1))));
 
+            }
 
+            ProcurarEscuridao = E1.adicionar_Superarko(Temp);
+            primeira = false;
+        }
 
+        return ret;
 
-	public int getQuantidade(int eTronarko) {
-		int ret = 0;
+    }
 
-		Tozte ProcurarEscuridao = new Tozte(1, 1, eTronarko);
-		while (true) {
 
-			Tozte E1 = Proxima(ProcurarEscuridao);
-			int Temp = Quantidade(E1);
+    public int getQuantidade(int eTronarko) {
+        int ret = 0;
 
-			if (E1.getTronarko() == eTronarko) {
+        Tozte ProcurarEscuridao = new Tozte(1, 1, eTronarko);
+        while (true) {
 
-				ret += Temp;
+            Tozte E1 = Proxima(ProcurarEscuridao);
+            int Temp = Quantidade(E1);
 
-			} else {
-				break;
-			}
+            if (E1.getTronarko() == eTronarko) {
 
-			ProcurarEscuridao = E1.adicionar_Superarko(Temp);
+                ret += Temp;
 
-		}
+            } else {
+                break;
+            }
 
-		return ret;
-	}
+            ProcurarEscuridao = E1.adicionar_Superarko(Temp);
 
-	public long getIntervalo() {
+        }
 
-		Tronarko TronarkoC = new Tronarko();
+        return ret;
+    }
 
-		Tozte ProcurarEscuridao = TronarkoC.getTozte();
-		boolean primeira = true;
-		long ST = 0;
-		long Intervalor = 0;
+    public long getIntervalo() {
 
-		for (int e = 0; e < 5; e++) {
+        Tronarko TronarkoC = new Tronarko();
 
-			Tozte E1 = Proxima(ProcurarEscuridao);
-			long Temp = Quantidade(E1);
+        Tozte ProcurarEscuridao = TronarkoC.getTozte();
+        boolean primeira = true;
+        long ST = 0;
+        long Intervalor = 0;
 
-			if (primeira == false) {
+        for (int e = 0; e < 5; e++) {
 
-				long diff = E1.getSuperarkosTotal() - ST;
-				Intervalor = diff;
+            Tozte E1 = Proxima(ProcurarEscuridao);
+            long Temp = Quantidade(E1);
 
-			}
+            if (primeira == false) {
 
-			ST = E1.getSuperarkosTotal();
+                long diff = E1.getSuperarkosTotal() - ST;
+                Intervalor = diff;
 
-			ProcurarEscuridao = E1.adicionar_Superarko((int) Temp);
-			primeira = false;
-		}
+            }
 
-		return Intervalor;
+            ST = E1.getSuperarkosTotal();
 
-	}
+            ProcurarEscuridao = E1.adicionar_Superarko((int) Temp);
+            primeira = false;
+        }
 
-	public Tozte Proxima(Tozte TozteCorrente) {
+        return Intervalor;
 
-		Tozte Corrente = new Tozte(TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(),
-				TozteCorrente.getTronarko());
+    }
 
-		Tozte retorno;
+    public Tozte Proxima(Tozte TozteCorrente) {
 
-		while (true) {
+        Tozte Corrente = new Tozte(TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(),
+                TozteCorrente.getTronarko());
 
-			int Escurecendo = 0;
-			if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
-				Escurecendo += 1;
-			}
-			if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
-				Escurecendo += 1;
-			}
-			if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
-				Escurecendo += 1;
-			}
+        Tozte retorno;
 
-			if (Escurecendo == 3) {
-				retorno = Corrente;
-				break;
-			}
+        while (true) {
 
-			Corrente = Corrente.adicionar_Superarko(1);
+            int Escurecendo = 0;
+            if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
+                Escurecendo += 1;
+            }
+            if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
+                Escurecendo += 1;
+            }
+            if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
+                Escurecendo += 1;
+            }
 
-		}
+            if (Escurecendo == 3) {
+                retorno = Corrente;
+                break;
+            }
 
-		return retorno;
-	}
+            Corrente = Corrente.adicionar_Superarko(1);
 
-	public int Quantidade(Tozte TozteCorrente) {
+        }
 
-		int ret = 0;
+        return retorno;
+    }
 
-		Tozte Corrente = new Tozte(TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(),
-				TozteCorrente.getTronarko());
+    public int Quantidade(Tozte TozteCorrente) {
 
-		while (true) {
+        int ret = 0;
 
-			int Escurecendo = 0;
-			if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
-				Escurecendo += 1;
-			}
-			if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
-				Escurecendo += 1;
-			}
-			if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
-				Escurecendo += 1;
-			}
+        Tozte Corrente = new Tozte(TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(),
+                TozteCorrente.getTronarko());
 
-			if (Escurecendo == 3) {
-				ret += 1;
-			} else {
-				break;
-			}
+        while (true) {
 
-			Corrente = Corrente.adicionar_Superarko(1);
+            int Escurecendo = 0;
+            if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
+                Escurecendo += 1;
+            }
+            if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
+                Escurecendo += 1;
+            }
+            if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
+                Escurecendo += 1;
+            }
 
-		}
+            if (Escurecendo == 3) {
+                ret += 1;
+            } else {
+                break;
+            }
 
-		return ret;
-	}
+            Corrente = Corrente.adicionar_Superarko(1);
 
-	public Tozte Anterior(Tozte TozteCorrente) {
+        }
 
-		Tozte Corrente = new Tozte(TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(),
-				TozteCorrente.getTronarko());
+        return ret;
+    }
 
-		while (true) {
+    public Tozte Anterior(Tozte TozteCorrente) {
 
-			int Escurecendo = 0;
-			if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
-				Escurecendo += 1;
-			}
-			if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
-				Escurecendo += 1;
-			}
-			if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
-				Escurecendo += 1;
-			}
+        Tozte Corrente = new Tozte(TozteCorrente.getSuperarko(), TozteCorrente.getHiperarko(),
+                TozteCorrente.getTronarko());
 
-			if (Escurecendo == 3) {
-				break;
-			}
+        while (true) {
 
-			Corrente = Corrente.adicionar_Superarko(-1);
+            int Escurecendo = 0;
+            if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
+                Escurecendo += 1;
+            }
+            if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
+                Escurecendo += 1;
+            }
+            if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
+                Escurecendo += 1;
+            }
 
-		}
+            if (Escurecendo == 3) {
+                break;
+            }
 
-		while (true) {
+            Corrente = Corrente.adicionar_Superarko(-1);
 
-			int Escurecendo = 0;
-			if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
-				Escurecendo += 1;
-			}
-			if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
-				Escurecendo += 1;
-			}
-			if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
-				Escurecendo += 1;
-			}
+        }
 
-			if (Escurecendo < 3) {
-				break;
-			}
+        while (true) {
 
-			Corrente = Corrente.adicionar_Superarko(-1);
+            int Escurecendo = 0;
+            if (mAlluxC.getFase(Corrente) == mALLUX_FASE) {
+                Escurecendo += 1;
+            }
+            if (mEttoC.getFase(Corrente) == mETTOS_FASE) {
+                Escurecendo += 1;
+            }
+            if (mUnnoC.getFase(Corrente) == mUNNOS_FASE) {
+                Escurecendo += 1;
+            }
 
-		}
+            if (Escurecendo < 3) {
+                break;
+            }
 
-		Corrente = Corrente.adicionar_Superarko(+1);
+            Corrente = Corrente.adicionar_Superarko(-1);
 
-		return Corrente;
-	}
+        }
+
+        Corrente = Corrente.adicionar_Superarko(+1);
+
+        return Corrente;
+    }
 
 }

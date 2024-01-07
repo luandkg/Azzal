@@ -75,7 +75,7 @@ public class Arenar {
     }
 
     public void setStatus(String eStatus) {
-         mStatus = eStatus;
+        mStatus = eStatus;
     }
 
 }

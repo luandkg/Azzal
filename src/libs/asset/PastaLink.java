@@ -15,10 +15,10 @@ public class PastaLink {
     private long mInicio;
     private long mFim;
 
-    public PastaLink(AssetContainer eAssetContainer, String eNome,String eONome, long eInicio, long eFim) {
+    public PastaLink(AssetContainer eAssetContainer, String eNome, String eONome, long eInicio, long eFim) {
 
         mNome = eNome;
-        mONome=eONome;
+        mONome = eONome;
 
         mInicio = eInicio;
         mFim = eFim;
@@ -37,7 +37,7 @@ public class PastaLink {
 
         if (!mIndexado) {
             mIndexado = true;
-            mPasta = new Pasta(mAssetContainer, mPasta.getReferencia(), new AssetRef(mONome,12, mInicio, mFim));
+            mPasta = new Pasta(mAssetContainer, mPasta.getReferencia(), new AssetRef(mONome, 12, mInicio, mFim));
         }
 
         return mPasta;

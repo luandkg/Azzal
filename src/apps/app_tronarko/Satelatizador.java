@@ -35,14 +35,38 @@ public class Satelatizador {
         BufferedImage imagem = null;
 
         switch (v) {
-            case 0 : { imagem = IMG_0;break;}
-            case 1 :{ imagem = IMG_1;break;}
-            case 2  :{ imagem = IMG_2;break;}
-            case 3  :{ imagem = IMG_3;break;}
-            case 4  :{ imagem = IMG_4;break;}
-            case 5  :{ imagem = IMG_5;break;}
-            case 6  :{ imagem = IMG_6;break;}
-            case 7  :{ imagem = IMG_7;break;}
+            case 0: {
+                imagem = IMG_0;
+                break;
+            }
+            case 1: {
+                imagem = IMG_1;
+                break;
+            }
+            case 2: {
+                imagem = IMG_2;
+                break;
+            }
+            case 3: {
+                imagem = IMG_3;
+                break;
+            }
+            case 4: {
+                imagem = IMG_4;
+                break;
+            }
+            case 5: {
+                imagem = IMG_5;
+                break;
+            }
+            case 6: {
+                imagem = IMG_6;
+                break;
+            }
+            case 7: {
+                imagem = IMG_7;
+                break;
+            }
         }
 
         return imagem;

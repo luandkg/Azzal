@@ -60,6 +60,7 @@ public class Verkuz {
     public String FASE_CORRENTE() {
         return mFaseCorrente;
     }
+
     public String FASE_PRIMARIA() {
         return mFasePrimaria;
     }

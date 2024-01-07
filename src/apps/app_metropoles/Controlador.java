@@ -1,8 +1,8 @@
 package apps.app_metropoles;
 
+import libs.azzal.Renderizador;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.geometria.Retangulo;
-import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 
 public class Controlador {
@@ -57,9 +57,9 @@ public class Controlador {
 
         mRenderizador.drawRect_Pintado(new Retangulo(mLocalizacao.getX(), mLocalizacao.getY(), 30, 30), new Cor(255, 100, 50));
 
-        if (isAberto()){
+        if (isAberto()) {
             mRenderizador.drawRect_Pintado(new Retangulo(mLocalizacao.getX() + 10, mLocalizacao.getY() + 10, 10, 10), new Cor(255, 255, 255));
-        }else{
+        } else {
             mRenderizador.drawRect_Pintado(new Retangulo(mLocalizacao.getX() + 10, mLocalizacao.getY() + 10, 10, 10), new Cor(0, 0, 0));
         }
 

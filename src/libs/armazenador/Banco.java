@@ -1,7 +1,6 @@
 package libs.armazenador;
 
 
-
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
@@ -20,8 +19,8 @@ public class Banco {
     private long mLocalCache;
     private RefLong mPaginaCorrente;
     private RefLong mLocalIndice;
-private int mTipo;
-private String mNome;
+    private int mTipo;
+    private String mNome;
 
 
     public Banco(Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
@@ -33,12 +32,12 @@ private String mNome;
         mLocalCache = local_cache;
         mPaginaCorrente = new RefLong(local_corrente);
         mLocalIndice = new RefLong(local_indice);
-        mTipo=0;
-        mNome="";
+        mTipo = 0;
+        mNome = "";
     }
 
 
-    public Banco(String eNome,Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
+    public Banco(String eNome, Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
         mArmazenador = eArmazenador;
         mArquivador = eArquivador;
         mBancoID = banco_id;
@@ -47,8 +46,8 @@ private String mNome;
         mLocalCache = local_cache;
         mPaginaCorrente = new RefLong(local_corrente);
         mLocalIndice = new RefLong(local_indice);
-        mTipo=1;
-        mNome=eNome;
+        mTipo = 1;
+        mNome = eNome;
     }
 
     public long getID() {
@@ -81,13 +80,13 @@ private String mNome;
 
     public String getNome() {
 
-        if(mTipo==0){
+        if (mTipo == 0) {
             mArquivador.setPonteiro(mLocalBanco.get());
             mArquivador.get();
 
             TX eTX = new TX();
             return eTX.lerFluxoLimitado(mArquivador, 1024);
-        }else{
+        } else {
             return mNome;
         }
 
@@ -372,12 +371,12 @@ private String mNome;
 
     public void limpar() {
 
-      //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
+        //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
         int r = 0;
 
         for (ItemDoBanco item : getItens()) {
             remover(item);
-       //     System.out.println("Removendo " + r);
+            //     System.out.println("Removendo " + r);
             r += 1;
         }
 

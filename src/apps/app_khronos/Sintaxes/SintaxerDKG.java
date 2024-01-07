@@ -2,10 +2,10 @@ package apps.app_khronos.Sintaxes;
 
 import apps.app_khronos.Sintaxer;
 import apps.app_khronos.Span;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
 
 import java.util.ArrayList;
 
@@ -18,13 +18,13 @@ public class SintaxerDKG implements Sintaxer {
     private Fonte texto;
 
 
-    public SintaxerDKG(String eNome,int eTamanho) {
+    public SintaxerDKG(String eNome, int eTamanho) {
 
-        preto = new FonteRunTime(Cores.hexToCor("#ebdbb2"),eNome, eTamanho);
-        vermelho = new FonteRunTime(Cores.hexToCor("#cc241d"),eNome, eTamanho);
-        amarelo = new FonteRunTime(Cores.hexToCor("#d79921"),eNome, eTamanho);
-        verde = new FonteRunTime(Cores.hexToCor("#98971a"),eNome, eTamanho);
-        texto = new FonteRunTime(Cores.hexToCor("#b16286"), eNome,eTamanho);
+        preto = new FonteRunTime(Cores.hexToCor("#ebdbb2"), eNome, eTamanho);
+        vermelho = new FonteRunTime(Cores.hexToCor("#cc241d"), eNome, eTamanho);
+        amarelo = new FonteRunTime(Cores.hexToCor("#d79921"), eNome, eTamanho);
+        verde = new FonteRunTime(Cores.hexToCor("#98971a"), eNome, eTamanho);
+        texto = new FonteRunTime(Cores.hexToCor("#b16286"), eNome, eTamanho);
 
 
     }

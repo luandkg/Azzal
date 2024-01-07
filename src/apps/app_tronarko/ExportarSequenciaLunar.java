@@ -1,9 +1,9 @@
 package apps.app_tronarko;
 
+import apps.app_letrum.Maker.AutoFonte;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.imagem.Imagem;
-import apps.app_letrum.Maker.AutoFonte;
 import libs.tronarko.Satelites.Ceu;
 import libs.tronarko.Tozte;
 

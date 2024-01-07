@@ -8,14 +8,14 @@ import libs.tronarko.Tron;
 public class IntTronarko {
 
     public static int getSuperarkos(int s, int h, int t) {
-        return (t * 500) + ((h -1)* 50) + s;
+        return (t * 500) + ((h - 1) * 50) + s;
     }
 
-    public static int getIttas(int a,int i){
+    public static int getIttas(int a, int i) {
         return (a * 100) + i;
     }
 
-    public static String intervalo(String inicio,String fim){
+    public static String intervalo(String inicio, String fim) {
 
         StringTronarko st = new StringTronarko();
 
@@ -34,13 +34,13 @@ public class IntTronarko {
         int a_a = Integer.parseInt(st.getArkoFormatoComplexo(fim));
         int a_i = Integer.parseInt(st.getIttasFormatoComplexo(fim));
 
-        Tron_Intervalo ti = new Tron_Intervalo("",new Tron(v_a,v_i,0,vs,vh,vt),new Tron(a_a,a_i,0,as,ah,at));
+        Tron_Intervalo ti = new Tron_Intervalo("", new Tron(v_a, v_i, 0, vs, vh, vt), new Tron(a_a, a_i, 0, as, ah, at));
 
 
-       return ti.getIntervalo();
+        return ti.getIntervalo();
     }
 
-    public static int intervaloIttas(String inicio,String fim){
+    public static int intervaloIttas(String inicio, String fim) {
 
         StringTronarko st = new StringTronarko();
 
@@ -59,7 +59,7 @@ public class IntTronarko {
         int a_a = Integer.parseInt(st.getArkoFormatoComplexo(fim));
         int a_i = Integer.parseInt(st.getIttasFormatoComplexo(fim));
 
-        Tron_Intervalo ti = new Tron_Intervalo("",new Tron(v_a,v_i,0,vs,vh,vt),new Tron(a_a,a_i,0,as,ah,at));
+        Tron_Intervalo ti = new Tron_Intervalo("", new Tron(v_a, v_i, 0, vs, vh, vt), new Tron(a_a, a_i, 0, as, ah, at));
 
 
         return ti.getIntervaloIttas();

@@ -24,12 +24,12 @@ public class RhoTempo {
         return mFinalizado;
     }
 
-    public void setIniciado(long eIniciado){
-        mIniciado=eIniciado;
+    public void setIniciado(long eIniciado) {
+        mIniciado = eIniciado;
     }
 
-    public void setFinalizado(long eFinalizado){
-        mFinalizado=eFinalizado;
+    public void setFinalizado(long eFinalizado) {
+        mFinalizado = eFinalizado;
     }
 
 }

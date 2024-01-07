@@ -46,7 +46,6 @@ public class QTT {
         Arquivador.remover(eArquivo);
 
 
-
         Arquivador arquivador = new Arquivador(eArquivo, "rw");
 
         TX eTX = new TX();
@@ -239,7 +238,7 @@ public class QTT {
 
     }
 
-    public static QTT criar(int eLargura,int eAltura) {
+    public static QTT criar(int eLargura, int eAltura) {
 
         QTT eQTT = new QTT();
 

@@ -97,7 +97,7 @@ public class AN {
         mImagemAltura = 0;
         mImagemLargura = 0;
         mChrono = 0;
-        mQuantidade=0;
+        mQuantidade = 0;
 
     }
 
@@ -164,7 +164,7 @@ public class AN {
 
         arquivador.encerrar();
 
-        mQuantidade=mImagens.getQuantidade();
+        mQuantidade = mImagens.getQuantidade();
 
     }
 

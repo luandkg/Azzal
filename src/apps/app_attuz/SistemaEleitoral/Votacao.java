@@ -2,9 +2,9 @@ package apps.app_attuz.SistemaEleitoral;
 
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Ferramentas.Local;
-import libs.luan.*;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.*;
 import libs.materializedview.HiperMaterializedView10K;
 import libs.materializedview.MaterializedView10K;
 

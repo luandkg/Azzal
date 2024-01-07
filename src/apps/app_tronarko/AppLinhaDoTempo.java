@@ -1,26 +1,24 @@
 package apps.app_tronarko;
 
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.luan.Opcional;
-import libs.tronarko.utils.TozteCor;
-import libs.tronarko.Tronarko;
-import libs.tronarko.Tozte;
-import libs.tronarko.Hazde;
-
-import libs.tronarko.Eventos.Eventum;
-import libs.tronarko.Agenda.Alarme;
-
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
+import libs.tronarko.Agenda.Alarme;
+import libs.tronarko.Eventos.Eventum;
+import libs.tronarko.Hazde;
+import libs.tronarko.Tozte;
+import libs.tronarko.Tronarko;
+import libs.tronarko.utils.TozteCor;
 
 public class AppLinhaDoTempo extends Cena {
 

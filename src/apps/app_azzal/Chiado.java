@@ -31,7 +31,6 @@ public class Chiado extends Cena {
     public void update(double dt) {
 
 
-
     }
 
 

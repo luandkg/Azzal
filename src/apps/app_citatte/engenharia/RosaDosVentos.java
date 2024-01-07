@@ -26,7 +26,6 @@ public class RosaDosVentos {
     public RosaDosVentos(Lista<AvenidaViaria> avenidas) {
 
 
-
         int menor_x = avenidas.get(0).getX();
         int maior_x = avenidas.get(0).getX();
         int menor_y = avenidas.get(0).getY();
@@ -99,8 +98,8 @@ public class RosaDosVentos {
 
     }
 
-    
-    public String getStatus(Ponto localizacao){
+
+    public String getStatus(Ponto localizacao) {
 
         int distancia_noroeste = Espaco2D.distancia_entre_pontos(noroeste, localizacao);
         int distancia_norte = Espaco2D.distancia_entre_pontos(norte, localizacao);
@@ -158,13 +157,12 @@ public class RosaDosVentos {
             status = "CENTRO";
         }
 
-        
+
         return status;
     }
 
 
-
-    public static Lista<String> GET_SENTIDOS(){
+    public static Lista<String> GET_SENTIDOS() {
 
         Lista<String> sentidos = new Lista<String>();
 

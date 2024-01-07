@@ -9,15 +9,15 @@ public class ItemCiclico<T> {
     private T mObjetoProximo;
     private T mObjetoAnterior;
 
-    public ItemCiclico(int pos_anterior, int pos_corrente, int pos_proximo, T objetoAnterior,T objeto,T objetoProximo) {
+    public ItemCiclico(int pos_anterior, int pos_corrente, int pos_proximo, T objetoAnterior, T objeto, T objetoProximo) {
 
         mPosAnterior = pos_anterior;
         mPosCorrente = pos_corrente;
         mPosProximo = pos_proximo;
 
-        mObjetoAnterior=objetoAnterior;
+        mObjetoAnterior = objetoAnterior;
         mObjeto = objeto;
-        mObjetoProximo=objetoProximo;
+        mObjetoProximo = objetoProximo;
 
     }
 
@@ -38,10 +38,11 @@ public class ItemCiclico<T> {
         return mObjeto;
     }
 
-    public T getObjetoProximo(){
+    public T getObjetoProximo() {
         return mObjetoProximo;
     }
-    public T getObjetoAnterior(){
+
+    public T getObjetoAnterior() {
         return mObjetoAnterior;
     }
 

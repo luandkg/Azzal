@@ -21,7 +21,7 @@ public class VamosCalcular {
 
     }
 
-    public EmCada<RefInt> realizar_tabuada(RefInt taxa ) {
+    public EmCada<RefInt> realizar_tabuada(RefInt taxa) {
 
         return new EmCada<RefInt>() {
             @Override

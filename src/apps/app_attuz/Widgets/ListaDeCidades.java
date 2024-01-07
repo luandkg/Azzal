@@ -1,9 +1,9 @@
 package apps.app_attuz.Widgets;
 
 import apps.app_attuz.Ferramentas.Local;
+import apps.app_letrum.Fonte;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
-import apps.app_letrum.Fonte;
 import libs.luan.Lista;
 
 import java.util.ArrayList;

@@ -1,13 +1,13 @@
 package apps.app_corretor;
 
 
-import libs.azzal.Cores;
-import libs.azzal.cenarios.Cena;
-import libs.azzal.utilitarios.*;
-import libs.azzal.Renderizador;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 
@@ -247,25 +247,25 @@ public class AppCorretor extends Cena {
 
         mRenderizador.drawImagem(700, 100, mPedaco);
 
-        double fatias = (double)mPedaco.getWidth() / 6.0;
+        double fatias = (double) mPedaco.getWidth() / 6.0;
 
         double fatiando = 0;
 
         for (int f = 0; f <= 6; f++) {
             if (f > 1) {
-                mRenderizador.drawLinha(700 + (int)fatiando, 100, 700 + (int)fatiando, 100 + mPedaco.getWidth() + 30, Cores.hexToCor("#F4511E"));
+                mRenderizador.drawLinha(700 + (int) fatiando, 100, 700 + (int) fatiando, 100 + mPedaco.getWidth() + 30, Cores.hexToCor("#F4511E"));
             }
             fatiando += fatias;
         }
 
 
-        double linhas = (double)mPedaco.getHeight() / 11.0;
+        double linhas = (double) mPedaco.getHeight() / 11.0;
 
         double linearizando = 0;
 
         for (int f = 0; f <= 11; f++) {
             if (f > 0) {
-                mRenderizador.drawLinha(700, 100 + (int)linearizando, 700 + mPedaco.getWidth() + 30, 100 + (int)linearizando  , Cores.hexToCor("#F4511E"));
+                mRenderizador.drawLinha(700, 100 + (int) linearizando, 700 + mPedaco.getWidth() + 30, 100 + (int) linearizando, Cores.hexToCor("#F4511E"));
             }
             linearizando += linhas;
         }

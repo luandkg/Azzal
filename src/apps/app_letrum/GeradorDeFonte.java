@@ -149,9 +149,6 @@ public class GeradorDeFonte {
         eFonte += "\t\t\n}";
 
 
-
-
-
         eFonte += "\n\tprivate void render(){\n";
 
 

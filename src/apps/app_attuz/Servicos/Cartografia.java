@@ -1,12 +1,12 @@
 package apps.app_attuz.Servicos;
 
+import apps.app_attuz.Assessorios.Escala;
+import apps.app_attuz.Assessorios.EscalasPadroes;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.EscalasPadroes;
-import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Ferramentas.Pintor;
-import libs.luan.Integers;
 import libs.imagem.Imagem;
+import libs.luan.Integers;
 import libs.servittor.Servico;
 
 import java.awt.*;
@@ -18,8 +18,8 @@ public class Cartografia extends Servico {
     private int mLargura;
     private int mAltura;
 
-    private int CARTOGRAFIA_LARGURA ;
-    private int CARTOGRAFIA_ALTURA ;
+    private int CARTOGRAFIA_LARGURA;
+    private int CARTOGRAFIA_ALTURA;
 
     private String LOCAL;
 
@@ -31,13 +31,13 @@ public class Cartografia extends Servico {
         CARTOGRAFIA_LARGURA = mapa.getWidth() / 18;
         CARTOGRAFIA_ALTURA = mapa.getHeight() / 18;
 
-        mLargura=  mapa.getWidth();
-        mAltura=  mapa.getHeight();
+        mLargura = mapa.getWidth();
+        mAltura = mapa.getHeight();
 
     }
 
     public int getLatitudeContagem(int p) {
-        return (p/CARTOGRAFIA_ALTURA);
+        return (p / CARTOGRAFIA_ALTURA);
     }
 
 
@@ -48,10 +48,10 @@ public class Cartografia extends Servico {
         int valor = 0;
 
         if (p < metade) {
-            valor = - ((metade-p)/CARTOGRAFIA_ALTURA) ;
+            valor = -((metade - p) / CARTOGRAFIA_ALTURA);
         } else if (p >= metade) {
-            p-=metade;
-            valor = (p/CARTOGRAFIA_ALTURA);
+            p -= metade;
+            valor = (p / CARTOGRAFIA_ALTURA);
         }
 
         return valor;
@@ -64,10 +64,10 @@ public class Cartografia extends Servico {
         int valor = 0;
 
         if (p < metade) {
-            valor = - ((metade-p)/CARTOGRAFIA_LARGURA) ;
+            valor = -((metade - p) / CARTOGRAFIA_LARGURA);
         } else if (p >= metade) {
-            p-=metade;
-            valor = (p/CARTOGRAFIA_LARGURA);
+            p -= metade;
+            valor = (p / CARTOGRAFIA_LARGURA);
         }
 
         return valor;
@@ -96,7 +96,7 @@ public class Cartografia extends Servico {
     }
 
     @Override
-    public void onInit( ) {
+    public void onInit() {
 
         marcarInicio();
 
@@ -127,7 +127,7 @@ public class Cartografia extends Servico {
 
                 if (eMassa.isTerra(x, y)) {
 
-                    int e_lat = lat  + 1;
+                    int e_lat = lat + 1;
                     eMassa.setValor(x, y, e_lat);
 
                 }
@@ -135,19 +135,17 @@ public class Cartografia extends Servico {
                 if (y == (mapa.getHeight() / 2)) {
                     eMassa.pintar(x, y, mEscala.getMaximo());
 
-                    eMassa.pintar(x, y-1, mEscala.getMaximo());
-                    eMassa.pintar(x, y+1, mEscala.getMaximo());
+                    eMassa.pintar(x, y - 1, mEscala.getMaximo());
+                    eMassa.pintar(x, y + 1, mEscala.getMaximo());
 
-                    eMassa.pintar(x, y-2, mEscala.getMaximo());
-                    eMassa.pintar(x, y+2, mEscala.getMaximo());
+                    eMassa.pintar(x, y - 2, mEscala.getMaximo());
+                    eMassa.pintar(x, y + 2, mEscala.getMaximo());
 
                 }
 
 
             }
         }
-
-
 
 
         Imagem.exportar(Pintor.colorir(mapa, eMassa, mEscala), LOCAL + "build/lat.png");
@@ -169,7 +167,7 @@ public class Cartografia extends Servico {
 
                 if (eMassa.isTerra(x, y)) {
 
-                    int e_lon = lon  + 1;
+                    int e_lon = lon + 1;
 
                     eMassa.pintar_se_terra(x, y, e_lon);
 
@@ -180,11 +178,11 @@ public class Cartografia extends Servico {
 
                     eMassa.pintar(x, y, mEscala.getMaximo());
 
-                    eMassa.pintar(x-1, y, mEscala.getMaximo());
-                    eMassa.pintar(x+1, y, mEscala.getMaximo());
+                    eMassa.pintar(x - 1, y, mEscala.getMaximo());
+                    eMassa.pintar(x + 1, y, mEscala.getMaximo());
 
-                    eMassa.pintar(x-2, y, mEscala.getMaximo());
-                    eMassa.pintar(x+2, y, mEscala.getMaximo());
+                    eMassa.pintar(x - 2, y, mEscala.getMaximo());
+                    eMassa.pintar(x + 2, y, mEscala.getMaximo());
 
                 }
 
@@ -197,16 +195,21 @@ public class Cartografia extends Servico {
 
     }
 
-    public int getTamanhoLatitude(){return CARTOGRAFIA_ALTURA;}
-    public int getTamanhoLongitude(){return CARTOGRAFIA_LARGURA;}
+    public int getTamanhoLatitude() {
+        return CARTOGRAFIA_ALTURA;
+    }
+
+    public int getTamanhoLongitude() {
+        return CARTOGRAFIA_LARGURA;
+    }
 
 
-    public int getLatidadeNoMapa(int p){
-        if (p>=0){
-            return (mAltura/2)+(p*CARTOGRAFIA_ALTURA);
-        }else{
-            p=p*(-1);
-            return (mAltura/2)-(p*CARTOGRAFIA_ALTURA) ;
+    public int getLatidadeNoMapa(int p) {
+        if (p >= 0) {
+            return (mAltura / 2) + (p * CARTOGRAFIA_ALTURA);
+        } else {
+            p = p * (-1);
+            return (mAltura / 2) - (p * CARTOGRAFIA_ALTURA);
         }
     }
 
@@ -233,7 +236,7 @@ public class Cartografia extends Servico {
                 }
             }
         }
-        return enc ;
+        return enc;
     }
 
     public boolean isLinhaLatitude(int x, int y) {
@@ -259,10 +262,10 @@ public class Cartografia extends Servico {
                 }
             }
         }
-        return enc ;
+        return enc;
     }
 
-    public static BufferedImage aplicarLatitudes(String LOCAL,BufferedImage mapa){
+    public static BufferedImage aplicarLatitudes(String LOCAL, BufferedImage mapa) {
 
         Cartografia onCartografia = new Cartografia(LOCAL);
 
@@ -270,25 +273,23 @@ public class Cartografia extends Servico {
             for (int x = 0; x < mapa.getWidth(); x++) {
 
 
-                if (onCartografia.isLinhaLatitude(x,y)){
+                if (onCartografia.isLinhaLatitude(x, y)) {
 
                     Color cor = Color.BLUE;
 
-                    if (onCartografia.getLatitudeModular(y) == 0){
+                    if (onCartografia.getLatitudeModular(y) == 0) {
                         cor = Color.RED;
                     }
                     mapa.setRGB(x, y, Color.red.getRGB());
 
-                    mapa.setRGB(x, y+1, cor.getRGB());
-                    mapa.setRGB(x, y+2, cor.getRGB());
-                    mapa.setRGB(x, y+3, cor.getRGB());
+                    mapa.setRGB(x, y + 1, cor.getRGB());
+                    mapa.setRGB(x, y + 2, cor.getRGB());
+                    mapa.setRGB(x, y + 3, cor.getRGB());
 
                 }
 
 
-
             }
-
 
 
         }
@@ -296,7 +297,7 @@ public class Cartografia extends Servico {
         return mapa;
     }
 
-    public ArrayList<Integer> getCentrosDeLatitudes(){
+    public ArrayList<Integer> getCentrosDeLatitudes() {
 
         ArrayList<Integer> centros_de_faixas = new ArrayList<Integer>();
 

@@ -1,8 +1,8 @@
 package apps.app_metropoles;
 
+import libs.azzal.Renderizador;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.geometria.Retangulo;
-import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 
 import java.util.Random;
@@ -281,7 +281,7 @@ public class DQT2 {
     }
 
     public void deixarParado(int eValor) {
-        mRetirarTudo=eValor;
+        mRetirarTudo = eValor;
         temPronto = true;
     }
 

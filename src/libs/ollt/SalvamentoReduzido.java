@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class SalvamentoReduzido {
 
     public String Codifica(String e) {
-       // e = e.replace("@", "@A");
-      //  e = e.replace("'", "@S");
-      //  e = e.replace("\"", "@D");
-      //  e = e.replace("-", "@H");
+        // e = e.replace("@", "@A");
+        //  e = e.replace("'", "@S");
+        //  e = e.replace("\"", "@D");
+        //  e = e.replace("-", "@H");
 
         int i = 0;
         int o = e.length();
@@ -32,14 +32,14 @@ public class SalvamentoReduzido {
 
 
         return ret;
-      //  return e;
+        //  return e;
     }
 
     private void Identificadores(TextoDocumento TextoDocumentoC, ArrayList<Identificador> mIdentificadores) {
 
         for (Identificador IdentificadorC : mIdentificadores) {
 
-            TextoDocumentoC.Adicionar( " ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
+            TextoDocumentoC.Adicionar(" ID " + Codifica(IdentificadorC.getNome()) + " = " + "\""
                     + Codifica(IdentificadorC.getValor()) + "\" ");
 
         }
@@ -52,7 +52,7 @@ public class SalvamentoReduzido {
 
             if (ListaC.getItens().size() == 0) {
 
-                TextoDocumentoC.Adicionar( " LISTA " + Codifica(ListaC.getNome()) + " { } ");
+                TextoDocumentoC.Adicionar(" LISTA " + Codifica(ListaC.getNome()) + " { } ");
 
             } else {
 
@@ -64,7 +64,7 @@ public class SalvamentoReduzido {
 
                 }
 
-                TextoDocumentoC.Adicionar( " LISTA " + Codifica(ListaC.getNome()) + " { " + Itens + " } ");
+                TextoDocumentoC.Adicionar(" LISTA " + Codifica(ListaC.getNome()) + " { " + Itens + " } ");
 
             }
 
@@ -76,7 +76,7 @@ public class SalvamentoReduzido {
 
         for (Comentario ComentarioC : mComentarios) {
 
-            TextoDocumentoC.Adicionar( " -- " + Codifica(ComentarioC.getNome()) + " : " + "\""
+            TextoDocumentoC.Adicionar(" -- " + Codifica(ComentarioC.getNome()) + " : " + "\""
                     + Codifica(ComentarioC.getValor()) + "\" --");
 
         }
@@ -88,18 +88,16 @@ public class SalvamentoReduzido {
         for (Objeto ObjetoC : mObjetos) {
 
 
-
-            TextoDocumentoC.Adicionar( " OBJETO " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.Adicionar(" OBJETO " + ObjetoC.getNome() + " { ");
 
             for (Identificador IdentificadorC : ObjetoC.getIdentificadores()) {
 
-                TextoDocumentoC.Adicionar( " ID " + IdentificadorC.getNome() + " = " + "\""
+                TextoDocumentoC.Adicionar(" ID " + IdentificadorC.getNome() + " = " + "\""
                         + IdentificadorC.getValor() + "\"");
 
             }
 
             for (Lista ListaC : ObjetoC.getListas()) {
-
 
 
                 String Itens = "";
@@ -117,7 +115,7 @@ public class SalvamentoReduzido {
                 }
 
                 TextoDocumentoC.Adicionar(
-                         " LISTA " + Codifica(ListaC.getNome()) + " = { " + Itens + "} ");
+                        " LISTA " + Codifica(ListaC.getNome()) + " = { " + Itens + "} ");
 
             }
 
@@ -130,17 +128,18 @@ public class SalvamentoReduzido {
 
             }
 
-            TextoDocumentoC.Adicionar( " } ");
+            TextoDocumentoC.Adicionar(" } ");
         }
 
     }
+
     public void Vetores(TextoDocumento TextoDocumentoC, ArrayList<Vetor> mVetores) {
 
 
         for (Vetor ObjetoC : mVetores) {
 
 
-            TextoDocumentoC.Adicionar(   "  " + "VETOR " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.Adicionar("  " + "VETOR " + ObjetoC.getNome() + " { ");
 
             int i = 0;
             int o = ObjetoC.getValores().size() - 1;
@@ -155,7 +154,7 @@ public class SalvamentoReduzido {
             }
 
 
-            TextoDocumentoC.Adicionar(   "   " + "}");
+            TextoDocumentoC.Adicionar("   " + "}");
         }
 
     }
@@ -165,14 +164,14 @@ public class SalvamentoReduzido {
         for (Matriz ObjetoC : mMatrizes) {
 
 
-            TextoDocumentoC.Adicionar(  "   " + "MATRIZ " + ObjetoC.getNome() + " { ");
+            TextoDocumentoC.Adicionar("   " + "MATRIZ " + ObjetoC.getNome() + " { ");
 
             int i = 0;
             int o = ObjetoC.getValores().size() - 1;
 
             for (ArrayList<String> VetorValor : ObjetoC.getValores()) {
 
-                TextoDocumentoC.Adicionar(  "   " + "   { ");
+                TextoDocumentoC.Adicionar("   " + "   { ");
 
                 for (String IdentificadorC : VetorValor) {
                     TextoDocumentoC.Adicionar("   " + "\"" + Codifica(IdentificadorC) + "\" ");
@@ -200,17 +199,17 @@ public class SalvamentoReduzido {
             if (PacoteC.getPacotes().size() == 0 && PacoteC.getListas().size() == 0
                     && PacoteC.getIdentificadores().size() == 0 && PacoteC.getObjetos().size() == 0) {
 
-                TextoDocumentoC.Adicionar( " PACOTE " + Codifica(PacoteC.getNome()) + " { } ");
+                TextoDocumentoC.Adicionar(" PACOTE " + Codifica(PacoteC.getNome()) + " { } ");
 
             } else {
 
-                TextoDocumentoC.Adicionar( " PACOTE " + Codifica(PacoteC.getNome()));
-                TextoDocumentoC.Adicionar( " {");
+                TextoDocumentoC.Adicionar(" PACOTE " + Codifica(PacoteC.getNome()));
+                TextoDocumentoC.Adicionar(" {");
 
                 Identificadores(TextoDocumentoC, PacoteC.getIdentificadores());
 
 
-                Listas(TextoDocumentoC,  PacoteC.getListas());
+                Listas(TextoDocumentoC, PacoteC.getListas());
 
 
                 Comentarios(TextoDocumentoC, PacoteC.getComentarios());

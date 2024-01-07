@@ -1,11 +1,10 @@
 package apps.app_misturador_de_cores;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.geometria.Quadrado;
-import libs.azzal.utilitarios.*;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
-
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Quadrado;
+import libs.azzal.utilitarios.Cor;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -107,12 +106,11 @@ public class MisturadorDeCores extends Cena {
 
     public int getMist(int a, int b) {
 
-        int s = (a + b)/2;
+        int s = (a + b) / 2;
 
 
         return s;
     }
-
 
 
 }

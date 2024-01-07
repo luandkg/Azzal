@@ -60,15 +60,15 @@ public class Circulo {
     }
 
     public Ponto getCentro() {
-        return new Ponto(this.getX()+this.getRaio(), this.getY()+this.getRaio());
+        return new Ponto(this.getX() + this.getRaio(), this.getY() + this.getRaio());
     }
 
     public Ponto getTopo() {
-        return new Ponto(this.getX()+this.getRaio(), this.getY());
+        return new Ponto(this.getX() + this.getRaio(), this.getY());
     }
 
     public Ponto getBaixo() {
-        return new Ponto(this.getX()+this.getRaio(), this.getY() + this.getDiametro());
+        return new Ponto(this.getX() + this.getRaio(), this.getY() + this.getDiametro());
     }
 
     public Ponto getEsquerda() {
@@ -76,11 +76,11 @@ public class Circulo {
     }
 
     public Ponto getDireita() {
-        return new Ponto(this.getX()+this.getDiametro(), this.getY() + this.getRaio());
+        return new Ponto(this.getX() + this.getDiametro(), this.getY() + this.getRaio());
     }
 
     public Retangulo getRetangulo() {
-        return new Retangulo(this.getX() , this.getY() , this.getDiametro(), this.getDiametro());
+        return new Retangulo(this.getX(), this.getY(), this.getDiametro(), this.getDiametro());
     }
 
 }

@@ -81,7 +81,6 @@ public class Cor {
     }
 
 
-
     public boolean alphaIgual(Cor eCor) {
         if (this.getAlpha() == eCor.getAlpha()) {
             return true;

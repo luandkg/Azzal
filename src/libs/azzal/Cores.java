@@ -73,12 +73,15 @@ public class Cores {
     public Cor getCinza() {
         return mCinza;
     }
+
     public Cor getMarrom() {
         return mMarrom;
     }
+
     public Cor getRosa() {
         return mRosa;
     }
+
     public static Cor hexToCor(String colorStr) {
         return new Cor(
                 Integer.valueOf(colorStr.substring(1, 3), 16),

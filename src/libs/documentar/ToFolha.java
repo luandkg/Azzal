@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ToFolha {
 
-    public void render(int largura,int altura, ArrayList<ParteTextual> objetos,String arquivo_png){
+    public void render(int largura, int altura, ArrayList<ParteTextual> objetos, String arquivo_png) {
 
         Cor COR_FORTE = Cor.getHexCor("#e53935");
         Cor COR_FRACA = Cor.getHexCor("#ff6f60");

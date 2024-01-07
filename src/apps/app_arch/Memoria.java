@@ -26,7 +26,7 @@ public class Memoria {
         int iByte1 = (index.getByte1() & 0xFF);
         int iByte2 = (index.getByte2() & 0xFF);
 
-        int eTotal = (iByte1 *256) + iByte2;
+        int eTotal = (iByte1 * 256) + iByte2;
 
         mDados[eTotal] = valor;
     }
@@ -40,7 +40,7 @@ public class Memoria {
         int iByte1 = (index.getByte1() & 0xFF);
         int iByte2 = (index.getByte2() & 0xFF);
 
-        int eTotal = (iByte1 *256) + iByte2;
+        int eTotal = (iByte1 * 256) + iByte2;
 
         return mDados[eTotal];
     }
@@ -49,7 +49,7 @@ public class Memoria {
         int iByte1 = (index.getByte1() & 0xFF);
         int iByte2 = (index.getByte2() & 0xFF);
 
-        int eTotal = (iByte1 *256) + iByte2;
+        int eTotal = (iByte1 * 256) + iByte2;
         return new I8(mDados[eTotal]);
     }
 

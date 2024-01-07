@@ -7,7 +7,10 @@ import apps.app_arch.Opcode;
 import libs.luan.ArquivoTexto;
 import libs.ollt.TextoDocumento;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class MontadorL0 {
@@ -33,9 +36,9 @@ public class MontadorL0 {
 
         ArrayList<Regiao> mTextNovos = new ArrayList<Regiao>();
 
-        String eMontando = organizar(eIndexador, eStart,eRefInt, mText, mData, mBSS, mTextNovos);
+        String eMontando = organizar(eIndexador, eStart, eRefInt, mText, mData, mBSS, mTextNovos);
 
-        compilar(eRefInt,mData, mBSS,mTextNovos,mExecutavel);
+        compilar(eRefInt, mData, mBSS, mTextNovos, mExecutavel);
 
         String eCompilado = arquivar(eObjetoMontado, mExecutavel);
 
@@ -49,7 +52,7 @@ public class MontadorL0 {
 
     }
 
-    public void compilar(RefInt ePosStart, ArrayList<AST> mData, ArrayList<AST> mBSS,ArrayList<Regiao> mTextNovos,ArrayList<Integer> mExecutavel){
+    public void compilar(RefInt ePosStart, ArrayList<AST> mData, ArrayList<AST> mBSS, ArrayList<Regiao> mTextNovos, ArrayList<Integer> mExecutavel) {
 
         int p = 0;
         adicionar(mExecutavel, (Opcode.setGoto));
@@ -118,7 +121,6 @@ public class MontadorL0 {
         }
 
 
-
     }
 
     public String arquivar(String eObjetoMontado, ArrayList<Integer> mExecutavel) {
@@ -152,7 +154,7 @@ public class MontadorL0 {
         return eCompilado.toString();
     }
 
-    public String organizar(int eIndexador, String eStart,RefInt ePosStart, ArrayList<Regiao> mText, ArrayList<AST> mData, ArrayList<AST> mBSS, ArrayList<Regiao> mTextNovos) {
+    public String organizar(int eIndexador, String eStart, RefInt ePosStart, ArrayList<Regiao> mText, ArrayList<AST> mData, ArrayList<AST> mBSS, ArrayList<Regiao> mTextNovos) {
 
         TextoDocumento eMontando = new TextoDocumento();
         TextoDocumento eGuardando = new TextoDocumento();
@@ -256,7 +258,6 @@ public class MontadorL0 {
 
             }
         }
-
 
 
         return eMontando.toString();

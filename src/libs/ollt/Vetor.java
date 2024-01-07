@@ -22,19 +22,19 @@ public class Vetor {
         return mNome;
     }
 
-    public void limpar(){
+    public void limpar() {
         mValores.clear();
     }
 
-    public ArrayList<String> getValores(){
+    public ArrayList<String> getValores() {
         return mValores;
     }
 
-    public void adicionar(String eValor){
+    public void adicionar(String eValor) {
         mValores.add(eValor);
     }
 
-    public void adicionar(String eValorA,String eValorB){
+    public void adicionar(String eValorA, String eValorB) {
         mValores.add(eValorA);
         mValores.add(eValorB);
 

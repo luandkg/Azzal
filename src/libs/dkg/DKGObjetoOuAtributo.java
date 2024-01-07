@@ -9,20 +9,30 @@ public class DKGObjetoOuAtributo {
     private DKGObjeto mObjeto;
     private DKGAtributo mAtributo;
 
-    public DKGObjetoOuAtributo(DKGObjeto eObjeto){
-        mTipo=OBJETO;
-        mObjeto=eObjeto;
+    public DKGObjetoOuAtributo(DKGObjeto eObjeto) {
+        mTipo = OBJETO;
+        mObjeto = eObjeto;
     }
 
-    public DKGObjetoOuAtributo(DKGAtributo eAtributo){
-        mTipo=ATRIBUTO;
-        mAtributo=eAtributo;
+    public DKGObjetoOuAtributo(DKGAtributo eAtributo) {
+        mTipo = ATRIBUTO;
+        mAtributo = eAtributo;
     }
 
-    public boolean isObjeto(){return mTipo==OBJETO;}
-    public boolean isAtributo(){return mTipo==ATRIBUTO;}
+    public boolean isObjeto() {
+        return mTipo == OBJETO;
+    }
 
-    public DKGAtributo getAtributo(){return mAtributo;}
-    public DKGObjeto getObjeto(){return mObjeto;}
+    public boolean isAtributo() {
+        return mTipo == ATRIBUTO;
+    }
+
+    public DKGAtributo getAtributo() {
+        return mAtributo;
+    }
+
+    public DKGObjeto getObjeto() {
+        return mObjeto;
+    }
 
 }

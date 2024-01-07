@@ -113,8 +113,9 @@ public class EquipamentosDeViagem {
         double velocidade = (double) distancia / (double) tempo;
         return fmt.doubleNumC3(velocidade) + " Stgz/ittas";
     }
+
     public static String getVelocidade_StgzArko(int distancia, int tempo) {
-        double velocidade = (double) distancia / (double) tempo/ 100.0;
+        double velocidade = (double) distancia / (double) tempo / 100.0;
         return fmt.doubleNumC3(velocidade) + " Stgz/Arko";
     }
 }

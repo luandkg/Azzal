@@ -2,36 +2,36 @@ package libs.luan;
 
 import java.util.Iterator;
 
-public class Unico <T> implements Iterable<T>{
+public class Unico<T> implements Iterable<T> {
 
     private Igualavel<T> mIgualavel;
     private Lista<T> mLista;
 
-    public Unico(Igualavel<T> eIgualavel){
-        mIgualavel=eIgualavel;
-        mLista=new Lista<T>();
+    public Unico(Igualavel<T> eIgualavel) {
+        mIgualavel = eIgualavel;
+        mLista = new Lista<T>();
     }
 
 
-    public boolean item(T valor){
+    public boolean item(T valor) {
 
-        if(mLista.existe(mIgualavel,valor)){
+        if (mLista.existe(mIgualavel, valor)) {
             return false;
-        }else{
+        } else {
             mLista.adicionar(valor);
             return true;
         }
 
     }
 
-    public int getQuantidade(){return mLista.getQuantidade();}
+    public int getQuantidade() {
+        return mLista.getQuantidade();
+    }
 
 
     public Iterator<T> iterator() {
         return new Lista.IteradorDaLista<T>(mLista);
     }
-
-
 
 
     public static <T1> Unico<T1> TIRAR_COPIA(Unico<T1> original) {

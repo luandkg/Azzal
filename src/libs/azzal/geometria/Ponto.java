@@ -45,7 +45,7 @@ public class Ponto {
     }
 
 
-    public boolean isIgual(int outro_x,int outro_y) {
+    public boolean isIgual(int outro_x, int outro_y) {
         if (this.getX() == outro_x && this.getY() == outro_y) {
             return true;
         }
@@ -59,7 +59,7 @@ public class Ponto {
         return false;
     }
 
-    public boolean isDiferente(int outro_x,int outro_y) {
+    public boolean isDiferente(int outro_x, int outro_y) {
         if (this.getX() != outro_x || this.getY() != outro_y) {
             return true;
         }
@@ -70,5 +70,7 @@ public class Ponto {
         return "X : " + mX + " , Y : " + mY;
     }
 
-    public Ponto getCopia(){return new Ponto(mX,mY);}
+    public Ponto getCopia() {
+        return new Ponto(mX, mY);
+    }
 }

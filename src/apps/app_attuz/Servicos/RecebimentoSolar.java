@@ -1,7 +1,7 @@
 package apps.app_attuz.Servicos;
 
-import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.LatitudeCalor;
+import apps.app_attuz.Assessorios.Massas;
 
 public class RecebimentoSolar {
 

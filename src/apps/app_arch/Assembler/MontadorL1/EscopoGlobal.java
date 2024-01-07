@@ -27,7 +27,6 @@ public class EscopoGlobal {
             String eCorrente = mCodigo.getCorrente();
 
 
-
             if (mUtils.isEspaco(eCorrente)) {
 
             } else if (mUtils.isArroba(eCorrente)) {

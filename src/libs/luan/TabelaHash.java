@@ -131,16 +131,15 @@ public class TabelaHash<T1, T2> implements Iterable<LinhaHash<T1, T2>> {
     }
 
 
-
-    public Lista<Par<T1,T2>> toPares(){
-        Lista<Par<T1,T2>> pares = new Lista<Par<T1,T2>>();
+    public Lista<Par<T1, T2>> toPares() {
+        Lista<Par<T1, T2>> pares = new Lista<Par<T1, T2>>();
 
         for (LinhaHash<T1, T2> linha : this) {
 
             if (linha.estaOcupada()) {
-                pares.adicionar(new Par<T1,T2>(linha.getChave(),linha.getValor()));
+                pares.adicionar(new Par<T1, T2>(linha.getChave(), linha.getValor()));
                 for (LinhaHashColisao<T1, T2> colisao : linha.getColisoes()) {
-                    pares.adicionar(new Par<T1,T2>(colisao.getChave(),colisao.getValor()));
+                    pares.adicionar(new Par<T1, T2>(colisao.getChave(), colisao.getValor()));
                 }
             }
         }

@@ -12,18 +12,26 @@ public class ImagemDoAlbum {
     private long mInicio;
     private long mFim;
 
-    public ImagemDoAlbum(String eArquivo,String eNome,long eInicio,long eFim) {
-        mArquivo=eArquivo;
-        mNome=eNome;
-        mInicio=eInicio;
-        mFim=eFim;
+    public ImagemDoAlbum(String eArquivo, String eNome, long eInicio, long eFim) {
+        mArquivo = eArquivo;
+        mNome = eNome;
+        mInicio = eInicio;
+        mFim = eFim;
     }
 
-    public String getNome(){return mNome;}
-    public long getInicio(){return mInicio;}
-    public long getFim(){return mFim;}
+    public String getNome() {
+        return mNome;
+    }
 
-    public BufferedImage getImagem( ) {
+    public long getInicio() {
+        return mInicio;
+    }
+
+    public long getFim() {
+        return mFim;
+    }
+
+    public BufferedImage getImagem() {
 
         BufferedImage eImagem = null;
 

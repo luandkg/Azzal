@@ -314,8 +314,6 @@ public class DKGObjeto {
     }
 
 
-
-
     // FEATURE 2022.08
 
     public void adicionarObjetosDe(DKGObjeto eEmissor) {
@@ -402,7 +400,7 @@ public class DKGObjeto {
 
 
     // FEATURE 22.10
-    public ArrayList<DKGObjetoOuAtributo> getTodos(){
+    public ArrayList<DKGObjetoOuAtributo> getTodos() {
 
         ArrayList<DKGObjetoOuAtributo> lista = new ArrayList<DKGObjetoOuAtributo>();
 
@@ -417,36 +415,35 @@ public class DKGObjeto {
     }
 
 
-
     // ESTATICOS
 
 
-    public static DKGObjeto CRIAR_DIRETO(String nome,String a1,String v1){
+    public static DKGObjeto CRIAR_DIRETO(String nome, String a1, String v1) {
         DKGObjeto novo = new DKGObjeto(nome);
-        novo.identifique(a1,v1);
+        novo.identifique(a1, v1);
 
         return novo;
     }
 
-    public static DKGObjeto CRIAR_DIRETO(String nome,String a1,String v1,String a2,String v2){
+    public static DKGObjeto CRIAR_DIRETO(String nome, String a1, String v1, String a2, String v2) {
         DKGObjeto novo = new DKGObjeto(nome);
-        novo.identifique(a1,v1);
-        novo.identifique(a2,v2);
+        novo.identifique(a1, v1);
+        novo.identifique(a2, v2);
 
         return novo;
     }
 
-    public static DKGObjeto CRIAR_DIRETO(String nome,String a1,long v1,String a2,String v2){
+    public static DKGObjeto CRIAR_DIRETO(String nome, String a1, long v1, String a2, String v2) {
         DKGObjeto novo = new DKGObjeto(nome);
         novo.identifique(a1).setLong(v1);
-        novo.identifique(a2,v2);
+        novo.identifique(a2, v2);
 
         return novo;
     }
 
 
     // FEATURE 2024.01.02
-    public void rearranjar(String eNome,int ePosicao){
+    public void rearranjar(String eNome, int ePosicao) {
 
         DKGAtributo a1 = mAtributos.get(ePosicao);
         int v1 = ePosicao;
@@ -456,18 +453,18 @@ public class DKGObjeto {
 
         boolean enc = false;
 
-for(DKGAtributo a : mAtributos){
-    if(a.getNome().contentEquals(eNome)){
-        a2=a;
-        enc=true;
-        break;
-    }
-    v2+=1;
-}
+        for (DKGAtributo a : mAtributos) {
+            if (a.getNome().contentEquals(eNome)) {
+                a2 = a;
+                enc = true;
+                break;
+            }
+            v2 += 1;
+        }
 
-        if(enc){
-            mAtributos.set(v1,a2);
-            mAtributos.set(v2,a1);
+        if (enc) {
+            mAtributos.set(v1, a2);
+            mAtributos.set(v2, a1);
         }
 
     }

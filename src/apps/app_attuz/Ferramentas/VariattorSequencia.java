@@ -1,9 +1,9 @@
 package apps.app_attuz.Ferramentas;
 
+import apps.app_attuz.Assessorios.DadosQTT;
 import apps.app_attuz.Assessorios.Escala;
 import apps.app_attuz.Assessorios.Massas;
 import apps.app_attuz.Assessorios.MassasDados;
-import apps.app_attuz.Assessorios.DadosQTT;
 import libs.imagem.Imagem;
 
 import java.awt.image.BufferedImage;
@@ -85,7 +85,7 @@ public class VariattorSequencia {
 
             Imagem.exportar(Pintor.colorir(mapa, corrente_normalizado, mEscala), LOCAL + eArquivoPrefixo + passado + ".png");
 
-            eArquivos.add(LOCAL +eArquivoPrefixo + passado + ".png");
+            eArquivos.add(LOCAL + eArquivoPrefixo + passado + ".png");
 
             if (futuro != quantidade && futuro != ((2 * quantidade) - 1)) {
 

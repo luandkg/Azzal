@@ -53,7 +53,7 @@ public class CargoApuracao {
         }
     }
 
-    public void votar_quantidade(String eNome,int quantidade) {
+    public void votar_quantidade(String eNome, int quantidade) {
         boolean existe = false;
         for (CandidatoApuracao c : mCandidatos) {
             if (c.getNome().contentEquals(eNome)) {

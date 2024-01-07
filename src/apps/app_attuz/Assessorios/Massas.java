@@ -1,7 +1,5 @@
 package apps.app_attuz.Assessorios;
 
-import apps.app_attuz.Assessorios.CadaPonto;
-
 public class Massas {
 
     private int AGUA;
@@ -26,7 +24,6 @@ public class Massas {
         valores = eValores;
 
     }
-
 
 
     public int getLargura() {
@@ -129,7 +126,6 @@ public class Massas {
     public int getAgua() {
         return AGUA;
     }
-
 
 
     public void paraCadaPonto(CadaPonto eCadaPonto) {

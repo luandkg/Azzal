@@ -6,7 +6,7 @@ public class LinhaVertical {
     private int mY;
     private int mTamanho;
 
-    public LinhaVertical(int eX, int eY,int eTamanho) {
+    public LinhaVertical(int eX, int eY, int eTamanho) {
         this.mX = eX;
         this.mY = eY;
         this.mTamanho = eTamanho;

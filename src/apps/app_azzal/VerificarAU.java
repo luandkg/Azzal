@@ -99,7 +99,7 @@ public class VerificarAU {
 
 
                 debug(z_repeticoes, rep_contagem, originais);
-                 ab.mostrar(z_Bloco);
+                ab.mostrar(z_Bloco);
 
                 // System.out.println("-------");
                 break;
@@ -169,7 +169,7 @@ public class VerificarAU {
     }
 
 
-    public static void converter(String eArquivoData,String eArquivoAU) {
+    public static void converter(String eArquivoData, String eArquivoAU) {
 
         AreaBinaria ab = new AreaBinaria();
 
@@ -257,7 +257,7 @@ public class VerificarAU {
                 }
 
 
-               // debug(z_repeticoes, rep_contagem, originais);
+                // debug(z_repeticoes, rep_contagem, originais);
                 //ab.mostrar(z_Bloco);
 
                 // System.out.println("-------");

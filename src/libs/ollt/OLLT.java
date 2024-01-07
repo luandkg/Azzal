@@ -227,7 +227,6 @@ public class OLLT {
     }
 
 
-
     private static void arquivo_escrever(String eArquivo, String eConteudo) {
 
         BufferedWriter writer = null;

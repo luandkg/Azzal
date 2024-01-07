@@ -2233,7 +2233,7 @@ public class Griphattor {
 
     }
 
-    private Griph carregar_Igual(){
+    private Griph carregar_Igual() {
         Griph mLetra = new Griph();
         mLetra.set(2, 5, true);
         mLetra.set(3, 5, true);
@@ -2964,7 +2964,7 @@ public class Griphattor {
         return mLetra;
     }
 
-    private Griph carregar_Ordem(){
+    private Griph carregar_Ordem() {
         Griph mLetra = new Griph();
         mLetra.set(8, 2, true);
         mLetra.set(9, 2, true);

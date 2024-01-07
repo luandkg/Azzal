@@ -382,7 +382,7 @@ public class Transito {
                     ir_andando.adicionar(destino);
 
                     if (cruzamentos_realizados.getQuantidade() > inteligente_menor_que) {
-                      //  fmt.print("ROTA INTELIGENTE INTERROMPER :: {} pois {}", inteligente_menor_que, cruzamentos_realizados.getQuantidade());
+                        //  fmt.print("ROTA INTELIGENTE INTERROMPER :: {} pois {}", inteligente_menor_que, cruzamentos_realizados.getQuantidade());
                         dirigindo.limpar();
                         cruzamentos_realizados.limpar();
                         break;
@@ -449,7 +449,7 @@ public class Transito {
             cruzamentos_realizados.adicionar(EngenhariaRodoviaria.procurar_conexao(av_comecar, av_ir));
 
             if (cruzamentos_realizados.getQuantidade() > inteligente_menor_que) {
-           //     fmt.print("ROTA INTELIGENTE INTERROMPER :: {} pois {}", inteligente_menor_que, cruzamentos_realizados.getQuantidade());
+                //     fmt.print("ROTA INTELIGENTE INTERROMPER :: {} pois {}", inteligente_menor_que, cruzamentos_realizados.getQuantidade());
                 cruzamentos_realizados.limpar();
                 ir_andando.limpar();
                 return false;

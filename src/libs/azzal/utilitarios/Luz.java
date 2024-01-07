@@ -30,17 +30,19 @@ public class Luz {
     }
 
     public int getX_Inicio() {
-        return mPonto.getX()-(mTamanho/2);
+        return mPonto.getX() - (mTamanho / 2);
     }
+
     public int getX_Fim() {
-        return mPonto.getX()+(mTamanho/2);
+        return mPonto.getX() + (mTamanho / 2);
     }
 
     public int getY_Inicio() {
-        return mPonto.getY()-(mTamanho/2);
+        return mPonto.getY() - (mTamanho / 2);
     }
+
     public int getY_Fim() {
-        return mPonto.getY()+(mTamanho/2);
+        return mPonto.getY() + (mTamanho / 2);
     }
 
 

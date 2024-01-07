@@ -10,9 +10,13 @@ public class Localizacao {
         mLongitude = eLongitude;
     }
 
-    public Ponto getLatitude(){return mLatitude;}
+    public Ponto getLatitude() {
+        return mLatitude;
+    }
 
-    public Ponto getLongitude(){return mLongitude;}
+    public Ponto getLongitude() {
+        return mLongitude;
+    }
 
     public void set(Ponto eLatitude, Ponto eLongitude) {
         mLatitude = eLatitude;

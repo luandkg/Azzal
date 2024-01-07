@@ -18,7 +18,6 @@ public class RenderAvenidasConectadas {
         mCitatte.zerar();
 
 
-
         for (AreaAdministravel area : mCitatte.getAreasAdministraveis()) {
 
             mCitatte.get().drawRect(area.getArea(), mCores.getBranco());
@@ -30,8 +29,6 @@ public class RenderAvenidasConectadas {
         }
 
         EngenhariaRodoviaria.draw_avenidas_amarelo(mCitatte.get(), mCitatte.getAvenidas());
-
-
 
 
         Lista<AvenidaViaria> ir_andando = new Lista<AvenidaViaria>();
@@ -76,8 +73,7 @@ public class RenderAvenidasConectadas {
         }
 
 
-
-        EngenhariaRodoviaria.draw_avenidas_com_cor(mCitatte.get(), ir_andando,mCores.getVermelho());
+        EngenhariaRodoviaria.draw_avenidas_com_cor(mCitatte.get(), ir_andando, mCores.getVermelho());
 
 
         mCitatte.exportar_imagem(arquivo);

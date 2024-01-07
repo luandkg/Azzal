@@ -23,9 +23,11 @@ public class RefString {
     public void aumentar(int e) {
         mIndex += e;
     }
+
     public void voltar(int e) {
         mIndex -= e;
     }
+
     public int getTamanho() {
         return mTamanho;
     }
