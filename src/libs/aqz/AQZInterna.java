@@ -45,6 +45,7 @@ public class AQZInterna {
         Banco s_sequencias = AZSequenciador.organizar_banco(mArmazenador, "@Sequencias");
         Banco s_auto_analises = AZSequenciador.organizar_banco(mArmazenador, "@AutoAnalise");
         Banco s_analises = AZSequenciador.organizar_banco(mArmazenador, "@Analise");
+        Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
 
 
         DKGObjeto init_bancos = new DKGObjeto("INIT");
@@ -486,6 +487,142 @@ public class AQZInterna {
         }
 
         // colecao_analise.primeiro_campo("ID");
+    }
+
+
+    public void views_criar(String view_nome,String colecao_nome,Lista<String> colunas) {
+
+        Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
+
+        if(!views_existe(view_nome)){
+
+
+            DKGObjeto init_views = new DKGObjeto("INIT");
+            ItemDoBanco ref_init_views= null;
+            boolean init_views_existe = false;
+
+            for (ItemDoBanco item : s_inits.getItens()) {
+                DKGObjeto item_dkg = DKG.PARSER_TO_OBJETO(item.lerTexto());
+                if (item_dkg.identifique("Nome").getValor().toUpperCase().contentEquals("VIEWS")) {
+                    ref_init_views = item;
+                    init_views = item_dkg;
+                    init_views_existe = true;
+                    break;
+                }
+            }
+
+
+            if (!init_views_existe) {
+                DKGObjeto nova_init = new DKGObjeto("INIT");
+                nova_init.identifique("Nome", "VIEWS");
+                nova_init.identifique("Corrente", 0);
+                nova_init.identifique("Sequencia", 1);
+                nova_init.identifique("DDC", Calendario.getTempoCompleto());
+                nova_init.identifique("DDA", Calendario.getTempoCompleto());
+                s_inits.adicionar(nova_init.toDocumento());
+
+                for (ItemDoBanco item : s_inits.getItens()) {
+                    DKGObjeto item_dkg = DKG.PARSER_TO_OBJETO(item.lerTexto());
+                    if (item_dkg.identifique("Nome").getValor().toUpperCase().contentEquals("VIEWS")) {
+                        ref_init_views = item;
+                        init_views = item_dkg;
+                        init_views_existe = true;
+                        break;
+                    }
+                }
+
+                if (!init_views_existe) {
+                    mArmazenador.fechar();
+                    throw new RuntimeException("AQZ ERRO - Init nao encontrada : VIEWS");
+                }
+
+            }
+
+            int view_id = init_views.identifique("Corrente").getInteiro(0);
+
+            init_views.identifique("Corrente",   init_views.identifique("Corrente").getInteiro(0)+  init_views.identifique("Sequencia").getInteiro(0));
+            ref_init_views.atualizar(init_views.toDocumento());
+
+            DKGObjeto obj_view = new DKGObjeto("View");
+            obj_view.identifique("ID",view_id);
+            obj_view.identifique("Nome",view_nome.toUpperCase());
+            obj_view.identifique("NomeOriginal",view_nome);
+            obj_view.identifique("Banco",colecao_nome.toUpperCase());
+
+            for(String coluna : colunas){
+                DKGObjeto obj_view_coluna = obj_view.criarObjeto("Coluna");
+                obj_view_coluna.identifique("Nome",coluna);
+            }
+
+
+            s_views.adicionar(obj_view.toDocumento());
+        }
+
+    }
+
+    public Lista<String> views_listar() {
+
+        Lista<String> lista = new Lista<String>();
+
+        Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
+
+        for (ItemDoBanco item : s_views.getItens()) {
+            DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
+            lista.adicionar(obj.identifique("Nome").getValor().toUpperCase());
+        }
+
+        return lista;
+    }
+
+    public boolean views_existe(String view_nome) {
+        view_nome=view_nome.toUpperCase();
+
+        Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
+
+        for (ItemDoBanco item : s_views.getItens()) {
+            DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
+           if(obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)){
+               return true;
+           }
+        }
+
+        return false;
+    }
+
+    public DKGObjeto views_obter(String view_nome) {
+        view_nome=view_nome.toUpperCase();
+
+        Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
+
+        for (ItemDoBanco item : s_views.getItens()) {
+            DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
+            if(obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)){
+                return obj;
+            }
+        }
+
+        return null;
+    }
+
+
+    public void views_remover(String view_nome) {
+        view_nome=view_nome.toUpperCase();
+
+        Banco s_inits = AZSequenciador.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = AZSequenciador.organizar_banco(mArmazenador, "@Views");
+
+        for (ItemDoBanco item : s_views.getItens()) {
+            DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
+            if(obj.identifique("Nome").getValor().toUpperCase().contentEquals(view_nome)){
+              s_views.remover(item);
+                break;
+            }
+        }
+
     }
 
 }
