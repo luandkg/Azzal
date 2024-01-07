@@ -18,6 +18,21 @@ public class Vetor<T> implements Iterable<T>{
 
     }
 
+    public Vetor(int eCapacidade,T eValorInicial) {
+
+        mDados = (T[]) new Object[eCapacidade];
+        mCapacidade = eCapacidade;
+
+        if (mCapacidade <= 0) {
+            throw new IllegalArgumentException("A capacidade deve ser maior que 0 ");
+        }
+
+        for(int index=0;index<eCapacidade;index++){
+            mDados[index] = eValorInicial;
+        }
+
+    }
+
     public int getCapacidade() {
         return mCapacidade;
     }
