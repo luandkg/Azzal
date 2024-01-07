@@ -1,33 +1,33 @@
 package libs.xlsx;
 
+import libs.luan.Lista;
 import libs.luan.fmt;
 
 import java.util.ArrayList;
 
 public class PlanilhaLinha {
 
-    private ArrayList<String> mColunas;
+    private Lista<String> mColunas;
 
     public PlanilhaLinha() {
-        mColunas = new ArrayList<String>();
+        mColunas = new Lista<String>();
     }
 
     public void adicionar(String s) {
-        mColunas.add(s);
+        mColunas.adicionar(s);
     }
 
     public int maxColunas() {
-        return mColunas.size();
+        return mColunas.getQuantidade();
     }
 
-    public ArrayList<String> getColunas() {
+    public Lista<String> getColunas() {
         return mColunas;
     }
 
 
     public String getString() {
         String s = "";
-
 
         for (String col : mColunas) {
             s += fmt.espacar_depois(col, 20);

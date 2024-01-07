@@ -54,6 +54,9 @@ public class XMLObjeto {
         mNome = eNome;
     }
 
+    public boolean isNome(String eNome){
+        return mNome.contentEquals(eNome);
+    }
     public String getConteudo() {
         return mConteudo;
     }

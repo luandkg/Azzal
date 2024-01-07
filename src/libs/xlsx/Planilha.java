@@ -1,15 +1,16 @@
 package libs.xlsx;
 
-import java.util.ArrayList;
+
+import libs.luan.Lista;
 
 public class Planilha {
 
     private String mTitulo;
-    private ArrayList<PlanilhaLinha> mLinhas;
+    private Lista<PlanilhaLinha> mLinhas;
 
     public Planilha() {
         mTitulo = "";
-        mLinhas = new ArrayList<PlanilhaLinha>();
+        mLinhas = new Lista<PlanilhaLinha>();
     }
 
     public String getTitulo() {
@@ -22,16 +23,16 @@ public class Planilha {
 
 
     public void adicionar(PlanilhaLinha linha) {
-        mLinhas.add(linha);
+        mLinhas.adicionar(linha);
     }
 
-    public ArrayList<PlanilhaLinha> getLinhas() {
+    public Lista<PlanilhaLinha> getLinhas() {
         return mLinhas;
     }
 
 
     public int maxLinhas() {
-        return mLinhas.size();
+        return mLinhas.getQuantidade();
     }
 
     public int maxColunas() {

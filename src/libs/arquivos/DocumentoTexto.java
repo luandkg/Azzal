@@ -1,12 +1,12 @@
-package libs.xlsx;
+package libs.arquivos;
 
-public class Documento {
+public class DocumentoTexto {
 
     private String mNome;
     private String mConteudo;
 
 
-    public Documento(String eNome, String eConteudo) {
+    public DocumentoTexto(String eNome, String eConteudo) {
         mNome = eNome;
         mConteudo = eConteudo;
     }
@@ -18,4 +18,5 @@ public class Documento {
     public String getConteudo() {
         return mConteudo;
     }
+
 }

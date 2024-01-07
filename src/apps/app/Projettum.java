@@ -1,12 +1,12 @@
 package apps.app;
 
+import libs.arquivos.DocumentoTexto;
 import libs.arquivos.Zipper;
 import libs.fs.PastaFS;
 import libs.luan.Lista;
 import libs.luan.Strings;
 import libs.luan.Texto;
 import libs.luan.fmt;
-import libs.xlsx.Documento;
 
 
 public class Projettum {
@@ -17,7 +17,7 @@ public class Projettum {
         // Projettum.init_entidades();
         fmt.print("----------------------------------------");
         Projettum.init();
-        Projettum.init_biblioteca("xlsx");
+        Projettum.init_biblioteca("entt");
 
     }
 
@@ -28,12 +28,12 @@ public class Projettum {
         String arquivo_criado_longe_de_casa = "/home/luan/assets/AA_PROJETO_SUPLAV.zip";
         String pasta_local = "/home/luan/dev/Azzal";
 
-        Lista<Documento> documentos = new Lista<Documento>();
+        Lista<DocumentoTexto> documentos = new Lista<DocumentoTexto>();
 
-        for (Documento documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
+        for (DocumentoTexto documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
             // fmt.print("{} - {}", documento.getNome(), fmt.formatar_tamanho(documento.getConteudo().length()));
             if (documento.getNome().startsWith("AA_PROJETO_SUPLAV/src/libs/")) {
-                documentos.adicionar(new Documento(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
+                documentos.adicionar(new DocumentoTexto(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
             }
         }
 
@@ -65,7 +65,7 @@ public class Projettum {
     }
 
 
-    public static void exibir_diferencas(Lista<String> arquivos_local, Lista<Documento> documentos) {
+    public static void exibir_diferencas(Lista<String> arquivos_local, Lista<DocumentoTexto> documentos) {
 
         int diferencas_total = 0;
 
@@ -78,7 +78,7 @@ public class Projettum {
             String enc_arquivo = "";
             String enc_conteudo = "";
 
-            for (Documento documento : documentos) {
+            for (DocumentoTexto documento : documentos) {
                 if (documento.getNome().contains(arquivo_local)) {
                     enc_arquivo = documento.getNome();
                     enc_conteudo = documento.getConteudo();
@@ -173,7 +173,7 @@ public class Projettum {
 
         }
 
-        for (Documento documento : documentos) {
+        for (DocumentoTexto documento : documentos) {
 
             boolean enc = false;
 
@@ -204,12 +204,12 @@ public class Projettum {
         String arquivo_criado_longe_de_casa = "/home/luan/assets/AA_PROJETO_SUPLAV.zip";
         String pasta_local = "/home/luan/dev/Azzal";
 
-        Lista<Documento> documentos = new Lista<Documento>();
+        Lista<DocumentoTexto> documentos = new Lista<DocumentoTexto>();
 
-        for (Documento documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
+        for (DocumentoTexto documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
             // fmt.print("{} - {}", documento.getNome(), fmt.formatar_tamanho(documento.getConteudo().length()));
             if (documento.getNome().startsWith("AA_PROJETO_SUPLAV/src/libs/entt")) {
-                documentos.adicionar(new Documento(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
+                documentos.adicionar(new DocumentoTexto(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
             }
         }
 
@@ -246,12 +246,12 @@ public class Projettum {
         String arquivo_criado_longe_de_casa = "/home/luan/assets/AA_PROJETO_SUPLAV.zip";
         String pasta_local = "/home/luan/dev/Azzal";
 
-        Lista<Documento> documentos = new Lista<Documento>();
+        Lista<DocumentoTexto> documentos = new Lista<DocumentoTexto>();
 
-        for (Documento documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
+        for (DocumentoTexto documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
             // fmt.print("{} - {}", documento.getNome(), fmt.formatar_tamanho(documento.getConteudo().length()));
             if (documento.getNome().startsWith("AA_PROJETO_SUPLAV/src/libs/luan")) {
-                documentos.adicionar(new Documento(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
+                documentos.adicionar(new DocumentoTexto(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
             }
         }
 
@@ -293,12 +293,12 @@ public class Projettum {
         String arquivo_criado_longe_de_casa = "/home/luan/assets/AA_PROJETO_SUPLAV.zip";
         String pasta_local = "/home/luan/dev/Azzal";
 
-        Lista<Documento> documentos = new Lista<Documento>();
+        Lista<DocumentoTexto> documentos = new Lista<DocumentoTexto>();
 
-        for (Documento documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
+        for (DocumentoTexto documento : Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(arquivo_criado_longe_de_casa, ".java")) {
             // fmt.print("{} - {}", documento.getNome(), fmt.formatar_tamanho(documento.getConteudo().length()));
             if (documento.getNome().startsWith("AA_PROJETO_SUPLAV/src/libs/" + biblioteca)) {
-                documentos.adicionar(new Documento(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
+                documentos.adicionar(new DocumentoTexto(documento.getNome().replace("AA_PROJETO_SUPLAV/src/libs/", ""), documento.getConteudo()));
             }
         }
 

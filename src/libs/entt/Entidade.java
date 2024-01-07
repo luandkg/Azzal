@@ -5,9 +5,11 @@ import libs.luan.Lista;
 public class Entidade {
 
     private final Lista<Tag> mTags;
+    private final Lista<Entidade> mEntidades;
 
     public Entidade() {
         mTags = new Lista<Tag>();
+        mEntidades = new Lista<Entidade>();
     }
 
     public Tag proc_at(String eNome) {
@@ -41,6 +43,12 @@ public class Entidade {
         return tag.getValor();
     }
 
+    public String at(String eNome, int eValor) {
+        Tag tag = proc_at(eNome);
+        tag.setInteiro(eValor);
+        return tag.getValor();
+    }
+
     public int atInt(String eNome) {
         Tag tag = proc_at(eNome);
         return tag.asInt();
@@ -50,6 +58,16 @@ public class Entidade {
     public int atInt(String eNome, int eValor) {
         Tag tag = proc_at(eNome);
         tag.setInteiro(eValor);
+        return tag.asInt();
+    }
+
+    public int atIntOuPadrao(String eNome, int ePadrao) {
+        Tag tag = proc_at(eNome);
+        if(tag.getValor().length()>0){
+            return tag.asInt();
+        }else{
+            tag.setInteiro(ePadrao);
+        }
         return tag.asInt();
     }
 
@@ -102,5 +120,6 @@ public class Entidade {
         return atInt(a1) + atInt(a2);
     }
 
+    public  Lista<Entidade> getEntidades(){return mEntidades;}
 
 }

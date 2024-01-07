@@ -1,8 +1,7 @@
 package libs.arquivos;
 
+import libs.arquivos.binario.ArenaChunk;
 import libs.luan.Lista;
-import libs.xlsx.ArenaChunk;
-import libs.xlsx.Documento;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,8 +11,8 @@ import java.util.zip.ZipInputStream;
 
 public class Zipper {
 
-    public static Lista<Documento> EXTRAIR_DOCUMENTOS_COM_EXTENSAO(String eArquivo, String eExtensao) {
-        Lista<Documento> documentos = new Lista<Documento>();
+    public static Lista<DocumentoTexto> EXTRAIR_DOCUMENTOS_COM_EXTENSAO(String eArquivo, String eExtensao) {
+        Lista<DocumentoTexto> documentos = new Lista<DocumentoTexto>();
 
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(eArquivo))) {
             ZipEntry zipEntry = zis.getNextEntry();
@@ -32,7 +31,7 @@ public class Zipper {
                     }
 
 
-                    documentos.adicionar(new Documento(zipEntry.getName(), new String(chunks.toBytes())));
+                    documentos.adicionar(new DocumentoTexto(zipEntry.getName(), new String(chunks.toBytes())));
 
 
                 }

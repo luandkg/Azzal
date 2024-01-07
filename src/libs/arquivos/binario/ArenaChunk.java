@@ -1,4 +1,4 @@
-package libs.xlsx;
+package libs.arquivos.binario;
 
 import java.util.ArrayList;
 
@@ -66,3 +66,4 @@ public class ArenaChunk {
         return bytes.get();
     }
 }
+

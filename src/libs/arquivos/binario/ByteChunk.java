@@ -1,5 +1,4 @@
-package libs.xlsx;
-
+package libs.arquivos.binario;
 
 public class ByteChunk {
     private byte[] mBytes;
@@ -28,7 +27,7 @@ public class ByteChunk {
     }
 
     public ByteChunk getCopy(int len) {
-        ByteChunk copia = new ByteChunk(mLength);
+       ByteChunk copia = new ByteChunk(mLength);
         for (int v = 0; v < mLength; v++) {
             copia.get()[v] = mBytes[v];
         }

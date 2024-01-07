@@ -3,7 +3,10 @@ package apps.app;
 import apps.app_azzal.VamosCalcular;
 import libs.aqz.AQZ;
 import libs.dkg.DKGObjeto;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.luan.*;
+import libs.oo.ODS;
 import libs.tempo.Calendario;
 import libs.tronarko.Hazde;
 import libs.tronarko.Intervalos.Hazde_Intervalo;
@@ -11,6 +14,7 @@ import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
 import libs.verkuz.VerkuzImplementador;
+import libs.xlsx.XLSX;
 
 public class AppAzzal {
 
@@ -145,15 +149,20 @@ public class AppAzzal {
         //   AppClassificador.init();
 
 
-        // XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
-        // vendas.exibir();
+        XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
+        Lista<Entidade> e_vendas = ENTT.CRIAR_DE_XLSX(vendas);
+        ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(e_vendas, "Titulo", "Planilha1").getEntidades());
+
+        ODS vendas_ods = new ODS("/home/luan/assets/vendas_ods.ods");
+        Lista<Entidade> ods_vendas = ENTT.CRIAR_DE_ODS(vendas_ods);
+        ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(ods_vendas, "Titulo", "Planilha1").getEntidades());
 
 
         // AppFit.init();
 
         // GGADF2023.init();
 
-        tron_me();
+        // tron_me();
         //   banco_me();
 
         //  AppFerias.recesso_2024_janeiro();
@@ -163,7 +172,7 @@ public class AppAzzal {
         // sequenciador();
 
 
-        Projettum.init_geral();
+       //  Projettum.init_geral();
 
 
     }

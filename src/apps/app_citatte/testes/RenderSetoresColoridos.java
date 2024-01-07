@@ -8,6 +8,7 @@ import apps.app_citatte.urbanizacao.AreaTipada;
 import apps.app_citatte.urbanizacao.Urbanizador;
 import libs.azzal.Cores;
 import libs.azzal.geometria.Ponto;
+import libs.entt.CorpoENTT;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -117,7 +118,7 @@ public class RenderSetoresColoridos {
         mCitatte.exportar_imagem(arquivo);
 
 
-        ENTT infos = new ENTT();
+        CorpoENTT infos = new CorpoENTT();
 
         for (String setor : RosaDosVentos.GET_SENTIDOS()) {
 
