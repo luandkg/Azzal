@@ -1,4 +1,15 @@
 {
+  "java.project.referencedLibraries": ["lib/**/*.jar"],
+  "java.project.sourcePaths": ["src"],
+  "java.project.outputPath": "bin",
   "java.dependency.packagePresentation": "hierarchical",
-  "java.debug.settings.onBuildFailureProceed": true
+  "java.debug.settings.onBuildFailureProceed": true,
+  "java.completion.filteredTypes": [
+    "java.awt.*",
+    "com.sun.*",
+    "sun.*",
+    "jdk.*",
+    "org.graalvm.*",
+    "io.micrometer.shaded.*"
+  ]
 }

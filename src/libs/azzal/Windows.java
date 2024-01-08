@@ -8,7 +8,6 @@ import libs.azzal.cenarios.Cenarios;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-
 public class Windows extends JFrame implements Runnable {
 
     private static final long serialVersionUID = 1L;
@@ -17,7 +16,6 @@ public class Windows extends JFrame implements Runnable {
 
     private int mLargura;
     private int mAltura;
-
 
     private BufferedImage mImagem;
 
@@ -63,7 +61,6 @@ public class Windows extends JFrame implements Runnable {
 
         mTeclado = new Teclado();
         this.addKeyListener(mTeclado);
-
 
     }
 
@@ -126,7 +123,6 @@ public class Windows extends JFrame implements Runnable {
         double mDilatadorMin = mPassado;
         double mDilatadorMax = mPassado + ((double) (GAME_HERTIZ) * GAME_QUADRO);
 
-
         while (mExecutando) {
 
             double mPresente = System.nanoTime();
@@ -146,7 +142,6 @@ public class Windows extends JFrame implements Runnable {
 
                 mDesenhar = true;
 
-
             }
 
             if (mPresente >= mDilatadorMax) {
@@ -160,7 +155,8 @@ public class Windows extends JFrame implements Runnable {
                     mVerificador += 1;
                 }
 
-                //  System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador + "," + mVerificador + "," + mDilatador + " >>  :: " + mDesenhador);
+                // System.out.println("GAME LOOP : " + (mDilatacao) + " << " + mAtualizador +
+                // "," + mVerificador + "," + mDilatador + " >> :: " + mDesenhador);
 
                 mDilatadorMin = mPresente;
                 mDilatadorMax = mPresente + ((double) (GAME_HERTIZ) * GAME_QUADRO);
@@ -168,7 +164,8 @@ public class Windows extends JFrame implements Runnable {
                 mAcumulador += mDilatador;
 
                 if (mAcumulador >= GAME_HERTIZ) {
-                    //System.out.println("\t - ACUMULADO : " + (mAcumulador) + " - Desacumulando " + GAME_HERTIZ);
+                    // System.out.println("\t - ACUMULADO : " + (mAcumulador) + " - Desacumulando "
+                    // + GAME_HERTIZ);
                     mAcumulador -= GAME_HERTIZ;
 
                     mCena.update(mPresente - mPassado);
@@ -185,7 +182,6 @@ public class Windows extends JFrame implements Runnable {
                 }
             }
 
-
             if (mDesenhar) {
                 mDesenhador += 1;
                 mCena.draw(mRenderizador);
@@ -193,11 +189,11 @@ public class Windows extends JFrame implements Runnable {
             }
 
             // try {
-            //    Thread.yield();
-            //     Thread.sleep(1);
-            //  } catch (Exception e) {
-            //     System.out.println("GAME LOOP - PROBLEMA !");
-            //  }
+            // Thread.yield();
+            // Thread.sleep(1);
+            // } catch (Exception e) {
+            // System.out.println("GAME LOOP - PROBLEMA !");
+            // }
 
             mPassado = System.nanoTime();
 

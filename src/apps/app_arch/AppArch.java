@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.awt.*;
 
 import apps.app_arch.Assembler.Assembler;
 import apps.app_arch.Matematica.u8;
