@@ -161,8 +161,10 @@ public class AppAzzal {
 
         // GGADF2023.init();
 
+        tempo();
+
         // tron_me();
-        // banco_me();
+        banco_me();
 
         // AppFerias.recesso_2024_janeiro();
 
@@ -172,7 +174,32 @@ public class AppAzzal {
 
         // Projettum.init_geral();
 
-        AzzalUnico.unico("", 1540, 900, new apps.app_workum.AppWorkum());
+        // AzzalUnico.unico("", 1540, 900, new apps.app_workum.AppWorkum());
+
+    }
+
+    public static void tempo() {
+
+        Lista<Entidade> previsao = AppPrevisaoDoTempo.init();
+
+        ENTT.EXIBIR_TABELA(ENTT.GET_ATRIBUTOS(previsao));
+
+        ENTT.EXIBIR_TABELA(ENTT.GET_CAMPOS(previsao,
+                Strings.CRIAR_LISTA("time", "temperature_2m", "relative_humidity_2m",
+                        "windspeed_10m", "precipitation_probability", "rain")));
+
+        String arquivo_banco = "/home/luan/assets/initum.aqz";
+
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo_v2");
+
+        AQZ.INSERIR_VARIOS(arquivo_banco, "Tempo", ENTT.ENTIDADE_TO_OBJETO(previsao));
+
+        AQZ.INSERIR_VARIOS(arquivo_banco, "Tempo_v2", ENTT.ENTIDADE_TO_OBJETO(ENTT.GET_CAMPOS(previsao,
+                Strings.CRIAR_LISTA("time", "temperature_2m", "relative_humidity_2m",
+                        "windspeed_10m", "precipitation_probability", "rain"))));
+
+        fmt.print("TEMPO ATUALIZADO !");
 
     }
 
@@ -259,6 +286,8 @@ public class AppAzzal {
 
         AQZ.EXIBIR_COLECAO(arquivo_banco, "Tronakum");
         AQZ.EXIBIR_COLECAO(arquivo_banco, "TronakumDiario");
+        AQZ.EXIBIR_COLECAO(arquivo_banco, "Tempo");
+        AQZ.EXIBIR_COLECAO(arquivo_banco, "Tempo_v2");
 
     }
 

@@ -36,7 +36,6 @@ public class Strings {
         return ret;
     }
 
-
     public static ArrayList<String> dividir_linhas(String texto) {
         ArrayList<String> linhas = new ArrayList<String>();
 
@@ -90,7 +89,6 @@ public class Strings {
         return linhas;
     }
 
-
     public static ArrayList<String> ordenar(ArrayList<String> entradas) {
 
         int n = entradas.size();
@@ -139,7 +137,6 @@ public class Strings {
         }
     }
 
-
     public static String GET_REVERSO_ATE(String texto, String ate) {
 
         String ret = "";
@@ -158,7 +155,6 @@ public class Strings {
         return ret;
 
     }
-
 
     public static String exibir_justificado(String texto, int tamanho) {
 
@@ -204,7 +200,6 @@ public class Strings {
 
     }
 
-
     public static int indice(String conjunto, String letra) {
 
         int indice_retornar = 0;
@@ -218,11 +213,9 @@ public class Strings {
             indice_retornar += 1;
         }
 
-
         return indice_retornar;
 
     }
-
 
     public static void println(Lista<String> ls) {
         for (String item : ls) {
@@ -251,7 +244,6 @@ public class Strings {
         return valor;
 
     }
-
 
     public static Hasher<String> HASH() {
         return new Hasher<String>() {
@@ -290,7 +282,6 @@ public class Strings {
         }
         return entradas;
     }
-
 
     public static Lista<String> CRIAR_LISTA(String a) {
         Lista<String> lista = new Lista<String>();
@@ -467,7 +458,7 @@ public class Strings {
             i -= 1;
         }
 
-        //System.out.println(s + " -->> " + ret);
+        // System.out.println(s + " -->> " + ret);
 
         return ret.trim();
     }
@@ -498,7 +489,7 @@ public class Strings {
             i -= 1;
         }
 
-        //System.out.println(s + " -->> " + ret);
+        // System.out.println(s + " -->> " + ret);
 
         return ret.trim();
     }
@@ -546,7 +537,6 @@ public class Strings {
         return ret;
     }
 
-
     public static String GET_ENTRE_ASPAS(String s, int vContagem) {
 
         String ret = "";
@@ -569,10 +559,8 @@ public class Strings {
             i += 1;
         }
 
-
         return ret;
     }
-
 
     public static String GET_ENTRE_ESPACOS(String s, int vContagem) {
 
@@ -596,10 +584,8 @@ public class Strings {
             i += 1;
         }
 
-
         return ret;
     }
-
 
     public static String RETIRAR_ACENTOS(String s) {
 
@@ -616,7 +602,6 @@ public class Strings {
 
         s = s.replace("Ê", "E");
         s = s.replace("Ë", "E");
-
 
         s = s.replace("Í", "I");
         s = s.replace("Ì", "I");
@@ -638,7 +623,6 @@ public class Strings {
 
         s = s.replace("Ç", "C");
 
-
         // MINUSCULA
         s = s.replace("á", "a");
         s = s.replace("à", "a");
@@ -651,7 +635,6 @@ public class Strings {
 
         s = s.replace("ê", "e");
         s = s.replace("ë", "e");
-
 
         s = s.replace("í", "i");
         s = s.replace("ì", "i");
@@ -676,13 +659,11 @@ public class Strings {
         s = s.replace("\t", " ");
         s = s.replace("\n", " ");
 
-
         s = s.replace("Ñ", "n");
         s = s.replace("ñ", "n");
 
         s = s.replace("Å", "A");
         s = s.replace("Ė", "E");
-
 
         return s;
     }
@@ -690,7 +671,6 @@ public class Strings {
     public static boolean isDiferente(String a, String b) {
         return !a.contentEquals(b);
     }
-
 
     public static boolean TEM_CARACTER_NAO_ALFABETICO(String texto) {
 
@@ -735,7 +715,6 @@ public class Strings {
 
         return ret;
     }
-
 
     public static boolean TEM_CARACTER_NAO_ALFABETICO_COM_VALIDOS_DEBUG(String texto, String mais_validos) {
 
@@ -797,7 +776,6 @@ public class Strings {
 
     public static String GET_REVERSO_ESPACO(String texto, int t) {
 
-
         int e = 0;
         int o = texto.length() - 1;
         String ret = "";
@@ -820,9 +798,7 @@ public class Strings {
 
     }
 
-
     public static String GET_REVERSO_DEPOIS(String texto, String ate) {
-
 
         int e = 0;
         int o = texto.length() - 1;
@@ -852,7 +828,6 @@ public class Strings {
 
     public static String GET_REVERSO_ESPACO_ENTRE(String texto, int t1, int t2) {
 
-
         int e = 0;
         int o = texto.length() - 1;
         String ret = "";
@@ -874,7 +849,6 @@ public class Strings {
     }
 
     public static int GET_REVERSO_ESPACO_INDEX(String texto, int t) {
-
 
         int e = 0;
         int o = texto.length() - 1;
@@ -900,7 +874,6 @@ public class Strings {
 
     public static int GET_REVERSO_ESPACO_ENTRE_INDEX(String texto, int t1, int t2) {
 
-
         int e = 0;
         int o = texto.length() - 1;
         String ret = "";
@@ -924,7 +897,6 @@ public class Strings {
 
     }
 
-
     public static ArrayList<String> dividir_frases(String texto, int minimo) {
 
         ArrayList<String> frases = new ArrayList<String>();
@@ -945,7 +917,6 @@ public class Strings {
 
         return frases;
     }
-
 
     public static ArrayList<String> dividir_blocos(String texto, int maximo) {
 
@@ -983,7 +954,6 @@ public class Strings {
 
         return enc;
     }
-
 
     public static String numero_sinal(int num) {
 
@@ -1025,7 +995,6 @@ public class Strings {
         return s;
     }
 
-
     public static String PRIMEIRO(ArrayList<String> itens) {
         return itens.get(0);
     }
@@ -1033,7 +1002,6 @@ public class Strings {
     public static String ULTIMO(ArrayList<String> itens) {
         return itens.get(itens.size() - 1);
     }
-
 
     public static int GET_POSICAO(ArrayList<String> itens, String proc) {
         int pos = 0;
@@ -1046,7 +1014,6 @@ public class Strings {
         }
         return pos;
     }
-
 
     public static String GET_ATE_ESPACO(String texto) {
 
@@ -1068,7 +1035,6 @@ public class Strings {
         return ret;
     }
 
-
     public static String exibir_lista_em_linhas(ArrayList<String> lista) {
         String ret = "";
 
@@ -1078,7 +1044,6 @@ public class Strings {
 
         return ret;
     }
-
 
     public static void escrever(String eArquivo, String eConteudo) {
 
@@ -1122,19 +1087,15 @@ public class Strings {
                 }
             }
 
-
             arq.close();
         } catch (IOException e) {
 
         }
 
-
         return ret;
     }
 
-
     public static String GET_ATE(String texto, String ate) {
-
 
         int i = 0;
         int o = texto.length();
@@ -1156,7 +1117,6 @@ public class Strings {
     }
 
     public static String GET_DEPOIS(String texto, String de) {
-
 
         int i = 0;
         int o = texto.length();
@@ -1181,7 +1141,6 @@ public class Strings {
 
     }
 
-
     public static String numero_ou_vazio(String v) {
         if (v.contentEquals("0")) {
             return "";
@@ -1198,18 +1157,15 @@ public class Strings {
         }
     }
 
-
     public static String NORMALIZAR_PATH(String path) {
         return path.replace("\\", "/");
     }
-
 
     public static ArrayList<ArrayList<String>> PAGINAR_LISTA(ArrayList<String> todas, int maximo) {
 
         ArrayList<ArrayList<String>> paginas = new ArrayList<ArrayList<String>>();
 
         ArrayList<String> sub_lista = new ArrayList<String>();
-
 
         for (String linha : todas) {
 
@@ -1227,7 +1183,6 @@ public class Strings {
             }
         }
 
-
         if (sub_lista.size() > 0) {
 
             ArrayList<String> sub_lista_inserir = new ArrayList<String>();
@@ -1241,7 +1196,6 @@ public class Strings {
 
         return paginas;
     }
-
 
     public static String GET_REVERSO_DEPOIS_DE(String texto, String depois_de) {
 
@@ -1262,13 +1216,11 @@ public class Strings {
                 }
             }
 
-
             o -= 1;
         }
 
         return ret;
     }
-
 
     public static String LISTA_TO_TEXTO(ArrayList<String> ls) {
         String texto = "";
@@ -1289,7 +1241,6 @@ public class Strings {
 
         return texto;
     }
-
 
     public static String LISTA_TO_TEXTO_LINHA(ArrayList<String> ls) {
         String texto = "";
@@ -1358,7 +1309,6 @@ public class Strings {
         return s;
     }
 
-
     public static String CRIAR_SIGLA(String entrada) {
 
         entrada = entrada.replace("-", " ");
@@ -1399,7 +1349,6 @@ public class Strings {
             entradas.set(i, b);
             entradas.set(j, a);
 
-
         }
 
         return entradas;
@@ -1421,7 +1370,6 @@ public class Strings {
 
         return contagem;
     }
-
 
     public static boolean isDigito(String texto) {
         String numeros = "0123456789";
@@ -1454,7 +1402,6 @@ public class Strings {
             i += 1;
         }
 
-
         return ret;
     }
 
@@ -1478,7 +1425,6 @@ public class Strings {
             }
             i += 1;
         }
-
 
         return ret;
     }
@@ -1510,7 +1456,6 @@ public class Strings {
             i += 1;
         }
 
-
         return ret;
     }
 
@@ -1535,10 +1480,8 @@ public class Strings {
             i += 1;
         }
 
-
         return ret.trim();
     }
-
 
     public static String GET_ENTRE_VIRGULAS(String s, int vContagem) {
 
@@ -1560,7 +1503,6 @@ public class Strings {
             }
             i += 1;
         }
-
 
         return ret;
     }
@@ -1588,7 +1530,6 @@ public class Strings {
             i += 1;
         }
 
-
         return ret;
     }
 
@@ -1613,7 +1554,6 @@ public class Strings {
             }
             i += 1;
         }
-
 
         return ret.trim();
     }
@@ -1673,7 +1613,6 @@ public class Strings {
         }
         String numeros = "0123456789";
 
-
         while (i < o) {
             String c = String.valueOf(texto.charAt(i));
 
@@ -1705,7 +1644,6 @@ public class Strings {
 
     }
 
-
     public static String RETIRAR_ESPACOS_DUPLOS(String texto) {
 
         while (texto.contains("  ")) {
@@ -1729,7 +1667,6 @@ public class Strings {
 
         return texto_novo;
     }
-
 
     public static String GET_DIFERENCA(String frase_a, String frase_b) {
         String ret = "";
@@ -1777,6 +1714,16 @@ public class Strings {
         }
 
         return linhas_escola;
+    }
+
+    public static Igualavel<String> IGUALAVEL() {
+        return new Igualavel<String>() {
+            @Override
+            public boolean is(String a, String b) {
+                return a.contentEquals(b);
+            }
+
+        };
     }
 
 }

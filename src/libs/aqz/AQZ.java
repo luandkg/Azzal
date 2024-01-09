@@ -34,16 +34,13 @@ public class AQZ {
 
         Lista<String> colecoes = new Lista<String>();
 
-
         AQZInterna aqz = new AQZInterna(arquivo_banco);
 
         for (Banco b : aqz.colecoes_listar()) {
             colecoes.adicionar(b.getNome());
         }
 
-
         aqz.fechar();
-
 
         return colecoes;
     }
@@ -54,9 +51,7 @@ public class AQZ {
             fmt.print("{}", banco);
         }
 
-
     }
-
 
     public static void INSERIR(String arquivo_banco, String colecao, DKGObjeto objeto) {
 
@@ -67,6 +62,16 @@ public class AQZ {
         aqz.fechar();
     }
 
+    public static void INSERIR_VARIOS(String arquivo_banco, String colecao, Lista<DKGObjeto> objetos) {
+
+        AQZInterna aqz = new AQZInterna(arquivo_banco);
+
+        for (DKGObjeto objeto : objetos) {
+            aqz.colecoes_obter(colecao).adicionar(objeto);
+        }
+
+        aqz.fechar();
+    }
 
     public static Lista<DKGObjeto> COLECAO_ITENS(String arquivo_banco, String colecao) {
 
@@ -97,7 +102,6 @@ public class AQZ {
 
     }
 
-
     public static long QUANTIDADE(String arquivo_banco, String colecao) {
 
         long quantidade = 0;
@@ -106,12 +110,10 @@ public class AQZ {
 
         quantidade = aqz.banco_obter(colecao).getItensContagem();
 
-
         aqz.fechar();
 
         return quantidade;
     }
-
 
     public static void LIMPAR_TUDO(String arquivo_banco, String colecao) {
 
@@ -132,7 +134,6 @@ public class AQZ {
         aqz.fechar();
     }
 
-
     public static void EXIBIR_COLECAO_PRIMARIA(String arquivo_banco, String colecao_nome) {
 
         AQZInterna aqz = new AQZInterna(arquivo_banco);
@@ -147,7 +148,6 @@ public class AQZ {
         aqz.fechar();
 
     }
-
 
     public static void AUTO_ANALISAR(String arquivo_banco) {
 
@@ -169,8 +169,8 @@ public class AQZ {
 
     }
 
-
-    public static void DEFINIR_VIEW(String arquivo_banco, String view_nome, String colecao_nome, Lista<String> colunas) {
+    public static void DEFINIR_VIEW(String arquivo_banco, String view_nome, String colecao_nome,
+            Lista<String> colunas) {
 
         AQZInterna aqz = new AQZInterna(arquivo_banco);
 
@@ -183,7 +183,6 @@ public class AQZ {
         aqz.fechar();
     }
 
-
     public static void EXIBIR_VIEW(String arquivo_banco, String view_nome) {
 
         view_nome = view_nome.toUpperCase();
@@ -191,7 +190,6 @@ public class AQZ {
         AQZInterna aqz = new AQZInterna(arquivo_banco);
 
         DKGObjeto view = aqz.views_obter(view_nome);
-
 
         Lista<String> colunas = new Lista<String>();
         String colecao_nome = view.identifique("Banco").getValor();
