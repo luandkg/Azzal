@@ -1,11 +1,11 @@
 package apps.app_workum;
 
-import java.awt.Point;
-
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.utilitarios.Cor;
+
+import java.awt.*;
 
 public class AppWorkum extends Cena {
 

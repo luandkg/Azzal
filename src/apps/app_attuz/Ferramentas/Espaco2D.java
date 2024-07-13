@@ -1,10 +1,13 @@
 package apps.app_attuz.Ferramentas;
 
+import libs.azzal.Renderizador;
 import libs.azzal.geometria.Linha;
 import libs.azzal.geometria.Ponto;
+import libs.azzal.utilitarios.Cor;
 import libs.luan.Embaralhar;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.Par;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,10 @@ public class Espaco2D {
 
     public static int distancia_entre_pontos(int x1, int y1, int x2, int y2) {
         return (int) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+    }
+
+    public static double distancia_entre_pontos_double(int x1, int y1, int x2, int y2) {
+        return Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
     }
 
     public static boolean isDentro(int x, int y, int largura, int altura, int px, int py) {
@@ -216,5 +223,128 @@ public class Espaco2D {
         return Opcional.CANCEL();
     }
 
+    public static Opcional<Integer> GET_MAIS_PROXIMO_ORDEM(Ponto ir_comecar, Lista<Ponto> possiveis) {
 
+        boolean existe_proximo = false;
+
+        int distancia = 0;
+        Ponto proximo = null;
+
+        int ordem = 0;
+        int ordem_proximo = 0;
+
+        for (Ponto prox : possiveis) {
+            if (prox.isDiferente(ir_comecar)) {
+
+                if (!existe_proximo) {
+                    distancia = Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY());
+                    existe_proximo = true;
+                    proximo = prox;
+                    ordem_proximo=ordem;
+                } else {
+                    if (Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY()) < distancia) {
+                        distancia = Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY());
+                        proximo = prox;
+                        ordem_proximo=ordem;
+                    }
+                }
+
+            }
+            ordem+=1;
+        }
+
+        if (existe_proximo) {
+            return Opcional.OK(ordem_proximo);
+        }
+
+        return Opcional.CANCEL();
+    }
+
+
+
+    public static int GET_DISTANCIA_MAIS_PROXIMA(Lista<Ponto> pontos,int eixo_x,int eixo_y){
+
+        int distancia_mais_proxima = Integer.MAX_VALUE;
+
+        for(Ponto pt : pontos) {
+            int distancia = Espaco2D.distancia_entre_pontos(eixo_x,eixo_y,pt.getX(),pt.getY());
+            if(distancia<distancia_mais_proxima){
+                distancia_mais_proxima=distancia;
+            }
+        }
+
+        return distancia_mais_proxima;
+    }
+
+    public static int GET_DISTANCIA_MAIS_PROXIMA_DOS_PONTOS_COM_VALOR(Lista<Par<Ponto,Integer>> pontos, int eixo_x, int eixo_y){
+
+        int distancia_mais_proxima = Integer.MAX_VALUE;
+
+        for(Par<Ponto,Integer> pt : pontos) {
+            int distancia = Espaco2D.distancia_entre_pontos(eixo_x,eixo_y,pt.getChave().getX(),pt.getChave().getY());
+            if(distancia<distancia_mais_proxima){
+                distancia_mais_proxima=distancia;
+            }
+        }
+
+        return distancia_mais_proxima;
+    }
+
+
+    public static int GET_VALOR_DA_DISTANCIA_MAIS_PROXIMA(Lista<Par<Ponto,Integer>> pontos, int eixo_x, int eixo_y){
+
+        int distancia_mais_proxima = Integer.MAX_VALUE;
+int valor =-1;
+
+        for(Par<Ponto,Integer> pt : pontos) {
+            int distancia = Espaco2D.distancia_entre_pontos(eixo_x,eixo_y,pt.getChave().getX(),pt.getChave().getY());
+            if(distancia<distancia_mais_proxima){
+                distancia_mais_proxima=distancia;
+                valor=pt.getValor();
+            }
+        }
+
+        return valor;
+    }
+
+
+    public static Lista<Ponto> SO_PONTOS(Lista<Par<Ponto, Integer>> pontos_com_valor){
+
+        Lista<Ponto> pontos = new Lista<Ponto>();
+
+        for(Par<Ponto, Integer> pt : pontos_com_valor) {
+            pontos.adicionar(pt.getChave());
+        }
+
+        return pontos;
+        }
+
+        public static boolean AO_REDOR_TEM(Renderizador render, int x, int y, Cor eCor){
+
+            Ponto pt_esquerda = new Ponto(x - 1, y);
+            Ponto pt_direita = new Ponto(x + 1, y);
+            Ponto pt_subir = new Ponto(x, y - 1);
+            Ponto pt_descer = new Ponto(x, y + 1);
+
+
+            if(AO_REDOR_IGUAL(render,eCor,pt_esquerda) || AO_REDOR_IGUAL(render,eCor,pt_direita) || AO_REDOR_IGUAL(render,eCor,pt_subir) ||AO_REDOR_IGUAL(render,eCor,pt_descer)){
+            return true;
+            }
+
+         return false;
+        }
+
+    public static boolean AO_REDOR_IGUAL(Renderizador render, Cor cor_entrada,  Ponto pt_processar) {
+
+        boolean ret = false;
+
+
+        if (pt_processar.getX() >= 0 && pt_processar.getY() >= 0 && pt_processar.getX() < render.getLargura() && pt_processar.getY() < render.getAltura()) {
+            if (render.getPixel(pt_processar.getX(), pt_processar.getY()).igual(cor_entrada)) {
+                ret=true;
+            }
+        }
+
+        return ret;
+    }
 }

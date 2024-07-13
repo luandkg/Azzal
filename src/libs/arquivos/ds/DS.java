@@ -1,14 +1,16 @@
-package libs.arquivos.stacker;
+package libs.arquivos.ds;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
+import libs.entt.ENTT;
+import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.fmt;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
-public class Stacker {
+public class DS {
 
     // AUTOR : LUAN FREITAS
     // DATA  : 2023 04 17
@@ -47,9 +49,9 @@ public class Stacker {
 
         arquivar.setPonteiro(antes);
 
-        ArrayList<Byte> bytes_nome = TX.toListBytes(eNome);
+        Lista<Byte> bytes_nome = TX.toListBytes(eNome);
 
-        if (bytes_nome.size() < 1024) {
+        if (bytes_nome.getQuantidade() < 1024) {
 
             for (byte b : bytes_nome) {
                 arquivar.set_u8(b);
@@ -73,12 +75,69 @@ public class Stacker {
 
     }
 
+    public static void adicionar(String eArquivo, String eNome, Lista<Byte> eDados) {
+
+
+        Arquivador arquivar = new Arquivador(eArquivo);
+
+        long t = arquivar.getLength();
+
+        if (t == 0) {
+            arquivar.setPonteiro(0);
+            arquivar.set_u8((byte) 100);
+            arquivar.set_u8((byte) 120);
+        }
+
+        arquivar.setPonteiro(arquivar.getLength());
+
+
+        // adicionar novo item
+        arquivar.set_u8((byte) 255);
+        arquivar.set_u64((long) eDados.getQuantidade());
+
+        long antes = arquivar.getPonteiro();
+
+        for (int z = 0; z < 1024; z++) {
+            arquivar.set_u8((byte) 0);
+        }
+
+        long depois = arquivar.getPonteiro();
+
+        arquivar.setPonteiro(antes);
+
+        Lista<Byte> bytes_nome = TX.toListBytes(eNome);
+
+        if (bytes_nome.getQuantidade() < 1024) {
+
+            for (byte b : bytes_nome) {
+                arquivar.set_u8(b);
+            }
+
+        }
+
+
+        arquivar.setPonteiro(depois);
+
+        int i = 0;
+        int o = eDados.getQuantidade();
+
+        while (i < o) {
+            arquivar.set_u8(eDados.get(i));
+            i += 1;
+        }
+
+
+        arquivar.encerrar();
+
+    }
+
     public static void adicionar(String eArquivo, String eNome, String dados) {
         adicionar(eArquivo, eNome, dados.getBytes(StandardCharsets.UTF_8));
     }
 
     public static void adicionar_pre_alocado(String eArquivo, String eNome, int pre_alocado) {
 
+        pre_alocado=pre_alocado+9;
 
         Arquivador arquivar = new Arquivador(eArquivo);
 
@@ -107,9 +166,9 @@ public class Stacker {
 
         arquivar.setPonteiro(antes);
 
-        ArrayList<Byte> bytes_nome = TX.toListBytes(eNome);
+        Lista<Byte> bytes_nome = TX.toListBytes(eNome);
 
-        if (bytes_nome.size() < 1024) {
+        if (bytes_nome.getQuantidade() < 1024) {
 
             for (byte b : bytes_nome) {
                 arquivar.set_u8(b);
@@ -119,9 +178,10 @@ public class Stacker {
 
 
         arquivar.setPonteiro(depois);
+        arquivar.set_u8((byte) 200);
 
         int i = 0;
-        int o = pre_alocado;
+        int o = pre_alocado-1;
 
         while (i < o) {
             arquivar.set_u8((byte) 0);
@@ -134,21 +194,21 @@ public class Stacker {
     }
 
 
-    public static ArrayList<StackItem> ler_todos(String eArquivo) {
+    public static Lista<DSItem> ler_todos(String eArquivo) {
 
-        ArrayList<StackItem> itens = new ArrayList<StackItem>();
+        Lista<DSItem> itens = new Lista<DSItem>();
 
         Arquivador arquivar = new Arquivador(eArquivo);
 
-        System.out.println("Tamanho :: " + arquivar.getLength());
+       // System.out.println("Tamanho :: " + arquivar.getLength());
 
         arquivar.setPonteiro(0);
 
         int b1 = Inteiro.byteToInt(arquivar.get());
         int b2 = Inteiro.byteToInt(arquivar.get());
 
-        System.out.println("B1 :: " + b1);
-        System.out.println("B2 :: " + b2);
+      //  System.out.println("B1 :: " + b1);
+       // System.out.println("B2 :: " + b2);
 
         int status = Inteiro.byteToInt(arquivar.get());
 
@@ -170,7 +230,7 @@ public class Stacker {
 
             long antes = arquivar.getPonteiro();
 
-            itens.add(new StackItem(eArquivo, index, status, nome, item_tamanho, antes));
+            itens.adicionar(new DSItem(eArquivo, index, status, nome, item_tamanho, antes));
 
             arquivar.setPonteiro(arquivar.getPonteiro() + item_tamanho);
             status = Inteiro.byteToInt(arquivar.get());
@@ -185,9 +245,9 @@ public class Stacker {
     }
 
 
-    public static Opcional<StackItem> buscar_item(String eArquivo, String eNome) {
+    public static Opcional<DSItem> buscar_item(String eArquivo, String eNome) {
 
-        Opcional<StackItem> ret = new Opcional<StackItem>();
+        Opcional<DSItem> ret = new Opcional<DSItem>();
 
 
         Arquivador arquivar = new Arquivador(eArquivo);
@@ -224,7 +284,7 @@ public class Stacker {
 
 
             if (nome.contentEquals(eNome)) {
-                ret.set(new StackItem(eArquivo, index, status, nome, item_tamanho, antes));
+                ret.set(new DSItem(eArquivo, index, status, nome, item_tamanho, antes));
                 break;
             }
 
@@ -293,12 +353,12 @@ public class Stacker {
     }
 
 
-    public static Opcional<StackItem> ler_item(String eArquivo, int chave) {
+    public static Opcional<DSItem> ler_item(String eArquivo, int chave) {
 
-        Opcional<StackItem> ret = new Opcional<StackItem>();
+        Opcional<DSItem> ret = new Opcional<DSItem>();
 
-        ArrayList<StackItem> itens = Stacker.ler_todos(eArquivo);
-        for (StackItem item : itens) {
+        Lista<DSItem> itens = DS.ler_todos(eArquivo);
+        for (DSItem item : itens) {
             if (item.getIndex() == chave) {
                 ret.set(item);
                 break;
@@ -309,13 +369,13 @@ public class Stacker {
     }
 
 
-    public static ArrayList<StackItem> separar(String prefixo, ArrayList<StackItem> itens) {
+    public static Lista<DSItem> separar(String prefixo, Lista<DSItem> itens) {
 
-        ArrayList<StackItem> guardando = new ArrayList<StackItem>();
+        Lista<DSItem> guardando = new Lista<DSItem>();
 
-        for (StackItem item : itens) {
+        for (DSItem item : itens) {
             if (item.getNome().startsWith(prefixo)) {
-                guardando.add(item);
+                guardando.adicionar(item);
             }
         }
 
@@ -328,21 +388,21 @@ public class Stacker {
 
         Arquivador.remover(eArquivoIndex);
 
-        ArrayList<StackItem> guardando = new ArrayList<StackItem>();
+        Lista<DSItem> guardando = new Lista<DSItem>();
 
-        for (StackItem item : ler_todos(eArquivoDados)) {
+        for (DSItem item : ler_todos(eArquivoDados)) {
             if (item.getNome().startsWith(ePrefixo)) {
-                guardando.add(item);
+                guardando.adicionar(item);
             }
         }
 
 
         int maior = 0;
 
-        for (StackItem item : guardando) {
+        for (DSItem item : guardando) {
 
             String sID = item.getNome().replace(ePrefixo, "");
-            if (sID.length() > 0) {
+            if (!sID.isEmpty()) {
                 int iID = Integer.parseInt(sID);
 
                 if (iID > maior) {
@@ -368,11 +428,11 @@ public class Stacker {
         }
 
 
-        for (StackItem item : guardando) {
+        for (DSItem item : guardando) {
 
             String sID = item.getNome().replace(ePrefixo, "");
 
-            if (sID.length() > 0) {
+            if (!sID.isEmpty()) {
                 int iID = Integer.parseInt(sID);
 
                 arquivar.setPonteiro(antes + (long) (iID * (16L)));
@@ -385,6 +445,45 @@ public class Stacker {
 
         arquivar.encerrar();
 
+
+    }
+
+
+    public static void atualizar_pre_alocado(DSItem item_pre_alocado,Lista<Byte> bytes){
+
+    //    fmt.print("Iniciar Atualizacao Pre Alloc :: "+bytes.getQuantidade());
+
+        long tamanho =item_pre_alocado.getTamanho()-9;
+
+        if(bytes.getQuantidade()<tamanho){
+            long pt_inicio_dados = item_pre_alocado.getInicio();
+
+            Arquivador aquivador = new Arquivador(item_pre_alocado.getArquivo());
+            aquivador.setPonteiro(pt_inicio_dados);
+
+            int valor = aquivador.get_u8();
+
+//fmt.print("Atualizar com 200");
+
+            if(valor==200){
+                aquivador.set_u64(bytes.getQuantidade());
+
+              //  fmt.print("Atualizar com sv :: "+bytes.getQuantidade());
+
+                for(Byte b : bytes){
+                    aquivador.set_u8(b);
+                }
+            }
+
+            aquivador.encerrar();
+
+            if(valor!=200) {
+                throw new RuntimeException("Esse item não pôde ser atualizado porque não foi pré-alocado !");
+            }
+
+            }else{
+                throw new RuntimeException("Tamanho superior ao item pre alocado !");
+            }
 
     }
 

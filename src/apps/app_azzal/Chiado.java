@@ -1,9 +1,9 @@
 package apps.app_azzal;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.utilitarios.*;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
 
 import java.awt.*;
 import java.util.Random;

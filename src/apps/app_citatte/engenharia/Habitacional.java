@@ -3,7 +3,6 @@ package apps.app_citatte.engenharia;
 import apps.app_citatte.Citatte;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
-import libs.azzal.geometria.Ponto;
 import libs.azzal.geometria.Retangulo;
 import libs.luan.Lista;
 import libs.luan.fmt;

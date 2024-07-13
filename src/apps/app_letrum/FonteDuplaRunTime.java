@@ -1,8 +1,8 @@
 package apps.app_letrum;
 
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
-import apps.app_letrum.Maker.FonteRunTime;
 
 public class FonteDuplaRunTime implements FonteDupla {
 

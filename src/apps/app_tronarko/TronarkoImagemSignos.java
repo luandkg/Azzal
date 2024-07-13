@@ -1,7 +1,11 @@
 package apps.app_tronarko;
 
+import libs.arquivos.IM;
+import libs.arquivos.binario.ByteChunk;
+import libs.arquivos.ds.DS;
+import libs.arquivos.ds.DSItem;
 import libs.imagem.Efeitos;
-import libs.imagem.Imagem;
+import libs.luan.Lista;
 import libs.tronarko.Signos;
 
 import java.awt.image.BufferedImage;
@@ -22,20 +26,38 @@ public class TronarkoImagemSignos {
 
     public TronarkoImagemSignos() {
 
-        SIGNO_CARPA = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/carpa.png"), 64, 64);
-        SIGNO_GATO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/gato.png"), 64, 64);
-        SIGNO_GAVIAO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/gaviao.png"), 64, 64);
-        SIGNO_LEAO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/leao.png"), 64, 64);
-        SIGNO_LEOPARDO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/leopardo.png"), 64, 64);
+        Lista<DSItem> itens = DS.ler_todos("res/tronarko_signos.ds");
 
-        SIGNO_LOBO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/lobo.png"), 64, 64);
-        SIGNO_RAPOSA = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/raposa.png"), 64, 64);
-        SIGNO_SERPENTE = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/serpente.png"), 64, 64);
-        SIGNO_TIGRE = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/tigre.png"), 64, 64);
-        SIGNO_TOURO = Efeitos.reduzirComAlfa(Imagem.getImagem("res/signos/touro.png"), 64, 64);
+        SIGNO_CARPA = GET_IMAGEM(itens, "carpa");
+        SIGNO_GATO = GET_IMAGEM(itens, "gato");
+        SIGNO_GAVIAO = GET_IMAGEM(itens, "gaviao");
+        SIGNO_LEAO = GET_IMAGEM(itens, "leao");
+        SIGNO_LEOPARDO = GET_IMAGEM(itens, "leopardo");
+
+        SIGNO_LOBO = GET_IMAGEM(itens, "lobo");
+        SIGNO_RAPOSA = GET_IMAGEM(itens, "raposa");
+        SIGNO_SERPENTE = GET_IMAGEM(itens, "serpente");
+        SIGNO_TIGRE = GET_IMAGEM(itens, "tigre");
+        SIGNO_TOURO = GET_IMAGEM(itens, "touro");
 
 
     }
+
+    private BufferedImage GET_IMAGEM(Lista<DSItem> itens, String nome) {
+        BufferedImage ret = null;
+
+        for (DSItem item : itens) {
+            if (item.getNome().contentEquals(nome)) {
+                ByteChunk bytes = new ByteChunk(item.getBytes(), item.getBytes().length);
+                ret = Efeitos.reduzirComAlfa(IM.ler_bytes(bytes), 64, 64);
+                break;
+            }
+
+        }
+
+        return ret;
+    }
+
 
     public BufferedImage getSigno(Signos eSigno) {
 

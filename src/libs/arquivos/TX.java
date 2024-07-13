@@ -103,14 +103,14 @@ public class TX {
 
     }
 
-    public static ArrayList<Byte> toListBytes(String eConteudo) {
+    public static Lista<Byte> toListBytes(String eConteudo) {
 
         TX eTX = new TX();
 
         int i = 0;
         int o = eConteudo.length();
 
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        Lista<Byte> bytes = new Lista<Byte>();
 
 
         //System.out.println("Texto TX - Iniciado");
@@ -123,13 +123,13 @@ public class TX {
             if (indice >= 0) {
 
                 if (indice < 255) {
-                    bytes.add((byte) indice);
+                    bytes.adicionar((byte) indice);
                 } else {
 
                     int proximo = (indice - 255) + 1;
 
-                    bytes.add((byte) 255);
-                    bytes.add((byte) proximo);
+                    bytes.adicionar((byte) 255);
+                    bytes.adicionar((byte) proximo);
 
                 }
 
@@ -138,7 +138,7 @@ public class TX {
             i += 1;
         }
 
-        bytes.add((byte) 0);
+        bytes.adicionar((byte) 0);
 
         return bytes;
 
@@ -324,7 +324,7 @@ public class TX {
         return texto;
     }
 
-    public static String lerDeBytes(ArrayList<Byte> bytes) {
+    public static String lerDeBytes(Lista<Byte> bytes) {
 
         TX eTX = new TX();
 
@@ -335,7 +335,7 @@ public class TX {
         boolean lendo = true;
 
         int ii = 0;
-        int oo = bytes.size();
+        int oo = bytes.getQuantidade();
 
         while (lendo && (ii < oo)) {
 

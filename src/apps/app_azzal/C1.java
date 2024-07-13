@@ -1,16 +1,18 @@
 package apps.app_azzal;
 
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Renderizador;
+import libs.azzal.RenderizadorClip;
+import libs.azzal.Teclado;
+import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Circulo;
 import libs.azzal.geometria.Quadrado;
 import libs.azzal.geometria.Retangulo;
-import libs.azzal.RenderizadorClip;
-import libs.azzal.Teclado;
-import libs.azzal.utilitarios.*;
-import libs.azzal.Renderizador;
-import libs.azzal.Windows;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
+import libs.azzal.utilitarios.Posicionador;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

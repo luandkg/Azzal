@@ -2,6 +2,7 @@ package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Bytes;
+import libs.luan.Lista;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -43,16 +44,16 @@ public class StringView {
         return ret;
     }
 
-    public static ArrayList<Byte> toBytes(String essa, int tamanho) {
+    public static Lista<Byte> toBytes(String essa, int tamanho) {
 
-        ArrayList<Byte> ret = new ArrayList<Byte>();
+        Lista<Byte> ret = new Lista<Byte>();
 
         byte[] b = Bytes.longToBytes((long) essa.length());
         int i = 0;
         int o = b.length;
 
         while (i < o) {
-            ret.add(b[i]);
+            ret.adicionar(b[i]);
             i += 1;
         }
 
@@ -61,12 +62,12 @@ public class StringView {
         int o2 = b2.length;
 
         while (i2 < o2) {
-            ret.add(b2[i2]);
+            ret.adicionar(b2[i2]);
             i2 += 1;
         }
 
         while (i2 < tamanho) {
-            ret.add((byte) 0);
+            ret.adicionar((byte) 0);
             i2 += 1;
         }
 

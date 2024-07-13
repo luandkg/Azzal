@@ -414,6 +414,8 @@ public class VideoCodecador {
 
     public Empilhador criar(String eArquivo, int eLargura, int eAltura) {
 
+        Arquivador.remover(eArquivo);
+
         Arquivador arquivador = new Arquivador(eArquivo);
 
 

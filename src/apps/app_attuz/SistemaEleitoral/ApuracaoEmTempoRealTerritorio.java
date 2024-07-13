@@ -1,7 +1,5 @@
 package apps.app_attuz.SistemaEleitoral;
 
-import libs.materializedview.MaterializedView10K;
-
 import java.util.ArrayList;
 
 public class ApuracaoEmTempoRealTerritorio {

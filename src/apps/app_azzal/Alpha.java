@@ -1,14 +1,15 @@
 package apps.app_azzal;
 
+import apps.app_letrum.Fonte;
+import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Renderizador;
+import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.*;
 import libs.azzal.utilitarios.*;
-import libs.azzal.Renderizador;
-import libs.azzal.Windows;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
 import libs.luan.Iterador;
 import libs.luan.Lista;
+import libs.luan.fmt;
 import libs.movimentador.Movettor;
 
 import java.awt.*;
@@ -488,6 +489,88 @@ public class Alpha extends Cena {
 
 
         mQuadranteColorido.render(mRenderizador);
+
+        drawHSV(mRenderizador);
+
+    }
+
+
+    public void drawHSV(Renderizador render){
+
+        render.limpar(new Cor(255,255,255));
+
+        int parcela = 360 / (4*6);
+
+        hsv_componente(render,parcela*0,100,100);
+        hsv_componente(render,parcela*1,350,100);
+        hsv_componente(render,parcela*2,600,100);
+        hsv_componente(render,parcela*3,850,100);
+        hsv_componente(render,parcela*4,1100,100);
+        hsv_componente(render,parcela*5,1350,100);
+
+
+        hsv_componente(render,parcela*6,100,300);
+        hsv_componente(render,parcela*7,350,300);
+        hsv_componente(render,parcela*8,600,300);
+        hsv_componente(render,parcela*9,850,300);
+        hsv_componente(render,parcela*10,1100,300);
+        hsv_componente(render,parcela*11,1350,300);
+
+        hsv_componente(render,parcela*12,100,500);
+        hsv_componente(render,parcela*13,350,500);
+        hsv_componente(render,parcela*14,600,500);
+        hsv_componente(render,parcela*15,850,500);
+        hsv_componente(render,parcela*16,1100,500);
+        hsv_componente(render,parcela*17,1350,500);
+
+        hsv_componente(render,parcela*18,100,700);
+        hsv_componente(render,parcela*19,350,700);
+        hsv_componente(render,parcela*20,600,700);
+        hsv_componente(render,parcela*21,850,700);
+        hsv_componente(render,parcela*22,1100,700);
+        hsv_componente(render,parcela*23,1350,700);
+
+        int mais_x = 400;
+        int mais_y = 900;
+int px = 0;
+
+        for(int HValor=0;HValor<360;HValor++){
+            Cor a1 = HSV.toRGB(new HSV(HValor,(5*10),0));
+            Cor a2 = HSV.toRGB(new HSV(HValor,(5*10),25));
+            Cor a3 = HSV.toRGB(new HSV(HValor,(5*10),50));
+            Cor a4 = HSV.toRGB(new HSV(HValor,(5*10),75));
+            Cor a5 = HSV.toRGB(new HSV(HValor,(5*10),99));
+
+            render.drawRect_Pintado(px+mais_x,mais_y,2,15,a1);
+            render.drawRect_Pintado(px+mais_x,mais_y+20,2,15,a2);
+            render.drawRect_Pintado(px+mais_x,mais_y+40,2,15,a3);
+            render.drawRect_Pintado(px+mais_x,mais_y+60,2,15,a4);
+            render.drawRect_Pintado(px+mais_x,mais_y+80,2,15,a5);
+
+            px+=2;
+        }
+
+    }
+
+    public void hsv_componente(Renderizador render,int HValor,int px,int py){
+
+        int mais_y = 0;
+
+        for(int vv=0;vv<10;vv++){
+
+            int mais_x = 0;
+            for(int h=0;h<10;h++){
+                HSV hsv = new HSV(HValor,(h*10),(vv*11));
+                Cor aqui = HSV.toRGB(hsv);
+                //   fmt.print("{} ->> {}",hsv.toString(),aqui.toString());
+
+                render.drawRect_Pintado(px+mais_x,py+mais_y,10,10,aqui);
+
+                mais_x+=20;
+            }
+
+            mais_y+=15;
+        }
 
 
     }

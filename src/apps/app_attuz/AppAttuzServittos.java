@@ -1,10 +1,11 @@
 package apps.app_attuz;
 
-import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Populacionar.Populacionar;
 import apps.app_attuz.Regiao.Regionalizador;
-import apps.app_attuz.SistemaEleitoral.*;
-import libs.materializedview.HiperMaterializedView10K;
+import apps.app_attuz.SistemaEleitoral.Apuracao;
+import apps.app_attuz.SistemaEleitoral.Eleicao;
+import apps.app_attuz.SistemaEleitoral.SistemaEleitoral;
+import apps.app_attuz.SistemaEleitoral.Votacao;
 import libs.materializedview.MaterializedView10K;
 
 public class AppAttuzServittos {

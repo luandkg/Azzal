@@ -1,9 +1,8 @@
 package apps.app_azzal;
 
 
-import java.io.*;
-
 import javax.sound.sampled.*;
+import java.io.*;
 
 
 public class Audio {

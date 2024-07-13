@@ -55,4 +55,20 @@ public class Matematica {
         return corrente;
     }
 
+    public static boolean isPar(int numero){
+        return (numero % 2)==0;
+    }
+
+    public static boolean isImpar(int numero){
+        return (numero % 2)==1;
+    }
+
+    public static Ordenavel<Double> DOUBLE_COMPARADOR(){
+        return new Ordenavel<Double>() {
+            @Override
+            public int emOrdem(Double a, Double b) {
+                return Double.compare(a,b);
+            }
+        };
+    }
 }

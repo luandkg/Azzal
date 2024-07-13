@@ -1,14 +1,14 @@
 package apps.app_letras;
 
-import libs.azzal.cenarios.Cena;
 import libs.azzal.Mouse;
-import libs.azzal.utilitarios.*;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
 import libs.griff.Griph;
 import libs.griff.Griphattor;
 import libs.griff.Griphizz;
-
 
 import java.awt.*;
 import java.util.Random;

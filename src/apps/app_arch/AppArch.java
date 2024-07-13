@@ -1,11 +1,5 @@
 package apps.app_arch;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.awt.*;
-
 import apps.app_arch.Assembler.Assembler;
 import apps.app_arch.Matematica.u8;
 import apps.app_letrum.Fonte;
@@ -16,6 +10,12 @@ import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Retangulo;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 public class AppArch extends Cena {
 

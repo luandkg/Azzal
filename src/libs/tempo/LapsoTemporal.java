@@ -1,5 +1,6 @@
 package libs.tempo;
 
+import libs.luan.Lista;
 import libs.tempo.Calendario;
 import libs.tempo.Data;
 
@@ -7,14 +8,14 @@ import java.util.ArrayList;
 
 public class LapsoTemporal {
 
-    private ArrayList<Data> mDatas;
+    private Lista<Data> mDatas;
 
     public LapsoTemporal(String sInicio, String sFim) {
-        mDatas = new ArrayList<Data>();
+        mDatas = new Lista<Data>();
         mDatas = Calendario.listar_datas_entre(sInicio, sFim);
     }
 
-    public ArrayList<Data> getDatas() {
+    public Lista<Data> getDatas() {
         return mDatas;
     }
 

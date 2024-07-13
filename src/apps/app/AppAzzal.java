@@ -1,6 +1,15 @@
 package apps.app;
 
-import apps.app_arch.AppArch;
+import algoritmos.Teste;
+import apps.app_arquivos.AppVideo;
+import apps.app_atzum.Apps;
+import apps.app_atzum.AtzumCreator;
+import apps.app_atzum.AtzumProcessoCriativo;
+import apps.app_atzum.SnapShotter;
+import apps.app_atzum.servicos.*;
+import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_azzal.Alpha;
+import apps.app_azzal.AppGlobal;
 import apps.app_azzal.VamosCalcular;
 import libs.aqz.AQZ;
 import libs.azzal.AzzalUnico;
@@ -22,15 +31,15 @@ public class AppAzzal {
 
     public static void main(String[] args) {
 
-        // AzzalUnico.unico("apps.AppAzzal", 1600, 1020, new AppGlobal());
+        // AzzalUnico.unico("AppAlpha", 1600, 1020, new Alpha());
+
+        // AzzalUnico.unico("AppAzzal", 1600, 1020, new AppGlobal());
 
         // AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.app_fuzz.AppFuzz());
 
-        // AzzalUnico.unico("Tronarko", 1550, 1100, new
-        // apps.app_tronarko.AppTronarko());
+        //  AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
-        // AzzalUnico .unico("Tronarko.Alarme", 900, 800, new
-        // apps.app_tronarko.AppAlarme());
+        //AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
         // AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
 
         // AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
@@ -93,7 +102,7 @@ public class AppAzzal {
         // AzzalUnico.unico("Visualizador IM", 1500, 1020, new AppImagem());
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new AppAlbumDeImagens());
 
-        // AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
+        //  AzzalUnico.unico("AppAnimacao", 1100, 900, new AppAnimacao());
 
         // VideoSequenciador.criar("/home/luan/Vídeos/vi/ecossistema_01.vi", 800, 801,
         // "/home/luan/Imagens/ecossistema_01/S", 0, 97, ".png");
@@ -104,7 +113,7 @@ public class AppAzzal {
 
         // VideoCodecador.abrir("/home/luan/Vídeos/vi/ecossistema_01.vi");
 
-        // AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
+       // AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
         String ESCOLA_LOCAL = "/home/luan/Dropbox/CED 1";
 
@@ -151,20 +160,20 @@ public class AppAzzal {
 
         XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
         Lista<Entidade> e_vendas = ENTT.CRIAR_DE_XLSX(vendas);
-        ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(e_vendas, "Titulo", "Planilha1").getEntidades());
+        // ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(e_vendas, "Titulo", "Planilha1").getEntidades());
 
         ODS vendas_ods = new ODS("/home/luan/assets/vendas_ods.ods");
         Lista<Entidade> ods_vendas = ENTT.CRIAR_DE_ODS(vendas_ods);
-        ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(ods_vendas, "Titulo", "Planilha1").getEntidades());
+        //  ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(ods_vendas, "Titulo", "Planilha1").getEntidades());
 
         // AppFit.init();
 
         // GGADF2023.init();
 
-        tempo();
+        // tempo();
 
         // tron_me();
-        banco_me();
+        //   banco_me();
 
         // AppFerias.recesso_2024_janeiro();
 
@@ -175,6 +184,28 @@ public class AppAzzal {
         // Projettum.init_geral();
 
         // AzzalUnico.unico("", 1540, 900, new apps.app_workum.AppWorkum());
+
+        // AppCampeonatum.init();
+
+        //FITParser.init();
+
+        fmt.print("Tronarko : {}", Tronarko.getTronAgora().getTextoZerado());
+
+        AtzumProcessoCriativo.init();
+
+
+        //AppStrava.init();
+       // AppStrava.transferencia_gg("remoto_gg.entts","gg.entts");
+
+       // Teste.init();
+
+        // tempo();
+
+        // Cartaze.init();
+
+        //  TronarkoOrganizarAssets.signos();
+
+        //AppCartaze.INIT();
 
     }
 

@@ -1,9 +1,12 @@
 package apps.app_azzal;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.utilitarios.*;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
+import libs.azzal.utilitarios.Paleta;
+import libs.azzal.utilitarios.TransformadorDeCor;
 import libs.zettagraficos.ZettaBarras;
 
 import java.awt.*;

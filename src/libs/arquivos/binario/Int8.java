@@ -153,6 +153,10 @@ public class Int8 {
         return valores[p];
     }
 
+    public int getValorInverso(int p) {
+        return valores[7-p];
+    }
+
 
     public int[] getArray(int comecar, int tamanho) {
 

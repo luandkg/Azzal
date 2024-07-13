@@ -102,8 +102,8 @@ public class Lista<T> implements Iterable<T> {
 
         if (mPrimeiro != null) {
 
-            Item mAnterior = null;
-            Item mCorrente = mPrimeiro;
+            Item<T> mAnterior = null;
+            Item<T> mCorrente = mPrimeiro;
 
             while (mCorrente != null) {
 
@@ -194,6 +194,12 @@ public class Lista<T> implements Iterable<T> {
 
         }
 
+    }
+
+    public void remover_varios(Lista<T> remocao){
+        for(T remove : remocao){
+            remover(remove);
+        }
     }
 
     public void listarSemIndice() {
@@ -692,6 +698,17 @@ public class Lista<T> implements Iterable<T> {
 
         }
 
+    }
+
+
+    public Lista<T> getCopia(){
+        Lista<T> copia = new Lista<T>();
+
+        for(T item : this){
+            copia.adicionar(item);
+        }
+
+        return copia;
     }
 
 }

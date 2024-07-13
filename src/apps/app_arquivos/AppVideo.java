@@ -4,11 +4,13 @@ import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.video.LinhaDoTempo;
 import libs.arquivos.video.Video;
+import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
+import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 
@@ -16,19 +18,25 @@ import java.awt.image.BufferedImage;
 
 public class AppVideo extends Cena {
 
-    private Fonte TextoGrande;
+    private Fonte mEscritorGrande;
     private Cronometro mCron;
 
-    BotaoCor BTN_P1;
-    BotaoCor BTN_P2;
-    BotaoCor BTN_P3;
+    private BotaoCor BTN_P1;
+    private BotaoCor BTN_P2;
+    private BotaoCor BTN_P3;
 
-    Clicavel mClicavel;
+    private  Clicavel mClicavel;
 
-    String eArquivoAbrir = "/home/luan/Vídeos/vi/ecossistema_v2.vi";
+  //  private  String eArquivoAbrir = "/home/luan/Imagens/atzum/regionalizando.vi";
     // String eArquivoAbrir = "/home/luan/Vídeos/vi/alunos_v2.vi";
     // String eArquivoAbrir = "/home/luan/Imagens/Arkazz/build/temperatura.vi";
 
+   // private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/temperatura.vi";
+   // private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/chuva.vi";
+//private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/preciptacao.vi";
+  //  private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/tp.vi";
+    // private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/chuva.vi";
+     private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/videos/sensores_observando.vi";
 
     private boolean mAberto = false;
     private boolean mCarregado = false;
@@ -39,14 +47,18 @@ public class AppVideo extends Cena {
     private int mTotal;
     private LinhaDoTempo mLinhaDoTempo;
     private int mPorcentagem;
+    private int TAXA_DE_ATUALIZACAO = 25;
+
+    private Cores mCores;
 
     @Override
     public void iniciar(Windows eWindows) {
 
-        eWindows.setTitle("Visualizador MV");
+        eWindows.setTitle("Visualizador VI");
 
 
-        TextoGrande = new FonteRunTime(new Cor(0, 0, 0), 11);
+        mCores = new Cores();
+        mEscritorGrande = new FonteRunTime(mCores.getPreto(), 11);
 
         mClicavel = new Clicavel();
 
@@ -58,7 +70,7 @@ public class AppVideo extends Cena {
         mTotal = 0;
 
 
-        mCron = new Cronometro(200);
+        mCron = new Cronometro(TAXA_DE_ATUALIZACAO);
 
         System.out.println("Carregar video...");
 
@@ -74,10 +86,36 @@ public class AppVideo extends Cena {
         System.out.println("\t - Duracao = " + mVideo.getTempoTotalFormatado());
 
 
-        // mMovie.irParaPorcentagem(50);
         mLinhaDoTempo = new LinhaDoTempo(mTotal, mVideo.getTaxa());
         mPorcentagem = 0;
 
+        BTN_P1.setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+                if (!mVideo.getAcabou()) {
+                    mVideo.proximo();
+                    mCarregado = true;
+                }
+
+            }
+        });
+
+        BTN_P2.setAcao(new Acao() {
+            @Override
+            public void onClique() {
+                mPausado = !mPausado;
+            }
+        });
+
+        BTN_P3.setAcao(new Acao() {
+            @Override
+            public void onClique() {
+                mVideo.reIniciar();
+
+                abrir();
+            }
+        });
     }
 
 
@@ -86,8 +124,9 @@ public class AppVideo extends Cena {
         mVideo = new Video();
         mVideo.abrir(eArquivoAbrir);
 
-        mCron = new Cronometro(mVideo.getTaxa());
-        mCron = new Cronometro(5);
+       // mCron = new Cronometro(mVideo.getTaxa());
+        mCron = new Cronometro(TAXA_DE_ATUALIZACAO);
+       // mCron = new Cronometro(5);
 
         mAberto = true;
 
@@ -112,7 +151,7 @@ public class AppVideo extends Cena {
                     System.out.println("\t - Falta = " + mLinhaDoTempo.getTempoFaltante(mVideo.getFrameCorrente()));
                     mPorcentagem = mLinhaDoTempo.getPorcentagem(mVideo.getFrameCorrente());
 
-                    System.out.println("\t - Movie -->> Frame Index = " + mVideo.getFrameCorrente());
+                    System.out.println("\t - Video -->> Frame Index = " + mVideo.getFrameCorrente());
 
                 }
 
@@ -120,31 +159,7 @@ public class AppVideo extends Cena {
 
         }
 
-        if (mClicavel.getClicado()) {
 
-            int px = (int) getWindows().getMouse().getX();
-            int py = (int) getWindows().getMouse().getY();
-
-
-            if (BTN_P1.getClicado(px, py)) {
-
-                if (!mVideo.getAcabou()) {
-                    mVideo.proximo();
-                    mCarregado = true;
-                }
-
-
-            } else if (BTN_P2.getClicado(px, py)) {
-
-                mPausado = !mPausado;
-
-            } else if (BTN_P3.getClicado(px, py)) {
-
-                mVideo.reIniciar();
-
-            }
-
-        }
 
         getWindows().getMouse().liberar();
 
@@ -153,37 +168,36 @@ public class AppVideo extends Cena {
     @Override
     public void draw(Renderizador r) {
 
-        r.limpar(new Cor(255, 255, 255));
+        r.limpar(mCores.getBranco());
 
         mClicavel.onDraw(r);
 
-        TextoGrande.setRenderizador(r);
+        mEscritorGrande.setRenderizador(r);
 
-        TextoGrande.escreva(20, 50, "Visualizador de Video ( .vi ) :: " + mVideo.getFrameCorrente());
+        mEscritorGrande.escreva(20, 50, "Visualizador de Video ( .vi ) :: " + mVideo.getFrameCorrente());
 
 
         if (mAberto && mCarregado) {
             // r.drawImagem(100, 100, mVideo.getImagemCorrente());
 
-            BufferedImage reduzido = libs.imagem.Efeitos.reduzir(mVideo.getImagemCorrente(), mVideo.getImagemCorrente().getWidth() / 3, mVideo.getImagemCorrente().getHeight() / 3);
+          //  BufferedImage reduzido = libs.imagem.Efeitos.reduzir(mVideo.getImagemCorrente(), mVideo.getImagemCorrente().getWidth() / 3, mVideo.getImagemCorrente().getHeight() / 3);
+            BufferedImage reduzido =mVideo.getImagemCorrente();
+
             r.drawImagem(100, 100, reduzido);
 
         }
 
-        int mAlargador = 5;
+        int alargador = 5;
 
-        r.drawRect_Pintado(300, 950, 100 * mAlargador, 10, new Cor(0, 0, 0));
+        r.drawRect_Pintado(300, 950, 100 * alargador, 10, new Cor(0, 0, 0));
 
         if (mAberto && mCarregado) {
 
             if (mTotal > 0) {
 
-
-                int eFrame = mPorcentagem * 5;
-
                 //   System.out.println("Porcentagem - " +mPorcentagem );
-
-                r.drawRect_Pintado(300 + eFrame, 950, 5, 10, new Cor(255, 0, 0));
+                int passador = mPorcentagem * 5;
+                r.drawRect_Pintado(300 + passador, 950, 5, 10, new Cor(255, 0, 0));
 
             }
 

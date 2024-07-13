@@ -6,12 +6,11 @@ import libs.arquivos.TX;
 import libs.dkg.AutoDKG;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.IntTronarko;
 import libs.tronarko.utils.StringTronarko;
-
-import java.util.ArrayList;
 
 public class ViagemIndexar {
 
@@ -65,14 +64,14 @@ public class ViagemIndexar {
                 }
 
 
-                ArrayList<Byte> bytes = TX.toListBytes(viagem_aqui.toString());
+                Lista<Byte> bytes = TX.toListBytes(viagem_aqui.toString());
 
-                int tt = bytes.size() / 1024;
+                int tt = bytes.getQuantidade() / 1024;
 
                 int indice = (int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO);
 
                 if (indice >= 0 && tt <= 5) {
-                    System.out.println("Pass -->> (" + indice + " ) " + eTozteCorrente.getTexto() + " :: " + va.getObjetos().getQuantidade() + " objs -->> " + tt + " kb com :: " + bytes.size());
+                    System.out.println("Pass -->> (" + indice + " ) " + eTozteCorrente.getTexto() + " :: " + va.getObjetos().getQuantidade() + " objs -->> " + tt + " kb com :: " + bytes.getQuantidade());
                     BZ2.atribuir(eArquivoBZZ, ((int) (eTozteCorrente.getSuperarkosTotal() - TOZTE_PRIMEIRO)), viagem_aqui.toString());
                 }
 

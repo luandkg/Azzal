@@ -3,11 +3,11 @@ package apps.app_attuz.SistemaEleitoral;
 import apps.app_attuz.Arkazz.Arkazz;
 import apps.app_attuz.Regiao.Regiao;
 import apps.app_attuz.Regiao.Regionalizador;
+import libs.dkg.DKG;
+import libs.dkg.DKGObjeto;
 import libs.luan.Aleatorio;
 import libs.luan.Indexado;
 import libs.luan.Indexamento;
-import libs.dkg.DKG;
-import libs.dkg.DKGObjeto;
 import libs.materializedview.MaterializedView10K;
 
 import java.util.ArrayList;

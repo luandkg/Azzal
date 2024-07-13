@@ -1,6 +1,8 @@
 package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
+import libs.arquivos.binario.ByteChunkConstrutor;
+import libs.luan.Lista;
 
 public class QTT {
 
@@ -76,6 +78,40 @@ public class QTT {
 
     }
 
+    public static Lista<Byte> toBytes(QTT eQTT) {
+
+
+        ByteChunkConstrutor arquivador = new ByteChunkConstrutor();
+
+        TX eTX = new TX();
+
+        arquivador.set_u8((byte) eTX.getIndice("Q"));
+        arquivador.set_u8((byte) eTX.getIndice("T"));
+        arquivador.set_u8((byte) eTX.getIndice("T"));
+        arquivador.set_u8((byte) eTX.getIndice("0"));
+        arquivador.set_u8((byte) eTX.getIndice("1"));
+
+        arquivador.set_u8((byte) 100);
+
+        arquivador.set_u32(eQTT.getLargura());
+        arquivador.set_u32(eQTT.getAltura());
+
+        arquivador.set_u8((byte) 100);
+
+        for (int y = 0; y < eQTT.getAltura(); y++) {
+            for (int x = 0; x < eQTT.getLargura(); x++) {
+
+                arquivador.set_u32(eQTT.getValor(x, y));
+
+            }
+        }
+
+
+    return    arquivador.getBytes();
+
+    }
+
+
     public static int pegar(String eArquivo, int x, int y) {
 
         int valor = 0;
@@ -145,6 +181,50 @@ public class QTT {
         arquivador.encerrar();
 
     }
+
+
+    public static void alterar_todos(String eArquivo, int eLargura, int eAltura, int eValor) {
+
+        Arquivador arquivador = new Arquivador(eArquivo, "rw");
+        arquivador.setPonteiro(0);
+
+        byte p1 = arquivador.get();
+        byte p2 = arquivador.get();
+        byte p3 = arquivador.get();
+        byte p4 = arquivador.get();
+        byte p5 = arquivador.get();
+
+        byte z1 = arquivador.get();
+
+        int largura = arquivador.get_u32();
+        int altura = arquivador.get_u32();
+
+        byte z2 = arquivador.get();
+
+        long ePonteiroInicio = arquivador.getPonteiro();
+
+        for(int y=0;y<altura;y++){
+            for(int x=0;x<largura;x++){
+
+                if (x >= 0 && y >= 0 && x < largura && y < altura) {
+
+                    int apontar = ((y * largura) + x) * 4;
+
+                    arquivador.setPonteiro(ePonteiroInicio + apontar);
+                    arquivador.set_u32(eValor);
+
+                }
+
+            }
+        }
+
+
+
+
+        arquivador.encerrar();
+
+    }
+
 
     private int mLargura;
     private int mAltura;
@@ -250,5 +330,10 @@ public class QTT {
         return eQTT;
     }
 
+    public static void alocar(String arquivo,int eLargura, int eAltura) {
+         QTT dados = QTT.criar(eLargura,eAltura);
+        QTT.guardar(arquivo,dados);
+    }
 
-}
+
+    }

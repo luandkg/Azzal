@@ -1,6 +1,7 @@
 package apps.app_citatte.testes;
 
-import apps.app_citatte.*;
+import apps.app_citatte.AreaAdministravel;
+import apps.app_citatte.Citatte;
 import apps.app_citatte.engenharia.AvenidaViaria;
 import apps.app_citatte.engenharia.EngenhariaRodoviaria;
 import apps.app_citatte.engenharia.RosaDosVentos;
@@ -9,7 +10,6 @@ import apps.app_citatte.urbanizacao.Urbanizador;
 import libs.azzal.Cores;
 import libs.azzal.geometria.Ponto;
 import libs.entt.CorpoENTT;
-import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.fmt;

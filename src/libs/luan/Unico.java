@@ -24,9 +24,49 @@ public class Unico<T> implements Iterable<T> {
 
     }
 
+    public T item_get(T valor) {
+
+        T item_ret =null;
+
+        if (mLista.existe(mIgualavel, valor)) {
+            for (T proc : this) {
+                if (mIgualavel.is(proc, valor)) {
+                    item_ret= proc;
+                    break;
+                }
+            }
+        } else {
+            mLista.adicionar(valor);
+            item_ret= valor;
+        }
+
+        return item_ret;
+    }
+
+
+    public void remover(T item){
+        mLista.remover(item);
+    }
+
+    public void remover_varios(Lista<T> remocao){
+        mLista.remover_varios(remocao);
+    }
+
+
+
     public int getQuantidade() {
         return mLista.getQuantidade();
     }
+
+
+    public Lista<T> toLista(){
+        Lista<T> lista = new Lista<T>();
+        for(T item : this){
+            lista.adicionar(item);
+        }
+        return lista;
+    }
+
 
 
     public Iterator<T> iterator() {

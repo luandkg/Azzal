@@ -1,5 +1,7 @@
 package libs.azzal.geometria;
 
+import libs.luan.Igualavel;
+
 public class Ponto {
 
     private int mX;
@@ -72,5 +74,16 @@ public class Ponto {
 
     public Ponto getCopia() {
         return new Ponto(mX, mY);
+    }
+
+
+
+    public static Igualavel<Ponto> IGUAL(){
+        return new Igualavel<Ponto>() {
+            @Override
+            public boolean is(Ponto a, Ponto b) {
+                return (a.isIgual(b));
+            }
+        };
     }
 }

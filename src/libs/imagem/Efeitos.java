@@ -58,4 +58,12 @@ public class Efeitos {
         return reduzida;
     }
 
-}
+    public static BufferedImage reduzirMetade(BufferedImage img) {
+        return Efeitos.reduzir(img, img.getWidth() / 2, img.getHeight() / 2);
+    }
+
+    public static BufferedImage reduzirTerco(BufferedImage img) {
+        return Efeitos.reduzir(img, img.getWidth() / 3, img.getHeight() / 3);
+    }
+
+    }

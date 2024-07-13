@@ -2,6 +2,7 @@ package libs.materializedview;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.TX;
+import libs.luan.Lista;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -226,9 +227,9 @@ public class HiperMaterializedView {
                 arquivador.setPonteiro(ponteiro);
                 arquivador.set_u8((byte) 1);
 
-                ArrayList<Byte> bytes = TX.toListBytes(dados);
+                Lista<Byte> bytes = TX.toListBytes(dados);
 
-                arquivador.set_u64((long) bytes.size());
+                arquivador.set_u64((long) bytes.getQuantidade());
 
                 arquivador.set_u8_array(bytes);
 
@@ -276,8 +277,8 @@ public class HiperMaterializedView {
 
                     long tam = arquivador.get_u64();
 
-                    ArrayList<Byte> bytes = arquivador.get_u8_bloco((int) tam);
-                    quantidade = bytes.size();
+                    Lista<Byte> bytes = arquivador.get_u8_bloco((int) tam);
+                    quantidade = bytes.getQuantidade();
 
                     dados = TX.lerDeBytes(bytes);
 

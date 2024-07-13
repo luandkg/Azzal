@@ -2,7 +2,9 @@ package libs.azzal;
 
 import libs.azzal.geometria.*;
 import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.HSV;
 import libs.azzal.utilitarios.Luz;
+import libs.imagem.Imagem;
 import libs.luan.Lista;
 
 import javax.imageio.ImageIO;
@@ -252,6 +254,48 @@ public class Renderizador {
 
         return eCor;
     }
+
+
+
+    public void setPixel(int eX, int eY,Cor eCor) {
+
+        if (eX >= 0 && eX < mLargura && eY >= 0 && eY < mAltura) {
+
+            int ePox = (eY * mLargura) + eX;
+
+               mPixels[ePox]=eCor.toColor().getRGB();
+
+        }
+
+    }
+
+    public void setPixel(int eX, int eY, HSV eCor) {
+
+        if (eX >= 0 && eX < mLargura && eY >= 0 && eY < mAltura) {
+
+            int ePox = (eY * mLargura) + eX;
+
+            mPixels[ePox]=HSV.toRGB(eCor).toColor().getRGB();
+
+        }
+
+    }
+
+    public void setPixelPuro(int eX, int eY,int eCor) {
+
+        if (eX >= 0 && eX < mLargura && eY >= 0 && eY < mAltura) {
+
+            int ePox = (eY * mLargura) + eX;
+
+            mPixels[ePox]=eCor;
+
+        }
+
+    }
+
+
+
+
 
     public void drawLumnos(int eX, int eY, Cor eCor) {
 
@@ -1848,6 +1892,15 @@ public class Renderizador {
 
     }
 
+    public boolean isPontoValido(int x,int y){
+        if(x>=0 && x<mLargura && y>=0 && y<mAltura){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     public static Renderizador construir(int largura, int altura) {
 
         BufferedImage construido = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
@@ -1855,5 +1908,32 @@ public class Renderizador {
 
     }
 
+    public static Renderizador construir(int largura, int altura,Cor eCor) {
+
+        BufferedImage construido = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
+        Renderizador  render =new Renderizador(construido);
+        render.limpar(eCor);
+
+        return render;
+    }
+
+    public static Renderizador CONSTRUIR(int largura, int altura,Cor eCor) {
+
+        BufferedImage construido = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
+        Renderizador  render =new Renderizador(construido);
+        render.limpar(eCor);
+
+        return render;
+    }
+
+    public static Renderizador ABRIR_DE_ARQUIVO_RGB(String arquivo){
+        BufferedImage imagem = Imagem.GET_IMAGEM_POR_PIXEL_RGB(arquivo);
+     return new Renderizador(imagem);
+    }
+
+
+    public Renderizador getCopia(){
+        return new Renderizador(Imagem.getCopia(toImagemSemAlfa()));
+    }
 
 }

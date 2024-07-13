@@ -6,8 +6,6 @@ import apps.app_attuz.Viagem.Viagem;
 import apps.app_attuz.Viagem.Viajante;
 import libs.luan.Lista;
 
-import java.util.ArrayList;
-
 public class ViagemOrganizador {
 
     public static void construir() {

@@ -58,7 +58,7 @@ public class Video {
         byte b2 = mArquivo.get();
         byte b3 = mArquivo.get();
 
-        System.out.println("Cabecalho : " + b1 + "." + b2 + "." + b3);
+        //System.out.println("Cabecalho : " + b1 + "." + b2 + "." + b3);
 
         byte p1 = mArquivo.get();
 

@@ -7,6 +7,9 @@ public class Aleatorio {
 
     public static int aleatorio(int maximo) {
 
+        if(maximo<1){
+            maximo=2;
+        }
         Random sorte = new Random();
         int ret = sorte.nextInt(maximo);
 

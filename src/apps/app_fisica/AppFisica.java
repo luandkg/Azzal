@@ -1,13 +1,14 @@
 package apps.app_fisica;
 
-import libs.azzal.cenarios.Cena;
-import libs.azzal.geometria.Retangulo;
-import libs.azzal.Teclado;
-import libs.azzal.utilitarios.*;
-import libs.azzal.Renderizador;
-import libs.azzal.Windows;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.Renderizador;
+import libs.azzal.Teclado;
+import libs.azzal.Windows;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.Cronometro;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

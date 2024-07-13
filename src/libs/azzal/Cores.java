@@ -14,10 +14,12 @@ public class Cores {
     private Cor mVerde;
     private Cor mBranco;
     private Cor mTurquesa;
+    private Cor mTurjo;
 
     private Cor mCinza;
     private Cor mMarrom;
     private Cor mRosa;
+    private Cor mCianeto;
 
     public Cores() {
 
@@ -31,6 +33,8 @@ public class Cores {
         mCinza = Cor.getHexCor("#90A4AE");
         mMarrom = Cor.getHexCor("#8D6E63");
         mRosa = Cor.getHexCor("#E91E63");
+        mCianeto = Cor.getHexCor("#1DE9B6");
+mTurjo = Cor.getHexCor("#9E9D24");
 
         mBranco = Cor.getRGB(Color.white);
         mPreto = Cor.getRGB(Color.black);
@@ -40,6 +44,11 @@ public class Cores {
 
     public Cor getLaranja() {
         return mLaranja;
+    }
+
+
+    public Cor getTurjo(){
+        return mTurjo;
     }
 
     public Cor getBranco() {
@@ -78,6 +87,10 @@ public class Cores {
         return mMarrom;
     }
 
+    public Cor getCianeto() {
+        return mCianeto;
+    }
+
     public Cor getRosa() {
         return mRosa;
     }
@@ -94,5 +107,17 @@ public class Cores {
                 Integer.valueOf(colorStr.substring(1, 3), 16),
                 Integer.valueOf(colorStr.substring(3, 5), 16),
                 Integer.valueOf(colorStr.substring(5, 7), 16));
+    }
+
+    public static Cor toCinza(int valor){return new Cor(valor, valor, valor);}
+
+    public static int organizarVariacao(int valor){
+        if (valor > 255) {
+            valor = 255;
+        }
+        if (valor < 0) {
+            valor = 0;
+        }
+        return valor;
     }
 }

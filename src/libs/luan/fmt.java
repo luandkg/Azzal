@@ -612,6 +612,17 @@ public class fmt {
         return s;
     }
 
+    public static String espacar_depois(long i, int t) {
+
+        String s = String.valueOf(i);
+
+        while (s.length() < t) {
+            s = s + " ";
+        }
+
+        return s;
+    }
+
     public static String formatar_tamanho(long t) {
 
         String ret = "";
@@ -750,6 +761,18 @@ public class fmt {
 
     }
 
+    public static void listar_strings_ordenada(  Lista<String> lista) {
+
+        int i =1;
+
+        for (String aa : lista) {
+            System.out.println(i +" - " + aa);
+            i+=1;
+        }
+
+    }
+
+
     public static String double_to_virgular(double d) {
         String s = String.valueOf(d);
         s = s.replace(".", ",");
@@ -849,6 +872,15 @@ public class fmt {
 
         return ss;
     }
+
+    public static String numero_zerado_c2(String v) {
+        String sValor = String.valueOf(v);
+        if (sValor.length() == 1) {
+            sValor = "0" + sValor;
+        }
+        return sValor;
+    }
+
 
     public static String numero_zerado_c2(int v) {
         String sValor = String.valueOf(v);
@@ -1046,4 +1078,19 @@ public class fmt {
 
 
     }
+
+
+    public static void print_titulo_central(String s){
+
+        print("{}",repetir("-",100+s.length()));
+        print("{}",espacar_antes(s,50));
+        print("{}",repetir("-",100+s.length()));
+
+    }
+
+
+    public static String f2Porcentagem(int valor,int total){
+        return f2(((double)valor/(double)total)*100.0) + " %";
+    }
+
 }

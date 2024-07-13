@@ -3,6 +3,7 @@ package libs.arquivos.video;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.IM;
+import libs.imagem.Imagem;
 import libs.luan.Lista;
 
 import java.awt.image.BufferedImage;
@@ -207,7 +208,7 @@ public class Empilhador {
         }
 
         if (eFrame.getHeight() != mAltura) {
-            throw new IllegalArgumentException("Altura incompativel");
+            throw new IllegalArgumentException("Altura incompativel - "  + eFrame.getHeight() + " :: " + mAltura);
         }
 
         eGuardandoFrame += 1;
@@ -301,7 +302,6 @@ public class Empilhador {
 
         //  System.out.println("Escrever quadro em " + mArquivo.getPonteiro());
 
-
         BufferedImage mCorrenteFrame = imagem;
 
         int eX1 = 0;
@@ -312,8 +312,7 @@ public class Empilhador {
 
         int eReal = mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight();
 
-
-        mTotal += (mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
+        mTotal += ((long)mCorrenteFrame.getWidth() * (long)mCorrenteFrame.getHeight());
 
         int mModalidade = 0;
 
@@ -330,7 +329,7 @@ public class Empilhador {
 
             //  System.out.println("Frame :: Novo KeyFrame");
 
-            mUsou += (mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
+            mUsou += ((long)mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
             eArenar.setTipoFrame(QuadroTipo.Completo);
 
             mModalidade = 0;
@@ -358,7 +357,7 @@ public class Empilhador {
                 // System.out.println("t - Diff y :: " + mDiferenca.getY() + "::" + mDiferenca.getY2() + " -->> " + (mDiferenca.getY2() - mDiferenca.getY()));
                 //System.out.println("t - Diff  " + eReal + " -->> " + eRedux + " :: " + getCasas(mReducao, 2) + " %");
 
-                mUsou += (mCorrenteFrame.getWidth() * (mDiferenca.getY() - mDiferenca.getX()));
+                mUsou += ((long)mCorrenteFrame.getWidth() * (mDiferenca.getY() - mDiferenca.getX()));
 
                 eArenar.setTipoFrame(QuadroTipo.Diferencial);
 
@@ -380,7 +379,7 @@ public class Empilhador {
                 //System.out.println("t - Rept :: " + mDiferenca.getX() + "::" + mDiferenca.getY());
                 //  mUsou += (mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
 
-                boolean igual = isIgual(mCorrenteFrame, mUltimoFrame);
+                boolean igual = Imagem.VERIFICAR_IGUALDADE(mCorrenteFrame, mUltimoFrame);
 
                 if (igual) {
                     mModalidade = 1;
@@ -400,7 +399,7 @@ public class Empilhador {
 
                     //  System.out.println("Frame :: Novo KeyFrame");
 
-                    mUsou += (mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
+                    mUsou += ((long)mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
                     eArenar.setTipoFrame(QuadroTipo.Completo);
 
                     eArenar.setTipoCorrente(0);
@@ -419,33 +418,31 @@ public class Empilhador {
     }
 
 
-    private void escreverQuadroCompleto(int eTipoAnterior, Arenar eArenar, long eLugar, BufferedImage imagem) {
+    private void escreverQuadroCompleto(int eTipoAnterior, Arenar eArenar, long eLugar, BufferedImage quadro_guardar) {
 
         //  System.out.println("Escrever quadro em " + mArquivo.getPonteiro());
 
         // ESCREVER QUADRO COMPLETO
 
-        BufferedImage mCorrenteFrame = imagem;
-
         int eX1 = 0;
-        int eX2 = mCorrenteFrame.getWidth();
+        int eX2 = quadro_guardar.getWidth();
 
         int eY1 = 0;
-        int eY2 = mCorrenteFrame.getHeight();
+        int eY2 = quadro_guardar.getHeight();
 
-        mTotal += (mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
+        mTotal += ((long)quadro_guardar.getWidth() * (long)quadro_guardar.getHeight());
 
         int mModalidade = 0;
 
         //  System.out.println("Frame :: Novo KeyFrame");
 
-        mUsou += (mCorrenteFrame.getWidth() * mCorrenteFrame.getHeight());
+        mUsou += ((long)quadro_guardar.getWidth() * (long)quadro_guardar.getHeight());
         eArenar.setTipoFrame(QuadroTipo.Completo);
 
         eArenar.setTipoCorrente(0);
 
 
-        arquivar_quadro(eArenar, eX1, eY1, eX2, eY2, mCorrenteFrame, imagem, mModalidade, eLugar);
+        arquivar_quadro(eArenar, eX1, eY1, eX2, eY2, quadro_guardar, quadro_guardar, mModalidade, eLugar);
 
     }
 
@@ -640,48 +637,6 @@ public class Empilhador {
         return new Q4(mColuna1, mLinha1, mColuna2, mLinha2);
     }
 
-    public boolean isIgual(BufferedImage mIMG_01, BufferedImage mIMG_02) {
-
-        int m1l = mIMG_01.getWidth();
-        int m1a = mIMG_01.getHeight();
-
-        int m2l = mIMG_02.getWidth();
-        int m2a = mIMG_02.getHeight();
-
-
-        boolean ret = true;
-
-        if (m1l == m2l && m1a == m2a) {
-            //System.out.println("Comparavel : Sim");
-
-            // Pegar Linhas
-            for (int aqy = 0; aqy < m1a; aqy++) {
-
-                for (int aqx = 0; aqx < m1l; aqx++) {
-
-                    int pixel1 = mIMG_01.getRGB(aqx, aqy);
-                    int pixel2 = mIMG_02.getRGB(aqx, aqy);
-
-                    if (pixel1 != pixel2) {
-                        ret = false;
-                        break;
-                    }
-
-                }
-
-                if (!ret) {
-                    break;
-                }
-
-            }
-
-        } else {
-            ret = false;
-        }
-
-
-        return ret;
-    }
 
     public int getQuadrosContagem() {
         int eContando = 1;
@@ -720,12 +675,6 @@ public class Empilhador {
 
 
     public void fechar() {
-
-        try {
-            mArquivo.fechar();
-        } catch (IOException e) {
-        }
-
-
+        mArquivo.encerrar();
     }
 }

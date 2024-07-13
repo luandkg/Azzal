@@ -1,7 +1,6 @@
 package apps.app_citatte.engenharia;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
-import apps.app_citatte.engenharia.AvenidaViaria;
 import libs.azzal.geometria.Ponto;
 import libs.luan.Lista;
 import libs.luan.fmt;

@@ -1,10 +1,10 @@
 package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class BZ2 {
 
@@ -38,7 +38,7 @@ public class BZ2 {
         int posicionador = posicao * (BLOCO_TAMANHO);
 
 
-        ArrayList<Byte> bytes = TX.toListBytes(dados.toString());
+        Lista<Byte> bytes = TX.toListBytes(dados.toString());
 
 
         try {
@@ -66,7 +66,7 @@ public class BZ2 {
 
         // System.out.println("PROC -->> " + indice + " :: " + posicionador);
 
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        Lista<Byte> bytes = new Lista<Byte>();
 
         try {
 

@@ -1,8 +1,8 @@
 package apps.app_letrum;
 
-import libs.azzal.geometria.Retangulo;
 import libs.azzal.Renderizador;
 import libs.azzal.Teclado;
+import libs.azzal.geometria.Retangulo;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
 

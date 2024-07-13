@@ -1,12 +1,11 @@
 package libs.arquivos;
 
+import libs.arquivos.binario.*;
 import libs.azzal.utilitarios.Cor;
+import libs.luan.Lista;
 import libs.luan.RefInt;
-import libs.arquivos.binario.Arquivador;
-import libs.arquivos.binario.Int6;
-import libs.arquivos.binario.Int8;
-import libs.arquivos.binario.Inteiro;
 import libs.imagem.Imagem;
+import libs.luan.To;
 import libs.meta_functional.FuncaoBeta;
 
 import java.awt.*;
@@ -49,13 +48,11 @@ public class IM {
 
     public static void salvar(BufferedImage eImagem, String eArquivo) {
 
-        System.out.println("Imagem IM - Criando");
-
-        File Arq = new File(eArquivo);
-        if (Arq.exists()) {
-            Arq.delete();
+        if (DEBUG) {
+            System.out.println("Imagem IM - Criando");
         }
 
+        Arquivador.remover(eArquivo);
 
         int largura = eImagem.getWidth();
         int altura = eImagem.getHeight();
@@ -149,10 +146,12 @@ public class IM {
             }
         }
 
-        System.out.println("\tTem Alfa   :: " + sAlfa);
-        System.out.println("\tAlfa Valor :: " + alfa_primeiro);
+        if(DEBUG) {
+            System.out.println("\tTem Alfa   :: " + sAlfa);
+            System.out.println("\tAlfa Valor :: " + alfa_primeiro);
+        }
 
-        int matriz[] = new int[64];
+        int[] matriz = new int[64];
 
         for (int i = 0; i < 64; i++) {
             matriz[i] = 0;
@@ -211,19 +210,16 @@ public class IM {
 
                     Cor cPixel = Cor.int32_to_cor(pixel);
 
-                    int pos = 0;
-
                     int indice = procurar.fazer(matriz, new RefInt(pixel)).get();
 
                     pixel_corrente = pixel;
 
-                    pos = ((cPixel.getAlpha()) + (cPixel.getRed()) + (cPixel.getGreen()) + (cPixel.getBlue())) % 64;
 
 
                     if (indice >= 0) {
 
                         int6.zerar();
-                        int6.set(pos);
+                        int6.set(indice);
 
                         int8.zerar();
                         int8.set2Bits(0, 1, 1);
@@ -236,10 +232,12 @@ public class IM {
 
                     } else {
 
-                        matriz[pos] = pixel;
+                       int  indice_matriz = ((cPixel.getAlpha()) + (cPixel.getRed()) + (cPixel.getGreen()) + (cPixel.getBlue())) % 64;
+
+                        matriz[indice_matriz] = pixel;
 
                         int6.zerar();
-                        int6.set(pos);
+                        int6.set(indice_matriz);
 
 
                         int8.zerar();
@@ -277,16 +275,257 @@ public class IM {
 
         arquivador.encerrar();
 
-        System.out.println("\tTODOS      :: " + todos);
-        System.out.println("\tFIXADOS    :: " + fixados);
-        System.out.println("\tREPITIDOS  :: " + repetir);
+        if(DEBUG) {
+            System.out.println("\tTODOS      :: " + todos);
+            System.out.println("\tFIXADOS    :: " + fixados);
+            System.out.println("\tREPITIDOS  :: " + repetir);
 
-        //    log.salvar("/home/luan/Containers/im_salvar.txt");
+            //    log.salvar("/home/luan/Containers/im_salvar.txt");
 
-        System.out.println("Imagem IM - Terminada");
-
+            System.out.println("Imagem IM - Terminada");
+        }
 
     }
+
+    public static Lista<Byte> salvar_to_bytes(BufferedImage eImagem) {
+
+        if (DEBUG) {
+            System.out.println("Imagem IM - Criando");
+        }
+
+       ByteChunkConstrutor arquivador = new ByteChunkConstrutor();
+
+        int largura = eImagem.getWidth();
+        int altura = eImagem.getHeight();
+
+        int todos = 0;
+        int fixados = 0;
+        int repetir = 0;
+
+        Int8 int8 = new Int8(0);
+        Int6 int6 = new Int6(0);
+
+
+        FuncaoBeta<RefInt, int[], RefInt> procurar = new FuncaoBeta<RefInt, int[], RefInt>() {
+            @Override
+            public RefInt fazer(int[] matriz, RefInt procurado) {
+
+                RefInt resposta = new RefInt(-1);
+
+                for (int i = 0; i < MATRIZ_TAMANHO; i++) {
+                    if (matriz[i] == procurado.get()) {
+                        resposta.set(i);
+                        break;
+                    }
+                }
+
+                return resposta;
+
+            }
+        };
+
+
+
+        arquivador.set_u8((byte) IMAGEM_IM1);
+        arquivador.set_u8((byte) IMAGEM_IM2);
+
+        arquivador.set_u8((byte) IMAGEM_VERSAO_1);
+
+        arquivador.set_u32(largura);
+        arquivador.set_u32(altura);
+
+        int alfa_primeiro = new Color(eImagem.getRGB(0, 0)).getAlpha();
+        boolean tem_alfa = false;
+
+        int contando_unico = 0;
+        int pixels_todos = altura * largura;
+
+        for (int y = 0; y < altura; y++) {
+            for (int x = 0; x < largura; x++) {
+
+                int alfa_corrente = Cor.int32_to_alfa(eImagem.getRGB(x, y));
+
+                if (alfa_primeiro == alfa_corrente) {
+                    contando_unico += 1;
+                } else {
+                    tem_alfa = true;
+                    break;
+                }
+
+            }
+            if (tem_alfa) {
+                break;
+            }
+        }
+
+        String sAlfa = "";
+        int alfa_modo = 0;
+
+        if (tem_alfa) {
+            alfa_modo = IMAGEM_ALFA_COM;
+            arquivador.set_u8((byte) IMAGEM_ALFA_COM);
+            arquivador.set_u8((byte) alfa_primeiro);
+            sAlfa = "COM";
+        } else {
+
+            if (contando_unico == pixels_todos) {
+                sAlfa = "UNICO";
+                alfa_modo = IMAGEM_ALFA_UNICO;
+
+                arquivador.set_u8((byte) IMAGEM_ALFA_UNICO);
+                arquivador.set_u8((byte) alfa_primeiro);
+
+            } else {
+                sAlfa = "SEM";
+                alfa_modo = IMAGEM_ALFA_SEM;
+
+                arquivador.set_u8((byte) IMAGEM_ALFA_SEM);
+                arquivador.set_u8((byte) alfa_primeiro);
+
+            }
+        }
+
+        if(DEBUG) {
+            System.out.println("\tTem Alfa   :: " + sAlfa);
+            System.out.println("\tAlfa Valor :: " + alfa_primeiro);
+        }
+
+        int[] matriz = new int[64];
+
+        for (int i = 0; i < 64; i++) {
+            matriz[i] = 0;
+        }
+
+        int pixel_corrente = 0;
+        int repetindo = 0;
+
+        //  RhoLog log = new RhoLog();
+        //    log.titulo("SALVAR IM");
+
+        for (int y = 0; y < altura; y++) {
+            for (int x = 0; x < largura; x++) {
+
+                int pixel = eImagem.getRGB(x, y);
+
+                todos += 1;
+
+                if (pixel_corrente == pixel) {
+
+                    repetir += 1;
+
+                    repetindo += 1;
+
+                    if (repetindo == 63) {
+
+                        int8.zerar();
+                        int8.set2Bits(0, 1, 0);
+
+                        int6.set(repetindo);
+                        int8.copiarComecando(2, int6.getValores(), 6);
+
+                        arquivador.set_u8((byte) int8.getInt());
+
+                        // log.adicionar("Repetir -- " + pixel_corrente + " -->> " + repetindo);
+
+                        repetindo = 0;
+                    }
+
+                } else {
+
+                    if (repetindo > 0) {
+                        int8.zerar();
+                        int8.set2Bits(0, 1, 0);
+
+                        int6.set(repetindo);
+                        int8.copiarComecando(2, int6.getValores(), 6);
+
+                        arquivador.set_u8((byte) int8.getInt());
+
+                        //  log.adicionar("Repetir -- " + pixel_corrente + " -->> " + repetindo);
+
+                        repetindo = 0;
+                    }
+
+
+                    Cor cPixel = Cor.int32_to_cor(pixel);
+
+                    int indice = procurar.fazer(matriz, new RefInt(pixel)).get();
+
+                    pixel_corrente = pixel;
+
+
+
+                    if (indice >= 0) {
+
+                        int6.zerar();
+                        int6.set(indice);
+
+                        int8.zerar();
+                        int8.set2Bits(0, 1, 1);
+
+                        int8.copiarComecando(2, int6.getValores(), 6);
+
+                        arquivador.set_u8((byte) int8.getInt());
+
+                        //      log.adicionar("Paletado -- " + int6.getInt());
+
+                    } else {
+
+                        int  indice_matriz = ((cPixel.getAlpha()) + (cPixel.getRed()) + (cPixel.getGreen()) + (cPixel.getBlue())) % 64;
+
+                        matriz[indice_matriz] = pixel;
+
+                        int6.zerar();
+                        int6.set(indice_matriz);
+
+
+                        int8.zerar();
+                        int8.set2Bits(0, 0, 1);
+
+
+                        int8.copiarComecando(2, int6.getValores(), 6);
+
+                        arquivador.set_u8((byte) int8.getInt());
+
+                        if (alfa_modo == IMAGEM_ALFA_COM) {
+                            arquivador.set_u8((byte) cPixel.getAlpha());
+                        }
+
+                        arquivador.set_u8((byte) cPixel.getRed());
+                        arquivador.set_u8((byte) cPixel.getGreen());
+                        arquivador.set_u8((byte) cPixel.getBlue());
+
+                        //     log.adicionar("Pixel -- " + pixel + " :: " + pos);
+
+                    }
+
+
+                    fixados += 1;
+
+                }
+
+
+            }
+        }
+
+        int8.zerar();
+        arquivador.set_u8((byte) int8.getInt());
+
+
+
+        if(DEBUG) {
+            System.out.println("\tTODOS      :: " + todos);
+            System.out.println("\tFIXADOS    :: " + fixados);
+            System.out.println("\tREPITIDOS  :: " + repetir);
+
+            //    log.salvar("/home/luan/Containers/im_salvar.txt");
+
+            System.out.println("Imagem IM - Terminada");
+        }
+
+        return arquivador.getBytes();
+    }
+
 
     public static void salvar_imagem32(ImagemI32 imagem, String eArquivo) {
         TX eTX = new TX();
@@ -413,7 +652,7 @@ public class IM {
                         int pos = (cPixel.getAlpha() + cPixel.getRed() + cPixel.getGreen() + cPixel.getBlue()) % 64;
                         if (indice >= 0) {
                             int6.zerar();
-                            int6.set(pos);
+                            int6.set(indice);
                             int8.zerar();
                             int8.set2Bits(0, 1, 1);
                             int8.copiarComecando(2, int6.getValores(), 6);
@@ -638,7 +877,7 @@ public class IM {
                     if (indice >= 0) {
 
                         int6.zerar();
-                        int6.set(pos);
+                        int6.set(indice);
 
                         int8.zerar();
                         int8.set2Bits(0, 1, 1);
@@ -707,7 +946,7 @@ public class IM {
 
     public static BufferedImage lerDoFluxo(Arquivador arquivador) {
 
-        DEBUG = true;
+        DEBUG = false;
 
         if (DEBUG) {
             System.out.println("Imagem IM - Abrindo");
@@ -892,14 +1131,11 @@ public class IM {
         //  log.salvar("/home/luan/Containers/im_abrir.txt");
 
         if (DEBUG) {
-
-
             System.out.println("\tTODOS      :: " + todos);
             System.out.println("\tFIXADOS    :: " + fixados);
             System.out.println("\tREPITIDOS  :: " + repetir);
 
             System.out.println("Imagem IM - Terminada");
-
         }
 
         return imagem;
@@ -1072,4 +1308,203 @@ public class IM {
 
         return imagem;
     }
+
+
+    public static BufferedImage ler_bytes(ByteChunk arquivador) {
+
+        DEBUG = false;
+
+        if (DEBUG) {
+            System.out.println("Imagem IM - Abrindo");
+        }
+
+        //  RhoLog log = new RhoLog();
+        //   log.titulo("ABRIR IM");
+
+
+        int todos = 0;
+        int fixados = 0;
+        int repetir = 0;
+
+        Int8 mapa_de_8_bits = new Int8(0);
+        //  Int6 mapa_de_6_bits = new Int6(0);
+
+
+        byte b1 = arquivador.get();
+        byte b2 = arquivador.get();
+
+        byte versao = arquivador.get();
+
+        int largura = arquivador.get_u32();
+        int altura = arquivador.get_u32();
+
+        if (DEBUG) {
+            System.out.println("\tLargura    :: " + largura);
+            System.out.println("\tAltura     :: " + altura);
+        }
+
+        int alfa_modo = Inteiro.byteToInt(arquivador.get());
+        int alfa_canal = Inteiro.byteToInt(arquivador.get());
+
+        boolean alfa_com = false;
+
+        if (alfa_modo == IMAGEM_ALFA_COM) {
+            alfa_com = true;
+            if (DEBUG) {
+                System.out.println("\tTem Alfa   :: COM");
+                System.out.println("\tTem Alfa   :: " + alfa_canal);
+            }
+        } else if (alfa_modo == IMAGEM_ALFA_UNICO) {
+            alfa_com = true;
+            System.out.println("\tTem Alfa   :: UNICO");
+            System.out.println("\tTem Alfa   :: " + alfa_canal);
+        } else if (alfa_modo == IMAGEM_ALFA_SEM) {
+            System.out.println("\tTem Alfa   :: SEM");
+        }
+
+
+        BufferedImage imagem = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_ARGB);
+
+
+        int matriz[] = new int[64];
+
+        for (int i = 0; i < 64; i++) {
+            matriz[i] = 0;
+        }
+
+        int pixel_corrente = 0;
+        int paletado_corrente = 0;
+
+        boolean lendo = true;
+
+        int x = 0;
+        int y = 0;
+
+        while (lendo) {
+
+            int valor = Inteiro.byteToInt(arquivador.get());
+
+            if (valor == TERMINAR_IMAGEM) {
+                lendo = false;
+            } else {
+
+                // System.out.println("Chave :: " + v);
+
+                mapa_de_8_bits.set(valor);
+
+                if (mapa_de_8_bits.getBitsInt(0, 2) == PIXEL_NOVO) {
+
+                    if (alfa_modo == IMAGEM_ALFA_COM) {
+                        alfa_canal = Inteiro.byteToInt(arquivador.get());
+                    }
+
+                    int v_r = Inteiro.byteToInt(arquivador.get());
+                    int v_g = Inteiro.byteToInt(arquivador.get());
+                    int v_b = Inteiro.byteToInt(arquivador.get());
+
+                    int cPixel = Cor.rgba_to_int(v_r, v_g, v_b, alfa_canal);
+
+
+                    //  mapa_de_6_bits.zerar();
+                    // mapa_de_6_bits.setArray(0, mapa_de_8_bits.getArray(2, 6));
+
+                    int posicao_indexada = mapa_de_8_bits.getParteToInt(2, 6);
+
+                    pixel_corrente = cPixel;
+                    matriz[posicao_indexada] = pixel_corrente;
+
+                    if (x < largura && y < altura) {
+                        imagem.setRGB(x, y, pixel_corrente);
+                    }
+
+                    //    log.adicionar("Pixel -- " + cPixel + " :: " + posicao_indexada);
+
+
+                    fixados += 1;
+                    todos += 1;
+
+                    x += 1;
+                    if (x >= largura) {
+                        x = 0;
+                        y += 1;
+                    }
+
+
+                } else if (mapa_de_8_bits.getBitsInt(0, 2) == PIXEL_PALETADO) {
+
+
+                    // mapa_de_6_bits.zerar();
+                    // mapa_de_6_bits.setArray(0, mapa_de_8_bits.getArray(2, 6));
+
+                    int posicao_indexada = mapa_de_8_bits.getParteToInt(2, 6);
+
+                    paletado_corrente = posicao_indexada;
+                    //   paletado_corrente = mapa_de_6_bits.getInt();
+                    pixel_corrente = matriz[posicao_indexada];
+
+                    //   log.adicionar("Paletado -- " + posicao_indexada);
+
+                    if (x < largura && y < altura) {
+                        imagem.setRGB(x, y, pixel_corrente);
+                    }
+
+                    todos += 1;
+                    fixados += 1;
+
+                    x += 1;
+                    if (x >= largura) {
+                        x = 0;
+                        y += 1;
+                    }
+                } else if (mapa_de_8_bits.getBitsInt(0, 2) == PIXEL_REPETIR) {
+
+                    //  mapa_de_6_bits.zerar();
+                    //  mapa_de_6_bits.setArray(0, mapa_de_8_bits.getArray(2, 6));
+
+                    // int repetir_vezes = mapa_de_6_bits.getInt();
+
+                    int repetir_vezes = mapa_de_8_bits.getParteToInt(2, 6);
+
+                    //     log.adicionar("Repetir -- " + pixel_corrente + " -->> " + repetir_vezes);
+
+
+                    for (int rep = 0; rep < repetir_vezes; rep++) {
+
+                        if (x < largura && y < altura) {
+                            imagem.setRGB(x, y, pixel_corrente);
+                        }
+
+                        x += 1;
+                        if (x >= largura) {
+                            x = 0;
+                            y += 1;
+                        }
+
+                        //   repetir += 1;
+                        //   todos += 1;
+
+                    }
+
+                    repetir += repetir_vezes;
+                    todos += repetir_vezes;
+
+
+                }
+
+            }
+        }
+
+        //  log.salvar("/home/luan/Containers/im_abrir.txt");
+
+        if (DEBUG) {
+            System.out.println("\tTODOS      :: " + todos);
+            System.out.println("\tFIXADOS    :: " + fixados);
+            System.out.println("\tREPITIDOS  :: " + repetir);
+
+            System.out.println("Imagem IM - Terminada");
+        }
+
+        return imagem;
+    }
+
 }

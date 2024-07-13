@@ -13,7 +13,7 @@ public class ArenaChunk {
 
         ByteChunk copia = new ByteChunk(tam);
         for (int v = 0; v < tam; v++) {
-            copia.get()[v] = bytes[v];
+            copia.getChunk()[v] = bytes[v];
         }
         copia.setLength(tam);
 
@@ -41,7 +41,7 @@ public class ArenaChunk {
             int i = 0;
 
             while (i < chunk_corrente.getLength()) {
-                bytes[escrevendo + i] = chunk_corrente.get()[i];
+                bytes[escrevendo + i] = chunk_corrente.getChunk()[i];
                 i += 1;
             }
             escrevendo += chunk_corrente.getLength();
@@ -63,7 +63,7 @@ public class ArenaChunk {
 
     public byte[] toBytes() {
         ByteChunk bytes = unir();
-        return bytes.get();
+        return bytes.getChunk();
     }
 }
 

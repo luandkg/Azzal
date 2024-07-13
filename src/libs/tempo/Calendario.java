@@ -925,9 +925,9 @@ public class Calendario {
     }
 
 
-    public static ArrayList<Data> listar_datas_entre(String data_corrente, String ultima_data) {
+    public static Lista<Data> listar_datas_entre(String data_corrente, String ultima_data) {
 
-        ArrayList<Data> ls = new ArrayList<Data>();
+        Lista<Data> ls = new Lista<Data>();
 
         SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -965,7 +965,7 @@ public class Calendario {
             //System.out.println("F :: " + fim.getTempoLegivel());
 
             Data corrente1 = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
-            ls.add(corrente1);
+            ls.adicionar(corrente1);
 
             while (inicio.isDiferente(fim)) {
 
@@ -990,7 +990,7 @@ public class Calendario {
                 // System.out.println("\tS -->>> " + DIA_DA_SEMANA.toString());
 
                 Data corrente = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
-                ls.add(corrente);
+                ls.adicionar(corrente);
                 inicio = new Data(ANO, MES, DIA, DIA_DA_SEMANA);
             }
 
@@ -1332,8 +1332,81 @@ public class Calendario {
     }
 
 
-    public static ArrayList<Data> listar_datas_entre_anos(int ano_inicio, int ano_fim) {
+    public static Lista<Data> listar_datas_entre_anos(int ano_inicio, int ano_fim) {
         return listar_datas_entre("01/01/" + ano_inicio, "31/12/" + ano_fim);
     }
+
+    public static String MES_INGLES_PARA_NUMERAL_ZERADO(String nome){
+
+        String ret = "";
+
+        nome=nome.toUpperCase();
+
+
+        if(nome.contentEquals("JANUARY")) {
+            ret = "01";
+        }else  if(nome.contentEquals("FEBRUARY")){
+            ret="02";
+        }else  if(nome.contentEquals("MARCH")){
+            ret="03";
+        }else  if(nome.contentEquals("APRIL")){
+            ret="04";
+        }else  if(nome.contentEquals("MAY")){
+            ret="05";
+        }else  if(nome.contentEquals("JUNE")){
+            ret="06";
+        }else  if(nome.contentEquals("JULY")){
+            ret="07";
+        }else  if(nome.contentEquals("AUGUST")){
+            ret="08";
+        }else  if(nome.contentEquals("SEPTEMBER")){
+            ret="09";
+        }else  if(nome.contentEquals("OCTOBER")){
+            ret="10";
+        }else  if(nome.contentEquals("NOVEMBER")){
+            ret="11";
+        }else  if(nome.contentEquals("DECEMBER")){
+            ret="12";
+        }
+
+        return ret;
+    }
+
+    public static String MES_INGLES_3_PARA_NUMERAL_ZERADO(String nome){
+
+        String ret = "";
+
+        nome=nome.toUpperCase();
+
+
+        if(nome.contentEquals("JAN")) {
+            ret = "01";
+        }else  if(nome.contentEquals("FEB")){
+            ret="02";
+        }else  if(nome.contentEquals("MAR")){
+            ret="03";
+        }else  if(nome.contentEquals("APR")){
+            ret="04";
+        }else  if(nome.contentEquals("MAY")){
+            ret="05";
+        }else  if(nome.contentEquals("JUN")){
+            ret="06";
+        }else  if(nome.contentEquals("JUL")){
+            ret="07";
+        }else  if(nome.contentEquals("AUG")){
+            ret="08";
+        }else  if(nome.contentEquals("SEP")){
+            ret="09";
+        }else  if(nome.contentEquals("OCT")){
+            ret="10";
+        }else  if(nome.contentEquals("NOV")){
+            ret="11";
+        }else  if(nome.contentEquals("DEC")){
+            ret="12";
+        }
+
+        return ret;
+    }
+
 }
 

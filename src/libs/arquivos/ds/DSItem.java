@@ -1,11 +1,12 @@
-package libs.arquivos.stacker;
+package libs.arquivos.ds;
 
 import java.nio.charset.StandardCharsets;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
+import libs.luan.fmt;
 
-public class StackItem {
+public class DSItem {
 
     private int mIndex;
 
@@ -15,7 +16,7 @@ public class StackItem {
     private long mTamanho;
     private long mInicio;
 
-    public StackItem(String eArquivo, int eIndex, int eStatus, String eNome, long eTamanho, long eInicio) {
+    public DSItem(String eArquivo, int eIndex, int eStatus, String eNome, long eTamanho, long eInicio) {
 
         mArquivo = eArquivo;
         mIndex = eIndex;
@@ -68,6 +69,27 @@ public class StackItem {
         return dados;
     }
 
+    public byte[] getBytes(int quantidade_de_retorno) {
+
+        if(quantidade_de_retorno<=mTamanho){
+            Arquivador arquivar = new Arquivador(mArquivo);
+            arquivar.setPonteiro(mInicio);
+
+            byte[] dados = new byte[(int) quantidade_de_retorno];
+
+            for (int b = 0; b < quantidade_de_retorno; b++) {
+                dados[b] = arquivar.get();
+            }
+
+            arquivar.encerrar();
+
+            return dados;
+        }else{
+            throw new RuntimeException("Tamanho superior ao tamanho do item !");
+        }
+
+    }
+
     public int[] getInts() {
 
         Arquivador arquivar = new Arquivador(mArquivo);
@@ -87,4 +109,41 @@ public class StackItem {
     public String getTexto() {
         return new String(getBytes(), StandardCharsets.UTF_8);
     }
+
+
+    public String getTextoPreAlocado(){
+
+        String s = "";
+
+            Arquivador arquivar = new Arquivador(mArquivo);
+            arquivar.setPonteiro(mInicio);
+
+            int valor_pre_alocado = arquivar.get_u8();
+        long tamanho_pre_alocado = arquivar.get_u64();
+
+       // fmt.print("Status Pre alloc : {}",valor_pre_alocado);
+      //  fmt.print("Tam    Pre alloc : {}",tamanho_pre_alocado);
+
+
+        if(tamanho_pre_alocado>0){
+
+
+
+    byte[] dados = new byte[(int) tamanho_pre_alocado];
+
+    for (int b = 0; b < tamanho_pre_alocado; b++) {
+        dados[b] = arquivar.get();
+    }
+
+
+        s= new String(dados, StandardCharsets.UTF_8);
+    }else{
+        s= "";
+    }
+
+        arquivar.encerrar();
+
+        return s;
+    }
+
 }

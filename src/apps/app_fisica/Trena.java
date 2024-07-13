@@ -1,9 +1,9 @@
 package apps.app_fisica;
 
 
+import apps.app_letrum.Fonte;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
-import apps.app_letrum.Fonte;
 
 public class Trena {
 

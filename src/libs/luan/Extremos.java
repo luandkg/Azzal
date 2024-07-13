@@ -16,6 +16,16 @@ public class Extremos<T> {
         mOrdenavel = ordenavel;
     }
 
+    public Extremos(Ordenavel<T> ordenavel, T iniciar) {
+        mMenor = null;
+        mMaior = null;
+
+        mItens = 0;
+        mOrdenavel = ordenavel;
+
+        set(iniciar);
+    }
+
     public T getMenor() {
         return mMenor;
     }
@@ -40,6 +50,11 @@ public class Extremos<T> {
         }
 
         mItens += 1;
+    }
+
+    public void set(T valor1, T valor2) {
+        set(valor1);
+        set(valor2);
     }
 
 }

@@ -28,4 +28,17 @@ public class To<T> {
 
     }
 
+    public static <T> Lista<T> TO_LISTA(T[] vetor) {
+
+        Lista<T> lista = new Lista<T>();
+
+        for (T e : vetor) {
+            lista.adicionar(e);
+        }
+
+        return lista;
+
+    }
+
+
 }

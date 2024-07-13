@@ -251,4 +251,10 @@ public class Tronarko {
         return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkosComFim();
     }
 
+
+    public static long HAZDE_DIFERENCA(Hazde a,Hazde b){
+        return a.getTotalEttons() - b.getTotalEttons();
+    }
+
+
 }

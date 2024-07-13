@@ -76,11 +76,63 @@ public class PessoaNomeadorDeAkkax {
         }
 
 
-        return toCapital(primeiro_nome) + de + sobrenomes;
+        return toCapital(primeiro_nome) + de + sobrenomes.trim();
     }
 
     public static String toCapital(String a) {
         return a.substring(0, 1).toUpperCase() + a.substring(1, a.length()).toLowerCase();
+    }
+
+
+    public static String getSimples() {
+
+        String primeiro_nome = "";
+        ArrayList<String> silabas = new ArrayList<String>();
+        ArrayList<String> terminais = new ArrayList<String>();
+
+        silabas.add("ga");
+        silabas.add("ma");
+        silabas.add("lo");
+        silabas.add("te");
+        silabas.add("va");
+        silabas.add("la");
+        silabas.add("ne");
+        silabas.add("xi");
+        silabas.add("pa");
+        silabas.add("guo");
+        silabas.add("gue");
+
+        silabas.add("dou");
+        silabas.add("faz");
+        silabas.add("rez");
+        silabas.add("doc");
+
+        silabas.add("ra");
+        silabas.add("gra");
+        silabas.add("mox");
+        silabas.add("rem");
+        silabas.add("zal");
+        silabas.add("col");
+
+        terminais.add("maz");
+        terminais.add("tom");
+        terminais.add("sol");
+        terminais.add("dim");
+        terminais.add("mesh");
+        terminais.add("paz");
+
+        Random sorte = new Random();
+
+        int quantidade_de_silabas = 2 + sorte.nextInt(3);
+        for (int s = 0; s < quantidade_de_silabas; s++) {
+            if (s == (quantidade_de_silabas - 1)) {
+                primeiro_nome += silabas.get(sorte.nextInt(silabas.size()));
+            } else {
+                primeiro_nome += terminais.get(sorte.nextInt(terminais.size()));
+            }
+        }
+
+        return primeiro_nome;
     }
 
 }

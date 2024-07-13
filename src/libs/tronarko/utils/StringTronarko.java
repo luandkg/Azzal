@@ -1,5 +1,7 @@
 package libs.tronarko.utils;
 
+import libs.luan.Strings;
+import libs.luan.fmt;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tron;
@@ -353,6 +355,41 @@ public class StringTronarko {
         return new Hazde(a, i, u);
     }
 
+    public Hazde parseHazdeSemUzzons(String entrada) {
+
+
+        String s1 = "";
+        String s2 = "";
+
+        int o = entrada.length();
+        int index = 0;
+
+        int e = 1;
+
+        while (index < o) {
+            String l = String.valueOf(entrada.charAt(index));
+            if (l.contentEquals(":")) {
+                e += 1;
+            } else {
+
+                if (e == 1) {
+                    s1 += l;
+                } else if (e == 2) {
+                    s2 += l;
+                }
+
+            }
+            index += 1;
+        }
+
+
+        int a = Integer.parseInt(s1);
+        int i = Integer.parseInt(s2);
+        int u = 0;
+
+        return new Hazde(a, i, u);
+    }
+
 
     public String getArko(String entrada) {
 
@@ -545,5 +582,21 @@ public class StringTronarko {
 
         return c;
 
+    }
+
+
+    public static Tron PARSER_TRON(String entrada) {
+
+        int i_superarko = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,0,2));
+        int i_hiperarko = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,3,2));
+        int i_tronarko = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,6,4));
+
+        int i_arco = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,11,2));
+        int i_itta = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,14,2));
+        int i_uzzon = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,17,2));
+
+        Tron ret = new Tron(i_arco, i_itta, i_uzzon, i_superarko, i_hiperarko, i_tronarko);
+
+        return ret;
     }
 }

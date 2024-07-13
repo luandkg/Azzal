@@ -1,7 +1,7 @@
 package apps.app_attuz;
 
-import apps.app_attuz.Assessorios.QTTOnImagem;
 import apps.app_attuz.Assessorios.EscalasPadroes;
+import apps.app_attuz.Assessorios.QTTOnImagem;
 import apps.app_attuz.Servicos.*;
 import libs.servittor.Servittor;
 

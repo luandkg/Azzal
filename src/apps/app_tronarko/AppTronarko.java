@@ -87,6 +87,7 @@ public class AppTronarko extends Cena {
     public void iniciar(Windows eWindows) {
         eWindows.setTitle("Tronarko com Azzal");
 
+
         mCores = new Cores();
 
         mTextoGrande = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 20);
@@ -368,6 +369,7 @@ public class AppTronarko extends Cena {
         long fim = mRhoBenchmark.get();
 
         //  mRhoBenchmark.set("libs.Tronarko.render()", inicio, fim);
+
 
     }
 

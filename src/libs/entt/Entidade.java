@@ -49,6 +49,18 @@ public class Entidade {
         return tag.getValor();
     }
 
+    public String at(String eNome, long eValor) {
+        Tag tag = proc_at(eNome);
+        tag.setLong(eValor);
+        return tag.getValor();
+    }
+
+    public String at(String eNome, double eValor) {
+        Tag tag = proc_at(eNome);
+        tag.setDouble(eValor);
+        return tag.getValor();
+    }
+
     public int atInt(String eNome) {
         Tag tag = proc_at(eNome);
         return tag.asInt();
@@ -63,9 +75,9 @@ public class Entidade {
 
     public int atIntOuPadrao(String eNome, int ePadrao) {
         Tag tag = proc_at(eNome);
-        if(tag.getValor().length()>0){
+        if (tag.getValor().length() > 0) {
             return tag.asInt();
-        }else{
+        } else {
             tag.setInteiro(ePadrao);
         }
         return tag.asInt();
@@ -90,6 +102,16 @@ public class Entidade {
     public double atDouble(String eNome, double eValor) {
         Tag tag = proc_at(eNome);
         tag.setDouble(eValor);
+        return tag.asDouble();
+    }
+
+    public double atDoubleOuPadrao(String eNome, double ePadrao) {
+        Tag tag = proc_at(eNome);
+        if (tag.getValor().length() > 0) {
+            return tag.asDouble();
+        } else {
+            tag.setDouble(ePadrao);
+        }
         return tag.asDouble();
     }
 
@@ -120,6 +142,72 @@ public class Entidade {
         return atInt(a1) + atInt(a2);
     }
 
-    public  Lista<Entidade> getEntidades(){return mEntidades;}
+    public Lista<Entidade> getEntidades() {
+        return mEntidades;
+    }
+
+
+    public void atSeMenor(String att_nome, int att_valor) {
+        int valorcorrente = atInt(att_nome);
+        if (att_valor < valorcorrente) {
+            at(att_nome, att_valor);
+        }
+    }
+
+    public void atSeMaior(String att_nome, int att_valor) {
+        int valorcorrente = atInt(att_nome);
+        if (att_valor > valorcorrente) {
+            at(att_nome, att_valor);
+        }
+    }
+
+
+    public void atSeMenor(String att_nome, double att_valor) {
+        double valorcorrente = atDouble(att_nome);
+        if (att_valor < valorcorrente) {
+            at(att_nome, att_valor);
+        }
+    }
+
+    public void atSeMaior(String att_nome, double att_valor) {
+        double valorcorrente = atDouble(att_nome);
+        if (att_valor > valorcorrente) {
+            at(att_nome, att_valor);
+        }
+    }
+
+
+    public boolean is(String nome, String valor) {
+
+        boolean ret = false;
+
+        for (Tag tag : mTags) {
+            if (tag.is_nome(nome)) {
+                if (tag.getValor().contentEquals(valor)) {
+                    ret = true;
+                }
+                break;
+            }
+        }
+
+        return ret;
+    }
+
+    public boolean is(String nome, int valor) {
+
+        boolean ret = false;
+
+        for (Tag tag : mTags) {
+            if (tag.is_nome(nome)) {
+                int tag_valor = Integer.parseInt(tag.getValor());
+                if (tag_valor==valor) {
+                    ret = true;
+                }
+                break;
+            }
+        }
+
+        return ret;
+    }
 
 }

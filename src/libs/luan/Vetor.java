@@ -1,5 +1,7 @@
 package libs.luan;
 
+import libs.meta_functional.Funcao;
+
 import java.util.Iterator;
 
 public class Vetor<T> implements Iterable<T> {
@@ -29,6 +31,21 @@ public class Vetor<T> implements Iterable<T> {
 
         for (int index = 0; index < eCapacidade; index++) {
             mDados[index] = eValorInicial;
+        }
+
+    }
+
+    public Vetor(int eCapacidade, Funcao<T> eValorInicial) {
+
+        mDados = (T[]) new Object[eCapacidade];
+        mCapacidade = eCapacidade;
+
+        if (mCapacidade <= 0) {
+            throw new IllegalArgumentException("A capacidade deve ser maior que 0 ");
+        }
+
+        for (int index = 0; index < eCapacidade; index++) {
+            mDados[index] = eValorInicial.fazer();
         }
 
     }
@@ -113,6 +130,17 @@ public class Vetor<T> implements Iterable<T> {
                 return corrente;
             }
         };
+    }
+
+
+    public Lista<T> toLista(){
+        Lista<T> lista = new Lista<T>();
+
+        for(T item : this){
+            lista.adicionar(item);
+        }
+
+        return lista;
     }
 
 }

@@ -1,15 +1,14 @@
 package apps.app_letrum;
 
-import libs.azzal.cenarios.Cena;
+import apps.app_letrum.Maker.FonteGerador;
+import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Cores;
-import libs.azzal.geometria.Retangulo;
 import libs.azzal.Renderizador;
 import libs.azzal.Teclado;
-import libs.azzal.utilitarios.Cor;
 import libs.azzal.Windows;
-import apps.app_letrum.Maker.FonteGerador;
-
-import apps.app_letrum.Maker.FonteRunTime;
+import libs.azzal.cenarios.Cena;
+import libs.azzal.geometria.Retangulo;
+import libs.azzal.utilitarios.Cor;
 
 import java.awt.*;
 

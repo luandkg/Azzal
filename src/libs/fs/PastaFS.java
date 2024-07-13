@@ -77,8 +77,8 @@ public class PastaFS {
     }
 
 
-    public Lista<PastaFS> getArquivos() {
-        Lista<PastaFS> ret = new Lista<PastaFS>();
+    public Lista<Arquivo> getArquivos() {
+        Lista<Arquivo> ret = new Lista<Arquivo>();
 
         File file = new File(mLocal);
 
@@ -87,13 +87,33 @@ public class PastaFS {
         if (files != null) {
             for (File a : files) {
                 if (a.isFile()) {
-                    ret.adicionar(new PastaFS(a.getAbsolutePath()));
+                    ret.adicionar(new Arquivo(a.getAbsolutePath()));
                 }
             }
         }
 
         return ret;
     }
+
+    public Lista<String> getArquivosCaminhos() {
+        Lista<String> ret = new Lista<String>();
+
+        File file = new File(mLocal);
+
+        File[] files = file.listFiles();
+
+        if (files != null) {
+            for (File a : files) {
+                if (a.isFile()) {
+                    ret.adicionar(a.getAbsolutePath());
+                }
+            }
+        }
+
+        return ret;
+    }
+
+
 
     public boolean existe() {
         return new File(mLocal).exists();

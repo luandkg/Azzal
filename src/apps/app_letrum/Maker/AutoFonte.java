@@ -1,9 +1,9 @@
 package apps.app_letrum.Maker;
 
-import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Letra;
+import libs.azzal.Renderizador;
+import libs.azzal.utilitarios.Cor;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
 
 
 public class Arquivador {
@@ -50,6 +49,40 @@ public class Arquivador {
         arq.encerrar();
         return tamanho;
     }
+
+    public static void CONSTRUIR_ARQUIVO(String arquivo,byte[] bytes) {
+
+        Arquivador.remover(arquivo);
+
+        Arquivador arq = new Arquivador(arquivo);
+arq.setPonteiro(0);
+for(byte b : bytes){
+    arq.set_u8(b);
+}
+        arq.encerrar();
+    }
+
+    public static byte[] GET_BYTES(String arquivo) {
+        int i = 0;
+int o =(int)GET_TAMANHO(arquivo);
+
+        byte[] bytes = new byte[o];
+
+        Arquivador arq = new Arquivador(arquivo);
+        arq.setPonteiro(0);
+
+
+        while(i<o){
+            bytes[i] = arq.get();
+            i+=1;
+        }
+
+        arq.encerrar();
+
+
+        return bytes;
+    }
+
 
 
     public byte get() {
@@ -203,7 +236,7 @@ public class Arquivador {
         }
     }
 
-    public void set_u8_array(ArrayList<Byte> dados) {
+    public void set_u8_array(Lista<Byte> dados) {
         try {
             for (Byte b : dados) {
                 mFile.writeByte((byte) b);
@@ -264,13 +297,13 @@ public class Arquivador {
         }
     }
 
-    public ArrayList<Byte> get_u8_bloco(int eQuantidade) {
+    public Lista<Byte> get_u8_bloco(int eQuantidade) {
 
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        Lista<Byte> bytes = new Lista<Byte>();
 
         try {
             for (int i = 0; i < eQuantidade; i++) {
-                bytes.add(mFile.readByte());
+                bytes.adicionar(mFile.readByte());
             }
         } catch (IOException e) {
 
