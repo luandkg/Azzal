@@ -1,0 +1,528 @@
+
+package Biologia;
+
+
+import java.util.ArrayList;
+import Biologia.AnaliseGenetica.Genoma;
+import Biologia.Genetica.Caracteristicas.Expressao;
+import Biologia.Genetica.Fenotipo.BancoDeExpressoes;
+import Biologia.Genetica.Genotipo.*;
+import Biologia.Genetica.Aminoacidos;
+
+
+public class Tralla{ 
+
+	private String mOrganismo;
+	private int mCromossomos;
+	private int mAutossomos;
+	private int mSexuais;
+	private int mGameta;
+	private int mDiploide;
+	private String mReproducao;
+
+	private ArrayList<Cromossomo> mListaCromossomos;
+
+	private ArrayList<Marcador> mListaMarcadores;
+
+	private ArrayList<Gene> mListaGenes;
+
+	private ArrayList<GeneCompartilhado> mListaGenesCompartilhados;
+
+	private ArrayList<Alelo> mListaAlelos;
+
+	  private Cromossomo mCromossomoSexual_X;
+	  private Cromossomo mCromossomoSexual_Y;
+
+	 private int mHomologoInicio;
+	 private int mHomologoFim;
+
+	  private Cromossomo mCromossomo_IC;
+	  private Cromossomo mCromossomo_XA;
+	  private Cromossomo mCromossomo_NG;
+	  private BancoDeExpressoes mBancoDeExpressoes;
+
+
+
+	 public Tralla() {
+
+		  mOrganismo = "Tralla";
+		  mCromossomos = 3;
+		  mAutossomos = 2;
+		  mSexuais = 1;
+		  mGameta = 3;
+		  mDiploide = 6;
+		  mReproducao = "XY";
+
+		  mListaCromossomos = new ArrayList<Cromossomo>();
+
+		mCromossomo_IC = new Cromossomo(1, "IC", CromossomoTipo.Autossomo);
+		mCromossomo_XA = new Cromossomo(2, "XA", CromossomoTipo.Sexual);
+		mCromossomo_NG = new Cromossomo(2, "NG", CromossomoTipo.Sexual);
+
+		// DEFINIR TAMANHO
+
+		mCromossomo_IC.adicionarFita5("CCTATTAGTATGCATTAAGTCGACGGTAAAGTTTTAACCAGAACCCGAGGCACTCAGGATTAAACAACGATAGTAGCGAGTGTACGCTCATGAGTATGGA");
+		mCromossomo_IC.adicionarFita5("ATAGTTGACATAGGATCCCCGGCCAATGCACCTCGGTCTGGTACGGGTGAAGCGGGGGCTACGATACCCAAGCATGTGGTTATATGCGAGGCTTGCACTA");
+		mCromossomo_IC.adicionarFita5("TGCAACGATGATTACGATGAGAAGCATCACGGCCGTAAGACGCCGCTAGGGTGTCCACTATCGTTAAGAGTATGCTTACACTACCTCACCGAGATTAGCA");
+		mCromossomo_IC.adicionarFita5("GGTCGAGATAAAGAGCTTCGGCACGTAGTCTCTGAGGGAATGCTCACAGCAGCTTTGTTAGCGCTTTTTTTAGCGCTCAAGACATCCCCTTTGGGAATGG");
+		mCromossomo_IC.adicionarFita5("CTAGCGGGTAGGGCAAAGTAGGGAGATAGAATTAACAACCGCCGATACTTAATGGGGGGGCTGA");
+
+		mCromossomo_IC.adicionarFita3("GGATAATCATACGTAATTCAGCTGCCATTTCAAAATTGGTCTTGGGCTCCGTGAGTCCTAATTTGTTGCTATCATCGCTCACATGCGAGTACTCATACCT");
+		mCromossomo_IC.adicionarFita3("TATCAACTGTATCCTAGGGGCCGGTTACGTGGAGCCAGACCATGCCCACTTCGCCCCCGATGCTATGGGTTCGTACACCAATATACGCTCCGAACGTGAT");
+		mCromossomo_IC.adicionarFita3("ACGTTGCTACTAATGCTACTCTTCGTAGTGCCGGCATTCTGCGGCGATCCCACAGGTGATAGCAATTCTCATACGAATGTGATGGAGTGGCTCTAATCGT");
+		mCromossomo_IC.adicionarFita3("CCAGCTCTATTTCTCGAAGCCGTGCATCAGAGACTCCCTTACGAGTGTCGTCGAAACAATCGCGAAAAAAATCGCGAGTTCTGTAGGGGAAACCCTTACC");
+		mCromossomo_IC.adicionarFita3("GATCGCCCATCCCGTTTCATCCCTCTATCTTAATTGTTGGCGGCTATGAATTACCCCCCCGACT");
+
+		mCromossomo_XA.adicionarFita5("AATATCACTCAACTAGCGCTAGTCTAGAAGTTTCTCGATCTATGCAGCGGGGACATCGCCAAGGATCCCCTCCCACTCCGTATCCTCCTCCATGCTGATC");
+		mCromossomo_XA.adicionarFita5("GTCGTTGCGGCGATCCGTATGATGACGAGCCCCTTGAAAAAGCTACTCATGTCGAGTTTTTTCTCGGCTTTTTTGTGGACCTTTGAAGAAGAGAGGATTG");
+		mCromossomo_XA.adicionarFita5("GAGTAGAGAAGTGTGGAATGCTAGCCTTGTACTAGGTTGCTACGATTAGGGAATCTTTATCTCTTGGCACTACGGCAAAGTTCAGCCGACATGTCCCCAT");
+		mCromossomo_XA.adicionarFita5("CAAGGGCCACCCATCTAGCGTCTGATGACATTCAGCTAGCACAATTTCTGTCACCAACACTATAGGTGTATGTGCGCCTAAACAACTTCACATGTACTCT");
+		mCromossomo_XA.adicionarFita5("GTCCCCGTGACAGCAGGCCCTAGGGTACTGAGGAGCGCGTTAAGGGTTTGCAAAAAAGGAATTGCGAAAGCGTGCGTTGGGAAGCGCGAGGAATAGTTCA");
+		mCromossomo_XA.adicionarFita5("AAACACTAGTTCTGATGCGTACCTCAACCGTATTGCCAACGACGACGGGATGCAGTGAGCAACCAACTAATACGATGAGCTAGGGTTATAACGGGATTAC");
+		mCromossomo_XA.adicionarFita5("GAGGGTTTAGCAACTGCGGGTGCTTACCAAAGTATGACTATACCTATTAACTGCTACTAGGCTGACAACGTATCGCCTCACCCAGCGGTATGCACCTGGC");
+		mCromossomo_XA.adicionarFita5("GGTGGAAGTTTACTCAATAGCTAGAGTGACGGGCTAACACTATCCCACGGGTGGGCGGAAGATACCATACAGGAGTACGAAGTTGATG");
+
+		mCromossomo_XA.adicionarFita3("TTATAGTGAGTTGATCGCGATCAGATCTTCAAAGAGCTAGATACGTCGCCCCTGTAGCGGTTCCTAGGGGAGGGTGAGGCATAGGAGGAGGTACGACTAG");
+		mCromossomo_XA.adicionarFita3("CAGCAACGCCGCTAGGCATACTACTGCTCGGGGAACTTTTTCGATGAGTACAGCTCAAAAAAGAGCCGAAAAAACACCTGGAAACTTCTTCTCTCCTAAC");
+		mCromossomo_XA.adicionarFita3("CTCATCTCTTCACACCTTACGATCGGAACATGATCCAACGATGCTAATCCCTTAGAAATAGAGAACCGTGATGCCGTTTCAAGTCGGCTGTACAGGGGTA");
+		mCromossomo_XA.adicionarFita3("GTTCCCGGTGGGTAGATCGCAGACTACTGTAAGTCGATCGTGTTAAAGACAGTGGTTGTGATATCCACATACACGCGGATTTGTTGAAGTGTACATGAGA");
+		mCromossomo_XA.adicionarFita3("CAGGGGCACTGTCGTCCGGGATCCCATGACTCCTCGCGCAATTCCCAAACGTTTTTTCCTTAACGCTTTCGCACGCAACCCTTCGCGCTCCTTATCAAGT");
+		mCromossomo_XA.adicionarFita3("TTTGTGATCAAGACTACGCATGGAGTTGGCATAACGGTTGCTGCTGCCCTACGTCACTCGTTGGTTGATTATGCTACTCGATCCCAATATTGCCCTAATG");
+		mCromossomo_XA.adicionarFita3("CTCCCAAATCGTTGACGCCCACGAATGGTTTCATACTGATATGGATAATTGACGATGATCCGACTGTTGCATAGCGGAGTGGGTCGCCATACGTGGACCG");
+		mCromossomo_XA.adicionarFita3("CCACCTTCAAATGAGTTATCGATCTCACTGCCCGATTGTGATAGGGTGCCCACCCGCCTTCTATGGTATGTCCTCATGCTTCAACTAC");
+
+		mCromossomo_NG.adicionarFita5("AAGCGGCGGACGGCCAGTCATATGGTAACACACCTAATAAGAGAGATTCCCATTCGGAGCTCCTGCGCTCTGTGTGGGAGCCACTTTCAATCAGGGACCT");
+		mCromossomo_NG.adicionarFita5("AACTGTCCAAGAGCCATCGTATGCTAGAGTTACTATATGACTGGGCGTGTAAGTATGCGGCTATCCAAGGATCAGATACAGAGTTTGGTAGCGGTTAATT");
+		mCromossomo_NG.adicionarFita5("GACCAGCACCTCTTGCCTTCGTACTAGTATACGGACGCCCACTATGTTTAAGAACAACTGGATGGGGAGCAGCGGTTCAGAGATTCCCTGGACTACATGG");
+		mCromossomo_NG.adicionarFita5("AAACTCTCGAGCACCTGAGTGTTAACCGTGTATTCCATGCCGCCATGCGTATCGGATCGATTAGTAGAAGTTATCGTTGACTTGTAACGGATTATATGAA");
+		mCromossomo_NG.adicionarFita5("CTTCCATCGGAGCTCAAACCCAGGGCGATGCAGTTAGCGTAGGTAATCCAGTTTGTTCCAATAAAAGATTGAACTGCCTGACATACACGGCCTATCGATC");
+		mCromossomo_NG.adicionarFita5("GAGTGATAACATTCAATATCATAAATTATGGGGTTTTCAAGAAGACCATAAATTCGCATCATCCACAGCATCTACCGCTTAATCAGGACGCATTCGACCA");
+		mCromossomo_NG.adicionarFita5("TCGTTAAAAGCGCGAGTGACACTGGGGAACTCACTCAGAACTCCCGACTGGAATTGAGGTTGCTTAGCAGCCTACTGCCGGCTTGGCTACAACCGG");
+
+		mCromossomo_NG.adicionarFita3("TTCGCCGCCTGCCGGTCAGTATACCATTGTGTGGATTATTCTCTCTAAGGGTAAGCCTCGAGGACGCGAGACACACCCTCGGTGAAAGTTAGTCCCTGGA");
+		mCromossomo_NG.adicionarFita3("TTGACAGGTTCTCGGTAGCATACGATCTCAATGATATACTGACCCGCACATTCATACGCCGATAGGTTCCTAGTCTATGTCTCAAACCATCGCCAATTAA");
+		mCromossomo_NG.adicionarFita3("CTGGTCGTGGAGAACGGAAGCATGATCATATGCCTGCGGGTGATACAAATTCTTGTTGACCTACCCCTCGTCGCCAAGTCTCTAAGGGACCTGATGTACC");
+		mCromossomo_NG.adicionarFita3("TTTGAGAGCTCGTGGACTCACAATTGGCACATAAGGTACGGCGGTACGCATAGCCTAGCTAATCATCTTCAATAGCAACTGAACATTGCCTAATATACTT");
+		mCromossomo_NG.adicionarFita3("GAAGGTAGCCTCGAGTTTGGGTCCCGCTACGTCAATCGCATCCATTAGGTCAAACAAGGTTATTTTCTAACTTGACGGACTGTATGTGCCGGATAGCTAG");
+		mCromossomo_NG.adicionarFita3("CTCACTATTGTAAGTTATAGTATTTAATACCCCAAAAGTTCTTCTGGTATTTAAGCGTAGTAGGTGTCGTAGATGGCGAATTAGTCCTGCGTAAGCTGGT");
+		mCromossomo_NG.adicionarFita3("AGCAATTTTCGCGCTCACTGTGACCCCTTGAGTGAGTCTTGAGGGCTGACCTTAACTCCAACGAATCGTCGGATGACGGCCGAACCGATGTTGGCC");
+
+
+		mListaCromossomos.add(mCromossomo_IC );
+		mListaCromossomos.add(mCromossomo_XA );
+		mListaCromossomos.add(mCromossomo_NG );
+
+		// CRIAR MARCADORES
+
+		  mListaMarcadores = new ArrayList<Marcador>();
+
+		  mListaMarcadores.add(new Marcador("IC", 27, 48, "THR.PHE.ALA.ILE.GLN.GLY.ILE."));
+		  mListaMarcadores.add(new Marcador("IC", 147, 168, "ARG.ASN.PHE.GLN.MET.PHE.ARG."));
+		  mListaMarcadores.add(new Marcador("IC", 264, 291, "THR.ARG.LEU.ILE.GLY.VAL.GLN.LEU.LEU."));
+		  mListaMarcadores.add(new Marcador("IC", 324, 336, "HIS.ARG.TYR.VAL."));
+		  mListaMarcadores.add(new Marcador("IC", 369, 387, "HIS.ARG.LYS.CYS.PRO.ARG."));
+		  mListaMarcadores.add(new Marcador("XA", 21, 45, "GLN.MET.ARG.ARG.MET.GLU.MET.LEU."));
+		  mListaMarcadores.add(new Marcador("NG", 21, 45, "LYS.TRP.LYS.GLU.SER.SER.VAL.ILE."));
+		  mListaMarcadores.add(new Marcador("XA", 219, 240, "LEU.HIS.ASN.GLN.TYR.CYS.PHE."));
+		  mListaMarcadores.add(new Marcador("NG", 219, 240, "ARG.GLU.PRO.PRO.ILE.LYS.ILE."));
+		  mListaMarcadores.add(new Marcador("XA", 318, 336, "ALA.LEU.ARG.LYS.ALA.THR."));
+		  mListaMarcadores.add(new Marcador("NG", 318, 336, "HIS.VAL.ILE.MET.ARG.ALA."));
+		  mListaMarcadores.add(new Marcador("XA", 528, 555, "PRO.TRP.ASN.PHE.GLN.CYS.LYS.THR.THR."));
+		  mListaMarcadores.add(new Marcador("XA", 633, 636, "GLY."));
+		  mListaMarcadores.add(new Marcador("XA", 729, 756, "LYS.PRO.PRO.TYR.MET.ALA.MET.LYS.VAL."));
+		  mListaMarcadores.add(new Marcador("NG", 504, 513, "CYS.GLU.LYS."));
+		  mListaMarcadores.add(new Marcador("NG", 612, 636, "THR.LYS.THR.CYS.PRO.LEU.LEU.ALA."));
+
+		// CRIAR GENES
+
+		  mListaGenes = new ArrayList<Gene>();
+
+		  mListaGenes.add(new Gene("AAC","IC",102,114));
+		  mListaGenes.add(new Gene("TGG","IC",210,234));
+		  mListaGenes.add(new Gene("MZ1","IC",420,435));
+		  mListaGenes.add(new Gene("mxA","XA",579,603));
+		  mListaGenes.add(new Gene("mxB","XA",681,708));
+		  mListaGenes.add(new Gene("mxC","XA",780,786));
+		  mListaGenes.add(new Gene("syA","NG",537,564));
+		  mListaGenes.add(new Gene("syB","NG",672,687));
+
+		  mListaGenesCompartilhados = new ArrayList<GeneCompartilhado>();
+
+		  mListaGenesCompartilhados.add(new GeneCompartilhado("GCA","XA","NG",63,75));
+		  mListaGenesCompartilhados.add(new GeneCompartilhado("GCB","XA","NG",99,105));
+		  mListaGenesCompartilhados.add(new GeneCompartilhado("GCC","XA","NG",135,147));
+		  mListaGenesCompartilhados.add(new GeneCompartilhado("AKA1","XA","NG",180,189));
+		  mListaGenesCompartilhados.add(new GeneCompartilhado("AKA2","XA","NG",270,297));
+		  mListaGenesCompartilhados.add(new GeneCompartilhado("AKA3","XA","NG",372,378));
+		  mListaGenesCompartilhados.add(new GeneCompartilhado("AKA4","XA","NG",402,423));
+
+		mCromossomoSexual_X = mCromossomo_XA;
+		mCromossomoSexual_Y = mCromossomo_NG;
+		mHomologoInicio=0;
+		mHomologoFim=489;
+
+		  mListaAlelos = new ArrayList<Alelo>();
+		  mListaAlelos.add(new Alelo("IC_AAC::1","IC","AAC",102,114,5,"VAL.LYS.TRP.ILE."));
+		  mListaAlelos.add(new Alelo("IC_AAC::2","IC","AAC",102,114,97,"SER.PHE.ASN.TYR."));
+		  mListaAlelos.add(new Alelo("IC_TGG::1","IC","TGG",210,234,52,"LYS.ASP.ILE.ARG.ILE.ARG.LYS.SER."));
+		  mListaAlelos.add(new Alelo("IC_TGG::2","IC","TGG",210,234,87,"GLY.ASP.TYR.GLU.PHE.GLY.ASP.ALA."));
+		  mListaAlelos.add(new Alelo("IC_MZ1::1","IC","MZ1",420,435,43,"ASP.ASN.PRO.VAL.GLN."));
+		  mListaAlelos.add(new Alelo("IC_MZ1::2","IC","MZ1",420,435,43,"ASN.ARG.CYS.THR.LYS."));
+		  mListaAlelos.add(new Alelo("IC_MZ1::3","IC","MZ1",420,435,43,"GLN.ASP.TYR.ALA.THR."));
+		  mListaAlelos.add(new Alelo("XA_mxA::1","XA","mxA",579,603,4,"THR.GLY.PRO.MET.GLN.ILE.SER.TRP."));
+		  mListaAlelos.add(new Alelo("XA_mxA::2","XA","mxA",579,603,41,"LYS.ASP.ARG.CYS.CYS.SER.LYS.GLY."));
+		  mListaAlelos.add(new Alelo("XA_mxB::1","XA","mxB",681,708,85,"PRO.GLN.HIS.ILE.CYS.CYS.TYR.ASP.MET."));
+		  mListaAlelos.add(new Alelo("XA_mxB::2","XA","mxB",681,708,3,"GLN.GLN.GLY.HIS.PHE.CYS.GLN.VAL.TYR."));
+		  mListaAlelos.add(new Alelo("XA_mxC::1","XA","mxC",780,786,76,"LEU.ASP."));
+		  mListaAlelos.add(new Alelo("XA_mxC::2","XA","mxC",780,786,95,"VAL.HIS."));
+		  mListaAlelos.add(new Alelo("XA_mxC::3","XA","mxC",780,786,66,"ARG.HIS."));
+		  mListaAlelos.add(new Alelo("NG_syA::1","NG","syA",537,564,69,"PRO.GLN.LYS.ILE.MET.LEU.GLN.ALA.ALA."));
+		  mListaAlelos.add(new Alelo("NG_syA::2","NG","syA",537,564,99,"GLY.ILE.SER.GLU.MET.VAL.LEU.PHE.TYR."));
+		  mListaAlelos.add(new Alelo("NG_syB::1","NG","syB",672,687,61,"SER.SER.CYS.ILE.HIS."));
+		  mListaAlelos.add(new Alelo("NG_syB::2","NG","syB",672,687,71,"PHE.LYS.GLN.TYR.LEU."));
+		  mListaAlelos.add(new Alelo("NG_syB::3","NG","syB",672,687,6,"HIS.ILE.LEU.ASP.GLY."));
+		  mListaAlelos.add(new Alelo("NG_syB::4","NG","syB",672,687,6,"PHE.ASP.PHE.SER.GLY."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCA::1","XA_NG","GCA",63,75,87,"PRO.VAL.SER.CYS."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCA::2","XA_NG","GCA",63,75,25,"GLU.CYS.SER.PRO."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCB::1","XA_NG","GCB",99,105,17,"HIS.LEU."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCB::2","XA_NG","GCB",99,105,17,"LYS.ALA."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCB::3","XA_NG","GCB",99,105,17,"LEU.TRP."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCC::1","XA_NG","GCC",135,147,13,"SER.PHE.THR.GLN."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCC::2","XA_NG","GCC",135,147,85,"VAL.LYS.ILE.THR."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCC::3","XA_NG","GCC",135,147,10,"MET.THR.TYR.ASP."));
+		  mListaAlelos.add(new Alelo("XA_NG_GCC::4","XA_NG","GCC",135,147,37,"HIS.LYS.LEU.MET."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA1::1","XA_NG","AKA1",180,189,23,"ALA.ASP.HIS."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA1::2","XA_NG","AKA1",180,189,84,"VAL.CYS.ILE."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA1::3","XA_NG","AKA1",180,189,69,"GLN.MET.GLN."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA1::4","XA_NG","AKA1",180,189,69,"ASN.TYR.VAL."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA1::5","XA_NG","AKA1",180,189,35,"VAL.SER.TYR."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA1::6","XA_NG","AKA1",180,189,35,"THR.ASP.GLY."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA2::1","XA_NG","AKA2",270,297,30,"LYS.MET.ASP.ARG.ASN.GLN.ALA.PHE.PRO."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA2::2","XA_NG","AKA2",270,297,86,"ASP.ASN.LEU.ASP.PRO.ALA.GLN.GLN.TRP."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA2::3","XA_NG","AKA2",270,297,83,"ILE.TYR.ALA.PRO.CYS.LYS.ALA.GLY.ASP."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA2::4","XA_NG","AKA2",270,297,20,"GLN.GLN.GLU.ARG.LYS.ALA.LEU.GLU.PRO."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA2::5","XA_NG","AKA2",270,297,41,"ARG.PRO.SER.GLN.THR.ALA.TRP.ASP.PHE."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA2::6","XA_NG","AKA2",270,297,41,"GLY.GLY.ILE.GLN.TYR.LEU.SER.TRP.VAL."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::1","XA_NG","AKA3",372,378,60,"TYR.TYR."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::2","XA_NG","AKA3",372,378,35,"HIS.CYS."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::3","XA_NG","AKA3",372,378,77,"ILE.VAL."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::4","XA_NG","AKA3",372,378,63,"TRP.SER."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::5","XA_NG","AKA3",372,378,63,"GLN.CYS."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::6","XA_NG","AKA3",372,378,84,"ILE.SER."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::7","XA_NG","AKA3",372,378,84,"ALA.GLU."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::8","XA_NG","AKA3",372,378,9,"THR.HIS."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA3::9","XA_NG","AKA3",372,378,9,"LYS.VAL."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA4::1","XA_NG","AKA4",402,423,49,"TYR.TRP.PRO.ARG.HIS.TRP.GLU."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA4::2","XA_NG","AKA4",402,423,75,"THR.TRP.ASP.LEU.LEU.THR.GLU."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA4::3","XA_NG","AKA4",402,423,81,"PHE.VAL.ALA.ILE.LEU.ASN.ARG."));
+		  mListaAlelos.add(new Alelo("XA_NG_AKA4::4","XA_NG","AKA4",402,423,81,"TRP.LYS.ILE.TYR.TRP.ALA.ASP."));
+
+		  mBancoDeExpressoes = new BancoDeExpressoes();
+
+		    mBancoDeExpressoes.adicionarFenotipoFormato("Formato","AAC",1,3,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Esporos","TGG",0,1,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoCor("Cor","MZ1",0,1,false,true);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Velocidade","GCA",1,5,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Resistencia","GCB",3,10,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Forca","GCC",5,12,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Compreensao","AKA1",2,15,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Raciocinio","AKA2",2,15,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Espacial","AKA3",2,15,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Idealismo","AKA4",2,15,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Veneno","syA",0,1,false,false);
+		    mBancoDeExpressoes.adicionarFenotipoCor("Corpusculos","syB",0,7,false,true);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Seducao","mxA",0,3,false,true);
+		    mBancoDeExpressoes.adicionarFenotipoCor("Aroma","mxB",0,3,false,true);
+		    mBancoDeExpressoes.adicionarFenotipoNumero("Dispersao","mxC",3,10,false,true);
+
+		    mBancoDeExpressoes.adicionarCaracteristica("AAC","IC_AAC::1","Formato Retangulo");
+		    mBancoDeExpressoes.adicionarCaracteristica("AAC","IC_AAC::2","Formato Quadrado");
+		    mBancoDeExpressoes.adicionarCaracteristica("TGG","IC_TGG::1","Esporos 0");
+		    mBancoDeExpressoes.adicionarCaracteristica("TGG","IC_TGG::2","Esporos 1");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::1","Cor Verde");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::2","Cor Vermelho");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::1 e IC_MZ1::2","Cor Verde e Vermelho");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::3","Cor Azul");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::1 e IC_MZ1::3","Cor Verde e Azul");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::2 e IC_MZ1::1","Cor Vermelho e Verde");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::2 e IC_MZ1::3","Cor Vermelho e Azul");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::3 e IC_MZ1::1","Cor Azul e Verde");
+		    mBancoDeExpressoes.adicionarCaracteristica("MZ1","IC_MZ1::3 e IC_MZ1::2","Cor Azul e Vermelho");
+		    mBancoDeExpressoes.adicionarCaracteristica("mxA","XA_mxA::1","Seducao 2");
+		    mBancoDeExpressoes.adicionarCaracteristica("mxA","XA_mxA::2","Seducao 0");
+		    mBancoDeExpressoes.adicionarCaracteristica("mxB","XA_mxB::1","Aroma Vermelho");
+		    mBancoDeExpressoes.adicionarCaracteristica("mxB","XA_mxB::2","Aroma Azul");
+		    mBancoDeExpressoes.adicionarCaracteristica("mxC","XA_mxC::1","Dispersao 6");
+		    mBancoDeExpressoes.adicionarCaracteristica("mxC","XA_mxC::2","Dispersao 8");
+		    mBancoDeExpressoes.adicionarCaracteristica("mxC","XA_mxC::3","Dispersao 5");
+		    mBancoDeExpressoes.adicionarCaracteristica("syA","NG_syA::1","Veneno 1");
+		    mBancoDeExpressoes.adicionarCaracteristica("syA","NG_syA::2","Veneno 0");
+		    mBancoDeExpressoes.adicionarCaracteristica("syB","NG_syB::1","Corpusculos Verde");
+		    mBancoDeExpressoes.adicionarCaracteristica("syB","NG_syB::2","Corpusculos Azul");
+		    mBancoDeExpressoes.adicionarCaracteristica("syB","NG_syB::3","Corpusculos Cinza");
+		    mBancoDeExpressoes.adicionarCaracteristica("syB","NG_syB::4","Corpusculos Violeta");
+		    mBancoDeExpressoes.adicionarCaracteristica("syB","NG_syB::3 e NG_syB::4","Corpusculos Cinza e Violeta");
+		    mBancoDeExpressoes.adicionarCaracteristica("syB","NG_syB::4 e NG_syB::3","Corpusculos Violeta e Cinza");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCA","XA_NG_GCA::1","Velocidade 4");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCA","XA_NG_GCA::2","Velocidade 3");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::1","Resistencia 8");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::2","Resistencia 9");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::1 e XA_NG_GCB::2","Resistencia 8.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::3","Resistencia 10");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::1 e XA_NG_GCB::3","Resistencia 9");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::2 e XA_NG_GCB::1","Resistencia 8.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::2 e XA_NG_GCB::3","Resistencia 9.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::3 e XA_NG_GCB::1","Resistencia 9");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCB","XA_NG_GCB::3 e XA_NG_GCB::2","Resistencia 9.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCC","XA_NG_GCC::1","Forca 11");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCC","XA_NG_GCC::2","Forca 6");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCC","XA_NG_GCC::4","Forca 5");
+		    mBancoDeExpressoes.adicionarCaracteristica("GCC","XA_NG_GCC::3","Forca 12");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::1","Compreensao 8");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::2","Compreensao 4");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::3","Compreensao 15");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::4","Compreensao 9");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::5","Compreensao 12");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::6","Compreensao 10");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::3 e XA_NG_AKA1::4","Compreensao 12");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::4 e XA_NG_AKA1::3","Compreensao 12");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::5 e XA_NG_AKA1::6","Compreensao 11");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA1","XA_NG_AKA1::6 e XA_NG_AKA1::5","Compreensao 11");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::1","Raciocinio 2");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::2","Raciocinio 15");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::3","Raciocinio 13");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::5","Raciocinio 12");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::6","Raciocinio 9");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::4","Raciocinio 8");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::5 e XA_NG_AKA2::6","Raciocinio 10.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA2","XA_NG_AKA2::6 e XA_NG_AKA2::5","Raciocinio 10.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::1","Espacial 5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::3","Espacial 6");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::4","Espacial 15");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::5","Espacial 13");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::6","Espacial 11");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::7","Espacial 10");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::2","Espacial 3");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::4 e XA_NG_AKA3::5","Espacial 14");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::5 e XA_NG_AKA3::4","Espacial 14");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::6 e XA_NG_AKA3::7","Espacial 10.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::7 e XA_NG_AKA3::6","Espacial 10.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::8","Espacial 2");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::9","Espacial 9");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::8 e XA_NG_AKA3::9","Espacial 5.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA3","XA_NG_AKA3::9 e XA_NG_AKA3::8","Espacial 5.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA4","XA_NG_AKA4::1","Idealismo 11");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA4","XA_NG_AKA4::2","Idealismo 4");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA4","XA_NG_AKA4::3","Idealismo 5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA4","XA_NG_AKA4::4","Idealismo 2");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA4","XA_NG_AKA4::3 e XA_NG_AKA4::4","Idealismo 3.5");
+		    mBancoDeExpressoes.adicionarCaracteristica("AKA4","XA_NG_AKA4::4 e XA_NG_AKA4::3","Idealismo 3.5");
+
+		   mBancoDeExpressoes.analisarExpressoes(getTodosGenes(), mListaAlelos);
+	  }
+
+	 public void mostrarInformacoesBasicas() {
+
+		System.out.println("	 - Organismo       =   " + mOrganismo );
+		System.out.println("	 - N Cromossomos   =   " + mCromossomos);
+		System.out.println("	 - N Autossomos    =   " + mAutossomos);
+		System.out.println("	 - N Sexuais       =   " + mSexuais);
+		System.out.println("	 - Reproducao      =   " + mReproducao);
+		System.out.println("	 - Gameta          =   " + mGameta + " cromossomos");
+		System.out.println("	 - Diploide        =   " + mDiploide + " cromossomos");
+	  }
+
+
+	  public String getOrganismos(){return mOrganismo; }
+	  public int getNumeroCromossomos(){return mCromossomos; }
+	  public int getAutossomos(){return mAutossomos; }
+	  public int getSexuais(){return mSexuais; }
+	  public int getGametas(){return mGameta; }
+	  public int getDiploide(){return mDiploide; }
+	  public String getReproducao(){return mReproducao; }
+	   public ArrayList<Cromossomo> getCromossomos() {
+	       return mListaCromossomos;
+	    }
+	   public ArrayList<Marcador> getMarcadores() {
+	       return mListaMarcadores;
+	    }
+	  public ArrayList<Gene> getGenes() {
+	       return mListaGenes;
+	    }
+	  public ArrayList<GeneCompartilhado> getGenesCompartilhados() {
+	        return mListaGenesCompartilhados;
+	    }
+	   public ArrayList<Alelo> getAlelos() {
+	       return mListaAlelos;
+	   }
+	  public String getCromossomoX() {
+	      return mCromossomoSexual_X.getNome();
+	   }
+	 public String getCromossomoY() {
+	        return mCromossomoSexual_Y.getNome();
+	    }
+
+	 public void mostrarInformacoesReproducao() {
+
+		System.out.println("");
+		System.out.println("\t - Reproducao : ");
+		System.out.println("");
+
+		System.out.println("\t\t -->> Femea = " + mCromossomoSexual_X.getNome() + " " + mCromossomoSexual_X.getNome());
+		System.out.println("\t\t -->> Macho = " + mCromossomoSexual_X.getNome() + " " + mCromossomoSexual_Y.getNome());
+		System.out.println("");
+		 System.out.println("\t\t -->> Regiao Homologa = " + mHomologoInicio + " a " + mHomologoFim);
+
+	  }
+
+
+
+	 public void mostrarCromossomos() {
+
+		System.out.println("");
+		System.out.println("\t - Cromossomos : ");
+		System.out.println("");
+	for (Cromossomo eCromossomo : mListaCromossomos) {
+		int eID = eCromossomo.getID();
+		String eNome = eCromossomo.getNome();
+		String eTipo = eCromossomo.getTipoFormatado();
+		String mP1 = eID + " = " + eNome + "  ::  " + eTipo;
+		int eTamanho = eCromossomo.getTamanho();
+		int eMarcadores = getMarcadores(eCromossomo.getNome()).size();
+		int eGenes = getGenes(eCromossomo.getNome()).size() + getGenesCompartilhados(eCromossomo.getNome()).size();
+		String mP2 = " Tamanho = " + getNum(eTamanho, 4) + " Marcadores = " + getNum(eMarcadores, 2) + " Genes = " + getNum(eGenes, 2);
+		System.out.println("		 -->> " + getCompletaDepois(mP1, 25) + mP2);
+	 }
+	  }
+	 public void mostrarMarcadores() {
+	 Aminoacidos classeAminoacidoControlador = new Aminoacidos();
+	 System.out.println("");
+	 System.out.println("	 - Marcadores :");
+	 System.out.println("");
+	 for (Marcador eMarcador : mListaMarcadores) {
+	 String eNomeCromo = eMarcador.getCromossomo();
+	 int eInicio = eMarcador.getInicio();
+	 int eFim = eMarcador.getFim();
+	 int eTamanho = eMarcador.getTamanho();
+	 int eBases = eMarcador.getAminoacidos().size();
+	 String eAminoacidoControlador = classeAminoacidoControlador.getListaSimples(eMarcador.getAminoacidos());
+	 String mP2 = "Cromossomo = " + getCompletaDepois(eNomeCromo, 10) + "Marcador Inicio = " + getNum(eInicio, 4) + "  Fim = " + getNum(eFim, 4) + "  Tamanho = " + getNum(eTamanho, 4)  ;
+	 String mP3 = "Aminoacidos = " + getNum(eBases, 2)  + "  "  + eAminoacidoControlador;
+	 System.out.println("		-- >> " + mP2 + "    " + mP3);
+	 }
+	 }
+
+	 public void mostrarGenes() {
+
+	System.out.println("");
+	System.out.println("	 - Genes : ");
+	System.out.println("");
+	for (Gene eGene :mListaGenes) {
+	String eNomeCromo = eGene.getCromossomo();
+	String eNomeGene = eGene.getNome();
+	int eInicio = eGene.getInicio();
+	int eFim = eGene.getFim();
+	int eTamanho = eGene.getTamanho();
+	int eBases = eGene.getTamanho() / 3;
+	String mP2 = " Cromossomo = " + getCompletaDepois(eNomeCromo, 10) + " Inicio = " + getNum(eInicio, 4) + "  Fim = " + getNum(eFim, 4) + "  Tamanho = " + getNum(eTamanho, 3) + "  Bases = " + getNum(eBases, 2);
+	System.out.println("		 -->> Gene : " + eNomeGene + "   ::  " + mP2);
+	}
+
+	System.out.println("");
+	System.out.println("	 - Genes Compartilhados : ");
+	System.out.println("");
+	for (GeneCompartilhado eGene : mListaGenesCompartilhados) {
+	String eNomeCromo =  eGene.getCromossomo1() + " e " + eGene.getCromossomo2() ;
+	String eNomeGene = eGene.getNome();
+	int eInicio = eGene.getInicio();
+	int eFim = eGene.getFim();
+	int eTamanho = eGene.getTamanho();
+	int eBases = eGene.getTamanho() / 3;
+	String mP2 = " Cromossomo = " + getCompletaDepois(eNomeCromo, 10) + " Inicio = " + getNum(eInicio, 4) + "  Fim = " + getNum(eFim, 4) + "  Tamanho = " + getNum(eTamanho, 3) + "  Bases = " + getNum(eBases, 2);
+	System.out.println("		 -->> Gene : " + eNomeGene + "   ::  " + mP2);
+	}
+	}
+	 public void mostrarAlelos() {
+	  System.out.println("");
+	   System.out.println("	 - Alelos : ");
+	  System.out.println("");
+	    for (Alelo eAlelo : mListaAlelos) {
+	   String eNome = eAlelo.getNome();
+	   int eInicio = eAlelo.getInicio();
+	   int eFim = eAlelo.getFim();
+	  int eTamanho = eAlelo.getTamanho();
+	    int eBases = eAlelo.getTamanho() / 3;
+	      String mP2 = "Alelo = " + getCompletaDepois(eNome, 15) + "Inicio = " + getNum(eInicio, 4) + "   Fim = " + getNum(eFim, 4) + "   Tamanho = " + getNum(eTamanho, 3) + "   Bases = "+ getNum(eBases, 2);
+	      System.out.println("		 -->> " + mP2 + " Aminoacidos = " + eAlelo.getBasesToTexto());
+	    }
+	  }
+	  public ArrayList<String> getTodosGenes() {
+	     ArrayList<String> mTodosGenes = new ArrayList<String>();
+	      for (Gene eGene : mListaGenes) {
+	          mTodosGenes.add(eGene.getNome());
+	     }
+	     for (GeneCompartilhado eGene : mListaGenesCompartilhados) {
+	         mTodosGenes.add(eGene.getNome());
+	      }
+	     return mTodosGenes;
+	   }
+	 public ArrayList<Marcador> getMarcadores(String eCromossomo) {
+	    ArrayList<Marcador> eMarcadores = new ArrayList<>();
+	    for (Marcador eMarcador : mListaMarcadores) {
+	      if (eMarcador.getCromossomo().contentEquals(eCromossomo)) {
+	           eMarcadores.add(eMarcador);
+	      }
+	     }
+	     return eMarcadores;
+	  }
+	  public ArrayList<Gene> getGenes(String eCromossomo) {
+	       ArrayList<Gene> eGenes = new ArrayList<>();
+	       for (Gene eGene : mListaGenes) {
+	           if (eGene.getCromossomo().contentEquals(eCromossomo)) {
+	               eGenes.add(eGene);
+	            }
+	       }
+	    return eGenes;
+	    }
+	  public ArrayList<GeneCompartilhado> getGenesCompartilhados(String eCromossomo) {
+	     ArrayList<GeneCompartilhado> eGenes = new ArrayList<>();
+	     for (GeneCompartilhado eGene : mListaGenesCompartilhados) {
+	        if (eGene.getCromossomo1().contentEquals(eCromossomo)) {
+	            eGenes.add(eGene);
+	        } else if (eGene.getCromossomo2().contentEquals(eCromossomo)) {
+	            eGenes.add(eGene);
+	        }
+	     }
+	      return eGenes;
+	    }
+	     public ArrayList<Expressao> getExpressoes() {
+	         return mBancoDeExpressoes.getExpressoes();
+	      }
+	     public Genoma getGenoma() {
+	         return new Genoma(this.getCromossomos(), this.getAutossomosNomes(), this.getCromossomoX(), this.getCromossomoY(), this.getMarcadores(), this.getGenes(), this.getGenesCompartilhados(), this.getAlelos(), mBancoDeExpressoes.getExpressoes());
+	      }
+	    public ArrayList<String> getAutossomosNomes() {
+	        ArrayList<String> mNomes = new ArrayList<String>();
+	       for (Cromossomo eCromossomo : mListaCromossomos) {
+	          if (eCromossomo.getNome().contentEquals(mCromossomoSexual_X.getNome())) {
+	          } else if (eCromossomo.getNome().contentEquals(mCromossomoSexual_Y.getNome())) {
+	          } else {
+	              mNomes.add(eCromossomo.getNome());
+	          }
+	        }
+	       return mNomes;
+	    }
+	private String getNum(int e, int z) {
+		String v = String.valueOf(e);
+		while (v.length() < z) {
+		v = "0" + v;
+		}
+		return v;
+	}
+	private String getCompletaDepois(String e, int t) {
+		while (e.length() < t) {
+		e += " ";
+		}
+		return e;
+	}
+}

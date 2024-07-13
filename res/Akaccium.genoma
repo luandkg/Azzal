@@ -1,0 +1,1970 @@
+PACOTE Genoma
+ {
+   ID Nome = "Akaccium"
+   PACOTE Zonas
+    {
+      OBJETO Zona { 
+         ID Nome = "ZA"
+         ID Conteudo = "GGATTTGGTCTACTTGCC"
+      }
+      OBJETO Zona { 
+         ID Nome = "ZB"
+         ID Conteudo = "GATATGCTGTCGCGCGTTCTTTAGATATATACCTGCCTAGCG"
+      }
+      OBJETO Zona { 
+         ID Nome = "ZC"
+         ID Conteudo = "TGATAGAAGCTCGAACTTGTCTTTCGCCAATTT"
+      }
+      OBJETO Zona { 
+         ID Nome = "ZD"
+         ID Conteudo = "ACCAAAATGCTCCCACCACGTTCCTTGAGGGTTGGATTTACCCAACTAAGGGGCGTGATGGCGAAGAAAGTAACGATACTAACC"
+      }
+      OBJETO Zona { 
+         ID Nome = "ZE"
+         ID Conteudo = "AAGGAATGTATGTGGATACAAGTTACGCAAAGCGTCTTGATGTTCACGGTATCCGTTTATCTACTCCTGGTAGTAATAACCTTTGCTACGACCCCC"
+      }
+      OBJETO Zona { 
+         ID Nome = "ZF"
+         ID Conteudo = "GGGGTGGCCCTTCGTTTCCAAGAAGTACTTTATATGTCATGGACCGTCTTTACGTAATTT"
+      }
+    } 
+   PACOTE Comum
+    {
+      PACOTE Zona
+       {
+         ID Nome = "T1"
+         PACOTE Area
+          {
+            ID Nome = "L0"
+            ID Tamanho = "41"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L1"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L2"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L3"
+            ID Tamanho = "66"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L4"
+            ID Tamanho = "46"
+          } 
+         PACOTE Zona
+          {
+            ID Nome = "@AZC"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L5"
+            ID Tamanho = "33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L6"
+            ID Tamanho = "69"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L7"
+            ID Tamanho = "33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L8"
+            ID Tamanho = "68"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L9"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L10"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L11"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L12"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L13"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L14"
+            ID Tamanho = "40"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L15"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L16"
+            ID Tamanho = "54"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L17"
+            ID Tamanho = "60"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L18"
+            ID Tamanho = "61"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L19"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L20"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L21"
+            ID Tamanho = "27"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L22"
+            ID Tamanho = "67"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "OBB11"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L23"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L24"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L25"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L26"
+            ID Tamanho = "50"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L27"
+            ID Tamanho = "32"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L28"
+            ID Tamanho = "42"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L29"
+            ID Tamanho = "20"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L30"
+            ID Tamanho = "29"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L31"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L32"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L33"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L34"
+            ID Tamanho = "26"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L35"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L36"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L37"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L38"
+            ID Tamanho = "42"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L39"
+            ID Tamanho = "20"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L40"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L41"
+            ID Tamanho = "44"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L42"
+            ID Tamanho = "29"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L43"
+            ID Tamanho = "63"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "CXM33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L44"
+            ID Tamanho = "44"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L45"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L46"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L47"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L48"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L49"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L50"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L51"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L52"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L53"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L54"
+            ID Tamanho = "47"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L55"
+            ID Tamanho = "29"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L56"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L57"
+            ID Tamanho = "54"
+          } 
+       } 
+    } 
+   PACOTE Cromossomos
+    {
+      PACOTE Cromossomo
+       {
+         ID Nome = "C1"
+         PACOTE Area
+          {
+            ID Nome = "L0"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L1"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L2"
+            ID Tamanho = "48"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L3"
+            ID Tamanho = "22"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L4"
+            ID Tamanho = "68"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "MCT34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L5"
+            ID Tamanho = "62"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L6"
+            ID Tamanho = "50"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L7"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L8"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L9"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L10"
+            ID Tamanho = "22"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L11"
+            ID Tamanho = "60"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L12"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L13"
+            ID Tamanho = "23"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L14"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L15"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L16"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L17"
+            ID Tamanho = "54"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L18"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L19"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L20"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L21"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L22"
+            ID Tamanho = "61"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L23"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L24"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L25"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L26"
+            ID Tamanho = "60"
+          } 
+         PACOTE Zona
+          {
+            ID Nome = "@AZA"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L27"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L28"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L29"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L30"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L31"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L32"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L33"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L34"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L35"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L36"
+            ID Tamanho = "61"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L37"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L38"
+            ID Tamanho = "56"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L39"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L40"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L41"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L42"
+            ID Tamanho = "69"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L43"
+            ID Tamanho = "26"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L44"
+            ID Tamanho = "50"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L45"
+            ID Tamanho = "60"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L46"
+            ID Tamanho = "66"
+          } 
+         PACOTE Zona
+          {
+            ID Nome = "@AZB"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L47"
+            ID Tamanho = "66"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L48"
+            ID Tamanho = "30"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L49"
+            ID Tamanho = "42"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L50"
+            ID Tamanho = "27"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L51"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L52"
+            ID Tamanho = "54"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L53"
+            ID Tamanho = "65"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L54"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L55"
+            ID Tamanho = "42"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L56"
+            ID Tamanho = "33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L57"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L58"
+            ID Tamanho = "22"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L59"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L60"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L61"
+            ID Tamanho = "61"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L62"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L63"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L64"
+            ID Tamanho = "47"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L65"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L66"
+            ID Tamanho = "32"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "VNP12"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L67"
+            ID Tamanho = "67"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L68"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L69"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L70"
+            ID Tamanho = "42"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L71"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L72"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L73"
+            ID Tamanho = "66"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L74"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L75"
+            ID Tamanho = "32"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L76"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L77"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L78"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L79"
+            ID Tamanho = "62"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L80"
+            ID Tamanho = "65"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L81"
+            ID Tamanho = "54"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L82"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L83"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L84"
+            ID Tamanho = "20"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L85"
+            ID Tamanho = "48"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "LLH48"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L86"
+            ID Tamanho = "47"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L87"
+            ID Tamanho = "66"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L88"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L89"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L90"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L91"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L92"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L93"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L94"
+            ID Tamanho = "69"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L95"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L96"
+            ID Tamanho = "61"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L97"
+            ID Tamanho = "33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L98"
+            ID Tamanho = "28"
+          } 
+       } 
+      PACOTE Cromossomo
+       {
+         ID Nome = "C2"
+         PACOTE Area
+          {
+            ID Nome = "L0"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L1"
+            ID Tamanho = "65"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L2"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L3"
+            ID Tamanho = "26"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L4"
+            ID Tamanho = "30"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L5"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L6"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L7"
+            ID Tamanho = "45"
+          } 
+         PACOTE Inclusao
+          {
+            ID Nome = "!T1"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L8"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L9"
+            ID Tamanho = "40"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L10"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L11"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L12"
+            ID Tamanho = "40"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L13"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L14"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L15"
+            ID Tamanho = "41"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L16"
+            ID Tamanho = "56"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L17"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L18"
+            ID Tamanho = "52"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L19"
+            ID Tamanho = "33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L20"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L21"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L22"
+            ID Tamanho = "47"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L23"
+            ID Tamanho = "56"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L24"
+            ID Tamanho = "50"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "HHK78"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L25"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L26"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L27"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L28"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L29"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L30"
+            ID Tamanho = "27"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L31"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L32"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L33"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L34"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L35"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L36"
+            ID Tamanho = "22"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L37"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L38"
+            ID Tamanho = "45"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L39"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L40"
+            ID Tamanho = "58"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L41"
+            ID Tamanho = "30"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L42"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L43"
+            ID Tamanho = "20"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L44"
+            ID Tamanho = "50"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L45"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L46"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L47"
+            ID Tamanho = "26"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L48"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L49"
+            ID Tamanho = "69"
+          } 
+         PACOTE Zona
+          {
+            ID Nome = "@AZD"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L50"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L51"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L52"
+            ID Tamanho = "41"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L53"
+            ID Tamanho = "67"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L54"
+            ID Tamanho = "29"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L55"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L56"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L57"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L58"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L59"
+            ID Tamanho = "40"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L60"
+            ID Tamanho = "56"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L61"
+            ID Tamanho = "27"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L62"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L63"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L64"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L65"
+            ID Tamanho = "69"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L66"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L67"
+            ID Tamanho = "60"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L68"
+            ID Tamanho = "52"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L69"
+            ID Tamanho = "67"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L70"
+            ID Tamanho = "66"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L71"
+            ID Tamanho = "66"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "MA420"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L72"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L73"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L74"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L75"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L76"
+            ID Tamanho = "45"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L77"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L78"
+            ID Tamanho = "62"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L79"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L80"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L81"
+            ID Tamanho = "33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L82"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L83"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L84"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L85"
+            ID Tamanho = "66"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L86"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L87"
+            ID Tamanho = "41"
+          } 
+       } 
+      PACOTE Cromossomo
+       {
+         ID Nome = "C3"
+         PACOTE Area
+          {
+            ID Nome = "L0"
+            ID Tamanho = "58"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L1"
+            ID Tamanho = "30"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L2"
+            ID Tamanho = "52"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L3"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L4"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L5"
+            ID Tamanho = "56"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L6"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L7"
+            ID Tamanho = "46"
+          } 
+         PACOTE Inclusao
+          {
+            ID Nome = "!T1"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L8"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L9"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L10"
+            ID Tamanho = "62"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L11"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L12"
+            ID Tamanho = "47"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L13"
+            ID Tamanho = "67"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L14"
+            ID Tamanho = "42"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L15"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L16"
+            ID Tamanho = "26"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L17"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L18"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L19"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L20"
+            ID Tamanho = "52"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L21"
+            ID Tamanho = "40"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L22"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L23"
+            ID Tamanho = "44"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L24"
+            ID Tamanho = "68"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L25"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L26"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L27"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L28"
+            ID Tamanho = "45"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L29"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L30"
+            ID Tamanho = "68"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L31"
+            ID Tamanho = "52"
+          } 
+         PACOTE Zona
+          {
+            ID Nome = "@AZE"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L32"
+            ID Tamanho = "62"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L33"
+            ID Tamanho = "50"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L34"
+            ID Tamanho = "65"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L35"
+            ID Tamanho = "24"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L36"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L37"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L38"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L39"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L40"
+            ID Tamanho = "40"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L41"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L42"
+            ID Tamanho = "30"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L43"
+            ID Tamanho = "29"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L44"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L45"
+            ID Tamanho = "27"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L46"
+            ID Tamanho = "64"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L47"
+            ID Tamanho = "30"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L48"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L49"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L50"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L51"
+            ID Tamanho = "30"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L52"
+            ID Tamanho = "39"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "RR130"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L53"
+            ID Tamanho = "32"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L54"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L55"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L56"
+            ID Tamanho = "20"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L57"
+            ID Tamanho = "69"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L58"
+            ID Tamanho = "29"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L59"
+            ID Tamanho = "54"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L60"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L61"
+            ID Tamanho = "66"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L62"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L63"
+            ID Tamanho = "33"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L64"
+            ID Tamanho = "44"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L65"
+            ID Tamanho = "45"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L66"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L67"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L68"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L69"
+            ID Tamanho = "32"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L70"
+            ID Tamanho = "41"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L71"
+            ID Tamanho = "37"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L72"
+            ID Tamanho = "23"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L73"
+            ID Tamanho = "42"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "PQ800"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L74"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L75"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L76"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L77"
+            ID Tamanho = "32"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L78"
+            ID Tamanho = "27"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L79"
+            ID Tamanho = "38"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L80"
+            ID Tamanho = "47"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L81"
+            ID Tamanho = "56"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L82"
+            ID Tamanho = "21"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L83"
+            ID Tamanho = "52"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L84"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L85"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L86"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L87"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L88"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L89"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L90"
+            ID Tamanho = "35"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L91"
+            ID Tamanho = "52"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L92"
+            ID Tamanho = "21"
+          } 
+         PACOTE Zona
+          {
+            ID Nome = "@AZF"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L93"
+            ID Tamanho = "57"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L94"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L95"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L96"
+            ID Tamanho = "67"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L97"
+            ID Tamanho = "68"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L98"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L99"
+            ID Tamanho = "46"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L100"
+            ID Tamanho = "59"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L101"
+            ID Tamanho = "31"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L102"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L103"
+            ID Tamanho = "62"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L104"
+            ID Tamanho = "51"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L105"
+            ID Tamanho = "28"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L106"
+            ID Tamanho = "50"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L107"
+            ID Tamanho = "43"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L108"
+            ID Tamanho = "47"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L109"
+            ID Tamanho = "58"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L110"
+            ID Tamanho = "36"
+          } 
+         PACOTE Gene
+          {
+            ID Nome = "LLLPA"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L111"
+            ID Tamanho = "36"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L112"
+            ID Tamanho = "42"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L113"
+            ID Tamanho = "39"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L114"
+            ID Tamanho = "25"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L115"
+            ID Tamanho = "32"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L116"
+            ID Tamanho = "44"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L117"
+            ID Tamanho = "61"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L118"
+            ID Tamanho = "63"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L119"
+            ID Tamanho = "55"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L120"
+            ID Tamanho = "53"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L121"
+            ID Tamanho = "48"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L122"
+            ID Tamanho = "34"
+          } 
+         PACOTE Area
+          {
+            ID Nome = "L123"
+            ID Tamanho = "65"
+          } 
+       } 
+    } 
+ } 

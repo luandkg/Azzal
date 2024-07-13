@@ -1,0 +1,1533 @@
+PACOTE Organismo
+ {
+   ID Cromossomos = "3"
+   ID Autossomos = "2"
+   ID Sexuais = "1"
+   ID Reproducao = "XY"
+   ID Gameta = "3"
+   ID Diploide = "6"
+   PACOTE Cromossomos
+    {
+      PACOTE Cromossomo
+       {
+         ID ID = "1"
+         ID Nome = "IC"
+         ID Tamanho = "468"
+         ID Tipo = "Autossomo"
+         ID Fita5 = "CCTATTAGTATGCATTAAGTCGACGGTAAAGTTTTAACCAGAACCCGAGGCACTCAGGATTAAACAACGATAGTAGCGAGTGTACGCTCATGAGTATGGAAATAGTTGACATAGGATCCCCGGCCAATGCACCTCGGTCTGGTACGGGTGAAGCGGGGGCTACGATACCCAAGCATGTGGTTATATGCGAGGCTTGCACTATTGCAACGATGATTACGATGAGAAGCATCACGGCCGTAAGACGCCGCTAGGGTGTCCACTATCGTTAAGAGTATGCTTACACTACCTCACCGAGATTAGCACGGTCGAGATAAAGAGCTTCGGCACGTAGTCTCTGAGGGAATGCTCACAGCAGCTTTGTTAGCGCTTTTTTTAGCGCTCAAGACATCCCCTTTGGGAATGGTCTAGCGGGTAGGGCAAAGTAGGGAGATAGAATTAACAACCGCCGATACTTAATGGGGGGGCTGA"
+         ID Fita3 = "GGATAATCATACGTAATTCAGCTGCCATTTCAAAATTGGTCTTGGGCTCCGTGAGTCCTAATTTGTTGCTATCATCGCTCACATGCGAGTACTCATACCTTTATCAACTGTATCCTAGGGGCCGGTTACGTGGAGCCAGACCATGCCCACTTCGCCCCCGATGCTATGGGTTCGTACACCAATATACGCTCCGAACGTGATAACGTTGCTACTAATGCTACTCTTCGTAGTGCCGGCATTCTGCGGCGATCCCACAGGTGATAGCAATTCTCATACGAATGTGATGGAGTGGCTCTAATCGTGCCAGCTCTATTTCTCGAAGCCGTGCATCAGAGACTCCCTTACGAGTGTCGTCGAAACAATCGCGAAAAAAATCGCGAGTTCTGTAGGGGAAACCCTTACCAGATCGCCCATCCCGTTTCATCCCTCTATCTTAATTGTTGGCGGCTATGAATTACCCCCCCGACT"
+       } 
+      PACOTE Cromossomo
+       {
+         ID ID = "2"
+         ID Nome = "XA"
+         ID Tamanho = "795"
+         ID Tipo = "Sexual"
+         ID Fita5 = "AATATCACTCAACTAGCGCTAGTCTAGAAGTTTCTCGATCTATGCAGCGGGGACATCGCCAAGGATCCCCTCCCACTCCGTATCCTCCTCCATGCTGATCGGTCGTTGCGGCGATCCGTATGATGACGAGCCCCTTGAAAAAGCTACTCATGTCGAGTTTTTTCTCGGCTTTTTTGTGGACCTTTGAAGAAGAGAGGATTGAGAGTAGAGAAGTGTGGAATGCTAGCCTTGTACTAGGTTGCTACGATTAGGGAATCTTTATCTCTTGGCACTACGGCAAAGTTCAGCCGACATGTCCCCATTCAAGGGCCACCCATCTAGCGTCTGATGACATTCAGCTAGCACAATTTCTGTCACCAACACTATAGGTGTATGTGCGCCTAAACAACTTCACATGTACTCTAGTCCCCGTGACAGCAGGCCCTAGGGTACTGAGGAGCGCGTTAAGGGTTTGCAAAAAAGGAATTGCGAAAGCGTGCGTTGGGAAGCGCGAGGAATAGTTCAGAAACACTAGTTCTGATGCGTACCTCAACCGTATTGCCAACGACGACGGGATGCAGTGAGCAACCAACTAATACGATGAGCTAGGGTTATAACGGGATTACCGAGGGTTTAGCAACTGCGGGTGCTTACCAAAGTATGACTATACCTATTAACTGCTACTAGGCTGACAACGTATCGCCTCACCCAGCGGTATGCACCTGGCAGGTGGAAGTTTACTCAATAGCTAGAGTGACGGGCTAACACTATCCCACGGGTGGGCGGAAGATACCATACAGGAGTACGAAGTTGATG"
+         ID Fita3 = "TTATAGTGAGTTGATCGCGATCAGATCTTCAAAGAGCTAGATACGTCGCCCCTGTAGCGGTTCCTAGGGGAGGGTGAGGCATAGGAGGAGGTACGACTAGCCAGCAACGCCGCTAGGCATACTACTGCTCGGGGAACTTTTTCGATGAGTACAGCTCAAAAAAGAGCCGAAAAAACACCTGGAAACTTCTTCTCTCCTAACTCTCATCTCTTCACACCTTACGATCGGAACATGATCCAACGATGCTAATCCCTTAGAAATAGAGAACCGTGATGCCGTTTCAAGTCGGCTGTACAGGGGTAAGTTCCCGGTGGGTAGATCGCAGACTACTGTAAGTCGATCGTGTTAAAGACAGTGGTTGTGATATCCACATACACGCGGATTTGTTGAAGTGTACATGAGATCAGGGGCACTGTCGTCCGGGATCCCATGACTCCTCGCGCAATTCCCAAACGTTTTTTCCTTAACGCTTTCGCACGCAACCCTTCGCGCTCCTTATCAAGTCTTTGTGATCAAGACTACGCATGGAGTTGGCATAACGGTTGCTGCTGCCCTACGTCACTCGTTGGTTGATTATGCTACTCGATCCCAATATTGCCCTAATGGCTCCCAAATCGTTGACGCCCACGAATGGTTTCATACTGATATGGATAATTGACGATGATCCGACTGTTGCATAGCGGAGTGGGTCGCCATACGTGGACCGTCCACCTTCAAATGAGTTATCGATCTCACTGCCCGATTGTGATAGGGTGCCCACCCGCCTTCTATGGTATGTCCTCATGCTTCAACTAC"
+       } 
+      PACOTE Cromossomo
+       {
+         ID ID = "2"
+         ID Nome = "NG"
+         ID Tamanho = "702"
+         ID Tipo = "Sexual"
+         ID Fita5 = "AAGCGGCGGACGGCCAGTCATATGGTAACACACCTAATAAGAGAGATTCCCATTCGGAGCTCCTGCGCTCTGTGTGGGAGCCACTTTCAATCAGGGACCTAAACTGTCCAAGAGCCATCGTATGCTAGAGTTACTATATGACTGGGCGTGTAAGTATGCGGCTATCCAAGGATCAGATACAGAGTTTGGTAGCGGTTAATTTGACCAGCACCTCTTGCCTTCGTACTAGTATACGGACGCCCACTATGTTTAAGAACAACTGGATGGGGAGCAGCGGTTCAGAGATTCCCTGGACTACATGGCAAACTCTCGAGCACCTGAGTGTTAACCGTGTATTCCATGCCGCCATGCGTATCGGATCGATTAGTAGAAGTTATCGTTGACTTGTAACGGATTATATGAAGCTTCCATCGGAGCTCAAACCCAGGGCGATGCAGTTAGCGTAGGTAATCCAGTTTGTTCCAATAAAAGATTGAACTGCCTGACATACACGGCCTATCGATCTGAGTGATAACATTCAATATCATAAATTATGGGGTTTTCAAGAAGACCATAAATTCGCATCATCCACAGCATCTACCGCTTAATCAGGACGCATTCGACCAGTCGTTAAAAGCGCGAGTGACACTGGGGAACTCACTCAGAACTCCCGACTGGAATTGAGGTTGCTTAGCAGCCTACTGCCGGCTTGGCTACAACCGG"
+         ID Fita3 = "TTCGCCGCCTGCCGGTCAGTATACCATTGTGTGGATTATTCTCTCTAAGGGTAAGCCTCGAGGACGCGAGACACACCCTCGGTGAAAGTTAGTCCCTGGATTTGACAGGTTCTCGGTAGCATACGATCTCAATGATATACTGACCCGCACATTCATACGCCGATAGGTTCCTAGTCTATGTCTCAAACCATCGCCAATTAAACTGGTCGTGGAGAACGGAAGCATGATCATATGCCTGCGGGTGATACAAATTCTTGTTGACCTACCCCTCGTCGCCAAGTCTCTAAGGGACCTGATGTACCGTTTGAGAGCTCGTGGACTCACAATTGGCACATAAGGTACGGCGGTACGCATAGCCTAGCTAATCATCTTCAATAGCAACTGAACATTGCCTAATATACTTCGAAGGTAGCCTCGAGTTTGGGTCCCGCTACGTCAATCGCATCCATTAGGTCAAACAAGGTTATTTTCTAACTTGACGGACTGTATGTGCCGGATAGCTAGACTCACTATTGTAAGTTATAGTATTTAATACCCCAAAAGTTCTTCTGGTATTTAAGCGTAGTAGGTGTCGTAGATGGCGAATTAGTCCTGCGTAAGCTGGTCAGCAATTTTCGCGCTCACTGTGACCCCTTGAGTGAGTCTTGAGGGCTGACCTTAACTCCAACGAATCGTCGGATGACGGCCGAACCGATGTTGGCC"
+       } 
+    } 
+   PACOTE Marcadores
+    {
+      PACOTE Marcador
+       {
+         ID Cromossomo = "IC"
+         ID Inicio = "27"
+         ID Fim = "48"
+         ID Tamanho = "21"
+         ID Bases = "7"
+         ID Aminoacidos = "THR.PHE.ALA.ILE.GLN.GLY.ILE."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "IC"
+         ID Inicio = "147"
+         ID Fim = "168"
+         ID Tamanho = "21"
+         ID Bases = "7"
+         ID Aminoacidos = "ARG.ASN.PHE.GLN.MET.PHE.ARG."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "IC"
+         ID Inicio = "264"
+         ID Fim = "291"
+         ID Tamanho = "27"
+         ID Bases = "9"
+         ID Aminoacidos = "THR.ARG.LEU.ILE.GLY.VAL.GLN.LEU.LEU."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "IC"
+         ID Inicio = "324"
+         ID Fim = "336"
+         ID Tamanho = "12"
+         ID Bases = "4"
+         ID Aminoacidos = "HIS.ARG.TYR.VAL."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "IC"
+         ID Inicio = "369"
+         ID Fim = "387"
+         ID Tamanho = "18"
+         ID Bases = "6"
+         ID Aminoacidos = "HIS.ARG.LYS.CYS.PRO.ARG."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "XA"
+         ID Inicio = "21"
+         ID Fim = "45"
+         ID Tamanho = "24"
+         ID Bases = "8"
+         ID Aminoacidos = "GLN.MET.ARG.ARG.MET.GLU.MET.LEU."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "NG"
+         ID Inicio = "21"
+         ID Fim = "45"
+         ID Tamanho = "24"
+         ID Bases = "8"
+         ID Aminoacidos = "LYS.TRP.LYS.GLU.SER.SER.VAL.ILE."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "XA"
+         ID Inicio = "219"
+         ID Fim = "240"
+         ID Tamanho = "21"
+         ID Bases = "7"
+         ID Aminoacidos = "LEU.HIS.ASN.GLN.TYR.CYS.PHE."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "NG"
+         ID Inicio = "219"
+         ID Fim = "240"
+         ID Tamanho = "21"
+         ID Bases = "7"
+         ID Aminoacidos = "ARG.GLU.PRO.PRO.ILE.LYS.ILE."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "XA"
+         ID Inicio = "318"
+         ID Fim = "336"
+         ID Tamanho = "18"
+         ID Bases = "6"
+         ID Aminoacidos = "ALA.LEU.ARG.LYS.ALA.THR."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "NG"
+         ID Inicio = "318"
+         ID Fim = "336"
+         ID Tamanho = "18"
+         ID Bases = "6"
+         ID Aminoacidos = "HIS.VAL.ILE.MET.ARG.ALA."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "XA"
+         ID Inicio = "528"
+         ID Fim = "555"
+         ID Tamanho = "27"
+         ID Bases = "9"
+         ID Aminoacidos = "PRO.TRP.ASN.PHE.GLN.CYS.LYS.THR.THR."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "XA"
+         ID Inicio = "633"
+         ID Fim = "636"
+         ID Tamanho = "3"
+         ID Bases = "1"
+         ID Aminoacidos = "GLY."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "XA"
+         ID Inicio = "729"
+         ID Fim = "756"
+         ID Tamanho = "27"
+         ID Bases = "9"
+         ID Aminoacidos = "LYS.PRO.PRO.TYR.MET.ALA.MET.LYS.VAL."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "NG"
+         ID Inicio = "504"
+         ID Fim = "513"
+         ID Tamanho = "9"
+         ID Bases = "3"
+         ID Aminoacidos = "CYS.GLU.LYS."
+       } 
+      PACOTE Marcador
+       {
+         ID Cromossomo = "NG"
+         ID Inicio = "612"
+         ID Fim = "636"
+         ID Tamanho = "24"
+         ID Bases = "8"
+         ID Aminoacidos = "THR.LYS.THR.CYS.PRO.LEU.LEU.ALA."
+       } 
+    } 
+   PACOTE Genes
+    {
+      PACOTE Gene
+       {
+         ID Cromossomo = "IC"
+         ID Nome = "AAC"
+         ID Inicio = "102"
+         ID Fim = "114"
+         ID Tamanho = "12"
+         ID Bases = "4"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo = "IC"
+         ID Nome = "TGG"
+         ID Inicio = "210"
+         ID Fim = "234"
+         ID Tamanho = "24"
+         ID Bases = "8"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo = "IC"
+         ID Nome = "MZ1"
+         ID Inicio = "420"
+         ID Fim = "435"
+         ID Tamanho = "15"
+         ID Bases = "5"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo = "XA"
+         ID Nome = "mxA"
+         ID Inicio = "579"
+         ID Fim = "603"
+         ID Tamanho = "24"
+         ID Bases = "8"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo = "XA"
+         ID Nome = "mxB"
+         ID Inicio = "681"
+         ID Fim = "708"
+         ID Tamanho = "27"
+         ID Bases = "9"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo = "XA"
+         ID Nome = "mxC"
+         ID Inicio = "780"
+         ID Fim = "786"
+         ID Tamanho = "6"
+         ID Bases = "2"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo = "NG"
+         ID Nome = "syA"
+         ID Inicio = "537"
+         ID Fim = "564"
+         ID Tamanho = "27"
+         ID Bases = "9"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo = "NG"
+         ID Nome = "syB"
+         ID Inicio = "672"
+         ID Fim = "687"
+         ID Tamanho = "15"
+         ID Bases = "5"
+       } 
+    } 
+   PACOTE GenesCompartilhados
+    {
+      PACOTE Gene
+       {
+         ID Cromossomo1 = "XA"
+         ID Cromossomo2 = "NG"
+         ID Nome = "GCA"
+         ID Inicio = "63"
+         ID Fim = "75"
+         ID Tamanho = "12"
+         ID Bases = "4"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo1 = "XA"
+         ID Cromossomo2 = "NG"
+         ID Nome = "GCB"
+         ID Inicio = "99"
+         ID Fim = "105"
+         ID Tamanho = "6"
+         ID Bases = "2"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo1 = "XA"
+         ID Cromossomo2 = "NG"
+         ID Nome = "GCC"
+         ID Inicio = "135"
+         ID Fim = "147"
+         ID Tamanho = "12"
+         ID Bases = "4"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo1 = "XA"
+         ID Cromossomo2 = "NG"
+         ID Nome = "AKA1"
+         ID Inicio = "180"
+         ID Fim = "189"
+         ID Tamanho = "9"
+         ID Bases = "3"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo1 = "XA"
+         ID Cromossomo2 = "NG"
+         ID Nome = "AKA2"
+         ID Inicio = "270"
+         ID Fim = "297"
+         ID Tamanho = "27"
+         ID Bases = "9"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo1 = "XA"
+         ID Cromossomo2 = "NG"
+         ID Nome = "AKA3"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Tamanho = "6"
+         ID Bases = "2"
+       } 
+      PACOTE Gene
+       {
+         ID Cromossomo1 = "XA"
+         ID Cromossomo2 = "NG"
+         ID Nome = "AKA4"
+         ID Inicio = "402"
+         ID Fim = "423"
+         ID Tamanho = "21"
+         ID Bases = "7"
+       } 
+    } 
+   PACOTE Reproducao
+    {
+      ID Sistema = "XY"
+      ID X = "XA"
+      ID Y = "NG"
+      ID Homologo_Inicio = "0"
+      ID Homologo_Fim = "489"
+    } 
+   PACOTE Alelos
+    {
+      PACOTE Alelo
+       {
+         ID Cromossomo = "IC"
+         ID Gene = "AAC"
+         ID Alelo = "IC_AAC::1"
+         ID Iteratividade = "5"
+         ID Inicio = "102"
+         ID Fim = "114"
+         ID Bases = "VAL.LYS.TRP.ILE."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "IC"
+         ID Gene = "AAC"
+         ID Alelo = "IC_AAC::2"
+         ID Iteratividade = "97"
+         ID Inicio = "102"
+         ID Fim = "114"
+         ID Bases = "SER.PHE.ASN.TYR."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "IC"
+         ID Gene = "TGG"
+         ID Alelo = "IC_TGG::1"
+         ID Iteratividade = "52"
+         ID Inicio = "210"
+         ID Fim = "234"
+         ID Bases = "LYS.ASP.ILE.ARG.ILE.ARG.LYS.SER."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "IC"
+         ID Gene = "TGG"
+         ID Alelo = "IC_TGG::2"
+         ID Iteratividade = "87"
+         ID Inicio = "210"
+         ID Fim = "234"
+         ID Bases = "GLY.ASP.TYR.GLU.PHE.GLY.ASP.ALA."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "IC"
+         ID Gene = "MZ1"
+         ID Alelo = "IC_MZ1::1"
+         ID Iteratividade = "43"
+         ID Inicio = "420"
+         ID Fim = "435"
+         ID Bases = "ASP.ASN.PRO.VAL.GLN."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "IC"
+         ID Gene = "MZ1"
+         ID Alelo = "IC_MZ1::2"
+         ID Iteratividade = "43"
+         ID Inicio = "420"
+         ID Fim = "435"
+         ID Bases = "ASN.ARG.CYS.THR.LYS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "IC"
+         ID Gene = "MZ1"
+         ID Alelo = "IC_MZ1::3"
+         ID Iteratividade = "43"
+         ID Inicio = "420"
+         ID Fim = "435"
+         ID Bases = "GLN.ASP.TYR.ALA.THR."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA"
+         ID Gene = "mxA"
+         ID Alelo = "XA_mxA::1"
+         ID Iteratividade = "4"
+         ID Inicio = "579"
+         ID Fim = "603"
+         ID Bases = "THR.GLY.PRO.MET.GLN.ILE.SER.TRP."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA"
+         ID Gene = "mxA"
+         ID Alelo = "XA_mxA::2"
+         ID Iteratividade = "41"
+         ID Inicio = "579"
+         ID Fim = "603"
+         ID Bases = "LYS.ASP.ARG.CYS.CYS.SER.LYS.GLY."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA"
+         ID Gene = "mxB"
+         ID Alelo = "XA_mxB::1"
+         ID Iteratividade = "85"
+         ID Inicio = "681"
+         ID Fim = "708"
+         ID Bases = "PRO.GLN.HIS.ILE.CYS.CYS.TYR.ASP.MET."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA"
+         ID Gene = "mxB"
+         ID Alelo = "XA_mxB::2"
+         ID Iteratividade = "3"
+         ID Inicio = "681"
+         ID Fim = "708"
+         ID Bases = "GLN.GLN.GLY.HIS.PHE.CYS.GLN.VAL.TYR."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA"
+         ID Gene = "mxC"
+         ID Alelo = "XA_mxC::1"
+         ID Iteratividade = "76"
+         ID Inicio = "780"
+         ID Fim = "786"
+         ID Bases = "LEU.ASP."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA"
+         ID Gene = "mxC"
+         ID Alelo = "XA_mxC::2"
+         ID Iteratividade = "95"
+         ID Inicio = "780"
+         ID Fim = "786"
+         ID Bases = "VAL.HIS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA"
+         ID Gene = "mxC"
+         ID Alelo = "XA_mxC::3"
+         ID Iteratividade = "66"
+         ID Inicio = "780"
+         ID Fim = "786"
+         ID Bases = "ARG.HIS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "NG"
+         ID Gene = "syA"
+         ID Alelo = "NG_syA::1"
+         ID Iteratividade = "69"
+         ID Inicio = "537"
+         ID Fim = "564"
+         ID Bases = "PRO.GLN.LYS.ILE.MET.LEU.GLN.ALA.ALA."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "NG"
+         ID Gene = "syA"
+         ID Alelo = "NG_syA::2"
+         ID Iteratividade = "99"
+         ID Inicio = "537"
+         ID Fim = "564"
+         ID Bases = "GLY.ILE.SER.GLU.MET.VAL.LEU.PHE.TYR."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "NG"
+         ID Gene = "syB"
+         ID Alelo = "NG_syB::1"
+         ID Iteratividade = "61"
+         ID Inicio = "672"
+         ID Fim = "687"
+         ID Bases = "SER.SER.CYS.ILE.HIS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "NG"
+         ID Gene = "syB"
+         ID Alelo = "NG_syB::2"
+         ID Iteratividade = "71"
+         ID Inicio = "672"
+         ID Fim = "687"
+         ID Bases = "PHE.LYS.GLN.TYR.LEU."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "NG"
+         ID Gene = "syB"
+         ID Alelo = "NG_syB::3"
+         ID Iteratividade = "6"
+         ID Inicio = "672"
+         ID Fim = "687"
+         ID Bases = "HIS.ILE.LEU.ASP.GLY."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "NG"
+         ID Gene = "syB"
+         ID Alelo = "NG_syB::4"
+         ID Iteratividade = "6"
+         ID Inicio = "672"
+         ID Fim = "687"
+         ID Bases = "PHE.ASP.PHE.SER.GLY."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCA"
+         ID Alelo = "XA_NG_GCA::1"
+         ID Iteratividade = "87"
+         ID Inicio = "63"
+         ID Fim = "75"
+         ID Bases = "PRO.VAL.SER.CYS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCA"
+         ID Alelo = "XA_NG_GCA::2"
+         ID Iteratividade = "25"
+         ID Inicio = "63"
+         ID Fim = "75"
+         ID Bases = "GLU.CYS.SER.PRO."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCB"
+         ID Alelo = "XA_NG_GCB::1"
+         ID Iteratividade = "17"
+         ID Inicio = "99"
+         ID Fim = "105"
+         ID Bases = "HIS.LEU."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCB"
+         ID Alelo = "XA_NG_GCB::2"
+         ID Iteratividade = "17"
+         ID Inicio = "99"
+         ID Fim = "105"
+         ID Bases = "LYS.ALA."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCB"
+         ID Alelo = "XA_NG_GCB::3"
+         ID Iteratividade = "17"
+         ID Inicio = "99"
+         ID Fim = "105"
+         ID Bases = "LEU.TRP."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCC"
+         ID Alelo = "XA_NG_GCC::1"
+         ID Iteratividade = "13"
+         ID Inicio = "135"
+         ID Fim = "147"
+         ID Bases = "SER.PHE.THR.GLN."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCC"
+         ID Alelo = "XA_NG_GCC::2"
+         ID Iteratividade = "85"
+         ID Inicio = "135"
+         ID Fim = "147"
+         ID Bases = "VAL.LYS.ILE.THR."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCC"
+         ID Alelo = "XA_NG_GCC::3"
+         ID Iteratividade = "10"
+         ID Inicio = "135"
+         ID Fim = "147"
+         ID Bases = "MET.THR.TYR.ASP."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "GCC"
+         ID Alelo = "XA_NG_GCC::4"
+         ID Iteratividade = "37"
+         ID Inicio = "135"
+         ID Fim = "147"
+         ID Bases = "HIS.LYS.LEU.MET."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA1"
+         ID Alelo = "XA_NG_AKA1::1"
+         ID Iteratividade = "23"
+         ID Inicio = "180"
+         ID Fim = "189"
+         ID Bases = "ALA.ASP.HIS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA1"
+         ID Alelo = "XA_NG_AKA1::2"
+         ID Iteratividade = "84"
+         ID Inicio = "180"
+         ID Fim = "189"
+         ID Bases = "VAL.CYS.ILE."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA1"
+         ID Alelo = "XA_NG_AKA1::3"
+         ID Iteratividade = "69"
+         ID Inicio = "180"
+         ID Fim = "189"
+         ID Bases = "GLN.MET.GLN."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA1"
+         ID Alelo = "XA_NG_AKA1::4"
+         ID Iteratividade = "69"
+         ID Inicio = "180"
+         ID Fim = "189"
+         ID Bases = "ASN.TYR.VAL."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA1"
+         ID Alelo = "XA_NG_AKA1::5"
+         ID Iteratividade = "35"
+         ID Inicio = "180"
+         ID Fim = "189"
+         ID Bases = "VAL.SER.TYR."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA1"
+         ID Alelo = "XA_NG_AKA1::6"
+         ID Iteratividade = "35"
+         ID Inicio = "180"
+         ID Fim = "189"
+         ID Bases = "THR.ASP.GLY."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA2"
+         ID Alelo = "XA_NG_AKA2::1"
+         ID Iteratividade = "30"
+         ID Inicio = "270"
+         ID Fim = "297"
+         ID Bases = "LYS.MET.ASP.ARG.ASN.GLN.ALA.PHE.PRO."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA2"
+         ID Alelo = "XA_NG_AKA2::2"
+         ID Iteratividade = "86"
+         ID Inicio = "270"
+         ID Fim = "297"
+         ID Bases = "ASP.ASN.LEU.ASP.PRO.ALA.GLN.GLN.TRP."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA2"
+         ID Alelo = "XA_NG_AKA2::3"
+         ID Iteratividade = "83"
+         ID Inicio = "270"
+         ID Fim = "297"
+         ID Bases = "ILE.TYR.ALA.PRO.CYS.LYS.ALA.GLY.ASP."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA2"
+         ID Alelo = "XA_NG_AKA2::4"
+         ID Iteratividade = "20"
+         ID Inicio = "270"
+         ID Fim = "297"
+         ID Bases = "GLN.GLN.GLU.ARG.LYS.ALA.LEU.GLU.PRO."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA2"
+         ID Alelo = "XA_NG_AKA2::5"
+         ID Iteratividade = "41"
+         ID Inicio = "270"
+         ID Fim = "297"
+         ID Bases = "ARG.PRO.SER.GLN.THR.ALA.TRP.ASP.PHE."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA2"
+         ID Alelo = "XA_NG_AKA2::6"
+         ID Iteratividade = "41"
+         ID Inicio = "270"
+         ID Fim = "297"
+         ID Bases = "GLY.GLY.ILE.GLN.TYR.LEU.SER.TRP.VAL."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::1"
+         ID Iteratividade = "60"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "TYR.TYR."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::2"
+         ID Iteratividade = "35"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "HIS.CYS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::3"
+         ID Iteratividade = "77"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "ILE.VAL."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::4"
+         ID Iteratividade = "63"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "TRP.SER."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::5"
+         ID Iteratividade = "63"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "GLN.CYS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::6"
+         ID Iteratividade = "84"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "ILE.SER."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::7"
+         ID Iteratividade = "84"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "ALA.GLU."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::8"
+         ID Iteratividade = "9"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "THR.HIS."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA3"
+         ID Alelo = "XA_NG_AKA3::9"
+         ID Iteratividade = "9"
+         ID Inicio = "372"
+         ID Fim = "378"
+         ID Bases = "LYS.VAL."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA4"
+         ID Alelo = "XA_NG_AKA4::1"
+         ID Iteratividade = "49"
+         ID Inicio = "402"
+         ID Fim = "423"
+         ID Bases = "TYR.TRP.PRO.ARG.HIS.TRP.GLU."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA4"
+         ID Alelo = "XA_NG_AKA4::2"
+         ID Iteratividade = "75"
+         ID Inicio = "402"
+         ID Fim = "423"
+         ID Bases = "THR.TRP.ASP.LEU.LEU.THR.GLU."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA4"
+         ID Alelo = "XA_NG_AKA4::3"
+         ID Iteratividade = "81"
+         ID Inicio = "402"
+         ID Fim = "423"
+         ID Bases = "PHE.VAL.ALA.ILE.LEU.ASN.ARG."
+       } 
+      PACOTE Alelo
+       {
+         ID Cromossomo = "XA_NG"
+         ID Gene = "AKA4"
+         ID Alelo = "XA_NG_AKA4::4"
+         ID Iteratividade = "81"
+         ID Inicio = "402"
+         ID Fim = "423"
+         ID Bases = "TRP.LYS.ILE.TYR.TRP.ALA.ASP."
+       } 
+    } 
+   PACOTE Fenotipos
+    {
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Formato"
+         ID Gene = "AAC"
+         ID Tipo = "Formato"
+         ID Inicio = "1"
+         ID Fim = "3"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Esporos"
+         ID Gene = "TGG"
+         ID Tipo = "Numero"
+         ID Inicio = "0"
+         ID Fim = "1"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Cor"
+         ID Gene = "MZ1"
+         ID Tipo = "Cor"
+         ID Inicio = "0"
+         ID Fim = "1"
+         ID Diminuir = "false"
+         ID Aumentar = "true"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Velocidade"
+         ID Gene = "GCA"
+         ID Tipo = "Numero"
+         ID Inicio = "1"
+         ID Fim = "5"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Resistencia"
+         ID Gene = "GCB"
+         ID Tipo = "Numero"
+         ID Inicio = "3"
+         ID Fim = "10"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Forca"
+         ID Gene = "GCC"
+         ID Tipo = "Numero"
+         ID Inicio = "5"
+         ID Fim = "12"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Compreensao"
+         ID Gene = "AKA1"
+         ID Tipo = "Numero"
+         ID Inicio = "2"
+         ID Fim = "15"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Raciocinio"
+         ID Gene = "AKA2"
+         ID Tipo = "Numero"
+         ID Inicio = "2"
+         ID Fim = "15"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Espacial"
+         ID Gene = "AKA3"
+         ID Tipo = "Numero"
+         ID Inicio = "2"
+         ID Fim = "15"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Idealismo"
+         ID Gene = "AKA4"
+         ID Tipo = "Numero"
+         ID Inicio = "2"
+         ID Fim = "15"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Veneno"
+         ID Gene = "syA"
+         ID Tipo = "Numero"
+         ID Inicio = "0"
+         ID Fim = "1"
+         ID Diminuir = "false"
+         ID Aumentar = "false"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Corpusculos"
+         ID Gene = "syB"
+         ID Tipo = "Cor"
+         ID Inicio = "0"
+         ID Fim = "7"
+         ID Diminuir = "false"
+         ID Aumentar = "true"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Seducao"
+         ID Gene = "mxA"
+         ID Tipo = "Numero"
+         ID Inicio = "0"
+         ID Fim = "3"
+         ID Diminuir = "false"
+         ID Aumentar = "true"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Aroma"
+         ID Gene = "mxB"
+         ID Tipo = "Cor"
+         ID Inicio = "0"
+         ID Fim = "3"
+         ID Diminuir = "false"
+         ID Aumentar = "true"
+       } 
+      PACOTE Fenotipo
+       {
+         ID Caracteristica = "Dispersao"
+         ID Gene = "mxC"
+         ID Tipo = "Numero"
+         ID Inicio = "3"
+         ID Fim = "10"
+         ID Diminuir = "false"
+         ID Aumentar = "true"
+       } 
+    } 
+   PACOTE Expressoes
+    {
+      PACOTE Expressao
+       {
+         ID Gene = "AAC"
+         ID Fenotipo = "IC_AAC::1"
+         ID Caracteristica = "Formato Retangulo"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AAC"
+         ID Fenotipo = "IC_AAC::2"
+         ID Caracteristica = "Formato Quadrado"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "TGG"
+         ID Fenotipo = "IC_TGG::1"
+         ID Caracteristica = "Esporos 0"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "TGG"
+         ID Fenotipo = "IC_TGG::2"
+         ID Caracteristica = "Esporos 1"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::1"
+         ID Caracteristica = "Cor Verde"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::2"
+         ID Caracteristica = "Cor Vermelho"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::1 e IC_MZ1::2"
+         ID Caracteristica = "Cor Verde e Vermelho"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::3"
+         ID Caracteristica = "Cor Azul"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::1 e IC_MZ1::3"
+         ID Caracteristica = "Cor Verde e Azul"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::2 e IC_MZ1::1"
+         ID Caracteristica = "Cor Vermelho e Verde"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::2 e IC_MZ1::3"
+         ID Caracteristica = "Cor Vermelho e Azul"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::3 e IC_MZ1::1"
+         ID Caracteristica = "Cor Azul e Verde"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "MZ1"
+         ID Fenotipo = "IC_MZ1::3 e IC_MZ1::2"
+         ID Caracteristica = "Cor Azul e Vermelho"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "mxA"
+         ID Fenotipo = "XA_mxA::1"
+         ID Caracteristica = "Seducao 2"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "mxA"
+         ID Fenotipo = "XA_mxA::2"
+         ID Caracteristica = "Seducao 0"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "mxB"
+         ID Fenotipo = "XA_mxB::1"
+         ID Caracteristica = "Aroma Vermelho"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "mxB"
+         ID Fenotipo = "XA_mxB::2"
+         ID Caracteristica = "Aroma Azul"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "mxC"
+         ID Fenotipo = "XA_mxC::1"
+         ID Caracteristica = "Dispersao 6"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "mxC"
+         ID Fenotipo = "XA_mxC::2"
+         ID Caracteristica = "Dispersao 8"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "mxC"
+         ID Fenotipo = "XA_mxC::3"
+         ID Caracteristica = "Dispersao 5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syA"
+         ID Fenotipo = "NG_syA::1"
+         ID Caracteristica = "Veneno 1"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syA"
+         ID Fenotipo = "NG_syA::2"
+         ID Caracteristica = "Veneno 0"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syB"
+         ID Fenotipo = "NG_syB::1"
+         ID Caracteristica = "Corpusculos Verde"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syB"
+         ID Fenotipo = "NG_syB::2"
+         ID Caracteristica = "Corpusculos Azul"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syB"
+         ID Fenotipo = "NG_syB::3"
+         ID Caracteristica = "Corpusculos Cinza"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syB"
+         ID Fenotipo = "NG_syB::4"
+         ID Caracteristica = "Corpusculos Violeta"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syB"
+         ID Fenotipo = "NG_syB::3 e NG_syB::4"
+         ID Caracteristica = "Corpusculos Cinza e Violeta"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "syB"
+         ID Fenotipo = "NG_syB::4 e NG_syB::3"
+         ID Caracteristica = "Corpusculos Violeta e Cinza"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCA"
+         ID Fenotipo = "XA_NG_GCA::1"
+         ID Caracteristica = "Velocidade 4"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCA"
+         ID Fenotipo = "XA_NG_GCA::2"
+         ID Caracteristica = "Velocidade 3"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::1"
+         ID Caracteristica = "Resistencia 8"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::2"
+         ID Caracteristica = "Resistencia 9"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::1 e XA_NG_GCB::2"
+         ID Caracteristica = "Resistencia 8.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::3"
+         ID Caracteristica = "Resistencia 10"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::1 e XA_NG_GCB::3"
+         ID Caracteristica = "Resistencia 9"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::2 e XA_NG_GCB::1"
+         ID Caracteristica = "Resistencia 8.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::2 e XA_NG_GCB::3"
+         ID Caracteristica = "Resistencia 9.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::3 e XA_NG_GCB::1"
+         ID Caracteristica = "Resistencia 9"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCB"
+         ID Fenotipo = "XA_NG_GCB::3 e XA_NG_GCB::2"
+         ID Caracteristica = "Resistencia 9.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCC"
+         ID Fenotipo = "XA_NG_GCC::1"
+         ID Caracteristica = "Forca 11"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCC"
+         ID Fenotipo = "XA_NG_GCC::2"
+         ID Caracteristica = "Forca 6"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCC"
+         ID Fenotipo = "XA_NG_GCC::4"
+         ID Caracteristica = "Forca 5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "GCC"
+         ID Fenotipo = "XA_NG_GCC::3"
+         ID Caracteristica = "Forca 12"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::1"
+         ID Caracteristica = "Compreensao 8"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::2"
+         ID Caracteristica = "Compreensao 4"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::3"
+         ID Caracteristica = "Compreensao 15"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::4"
+         ID Caracteristica = "Compreensao 9"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::5"
+         ID Caracteristica = "Compreensao 12"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::6"
+         ID Caracteristica = "Compreensao 10"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::3 e XA_NG_AKA1::4"
+         ID Caracteristica = "Compreensao 12"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::4 e XA_NG_AKA1::3"
+         ID Caracteristica = "Compreensao 12"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::5 e XA_NG_AKA1::6"
+         ID Caracteristica = "Compreensao 11"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA1"
+         ID Fenotipo = "XA_NG_AKA1::6 e XA_NG_AKA1::5"
+         ID Caracteristica = "Compreensao 11"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::1"
+         ID Caracteristica = "Raciocinio 2"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::2"
+         ID Caracteristica = "Raciocinio 15"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::3"
+         ID Caracteristica = "Raciocinio 13"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::5"
+         ID Caracteristica = "Raciocinio 12"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::6"
+         ID Caracteristica = "Raciocinio 9"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::4"
+         ID Caracteristica = "Raciocinio 8"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::5 e XA_NG_AKA2::6"
+         ID Caracteristica = "Raciocinio 10.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA2"
+         ID Fenotipo = "XA_NG_AKA2::6 e XA_NG_AKA2::5"
+         ID Caracteristica = "Raciocinio 10.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::1"
+         ID Caracteristica = "Espacial 5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::3"
+         ID Caracteristica = "Espacial 6"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::4"
+         ID Caracteristica = "Espacial 15"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::5"
+         ID Caracteristica = "Espacial 13"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::6"
+         ID Caracteristica = "Espacial 11"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::7"
+         ID Caracteristica = "Espacial 10"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::2"
+         ID Caracteristica = "Espacial 3"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::4 e XA_NG_AKA3::5"
+         ID Caracteristica = "Espacial 14"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::5 e XA_NG_AKA3::4"
+         ID Caracteristica = "Espacial 14"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::6 e XA_NG_AKA3::7"
+         ID Caracteristica = "Espacial 10.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::7 e XA_NG_AKA3::6"
+         ID Caracteristica = "Espacial 10.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::8"
+         ID Caracteristica = "Espacial 2"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::9"
+         ID Caracteristica = "Espacial 9"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::8 e XA_NG_AKA3::9"
+         ID Caracteristica = "Espacial 5.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA3"
+         ID Fenotipo = "XA_NG_AKA3::9 e XA_NG_AKA3::8"
+         ID Caracteristica = "Espacial 5.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA4"
+         ID Fenotipo = "XA_NG_AKA4::1"
+         ID Caracteristica = "Idealismo 11"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA4"
+         ID Fenotipo = "XA_NG_AKA4::2"
+         ID Caracteristica = "Idealismo 4"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA4"
+         ID Fenotipo = "XA_NG_AKA4::3"
+         ID Caracteristica = "Idealismo 5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA4"
+         ID Fenotipo = "XA_NG_AKA4::4"
+         ID Caracteristica = "Idealismo 2"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA4"
+         ID Fenotipo = "XA_NG_AKA4::3 e XA_NG_AKA4::4"
+         ID Caracteristica = "Idealismo 3.5"
+       } 
+      PACOTE Expressao
+       {
+         ID Gene = "AKA4"
+         ID Fenotipo = "XA_NG_AKA4::4 e XA_NG_AKA4::3"
+         ID Caracteristica = "Idealismo 3.5"
+       } 
+    } 
+ } 
