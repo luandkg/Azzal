@@ -385,7 +385,7 @@ public class Strings {
         return linhas;
     }
 
-    public static Lista<String> dividir_por(String texto,String delimitador) {
+    public static Lista<String> dividir_por(String texto, String delimitador) {
         Lista<String> linhas = new Lista<String>();
 
         int i = 0;
@@ -1143,7 +1143,7 @@ public class Strings {
 
     }
 
-    public static String GET_ATE(String texto, String ate,int proc_ocorrencia) {
+    public static String GET_ATE(String texto, String ate, int proc_ocorrencia) {
 
         int i = 0;
         int o = texto.length();
@@ -1154,11 +1154,11 @@ public class Strings {
         while (i < o) {
             String letra = String.valueOf(texto.charAt(i));
             if (letra.contentEquals(ate)) {
-                if(ocorrendo==proc_ocorrencia){
+                if (ocorrendo == proc_ocorrencia) {
                     break;
-                }else{
-                    ocorrendo+=1;
-                    ret="";
+                } else {
+                    ocorrendo += 1;
+                    ret = "";
                 }
             } else {
                 ret += letra;
@@ -1781,27 +1781,27 @@ public class Strings {
     }
 
 
-    public static String ASPAS(String s){
-        return "\"" + s +"\"";
+    public static String ASPAS(String s) {
+        return "\"" + s + "\"";
     }
 
 
-    public static String getSlice(Vetor<Byte> bytes,int i,int o){
-        byte[] bytes_bruto = new byte[o-i];
+    public static String getSlice(Vetor<Byte> bytes, int i, int o) {
+        byte[] bytes_bruto = new byte[o - i];
 
         int c = 0;
 
-        while(i<o){
+        while (i < o) {
             bytes_bruto[c] = bytes.get(i);
-            i+=1;
-            c+=1;
+            i += 1;
+            c += 1;
         }
 
         return new String(bytes_bruto);
     }
 
 
-    public static String parser_ate(String texto,String delimitador) {
+    public static String parser_ate(String texto, String delimitador) {
         String ret = "";
 
 
@@ -1814,8 +1814,8 @@ public class Strings {
             String c = String.valueOf(texto.charAt(i));
             if (c.contentEquals(delimitador)) {
                 break;
-            }else{
-                ret+=c;
+            } else {
+                ret += c;
             }
 
             i += 1;
@@ -1824,33 +1824,7 @@ public class Strings {
         return ret;
     }
 
-    public static String parser_depois_de(String texto,String delimitador) {
-String ret = "";
-
-
-        int i = 0;
-        int o = texto.length();
-
-boolean juntar = false;
-
-        while (i < o) {
-            String c = String.valueOf(texto.charAt(i));
-            if(juntar){
-                ret+=c;
-            }else{
-                if (c.contentEquals(delimitador)) {
-             juntar=true;
-                }
-            }
-
-            i += 1;
-        }
-
-        return ret;
-    }
-
-
-    public static String parser_entre_aspas(String texto ) {
+    public static String parser_depois_de(String texto, String delimitador) {
         String ret = "";
 
 
@@ -1861,16 +1835,11 @@ boolean juntar = false;
 
         while (i < o) {
             String c = String.valueOf(texto.charAt(i));
-            if(juntar){
-                if (c.contentEquals("\"")) {
-                    juntar=false;
-                    break;
-                }else{
-                    ret+=c;
-                }
-            }else{
-                if (c.contentEquals("\"")) {
-                    juntar=true;
+            if (juntar) {
+                ret += c;
+            } else {
+                if (c.contentEquals(delimitador)) {
+                    juntar = true;
                 }
             }
 
@@ -1880,22 +1849,56 @@ boolean juntar = false;
         return ret;
     }
 
-    public static String GET_SEQUENCIAL(String texto, int inicio,int quantidade) {
+
+    public static String parser_entre_aspas(String texto) {
+        String ret = "";
+
+
+        int i = 0;
+        int o = texto.length();
+
+        boolean juntar = false;
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (juntar) {
+                if (c.contentEquals("\"")) {
+                    juntar = false;
+                    break;
+                } else {
+                    ret += c;
+                }
+            } else {
+                if (c.contentEquals("\"")) {
+                    juntar = true;
+                }
+            }
+
+            i += 1;
+        }
+
+        return ret;
+    }
+
+    public static String GET_SEQUENCIAL(String texto, int inicio, int quantidade) {
 
         String ret = "";
         int i = inicio;
         int o = texto.length();
 
-        int ate = inicio+quantidade;
+        int ate = inicio + quantidade;
 
-        while(i<ate ){
-            ret+=String.valueOf(texto.charAt(i));
-            i+=1;
+        while (i < ate) {
+            ret += String.valueOf(texto.charAt(i));
+            i += 1;
         }
 
         return ret;
     }
 
 
-
+    public static String Capitalizar(String s) {
+        return String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1).toLowerCase();
     }
+
+}

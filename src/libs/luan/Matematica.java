@@ -71,4 +71,31 @@ public class Matematica {
             }
         };
     }
+
+
+    public static double NORMALIZAR(double valor,double min,double max){
+
+        if(valor<min){
+            valor=min;
+        }
+
+        if(valor>max){
+            valor=max;
+        }
+
+        return valor;
+    }
+
+    public static int NORMALIZAR(int valor,int min,int max){
+
+        if(valor<min){
+            valor=min;
+        }
+
+        if(valor>max){
+            valor=max;
+        }
+
+        return valor;
+    }
 }

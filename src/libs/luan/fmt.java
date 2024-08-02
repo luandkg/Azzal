@@ -761,13 +761,13 @@ public class fmt {
 
     }
 
-    public static void listar_strings_ordenada(  Lista<String> lista) {
+    public static void listar_strings_ordenada(Lista<String> lista) {
 
-        int i =1;
+        int i = 1;
 
         for (String aa : lista) {
-            System.out.println(i +" - " + aa);
-            i+=1;
+            System.out.println(i + " - " + aa);
+            i += 1;
         }
 
     }
@@ -1046,6 +1046,10 @@ public class fmt {
             i += 1;
         }
 
+        if (ja && e < c) {
+            f = f + "0";
+        }
+
         return f;
     }
 
@@ -1080,17 +1084,17 @@ public class fmt {
     }
 
 
-    public static void print_titulo_central(String s){
+    public static void print_titulo_central(String s) {
 
-        print("{}",repetir("-",100+s.length()));
-        print("{}",espacar_antes(s,50));
-        print("{}",repetir("-",100+s.length()));
+        print("{}", repetir("-", 100 + s.length()));
+        print("{}", espacar_antes(s, 50));
+        print("{}", repetir("-", 100 + s.length()));
 
     }
 
 
-    public static String f2Porcentagem(int valor,int total){
-        return f2(((double)valor/(double)total)*100.0) + " %";
+    public static String f2Porcentagem(int valor, int total) {
+        return f2(((double) valor / (double) total) * 100.0) + " %";
     }
 
 }

@@ -1,5 +1,7 @@
 package libs.entt;
 
+import libs.luan.Strings;
+
 public class Tag {
 
     private String mNome;
@@ -82,5 +84,20 @@ public class Tag {
         } catch (Exception e) {
             return ePadrao;
         }
+    }
+
+    public boolean isValorIgual(String valor){
+        return mValor.contentEquals(valor);
+    }
+
+    public boolean isInteiro(){
+        if(mValor.length()>0){
+            return Strings.isNumero(mValor);
+        }
+        return false;
+    }
+
+    public void setNome(String eNome){
+        mNome=eNome;
     }
 }

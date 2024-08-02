@@ -14,4 +14,15 @@ public class AzzalUnico {
         mThread.start();
 
     }
+
+    public static void unico_posicionado(String eNome, int eLargura, int eAltura, Cena eCena,int px,int py) {
+
+        Windows mWindows = new Windows(eNome, eLargura, eAltura,px,py);
+
+        mWindows.CriarCenarioAplicavel(eCena);
+
+        Thread mThread = new Thread(mWindows);
+        mThread.start();
+
+    }
 }

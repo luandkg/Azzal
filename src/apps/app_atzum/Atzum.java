@@ -1,16 +1,14 @@
 package apps.app_atzum;
 
 
-import apps.app_atzum.escalas.Vegetacao;
 import apps.app_atzum.utils.AtzumPontos;
 import libs.arquivos.binario.Inteiro;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
+import libs.azzal.utilitarios.HSV;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.Extremos;
-import libs.luan.Lista;
-import libs.luan.Vetor;
+import libs.luan.*;
 import libs.meta_functional.Funcao;
 
 public class Atzum {
@@ -18,7 +16,6 @@ public class Atzum {
     private String LOCAL = "/home/luan/Imagens/atzum/";
 
     private Vetor<String> mOceanos;
-    private Lista<Vegetacao> mVegetacoes;
 
     private Cor mMassaDeArFria;
     private Cor mMassaDeArQuente;
@@ -27,19 +24,18 @@ public class Atzum {
     private Cor mMassaDeArTempestade;
     private Cor mMassaDeArHiperTempestade;
 
-   public static final Cor COR_CHUVA = Cor.getHexCor("#4FC3F7");
-    public static final   Cor COR_NEVE = Cor.getHexCor("#CFD8DC");
-    public static final  Cor COR_TEMPESTADE_CHUVA = Cor.getHexCor("#1A237E");
+    public static final Cor COR_CHUVA = Cor.getHexCor("#4FC3F7");
+    public static final Cor COR_NEVE = Cor.getHexCor("#CFD8DC");
+    public static final Cor COR_TEMPESTADE_CHUVA = Cor.getHexCor("#1A237E");
     public static final Cor COR_TEMPESTADE_NEVE = Cor.getHexCor("#607D8B");
 
-    public static final  Cor COR_SECA = Cor.getHexCor("#FFEE58");
-    public static final  Cor COR_SECA_EXTREMA = Cor.getHexCor("#F4511E");
-    public static final  Cor COR_TEMPESTADE_VENTO = Cor.getHexCor("#BF360C");
+    public static final Cor COR_SECA = Cor.getHexCor("#FFEE58");
+    public static final Cor COR_SECA_EXTREMA = Cor.getHexCor("#F4511E");
+    public static final Cor COR_TEMPESTADE_VENTO = Cor.getHexCor("#BF360C");
 
 
-    public static final  Cor COR_VENTANIA = Cor.getHexCor("#000000");
-    public static final  Cor COR_ONDA_DE_CALOR = Cor.getHexCor("#FFFFFF");
-
+    public static final Cor COR_VENTANIA = Cor.getHexCor("#D81B60");
+    public static final Cor COR_ONDA_DE_CALOR = Cor.getHexCor("#FFFFFF");
 
 
     public Atzum() {
@@ -52,16 +48,7 @@ public class Atzum {
         mOceanos.set(4, "Uz");
         mOceanos.set(5, "Allamnos");
 
-        mVegetacoes = new Lista<Vegetacao>();
 
-        mVegetacoes.adicionar(new Vegetacao("Taiga", "#7CB342"));
-        mVegetacoes.adicionar(new Vegetacao("Deserto", "#FFEB3B"));
-        mVegetacoes.adicionar(new Vegetacao("Estepe", "#FBC02D"));
-        mVegetacoes.adicionar(new Vegetacao("Savana", "#FF5722"));
-        mVegetacoes.adicionar(new Vegetacao("Tundra", "#B0BEC5"));
-        mVegetacoes.adicionar(new Vegetacao("Floresta", "#00695C"));
-        mVegetacoes.adicionar(new Vegetacao("Mata", "#00ACC1"));
-        mVegetacoes.adicionar(new Vegetacao("Sazonal", "#7B1FA2"));
 
         mMassaDeArFria = Cor.getHexCor("#4FC3F7");
         mMassaDeArQuente = Cor.getHexCor("#FFEB3B");
@@ -89,20 +76,7 @@ public class Atzum {
     }
 
 
-    public Lista<Vegetacao> GET_VEGETACOES() {
-        return mVegetacoes;
-    }
 
-    public Vegetacao GET_VEGETACAO(String eNome) {
-        Vegetacao ret = null;
-        for (Vegetacao veg : mVegetacoes) {
-            if (veg.getNome().contentEquals(eNome)) {
-                ret = veg;
-                break;
-            }
-        }
-        return ret;
-    }
 
 
     public Vetor<Extremos<Integer>> GET_ZONAS_DE_TEMPERATURAS() {
@@ -142,56 +116,231 @@ public class Atzum {
     public Cor getMassaDeArTempestade() {
         return mMassaDeArTempestade;
     }
+
     public Cor getMassaDeArHiperTempestade() {
         return mMassaDeArHiperTempestade;
     }
 
 
-    public String getMassaDeArTipo(Cor eCor){
+    public String getMassaDeArTipo(Cor eCor) {
 
         String ret = "";
 
-        if(eCor.igual(mMassaDeArFria)) {
+        if (eCor.igual(mMassaDeArFria)) {
             ret = "FRIO";
-        }else   if(eCor.igual(mSuperMassaDeArFria)){
-            ret="SUPERFRIO";
-        }else   if(eCor.igual(mMassaDeArQuente)){
-            ret="QUENTE";
-        }else   if(eCor.igual(mSuperMassaDeArQuente)){
-            ret="SUPERQUENTE";
-        }else   if(eCor.igual(mMassaDeArTempestade)){
-            ret="TEMPESTADE";
-        }else   if(eCor.igual(mMassaDeArHiperTempestade)){
-            ret="HIPERTEMPESTADE";
+        } else if (eCor.igual(mSuperMassaDeArFria)) {
+            ret = "SUPERFRIO";
+        } else if (eCor.igual(mMassaDeArQuente)) {
+            ret = "QUENTE";
+        } else if (eCor.igual(mSuperMassaDeArQuente)) {
+            ret = "SUPERQUENTE";
+        } else if (eCor.igual(mMassaDeArTempestade)) {
+            ret = "TEMPESTADE";
+        } else if (eCor.igual(mMassaDeArHiperTempestade)) {
+            ret = "HIPERTEMPESTADE";
         }
 
         return ret;
     }
 
-    public String getFatorClimatico(Cor eCor){
+    public String getFatorClimatico(Cor eCor) {
         String ret = "";
 
-        if(eCor.igual(COR_CHUVA)) {
+        if (eCor.igual(COR_CHUVA)) {
             ret = "CHUVA";
-        }else  if(eCor.igual(COR_NEVE)){
-            ret="NEVE";
-        }else  if(eCor.igual(COR_TEMPESTADE_CHUVA)){
-            ret="TEMPESTADE_CHUVA";
-        }else  if(eCor.igual(COR_TEMPESTADE_NEVE)){
-            ret="TEMPESTADE_NEVE";
-        }else  if(eCor.igual(COR_SECA)){
-            ret="SECA";
-        }else  if(eCor.igual(COR_SECA_EXTREMA)){
-            ret="SECA_EXTREMA";
-        }else  if(eCor.igual(COR_TEMPESTADE_VENTO)){
-            ret="TEMPESTADE_VENTO";
-        }else  if(eCor.igual(COR_VENTANIA)){
-            ret="VENTANIA";
-        }else  if(eCor.igual(COR_ONDA_DE_CALOR)){
-            ret="ONDA_DE_CALOR";
+        } else if (eCor.igual(COR_NEVE)) {
+            ret = "NEVE";
+        } else if (eCor.igual(COR_TEMPESTADE_CHUVA)) {
+            ret = "TEMPESTADE_CHUVA";
+        } else if (eCor.igual(COR_TEMPESTADE_NEVE)) {
+            ret = "TEMPESTADE_NEVE";
+        } else if (eCor.igual(COR_SECA)) {
+            ret = "SECA";
+        } else if (eCor.igual(COR_SECA_EXTREMA)) {
+            ret = "SECA_EXTREMA";
+        } else if (eCor.igual(COR_TEMPESTADE_VENTO)) {
+            ret = "TEMPESTADE_VENTO";
+        } else if (eCor.igual(COR_VENTANIA)) {
+            ret = "VENTANIA";
+        } else if (eCor.igual(COR_ONDA_DE_CALOR)) {
+            ret = "ONDA_DE_CALOR";
         }
 
         return ret;
     }
+
+    public Cor GET_FATOR_CLIMATICO_COR(String fator_climatico) {
+        Cor ret = new  Cor(255,255,255);
+
+        if (Strings.isIgual(fator_climatico,"CHUVA")) {
+            ret =COR_CHUVA  ;
+        } else if (Strings.isIgual(fator_climatico,"NEVE")) {
+            ret = COR_NEVE ;
+        } else if (Strings.isIgual(fator_climatico,"TEMPESTADE_CHUVA")) {
+            ret =COR_TEMPESTADE_CHUVA  ;
+        } else if (Strings.isIgual(fator_climatico,"TEMPESTADE_NEVE")) {
+            ret = COR_TEMPESTADE_NEVE ;
+        } else if (Strings.isIgual(fator_climatico,"SECA")) {
+            ret = COR_SECA ;
+        } else if (Strings.isIgual(fator_climatico,"SECA_EXTREMA")) {
+            ret =COR_SECA_EXTREMA ;
+        } else if (Strings.isIgual(fator_climatico,"TEMPESTADE_VENTO")) {
+            ret = COR_TEMPESTADE_VENTO ;
+        } else if (Strings.isIgual(fator_climatico, "VENTANIA")) {
+            ret = COR_VENTANIA;
+        } else if (Strings.isIgual(fator_climatico,"ONDA_DE_CALOR")) {
+            ret = COR_ONDA_DE_CALOR ;
+        }else{
+           // fmt.print("ERRO :: {}",fator_climatico);
+        }
+
+        return ret;
+    }
+
+
+
+    public static Lista<String> GET_MODELO_CLIMATICO() {
+        Lista<String> modelos = new Lista<String>();
+
+        modelos.adicionar("ESFRIANDO");
+        modelos.adicionar("FRIO");
+        modelos.adicionar("FRIO_EXTREMO");
+        modelos.adicionar("ESFRIANDO_EXTREMO");
+
+        modelos.adicionar("ESQUENTANDO");
+        modelos.adicionar("QUENTE");
+        modelos.adicionar("QUENTE_EXTREMO");
+        modelos.adicionar("ESQUENTANDO_EXTREMO");
+
+        modelos.adicionar("AMBIENTE");
+
+        modelos.adicionar("SAZONAL");
+        modelos.adicionar("SAZONAL_QUENTE");
+        modelos.adicionar("SAZONAL_QUENTE_EXTREMO");
+        modelos.adicionar("SAZONAL_FRIO");
+        modelos.adicionar("SAZONAL_FRIO_EXTREMO");
+        modelos.adicionar("SAZONAL_EXTREMO");
+
+        return modelos;
+    }
+
+    public static Cor GET_MODELO_CLIMATICO_COR(String modelo_climatico) {
+        Cor ret = new Cor(0, 0, 0);
+
+
+        if (Strings.isIgual(modelo_climatico, "ESFRIANDO_EXTREMO")) {
+            ret = Cor.getHexCor("#01579B");
+        } else if (Strings.isIgual(modelo_climatico, "FRIO_EXTREMO")) {
+            ret = Cor.getHexCor("#03A9F4");
+        } else if (Strings.isIgual(modelo_climatico, "FRIO")) {
+            ret = Cor.getHexCor("#4FC3F7");
+        } else if (Strings.isIgual(modelo_climatico, "ESFRIANDO")) {
+            ret = Cor.getHexCor("#B2EBF2");
+
+
+        } else if (Strings.isIgual(modelo_climatico, "ESQUENTANDO_EXTREMO")) {
+            ret = Cor.getHexCor("#D50000");
+        } else if (Strings.isIgual(modelo_climatico, "QUENTE_EXTREMO")) {
+            ret = Cor.getHexCor("#B71C1C");
+        } else if (Strings.isIgual(modelo_climatico, "QUENTE")) {
+            ret = Cor.getHexCor("#D32F2F");
+        } else if (Strings.isIgual(modelo_climatico, "ESQUENTANDO")) {
+            ret = Cor.getHexCor("#EF5350");
+
+
+        } else if (Strings.isIgual(modelo_climatico, "AMBIENTE")) {
+            ret = Cor.getHexCor("#F5F5F5");
+
+
+        } else if (Strings.isIgual(modelo_climatico, "SAZONAL")) {
+            ret = Cor.getHexCor("#FFF176");
+        } else if (Strings.isIgual(modelo_climatico, "SAZONAL_QUENTE_EXTREMO")) {
+            ret = Cor.getHexCor("#BF360C");
+        } else if (Strings.isIgual(modelo_climatico, "SAZONAL_FRIO_EXTREMO")) {
+            ret = Cor.getHexCor("#2E7D32");
+
+        } else if (Strings.isIgual(modelo_climatico, "SAZONAL_EXTREMO")) {
+            ret = Cor.getHexCor("#FF9800");
+
+        } else if (Strings.isIgual(modelo_climatico, "SAZONAL_FRIO")) {
+            ret = Cor.getHexCor("#9CCC65");
+        } else if (Strings.isIgual(modelo_climatico, "SAZONAL_QUENTE")) {
+            ret = Cor.getHexCor("#FF5722");
+
+
+        }
+
+
+        return ret;
+    }
+
+
+    public static Cor GET_MODELO_VEGETACAO_COR(String modelo_vegetacao) {
+        Cor ret = new Cor(0, 0, 0);
+
+        if (Strings.isIgual(modelo_vegetacao, "TUNDRA")) {
+            ret = Cor.getHexCor("#3949AB");
+        } else if (Strings.isIgual(modelo_vegetacao, "DESERTO_DE_GELO")) {
+            ret = Cor.getHexCor("#B0BEC5");
+        } else if (Strings.isIgual(modelo_vegetacao, "SAVANA")) {
+            ret = Cor.getHexCor("#FF5722");
+        } else if (Strings.isIgual(modelo_vegetacao, "FLORESTA_TEMPERADA")) {
+            ret = Cor.getHexCor("#9E9D24");
+        } else if (Strings.isIgual(modelo_vegetacao, "FLORESTA_TROPICAL")) {
+            ret = Cor.getHexCor("#388E3C");
+        } else if (Strings.isIgual(modelo_vegetacao, "TAIGA")) {
+            ret = Cor.getHexCor("#00897B");
+        } else if (Strings.isIgual(modelo_vegetacao, "DESERTO")) {
+            ret = Cor.getHexCor("#FFCA28");
+        }
+
+        return ret;
+    }
+
+    public static Lista<String> GET_MODELO_VEGETACAO() {
+        Lista<String> modelos = new Lista<String>();
+
+        modelos.adicionar("TUNDRA");
+        modelos.adicionar("DESERTO_DE_GELO");
+        modelos.adicionar("SAVANA");
+        modelos.adicionar("FLORESTA_TEMPERADA");
+        modelos.adicionar("FLORESTA_TROPICAL");
+        modelos.adicionar("TAIGA");
+        modelos.adicionar("DESERTO");
+
+
+        return modelos;
+    }
+
+    public static Lista<String> GET_MODELO_TEMPERATURA() {
+        Lista<String> modelos = new Lista<String>();
+
+        modelos.adicionar("MUITO_QUENTE");
+        modelos.adicionar("QUENTE");
+        modelos.adicionar("NORMAL");
+        modelos.adicionar("FRIO");
+        modelos.adicionar("MUITO_FRIO");
+
+        return modelos;
+    }
+
+    public static Cor GET_MODELO_TEMPERATURA_COR(String modelo_temperatura) {
+        Cor ret = new Cor(0, 0, 0);
+
+        if (Strings.isIgual(modelo_temperatura, "MUITO_QUENTE")) {
+            ret = Cor.getHexCor("#BF360C");
+        } else if (Strings.isIgual(modelo_temperatura, "QUENTE")) {
+            ret = Cor.getHexCor("#FB8C00");
+        } else if (Strings.isIgual(modelo_temperatura, "FRIO")) {
+            ret = Cor.getHexCor("#1976D2");
+        } else if (Strings.isIgual(modelo_temperatura, "MUITO_FRIO")) {
+            ret = Cor.getHexCor("#0D47A1");
+        } else if (Strings.isIgual(modelo_temperatura, "NORMAL")) {
+            ret = Cor.getHexCor("#8BC34A");
+        }
+
+        return ret;
+    }
+
 
 }

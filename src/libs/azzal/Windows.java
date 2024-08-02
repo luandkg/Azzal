@@ -64,6 +64,40 @@ public class Windows extends JFrame implements Runnable {
 
     }
 
+    public Windows(String eTitulo, int eLargura, int eAltura,int px,int py) {
+
+        mLargura = eLargura;
+        mAltura = eAltura;
+
+        this.setSize(eLargura, eAltura);
+        this.setTitle(eTitulo);
+        this.setResizable(false);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+this.setLocation(px,py);
+
+        if (mImagem == null) {
+            mImagem = new BufferedImage(this.getLargura(), this.getAltura(), BufferedImage.TYPE_INT_ARGB);
+        }
+
+        mRenderizador = new Renderizador(mImagem);
+
+        mTempo = new Tempo();
+        mExecutando = false;
+
+        mCenarios = new Cenarios();
+
+        mMouse = new Mouse();
+
+        this.addMouseMotionListener(mMouse);
+        this.addMouseListener(mMouse);
+
+        mTeclado = new Teclado();
+        this.addKeyListener(mTeclado);
+
+    }
+
     public Mouse getMouse() {
         return mMouse;
     }

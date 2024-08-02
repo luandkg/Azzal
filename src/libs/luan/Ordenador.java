@@ -105,24 +105,39 @@ public class Ordenador {
 
                 if (a.length() != b.length()) {
                     comparar_ate = Matematica.menor(a.length(), b.length());
+                  //  fmt.print("ATE :: {} - {} ->> {}",a,b,comparar_ate);
                 }
 
                 int i = 0;
                 boolean continuar = true;
 
-                while (i < comparar_ate && continuar) {
+                while (i < comparar_ate ) {
                     int chave_a = Strings.indice(alfabeto_numerico, String.valueOf(a.charAt(i)));
                     int chave_b = Strings.indice(alfabeto_numerico, String.valueOf(b.charAt(i)));
 
                     if (chave_a < chave_b) {
                         continuar = false;
                         resp = Ordenavel.MENOR;
+                        //fmt.print("\t :: PAROU EM {} - {}", String.valueOf(a.charAt(i)), String.valueOf(b.charAt(i)));
+                        break;
                     } else if (chave_a > chave_b) {
                         continuar = false;
                         resp = Ordenavel.MAIOR;
+                      //  fmt.print("\t :: PAROU EM {} - {}", String.valueOf(a.charAt(i)), String.valueOf(b.charAt(i)));
+                        break;
                     }
 
                     i += 1;
+                }
+
+                if(resp == Ordenavel.IGUAL && continuar && a.length()!=b.length()){
+
+                    if(a.length()<b.length()){
+                        resp = Ordenavel.MENOR;
+                    }else{
+                        resp = Ordenavel.MAIOR;
+                    }
+
                 }
 
                 return resp;

@@ -40,6 +40,9 @@ public class HSV {
         mV = eV;
     }
 
+    public Cor toRGB(){
+        return HSV.toRGB(this);
+    }
 
     public static HSV getRGB(Cor eCor) {
 

@@ -19,10 +19,12 @@ public class PreferenciasOrganizadas {
         eDKG.abrir(mArquivo);
     }
 
-    public void abrirSeExistir() {
+    public boolean abrirSeExistir() {
         if (new File(mArquivo).exists()) {
             abrir();
+            return true;
         }
+        return false;
     }
 
     public void salvar() {
@@ -59,5 +61,14 @@ public class PreferenciasOrganizadas {
             eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).setValor("NAO");
         }
 
+    }
+
+
+    public void setDouble(String eSecao, String eAtributo, double eValor) {
+        eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).setDouble(eValor);
+    }
+    public double getDouble(String eSecao, String eAtributo) {
+        double v = eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).getDouble(0.0);
+        return v;
     }
 }

@@ -307,6 +307,22 @@ int valor =-1;
         return valor;
     }
 
+    public static String GET_TEXTO_DA_DISTANCIA_MAIS_PROXIMA(Lista<Par<Ponto,String>> pontos, int eixo_x, int eixo_y){
+
+        int distancia_mais_proxima = Integer.MAX_VALUE;
+        String valor ="";
+
+        for(Par<Ponto,String> pt : pontos) {
+            int distancia = Espaco2D.distancia_entre_pontos(eixo_x,eixo_y,pt.getChave().getX(),pt.getChave().getY());
+            if(distancia<distancia_mais_proxima){
+                distancia_mais_proxima=distancia;
+                valor=pt.getValor();
+            }
+        }
+
+        return valor;
+    }
+
 
     public static Lista<Ponto> SO_PONTOS(Lista<Par<Ponto, Integer>> pontos_com_valor){
 

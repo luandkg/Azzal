@@ -27,6 +27,7 @@ public class AtzumCreator {
     private static String LOCAL_PROCESSANDO = "/home/luan/Imagens/atzum/build/processando/";
     private static String LOCAL_DADOS = "/home/luan/Imagens/atzum/dados/";
     private static String LOCAL_VIDEOS = "/home/luan/Imagens/atzum/videos/";
+    private static String LOCAL_LOGS = "/home/luan/Imagens/atzum/logs/";
 
     public static String LOCAL_GET_ARQUIVO(String nome) {
         return new PastaFS(LOCAL).getArquivo(nome);
@@ -42,6 +43,10 @@ public class AtzumCreator {
 
     public static String DADOS_GET_ARQUIVO(String nome) {
         return new PastaFS(LOCAL_DADOS).getArquivo(nome);
+    }
+
+    public static String LOGS_GET_ARQUIVO(String nome) {
+        return new PastaFS(LOCAL_LOGS).getArquivo(nome);
     }
 
     public static BufferedImage GET_MAPA() {
@@ -76,6 +81,16 @@ public class AtzumCreator {
     }
 
 
+    public static BufferedImage GET_MAPA_DE_TEMPERATURA_T1() {
+        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_1_v5.png"));
+        return mapa;
+    }
+
+    public static BufferedImage GET_MAPA_DE_TEMPERATURA_T2() {
+        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_2_v5.png"));
+        return mapa;
+    }
+
     public static BufferedImage GET_MAPA_DE_REGIOES() {
         BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes.png"));
         return mapa;
@@ -86,8 +101,13 @@ public class AtzumCreator {
         return mapa;
     }
 
+    public static BufferedImage GET_MAPA_CLIMATICO() {
+        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_climatico.png"));
+        return mapa;
+    }
+
     public static BufferedImage GET_MAPA_VEGETACAO() {
-        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/clima/clima.png"));
+        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_vegetacao.png"));
         return mapa;
     }
 

@@ -366,8 +366,8 @@ public class ServicoTemperatura {
         AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
 
 
-        //  PRE(1);
-        //  PRE(2);
+        PRE(1);
+        PRE(2);
 
         PUBLICAR_TEMPERATURAS(1);
         PUBLICAR_TEMPERATURAS(2);
@@ -527,12 +527,15 @@ public class ServicoTemperatura {
 
     public static void PUBLICAR_TEMPERATURAS(int valor_pre) {
 
+
+        QTT dados_relevo = QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("relevo.qtt"));
+
         AtzumTerra mapa_planeta = new AtzumTerra();
 
         String modelagem = String.valueOf(valor_pre);
 
-        QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t"+modelagem+".qtt"),mapa_planeta.getLargura(),mapa_planeta.getAltura());
-        QTT.alterar_todos(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t"+modelagem+".qtt"),mapa_planeta.getLargura(),mapa_planeta.getAltura(),-1);
+        QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t" + modelagem + ".qtt"), mapa_planeta.getLargura(), mapa_planeta.getAltura());
+        QTT.alterar_todos(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t" + modelagem + ".qtt"), mapa_planeta.getLargura(), mapa_planeta.getAltura(), -1);
 
         Cor COR_MUITO_QUENTE = Cor.getHexCor("#BF360C");
         Cor COR_QUENTE = Cor.getHexCor("#FB8C00");
@@ -542,11 +545,11 @@ public class ServicoTemperatura {
 
         Lista<FaixaDeTemperatura> FAIXAS_DE_TEMPERATURA = new Lista<FaixaDeTemperatura>();
 
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(36,45,COR_MUITO_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(30,35,COR_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(15,25,COR_NORMAL));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-15,10,COR_FRIO));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-30,-15,COR_MUITO_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(36, 45, COR_MUITO_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(30, 35, COR_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(15, 25, COR_NORMAL));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-15, 10, COR_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-30, -15, COR_MUITO_FRIO));
 
 
         Renderizador temperatura_zonas = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_" + modelagem + "_v2.png"));
@@ -555,7 +558,7 @@ public class ServicoTemperatura {
         Cores mCores = new Cores();
         Renderizador render_publicar = Renderizador.CONSTRUIR(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
 
-        for(FaixaDeTemperatura temperatura : FAIXAS_DE_TEMPERATURA){
+        for (FaixaDeTemperatura temperatura : FAIXAS_DE_TEMPERATURA) {
 
             Lista<Ponto> pontos_de_temperatura = new Lista<Ponto>();
 
@@ -563,8 +566,8 @@ public class ServicoTemperatura {
                 for (int x = 0; x < mapa_planeta.getLargura(); x++) {
                     if (mapa_planeta.isTerra(x, y)) {
 
-                        if(temperatura_zonas.getPixel(x,y).igual(temperatura.getCor())){
-                            pontos_de_temperatura.adicionar(new Ponto(x,y));
+                        if (temperatura_zonas.getPixel(x, y).igual(temperatura.getCor())) {
+                            pontos_de_temperatura.adicionar(new Ponto(x, y));
                         }
 
 
@@ -572,32 +575,50 @@ public class ServicoTemperatura {
                 }
             }
 
-            fmt.print("Temperatura {} -->> {}",temperatura.getCor().toString(),pontos_de_temperatura.getQuantidade());
+            fmt.print("Temperatura {} -->> {}", temperatura.getCor().toString(), pontos_de_temperatura.getQuantidade());
 
 
-            if(pontos_de_temperatura.getQuantidade()>0){
+            if (pontos_de_temperatura.getQuantidade() > 0) {
 
-                Lista<Par<Ponto,Integer>> eixos = new Lista<Par<Ponto,Integer>>();
+                Lista<Par<Ponto, Integer>> eixos = new Lista<Par<Ponto, Integer>>();
 
-                for(int escolher=1;escolher<=100;escolher++){
+                for (int escolher = 1; escolher <= 100; escolher++) {
                     Ponto escolhido = Aleatorio.escolha_um(pontos_de_temperatura);
 
-                    render_publicar.drawCirculoCentralizado_Pintado(escolhido,10,temperatura.getCor());
+                    render_publicar.drawCirculoCentralizado_Pintado(escolhido, 10, temperatura.getCor());
 
-                    eixos.adicionar(new Par<Ponto,Integer>(escolhido,temperatura.getTemperaturaAleatoria()));
+                    eixos.adicionar(new Par<Ponto, Integer>(escolhido, temperatura.getTemperaturaAleatoria()));
                 }
 
-                for(Ponto ponto : pontos_de_temperatura){
+                for (Ponto ponto : pontos_de_temperatura) {
                     int valor_proximo = Espaco2D.GET_VALOR_DA_DISTANCIA_MAIS_PROXIMA(eixos, ponto.getX(), ponto.getY());
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t"+modelagem+".qtt"),ponto.getX(), ponto.getY(),valor_proximo);
+
+                    int altitude = dados_relevo.getValor(ponto.getX(), ponto.getY());
+
+                    if(altitude>0){
+
+                        while (altitude > 100) {
+                            altitude -= 100;
+                            valor_proximo-=1;
+                        }
+
+                    }else if(altitude<0){
+
+                        while (altitude < -100) {
+                            altitude += 100;
+                            valor_proximo+=1;
+                        }
+
+                    }
+
+
+                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t" + modelagem + ".qtt"), ponto.getX(), ponto.getY(), valor_proximo);
                 }
 
             }
 
 
-
             Imagem.exportar(render_publicar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_" + modelagem + "_v3.png"));
-
 
 
         }
@@ -869,7 +890,7 @@ public class ServicoTemperatura {
             for (int x = 0; x < mapa_planeta.getLargura(); x++) {
                 if (mapa_planeta.isTerra(x, y)) {
 
-                    int valor = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t"+modelagem+".qtt"), x, y);
+                    int valor = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t" + modelagem + ".qtt"), x, y);
                     ex_temperatura.set(valor);
 
                 }
@@ -881,19 +902,53 @@ public class ServicoTemperatura {
         fmt.print("Menor Temperatura : {}", ex_temperatura.getMenor());
 
 
+        double faixa = 100.0 / (ex_temperatura.getMaior() - ex_temperatura.getMenor());
 
-        double faixa = 100.0/(ex_temperatura.getMaior() - ex_temperatura.getMenor()) ;
+        Renderizador render_distancia = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
+        Renderizador render_temperatura_zonas= Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
 
-        Renderizador render_distancia = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(),mCores.getBranco());
+        Cor COR_MUITO_QUENTE = Cor.getHexCor("#BF360C");
+        Cor COR_QUENTE = Cor.getHexCor("#FB8C00");
+        Cor COR_FRIO = Cor.getHexCor("#1976D2");
+        Cor COR_MUITO_FRIO = Cor.getHexCor("#0D47A1");
+        Cor COR_NORMAL = Cor.getHexCor("#8BC34A");
+
+        Lista<FaixaDeTemperatura> FAIXAS_DE_TEMPERATURA = new Lista<FaixaDeTemperatura>();
+
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(36, 45, COR_MUITO_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(30, 35, COR_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(10, 30, COR_NORMAL));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-15, 10, COR_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-30, -15, COR_MUITO_FRIO));
+
 
 
         for (int y = 0; y < mapa_planeta.getAltura(); y++) {
             for (int x = 0; x < mapa_planeta.getLargura(); x++) {
                 if (mapa_planeta.isTerra(x, y)) {
 
-                    int valor = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t"+modelagem+".qtt"), x, y);
+                    int valor = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t" + modelagem + ".qtt"), x, y);
 
-                    render_distancia.setPixel(x, y, new HSV(350,100, HSV.INVERSO((int)(valor*faixa))));
+                    render_distancia.setPixel(x, y, new HSV(350, 100, HSV.INVERSO((int) (valor * faixa))));
+
+                    Cor cor_temp = mCores.getBranco();
+
+                    for(FaixaDeTemperatura temp_zona : FAIXAS_DE_TEMPERATURA){
+                        if(valor>=temp_zona.getMinimo() && valor<=temp_zona.getMaximo()){
+                            cor_temp=temp_zona.getCor();
+                            break;
+                        }
+                    }
+
+                    if(valor>FAIXAS_DE_TEMPERATURA.get(0).getMaximo()){
+                        cor_temp=FAIXAS_DE_TEMPERATURA.get(0).getCor();
+                    }
+
+                    if(valor<FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade()-1).getMinimo()){
+                        cor_temp=FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade()-1).getCor();
+                    }
+
+                    render_temperatura_zonas.setPixel(x, y,cor_temp);
 
 
                 }
@@ -902,6 +957,7 @@ public class ServicoTemperatura {
 
 
         Imagem.exportar(render_distancia.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_" + modelagem + "_v4.png"));
+        Imagem.exportar(render_temperatura_zonas.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_" + modelagem + "_v5.png"));
 
         fmt.print("Tudo OK !");
 

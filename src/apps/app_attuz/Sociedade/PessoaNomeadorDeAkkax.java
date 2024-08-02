@@ -1,5 +1,8 @@
 package apps.app_attuz.Sociedade;
 
+import libs.luan.Strings;
+import libs.luan.fmt;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -134,5 +137,31 @@ public class PessoaNomeadorDeAkkax {
 
         return primeiro_nome;
     }
+
+
+
+    public static void VISUALIZAR_AMOSTRA_PEQUENA(){
+
+
+        // Azquo
+
+        fmt.print("----------------- AMOSTRA PEQUENA ------------------------");
+        fmt.print();
+        for(int i=0;i<30;i++){
+
+            String palavra_a = Strings.Capitalizar(getSimples());
+            String palavra_b = Strings.Capitalizar(getSimples());
+            String palavra_c = Strings.Capitalizar(getSimples());
+
+            fmt.print("{dir20} {dir20} {}",palavra_a,palavra_b,palavra_c);
+
+        }
+        fmt.print();
+        fmt.print("----------------- ---------------- ------------------------");
+
+
+    }
+
+
 
 }

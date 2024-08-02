@@ -1,6 +1,7 @@
 package libs.entt;
 
 import libs.luan.Lista;
+import libs.luan.Strings;
 
 public class Entidade {
 
@@ -200,7 +201,7 @@ public class Entidade {
         for (Tag tag : mTags) {
             if (tag.is_nome(nome)) {
                 int tag_valor = Integer.parseInt(tag.getValor());
-                if (tag_valor==valor) {
+                if (tag_valor == valor) {
                     ret = true;
                 }
                 break;
@@ -208,6 +209,37 @@ public class Entidade {
         }
 
         return ret;
+    }
+
+
+    public boolean isInteiro(String att_nome) {
+        String att_valor = at(att_nome);
+        if (!att_valor.isEmpty()) {
+            return Strings.isNumero(att_valor);
+        }
+        return false;
+    }
+
+
+    public String toTexto() {
+
+        String texto = "";
+        for (Tag tag : mTags) {
+            texto += tag.getNome() + " = " + tag.getValor() + "\n";
+        }
+
+        return texto;
+    }
+
+    public boolean isVazio(String att_nome) {
+        boolean valido = true;
+        for (Tag tag : mTags) {
+            if (tag.is_nome(att_nome)) {
+                valido = tag.getValor().isEmpty();
+                break;
+            }
+        }
+        return valido;
     }
 
 }

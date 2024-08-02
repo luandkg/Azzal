@@ -1,6 +1,7 @@
 package apps.app_atzum;
 
 import apps.app_atzum.apps.*;
+import libs.arquivos.PreferenciasOrganizadas;
 import libs.azzal.AzzalUnico;
 
 public class Apps {
@@ -23,7 +24,9 @@ public class Apps {
     public static void INIT(int qual_app) {
 
         if (qual_app == APP_ATZUM) {
-            AzzalUnico.unico("Mapa Atzum", 2000, 950, new apps.app_atzum.AppAtzum());
+
+            AppAtzum.INICIAR();
+
         } else if (qual_app == CIDADE_POSICIONADOR) {
             AzzalUnico.unico("Mapa Atzum - Posicionador de Cidades", 1700, 950, new apps.app_atzum.apps.AtzumAppCidadePosicionador());
         } else if (qual_app == RELEVADOR_TERRA) {

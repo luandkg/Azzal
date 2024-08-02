@@ -1,20 +1,13 @@
 package apps.app_atzum;
 
-import algoritmos.IMEmpacotador;
+import apps.app_atzum.analisadores.AnalisadorClimatico;
+import apps.app_atzum.analisadores.ModeladorGeral;
+import apps.app_atzum.servicos.AtzumCentralDados;
 import apps.app_atzum.servicos.ServicoTronarko;
 import apps.app_atzum.utils.AtzumCreatorInfo;
-import libs.arquivos.IM;
-import libs.arquivos.binario.Arquivador;
-import libs.arquivos.ds.DS;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
-import libs.fs.Arquivo;
-import libs.fs.PastaFS;
-import libs.imagem.Imagem;
-import libs.luan.Strings;
 import libs.luan.fmt;
-
-import java.awt.image.BufferedImage;
 
 public class AtzumProcessoCriativo {
 
@@ -22,7 +15,7 @@ public class AtzumProcessoCriativo {
 
 
         AtzumCreatorInfo.exibir();
-        // apps.app_atzum.Apps.INIT(Apps.MASSAS_DE_AR);
+       // apps.app_atzum.Apps.INIT(Apps.APP_ATZUM);
 
         fmt.print("");
         fmt.print("------------------------------------------");
@@ -35,28 +28,39 @@ public class AtzumProcessoCriativo {
         // ServicoRegioes.INIT();
         // ServicoRelevo.INIT();
         // ServicoUmidade.INIT();
-        // ServicoTemperatura.INIT();
+        //  ServicoTemperatura.INIT();
         // ServicoCorrelacionar.INIT();
         // ServicoMassasDeAr.INIT();
-        //  ServicoTronarko.MAPEAR_SENSORES();
-        //   ServicoTronarko.ORGANIZAR_SENSORES();
+        //   ServicoTronarko.MAPEAR_SENSORES();
+        //  ServicoTronarko.ORGANIZAR_SENSORES();
 
 
         // ------------------- TRONARKO BUILDING -----------------------
 
-        // ServicoTronarko.CONSTRUIR_TRONARKO();
+        //  ServicoTronarko.CONSTRUIR_TRONARKO();
         //  ServicoMassasDeAr.PROCESSAR_TRONARKO();
-        //  ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO();
-
+      //  ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO();
+      //  ServicoTronarko.MINIATURAS();
+       //  ServicoTronarko.VIDEO_PLAYER();
 
         // ------------------- VISUALIZADORES -----------------------
 
-        // ServicoTronarko.OBSERVAR_SENSORES();
+        //  ServicoTronarko.OBSERVAR_SENSORES();
         //   ServicoTronarko.EXIBIR_TRONARKO();
 
-      //  ServicoTronarko.OBSERVAR_SENSORES_v2();
-        TronarkoAnaliseDeSensores.init();
+        // ServicoTronarko.OBSERVAR_SENSORES_v2();
+        // TronarkoAnaliseDeSensores.init();
 
+
+        // AnalisadorClimatico.OBSERVAR_DETALHES();
+
+        //AnalisadorClimatico.ANALISE_TEMPORAL();
+      //  ModeladorGeral.CLIMA_E_VEGETACAO();
+      //  AnalisadorClimatico.PUBLICAR_DADOS();
+     //   AtzumCentralDados.PROXIMIDADE_COM_OCENAO();
+
+       // AtzumCentralDados.VER_AMOSTRAS();
+        //AtzumCentralDados.NOMEAR_CIDADES();
         //ServicoTronarko.VIDEO_PLAYER();
 
         // TAKE_SHOT();
@@ -67,7 +71,6 @@ public class AtzumProcessoCriativo {
 
         //  AtzumCreatorInfo.renomear_item( "ServicoRegioes.PROXIMIDAE_COM_OCEANO","ServicoRegioes.PROXIMIDADE_COM_OCEANO");
         //   AtzumCreatorInfo.renomear_item( "ServicoRegioes.PROXIMIDAE_COM_TERRA","ServicoRegioes.PROXIMIDADE_COM_TERRA");
-
 
 
     }

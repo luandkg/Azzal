@@ -4,6 +4,7 @@ import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumPontosInteiro;
 import apps.app_atzum.utils.Rasterizador;
 import apps.app_atzum.utils.RegiaoDefinida;
 import libs.arquivos.QTT;
@@ -17,10 +18,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.HSV;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
-import libs.luan.Extremos;
-import libs.luan.Lista;
-import libs.luan.RefInt;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.meta_functional.Acao;
 
 import java.awt.image.BufferedImage;
@@ -41,9 +39,13 @@ public class ServicoRegioes {
 
         //  EXTRAIR_CONTORNO_OCEANICO();
 
-       // EXTRAIR_DISTANCIA_OCEANICA();
-        PROXIMIDADE_COM_OCEANO();
-        PROXIMIDADE_COM_TERRA();
+        // EXTRAIR_DISTANCIA_OCEANICA();
+        //  PROXIMIDADE_COM_OCEANO();
+        //   PROXIMIDADE_COM_TERRA();
+
+        //  ORGANIZAR_DADOS_PLANETA();
+      //  ORGANIZAR_OCEANOS();
+        RENDERIZAR_OCEANOS();
 
         AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
         AtzumCreatorInfo.exibir_item(SERVICO_NOME + ".INIT");
@@ -605,6 +607,123 @@ public class ServicoRegioes {
         fmt.print("Tudo OK !");
         AtzumCreatorInfo.terminar("ServicoRegioes.PROXIMIDADE_COM_TERRA");
         AtzumCreatorInfo.exibir_item("ServicoRegioes.PROXIMIDADE_COM_TERRA");
+
+    }
+
+    public static void ORGANIZAR_DADOS_PLANETA() {
+
+        AtzumCreatorInfo.iniciar("ServicoRegioes.ORGANIZAR_DADOS_PLANETA");
+
+        AtzumTerra atzum_terra = new AtzumTerra();
+
+        int largura = atzum_terra.getLargura();
+        int altura = atzum_terra.getAltura();
+
+        QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), atzum_terra.getLargura(), atzum_terra.getAltura());
+
+        for (int y = 0; y < altura; y++) {
+
+            for (int x = 0; x < largura; x++) {
+
+                if (atzum_terra.isTerra(x, y)) {
+                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), x, y, 1);
+                } else {
+                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), x, y, -1);
+                }
+
+
+            }
+        }
+
+        AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_DADOS_PLANETA");
+
+        fmt.print("OK !");
+    }
+
+    public static void ORGANIZAR_OCEANOS() {
+        fmt.print("Feature :: Oceanos");
+
+        AtzumCreatorInfo.iniciar("ServicoRegioes.ORGANIZAR_OCEANOS");
+
+        String ARQUIVO_OCEANO = AtzumCreator.LOCAL_GET_ARQUIVO("parametros/OCEANOS.dkg");
+        Unico<Par<Ponto, Integer>> pontos_de_relevo = AtzumPontosInteiro.UNICOS(AtzumPontosInteiro.ABRIR_ZERADO(ARQUIVO_OCEANO));
+
+        int valor = 100;
+
+        for (Par<Ponto, Integer> ponto : pontos_de_relevo) {
+            ponto.setValor(valor);
+            valor += 100;
+        }
+
+        AtzumTerra atzum_terra = new AtzumTerra();
+
+
+        QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), atzum_terra.getLargura(), atzum_terra.getAltura());
+
+
+        int largura = atzum_terra.getLargura();
+        int altura = atzum_terra.getAltura();
+
+
+        for (int y = 0; y < altura; y++) {
+            for (int x = 0; x < largura; x++) {
+                if (atzum_terra.isOceano(x, y)) {
+                    int valor_proximo = ServicoRelevo.ALTITUDE_MAIS_PROXIMA(pontos_de_relevo, x, y);
+                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), x, y, (valor_proximo / 100));
+                } else {
+                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), x, y, -1);
+                }
+            }
+        }
+
+
+        AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_OCEANOS");
+
+        fmt.print("OK !");
+    }
+
+    public static void RENDERIZAR_OCEANOS(){
+
+        AtzumCreatorInfo.iniciar("ServicoRegioes.RENDERIZAR_OCEANOS");
+
+        AtzumTerra atzum_terra = new AtzumTerra();
+
+
+        QTT dados_oceano =QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"));
+
+
+        int largura = atzum_terra.getLargura();
+        int altura = atzum_terra.getAltura();
+
+        Cores mCores = new Cores();
+        Renderizador render = Renderizador.CONSTRUIR(largura,altura,mCores.getPreto());
+
+
+
+        for (int y = 0; y < altura; y++) {
+            for (int x = 0; x < largura; x++) {
+              int valor  =dados_oceano.getValor( x, y);
+
+              if(valor>0){
+
+                  if (valor % 2 ==0){
+                      valor+=1;
+                      render.setPixel(x,y,new HSV(200,valor*15,80));
+                  }else{
+                      valor-=1;
+                      render.setPixel(x,y,new HSV(200,100-(valor*20),80));
+                  }
+
+              }
+
+            }
+        }
+
+        Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_oceanos.png"));
+
+        AtzumCreatorInfo.terminar("ServicoRegioes.RENDERIZAR_OCEANOS");
+
+        fmt.print("OK !");
 
     }
 
