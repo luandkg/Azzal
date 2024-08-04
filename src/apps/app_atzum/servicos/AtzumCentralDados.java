@@ -89,21 +89,40 @@ public class AtzumCentralDados {
 
         Lista<Entidade> cidades = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_cidades_publicado.entts"));
 
-        NOMEAR(cidades,706,955,"Ampz");
-        NOMEAR(cidades,692,963,"Eczos");
-        NOMEAR(cidades,690,949,"Talaque");
+        NOMEAR(cidades, 706, 955, "Ampz");
+        NOMEAR(cidades, 692, 963, "Eczos");
+        NOMEAR(cidades, 690, 949, "Talaque");
 
-        NOMEAR(cidades,1140,755,"Aaz");
+        NOMEAR(cidades, 1140, 755, "Aaz");
 
         ENTT.GUARDAR(cidades, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_cidades_publicado.entts"));
 
         fmt.print(">> Tudo Ok !");
     }
 
-    public static void NOMEAR(Lista<Entidade> cidades,int px,int py,String nome){
+    public static void NOMEAR(Lista<Entidade> cidades, int px, int py, String nome) {
 
-        Entidade e_cidade = ENTT.GET_SEMPRE(cidades,"Cidade",px+"::"+py);
-        e_cidade.at("Nome",nome);
+        Entidade e_cidade = ENTT.GET_SEMPRE(cidades, "Cidade", px + "::" + py);
+        e_cidade.at("Nome", nome);
 
+    }
+
+
+    public static void INFORME(String nome, int valor) {
+
+        Lista<Entidade> dados = ENTT.ABRIR(AtzumCreator.DADOS_GET_ARQUIVO("AtzumDadosInfos.entts"));
+
+        Entidade e = ENTT.GET_SEMPRE(dados, "Info", nome);
+        e.at("Valor", valor);
+
+        ENTT.GUARDAR(dados, AtzumCreator.DADOS_GET_ARQUIVO("AtzumDadosInfos.entts"));
+    }
+
+    public static int OBTER_INTEIRO(String nome) {
+
+        Lista<Entidade> dados = ENTT.ABRIR(AtzumCreator.DADOS_GET_ARQUIVO("AtzumDadosInfos.entts"));
+
+        Entidade e = ENTT.GET_SEMPRE(dados, "Info", nome);
+        return e.atInt("Valor");
     }
 }

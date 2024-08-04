@@ -339,62 +339,73 @@ public class AtzumCreator {
 
     public static Lista<RegiaoDefinida> GET_REGIOES() {
 
-        Cores mCores = new Cores();
 
         Lista<RegiaoDefinida> regioes = new Lista<RegiaoDefinida>();
+
+
+        Cor COR_ALFA = Cor.getHexCor("#FFC107"); // AMARELO
+        Cor COR_BETA = Cor.getHexCor("#1E88E5"); // AZUL
+        Cor COR_GAMA = Cor.getHexCor("#E65100"); // LARANJA
+        Cor COR_DELTA = Cor.getHexCor("#D81B60"); // ROSA
+        Cor COR_EPSILON = Cor.getHexCor("#283593"); // AZUL ESCURO
+        Cor COR_OMEGA = Cor.getHexCor("#00796B"); // AZUL ESCURO
+        Cor COR_LAMBDA = Cor.getHexCor("#78909C"); // CINZA
+        Cor COR_OMICRON = Cor.getHexCor("#8D6E63"); // MARROM
+        Cor COR_ZETA = Cor.getHexCor("#D32F2F"); // VERMELHO
+        Cor COR_PI = Cor.getHexCor("#689F38"); // VERDE
 
 
         // REGIAO 1
         // Rasterizador.RASTERIZAR_COM(render, 548, 1063, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
         //   Rasterizador.RASTERIZAR_COM(render, 402, 1095, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(548, 1063, mCores.getAmarelo(), 1, 10));
-        regioes.adicionar(new RegiaoDefinida(402, 1095, mCores.getAmarelo(), 1, 11));
+        regioes.adicionar(new RegiaoDefinida(548, 1063, COR_ALFA, 1, 10));
+        regioes.adicionar(new RegiaoDefinida(402, 1095, COR_ALFA, 1, 11));
 
 
         // REGIAO 2
         // Rasterizador.RASTERIZAR_COM(render, 578, 767, mCores.getPreto(), mCores.getAzul(), durante_mudanca, a_cada_100);
         // Rasterizador.RASTERIZAR_COM(render, 507, 507, mCores.getPreto(), mCores.getAzul(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(578, 767, mCores.getAzul(), 2, 20));
-        regioes.adicionar(new RegiaoDefinida(507, 507, mCores.getAzul(), 2, 21));
+        regioes.adicionar(new RegiaoDefinida(578, 767,COR_BETA, 2, 20));
+        regioes.adicionar(new RegiaoDefinida(507, 507, COR_BETA, 2, 21));
 
 
         // REGIAO 3
         //  Rasterizador.RASTERIZAR_COM(render, 864, 486, mCores.getPreto(), mCores.getLaranja(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(864, 486, mCores.getLaranja(), 3, 30));
+        regioes.adicionar(new RegiaoDefinida(864, 486,COR_GAMA, 3, 30));
 
         // REGIAO 4
         // Rasterizador.RASTERIZAR_COM(render, 1410, 1209, mCores.getPreto(), mCores.getRosa(), durante_mudanca, a_cada_100);
         // Rasterizador.RASTERIZAR_COM(render, 1173, 1176, mCores.getPreto(), mCores.getRosa(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(1410, 1209, mCores.getRosa(), 4, 40));
-        regioes.adicionar(new RegiaoDefinida(1173, 1176, mCores.getRosa(), 4, 41));
+        regioes.adicionar(new RegiaoDefinida(1410, 1209, COR_DELTA, 4, 40));
+        regioes.adicionar(new RegiaoDefinida(1173, 1176, COR_DELTA, 4, 41));
 
 
         // REGIAO 5
         //   Rasterizador.RASTERIZAR_COM(render, 1801, 1230, mCores.getPreto(), mCores.getBranco(), durante_mudanca, a_cada_100);
         // Rasterizador.RASTERIZAR_COM(render, 1906, 1276, mCores.getPreto(), mCores.getBranco(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(1801, 1230, mCores.getTurjo(), 5, 50));
-        regioes.adicionar(new RegiaoDefinida(1906, 1276, mCores.getTurjo(), 5, 51));
+        regioes.adicionar(new RegiaoDefinida(1801, 1230, COR_EPSILON, 5, 50));
+        regioes.adicionar(new RegiaoDefinida(1906, 1276, COR_EPSILON, 5, 51));
 
         // REGIAO 6
         // Rasterizador.RASTERIZAR_COM(render, 1984, 1191, mCores.getPreto(), mCores.getTurquesa(), durante_mudanca, a_cada_100);
         // Rasterizador.RASTERIZAR_COM(render, 1895, 1125, mCores.getPreto(), mCores.getTurquesa(), durante_mudanca, a_cada_100);
         //   Rasterizador.RASTERIZAR_COM(render, 1929, 1048, mCores.getPreto(), mCores.getTurquesa(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(1984, 1191, mCores.getTurquesa(), 6, 60));
-        regioes.adicionar(new RegiaoDefinida(1895, 1125, mCores.getTurquesa(), 6, 61));
-        regioes.adicionar(new RegiaoDefinida(1929, 1048, mCores.getTurquesa(), 6, 62));
+        regioes.adicionar(new RegiaoDefinida(1984, 1191, COR_OMEGA, 6, 60));
+        regioes.adicionar(new RegiaoDefinida(1895, 1125, COR_OMEGA, 6, 61));
+        regioes.adicionar(new RegiaoDefinida(1929, 1048, COR_OMEGA, 6, 62));
 
         // REGIAO 7
         //  Rasterizador.RASTERIZAR_COM(render, 1841, 1097, mCores.getPreto(), mCores.getCinza(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(1841, 1097, mCores.getCinza(), 7, 70));
+        regioes.adicionar(new RegiaoDefinida(1841, 1097,COR_LAMBDA, 7, 70));
 
 
         // REGIAO 8
         //  Rasterizador.RASTERIZAR_COM(render, 1733, 1066, mCores.getPreto(), mCores.getMarrom(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(1733, 1066, mCores.getMarrom(), 8, 80));
+        regioes.adicionar(new RegiaoDefinida(1733, 1066, COR_OMICRON, 8, 80));
 
         // REGIAO 9
         // Rasterizador.RASTERIZAR_COM(render, 1798, 1128, mCores.getPreto(), mCores.getCianeto(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(1798, 1128, mCores.getCianeto(), 9, 90));
+        regioes.adicionar(new RegiaoDefinida(1798, 1128, COR_ZETA, 9, 90));
 
         // REGIAO 10
         // Rasterizador.RASTERIZAR_COM(render, 900, 900, mCores.getPreto(), mCores.getVerde(), durante_mudanca, a_cada_100);
@@ -402,10 +413,10 @@ public class AtzumCreator {
         // Rasterizador.RASTERIZAR_COM(render, 1014, 1124, mCores.getPreto(), mCores.getVerde(), durante_mudanca, a_cada_100);
         //  Rasterizador.RASTERIZAR_COM(render, 1060, 1070, mCores.getPreto(), mCores.getVerde(), durante_mudanca, a_cada_100);
 
-        regioes.adicionar(new RegiaoDefinida(900, 900, mCores.getVerde(), 10, 100));
-        regioes.adicionar(new RegiaoDefinida(1003, 1198, mCores.getVerde(), 10, 101));
-        regioes.adicionar(new RegiaoDefinida(1014, 1124, mCores.getVerde(), 10, 102));
-        regioes.adicionar(new RegiaoDefinida(1060, 1070, mCores.getVerde(), 10, 103));
+        regioes.adicionar(new RegiaoDefinida(900, 900, COR_PI, 10, 100));
+        regioes.adicionar(new RegiaoDefinida(1003, 1198, COR_PI, 10, 101));
+        regioes.adicionar(new RegiaoDefinida(1014, 1124, COR_PI, 10, 102));
+        regioes.adicionar(new RegiaoDefinida(1060, 1070, COR_PI, 10, 103));
 
         return regioes;
     }

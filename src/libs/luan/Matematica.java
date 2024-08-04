@@ -98,4 +98,9 @@ public class Matematica {
 
         return valor;
     }
+
+
+    public static int ESCALA_NORMAL(double valor,double maximo){
+      return  (int)(((double) valor / (double) maximo) * 100.0);
+    }
 }

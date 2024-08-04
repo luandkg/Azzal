@@ -31,9 +31,9 @@ public class ServicoRegioes {
     public static void INIT() {
         AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
 
-        //  ORGANIZAR_REGIOES();
-        //   EXPANDIR_REGIOES_ATE_A_MARGEM();
-        //  EXTRAIR_REGIOES_CONTORNOS();
+          ORGANIZAR_REGIOES();
+           EXPANDIR_REGIOES_ATE_A_MARGEM();
+          EXTRAIR_REGIOES_CONTORNOS();
 
         //  ORGANIZAR_DADOS_REGIOES();
 

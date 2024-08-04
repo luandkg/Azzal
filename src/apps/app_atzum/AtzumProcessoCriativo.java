@@ -3,6 +3,7 @@ package apps.app_atzum;
 import apps.app_atzum.analisadores.AnalisadorClimatico;
 import apps.app_atzum.analisadores.ModeladorGeral;
 import apps.app_atzum.servicos.AtzumCentralDados;
+import apps.app_atzum.servicos.ServicoRegioes;
 import apps.app_atzum.servicos.ServicoTronarko;
 import apps.app_atzum.utils.AtzumCreatorInfo;
 import libs.dkg.DKG;
@@ -15,7 +16,7 @@ public class AtzumProcessoCriativo {
 
 
         AtzumCreatorInfo.exibir();
-       // apps.app_atzum.Apps.INIT(Apps.APP_ATZUM);
+        apps.app_atzum.Apps.INIT(Apps.APP_ATZUM);
 
         fmt.print("");
         fmt.print("------------------------------------------");
@@ -25,7 +26,7 @@ public class AtzumProcessoCriativo {
         // ------------------- WORLD - BUILDING -----------------------
 
         // ServicoInicial.INIT();
-        // ServicoRegioes.INIT();
+      //   ServicoRegioes.INIT();
         // ServicoRelevo.INIT();
         // ServicoUmidade.INIT();
         //  ServicoTemperatura.INIT();
@@ -39,9 +40,10 @@ public class AtzumProcessoCriativo {
 
         //  ServicoTronarko.CONSTRUIR_TRONARKO();
         //  ServicoMassasDeAr.PROCESSAR_TRONARKO();
-      //  ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO();
-      //  ServicoTronarko.MINIATURAS();
+        //   ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO();
+        // ServicoTronarko.MINIATURAS();
        //  ServicoTronarko.VIDEO_PLAYER();
+       // TAKE_SHOT();
 
         // ------------------- VISUALIZADORES -----------------------
 
@@ -49,21 +51,22 @@ public class AtzumProcessoCriativo {
         //   ServicoTronarko.EXIBIR_TRONARKO();
 
         // ServicoTronarko.OBSERVAR_SENSORES_v2();
+        //  ServicoTronarko.OBSERAR_VARIADORES();
         // TronarkoAnaliseDeSensores.init();
 
 
-        // AnalisadorClimatico.OBSERVAR_DETALHES();
+       //  AnalisadorClimatico.OBSERVAR_DETALHES();
 
         //AnalisadorClimatico.ANALISE_TEMPORAL();
-      //  ModeladorGeral.CLIMA_E_VEGETACAO();
-      //  AnalisadorClimatico.PUBLICAR_DADOS();
-     //   AtzumCentralDados.PROXIMIDADE_COM_OCENAO();
+        // ModeladorGeral.CLIMA_E_VEGETACAO();
+        //  AnalisadorClimatico.PUBLICAR_DADOS();
+        //  AtzumCentralDados.PROXIMIDADE_COM_OCENAO();
 
        // AtzumCentralDados.VER_AMOSTRAS();
-        //AtzumCentralDados.NOMEAR_CIDADES();
+        //  AtzumCentralDados.NOMEAR_CIDADES();
         //ServicoTronarko.VIDEO_PLAYER();
 
-        // TAKE_SHOT();
+
 
         //  for(Arquivo arquivo : new PastaFS("/home/luan/Imagens/atzum/parametros/massas_de_ar").getArquivos()){
         // ORGANIZAR_PARAMETROS_PONTOS(AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES.dkg"),AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES.dkg"));

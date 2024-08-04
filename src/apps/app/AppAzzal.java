@@ -2,6 +2,7 @@ package apps.app;
 
 import algoritmos.Teste;
 import apps.app_arquivos.AppVideo;
+import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_atzum.Apps;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumProcessoCriativo;
@@ -193,6 +194,7 @@ public class AppAzzal {
 
         AtzumProcessoCriativo.init();
 
+       // PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
 
         //AppStrava.init();
        // AppStrava.transferencia_gg("remoto_gg.entts","gg.entts");

@@ -343,4 +343,64 @@ public class Atzum {
     }
 
 
+    public static Lista<String> GET_REGIOES() {
+        Lista<String> modelos = new Lista<String>();
+
+        modelos.adicionar("A");
+        modelos.adicionar("B");
+        modelos.adicionar("C");
+        modelos.adicionar("D");
+
+        modelos.adicionar("E");
+        modelos.adicionar("F");
+        modelos.adicionar("G");
+        modelos.adicionar("H");
+        modelos.adicionar("K");
+        modelos.adicionar("M");
+
+
+        return modelos;
+    }
+
+
+    public static Cor GET_REGIAO_COR(String regiao) {
+        Cor ret = new Cor(0, 0, 0);
+
+        Cor COR_ALFA = Cor.getHexCor("#FFC107"); // AMARELO
+        Cor COR_BETA = Cor.getHexCor("#1E88E5"); // AZUL
+        Cor COR_GAMA = Cor.getHexCor("#E65100"); // LARANJA
+        Cor COR_DELTA = Cor.getHexCor("#D81B60"); // ROSA
+        Cor COR_EPSILON = Cor.getHexCor("#283593"); // AZUL ESCURO
+        Cor COR_OMEGA = Cor.getHexCor("#00796B"); // AZUL ESCURO
+        Cor COR_LAMBDA = Cor.getHexCor("#78909C"); // CINZA
+        Cor COR_OMICRON = Cor.getHexCor("#8D6E63"); // MARROM
+        Cor COR_ZETA = Cor.getHexCor("#D32F2F"); // VERMELHO
+        Cor COR_PI = Cor.getHexCor("#689F38"); // VERDE
+
+
+        if (Strings.isIgual(regiao, "A")) {
+            ret =COR_ALFA;
+        } else if (Strings.isIgual(regiao, "B")) {
+            ret = COR_BETA;
+        } else if (Strings.isIgual(regiao, "C")) {
+            ret =COR_GAMA;
+        } else if (Strings.isIgual(regiao, "D")) {
+            ret =COR_DELTA;
+        } else if (Strings.isIgual(regiao, "E")) {
+            ret = COR_EPSILON;
+        } else if (Strings.isIgual(regiao, "F")) {
+            ret = COR_OMEGA;
+        } else if (Strings.isIgual(regiao, "G")) {
+            ret = COR_LAMBDA;
+        } else if (Strings.isIgual(regiao, "H")) {
+            ret = COR_OMICRON;
+        } else if (Strings.isIgual(regiao, "K")) {
+            ret = COR_ZETA;
+        } else if (Strings.isIgual(regiao, "M")) {
+            ret = COR_PI;
+        }
+
+        return ret;
+    }
+
 }

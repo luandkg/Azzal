@@ -53,6 +53,10 @@ public class Unico<T> implements Iterable<T> {
     }
 
 
+    public void limpar(){
+        mLista.limpar();
+    }
+
 
     public int getQuantidade() {
         return mLista.getQuantidade();
