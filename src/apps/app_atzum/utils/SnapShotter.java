@@ -1,18 +1,16 @@
-package apps.app_atzum;
+package apps.app_atzum.utils;
 
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.video.Video;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
-import libs.azzal.utilitarios.Cor;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 import libs.luan.Lista;
 import libs.luan.Strings;
 import libs.luan.fmt;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SnapShotter {

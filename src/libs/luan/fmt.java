@@ -674,10 +674,20 @@ public class fmt {
             ret = t + " bytes";
         } else {
 
+            long valor_antes =t;
             long kb = t / TAXA_BINARIA;
 
             if (kb < TAXA_BINARIA) {
-                ret = kb + " Kb";
+
+                long bytes_em_kb = kb * TAXA_BINARIA;
+                long sobras = valor_antes - bytes_em_kb;
+
+                if(sobras>0){
+                    ret = kb + " Kb e " + sobras + " bytes";
+                }else{
+                    ret = kb + " Kb";
+                }
+
             } else {
 
                 long mb = kb / TAXA_BINARIA;

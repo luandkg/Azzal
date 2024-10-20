@@ -107,4 +107,14 @@ public class HSV {
         return 99 - NORMAL(valor);
     }
 
+    public static int NORMAL_ESCALADO(int valor,double maximo) {
+        int escalado = (int) ((double) valor / maximo);
+        return NORMAL(escalado);
+    }
+
+    public static int NORMAL_ESCALADO(int valor,int maximo) {
+        int escalado = (int) ((double) valor / (double)maximo);
+        return NORMAL(escalado);
+    }
+
 }

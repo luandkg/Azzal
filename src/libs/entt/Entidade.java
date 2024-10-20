@@ -242,4 +242,64 @@ public class Entidade {
         return valido;
     }
 
+
+    public boolean isDiferente(String att_nome,String att_valor){
+        return !at(att_nome).contentEquals(att_valor);
+    }
+
+
+    public void atConglomoreUnico(String att_nome,String att_valor){
+
+        boolean existe = false;
+
+        for(String massa : Strings.DIVIDIR_POR(this.at(att_nome),"|")){
+            massa=massa.replace("|","").replace(" ","").trim();
+            if(!massa.isEmpty()){
+                if(massa.contentEquals(att_valor)){
+                    existe=true;
+                    break;
+                }
+            }
+        }
+
+        if(!existe){
+            if(this.at(att_nome).isEmpty()){
+                this.at(att_nome, " " + att_valor);
+            }else{
+                this.at(att_nome,this.at(att_nome)+ " | " + att_valor);
+            }
+        }
+
+    }
+
+
+    public boolean atributo_existe(String nome) {
+        boolean existe = false;
+
+        for (Tag a : mTags) {
+            if (a.getNome().contentEquals(nome)) {
+                existe = true;
+                break;
+            }
+        }
+
+        return existe;
+    }
+
+    public boolean isValido(String nome){
+
+        boolean valido = false;
+
+        for (Tag a : mTags) {
+            if(a.is_nome(nome)){
+                if (!a.getNome().isEmpty()) {
+                    valido = true;
+                }
+                break;
+            }
+
+        }
+
+        return valido;
+    }
 }

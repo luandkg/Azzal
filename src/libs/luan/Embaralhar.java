@@ -41,7 +41,7 @@ public class Embaralhar {
         Lista<Indexado<T>> ret = new Lista<Indexado<T>>();
 
         for (int i = 0; i < vetor.getCapacidade(); i++) {
-            ret.adicionar(new Indexado<>(i, vetor.get(i)));
+            ret.adicionar(new Indexado<>(i, Indexamento.OBTER_POSICAO(vetor.getCapacidade(),i), vetor.get(i)));
         }
 
         return ret;

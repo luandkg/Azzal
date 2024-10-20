@@ -26,7 +26,7 @@ import java.awt.image.BufferedImage;
 
 public class AppAtzum extends Cena {
 
-    private BufferedImage mapa = null;
+    private BufferedImage mapa_pequeno = null;
     private BufferedImage mapa_grande = null;
 
     private int X0 = 700;
@@ -98,16 +98,14 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL_BRANCO = new FonteRunTime(mCores.getBranco(), 10);
 
 
-        mapa = AtzumCreator.GET_MAPA_DE_RELEVO();
         mapa_grande = AtzumCreator.GET_MAPA_DE_RELEVO();
+        mapa_pequeno = Efeitos.reduzirMetade(Imagem.getCopia(mapa_grande));
 
-        mapa = Efeitos.reduzirMetade(mapa);
-
-        X1 = X0 + mapa.getWidth();
-        Y1 = Y0 + mapa.getHeight();
+        X1 = X0 + mapa_pequeno.getWidth();
+        Y1 = Y0 + mapa_pequeno.getHeight();
 
         mAtzum = new Atzum();
-        mCidades = mAtzum.GET_CIDADES();
+        mCidades = Atzum.GET_CIDADES();
 
         mCidadeFatoresClimaticos = new Unico<String>(Strings.IGUALAVEL());
 
@@ -214,7 +212,7 @@ public class AppAtzum extends Cena {
                         int v2_regiao_corrente = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("regioes.qtt"), cidade.getX(), cidade.getY());
                         int v2_sub_regiao_corrente = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("subregioes.qtt"), cidade.getX(), cidade.getY());
 
-                        String cidade_regiao = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente);
+                        String cidade_regiao = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente) + " - " + mAtzum.GET_REGIAO_NOME(v2_regiao_corrente);
                         String cidade_altitude = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("relevo.qtt"), cidade.getX(), cidade.getY()) + "m";
 
 
@@ -290,7 +288,7 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL_VERMELHO.setRenderizador(g);
         ESCRITOR_NORMAL_BRANCO.setRenderizador(g);
 
-        g.drawImagem(X0, Y0, mapa);
+        g.drawImagem(X0, Y0, mapa_pequeno);
 
         mClicavel.onDraw(g);
 
@@ -300,21 +298,27 @@ public class AppAtzum extends Cena {
             ESCRITOR_NORMAL.escreveLinha(120, 50, 100, "X", " = " + mGPS_PX);
             ESCRITOR_NORMAL.escreveLinha(140, 50, 100, "Y", " = " + mGPS_PY);
 
-            ESCRITOR_NORMAL.escreveLinha(220, 50, 150, "Local", " = " + mTerraOuAgua);
 
+
+            ESCRITOR_NORMAL.escreveLinha(220, 50, 150, "Local", " = " + mTerraOuAgua);
+            g.drawRect_Pintado(30, 220+3, 10,10, mCores.getBranco());
 
             if (mTerraOuAgua.contentEquals("TERRA")) {
                 ESCRITOR_NORMAL.escreveLinha(240, 50, 150, "Altitude", " = " + mAlturaCorrente);
+                g.drawRect_Pintado(30, 240+3, 10,10, mCores.getBranco());
             } else if (mTerraOuAgua.contentEquals("ÁGUA")) {
                 ESCRITOR_NORMAL.escreveLinha(240, 50, 150, "Profundidade", " = " + mAlturaCorrente);
+                g.drawRect_Pintado(30, 240+3, 10,10, mCores.getBranco());
             }
 
             if (!mRegiaoCorrente.isEmpty()) {
                 ESCRITOR_NORMAL.escreveLinha(260, 50, 150, "Região", " = " + mRegiaoCorrente);
+                g.drawRect_Pintado(30, 260+3, 10,10, mCores.getBranco());
             }
 
             if (!mOceanoCorrente.isEmpty()) {
                 ESCRITOR_NORMAL.escreveLinha(260, 50, 150, "Oceano", " = " + mOceanoCorrente);
+                g.drawRect_Pintado(30, 260+3, 10,10, mCores.getBranco());
             }
 
         } else {
@@ -416,6 +420,7 @@ public class AppAtzum extends Cena {
 
             boolean umidade_existe_antes = false;
             Ponto umidade_antes = null;
+            int umidade_antes_valor=0;
 
 
             for (int s = 1; s <= 500; s++) {
@@ -489,43 +494,48 @@ public class AppAtzum extends Cena {
 
 
                 if (temperatura > 0) {
-                    int valor = (int) temperatura;
+                    int temperatura_modulo = (int) temperatura;
 
                     if (a_cada == 3) {
-                        g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - valor, 1, valor, temp_cor);
+                        g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - temperatura_modulo, 1, temperatura_modulo, temp_cor);
                     }
 
-                    int i_umidade = (int) umidade;
-                    //   g.drawRect_Pintado(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, 3, 3, mCores.getAzul());
-                    g.drawPixel(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, mCores.getAzul());
+                } else {
+                    int temperatura_modulo = ((int) temperatura) * (-1);
 
-                    if (umidade_existe_antes) {
+                    if (a_cada == 3) {
+                        g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo, 1, temperatura_modulo, temp_cor);
+                    }
+                }
+
+                int i_umidade = (int) umidade;
+                //   g.drawRect_Pintado(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, 3, 3, mCores.getAzul());
+
+                if(i_umidade<=30){
+                    g.drawPixel(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, mCores.getVermelho());
+                }else{
+                    g.drawPixel(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, mCores.getAzul());
+                }
+
+                if (umidade_existe_antes) {
+
+                    if(umidade_antes_valor<=30 && i_umidade<=30) {
+                        g.drawLinha(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, umidade_antes.getX(), umidade_antes.getY(), mCores.getVermelho());
+                    }else if(umidade_antes_valor>30 && i_umidade<=30){
+                        g.drawLinha(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, umidade_antes.getX(), umidade_antes.getY(), mCores.getLaranja());
+                    }else if(umidade_antes_valor<=30 && i_umidade>30){
+                        g.drawLinha(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, umidade_antes.getX(), umidade_antes.getY(), mCores.getLaranja());
+                    }else{
                         g.drawLinha(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2, umidade_antes.getX(), umidade_antes.getY(), mCores.getAzul());
                     }
 
-                    umidade_existe_antes = true;
-                    umidade_antes = new Ponto(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2);
-
-                } else {
-                    int valor = ((int) temperatura) * (-1);
-
-                    if (a_cada == 3) {
-                        g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo, 1, valor, temp_cor);
-                    }
-
-                    int i_umidade = (int) umidade;
-                    //g.drawRect_Pintado(temperatura_px, (temperatura_py_centro_abaixo - i_umidade) - 2, 3, 3, mCores.getAzul());
-                    g.drawPixel(temperatura_px, (temperatura_py_centro_abaixo - i_umidade) - 2, mCores.getAzul());
-
-                    if (umidade_existe_antes) {
-                        g.drawLinha(temperatura_px, (temperatura_py_centro_abaixo - i_umidade) - 2, umidade_antes.getX(), umidade_antes.getY(), mCores.getAzul());
-                    }
-
-                    umidade_existe_antes = true;
-                    umidade_antes = new Ponto(temperatura_px, (temperatura_py_centro_abaixo - i_umidade) - 2);
-
-
                 }
+
+                umidade_existe_antes = true;
+                umidade_antes_valor=i_umidade;
+                umidade_antes = new Ponto(temperatura_px, (temperatura_py_centro_acima - i_umidade) - 2);
+
+
 
 
                 if (temperatura >= 30) {
@@ -884,8 +894,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_DE_CONTORNO();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_DE_CONTORNO();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "Cidades";
 
             }
@@ -895,8 +905,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_DE_REGIOES();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_DE_REGIOES();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "Regiões";
 
             }
@@ -906,8 +916,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_DE_RELEVO();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_DE_RELEVO();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "Relevo";
 
             }
@@ -918,8 +928,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T1();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T1();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "T1";
 
             }
@@ -929,8 +939,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T2();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T2();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "T2";
 
             }
@@ -940,8 +950,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_DE_OCEANOS();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_DE_OCEANOS();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "Oceanos";
 
             }
@@ -951,8 +961,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_CLIMATICO();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_CLIMATICO();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "Modelo Climático";
 
             }
@@ -962,8 +972,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa = AtzumCreator.GET_MAPA_VEGETACAO();
-                mapa = Efeitos.reduzir(mapa, mapa.getWidth() / 2, mapa.getHeight() / 2);
+                mapa_pequeno = AtzumCreator.GET_MAPA_VEGETACAO();
+                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "Modelo Vegetação";
 
             }
@@ -975,6 +985,7 @@ public class AppAtzum extends Cena {
 
         PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
         if (po.abrirSeExistir()) {
+
             int px = (int) po.getDouble("Janela", "PX");
             int py = (int) po.getDouble("Janela", "PY");
 

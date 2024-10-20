@@ -3,15 +3,21 @@ package apps.app_atzum.servicos;
 import apps.app_arquivos.AppVideo;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.*;
+import apps.app_atzum.analisadores.AnalisadorTemperatura;
 import apps.app_atzum.apps.AtzumSnapShots;
-import apps.app_atzum.escalas.EscalaAQ4;
-import apps.app_atzum.escalas.EscalaRT3;
-import apps.app_atzum.escalas.EscalaVT2;
+import apps.app_atzum.renderizadores.TronarkoRenderizadores;
 import apps.app_atzum.utils.AtzumCreatorInfo;
-import apps.app_atzum.utils.FaixaDeTemperatura;
+import apps.app_atzum.utils.MassaDeAr;
 import apps.app_atzum.utils.Rasterizador;
+import apps.app_atzum.utils.SnapShotter;
 import libs.arquivos.QTT;
+import libs.arquivos.QTTDouble;
+import libs.arquivos.Quadrum;
 import libs.arquivos.binario.Inteiro;
+import libs.arquivos.ds.DS;
+import libs.arquivos.ds.DSItem;
+import libs.arquivos.indexados.CacheIndexado;
+import libs.arquivos.indexados.CentumIndexado;
 import libs.arquivos.video.Empilhador;
 import libs.arquivos.video.VideoCodecador;
 import libs.azzal.AzzalUnico;
@@ -22,6 +28,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.HSV;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.entt.Tag;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 import libs.luan.*;
@@ -277,7 +284,7 @@ public class ServicoTronarko {
     }
 
 
-    public static void CALCULAR_TRONARKO_TRANSICAO() {
+    public static void CALCULAR_TRONARKO_TRANSICAO(boolean usar_transicao) {
 
         AtzumCreatorInfo.iniciar("ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO");
 
@@ -293,61 +300,38 @@ public class ServicoTronarko {
 
         Extremos<Integer> ex_temperatura_validados = new Extremos<Integer>(Inteiro.GET_ORDENAVEL());
 
-        double[] tronarko_temperatura = new double[mapa_planeta.getAltura() * mapa_planeta.getLargura()];
-        double[] tronarko_temperatura_transicao = new double[mapa_planeta.getAltura() * mapa_planeta.getLargura()];
+        AreaDouble tronarko_temperatura = new AreaDouble(mapa_planeta.getLargura(), mapa_planeta.getAltura());
+        AreaDouble tronarko_temperatura_transicao = new AreaDouble(mapa_planeta.getLargura(), mapa_planeta.getAltura());
+        AreaDouble tronarko_umidade_variacao = new AreaDouble(mapa_planeta.getLargura(), mapa_planeta.getAltura());
 
-        double[] tronarko_umidade_variacao = new double[mapa_planeta.getAltura() * mapa_planeta.getLargura()];
+
+        boolean RENDERIZAR_AREAS_CLIMATICAS = false;
+
+
+        AnalisadorTemperatura mAnalisadorTemperatura = null;
+
+        if (RENDERIZAR_AREAS_CLIMATICAS) {
+            mAnalisadorTemperatura = new AnalisadorTemperatura();
+        }
+
 
         Atzum atzum = new Atzum();
+        AtzumTerra mPlaneta = new AtzumTerra();
 
-        // MASSAS DE AR
-        Cor AR_FRIO = atzum.getMassaDeArFria();
-        Cor AR_QUENTE = atzum.getMassaDeArQuente();
-
-
-        boolean[] tronarko_quente = new boolean[mapa_planeta.getAltura() * mapa_planeta.getLargura()];
-        boolean[] tronarko_frio = new boolean[mapa_planeta.getAltura() * mapa_planeta.getLargura()];
-        boolean[] tronarko_vazio = new boolean[mapa_planeta.getAltura() * mapa_planeta.getLargura()];
-
-        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                if (mapa_planeta.isTerra(x, y)) {
-
-                    tronarko_umidade_variacao[(y * mapa_planeta.getLargura()) + x] = 0;
-
-                    tronarko_quente[(y * mapa_planeta.getLargura()) + x] = true;
-                    tronarko_frio[(y * mapa_planeta.getLargura()) + x] = true;
-                    tronarko_vazio[(y * mapa_planeta.getLargura()) + x] = true;
-                } else {
-                    tronarko_quente[(y * mapa_planeta.getLargura()) + x] = false;
-                    tronarko_frio[(y * mapa_planeta.getLargura()) + x] = false;
-                    tronarko_vazio[(y * mapa_planeta.getLargura()) + x] = false;
+        for (int y = 0; y < mPlaneta.getAltura(); y++) {
+            for (int x = 0; x < mPlaneta.getLargura(); x++) {
+                if (mPlaneta.isTerra(x, y)) {
+                    tronarko_umidade_variacao.set(x, y, 0);
                 }
             }
         }
 
-
         fmt.print(">> Carregando massas de ar...");
-        Lista<MassaDeAr> mMassasDeAr = new Lista<MassaDeAr>();
 
-        mMassasDeAr.adicionar(new MassaDeAr("MIZ_A", "miz", "FRIO", 100, 1));
-        mMassasDeAr.adicionar(new MassaDeAr("MOP_A", "mop", "QUENTE", 300, 1));
-        mMassasDeAr.adicionar(new MassaDeAr("MUT_A", "mut", "FRIO", 100, 1));
-        mMassasDeAr.adicionar(new MassaDeAr("MOX_A", "mox", "FRIO", 100, 1));
+        Cor AR_FRIO = atzum.getMassaDeArFria();
+        Cor AR_QUENTE = atzum.getMassaDeArQuente();
 
-        mMassasDeAr.adicionar(new MassaDeAr("RAF_A", "raf", "QUENTE", 50, 1));
-        mMassasDeAr.adicionar(new MassaDeAr("REZ_A", "rez", "QUENTE", 50, 1));
-        mMassasDeAr.adicionar(new MassaDeAr("RUC_A", "ruc", "QUENTE", 50, 1));
-
-        mMassasDeAr.adicionar(new MassaDeAr("REC_B", "rez", "QUENTE", 300, -1));
-        //   mMassasDeAr.adicionar(new MassaDeAr("MUT_B", "mut", "FRIO", 400-300, -1));
-        mMassasDeAr.adicionar(new MassaDeAr("RAF_B", "raf", "FRIO", 500, 1));
-
-
-        mMassasDeAr.adicionar(new MassaDeAr("MUT_C", "mut", "FRIO", 250 + 300, -1));
-        mMassasDeAr.adicionar(new MassaDeAr("REZ_C", "rez", "QUENTE", 400, -1));
-        mMassasDeAr.adicionar(new MassaDeAr("RAF_C", "raf", "QUENTE", 400, -1));
-        mMassasDeAr.adicionar(new MassaDeAr("RUC_C", "ruc", "QUENTE", 450 + 130, 1));
+        Lista<MassaDeAr> mMassasDeAr = atzum.getMassasDeAr();
 
 
         fmt.print(">> Massas de Ar : Inicializando...");
@@ -356,17 +340,21 @@ public class ServicoTronarko {
         }
 
         fmt.print(">> Processando Temperatura...");
+
+        QTT temp_valor_t1 = QTT.getTudo(AtzumCreator.LOCAL_GET_ARQUIVO(arquivo_processando_temperatura_v1));
+        QTT temp_valor_t2 = QTT.getTudo(AtzumCreator.LOCAL_GET_ARQUIVO(arquivo_processando_temperatura_v2));
+
+
         for (int y = 0; y < mapa_planeta.getAltura(); y++) {
             for (int x = 0; x < mapa_planeta.getLargura(); x++) {
                 if (mapa_planeta.isTerra(x, y)) {
 
-                    int valor1 = QTT.pegar(AtzumCreator.LOCAL_GET_ARQUIVO(arquivo_processando_temperatura_v1), x, y);
-                    int valor2 = QTT.pegar(AtzumCreator.LOCAL_GET_ARQUIVO(arquivo_processando_temperatura_v2), x, y);
+                    int valor1 = temp_valor_t1.getValor(x, y);
+                    int valor2 = temp_valor_t2.getValor(x, y);
 
-                    tronarko_temperatura_transicao[(y * mapa_planeta.getLargura()) + x] = ((double) valor2 - (double) valor1) / 250.0;
+                    tronarko_temperatura_transicao.set(x, y, ((double) valor2 - (double) valor1) / 250.0);
 
-                    tronarko_temperatura[(y * mapa_planeta.getLargura()) + x] = valor1;
-
+                    tronarko_temperatura.set(x, y, valor1);
                     ex_temperatura_validados.set(valor1, valor2);
                 }
             }
@@ -381,20 +369,36 @@ public class ServicoTronarko {
         fmt.print(">> Organizando arquivos de saida !");
 
 
-        Atzum mAtzum = new Atzum();
-        Lista<Entidade> sensores = mAtzum.GET_SENSORES();
+        Lista<Entidade> sensores = Atzum.GET_SENSORES();
 
-        Lista<Entidade> sensores_dados = new Lista<Entidade>();
 
-        Empilhador video_temperatura = new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/temperatura.vi"), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2);
-        Empilhador video_temperatura_umidade = new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/tu.vi"), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2);
-        Empilhador video_temperatura_e_massas_de_ar = new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/tronarko_temperatura_e_massas_de_ar.vi"), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2);
-        Empilhador video_preciptacao_valor = new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/preciptacao_valor.vi"), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2);
-        Empilhador video_preciptacao_tronarko = new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/preciptacao_tronarko.vi"), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2);
+        boolean RENDERIZAR_VIDEOS = false;
 
-        Empilhador video_fatores_climaticos = new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/fatores_climaticos.vi"), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2);
+        Opcional<Empilhador> video_temperatura = new Opcional<Empilhador>();
+        Opcional<Empilhador> video_temperatura_umidade = new Opcional<Empilhador>();
+        Opcional<Empilhador> video_temperatura_e_massas_de_ar = new Opcional<Empilhador>();
+        Opcional<Empilhador> video_preciptacao_valor = new Opcional<Empilhador>();
+        Opcional<Empilhador> video_preciptacao_tronarko = new Opcional<Empilhador>();
 
-        Empilhador video_temperatura_zonas = new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/temperatura_zonas.vi"), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2);
+        Opcional<Empilhador> video_fatores_climaticos = new Opcional<Empilhador>();
+
+        Opcional<Empilhador> video_temperatura_zonas = new Opcional<Empilhador>();
+
+
+        if (RENDERIZAR_VIDEOS) {
+
+            int video_largura = mapa_planeta.getLargura() / 2;
+            int video_altura = mapa_planeta.getAltura() / 2;
+
+            video_temperatura = new Opcional<Empilhador>(new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/temperatura.vi"), video_largura, video_altura));
+            video_temperatura_umidade = new Opcional<Empilhador>(new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/tu.vi"), video_largura, video_altura));
+            video_temperatura_e_massas_de_ar = new Opcional<Empilhador>(new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/tronarko_temperatura_e_massas_de_ar.vi"), video_largura, video_altura));
+            video_preciptacao_valor = new Opcional<Empilhador>(new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/preciptacao_valor.vi"), video_largura, video_altura));
+            video_preciptacao_tronarko = new Opcional<Empilhador>(new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/preciptacao_tronarko.vi"), video_largura, video_altura));
+            video_fatores_climaticos = new Opcional<Empilhador>(new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/fatores_climaticos.vi"), video_largura, video_altura));
+            video_temperatura_zonas = new Opcional<Empilhador>(new VideoCodecador().criar(AtzumCreator.LOCAL_GET_ARQUIVO("videos/temperatura_zonas.vi"), video_largura, video_altura));
+
+        }
 
 
         Extremos<Double> d_indo = new Extremos<Double>(Matematica.DOUBLE_COMPARADOR());
@@ -405,11 +409,20 @@ public class ServicoTronarko {
 
         Renderizador render_tronarko_preciptacao = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
 
-        Renderizador render_mapa_pronto = new Renderizador(AtzumCreator.GET_MAPA());
-        Rasterizador.trocar_cores(render_mapa_pronto, mCores.getAmarelo(), mCores.getBranco());
+        Renderizador render_mapa_pronto = new Renderizador(AtzumCreator.GET_MAPA_PRETO_E_BRANCO());
 
-        QTT variacao_inferior = QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("variacao_inferior.qtt"));
-        QTT variacao_superior = QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("variacao_superior.qtt"));
+        Opcional<QTT> variacao_inferior = Opcional.CANCEL();
+        Opcional<QTT> variacao_superior = Opcional.CANCEL();
+
+        if (usar_transicao) {
+            variacao_inferior = Opcional.OK(QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("variacao_inferior.qtt")));
+            variacao_superior = Opcional.OK(QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("variacao_superior.qtt")));
+        }
+
+
+        String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
+
+        DS.limpar(arquivo_sensores_por_superarko);
 
 
         fmt.print(">> Processando Tronarko...");
@@ -428,11 +441,11 @@ public class ServicoTronarko {
                     if (mapa_planeta.isTerra(x, y)) {
 
                         if (temperatura_aumetando) {
-                            tronarko_temperatura[(y * mapa_planeta.getLargura()) + x] = tronarko_temperatura[(y * mapa_planeta.getLargura()) + x] + tronarko_temperatura_transicao[(y * mapa_planeta.getLargura()) + x];
-                            d_indo.set(tronarko_temperatura[(y * mapa_planeta.getLargura()) + x]);
+                            tronarko_temperatura.set(x, y, tronarko_temperatura.get(x, y) + tronarko_temperatura_transicao.get(x, y));
+                            d_indo.set(tronarko_temperatura.get(x, y));
                         } else {
-                            tronarko_temperatura[(y * mapa_planeta.getLargura()) + x] = tronarko_temperatura[(y * mapa_planeta.getLargura()) + x] - tronarko_temperatura_transicao[(y * mapa_planeta.getLargura()) + x];
-                            d_voltando.set(tronarko_temperatura[(y * mapa_planeta.getLargura()) + x]);
+                            tronarko_temperatura.set(x, y, tronarko_temperatura.get(x, y) - tronarko_temperatura_transicao.get(x, y));
+                            d_voltando.set(tronarko_temperatura.get(x, y));
                         }
 
 
@@ -443,13 +456,13 @@ public class ServicoTronarko {
 
             // RENDERIZAR PARTES
 
-            fmt.print("Superarko :: {}", superarko);
+            fmt.print("\t ++ Superarko :: {}", superarko);
 
             Renderizador render_massas_de_ar = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
             Renderizador render_massas_de_ar_pura = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
             Renderizador render_preciptacao_valor = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
 
-            Renderizador render_tp = renderizar_variacao_de_temperatura(mapa_planeta, tronarko_temperatura, temp_taxa);
+            Renderizador render_tp = TronarkoRenderizadores.renderizar_variacao_de_temperatura(mapa_planeta, tronarko_temperatura, temp_taxa);
 
             for (MassaDeAr massa : mMassasDeAr) {
 
@@ -466,28 +479,35 @@ public class ServicoTronarko {
             }
 
 
-            Renderizador PROCESSO_TU = renderizar_temperatura_umidade(mapa_planeta, render_mapa_pronto, tronarko_temperatura, umidade_dados);
+            Renderizador movimentacao_temperatura_umidade = TronarkoRenderizadores.renderizar_temperatura_umidade(mapa_planeta, render_mapa_pronto, tronarko_temperatura, umidade_dados);
 
-            ServicoMassasDeAr.TRANSPOR_MASSA_DE_AR(render_massas_de_ar, render_tp);
-            TRANSPOR_MASSA_DE_AR(mapa_planeta, render_massas_de_ar, PROCESSO_TU, render_preciptacao_valor, render_tronarko_preciptacao);
-            Renderizador render_fatores_climaticos = PROCESSAR_FATORES_CLIMATICOS(mapa_planeta, tronarko_temperatura, umidade_dados, render_massas_de_ar);
+            ServicoMassasDeAr.ACUMULAR_MASSA_DE_AR(render_massas_de_ar, render_tp);
+            ServicoMassasDeAr.TRANSPOR_MASSA_DE_AR(mapa_planeta, render_massas_de_ar, movimentacao_temperatura_umidade, render_preciptacao_valor, render_tronarko_preciptacao);
+            Renderizador render_fatores_climaticos = ServicoMassasDeAr.PROCESSAR_FATORES_CLIMATICOS(mapa_planeta, tronarko_temperatura, umidade_dados, render_massas_de_ar);
 
-            CALCULAR_UMIDADE(ANALISAR_VARIACAO, mapa_planeta, tronarko_umidade_variacao, render_fatores_climaticos, variacao_inferior, variacao_superior);
-
-
-            video_temperatura.empurrarQuadro(Efeitos.reduzir(renderizar_variacao_de_temperatura(mapa_planeta, tronarko_temperatura, temp_taxa).toImagemSemAlfa(), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2));
-            video_temperatura_zonas.empurrarQuadro(Efeitos.reduzir(renderizar_variacao_de_temperatura_zona(mapa_planeta, tronarko_temperatura, temp_taxa).toImagemSemAlfa(), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2));
+            ServicoMassasDeAr.CALCULAR_UMIDADE(ANALISAR_VARIACAO, mapa_planeta, tronarko_umidade_variacao, render_fatores_climaticos, variacao_inferior, variacao_superior);
 
 
-            video_temperatura_umidade.empurrarQuadro(Efeitos.reduzir(PROCESSO_TU.toImagemSemAlfa(), mapa_planeta.getLargura() / 2, mapa_planeta.getAltura() / 2));
+            if (RENDERIZAR_VIDEOS) {
 
-            video_temperatura_e_massas_de_ar.empurrarQuadro(Efeitos.reduzirMetade(render_tp.toImagemSemAlfa()));
-            video_preciptacao_valor.empurrarQuadro(Efeitos.reduzirMetade(render_preciptacao_valor.toImagemSemAlfa()));
+                video_temperatura.get().empurrarQuadro(Efeitos.reduzirMetade(TronarkoRenderizadores.renderizar_variacao_de_temperatura(mapa_planeta, tronarko_temperatura, temp_taxa).toImagemSemAlfa()));
+                video_temperatura_zonas.get().empurrarQuadro(Efeitos.reduzirMetade(TronarkoRenderizadores.renderizar_variacao_de_temperatura_zona(mapa_planeta, tronarko_temperatura, temp_taxa).toImagemSemAlfa()));
 
-            video_preciptacao_tronarko.empurrarQuadro(Efeitos.reduzirMetade(render_tronarko_preciptacao.toImagemSemAlfa()));
-            video_fatores_climaticos.empurrarQuadro(Efeitos.reduzirMetade(render_fatores_climaticos.toImagemSemAlfa()));
+                video_temperatura_umidade.get().empurrarQuadro(Efeitos.reduzirMetade(movimentacao_temperatura_umidade.toImagemSemAlfa()));
+
+                video_temperatura_e_massas_de_ar.get().empurrarQuadro(Efeitos.reduzirMetade(render_tp.toImagemSemAlfa()));
+                video_preciptacao_valor.get().empurrarQuadro(Efeitos.reduzirMetade(render_preciptacao_valor.toImagemSemAlfa()));
+
+                video_preciptacao_tronarko.get().empurrarQuadro(Efeitos.reduzirMetade(render_tronarko_preciptacao.toImagemSemAlfa()));
+                video_fatores_climaticos.get().empurrarQuadro(Efeitos.reduzirMetade(render_fatores_climaticos.toImagemSemAlfa()));
+
+            }
+
+
+            Lista<Entidade> sensores_dados = new Lista<Entidade>();
 
             for (Entidade sensor : sensores) {
+
 
                 int sensor_px = 0;
                 int sensor_py = 0;
@@ -508,11 +528,13 @@ public class ServicoTronarko {
                 }
 
 
+                Entidade sensor_param = ENTT.CRIAR_EM(sensores_dados, "Sensor", padrao_sensor_px + "::" + padrao_sensor_py);
+
                 String fator_climatico_corrente = atzum.getFatorClimatico(render_fatores_climaticos.getPixel(sensor_px, sensor_py));
-                double temperatura_corrente = tronarko_temperatura[(sensor_py * mapa_planeta.getLargura()) + sensor_px];
+                double temperatura_corrente = tronarko_temperatura.get(sensor_px, sensor_py);
                 double umidade_corrente = umidade_dados.getValor(sensor_px, sensor_py);
 
-                double umidade_variacao = tronarko_umidade_variacao[(sensor_py * mapa_planeta.getLargura()) + sensor_px];
+                double umidade_variacao = tronarko_umidade_variacao.get(sensor_px, sensor_py);
 
                 umidade_corrente += umidade_variacao;
 
@@ -545,7 +567,7 @@ public class ServicoTronarko {
 
                 umidade_corrente = Matematica.NORMALIZAR(umidade_corrente, 0, 100);
 
-                Entidade sensor_param = ENTT.GET_SEMPRE(sensores_dados, "Sensor", padrao_sensor_px + "::" + padrao_sensor_py);
+                sensor_param.at("SensorID", sensor.atInt("SensorID"));
                 sensor_param.at("X", padrao_sensor_px);
                 sensor_param.at("Y", padrao_sensor_py);
                 sensor_param.at("T" + superarko, fmt.f2(temperatura_corrente));
@@ -558,96 +580,44 @@ public class ServicoTronarko {
             }
 
 
-            for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-                for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                    if (mapa_planeta.isTerra(x, y)) {
+            DS.adicionar(arquivo_sensores_por_superarko, superarko + ".entts", ENTT.TO_DOCUMENTO(sensores_dados));
 
-                        if (tronarko_quente[(y * mapa_planeta.getLargura()) + x]) {
-                            String fator_climatico = atzum.getFatorClimatico(render_fatores_climaticos.getPixel(x, y));
 
-                            if (fator_climatico.contentEquals("") || fator_climatico.contentEquals("SECA") || fator_climatico.contentEquals("SECA_EXTREMA") || fator_climatico.contentEquals("TEMPESTADE_VENTO")) {
-
-                            } else {
-                                tronarko_quente[(y * mapa_planeta.getLargura()) + x] = false;
-                            }
-                        }
-
-                        if (tronarko_frio[(y * mapa_planeta.getLargura()) + x]) {
-                            String fator_climatico = atzum.getFatorClimatico(render_fatores_climaticos.getPixel(x, y));
-
-                            if (fator_climatico.contentEquals("") || fator_climatico.contentEquals("CHUVA") || fator_climatico.contentEquals("NEVE") || fator_climatico.contentEquals("TEMPESTADE_CHUVA") || fator_climatico.contentEquals("TEMPESTADE_NEVE")) {
-
-                            } else {
-                                tronarko_frio[(y * mapa_planeta.getLargura()) + x] = false;
-                            }
-                        }
-
-                        if (tronarko_vazio[(y * mapa_planeta.getLargura()) + x]) {
-                            String fator_climatico = atzum.getFatorClimatico(render_fatores_climaticos.getPixel(x, y));
-
-                            if (!fator_climatico.isEmpty()) {
-                                tronarko_vazio[(y * mapa_planeta.getLargura()) + x] = false;
-                            }
-                        }
-
-                    }
-                }
+            if (RENDERIZAR_AREAS_CLIMATICAS) {
+                mAnalisadorTemperatura.processarSuperarko(render_fatores_climaticos);
             }
+
 
         }
 
 
-        video_temperatura.fechar();
-        video_temperatura_zonas.fechar();
-        video_temperatura_umidade.fechar();
-        video_temperatura_e_massas_de_ar.fechar();
-        video_preciptacao_valor.fechar();
-        video_preciptacao_tronarko.fechar();
-        video_fatores_climaticos.fechar();
+        if (RENDERIZAR_VIDEOS) {
+            video_temperatura.get().fechar();
+            video_temperatura_zonas.get().fechar();
+            video_temperatura_umidade.get().fechar();
+            video_temperatura_e_massas_de_ar.get().fechar();
+            video_preciptacao_valor.get().fechar();
+            video_preciptacao_tronarko.get().fechar();
+            video_fatores_climaticos.get().fechar();
+        }
+
 
         Imagem.exportar(render_tronarko_preciptacao.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_preciptacao_temporal.png"));
 
         fmt.print("\t + {esq5}      -- {esq5}", fmt.f2(d_indo.getMenor()), fmt.f2(d_indo.getMaior()));
         fmt.print("\t + {esq5}      -- {esq5}", fmt.f2(d_voltando.getMenor()), fmt.f2(d_voltando.getMaior()));
 
-
-        Renderizador render_tronarko_quente = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
-        Renderizador render_tronarko_frio = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
-        Renderizador render_tronarko_vazio = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
-        Renderizador render_tronarko_completo = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
-
-        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                if (mapa_planeta.isTerra(x, y)) {
-
-                    if (tronarko_quente[(y * mapa_planeta.getLargura()) + x]) {
-                        render_tronarko_quente.setPixel(x, y, mCores.getVermelho());
-                        render_tronarko_completo.setPixel(x, y, mCores.getVermelho());
-                    }
-
-                    if (tronarko_frio[(y * mapa_planeta.getLargura()) + x]) {
-                        render_tronarko_frio.setPixel(x, y, mCores.getAzul());
-                        render_tronarko_completo.setPixel(x, y, mCores.getAzul());
-                    }
-
-                    if (tronarko_vazio[(y * mapa_planeta.getLargura()) + x]) {
-                        render_tronarko_vazio.setPixel(x, y, mCores.getVerde());
-                        render_tronarko_completo.setPixel(x, y, mCores.getVerde());
-                    }
-
-                }
-            }
+        if (RENDERIZAR_AREAS_CLIMATICAS) {
+            mAnalisadorTemperatura.renderizar();
         }
-
-        Imagem.exportar(render_tronarko_quente.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_ambiente_quente.png"));
-        Imagem.exportar(render_tronarko_frio.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_ambiente_frio.png"));
-        Imagem.exportar(render_tronarko_vazio.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_ambiente_vazio.png"));
-        Imagem.exportar(render_tronarko_completo.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_ambiente_completo.png"));
 
 
         fmt.print(">> GUARDAR DADOS DOS SENSORES");
 
-        ENTT.GUARDAR(sensores_dados, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts"));
+
+        QTTDouble.guardar(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_temperatura_transicao.qttd"), tronarko_temperatura_transicao.getLargura(), tronarko_temperatura_transicao.getAltura(), tronarko_temperatura_transicao.getTudo());
+
+        SENSORES_DADOS_ORGANIZAR();
 
         AtzumCreatorInfo.terminar("ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO");
 
@@ -656,333 +626,36 @@ public class ServicoTronarko {
     }
 
 
-    public static Renderizador renderizar_variacao_de_temperatura(AtzumTerra mapa_planeta, double[] processando, double temp_taxa) {
+    public static void SENSORES_DADOS_ORGANIZAR() {
 
-        Cores mCores = new Cores();
-        Renderizador render_distancia = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
+        String arquivo_sensores_captando = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_captando.ds");
 
+        Lista<Entidade> sensores_dados = ENTT.CRIAR_LISTA();
 
-        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                if (mapa_planeta.isTerra(x, y)) {
+        fmt.print(">> Organizando sensores...");
 
-                    int temperatura = (int) processando[(y * mapa_planeta.getLargura()) + x];
+        for (DSItem sensor : DS.ler_todos(arquivo_sensores_captando)) {
 
-                    render_distancia.setPixel(x, y, new HSV(350, HSV.MAXIMO, HSV.INVERSO((int) (temperatura * temp_taxa))));
+            fmt.print("\t + Organizando Superarko : {}", Strings.GET_ATE(sensor.getNome(), "."));
 
-                }
-            }
-        }
+            for (Entidade sensor_corrente : ENTT.PARSER(sensor.getTexto())) {
 
-        return render_distancia;
-    }
+                Entidade sensor_organizado = ENTT.GET_SEMPRE(sensores_dados, "Sensor", sensor_corrente.at("Sensor"));
 
-
-    public static Renderizador renderizar_variacao_de_temperatura_zona(AtzumTerra mapa_planeta, double[] processando, double temp_taxa) {
-
-        Cores mCores = new Cores();
-        Renderizador render_temperatura = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
-
-        Cor COR_MUITO_QUENTE = Cor.getHexCor("#BF360C");
-        Cor COR_QUENTE = Cor.getHexCor("#FB8C00");
-        Cor COR_FRIO = Cor.getHexCor("#1976D2");
-        Cor COR_MUITO_FRIO = Cor.getHexCor("#0D47A1");
-        Cor COR_NORMAL = Cor.getHexCor("#8BC34A");
-
-        Lista<FaixaDeTemperatura> FAIXAS_DE_TEMPERATURA = new Lista<FaixaDeTemperatura>();
-
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(36, 45, COR_MUITO_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(30, 35, COR_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(10, 30, COR_NORMAL));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-15, 10, COR_FRIO));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-30, -15, COR_MUITO_FRIO));
-
-
-        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                if (mapa_planeta.isTerra(x, y)) {
-
-                    int temperatura = (int) processando[(y * mapa_planeta.getLargura()) + x];
-
-
-                    Cor cor_temp = mCores.getBranco();
-
-                    for (FaixaDeTemperatura temp_zona : FAIXAS_DE_TEMPERATURA) {
-                        if (temperatura >= temp_zona.getMinimo() && temperatura <= temp_zona.getMaximo()) {
-                            cor_temp = temp_zona.getCor();
-                            break;
-                        }
-                    }
-
-                    if (temperatura > FAIXAS_DE_TEMPERATURA.get(0).getMaximo()) {
-                        cor_temp = FAIXAS_DE_TEMPERATURA.get(0).getCor();
-                    }
-
-                    if (temperatura < FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade() - 1).getMinimo()) {
-                        cor_temp = FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade() - 1).getCor();
-                    }
-
-                    render_temperatura.setPixel(x, y, cor_temp);
-
-                }
-            }
-        }
-
-        return render_temperatura;
-    }
-
-
-    public static Renderizador renderizar_temperatura_umidade(AtzumTerra mapa_planeta, Renderizador render_mapa_pronto, double[] tronarko_temperatura, QTT umidade_dados) {
-
-
-        int TEMPERATURA_NORMAL_SUPERIOR = 25;
-        int TEMPERATURA_NORMAL_INFERIOR = 20;
-
-
-        Renderizador render_preciptacao = render_mapa_pronto.getCopia();
-
-
-        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                if (mapa_planeta.isTerra(x, y)) {
-
-                    int temperatura = (int) tronarko_temperatura[(y * mapa_planeta.getLargura()) + x];
-                    int umidade = umidade_dados.getValor(x, y);
-
-
-                    // CHUVA FRIA
-                    if (umidade >= 25 && (temperatura <= TEMPERATURA_NORMAL_INFERIOR)) {
-                        render_preciptacao.setPixel(x, y, EscalaAQ4.T5);
-                    }
-                    if (umidade >= 50 && temperatura <= TEMPERATURA_NORMAL_INFERIOR) {
-                        render_preciptacao.setPixel(x, y, EscalaAQ4.T10);
-                    }
-                    if (umidade >= 75 && temperatura <= TEMPERATURA_NORMAL_INFERIOR) {
-                        render_preciptacao.setPixel(x, y, EscalaAQ4.T12);
-                    }
-
-                    // CHUVA NORMAL
-                    if (umidade >= 25 && (temperatura > TEMPERATURA_NORMAL_INFERIOR) && (temperatura < TEMPERATURA_NORMAL_SUPERIOR)) {
-                        render_preciptacao.setPixel(x, y, EscalaVT2.T5);
-                    }
-                    if (umidade >= 50 && temperatura > TEMPERATURA_NORMAL_INFERIOR && (temperatura < TEMPERATURA_NORMAL_SUPERIOR)) {
-                        render_preciptacao.setPixel(x, y, EscalaVT2.T10);
-                    }
-                    if (umidade >= 75 && temperatura > TEMPERATURA_NORMAL_INFERIOR && (temperatura < TEMPERATURA_NORMAL_SUPERIOR)) {
-                        render_preciptacao.setPixel(x, y, EscalaVT2.T12);
-                    }
-
-                    // CHUVA QUENTE
-                    if (umidade >= 25 && (temperatura >= TEMPERATURA_NORMAL_SUPERIOR)) {
-                        render_preciptacao.setPixel(x, y, EscalaRT3.T5);
-                    }
-                    if (umidade >= 50 && temperatura >= TEMPERATURA_NORMAL_SUPERIOR) {
-                        render_preciptacao.setPixel(x, y, EscalaRT3.T10);
-                    }
-                    if (umidade >= 75 && temperatura >= TEMPERATURA_NORMAL_SUPERIOR) {
-                        render_preciptacao.setPixel(x, y, EscalaRT3.T12);
-                    }
-
-
-                }
-            }
-        }
-
-        return render_preciptacao;
-    }
-
-
-    public static void TRANSPOR_MASSA_DE_AR(AtzumTerra planeta, Renderizador render_massas_de_ar, Renderizador PROCESSO_TU, Renderizador render_preciptacao_valor, Renderizador render_chuva_tronarko) {
-
-        Cores mCores = new Cores();
-
-
-        for (int y = 0; y < render_massas_de_ar.getAltura(); y++) {
-            for (int x = 0; x < render_massas_de_ar.getLargura(); x++) {
-
-                if (render_massas_de_ar.getPixel(x, y).isDiferente(mCores.getPreto())) {
-                    render_preciptacao_valor.setPixel(x, y, PROCESSO_TU.getPixel(x, y));
-
-                    if (planeta.isTerra(x, y)) {
-                        render_chuva_tronarko.setPixel(x, y, mCores.getAzul());
-                    }
+                for (Tag tag : sensor_corrente.tags()) {
+                    sensor_organizado.at(tag.getNome(), tag.getValor());
                 }
 
             }
+
+
         }
 
+        fmt.print(">> Guardando dados dos sensores organizados !");
 
-    }
+        ENTT.GUARDAR(sensores_dados, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts"));
 
-    public static Renderizador PROCESSAR_FATORES_CLIMATICOS(AtzumTerra planeta, double[] tronarko_temperatura, QTT umidade_dados, Renderizador render_massas_de_ar) {
-
-        Cores mCores = new Cores();
-
-        Atzum atzum = new Atzum();
-
-
-        Renderizador render_chuva = Renderizador.construir(planeta.getLargura(), planeta.getAltura(), mCores.getPreto());
-
-        int UMIDADE_MINIMA = 25;
-
-        int TEMPERATURA_BAIXA = 5;
-        int TEMPERATURA_ALTA = 36;
-
-        int TEMPERATURA_ALTA_DE_VENTANIA = 35;
-
-        for (int y = 0; y < planeta.getAltura(); y++) {
-            for (int x = 0; x < planeta.getLargura(); x++) {
-
-                if (planeta.isTerra(x, y)) {
-
-                    int temperatura = (int) tronarko_temperatura[(y * planeta.getLargura()) + x];
-                    int umidade = umidade_dados.getValor(x, y);
-
-
-                    if (render_massas_de_ar.getPixel(x, y).isDiferente(mCores.getPreto())) {
-
-                        String massa_de_ar = atzum.getMassaDeArTipo(render_massas_de_ar.getPixel(x, y));
-
-
-                        if (umidade >= UMIDADE_MINIMA) {
-
-                            if (massa_de_ar.contains("FRIO") && temperatura <= TEMPERATURA_BAIXA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_NEVE);
-                            } else if (massa_de_ar.contains("FRIO") && temperatura > TEMPERATURA_BAIXA && temperatura < TEMPERATURA_ALTA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_CHUVA);
-                            } else if (massa_de_ar.contains("FRIO") && temperatura >= TEMPERATURA_ALTA_DE_VENTANIA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_VENTANIA);
-                            } else if (massa_de_ar.contains("QUENTE") && temperatura > TEMPERATURA_BAIXA && temperatura < TEMPERATURA_ALTA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_CHUVA);
-                            } else if (massa_de_ar.contains("QUENTE") && temperatura >= TEMPERATURA_ALTA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_ONDA_DE_CALOR);
-                            } else if (massa_de_ar.contains("TEMPESTADE") && temperatura > TEMPERATURA_BAIXA && temperatura < TEMPERATURA_ALTA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_TEMPESTADE_CHUVA);
-                            } else if (massa_de_ar.contains("TEMPESTADE") && temperatura <= TEMPERATURA_BAIXA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_TEMPESTADE_NEVE);
-                            }
-
-
-                            if (massa_de_ar.contains("SUPERFRIO") && temperatura > TEMPERATURA_BAIXA && temperatura < TEMPERATURA_ALTA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_NEVE);
-                            } else if (massa_de_ar.contains("SUPERQUENTE") && temperatura > TEMPERATURA_BAIXA && temperatura < TEMPERATURA_ALTA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_TEMPESTADE_CHUVA);
-                            }
-
-                        } else {
-
-                            if (massa_de_ar.contains("FRIO") && temperatura <= TEMPERATURA_BAIXA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_SECA_EXTREMA);
-                            } else if (massa_de_ar.contains("QUENTE") && temperatura >= TEMPERATURA_ALTA) {
-                                render_chuva.setPixel(x, y, Atzum.COR_SECA_EXTREMA);
-                            } else if ((massa_de_ar.contains("FRIO") || massa_de_ar.contains("QUENTE")) && (temperatura > TEMPERATURA_BAIXA && temperatura < TEMPERATURA_ALTA)) {
-                                render_chuva.setPixel(x, y, Atzum.COR_SECA);
-                            } else if (massa_de_ar.contains("TEMPESTADE")) {
-                                render_chuva.setPixel(x, y, Atzum.COR_TEMPESTADE_VENTO);
-                            }
-
-                        }
-                    }
-
-
-                }
-
-
-            }
-        }
-
-        return render_chuva;
-    }
-
-    public static void CALCULAR_UMIDADE(boolean ANALISAR_VARIACAO, AtzumTerra planeta, double[] tronarko_umidade, Renderizador render_massas_de_ar, QTT dados_inferior, QTT dados_superior) {
-
-        Atzum atzum = new Atzum();
-
-
-        for (int y = 0; y < planeta.getAltura(); y++) {
-            for (int x = 0; x < planeta.getLargura(); x++) {
-
-                if (planeta.isTerra(x, y)) {
-
-                    double umidade = tronarko_umidade[(y * planeta.getLargura()) + x];
-
-                    if (ANALISAR_VARIACAO) {
-
-                        String fator_climatico = atzum.getFatorClimatico(render_massas_de_ar.getPixel(x, y));
-
-
-                        if (Strings.isIgual(fator_climatico, "CHUVA")) {
-                            umidade += 1;
-                        } else if (Strings.isIgual(fator_climatico, "NEVE")) {
-                            umidade += 2;
-                        } else if (Strings.isIgual(fator_climatico, "TEMPESTADE_CHUVA")) {
-                            umidade += 3;
-                        } else if (Strings.isIgual(fator_climatico, "TEMPESTADE")) {
-                            umidade += 4;
-
-                        } else if (Strings.isIgual(fator_climatico, "SECA")) {
-                            umidade -= 1;
-                        } else if (Strings.isIgual(fator_climatico, "SECA_EXTREMA")) {
-                            umidade -= 2;
-                        } else if (Strings.isIgual(fator_climatico, "ONDA_DE_CALOR")) {
-                            umidade -= 3;
-
-                        } else {
-
-                            if (umidade > 0) {
-                                umidade -= 0.5;
-                            } else if (umidade < 0) {
-                                umidade += 0.5;
-                            }
-
-                        }
-
-
-                        int inferior = dados_inferior.getValor(x, y);
-                        int superior = dados_superior.getValor(x, y);
-
-                        int max_umidade = 10;
-                        int min_umidade = 10;
-
-                        if (superior >= 50) {
-                            max_umidade = 40;
-                        }
-
-                        if (superior >= 80) {
-                            max_umidade = 50;
-                        }
-
-                        if (inferior >= 50) {
-                            min_umidade = 40;
-                        }
-
-                        if (inferior >= 80) {
-                            min_umidade = 50;
-                        }
-
-                        min_umidade = min_umidade * (-1);
-
-
-                        // APLICAR
-
-                        if (umidade >= max_umidade) {
-                            umidade = max_umidade;
-                        }
-
-                        if (umidade < min_umidade) {
-                            umidade = min_umidade;
-                        }
-
-                    }
-
-
-                    tronarko_umidade[(y * planeta.getLargura()) + x] = umidade;
-
-                }
-
-
-            }
-        }
+        fmt.print(">> Sensores organizados !");
 
     }
 
@@ -1153,6 +826,55 @@ public class ServicoTronarko {
 
     }
 
+
+
+    public static void EXIBIR_TRONARKO_DADOS(){
+
+
+        String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
+
+        for(DSItem item_superarko : DS.ler_alguns(arquivo_sensores_por_superarko,0,5)){
+
+            Lista<Entidade> dados = ENTT.PARSER(item_superarko.getTexto());
+
+            //ENTT.ORDENAR_INTEIRO(dados,"SensorID");
+
+           // ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(ENTT.GET_SEMPRE(dados,"SensorID","5250")));
+           // ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(ENTT.GET_ULTIMO(dados)));
+
+            // Comum             |1148      |1343      |          |          |5250
+            // Cidade            |1148      |1343      |1141      |1336      |5662
+
+            int sid = 0;
+
+            for(Entidade e : dados){
+
+                if(e.atInt("SensorID") == sid){
+                }else{
+                    e.at("Status","PROBLEMA");
+                }
+                e.at("Esperado",sid);
+
+                sid+=1;
+            }
+
+
+             ENTT.EXIBIR_TABELA(dados);
+          //  ENTT.EXIBIR_TABELA(ENTT.COLETAR(dados,"Status","PROBLEMA"));
+
+            fmt.print(">> {}",ENTT.CONTAGEM(dados));
+            fmt.print(">> {}",ENTT.CONTAGEM_UNICOS(dados,"SensorID"));
+
+         //   break;
+        }
+
+
+        ENTT.EXIBIR_TABELA(Atzum.GET_SENSORES());
+
+    }
+
+
+
     public static String TEMPERATURA_CLASSIFICAR(double temperatura) {
         if (temperatura <= 15) {
             return "FRIO";
@@ -1163,183 +885,6 @@ public class ServicoTronarko {
         }
     }
 
-
-    public static void MAPEAR_SENSORES() {
-        AtzumCreatorInfo.iniciar("ServicoTronarko.MAPEAR_SENSORES");
-
-        Cores mCores = new Cores();
-
-        Renderizador render_tronarko_sensores = new Renderizador(AtzumCreator.GET_MAPA());
-        Rasterizador.trocar_cores(render_tronarko_sensores, mCores.getAmarelo(), mCores.getBranco());
-
-        AtzumTerra planeta = new AtzumTerra();
-        Lista<Entidade> sensores = new Lista<Entidade>();
-
-
-        int sensor_tamanho = 15;
-        int sensor_y = 0;
-
-        while (sensor_y < planeta.getAltura()) {
-            int sensor_x = 0;
-
-            while (sensor_x < planeta.getLargura()) {
-
-                int sensor_posicao_x = sensor_x - (sensor_tamanho / 2);
-                int sensor_posicao_y = sensor_y - (sensor_tamanho / 2);
-
-
-                if (planeta.isTerra(sensor_posicao_x, sensor_posicao_y)) {
-
-                    render_tronarko_sensores.drawCirculoCentralizado_Pintado(sensor_posicao_x, sensor_posicao_y, 5, mCores.getVermelho());
-
-                    Entidade e_sensor = new Entidade();
-                    e_sensor.at("Tipo", "Comum");
-                    e_sensor.at("X", sensor_posicao_x);
-                    e_sensor.at("Y", sensor_posicao_y);
-
-                    sensores.adicionar(e_sensor);
-
-                } else if (planeta.isOceano(sensor_posicao_x, sensor_posicao_y)) {
-
-                    if (planeta.isTerra(sensor_posicao_x + (sensor_tamanho / 2), sensor_posicao_y - (sensor_tamanho / 2))) {
-
-                        render_tronarko_sensores.drawCirculoCentralizado_Pintado(sensor_posicao_x, sensor_posicao_y, 5, mCores.getAzul());
-
-                        Entidade e_sensor = new Entidade();
-                        e_sensor.at("Tipo", "Referenciado");
-                        e_sensor.at("X", sensor_posicao_x);
-                        e_sensor.at("Y", sensor_posicao_y);
-
-                        e_sensor.at("RefX", sensor_posicao_x + (sensor_tamanho / 2));
-                        e_sensor.at("RefY", sensor_posicao_y - (sensor_tamanho / 2));
-
-                        sensores.adicionar(e_sensor);
-
-                    } else if (planeta.isTerra(sensor_posicao_x + (sensor_tamanho / 2), sensor_posicao_y + (sensor_tamanho / 2))) {
-
-                        render_tronarko_sensores.drawCirculoCentralizado_Pintado(sensor_posicao_x, sensor_posicao_y, 5, mCores.getAzul());
-
-                        Entidade e_sensor = new Entidade();
-                        e_sensor.at("Tipo", "Referenciado");
-                        e_sensor.at("X", sensor_posicao_x);
-                        e_sensor.at("Y", sensor_posicao_y);
-
-                        e_sensor.at("RefX", sensor_posicao_x + (sensor_tamanho / 2));
-                        e_sensor.at("RefY", sensor_posicao_y + (sensor_tamanho / 2));
-
-                        sensores.adicionar(e_sensor);
-                    } else if (planeta.isTerra(sensor_posicao_x - (sensor_tamanho / 2), sensor_posicao_y - (sensor_tamanho / 2))) {
-
-                        render_tronarko_sensores.drawCirculoCentralizado_Pintado(sensor_posicao_x, sensor_posicao_y, 5, mCores.getAzul());
-
-                        Entidade e_sensor = new Entidade();
-                        e_sensor.at("Tipo", "Referenciado");
-                        e_sensor.at("X", sensor_posicao_x);
-                        e_sensor.at("Y", sensor_posicao_y);
-
-                        e_sensor.at("RefX", sensor_posicao_x - (sensor_tamanho / 2));
-                        e_sensor.at("RefY", sensor_posicao_y - (sensor_tamanho / 2));
-
-                        sensores.adicionar(e_sensor);
-                    } else if (planeta.isTerra(sensor_posicao_x - (sensor_tamanho / 2), sensor_posicao_y + (sensor_tamanho / 2))) {
-
-                        render_tronarko_sensores.drawCirculoCentralizado_Pintado(sensor_posicao_x, sensor_posicao_y, 5, mCores.getAzul());
-
-                        Entidade e_sensor = new Entidade();
-                        e_sensor.at("Tipo", "Referenciado");
-                        e_sensor.at("X", sensor_posicao_x);
-                        e_sensor.at("Y", sensor_posicao_y);
-
-                        e_sensor.at("RefX", sensor_posicao_x - (sensor_tamanho / 2));
-                        e_sensor.at("RefY", sensor_posicao_y + (sensor_tamanho / 2));
-
-                        sensores.adicionar(e_sensor);
-                    }
-
-
-                }
-
-                sensor_x += sensor_tamanho;
-            }
-
-            sensor_y += sensor_tamanho;
-        }
-
-        Atzum mAtzum = new Atzum();
-        for (Ponto sensor : mAtzum.GET_CIDADES()) {
-
-
-            render_tronarko_sensores.drawCirculoCentralizado_Pintado(sensor.getX(), sensor.getY(), 5, mCores.getAmarelo());
-
-            Entidade e_sensor = new Entidade();
-            e_sensor.at("Tipo", "Cidade");
-            e_sensor.at("X", sensor.getX());
-            e_sensor.at("Y", sensor.getY());
-
-            e_sensor.at("RefX", sensor.getX() - (sensor_tamanho / 2));
-            e_sensor.at("RefY", sensor.getY() - (sensor_tamanho / 2));
-
-            sensores.adicionar(e_sensor);
-
-        }
-
-
-        fmt.print("Sensores : {}", sensores.getQuantidade());
-
-        Imagem.exportar(render_tronarko_sensores.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.png"));
-
-
-        ENTT.GUARDAR(sensores, AtzumCreator.LOCAL_GET_ARQUIVO("parametros/SENSORES.entts"));
-
-
-        AtzumCreatorInfo.terminar("ServicoTronarko.MAPEAR_SENSORES");
-        AtzumCreatorInfo.exibir_item("ServicoTronarko.MAPEAR_SENSORES");
-
-    }
-
-    public static void ORGANIZAR_SENSORES() {
-
-        AtzumCreatorInfo.iniciar("ServicoTronarko.ORGANIZAR_SENSORES");
-
-        AtzumTerra planeta = new AtzumTerra();
-
-        Lista<Entidade> dados_brutos = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts"));
-
-        Vetor<Ponto> sensores = new Vetor<Ponto>(dados_brutos.getQuantidade());
-
-        int sensor_id = 0;
-        for (Entidade sensor : dados_brutos) {
-
-            int px = sensor.atInt("X");
-            int py = sensor.atInt("Y");
-
-            sensores.set(sensor_id, new Ponto(px, py));
-            sensor_id += 1;
-        }
-
-
-        Lista<Ponto> sensores_lista = sensores.toLista();
-
-        fmt.print(">> Calculando proximidade dos sensores !");
-
-        QTT.alocar(AtzumCreator.LOCAL_GET_ARQUIVO("dados/sensor_proximidade.qtt"), planeta.getLargura(), planeta.getAltura());
-        QTT.alterar_todos(AtzumCreator.LOCAL_GET_ARQUIVO("dados/sensor_proximidade.qtt"), planeta.getLargura(), planeta.getAltura(), -1);
-
-        for (int y = 0; y < planeta.getAltura(); y++) {
-            for (int x = 0; x < planeta.getLargura(); x++) {
-                if (planeta.isTerra(x, y)) {
-                    Opcional<Integer> proximo = Espaco2D.GET_MAIS_PROXIMO_ORDEM(new Ponto(x, y), sensores_lista);
-                    if (proximo.isOK()) {
-                        QTT.alterar(AtzumCreator.LOCAL_GET_ARQUIVO("dados/sensor_proximidade.qtt"), x, y, proximo.get());
-                    }
-                }
-            }
-        }
-
-
-        AtzumCreatorInfo.terminar("ServicoTronarko.ORGANIZAR_SENSORES");
-        AtzumCreatorInfo.exibir_item("ServicoTronarko.ORGANIZAR_SENSORES");
-    }
 
     public static void OBSERVAR_SENSORES() {
 
@@ -1440,6 +985,7 @@ public class ServicoTronarko {
 
         fmt.print(">> Obtendo dados dos sensores...");
 
+        //Lista<Entidade> dados_brutos = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("parametros/SENSORES.entts"));
         Lista<Entidade> dados_brutos = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts"));
 
 
@@ -1480,7 +1026,7 @@ public class ServicoTronarko {
 
         for (int superarko = 1; superarko <= 500; superarko++) {
 
-            fmt.print("Superarko : {}", superarko);
+            fmt.print("\t ++ Superarko : {}", superarko);
 
             Renderizador render_tronarko_sensores = new Renderizador(render_tronarko_sensores_original.toImagemSemAlfa());
             Renderizador render_tronarko_sensores_chuva = new Renderizador(render_tronarko_sensores_original.toImagemSemAlfa());
@@ -1584,16 +1130,21 @@ public class ServicoTronarko {
 
         fmt.print(">> Obtendo dados dos sensores...");
 
-        Lista<Entidade> dados_brutos = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts"));
+        String arquivo_dados_brutos = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts");
+        // Lista<Entidade> dados_brutos = ENTT.ABRIR(arquivo_dados_brutos);
 
 
-        ENTT.EXIBIR_TABELA(ENTT.GET_AMOSTRA_PEQUENA(dados_brutos));
+        // ENTT.EXIBIR_TABELA(ENTT.GET_AMOSTRA_PEQUENA(dados_brutos));
 
 
         Lista<Entidade> dados_resumo = ENTT.CRIAR_LISTA();
 
 
-        for (Entidade sensor : dados_brutos) {
+        for (DSItem item_sensor : DS.ler_todos(arquivo_dados_brutos)) {
+
+            Entidade sensor = ENTT.PARSER_ENTIDADE(item_sensor.getTexto());
+
+            fmt.print("\t >> Processando Sensor :: {}", sensor.at("Sensor"));
 
             Entidade resumo = ENTT.GET_SEMPRE(dados_resumo, "Sensor", sensor.at("Sensor"));
 
@@ -1689,4 +1240,362 @@ public class ServicoTronarko {
         render_tronarko_sensores_superior.exportarSemAlfa(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_limites_superior.png"));
 
     }
+
+
+    public static void DADOS_TRONARKO_ORGANIZADOS_VER() {
+
+        String arquivo_sensores_organizados_indexados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.ci");
+
+        CacheIndexado sensores_organizando = new CacheIndexado(CacheIndexado.CENTUM, arquivo_sensores_organizados_indexados);
+
+        sensores_organizando.abrir();
+
+        int quantidade = sensores_organizando.getQuantidade();
+
+        fmt.print("Itens : {}", quantidade);
+
+        for (int i = 0; i < 30; i++) {
+
+            long pos = sensores_organizando.getPosicao(i);
+            long tam = sensores_organizando.getTamanho(i);
+
+            String conteudo = sensores_organizando.get(i);
+
+            fmt.print("| Item | {esq6} | {esq13} || {esq13}  | >> {}", i, pos, fmt.formatar_tamanho(tam), conteudo);
+        }
+
+
+        fmt.print("Menor Bloco >> {}", fmt.formatar_tamanho_precisao_dupla(sensores_organizando.getTamanhoMenorBloco()));
+        fmt.print("Maior Bloco >> {}", fmt.formatar_tamanho_precisao_dupla(sensores_organizando.getTamanhoMaiorBloco()));
+
+
+        String arquivo_sensores_organizados_por_sensor = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.ds");
+        DS.limpar(arquivo_sensores_organizados_por_sensor);
+
+        int sensor_id = 0;
+        int sensores = sensores_organizando.getQuantidade();
+
+        while (sensor_id < sensores) {
+            fmt.print("\t >> Organizando sensor : {} de {}", sensor_id, sensores);
+            DS.adicionar(arquivo_sensores_organizados_por_sensor, String.valueOf(sensor_id), sensores_organizando.get(sensor_id));
+            sensor_id += 1;
+        }
+
+
+        sensores_organizando.fechar();
+
+    }
+
+
+    public static void SENSORES_ORGANIZAR_POR_SENSORES() {
+
+
+        String arquivo_sensores_organizados_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
+        String arquivo_sensores_organizados_indexados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.ci");
+
+
+        Lista<Entidade> sensores = Atzum.GET_SENSORES();
+
+
+        int sensores_quantidade = sensores.getQuantidade() + 1;
+
+        int sensores_faltam = sensores_quantidade - CentumIndexado.getQuantidade(arquivo_sensores_organizados_indexados);
+
+        CacheIndexado sensores_organizando = new CacheIndexado(CacheIndexado.CENTUM, arquivo_sensores_organizados_indexados);
+
+        sensores_organizando.abrir();
+
+        while (sensores_organizando.getQuantidade() < sensores_quantidade) {
+            fmt.print("\t Sensores Item :: Alocando :: Faltam {}", sensores_faltam);
+            sensores_organizando.criar_slot();
+            sensores_faltam -= 1;
+        }
+
+
+        fmt.print("\t Sensores Zerando....");
+
+        int slot_id = 0;
+        while (slot_id < sensores_quantidade) {
+            fmt.print("\t Sensores Item :: Zerando :: Faltam {}", (sensores_quantidade - slot_id));
+            sensores_organizando.set(slot_id, "");
+            slot_id += 1;
+        }
+
+
+        int info_q1 = sensores_quantidade / 4;
+        int info_q2 = (info_q1 * 2) - 5;
+        int info_q3 = (info_q1 * 3) - 5;
+        int info_q4 = (info_q1 * 4) - 5;
+
+
+        for (DSItem superarko_dados : DS.ler_todos(arquivo_sensores_organizados_por_superarko)) {
+
+            String superarko = Strings.GET_ATE(superarko_dados.getNome(), ".");
+
+            fmt.print(">> Superarko : {}", superarko);
+
+            Lista<Entidade> sensores_dados = ENTT.PARSER(superarko_dados.getTexto());
+
+            for (Entidade sensor_item : sensores_dados) {
+
+                int sensor_id = sensor_item.atInt("SensorID");
+
+                Entidade sensor_final = ENTT.PARSER_ENTIDADE(sensores_organizando.get(sensor_id));
+
+
+                sensor_final.at("T" + superarko, sensor_item.at("T" + superarko));
+                sensor_final.at("U" + superarko, sensor_item.at("U" + superarko));
+                sensor_final.at("M" + superarko, sensor_item.at("M" + superarko));
+                sensor_final.at("FC" + superarko, sensor_item.at("FC" + superarko));
+                sensor_final.at("IC" + superarko, sensor_item.at("IC" + superarko));
+                sensor_final.at("UV" + superarko, sensor_item.at("UV" + superarko));
+
+
+                sensores_organizando.set(sensor_id, ENTT.TO_DOCUMENTO(sensor_final));
+
+                if (sensor_id == info_q1 || sensor_id == info_q2 || sensor_id == info_q3 || sensor_id == info_q4) {
+                    //    fmt.print("\t -->> Sensor {} do Superarko {}", sensor_id, superarko);
+                    fmt.print("\t ++ Sensor {} do Superarko {}", sensor_id, superarko);
+                }
+
+            }
+
+        }
+
+
+        sensores_organizando.fechar();
+
+
+    }
+
+    public static void SENSORES_ORGANIZAR_POR_SENSORES_COM_QUADRUM() {
+
+
+        String arquivo_sensores_organizados_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
+        String arquivo_sensores_organizados_indexados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.qa");
+
+
+        Lista<Entidade> sensores = Atzum.GET_SENSORES();
+
+
+        int sensores_quantidade = sensores.getQuantidade() + 1;
+
+        fmt.print("\t Sensores Alocando....");
+
+
+        if (!FS.arquivo_existe(arquivo_sensores_organizados_indexados)) {
+            Quadrum.init(arquivo_sensores_organizados_indexados, sensores_quantidade, 505);
+        }
+
+        fmt.print("\t Sensores Iniciando....");
+
+        Quadrum sensores_organizando = new Quadrum(arquivo_sensores_organizados_indexados);
+
+        sensores_organizando.abrir();
+
+        int sensores_faltam = sensores_quantidade - (int) sensores_organizando.getQuantidadeDeItens();
+
+
+        while (sensores_organizando.getQuantidadeDeItens() < sensores_quantidade) {
+            fmt.print("\t Sensores Item :: Alocando :: Faltam {}", sensores_faltam);
+            sensores_organizando.novo_item();
+            sensores_faltam -= 1;
+        }
+
+
+        fmt.print("\t Sensores Zerando....");
+
+        int slot_id = 0;
+        while (slot_id < sensores_quantidade) {
+            fmt.print("\t Sensores Item :: Zerando :: Faltam {}", (sensores_quantidade - slot_id));
+              sensores_organizando.limpar(slot_id);
+            slot_id += 1;
+        }
+
+
+        int info_q1 = sensores_quantidade / 4;
+        int info_q2 = (info_q1 * 2) - 5;
+        int info_q3 = (info_q1 * 3) - 5;
+        int info_q4 = (info_q1 * 4) - 5;
+
+
+        for (DSItem superarko_dados : DS.ler_todos(arquivo_sensores_organizados_por_superarko)) {
+
+            String superarko = Strings.GET_ATE(superarko_dados.getNome(), ".");
+
+            fmt.print(">> Superarko : {}", superarko);
+
+            Lista<Entidade> sensores_dados = ENTT.PARSER(superarko_dados.getTexto());
+
+            for (Entidade sensor_item : sensores_dados) {
+
+                int sensor_id = sensor_item.atInt("SensorID");
+
+                if (sensor_id == 0) {
+                  //  fmt.print("{}", Strings.LINEARIZAR(sensor_item.toTexto()));
+                }
+
+                // Entidade sensor_final = ENTT.PARSER_ENTIDADE(sensores_organizando.get(sensor_id));
+
+                sensores_organizando.set(sensor_id, Integer.parseInt(superarko), ENTT.TO_DOCUMENTO(sensor_item));
+
+                if (sensor_id == info_q1 || sensor_id == info_q2 || sensor_id == info_q3 || sensor_id == info_q4) {
+                    //    fmt.print("\t -->> Sensor {} do Superarko {}", sensor_id, superarko);
+                    fmt.print("\t ++ Sensor {} do Superarko {}", sensor_id, superarko);
+                }
+
+            }
+
+        }
+
+
+        sensores_organizando.fechar();
+
+
+    }
+
+    public static void VER_SENSORES_COM_QUADRUM() {
+
+
+        String arquivo_sensores_organizados_indexados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.qa");
+
+        Lista<Entidade> sensores = Atzum.GET_SENSORES();
+
+        int sensores_quantidade = sensores.getQuantidade();
+
+        Quadrum sensores_organizando = new Quadrum(arquivo_sensores_organizados_indexados);
+
+        sensores_organizando.abrir();
+
+        for (int i = 1; i <= 5; i++) {
+            fmt.print("{} ->> {}", Strings.LINEARIZAR(sensores_organizando.get(0, i)), fmt.formatar_tamanho_precisao_dupla(sensores_organizando.getTamanho(0, i)));
+        }
+
+        for (int i = 495; i <= 500; i++) {
+            fmt.print("{} ->> {}", Strings.LINEARIZAR(sensores_organizando.get(sensores_quantidade - 1, i)), fmt.formatar_tamanho_precisao_dupla(sensores_organizando.getTamanho(sensores_quantidade - 1, i)));
+        }
+
+
+        fmt.print("Item menor : {}", fmt.formatar_tamanho_precisao_dupla(sensores_organizando.getTamanhoMenor()));
+        fmt.print("Item maior : {}", fmt.formatar_tamanho_precisao_dupla(sensores_organizando.getTamanhoMaior()));
+
+        int maior = sensores_organizando.getTamanhoMaior();
+
+        sensores_organizando.exibirItensComTamanho(maior);
+
+
+        sensores_organizando.fechar();
+
+        String arquivo_sensores_organizados_indexados_compactado = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.dz");
+
+        //  Zipper.ZIPAR_ARQUIVO(arquivo_sensores_organizados_indexados,arquivo_sensores_organizados_indexados_compactado);
+
+        // Zipper.UNZIPAR_ARQUIVO(arquivo_sensores_organizados_indexados_compactado,arquivo_sensores_organizados_indexados);
+    }
+
+
+    public static void SENSORES_ORGANIZAR_POR_SENSORES_A_PARTIR_DE_QUADRUM() {
+
+
+        String arquivo_sensores_por_sensor_quadrum = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.qa");
+        String arquivo_sensores_por_sensor = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.ds");
+
+
+        DS.limpar(arquivo_sensores_por_sensor);
+
+        Lista<Entidade> sensores = Atzum.GET_SENSORES();
+
+        int sensores_quantidade = sensores.getQuantidade();
+
+        Quadrum sensores_organizando = new Quadrum(arquivo_sensores_por_sensor_quadrum);
+
+        sensores_organizando.abrir();
+
+        for (Entidade e_sensor : sensores) {
+
+            Entidade sensor_dados = new Entidade();
+            sensor_dados.at("SensorID", e_sensor.atInt("SensorID"));
+            sensor_dados.at("Sensor", e_sensor.at("Sensor"));
+            sensor_dados.at("X", e_sensor.at("X"));
+            sensor_dados.at("Y", e_sensor.at("Y"));
+
+            for (int superarko = 1; superarko <= 500; superarko++) {
+
+                Entidade item = ENTT.PARSER_ENTIDADE(sensores_organizando.get(e_sensor.atInt("SensorID"), superarko));
+
+                sensor_dados.at("T" + superarko, item.at("T" + superarko));
+                sensor_dados.at("U" + superarko, item.at("U" + superarko));
+                sensor_dados.at("M" + superarko, item.at("M" + superarko));
+                sensor_dados.at("FC" + superarko, item.at("FC" + superarko));
+                sensor_dados.at("IC" + superarko, item.at("IC" + superarko));
+                sensor_dados.at("UV" + superarko, item.at("UV" + superarko));
+
+
+            }
+
+            DS.adicionar(arquivo_sensores_por_sensor, e_sensor.at("SensorID"), ENTT.TO_DOCUMENTO(sensor_dados));
+
+            fmt.print("\t >> Sensor {esq6} de {esq6}", e_sensor.at("SensorID"), sensores_quantidade);
+        }
+
+
+        sensores_organizando.fechar();
+
+
+    }
+
+
+    public static void SENSORES_POR_SENSOR_VISUALIZAR() {
+
+        String arquivo_sensores_por_sensor = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.ds");
+
+
+        //  Lista<Entidade> sensores = new Lista<Entidade>();
+        Lista<Entidade> analise_sensores = new Lista<Entidade>();
+
+        int i = 0;
+        for (DSItem item : DS.ler_todos(arquivo_sensores_por_sensor)) {
+
+            fmt.print("\t >> Sensor : {}",item.getNome());
+
+            //  Entidade e_sensor = ENTT.ADICIONAR_EM(sensores,ENTT.PARSER_ENTIDADE(item.getTexto()));
+            Entidade e_sensor = ENTT.PARSER_ENTIDADE(item.getTexto());
+
+            Entidade a_sensor = ENTT.CRIAR_EM(analise_sensores, "SensorID", e_sensor.at("SensorID"));
+            a_sensor.at("Sensor", e_sensor.at("Sensor"));
+            a_sensor.at("X", e_sensor.at("X"));
+            a_sensor.at("Y", e_sensor.at("Y"));
+
+            int t = 0;
+            int u = 0;
+
+            for (int s = 1; s <= 500; s++) {
+                if (e_sensor.isValido("T" + s)) {
+                    t += 1;
+                }
+                if (e_sensor.isValido("U" + s)) {
+                    u += 1;
+                }
+            }
+
+            a_sensor.at("Temperatura", t);
+            a_sensor.at("Umidade", u);
+
+
+          //  if (i > 10) {
+            //    break;
+          //  }
+            i += 1;
+        }
+
+       // ENTT.EXIBIR_TABELA_COM_NOME(ENTT.GET_AMOSTRA_PEQUENA(sensores), "Dados Sensores - Por Sensor");
+        ENTT.EXIBIR_TABELA_COM_NOME(ENTT.GET_AMOSTRA_PEQUENA(analise_sensores), "Analise - Dados Sensores - Por Sensor");
+
+
+        fmt.print("Sensores com temperatura valida : {}", ENTT.CONTAGEM(analise_sensores, "Temperatura", 500));
+        fmt.print("Sensores com umidade valida     : {}", ENTT.CONTAGEM(analise_sensores, "Umidade", 500));
+
+
+    }
+
 }

@@ -3,6 +3,7 @@ package libs.entt;
 import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSItem;
 import libs.dkg.DKG;
+import libs.dkg.DKGAtributo;
 import libs.dkg.DKGObjeto;
 import libs.luan.*;
 import libs.oo.ODS;
@@ -119,6 +120,26 @@ public class ENTT {
         return ret;
     }
 
+    public static Entidade GET_SEMPRE_TENTATIVA(Lista<Entidade> mEntts, String eNome, int eValor) {
+        Entidade ret = null;
+        boolean enc = false;
+
+        for (Entidade e : mEntts) {
+            if (e.atIntOuPadrao(eNome,0) == (eValor)) {
+                ret = e;
+                enc = true;
+                break;
+            }
+        }
+
+        if (!enc) {
+            ret = new Entidade();
+            ret.at(eNome, eValor);
+            mEntts.adicionar(ret);
+        }
+        return ret;
+    }
+
     public static Opcional<Entidade> GET_OPCIONAL(Lista<Entidade> mEntts, String eNome, String eValor) {
 
         for (Entidade e : mEntts) {
@@ -142,6 +163,26 @@ public class ENTT {
         }
 
         return maior;
+    }
+
+    public static int GET_INTEIRO_MENOR(Lista<Entidade> mEntts, String eNome) {
+        int menor = 0;
+
+        boolean is_primeiro = true;
+
+        for (Entidade e : mEntts) {
+            if(is_primeiro){
+                menor=e.atInt(eNome);
+                is_primeiro=false;
+            }else{
+                if (e.atIntOuPadrao(eNome, 0) < menor) {
+                    menor = e.atInt(eNome);
+                }
+            }
+
+        }
+
+        return menor;
     }
 
     public static Lista<Entidade> GET_ATRIBUTOS(Lista<Entidade> entidades) {
@@ -672,6 +713,25 @@ public class ENTT {
         return contagem;
     }
 
+    public static int CONTAGEM(Lista<Entidade> entts, String campo_nome, int campo_valor) {
+        int contagem = 0;
+
+        for (Entidade e : entts) {
+            if (e.atInt(campo_nome)==campo_valor) {
+                contagem += 1;
+            }
+        }
+
+
+        return contagem;
+    }
+
+
+    public static int CONTAGEM_UNICOS(Lista<Entidade> entts, String campo_nome ) {
+        return FILTRAR_UNICOS(entts,campo_nome).getQuantidade();
+    }
+
+
         public static Lista<Entidade> COLETAR_DIFERENTE_DE(Lista<Entidade> entts, String campo_nome, String campo_valor) {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
@@ -928,6 +988,36 @@ public class ENTT {
         return ENTTBinario.TO_DOCUMENTO(e);
     }
 
+    public static String TO_DOCUMENTO(Lista<Entidade> lista) {
+
+        DKGObjeto raiz = new DKGObjeto("ENTT");
+
+        int pos = 0;
+
+        for (Entidade e : lista) {
+            DKGObjeto objeto = new DKGObjeto("Item");
+            for (Tag att : e.tags()) {
+                objeto.identifique(att.getNome(), att.getValor());
+            }
+            interno(e, objeto);
+            raiz.adicionarObjeto(objeto);
+            pos += 1;
+        }
+
+        return raiz.toDocumento();
+    }
+
+    public static void interno(Entidade entidadePai, DKGObjeto objetoPai) {
+
+        for (Entidade e : entidadePai.getEntidades()) {
+            DKGObjeto objeto = objetoPai.criarObjeto("Item");
+            for (Tag att : e.tags()) {
+                objeto.identifique(att.getNome(), att.getValor());
+            }
+            interno(e, objeto);
+        }
+
+    }
 
     public static Lista<Entidade> GET_AMOSTRA_PEQUENA(Lista<Entidade> entts) {
         Lista<Entidade> amostra = new Lista<Entidade>();
@@ -1089,6 +1179,13 @@ public class ENTT {
         }
     }
 
+
+    public static Entidade CRIAR_EM_SEQUENCIALMENTE(Lista<Entidade> entts,String sequencia_nome) {
+        Entidade novo = new Entidade();
+        novo.at(sequencia_nome,ENTT.CONTAGEM(entts));
+        entts.adicionar(novo);
+        return novo;
+    }
     public static Entidade CRIAR_EM(Lista<Entidade> entts) {
         Entidade novo = new Entidade();
         entts.adicionar(novo);
@@ -1181,5 +1278,304 @@ public class ENTT {
         return entts;
 
     }
+
+    public static void EXIBIR_TABELA_COM_NOME(Lista<Entidade> entidades_lista, String tabela_nome) {
+
+
+        String cabecalho = "";
+
+        Lista<Entidade> cabs = new Lista<Entidade>();
+        for (Entidade turma : entidades_lista) {
+            for (Tag att : turma.tags()) {
+
+                Entidade ent = null;
+                String nome = att.getNome();
+                int tam = nome.length();
+
+
+                if (ENTT.EXISTE(cabs, "Nome", nome)) {
+                    ent = ENTT.GET_SEMPRE(cabs, "Nome", nome);
+                } else {
+                    ent = new Entidade();
+                    ent.at("Nome", nome);
+                    ent.at("Tamanho", tam);
+                    cabs.adicionar(ent);
+                }
+
+                int tt = ent.atInt("Tamanho");
+                if (tam > tt) {
+                    ent.at("Tamanho", tam);
+                }
+            }
+        }
+
+        for (Entidade turma : entidades_lista) {
+            for (Entidade cab : cabs) {
+                int valor = turma.at(cab.at("Nome")).length();
+                if (valor > cab.atInt("Tamanho")) {
+                    cab.at("Tamanho", valor);
+                }
+            }
+        }
+
+
+        int linha_tracos = 0;
+
+        for (Entidade turma : cabs) {
+            cabecalho += "| " + fmt.espacar_depois(turma.at("Nome"), turma.atInt("Tamanho") + 5);
+            linha_tracos += turma.atInt("Tamanho") + 5 + 2;
+        }
+
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+
+        int titulo_tracos_metade = (linha_tracos - 4 - tabela_nome.length()) / 2;
+
+        fmt.print("| " + fmt.repetir(" ", titulo_tracos_metade) + tabela_nome + fmt.repetir(" ", titulo_tracos_metade) + " |");
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+        fmt.print(cabecalho + "|");
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+
+        for (Entidade turma : entidades_lista) {
+            String linha = "";
+            for (Entidade cab : cabs) {
+                linha += "| " + fmt.espacar_depois(turma.at(cab.at("Nome")), cab.atInt("Tamanho") + 5);
+            }
+            fmt.print("{}", linha + "|");
+        }
+
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+
+    }
+
+    public static Lista<Entidade> SLICE(Lista<Entidade> entts, int inicio, int fim) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+        int i = 0;
+        for (Entidade e : entts) {
+            if (i >= inicio && i <= fim) {
+                ret.adicionar(e);
+            }
+            if (i > fim) {
+                break;
+            }
+            i += 1;
+        }
+        return ret;
+    }
+
+    public static Lista<Entidade> PARSER(String texto_dados) {
+
+        DKG dkg = new DKG();
+        dkg.parser(texto_dados);
+
+        Lista<Entidade> varias = new Lista<Entidade>();
+
+        for (DKGObjeto o : dkg.getObjetos()) {
+
+            Entidade e1 = new Entidade();
+
+            for (DKGAtributo oa : o.getAtributos()) {
+                e1.at(oa.getNome(), oa.getValor());
+            }
+
+            parser_interno(e1,o);
+
+            varias.adicionar(e1);
+
+        }
+
+        return varias.get(0).getEntidades();
+
+    }
+
+    private static void parser_interno(Entidade e_pai,DKGObjeto o_pai){
+
+        for (DKGObjeto o : o_pai.getObjetos()) {
+
+            Entidade e1 = new Entidade();
+
+            for (DKGAtributo oa : o.getAtributos()) {
+                e1.at(oa.getNome(), oa.getValor());
+            }
+
+            parser_interno(e1,o);
+
+            e_pai.getEntidades().adicionar(e1);
+        }
+
+    }
+
+
+    public static void ATRIBUTO_ALTERAR(Lista<Entidade> entts,String att_nome,String att_valor){
+        for(Entidade e : entts){
+            e.at(att_nome,att_valor);
+        }
+    }
+
+    public static boolean TEM(Lista<Entidade> entts){
+       return entts.getQuantidade()>0;
+    }
+
+
+    public static Lista<Entidade> VALORES(String att_nome,Lista<String> valores){
+        Lista<Entidade> entts = CRIAR_LISTA();
+
+        for(String item : valores){
+            Entidade e = new Entidade();
+            e.at(att_nome,item);
+            entts.adicionar(e);
+        }
+
+        return entts;
+    }
+
+    public static Lista<Entidade> VALORES_SEQUENCIADOS(String att_sequencia,String att_nome,Lista<String> valores){
+        Lista<Entidade> entts = CRIAR_LISTA();
+
+        for(String item : valores){
+            Entidade e = new Entidade();
+            e.at(att_sequencia,entts.getQuantidade());
+            e.at(att_nome,item);
+            entts.adicionar(e);
+        }
+
+        return entts;
+    }
+
+
+    public static Lista<Entidade> CRIAR_LISTA_COM(Entidade e){
+        Lista<Entidade> ls = new Lista<Entidade>();
+        ls.adicionar(e);
+        return ls;
+    }
+
+
+    public static Lista<Entidade> CRIAR_LISTA_VALORES_DE(Lista<Entidade> entradas,Lista<String> campos){
+        Lista<Entidade> ls = new Lista<Entidade>();
+
+        for(Entidade entrada : entradas){
+            Entidade novo = CRIAR_EM(ls);
+
+            for(String campo : campos){
+                novo.at(campo,entrada.at(campo));
+            }
+
+
+        }
+        return ls;
+    }
+
+    public static void ATRIBUTO_TODOS(Lista<Entidade> entradas,String att_nome,String att_valor){
+
+        for(Entidade entidade : entradas){
+            entidade.at(att_nome,att_valor);
+        }
+
+    }
+
+
+    public static void ATRIBUTO_TODOS(Lista<Entidade> entradas,String att_nome,int att_valor){
+
+        for(Entidade entidade : entradas){
+            entidade.at(att_nome,att_valor);
+        }
+
+    }
+
+
+    public static Lista<Entidade> ABRIR_ZONAS_DE_CARREGAMENTO(String arquivo,int tamanho_zona) {
+
+        Lista<Entidade> lista = new Lista<Entidade>();
+
+        int quantidade = DS.ler_todos(arquivo).getQuantidade();
+
+      int inicio= 0;
+
+        while(quantidade>=tamanho_zona){
+            Entidade e_zona = CRIAR_EM(lista);
+            e_zona.at("Inicio",inicio);
+            e_zona.at("Quantidade",tamanho_zona);
+            e_zona.at("Fim",inicio+tamanho_zona);
+
+            inicio+=tamanho_zona;
+            quantidade-=tamanho_zona;
+        }
+
+        if(quantidade>0){
+            Entidade e_zona = CRIAR_EM(lista);
+            e_zona.at("Inicio",inicio);
+            e_zona.at("Quantidade",quantidade);
+            e_zona.at("Fim",inicio+quantidade);
+
+        }
+
+        return lista;
+    }
+
+
+    public static Lista<Entidade> TRANSFORMAR_DE_OBJETOS(Lista<DKGObjeto> objetos) {
+        Lista<Entidade> ls = new Lista<Entidade>();
+
+        for (DKGObjeto obj : objetos) {
+            Entidade e = new Entidade();
+
+            for (DKGAtributo att : obj.getAtributos()) {
+                e.at(att.getNome(), att.getValor());
+            }
+
+            ls.adicionar(e);
+        }
+
+        return ls;
+    }
+
+    public static Entidade PARSER_RAW_TO_ENTIDADE(String dados) {
+        DKG eDKG = new DKG();
+        eDKG.parser(dados);
+
+        Entidade e = new Entidade();
+
+        if (eDKG.getObjetos().getQuantidade() > 0) {
+            DKGObjeto raiz = eDKG.getObjetos().get(0);
+            for (DKGAtributo a : raiz.getAtributos()) {
+                e.at(a.getNome(), a.getValor());
+            }
+        }
+
+        return e;
+    }
+
+    public static Entidade PARSER_ENTIDADE_QUALQUER(String texto_dados) {
+
+        Entidade e = new Entidade();
+
+        DKGObjeto obj = DKG.PARSER(texto_dados).getObjetos().get(0);
+
+        for (DKGAtributo a : obj.getAtributos()) {
+            e.at(a.getNome(), a.getValor());
+        }
+
+        for (DKGObjeto o : obj.getObjetos()) {
+
+            Entidade e1 = new Entidade();
+
+            for (DKGAtributo oa : o.getAtributos()) {
+                e1.at(oa.getNome(), oa.getValor());
+            }
+
+            e.getEntidades().adicionar(e1);
+        }
+
+
+        return e;
+
+    }
+
+
+    public static Entidade ADICIONAR_EM(Lista<Entidade> entts,Entidade e) {
+        entts.adicionar(e);
+        return e;
+    }
+
 
 }

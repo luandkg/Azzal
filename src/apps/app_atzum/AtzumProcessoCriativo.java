@@ -1,13 +1,13 @@
 package apps.app_atzum;
 
-import apps.app_atzum.analisadores.AnalisadorClimatico;
-import apps.app_atzum.analisadores.ModeladorGeral;
-import apps.app_atzum.servicos.AtzumCentralDados;
-import apps.app_atzum.servicos.ServicoRegioes;
-import apps.app_atzum.servicos.ServicoTronarko;
+import apps.app_atzum.servicos.*;
 import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.SnapShotter;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
+import libs.luan.Lista;
 import libs.luan.fmt;
 
 public class AtzumProcessoCriativo {
@@ -16,7 +16,7 @@ public class AtzumProcessoCriativo {
 
 
         AtzumCreatorInfo.exibir();
-        apps.app_atzum.Apps.INIT(Apps.APP_ATZUM);
+        //  apps.app_atzum.Apps.INIT(Apps.APP_ATZUM);
 
         fmt.print("");
         fmt.print("------------------------------------------");
@@ -25,8 +25,8 @@ public class AtzumProcessoCriativo {
 
         // ------------------- WORLD - BUILDING -----------------------
 
-        // ServicoInicial.INIT();
-      //   ServicoRegioes.INIT();
+        ServicoInicial.INIT();
+        ServicoRegioes.INIT();
         // ServicoRelevo.INIT();
         // ServicoUmidade.INIT();
         //  ServicoTemperatura.INIT();
@@ -38,12 +38,12 @@ public class AtzumProcessoCriativo {
 
         // ------------------- TRONARKO BUILDING -----------------------
 
-        //  ServicoTronarko.CONSTRUIR_TRONARKO();
+        // ServicoTronarko.CONSTRUIR_TRONARKO();
         //  ServicoMassasDeAr.PROCESSAR_TRONARKO();
         //   ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO();
         // ServicoTronarko.MINIATURAS();
-       //  ServicoTronarko.VIDEO_PLAYER();
-       // TAKE_SHOT();
+        //  ServicoTronarko.VIDEO_PLAYER();
+        // TAKE_SHOT();
 
         // ------------------- VISUALIZADORES -----------------------
 
@@ -55,17 +55,19 @@ public class AtzumProcessoCriativo {
         // TronarkoAnaliseDeSensores.init();
 
 
-       //  AnalisadorClimatico.OBSERVAR_DETALHES();
+        //  AnalisadorClimatico.OBSERVAR_DETALHES();
 
         //AnalisadorClimatico.ANALISE_TEMPORAL();
         // ModeladorGeral.CLIMA_E_VEGETACAO();
-        //  AnalisadorClimatico.PUBLICAR_DADOS();
+        //   AnalisadorClimatico.PUBLICAR_DADOS();
         //  AtzumCentralDados.PROXIMIDADE_COM_OCENAO();
 
-       // AtzumCentralDados.VER_AMOSTRAS();
+        // AtzumCentralDados.CRIAR_NOMES_DAS_CIDADES();
+
+
+        // AtzumCentralDados.VER_AMOSTRAS();
         //  AtzumCentralDados.NOMEAR_CIDADES();
         //ServicoTronarko.VIDEO_PLAYER();
-
 
 
         //  for(Arquivo arquivo : new PastaFS("/home/luan/Imagens/atzum/parametros/massas_de_ar").getArquivos()){
@@ -74,6 +76,8 @@ public class AtzumProcessoCriativo {
 
         //  AtzumCreatorInfo.renomear_item( "ServicoRegioes.PROXIMIDAE_COM_OCEANO","ServicoRegioes.PROXIMIDADE_COM_OCEANO");
         //   AtzumCreatorInfo.renomear_item( "ServicoRegioes.PROXIMIDAE_COM_TERRA","ServicoRegioes.PROXIMIDADE_COM_TERRA");
+
+        //  LuanViajante.INIT();
 
 
     }
@@ -179,6 +183,28 @@ public class AtzumProcessoCriativo {
 
         saida.salvar(arquivo_para);
     }
+
+
+
+
+
+
+    public static String OBTER_TEMPO(Entidade item) {
+        return item.at("Tempo");
+    }
+
+
+
+
+
+    public static void VER_CIDADES() {
+
+        Lista<Entidade> cidades = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts"));
+        ENTT.EXIBIR_TABELA(cidades);
+
+    }
+
+
 
 
 }

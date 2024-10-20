@@ -1,4 +1,4 @@
-package apps.app_atzum;
+package apps.app_atzum.utils;
 
 import libs.azzal.geometria.Ponto;
 import libs.dkg.DKG;

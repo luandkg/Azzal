@@ -323,7 +323,12 @@ public class FonteRunTime implements Fonte {
     }
 
 
-    public void escreva(int x, int y, String frase) {
+    public void escreva(int x, int y, int frase) {
+        escreva(x,y,String.valueOf(frase));
+    }
+
+
+        public void escreva(int x, int y, String frase) {
 
 
         int i = 0;

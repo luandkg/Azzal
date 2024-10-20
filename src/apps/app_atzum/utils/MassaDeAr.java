@@ -1,9 +1,11 @@
-package apps.app_atzum;
+package apps.app_atzum.utils;
 
+import apps.app_atzum.Atzum;
 import apps.app_atzum.servicos.ServicoMassasDeAr;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
+import libs.luan.Portugues;
 import libs.luan.fmt;
 
 public class MassaDeAr {
@@ -94,13 +96,10 @@ int ponto_corrente = (int) (percorrendo);
         mPercurso= ServicoMassasDeAr.GET_MASSA_PERCURSO(mNome);
 
 
-        fmt.print("Massa : {}",mNome);
-        fmt.print("\t ++ Tam :: {}",mPercurso.getQuantidade());
 
         Lista<Ponto> novo_percurso = new Lista<Ponto>();
 
         double taxa = (double)mPercurso.getQuantidade() / 500.0;
-        fmt.print("\t ++ Taxa :: {}",fmt.f2(taxa));
 
         int i = 0;
         double percorrendo =0.0;
@@ -115,7 +114,6 @@ int ponto_corrente = (int) (percorrendo);
             i+=1;
         }
 
-        fmt.print("\t ++ Tam :: {}",novo_percurso.getQuantidade());
 
         mPercurso=novo_percurso;
 
@@ -126,6 +124,17 @@ int ponto_corrente = (int) (percorrendo);
             isReverso=true;
             mVelocidade=mVelocidade*(-1);
         }
+
+
+
+        fmt.print("Massa : {}",mNome);
+        fmt.print("\t ++ Percurso v1      :: {}",mPercurso.getQuantidade());
+        fmt.print("\t ++ Percurso v2      :: {}",novo_percurso.getQuantidade());
+        fmt.print("\t ++ Taxa             :: {}",fmt.f2(taxa));
+        fmt.print("\t ++ Massa            :: {}",mMassa.getQuantidade());
+        fmt.print("\t ++ Tipo             :: {}", Portugues.VALIDAR(eTipo.contentEquals("FRIO"),"FRIA","QUENTE"));
+        fmt.print("\t ++ Velocidade       :: {}", Portugues.VALIDAR(isReverso,"REVERSO","ADIANTE"));
+
     }
 
     public String getInfo(){return mInfo;}

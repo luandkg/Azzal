@@ -257,4 +257,35 @@ public class Tronarko {
     }
 
 
+    public static String TRON_DIFERENCA(Tron iniciado,Tron terminado){
+
+        String s_diferenca=  "";
+
+        if (iniciado.getTozte().isIgual(terminado.getTozte())) {
+
+            long uzzons = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), iniciado.getHazde());
+            s_diferenca= uzzons + " uz";
+
+        }else         if (iniciado.getTozte().adicionar_Superarko(1).isIgual(terminado.getTozte())) {
+
+            long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
+            long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
+
+            s_diferenca=(p1 + p2) + " uz";
+
+        }else         if (terminado.getTozte().isMaiorQue(iniciado.getTozte().adicionar_Superarko(1))) {
+
+            long t = Tronarko.SUPERARKOS_ENTRE_COM(iniciado.getTozte(),terminado.getTozte());
+
+            long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
+            long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
+
+            s_diferenca = t + " tz " + (p1 + p2) + " uz";
+
+        }
+
+        return s_diferenca;
+    }
+
+
 }

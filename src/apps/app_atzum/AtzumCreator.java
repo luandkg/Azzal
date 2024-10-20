@@ -1,13 +1,11 @@
 package apps.app_atzum;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
-import apps.app_atzum.escalas.EscalaAQ4;
-import apps.app_atzum.servicos.ServicoRelevo;
-import apps.app_atzum.utils.AtzumPontosInteiro;
+import apps.app_atzum.utils.AtzumCidades;
 import apps.app_atzum.utils.Rasterizador;
 import apps.app_atzum.utils.RegiaoDefinida;
 import libs.arquivos.IM;
-import libs.arquivos.QTT;
+import libs.arquivos.binario.Arquivador;
 import libs.arquivos.ds.DS;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
@@ -16,21 +14,20 @@ import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.HSV;
 import libs.fs.PastaFS;
 import libs.imagem.Imagem;
-import libs.luan.*;
-import libs.meta_functional.Acao;
+import libs.luan.Lista;
 
 import java.awt.image.BufferedImage;
 
 public class AtzumCreator {
 
-    private static String LOCAL = "/home/luan/Imagens/atzum/";
-    private static String LOCAL_PROCESSANDO = "/home/luan/Imagens/atzum/build/processando/";
-    private static String LOCAL_DADOS = "/home/luan/Imagens/atzum/dados/";
-    private static String LOCAL_VIDEOS = "/home/luan/Imagens/atzum/videos/";
-    private static String LOCAL_LOGS = "/home/luan/Imagens/atzum/logs/";
+
+    private static String LOCAL_PROCESSANDO = Atzum.GET_LOCAL() + "build/processando/";
+    private static String LOCAL_DADOS = Atzum.GET_LOCAL() + "dados/";
+    private static String LOCAL_VIDEOS = Atzum.GET_LOCAL() + "videos/";
+    private static String LOCAL_LOGS = Atzum.GET_LOCAL() + "logs/";
 
     public static String LOCAL_GET_ARQUIVO(String nome) {
-        return new PastaFS(LOCAL).getArquivo(nome);
+        return new PastaFS(Atzum.GET_LOCAL()).getArquivo(nome);
     }
 
     public static String PROCESSANDO_GET_ARQUIVO(String nome) {
@@ -116,31 +113,16 @@ public class AtzumCreator {
         return mapa;
     }
 
-    public static void CRIAR_INICIAR() {
 
-        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(LOCAL + "inicial/atzum.png");
-
-        mapa = Imagem.girar(mapa);
-        mapa = Imagem.espelhar_verticalmente(mapa);
-        mapa = Imagem.espelhar_horizontalmente(mapa);
-
-        Imagem.exportar(mapa, LOCAL_GET_ARQUIVO("atzum_organizado_v2.png"));
-
-        Renderizador render = new Renderizador(mapa);
+    public static BufferedImage GET_MAPA_PRETO_E_BRANCO() {
 
         Cores mCores = new Cores();
 
-        NORMALIZAR_2_CORES_ABAIXO_DE(render, 100, mCores.getAmarelo(), mCores.getPreto());
-        // terras_v1(render);
+        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("atzum_terra.png"));
+        Renderizador render_mapa_pronto = new Renderizador(mapa);
+        Rasterizador.trocar_cores(render_mapa_pronto, mCores.getAmarelo(), mCores.getBranco());
 
-        // Imagem.exportar(render.toImagemSemAlfa(), LOCAL_GET_ARQUIVO("atzum_terra.png"));
-
-
-        //QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"),render.getLargura(),render.getAltura());
-        //  QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("regioes.qtt"),render.getLargura(),render.getAltura());
-
-
-        fmt.print("Tudo Pronto !");
+        return render_mapa_pronto.toImagemSemAlfa();
     }
 
     public static void NORMALIZAR_2_CORES_ABAIXO_DE(Renderizador render, int valor_referencia, Cor cor_especial, Cor cor_fundo) {
@@ -166,172 +148,22 @@ public class AtzumCreator {
 
     }
 
-    public static void terras_v1(Renderizador render) {
-
-        Cores mCores = new Cores();
-
-        RefInt processante = new RefInt(0);
-
-        Acao durante_mudanca = new Acao() {
-            @Override
-            public void fazer() {
-                Imagem.exportar(render.toImagemSemAlfa(), LOCAL_GET_ARQUIVO("processando.png"));
-            }
-        };
-
-        Acao a_cada_100 = new Acao() {
-            @Override
-            public void fazer() {
-
-                Imagem.exportar(render.toImagemSemAlfa(), PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
-                processante.set(processante.get() + 1);
-
-            }
-        };
-
-
-        Rasterizador.RASTERIZAR_COM(render, 700, 500, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-
-        Rasterizador.RASTERIZAR_COM(render, 470, 520, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-
-        Rasterizador.RASTERIZAR_COM(render, 404, 1116, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-
-        Rasterizador.RASTERIZAR_COM(render, 1006, 1204, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-        Rasterizador.RASTERIZAR_COM(render, 1008, 1124, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-        Rasterizador.RASTERIZAR_COM(render, 1058, 1078, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-        Rasterizador.RASTERIZAR_COM(render, 1170, 1182, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-
-
-        Rasterizador.RASTERIZAR_COM(render, 1822, 1100, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-        Rasterizador.RASTERIZAR_COM(render, 1804, 1248, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-
-        Rasterizador.RASTERIZAR_COM(render, 1998, 1212, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-        Rasterizador.RASTERIZAR_COM(render, 1930, 1052, mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, a_cada_100);
-
-
-        //  Rasterizador.trocar_cores(render,mCores.getVermelho(),mCores.getAmarelo());
-
-
-        Imagem.exportar(render.toImagemSemAlfa(), PROCESSANDO_GET_ARQUIVO("terra.png"));
-
-    }
-
-
-    public static void SEPARAR_TERRA_E_AGUA() {
-
-        Cores mCores = new Cores();
-
-        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(LOCAL_GET_ARQUIVO("atzum_terra.png"));
-        Renderizador render = new Renderizador(mapa);
-        Rasterizador.trocar_cores(render, mCores.getPreto(), mCores.getAzul());
-
-        Imagem.exportar(render.toImagemSemAlfa(), PROCESSANDO_GET_ARQUIVO("atzum_agua.png"));
-
-    }
-
-
-    public static void ORGANIZAR_DADOS_PLANETA() {
-
-
-        Cores mCores = new Cores();
-
-        BufferedImage mapa = GET_MAPA();
-        Renderizador render = new Renderizador(mapa);
-
-        int largura = render.getLargura();
-        int altura = render.getAltura();
-
-        QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), render.getLargura(), render.getAltura());
-
-        for (int y = 0; y < altura; y++) {
-
-            for (int x = 0; x < largura; x++) {
-
-                Cor cor = render.getPixel(x, y);
-
-                if (cor.igual(mCores.getAmarelo())) {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), x, y, 1);
-                } else if (cor.igual(mCores.getPreto())) {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), x, y, -1);
-                }
-
-            }
-        }
-
-
-        fmt.print("OK !");
-    }
-
-
-    public static void ORGANIZAR_OCEANOS() {
-        fmt.print("Feature :: Oceanos");
-
-
-        String ARQUIVO_OCEANO = AtzumCreator.LOCAL_GET_ARQUIVO("OCEANOS.dkg");
-        Unico<Par<Ponto, Integer>> pontos_de_relevo = AtzumPontosInteiro.UNICOS(AtzumPontosInteiro.ABRIR_ZERADO(ARQUIVO_OCEANO));
-
-        int valor = 100;
-
-        for (Par<Ponto, Integer> ponto : pontos_de_relevo) {
-            ponto.setValor(valor);
-            valor += 100;
-        }
-
-        BufferedImage mapa = AtzumCreator.GET_MAPA();
-        Renderizador render = new Renderizador(mapa);
-
-        QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), render.getLargura(), render.getAltura());
-
-        Cores mCores = new Cores();
-        Rasterizador.trocar_cores(render, mCores.getPreto(), mCores.getBranco());
-
-        int largura = render.getLargura();
-        int altura = render.getAltura();
-
-
-        for (int y = 0; y < altura; y++) {
-
-            for (int x = 0; x < largura; x++) {
-
-                Cor cor = render.getPixel(x, y);
-
-                if (cor.igual(mCores.getBranco())) {
-
-                    int valor_proximo = ServicoRelevo.ALTITUDE_MAIS_PROXIMA(pontos_de_relevo, x, y);
-
-                    Cor eCor = EscalaAQ4.GET_COR(valor_proximo);
-                    render.setPixel(x, y, eCor);
-
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), x, y, (valor_proximo / 100));
-
-                } else {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), x, y, -1);
-                }
-
-
-            }
-        }
-
-
-        Rasterizador.trocar_cores(render, mCores.getAmarelo(), mCores.getPreto());
-
-        Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_oceanos.png"));
-
-
-        fmt.print("OK !");
-    }
-
 
     public static void EMPACOTAR_ATZUM() {
 
         DS.limpar(LOCAL_GET_ARQUIVO("Atzum.ds"));
 
         DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "ATZUM.im", IM.salvar_to_bytes(GET_MAPA()));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "BUILD.txt", Texto.arquivo_ler(LOCAL_GET_ARQUIVO("AtzumCreator.txt")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "RELEVO_TERRA.dkg", Texto.arquivo_ler(LOCAL_GET_ARQUIVO("RELEVO_TERRA.dkg")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "RELEVO_AGUA.dkg", Texto.arquivo_ler(LOCAL_GET_ARQUIVO("RELEVO_AGUA.dkg")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "OCEANOS.dkg", Texto.arquivo_ler(LOCAL_GET_ARQUIVO("OCEANOS.dkg")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "CIDADES_DEFINIDAS.dkg", Texto.arquivo_ler(LOCAL_GET_ARQUIVO("CIDADES_DEFINIDAS.dkg")));
+
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "BUILD.entts", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts")));
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "SENSORES.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/SENSORES.dkg")));
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "CIDADES.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/CIDADES.dkg")));
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "OCEANOS.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/OCEANOS.dkg")));
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "CIDADES_NOMES.entts", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts")));
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "SENSORES.entts", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/SENSORES.entts")));
+
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "RELEVO_AGUA.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/relevo/RELEVO_AGUA.dkg")));
+        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "RELEVO_TERRA.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/relevo/RELEVO_TERRA.dkg")));
 
 
     }
@@ -365,13 +197,13 @@ public class AtzumCreator {
         // REGIAO 2
         // Rasterizador.RASTERIZAR_COM(render, 578, 767, mCores.getPreto(), mCores.getAzul(), durante_mudanca, a_cada_100);
         // Rasterizador.RASTERIZAR_COM(render, 507, 507, mCores.getPreto(), mCores.getAzul(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(578, 767,COR_BETA, 2, 20));
+        regioes.adicionar(new RegiaoDefinida(578, 767, COR_BETA, 2, 20));
         regioes.adicionar(new RegiaoDefinida(507, 507, COR_BETA, 2, 21));
 
 
         // REGIAO 3
         //  Rasterizador.RASTERIZAR_COM(render, 864, 486, mCores.getPreto(), mCores.getLaranja(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(864, 486,COR_GAMA, 3, 30));
+        regioes.adicionar(new RegiaoDefinida(864, 486, COR_GAMA, 3, 30));
 
         // REGIAO 4
         // Rasterizador.RASTERIZAR_COM(render, 1410, 1209, mCores.getPreto(), mCores.getRosa(), durante_mudanca, a_cada_100);
@@ -396,7 +228,7 @@ public class AtzumCreator {
 
         // REGIAO 7
         //  Rasterizador.RASTERIZAR_COM(render, 1841, 1097, mCores.getPreto(), mCores.getCinza(), durante_mudanca, a_cada_100);
-        regioes.adicionar(new RegiaoDefinida(1841, 1097,COR_LAMBDA, 7, 70));
+        regioes.adicionar(new RegiaoDefinida(1841, 1097, COR_LAMBDA, 7, 70));
 
 
         // REGIAO 8
@@ -569,13 +401,13 @@ public class AtzumCreator {
     }
 
 
-    public static void PREENCHER_TERRA(AtzumTerra planeta,Renderizador render,int px,int py,int largura,int altura,Cor eCor) {
+    public static void PREENCHER_TERRA(AtzumTerra planeta, Renderizador render, int px, int py, int largura, int altura, Cor eCor) {
 
 
-        for (int y = py; y < (py+altura); y++) {
-            for (int x = (px); x < (px+largura); x++) {
+        for (int y = py; y < (py + altura); y++) {
+            for (int x = (px); x < (px + largura); x++) {
                 if (planeta.isTerra(x, y)) {
-                    render.setPixel(x,y,eCor);
+                    render.setPixel(x, y, eCor);
                 }
             }
         }

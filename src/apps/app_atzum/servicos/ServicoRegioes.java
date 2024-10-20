@@ -8,6 +8,7 @@ import apps.app_atzum.utils.AtzumPontosInteiro;
 import apps.app_atzum.utils.Rasterizador;
 import apps.app_atzum.utils.RegiaoDefinida;
 import libs.arquivos.QTT;
+import libs.arquivos.QTTCache;
 import libs.arquivos.binario.Inteiro;
 import libs.arquivos.video.Empilhador;
 import libs.arquivos.video.VideoCodecador;
@@ -31,20 +32,20 @@ public class ServicoRegioes {
     public static void INIT() {
         AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
 
-          ORGANIZAR_REGIOES();
-           EXPANDIR_REGIOES_ATE_A_MARGEM();
-          EXTRAIR_REGIOES_CONTORNOS();
+        ORGANIZAR_REGIOES();
+        EXPANDIR_REGIOES_ATE_A_MARGEM();
+        EXTRAIR_REGIOES_CONTORNOS();
 
-        //  ORGANIZAR_DADOS_REGIOES();
+        ORGANIZAR_DADOS_REGIOES();
 
-        //  EXTRAIR_CONTORNO_OCEANICO();
+        EXTRAIR_CONTORNO_OCEANICO();
 
-        // EXTRAIR_DISTANCIA_OCEANICA();
-        //  PROXIMIDADE_COM_OCEANO();
-        //   PROXIMIDADE_COM_TERRA();
+        EXTRAIR_DISTANCIA_OCEANICA();
+        PROXIMIDADE_COM_OCEANO();
+        PROXIMIDADE_COM_TERRA();
 
-        //  ORGANIZAR_DADOS_PLANETA();
-      //  ORGANIZAR_OCEANOS();
+        ORGANIZAR_DADOS_PLANETA();
+        ORGANIZAR_OCEANOS();
         RENDERIZAR_OCEANOS();
 
         AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
@@ -94,6 +95,9 @@ public class ServicoRegioes {
         Lista<RegiaoDefinida> regioes = AtzumCreator.GET_REGIOES();
 
         for (RegiaoDefinida regiao : regioes) {
+
+            fmt.print(">> Rasterizar regiao :: {} - {}", regiao.getValor(), regiao.getSubValor());
+
             Rasterizador.RASTERIZAR_COM(render, regiao.getX(), regiao.getY(), mCores.getPreto(), regiao.getCor(), durante_mudanca, a_cada_100);
         }
 
@@ -165,7 +169,7 @@ public class ServicoRegioes {
             Acao durante_mudanca = new Acao() {
                 @Override
                 public void fazer() {
-                    Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("processando.png"));
+                    Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/processando.png"));
                 }
             };
 
@@ -179,12 +183,12 @@ public class ServicoRegioes {
                 }
             };
 
-            fmt.print("Proc Cor :: {}", regiao.getCor().getValor());
-            fmt.print("{} : {} == {}", regiao.getX(), regiao.getY(), render.getPixel(regiao.getX(), regiao.getY()).getValor());
+            fmt.print("Regiao {}::{} ->> Cor :: {}", regiao.getValor(), regiao.getSubValor(), regiao.getCor().toString());
+            fmt.print("\t ++ {} : {} == {}", regiao.getX(), regiao.getY(), render.getPixel(regiao.getX(), regiao.getY()).toString());
 
             Rasterizador.RASTERIZAR_COM(render, regiao.getX(), regiao.getY(), regiao.getCor(), cor_mudanca, durante_mudanca, a_cada_100);
 
-            fmt.print("{} : {} == {}", regiao.getX(), regiao.getY(), render.getPixel(regiao.getX(), regiao.getY()).getValor());
+            fmt.print("\t ++ {} : {} == {}", regiao.getX(), regiao.getY(), render.getPixel(regiao.getX(), regiao.getY()).toString());
 
             Cores mCores = new Cores();
 
@@ -193,17 +197,28 @@ public class ServicoRegioes {
 
             Rasterizador.trocar_cores(render_salvar, mCores.getAmarelo(), mCores.getBranco());
 
+            fmt.print("\t ++ Salvar Dados QTT");
+
+            QTTCache cache_regioes = new QTTCache((AtzumCreator.DADOS_GET_ARQUIVO("regioes.qtt")), 1000);
+            QTTCache cache_subregioes = new QTTCache((AtzumCreator.DADOS_GET_ARQUIVO("subregioes.qtt")), 1000);
+
+
             for (int y = 0; y < render.getAltura(); y++) {
                 for (int x = 0; x < render.getLargura(); x++) {
                     if (render.getPixel(x, y).igual(cor_mudanca)) {
                         render_salvar.setPixel(x, y, regiao.getCor());
 
-                        QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("regioes_v2.qtt"), x, y, regiao.getValor());
-                        QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("subregioes_v2.qtt"), x, y, regiao.getSubValor());
+                        cache_regioes.cache(x, y, regiao.getValor());
+                        cache_subregioes.cache(x, y, regiao.getSubValor());
 
                     }
                 }
             }
+
+            cache_regioes.guardar();
+            cache_subregioes.guardar();
+
+            fmt.print("\t ++ Dados QTT OK !");
 
             Imagem.exportar(render_salvar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/regioes/" + regiao.getValor() + "_" + regiao.getSubValor() + ".png"));
 
@@ -452,14 +467,22 @@ public class ServicoRegioes {
 
         fmt.print("Pontos de limite : {}", limite_oceanico.getQuantidade());
 
+        QTTCache dist_oceano_limite = new QTTCache(AtzumCreator.DADOS_GET_ARQUIVO("distancia_oceanica.qtt"), 1000);
+
         for (Ponto pt : limite_oceanico) {
-            QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("distancia_oceanica.qtt"), pt.getX(), pt.getY(), 0);
+            dist_oceano_limite.cache(pt.getX(), pt.getY(), 0);
         }
+
+        dist_oceano_limite.guardar();
 
         fmt.print("Guardados : {}", limite_oceanico.getQuantidade());
 
 
         fmt.print("Calculando proximidade com o mar !");
+
+        QTTCache dist_oceano = new QTTCache(AtzumCreator.DADOS_GET_ARQUIVO("distancia_oceanica.qtt"), 1000);
+        QTTCache dist_terra = new QTTCache(AtzumCreator.DADOS_GET_ARQUIVO("distancia_terra.qtt"), 1000);
+
 
         for (int y = 0; y < atzum_terra.getAltura(); y++) {
             for (int x = 0; x < atzum_terra.getLargura(); x++) {
@@ -475,14 +498,16 @@ public class ServicoRegioes {
 
 
                 if (atzum_terra.isTerra(x, y)) {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("distancia_oceanica.qtt"), x, y, proximidade);
+                    dist_oceano.cache(x, y, proximidade);
                 } else {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("distancia_terra.qtt"), x, y, proximidade);
+                    dist_terra.cache(x, y, proximidade);
                 }
 
             }
         }
 
+        dist_oceano.guardar();
+        dist_terra.guardar();
 
         fmt.print("Tudo OK !");
         AtzumCreatorInfo.terminar("ServicoRegioes.EXTRAIR_DISTANCIA_OCEANICA");
@@ -534,9 +559,7 @@ public class ServicoRegioes {
 
                     int valor = oceano_distancias.getValor(x, y);
 
-                    int escalado = (int) ((double) valor / escala_distancia);
-                    render_distancia.setPixel(x, y, new HSV(240, 50, HSV.NORMAL(escalado)));
-
+                    render_distancia.setPixel(x, y, new HSV(240, 50, HSV.NORMAL_ESCALADO(valor, escala_distancia)));
 
                 }
             }
@@ -621,19 +644,23 @@ public class ServicoRegioes {
 
         QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), atzum_terra.getLargura(), atzum_terra.getAltura());
 
+        QTTCache dados_planeta = new QTTCache(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), 1000);
+
         for (int y = 0; y < altura; y++) {
 
             for (int x = 0; x < largura; x++) {
 
                 if (atzum_terra.isTerra(x, y)) {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), x, y, 1);
+                    dados_planeta.cache(x, y, 1);
                 } else {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("planeta.qtt"), x, y, -1);
+                    dados_planeta.cache(x, y, -1);
                 }
 
 
             }
         }
+
+        dados_planeta.guardar();
 
         AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_DADOS_PLANETA");
 
@@ -664,57 +691,57 @@ public class ServicoRegioes {
         int largura = atzum_terra.getLargura();
         int altura = atzum_terra.getAltura();
 
+        QTTCache dados_oceano = new QTTCache(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), 1000);
 
         for (int y = 0; y < altura; y++) {
             for (int x = 0; x < largura; x++) {
                 if (atzum_terra.isOceano(x, y)) {
                     int valor_proximo = ServicoRelevo.ALTITUDE_MAIS_PROXIMA(pontos_de_relevo, x, y);
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), x, y, (valor_proximo / 100));
+                    dados_oceano.cache(x, y, (valor_proximo / 100));
                 } else {
-                    QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), x, y, -1);
+                    dados_oceano.cache(x, y, -1);
                 }
             }
         }
 
-
+        dados_oceano.guardar();
         AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_OCEANOS");
 
         fmt.print("OK !");
     }
 
-    public static void RENDERIZAR_OCEANOS(){
+    public static void RENDERIZAR_OCEANOS() {
 
         AtzumCreatorInfo.iniciar("ServicoRegioes.RENDERIZAR_OCEANOS");
 
         AtzumTerra atzum_terra = new AtzumTerra();
 
 
-        QTT dados_oceano =QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"));
+        QTT dados_oceano = QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"));
 
 
         int largura = atzum_terra.getLargura();
         int altura = atzum_terra.getAltura();
 
         Cores mCores = new Cores();
-        Renderizador render = Renderizador.CONSTRUIR(largura,altura,mCores.getPreto());
-
+        Renderizador render = Renderizador.CONSTRUIR(largura, altura, mCores.getPreto());
 
 
         for (int y = 0; y < altura; y++) {
             for (int x = 0; x < largura; x++) {
-              int valor  =dados_oceano.getValor( x, y);
+                int valor = dados_oceano.getValor(x, y);
 
-              if(valor>0){
+                if (valor > 0) {
 
-                  if (valor % 2 ==0){
-                      valor+=1;
-                      render.setPixel(x,y,new HSV(200,valor*15,80));
-                  }else{
-                      valor-=1;
-                      render.setPixel(x,y,new HSV(200,100-(valor*20),80));
-                  }
+                    if (valor % 2 == 0) {
+                        valor += 1;
+                        render.setPixel(x, y, new HSV(200, valor * 15, 80));
+                    } else {
+                        valor -= 1;
+                        render.setPixel(x, y, new HSV(200, 100 - (valor * 20), 80));
+                    }
 
-              }
+                }
 
             }
         }

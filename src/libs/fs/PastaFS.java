@@ -6,25 +6,56 @@ import java.io.File;
 
 
 public class PastaFS {
+
+    public static final int PLATAFORMA_LINUX = 1;
+    public static final int PLATAFORMA_WINDOWS = 2;
+
+    public static final int PLATAFORMA_CORRENTE = PLATAFORMA_LINUX;
+
+
     private String mLocal;
+    private String mSeparador = "/";
+
+
+    public static String PLATAFORMA_GET(String local) {
+
+        if (PLATAFORMA_CORRENTE == PLATAFORMA_LINUX) {
+            return local.replace("\\", "/");
+        } else if (PLATAFORMA_CORRENTE == PLATAFORMA_WINDOWS) {
+            return local.replace("/", "\\");
+        }
+
+        return local;
+    }
+
 
     public PastaFS(String eLocal) {
-        mLocal = eLocal;
+        mLocal = PLATAFORMA_GET(eLocal);
+
+        if(PLATAFORMA_CORRENTE==PLATAFORMA_WINDOWS){
+            mSeparador="\\";
+        }
+
     }
 
     public String getArquivo(String arquivo) {
-        if (mLocal.endsWith("/")) {
-            return mLocal + arquivo;
+        String local_corrente = "";
+
+        if (mLocal.endsWith(mSeparador)) {
+            local_corrente = mLocal + PLATAFORMA_GET(arquivo);
         } else {
-            return mLocal + "/" + arquivo;
+            local_corrente = mLocal + mSeparador + PLATAFORMA_GET(arquivo);
         }
+
+        return local_corrente;
+
     }
 
     public String getPasta(String arquivo) {
-        if (mLocal.endsWith("/")) {
-            return mLocal + arquivo;
+        if (mLocal.endsWith(mSeparador)) {
+            return mLocal + PLATAFORMA_GET(arquivo);
         } else {
-            return mLocal + "/" + arquivo;
+            return mLocal + mSeparador + PLATAFORMA_GET(arquivo);
         }
     }
 
@@ -64,9 +95,7 @@ public class PastaFS {
 
         int o = mLocal.length() - 1;
         while (o > 0) {
-            if (String.valueOf(mLocal.charAt(o)).contentEquals("\\")) {
-                break;
-            } else if (String.valueOf(mLocal.charAt(o)).contentEquals("/")) {
+            if (String.valueOf(mLocal.charAt(o)).contentEquals(mSeparador)) {
                 break;
             }
             ret = String.valueOf(mLocal.charAt(o)) + ret;
@@ -114,7 +143,6 @@ public class PastaFS {
     }
 
 
-
     public boolean existe() {
         return new File(mLocal).exists();
     }
@@ -128,17 +156,17 @@ public class PastaFS {
     public boolean arquivo_existe(String arquivo) {
         String sa = "";
 
-        if (mLocal.endsWith("/")) {
-            sa = mLocal + arquivo;
+        if (mLocal.endsWith(mSeparador)) {
+            sa = mLocal + PLATAFORMA_GET(arquivo);
         } else {
-            sa = mLocal + "/" + arquivo;
+            sa = mLocal + mSeparador + PLATAFORMA_GET(arquivo);
         }
 
         return new File(sa).exists();
     }
 
     public boolean pasta_existe(String nome) {
-        return new File(getArquivo(nome)).exists();
+        return new File(getArquivo(PLATAFORMA_GET(nome))).exists();
     }
 
 
@@ -180,4 +208,36 @@ public class PastaFS {
         }
 
     }
+
+
+    public Lista<PastaFS> getArquivosComExtensao(String eExtensao) {
+        Lista<PastaFS> ret = new Lista<PastaFS>();
+
+        File file = new File(mLocal);
+
+        File[] files = file.listFiles();
+
+        if (files != null) {
+            for (File a : files) {
+                if (a.isFile()) {
+                    if (a.getName().endsWith(eExtensao)) {
+                        ret.adicionar(new PastaFS(a.getAbsolutePath()));
+                    }
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    public Lista<String> getArquivosComExtensaoApenasNome(String eExtensao) {
+        Lista<String> arquivos = new Lista<String>();
+        for (PastaFS observado : getArquivosComExtensao(eExtensao)) {
+            String nome = observado.getNome();
+            arquivos.adicionar(nome);
+        }
+        return arquivos;
+    }
+
+
 }

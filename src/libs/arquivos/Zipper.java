@@ -3,16 +3,54 @@ package libs.arquivos;
 import libs.arquivos.binario.ArenaChunk;
 import libs.luan.Lista;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.zip.*;
 
 public class Zipper {
+
+    public static void ZIPAR_ARQUIVO(String arquivo_entrada, String arquivo_zipado) {
+
+        try {
+            ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(arquivo_zipado));
+            File fileToZip = new File(arquivo_entrada);
+            try {
+                zipOut.putNextEntry(new ZipEntry(fileToZip.getName()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Files.copy(fileToZip.toPath(), zipOut);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void UNZIPAR_ARQUIVO(String arquivo_zipado, String arquivo_saida) {
+
+        try {
+
+            ZipInputStream zis = new ZipInputStream(new FileInputStream(arquivo_zipado));
+            // list files in zip
+            ZipEntry zipEntry = zis.getNextEntry();
+
+
+            try (FileOutputStream fos = new FileOutputStream(arquivo_saida)) {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = zis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, len);
+                }
+            }
+
+            zis.closeEntry();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     public static Lista<DocumentoTexto> EXTRAIR_DOCUMENTOS_COM_EXTENSAO(String eArquivo, String eExtensao) {
         Lista<DocumentoTexto> documentos = new Lista<DocumentoTexto>();
@@ -68,7 +106,7 @@ public class Zipper {
 
     }
 
-    public static String GET_TEXT_FROM_BYTES(byte bytes[]) {
+    public static String DESCOMPACTAR(byte bytes[]) {
 
         String s = "";
 
@@ -87,4 +125,31 @@ public class Zipper {
         return s;
     }
 
+
+    public static byte[] COMPACTAR(byte[] dados) {
+
+        byte[] saida = null;
+
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream(dados.length);
+        try {
+            GZIPOutputStream zipStream = new GZIPOutputStream(byteStream);
+            try {
+                zipStream.write(dados);
+            } finally {
+                zipStream.close();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                byteStream.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        saida = byteStream.toByteArray();
+
+        return saida;
+    }
 }

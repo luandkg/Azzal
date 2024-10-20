@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Votacao {
 
-    private static Urna urna_do_cidadao(ArrayList<Urna> urnas, int HORARIO_COMECAR_ARCO, int HORARIO_COMECAR_ITTAS, String eCidade, String eZona, String eSessao) {
+    private static Urna urna_do_cidadao(Lista<Urna> urnas, int HORARIO_COMECAR_ARCO, int HORARIO_COMECAR_ITTAS, String eCidade, String eZona, String eSessao) {
         String codigo = eCidade + "::" + eZona + "::" + eSessao;
         boolean enc = false;
         Urna ret = null;
@@ -28,7 +28,7 @@ public class Votacao {
             ret = new Urna(eCidade, eZona, eSessao);
             ret.setComecar(HORARIO_COMECAR_ARCO, HORARIO_COMECAR_ITTAS);
             ret.setFila(Aleatorio.alatorio_entre(5, 10));
-            urnas.add(ret);
+            urnas.adicionar(ret);
         }
         return ret;
     }
@@ -39,7 +39,7 @@ public class Votacao {
         Arkazz eArkazz = new Arkazz();
 
         Lista<Local> cidades = eArkazz.getCidades();
-        ArrayList<Urna> sessoes_de_votacao = new ArrayList<Urna>();
+        Lista<Urna> sessoes_de_votacao = new Lista<Urna>();
 
         int HORARIO_COMECAR_ARCO = 3;
         int HORARIO_COMECAR_ITTAS = 0;
@@ -199,8 +199,8 @@ public class Votacao {
 
         int contagem = MaterializedView10K.contagem(local_urnas);
 
-        if (contagem < sessoes_de_votacao.size()) {
-            MaterializedView10K.construir(local_urnas, sessoes_de_votacao.size());
+        if (contagem < sessoes_de_votacao.getQuantidade()) {
+            MaterializedView10K.construir(local_urnas, sessoes_de_votacao.getQuantidade());
         }
 
         int contando_votos = 0;

@@ -1,8 +1,7 @@
 package apps.app_atzum.apps;
 
 import apps.app_atzum.AtzumCreator;
-import apps.app_atzum.MassaDeAr;
-import apps.app_atzum.utils.AtzumPontosInteiro;
+import apps.app_atzum.utils.MassaDeAr;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Cores;
@@ -10,16 +9,13 @@ import libs.azzal.Renderizador;
 import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Ponto;
-import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
 import libs.imagem.Efeitos;
-import libs.imagem.Imagem;
 import libs.luan.*;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class AtzumAppMassasDeAr extends Cena {

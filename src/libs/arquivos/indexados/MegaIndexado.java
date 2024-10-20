@@ -1,4 +1,4 @@
-package libs.arquivos;
+package libs.arquivos.indexados;
 
 
 import libs.arquivos.binario.Arquivador;
@@ -7,7 +7,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 
-public class CacheIndexado {
+public class MegaIndexado {
 
     // IMPLEMENTACAO 2023 12 09
 
@@ -41,8 +41,8 @@ public class CacheIndexado {
 
     public static void auto_init(String eArquivo) {
 
-        if (!CacheIndexado.existe(eArquivo)) {
-            CacheIndexado.init(eArquivo);
+        if (!existe(eArquivo)) {
+            init(eArquivo);
         }
 
     }
@@ -108,8 +108,9 @@ public class CacheIndexado {
         Arquivador arquivar = new Arquivador(eArquivo);
         arquivar.setPonteiro(2L + ((long) indice * (long) TAMANHO_ITEM));
 
-
         int tamanho = arquivar.get_u32();
+
+        arquivar.encerrar();
         return tamanho;
     }
 

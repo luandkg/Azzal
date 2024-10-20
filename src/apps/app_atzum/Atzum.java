@@ -2,27 +2,34 @@ package apps.app_atzum;
 
 
 import apps.app_atzum.utils.AtzumPontos;
+import apps.app_atzum.utils.MassaDeAr;
 import libs.arquivos.binario.Inteiro;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
-import libs.azzal.utilitarios.HSV;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.*;
+import libs.luan.Extremos;
+import libs.luan.Lista;
+import libs.luan.Strings;
+import libs.luan.Vetor;
 import libs.meta_functional.Funcao;
 
 public class Atzum {
 
-    private String LOCAL = "/home/luan/Imagens/atzum/";
+    private static String LOCAL = "/home/luan/Imagens/atzum/";
 
+
+    private Vetor<String> mRegioes;
     private Vetor<String> mOceanos;
 
-    private Cor mMassaDeArFria;
-    private Cor mMassaDeArQuente;
-    private Cor mSuperMassaDeArFria;
-    private Cor mSuperMassaDeArQuente;
-    private Cor mMassaDeArTempestade;
-    private Cor mMassaDeArHiperTempestade;
+
+    private static final Cor mMassaDeArFria = Cor.getHexCor("#4FC3F7");
+    private static final Cor mMassaDeArQuente = Cor.getHexCor("#FFEB3B");
+    private static final Cor mSuperMassaDeArFria = Cor.getHexCor("#283593");
+    private static final Cor mSuperMassaDeArQuente = Cor.getHexCor("#D84315");
+    private static final Cor mMassaDeArTempestade = Cor.getHexCor("#8BC34A");
+    private static final Cor mMassaDeArHiperTempestade = Cor.getHexCor("#1B5E20");
+
 
     public static final Cor COR_CHUVA = Cor.getHexCor("#4FC3F7");
     public static final Cor COR_NEVE = Cor.getHexCor("#CFD8DC");
@@ -48,35 +55,51 @@ public class Atzum {
         mOceanos.set(4, "Uz");
         mOceanos.set(5, "Allamnos");
 
-
-
-        mMassaDeArFria = Cor.getHexCor("#4FC3F7");
-        mMassaDeArQuente = Cor.getHexCor("#FFEB3B");
-        mSuperMassaDeArFria = Cor.getHexCor("#283593");
-        mSuperMassaDeArQuente = Cor.getHexCor("#D84315");
-        mMassaDeArTempestade = Cor.getHexCor("#8BC34A");
-        mMassaDeArHiperTempestade = Cor.getHexCor("#1B5E20");
+        mRegioes = new Vetor<String>(11);
+        mRegioes.set(0, "");
+        mRegioes.set(1, "Mazzo");
+        mRegioes.set(2, "Ewkon");
+        mRegioes.set(3, "Izmim");
+        mRegioes.set(4, "Laccos");
+        mRegioes.set(5, "Thargum");
+        mRegioes.set(6, "Ox");
+        mRegioes.set(7, "Urrem");
+        mRegioes.set(8, "Plaos");
+        mRegioes.set(9, "Oomgue");
+        mRegioes.set(10, "Mecron");
 
     }
 
+    public static String GET_LOCAL(){return LOCAL;}
+
+    public String GET_REGIAO_NOME(int i) {
+        return mRegioes.get(i);
+    }
 
     public String GET_OCEANO(int valor) {
         return mOceanos.get(valor);
     }
 
 
-    public Lista<Ponto> GET_CIDADES() {
-        String ARQUIVO_CIDADES = LOCAL + "parametros/CIDADES.dkg";
-        return AtzumPontos.ABRIR(ARQUIVO_CIDADES);
+    public static Lista<Ponto> GET_CIDADES() {
+        return AtzumPontos.ABRIR( LOCAL + "parametros/CIDADES.dkg");
     }
 
-    public Lista<Entidade> GET_SENSORES() {
-        String ARQUIVO_CIDADES = LOCAL + "parametros/SENSORES.entts";
-        return ENTT.ABRIR(ARQUIVO_CIDADES);
+    public static Lista<Entidade> GET_SENSORES() {
+
+        Lista<Entidade> e_sensores = ENTT.ABRIR(LOCAL + "parametros/SENSORES.entts");
+        ENTT.SEQUENCIAR(e_sensores, "SensorID", 0);
+
+        return e_sensores;
     }
 
+    public static Lista<Entidade> GET_CIDADES_NOMES() {
 
+        Lista<Entidade> e_cidades = ENTT.ABRIR(LOCAL + "parametros/CIDADES_NOMES.entts");
+        ENTT.AT_ALTERAR_NOME(e_cidades, "ID","CidadeID");
 
+        return e_cidades;
+    }
 
 
     public Vetor<Extremos<Integer>> GET_ZONAS_DE_TEMPERATURAS() {
@@ -170,33 +193,32 @@ public class Atzum {
     }
 
     public Cor GET_FATOR_CLIMATICO_COR(String fator_climatico) {
-        Cor ret = new  Cor(255,255,255);
+        Cor ret = new Cor(255, 255, 255);
 
-        if (Strings.isIgual(fator_climatico,"CHUVA")) {
-            ret =COR_CHUVA  ;
-        } else if (Strings.isIgual(fator_climatico,"NEVE")) {
-            ret = COR_NEVE ;
-        } else if (Strings.isIgual(fator_climatico,"TEMPESTADE_CHUVA")) {
-            ret =COR_TEMPESTADE_CHUVA  ;
-        } else if (Strings.isIgual(fator_climatico,"TEMPESTADE_NEVE")) {
-            ret = COR_TEMPESTADE_NEVE ;
-        } else if (Strings.isIgual(fator_climatico,"SECA")) {
-            ret = COR_SECA ;
-        } else if (Strings.isIgual(fator_climatico,"SECA_EXTREMA")) {
-            ret =COR_SECA_EXTREMA ;
-        } else if (Strings.isIgual(fator_climatico,"TEMPESTADE_VENTO")) {
-            ret = COR_TEMPESTADE_VENTO ;
+        if (Strings.isIgual(fator_climatico, "CHUVA")) {
+            ret = COR_CHUVA;
+        } else if (Strings.isIgual(fator_climatico, "NEVE")) {
+            ret = COR_NEVE;
+        } else if (Strings.isIgual(fator_climatico, "TEMPESTADE_CHUVA")) {
+            ret = COR_TEMPESTADE_CHUVA;
+        } else if (Strings.isIgual(fator_climatico, "TEMPESTADE_NEVE")) {
+            ret = COR_TEMPESTADE_NEVE;
+        } else if (Strings.isIgual(fator_climatico, "SECA")) {
+            ret = COR_SECA;
+        } else if (Strings.isIgual(fator_climatico, "SECA_EXTREMA")) {
+            ret = COR_SECA_EXTREMA;
+        } else if (Strings.isIgual(fator_climatico, "TEMPESTADE_VENTO")) {
+            ret = COR_TEMPESTADE_VENTO;
         } else if (Strings.isIgual(fator_climatico, "VENTANIA")) {
             ret = COR_VENTANIA;
-        } else if (Strings.isIgual(fator_climatico,"ONDA_DE_CALOR")) {
-            ret = COR_ONDA_DE_CALOR ;
-        }else{
-           // fmt.print("ERRO :: {}",fator_climatico);
+        } else if (Strings.isIgual(fator_climatico, "ONDA_DE_CALOR")) {
+            ret = COR_ONDA_DE_CALOR;
+        } else {
+            // fmt.print("ERRO :: {}",fator_climatico);
         }
 
         return ret;
     }
-
 
 
     public static Lista<String> GET_MODELO_CLIMATICO() {
@@ -346,18 +368,10 @@ public class Atzum {
     public static Lista<String> GET_REGIOES() {
         Lista<String> modelos = new Lista<String>();
 
-        modelos.adicionar("A");
-        modelos.adicionar("B");
-        modelos.adicionar("C");
-        modelos.adicionar("D");
-
-        modelos.adicionar("E");
-        modelos.adicionar("F");
-        modelos.adicionar("G");
-        modelos.adicionar("H");
-        modelos.adicionar("K");
-        modelos.adicionar("M");
-
+        Atzum eAtzum = new Atzum();
+        for (int i = 1; i <= 10; i++) {
+            modelos.adicionar(eAtzum.GET_REGIAO_NOME(i));
+        }
 
         return modelos;
     }
@@ -377,30 +391,60 @@ public class Atzum {
         Cor COR_ZETA = Cor.getHexCor("#D32F2F"); // VERMELHO
         Cor COR_PI = Cor.getHexCor("#689F38"); // VERDE
 
+        Atzum eAtzum = new Atzum();
 
-        if (Strings.isIgual(regiao, "A")) {
-            ret =COR_ALFA;
-        } else if (Strings.isIgual(regiao, "B")) {
+        if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(1))) {
+            ret = COR_ALFA;
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(2))) {
             ret = COR_BETA;
-        } else if (Strings.isIgual(regiao, "C")) {
-            ret =COR_GAMA;
-        } else if (Strings.isIgual(regiao, "D")) {
-            ret =COR_DELTA;
-        } else if (Strings.isIgual(regiao, "E")) {
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(3))) {
+            ret = COR_GAMA;
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(4))) {
+            ret = COR_DELTA;
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(5))) {
             ret = COR_EPSILON;
-        } else if (Strings.isIgual(regiao, "F")) {
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(6))) {
             ret = COR_OMEGA;
-        } else if (Strings.isIgual(regiao, "G")) {
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(7))) {
             ret = COR_LAMBDA;
-        } else if (Strings.isIgual(regiao, "H")) {
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(8))) {
             ret = COR_OMICRON;
-        } else if (Strings.isIgual(regiao, "K")) {
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(9))) {
             ret = COR_ZETA;
-        } else if (Strings.isIgual(regiao, "M")) {
+        } else if (Strings.isIgual(regiao, eAtzum.GET_REGIAO_NOME(10))) {
             ret = COR_PI;
         }
 
         return ret;
     }
+
+
+    public Lista<MassaDeAr> getMassasDeAr() {
+
+        Lista<MassaDeAr> mMassasDeAr = new Lista<MassaDeAr>();
+
+        mMassasDeAr.adicionar(new MassaDeAr("MIZ_A", "miz", "FRIO", 100, 1));
+        mMassasDeAr.adicionar(new MassaDeAr("MOP_A", "mop", "QUENTE", 300, 1));
+        mMassasDeAr.adicionar(new MassaDeAr("MUT_A", "mut", "FRIO", 100, 1));
+        mMassasDeAr.adicionar(new MassaDeAr("MOX_A", "mox", "FRIO", 100, 1));
+
+        mMassasDeAr.adicionar(new MassaDeAr("RAF_A", "raf", "QUENTE", 50, 1));
+        mMassasDeAr.adicionar(new MassaDeAr("REZ_A", "rez", "QUENTE", 50, 1));
+        mMassasDeAr.adicionar(new MassaDeAr("RUC_A", "ruc", "QUENTE", 50, 1));
+
+        mMassasDeAr.adicionar(new MassaDeAr("REC_B", "rez", "QUENTE", 300, -1));
+        //   mMassasDeAr.adicionar(new MassaDeAr("MUT_B", "mut", "FRIO", 400-300, -1));
+        mMassasDeAr.adicionar(new MassaDeAr("RAF_B", "raf", "FRIO", 500, 1));
+
+
+        mMassasDeAr.adicionar(new MassaDeAr("MUT_C", "mut", "FRIO", 250 + 300, -1));
+        mMassasDeAr.adicionar(new MassaDeAr("REZ_C", "rez", "QUENTE", 400, -1));
+        mMassasDeAr.adicionar(new MassaDeAr("RAF_C", "raf", "QUENTE", 400, -1));
+        mMassasDeAr.adicionar(new MassaDeAr("RUC_C", "ruc", "QUENTE", 450 + 130, 1));
+
+
+        return mMassasDeAr;
+    }
+
 
 }

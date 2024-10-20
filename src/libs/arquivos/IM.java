@@ -990,10 +990,14 @@ public class IM {
             }
         } else if (alfa_modo == IMAGEM_ALFA_UNICO) {
             alfa_com = true;
-            System.out.println("\tTem Alfa   :: UNICO");
-            System.out.println("\tTem Alfa   :: " + alfa_canal);
+            if (DEBUG) {
+                System.out.println("\tTem Alfa   :: UNICO");
+                System.out.println("\tTem Alfa   :: " + alfa_canal);
+            }
         } else if (alfa_modo == IMAGEM_ALFA_SEM) {
-            System.out.println("\tTem Alfa   :: SEM");
+            if (DEBUG) {
+                System.out.println("\tTem Alfa   :: SEM");
+            }
         }
 
 

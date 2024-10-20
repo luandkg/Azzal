@@ -484,6 +484,12 @@ public class Lista<T> implements Iterable<T> {
         }
     }
 
+
+
+    public T getUltimoValor(){
+        return getValor(getQuantidade()-1);
+    }
+
     // SUPER FUNCOES
 
 

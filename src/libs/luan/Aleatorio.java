@@ -7,8 +7,8 @@ public class Aleatorio {
 
     public static int aleatorio(int maximo) {
 
-        if(maximo<1){
-            maximo=2;
+        if (maximo < 1) {
+            maximo = 2;
         }
         Random sorte = new Random();
         int ret = sorte.nextInt(maximo);
@@ -191,5 +191,25 @@ public class Aleatorio {
 
         return ret;
     }
+
+
+    public static String aleatorio_com_esses(String conjunto, int tamanho) {
+
+        int delta = conjunto.length();
+
+        Random sorte = new Random();
+
+        String ret = "";
+        while (ret.length() < tamanho) {
+            ret += conjunto.charAt(sorte.nextInt(delta));
+        }
+
+        return ret;
+    }
+
+    public static String aleatorio_dos_numero(int tamanho) {
+        return Aleatorio.aleatorio_com_esses("0123456789", tamanho);
+    }
+
 
 }

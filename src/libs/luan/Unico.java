@@ -53,6 +53,11 @@ public class Unico<T> implements Iterable<T> {
     }
 
 
+    public boolean existe(T item){
+        return mLista.existe(mIgualavel,item);
+    }
+
+
     public void limpar(){
         mLista.limpar();
     }

@@ -56,4 +56,9 @@ public class Opcional<T> {
     public static <T> Opcional<T> CANCEL() {
         return new Opcional<T>(null);
     }
+
+
+    public static<T> boolean IS_OK(Opcional<T> op){
+        return op.isOK();
+    }
 }

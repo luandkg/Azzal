@@ -279,7 +279,7 @@ public class StringTronarko {
     }
 
 
-    public Tozte parseTozte(String entrada) {
+    public static Tozte parseTozte(String entrada) {
 
 
         String s1 = "";

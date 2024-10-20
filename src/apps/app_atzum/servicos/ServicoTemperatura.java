@@ -1,7 +1,7 @@
 package apps.app_atzum.servicos;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
-import apps.app_atzum.AtzumCidades;
+import apps.app_atzum.utils.AtzumCidades;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.utils.AtzumCreatorInfo;
@@ -575,7 +575,7 @@ public class ServicoTemperatura {
                 }
             }
 
-            fmt.print("Temperatura {} -->> {}", temperatura.getCor().toString(), pontos_de_temperatura.getQuantidade());
+            fmt.print("\t ++ Temperatura {} -->> {}", temperatura.getCor().toString(), pontos_de_temperatura.getQuantidade());
 
 
             if (pontos_de_temperatura.getQuantidade() > 0) {

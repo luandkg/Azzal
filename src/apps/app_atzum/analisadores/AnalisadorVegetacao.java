@@ -117,125 +117,14 @@ public class AnalisadorVegetacao {
         ENTT.EXIBIR_TABELA(ENTT.COLETAR(mapa_sensores, "Vegetacao", "TAIGA"));
 
 
-        Cores mCores = new Cores();
-
-        AtzumTerra mapa_planeta = new AtzumTerra();
-        Renderizador render_mapa_climatico = new Renderizador(AtzumCreator.GET_MAPA());
-        Rasterizador.trocar_cores(render_mapa_climatico, mCores.getAmarelo(), mCores.getBranco());
-
-        Lista<Par<Ponto, String>> sensores_dados_climaticos = new Lista<Par<Ponto, String>>();
-
-        for (Entidade sensor : mapa_sensores) {
-
-            sensor.at("X", Strings.GET_ATE(sensor.at("Sensor"), ":"));
-            sensor.at("Y", Strings.GET_REVERSO_ATE(sensor.at("Sensor"), ":"));
-
-            int px = sensor.atInt("X");
-            int py = sensor.atInt("Y");
-
-            String hiperestacao = sensor.at("Hiperestacao");
-
-            sensores_dados_climaticos.adicionar(new Par<Ponto, String>(new Ponto(px, py), hiperestacao));
-        }
-
-        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                if (mapa_planeta.isTerra(x, y)) {
-
-                    String cor_climatica = Espaco2D.GET_TEXTO_DA_DISTANCIA_MAIS_PROXIMA(sensores_dados_climaticos, x, y);
-
-                    render_mapa_climatico.setPixel(x, y, Atzum.GET_MODELO_CLIMATICO_COR(cor_climatica));
-
-                }
-            }
-        }
 
 
-        Imagem.exportar(render_mapa_climatico.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_climatico.png"));
-
-
-        // RENDER VEGETACAO
-
-        Renderizador render_vegetacao = new Renderizador(AtzumCreator.GET_MAPA());
-        Rasterizador.trocar_cores(render_vegetacao, mCores.getAmarelo(), mCores.getBranco());
-
-        Lista<Par<Ponto, String>> sensores_dados_vegetacao = new Lista<Par<Ponto, String>>();
-
-        for (Entidade sensor : mapa_sensores) {
-
-            sensor.at("X", Strings.GET_ATE(sensor.at("Sensor"), ":"));
-            sensor.at("Y", Strings.GET_REVERSO_ATE(sensor.at("Sensor"), ":"));
-
-            int px = sensor.atInt("X");
-            int py = sensor.atInt("Y");
-
-            String vegetacao = sensor.at("Vegetacao");
-
-            sensores_dados_vegetacao.adicionar(new Par<Ponto, String>(new Ponto(px, py), vegetacao));
-        }
-
-        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                if (mapa_planeta.isTerra(x, y)) {
-
-                    String vegetacao = Espaco2D.GET_TEXTO_DA_DISTANCIA_MAIS_PROXIMA(sensores_dados_vegetacao, x, y);
-
-                    render_vegetacao.setPixel(x, y, Atzum.GET_MODELO_VEGETACAO_COR(vegetacao));
-
-                }
-            }
-        }
-
-
-        Imagem.exportar(render_mapa_climatico.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_climatico.png"));
-        Imagem.exportar(render_vegetacao.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_vegetacao.png"));
-
-
-        Imagem.exportar(CRIAR_INFO_CLIMATICO(render_mapa_climatico), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_info_modelo_climatico.png"));
-        Imagem.exportar(CRIAR_INFO_VEGETACAO(render_vegetacao), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_info_modelo_vegetacao.png"));
 
 
         AtzumCreatorInfo.terminar("AnalisadorVegetacao.INIT");
 
     }
 
-    public static BufferedImage CRIAR_INFO_CLIMATICO(Renderizador render_climatico) {
-        Cores mCores = new Cores();
-        Renderizador info_vegetacao = Renderizador.CONSTRUIR(render_climatico.getLargura() + 1000, render_climatico.getAltura(), mCores.getPreto());
-        info_vegetacao.drawImagem(0, 0, render_climatico.toImagemSemAlfa());
-
-        Fonte escritor = new FonteRunTime(mCores.getBranco(), 50);
-        escritor.setRenderizador(info_vegetacao);
-
-        int py = 100;
-        for (String modelo_vegetacao : Atzum.GET_MODELO_CLIMATICO()) {
-
-            info_vegetacao.drawRect_Pintado(render_climatico.getLargura() + 0, py, 50, 50, Atzum.GET_MODELO_CLIMATICO_COR(modelo_vegetacao));
-            escritor.escreva(render_climatico.getLargura() + 0 + 100, py, modelo_vegetacao);
-
-            py += 100;
-        }
-        return info_vegetacao.toImagemSemAlfa();
-    }
-
-    public static BufferedImage CRIAR_INFO_VEGETACAO(Renderizador render_vegetacao) {
-        Cores mCores = new Cores();
-        Renderizador info_vegetacao = Renderizador.CONSTRUIR(render_vegetacao.getLargura() + 1000, render_vegetacao.getAltura(), mCores.getPreto());
-        info_vegetacao.drawImagem(0, 0, render_vegetacao.toImagemSemAlfa());
-
-        Fonte escritor = new FonteRunTime(mCores.getBranco(), 50);
-        escritor.setRenderizador(info_vegetacao);
-
-        int py = 100;
-        for (String modelo_vegetacao : Atzum.GET_MODELO_VEGETACAO()) {
-
-            info_vegetacao.drawRect_Pintado(render_vegetacao.getLargura() + 0, py, 50, 50, Atzum.GET_MODELO_VEGETACAO_COR(modelo_vegetacao));
-            escritor.escreva(render_vegetacao.getLargura() + 0 + 100, py, modelo_vegetacao);
-
-            py += 100;
-        }
-        return info_vegetacao.toImagemSemAlfa();
-    }
 
 
 }

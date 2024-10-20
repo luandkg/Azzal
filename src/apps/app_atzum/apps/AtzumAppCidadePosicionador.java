@@ -1,6 +1,6 @@
 package apps.app_atzum.apps;
 
-import apps.app_atzum.AtzumCidades;
+import apps.app_atzum.utils.AtzumCidades;
 import apps.app_atzum.AtzumCreator;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;

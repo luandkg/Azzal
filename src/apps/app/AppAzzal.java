@@ -1,24 +1,13 @@
 package apps.app;
 
-import algoritmos.Teste;
-import apps.app_arquivos.AppVideo;
-import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
-import apps.app_atzum.Apps;
 import apps.app_atzum.AtzumCreator;
-import apps.app_atzum.AtzumProcessoCriativo;
-import apps.app_atzum.SnapShotter;
-import apps.app_atzum.servicos.*;
-import apps.app_atzum.utils.AtzumCreatorInfo;
-import apps.app_azzal.Alpha;
-import apps.app_azzal.AppGlobal;
+import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_azzal.VamosCalcular;
 import libs.aqz.AQZ;
-import libs.azzal.AzzalUnico;
 import libs.dkg.DKGObjeto;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
-import libs.oo.ODS;
 import libs.tempo.Calendario;
 import libs.tronarko.Hazde;
 import libs.tronarko.Intervalos.Hazde_Intervalo;
@@ -26,7 +15,7 @@ import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
 import libs.verkuz.VerkuzImplementador;
-import libs.xlsx.XLSX;
+import testes.TesteArquivoDS;
 
 public class AppAzzal {
 
@@ -114,7 +103,7 @@ public class AppAzzal {
 
         // VideoCodecador.abrir("/home/luan/Vídeos/vi/ecossistema_01.vi");
 
-       // AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
+        // AzzalUnico.unico("AppVideo", 2000, 1100, new AppVideo());
 
         String ESCOLA_LOCAL = "/home/luan/Dropbox/CED 1";
 
@@ -159,13 +148,6 @@ public class AppAzzal {
 
         // AppClassificador.init();
 
-        XLSX vendas = new XLSX("/home/luan/assets/vendas.xlsx");
-        Lista<Entidade> e_vendas = ENTT.CRIAR_DE_XLSX(vendas);
-        // ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(e_vendas, "Titulo", "Planilha1").getEntidades());
-
-        ODS vendas_ods = new ODS("/home/luan/assets/vendas_ods.ods");
-        Lista<Entidade> ods_vendas = ENTT.CRIAR_DE_ODS(vendas_ods);
-        //  ENTT.EXIBIR_TABELA(ENTT.GET_UNICO(ods_vendas, "Titulo", "Planilha1").getEntidades());
 
         // AppFit.init();
 
@@ -192,14 +174,59 @@ public class AppAzzal {
 
         fmt.print("Tronarko : {}", Tronarko.getTronAgora().getTextoZerado());
 
-        AtzumProcessoCriativo.init();
+        //AtzumProcessoCriativo.init();
 
-       // PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
+        AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+
+        // LimonTorrents.INIT();
+        String ARQUIVO_LOCAL_BETA = "comparativos/beta_processo_criativo.entts";
+        Lista<Entidade> beta_dados = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
+        Entidade e_atividade = ENTT.GET_SEMPRE(beta_dados, "Conjunto", "TarefaCorrente");
+        //e_atividade.at("Tronarko","7001");
+        // ENTT.GUARDAR(beta_dados,AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
+
+        TesteArquivoDS.init();
+
+        int a = 200;
+        while (a > 0) {
+
+            AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+
+            if (Strings.isDiferente(AtzumProcessoCriativoEmTarefas.GET_ALFA_TAREFA(), "TudoOK")) {
+                AtzumProcessoCriativoEmTarefas.INIT_ALFA_SEQUENCIAL();
+            } else {
+                AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
+            }
+
+            a -= 1;
+        }
+
+        String tronarko_corrente = AtzumProcessoCriativoEmTarefas.GET_BETA_TRONARKO();
+        fmt.print(">> {}", tronarko_corrente);
+
+        // AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
+
+        //   AnalisadorEstruturado. SENSORES_DADOS_ORGANIZAR();
+        // AnalisadorEstruturado.COMPACTAR_SENSORES_SUPERARKO();
+
+        // ServicoExportarTronarko.EXPORTAR_SENSORES_SUPERARKO();
+        // ServicoExportarTronarko.EXPORTAR_MODELOS();
+        //  ServicoExportarTronarko.EXPORTAR_DADOS_CIDADES();
+        //  ServicoExportarTronarko.CONSOLIDAR_DADOS_CIDADES();
+        //   ServicoExportarTronarko.VER_DADOS_VEGETACAO();
+        // ServicoExportarTronarko.VER_DADOS_CIDADES();
+
+        //  AnalisadorEstruturado.VER_DADOS_V9();
+
+        //TesteComQTTCacheVer.init();
+
+        // JujutsuKaizen.init();
+
+        // PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
 
         //AppStrava.init();
-       // AppStrava.transferencia_gg("remoto_gg.entts","gg.entts");
 
-       // Teste.init();
+        // Teste.init();
 
         // tempo();
 

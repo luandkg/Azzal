@@ -258,6 +258,15 @@ int o =(int)GET_TAMANHO(arquivo);
 
     }
 
+    public void set_u8_array(byte[] dados) {
+        try {
+            mFile.write(dados);
+        } catch (IOException e) {
+
+        }
+
+    }
+
 
     public void set_u8_em_bloco(int quantidade, Byte byte_v) {
         try {
@@ -312,6 +321,22 @@ int o =(int)GET_TAMANHO(arquivo);
         return bytes;
     }
 
+
+    public byte[] get_u8_array(int eQuantidade) {
+
+        byte[] bytes = new byte[eQuantidade];
+
+        try {
+            for (int i = 0; i < eQuantidade; i++) {
+                bytes[i]=mFile.readByte();
+            }
+        } catch (IOException e) {
+
+        }
+
+        return bytes;
+    }
+
     public void get_u8_em_bloco(byte[] buff, int eQuantidade) {
 
         try {
@@ -321,6 +346,31 @@ int o =(int)GET_TAMANHO(arquivo);
         }
 
     }
+
+
+    public void set_double(double valor) {
+
+        try {
+            mFile.writeDouble(valor);
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    public double get_double( ) {
+
+        try {
+           return mFile.readDouble();
+        } catch (IOException e) {
+
+        }
+
+        return 0;
+    }
+
+
+
 
     public void fechar() throws IOException {
         mFile.close();

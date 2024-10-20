@@ -4,10 +4,22 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
 public class Imagem {
+
+    public static byte[] IMAGEM_TO_BYTES(BufferedImage imagem){
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(imagem, "png", baos);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return baos.toByteArray();
+    }
 
     public static BufferedImage getImagem(String eArquivo) {
         BufferedImage IMG_MOSTRANDO = null;
@@ -216,6 +228,28 @@ public class Imagem {
 
 
         return ret;
+    }
+
+    public static BufferedImage redimensionador(BufferedImage bufferedImage, int escala) {
+        int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+
+        BufferedImage resizedImage = new BufferedImage(bufferedImage.getWidth() / escala, bufferedImage.getHeight() / escala, type);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(bufferedImage, 0, 0, bufferedImage.getWidth() / escala, bufferedImage.getHeight() / escala, null);
+        g.dispose();
+
+        return resizedImage;
+    }
+
+    public static BufferedImage redimensionador(BufferedImage bufferedImage, int largura,int altura) {
+        int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+
+        BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+        g.dispose();
+
+        return resizedImage;
     }
 
 }

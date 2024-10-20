@@ -1,10 +1,9 @@
 package libs.arquivos.ds;
 
-import java.nio.charset.StandardCharsets;
-
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
-import libs.luan.fmt;
+
+import java.nio.charset.StandardCharsets;
 
 public class DSItem {
 
@@ -52,6 +51,10 @@ public class DSItem {
         return mInicio;
     }
 
+    public long getFim(){
+        return mInicio+mTamanho;
+    }
+
 
     public byte[] getBytes() {
 
@@ -71,7 +74,7 @@ public class DSItem {
 
     public byte[] getBytes(int quantidade_de_retorno) {
 
-        if(quantidade_de_retorno<=mTamanho){
+        if (quantidade_de_retorno <= mTamanho) {
             Arquivador arquivar = new Arquivador(mArquivo);
             arquivar.setPonteiro(mInicio);
 
@@ -84,7 +87,7 @@ public class DSItem {
             arquivar.encerrar();
 
             return dados;
-        }else{
+        } else {
             throw new RuntimeException("Tamanho superior ao tamanho do item !");
         }
 
@@ -111,39 +114,62 @@ public class DSItem {
     }
 
 
-    public String getTextoPreAlocado(){
+    public String getTextoPreAlocado() {
 
         String s = "";
 
-            Arquivador arquivar = new Arquivador(mArquivo);
-            arquivar.setPonteiro(mInicio);
+        Arquivador arquivar = new Arquivador(mArquivo);
+        arquivar.setPonteiro(mInicio);
 
-            int valor_pre_alocado = arquivar.get_u8();
+        //int valor_pre_alocado = arquivar.get_u8();
         long tamanho_pre_alocado = arquivar.get_u64();
 
-       // fmt.print("Status Pre alloc : {}",valor_pre_alocado);
-      //  fmt.print("Tam    Pre alloc : {}",tamanho_pre_alocado);
+        // fmt.print("Status Pre alloc : {}",valor_pre_alocado);
+        //  fmt.print("Tam    Pre alloc : {}",tamanho_pre_alocado);
 
 
-        if(tamanho_pre_alocado>0){
+        if (tamanho_pre_alocado > 0) {
 
 
+            byte[] dados = new byte[(int) tamanho_pre_alocado];
 
-    byte[] dados = new byte[(int) tamanho_pre_alocado];
-
-    for (int b = 0; b < tamanho_pre_alocado; b++) {
-        dados[b] = arquivar.get();
-    }
+            for (int b = 0; b < tamanho_pre_alocado; b++) {
+                dados[b] = arquivar.get();
+            }
 
 
-        s= new String(dados, StandardCharsets.UTF_8);
-    }else{
-        s= "";
-    }
+            s = new String(dados, StandardCharsets.UTF_8);
+        } else {
+            s = "";
+        }
 
         arquivar.encerrar();
 
         return s;
+    }
+
+    public long getTamanhoUtilizadoPreAlocado() {
+
+        long tamanho_pre_alocado_utlizado =0;
+
+        Arquivador arquivar = new Arquivador(mArquivo);
+        arquivar.setPonteiro(mInicio);
+
+      //  int valor_pre_alocado = arquivar.get_u8();
+        tamanho_pre_alocado_utlizado= arquivar.get_u64();
+
+        // fmt.print("Status Pre alloc : {}",valor_pre_alocado);
+        //  fmt.print("Tam    Pre alloc : {}",tamanho_pre_alocado);
+
+        arquivar.encerrar();
+
+        return tamanho_pre_alocado_utlizado;
+    }
+
+
+
+    public boolean isNome(String eNome) {
+        return mNome.contentEquals(eNome);
     }
 
 }

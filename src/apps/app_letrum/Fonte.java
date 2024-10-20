@@ -10,6 +10,7 @@ public interface Fonte {
     Renderizador getRenderizador();
 
     void escreva(int x, int y, String frase);
+    void escreva(int x, int y, int frase);
 
     void escrevaComOutraCor(int x, int y, String frase, Cor eOutraCor);
 

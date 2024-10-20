@@ -1,6 +1,7 @@
 package libs.luan;
 
 import libs.arquivos.binario.Inteiro;
+import libs.entt.ENTT;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -1905,5 +1906,228 @@ public class Strings {
         s = s.trim();
         return !s.isEmpty();
     }
+
+    public static String CAPTALIZAR(String s) {
+
+        if (!s.isEmpty()) {
+            s = String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1).toLowerCase();
+        }
+
+        return s;
+    }
+
+    public static String CAPTALIZAR_FRASE(String s) {
+
+        String ret = "";
+
+        for (Indexado<String> palavra : Indexamento.indexe(DIVIDIR_POR(s, " "))) {
+            if (palavra.isPrimeiroEUltimo() || palavra.isUltimo()) {
+                ret += CAPTALIZAR(palavra.get().replace(" ", ""));
+            } else {
+                ret += CAPTALIZAR(palavra.get().replace(" ", "")) + " ";
+            }
+        }
+
+        return ret;
+
+    }
+
+    public static Lista<String> DIVIDIR_POR(String texto, String por) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals(por)) {
+                if (!linha.isEmpty()) {
+                    linhas.adicionar(linha);
+                }
+                linha = c;
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (!linha.isEmpty()) {
+            linhas.adicionar(linha);
+        }
+        return linhas;
+    }
+
+    public static Lista<String> DIVIDIR_POR_OU_POR(String texto, String por1,String por2) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals(por1)||c.contentEquals(por2)) {
+                if (!linha.isEmpty()) {
+                    linhas.adicionar(linha);
+                }
+                linha = c;
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (!linha.isEmpty()) {
+            linhas.adicionar(linha);
+        }
+        return linhas;
+    }
+
+    public static Lista<String> DIVIDIR_LINHAS(String texto) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals("\n")) {
+                if (linha.length() > 0) {
+                    linhas.adicionar(linha);
+                }
+                linha = "";
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (linha.length() > 0) {
+            linhas.adicionar(linha);
+        }
+        return linhas;
+    }
+
+    public static Lista<String> GET_ENTRE_ASPAS_VARIOS(String txt) {
+        int i = 0;
+        int o = txt.length();
+
+        boolean dentro = false;
+        String aspas = "";
+
+        Lista<String> ls = new Lista<String>();
+
+        while (i < o) {
+            String l = String.valueOf(txt.charAt(i));
+            if (dentro) {
+                if (l.contentEquals("\"")) {
+                    if (aspas.length() > 0) {
+                        ls.adicionar(aspas);
+                    }
+                    dentro = false;
+                    aspas = "";
+                } else {
+                    aspas += l;
+                }
+            } else {
+                if (l.contentEquals("\"")) {
+                    dentro = true;
+                    aspas = "";
+                }
+            }
+
+            i += 1;
+        }
+
+        if (aspas.length() > 0) {
+            ls.adicionar(aspas);
+        }
+
+        return ls;
+    }
+
+    public static boolean isTernario(boolean status, String s_inicio, String s_termina, String s) {
+
+        if (Strings.isIgual(s, s_inicio)) {
+            status = true;
+        } else if (Strings.isIgual(s, s_termina)) {
+            status = false;
+        }
+
+        return status;
+    }
+
+    public static String LETRAS_UNICAS(String s1) {
+
+        int i = 0;
+        int o = s1.length();
+
+        String ret = "";
+
+        while (i < o) {
+            String l = String.valueOf(s1.charAt(i));
+            if (!ret.contains(l)) {
+                ret += l;
+            }
+            i += 1;
+        }
+
+        return ret;
+
+    }
+
+
+    public static int QUANTIDADE_LETRAS_IGUAIS(String s1, String s2) {
+
+        s1 = LETRAS_UNICAS(s1);
+        s2 = LETRAS_UNICAS(s2);
+
+        String s_maior = s1;
+        String s_menor = s2;
+
+        if (s2.length() > s1.length()) {
+            s_maior = s2;
+            s_menor = s1;
+        }
+
+        int i = 0;
+        int a1 = s_maior.length();
+
+        int letras = 0;
+
+        while (i < a1) {
+            String l = String.valueOf(s_maior.charAt(i));
+
+            int e = 0;
+            int eo = s_menor.length();
+            while (e < eo) {
+                String l2 = String.valueOf(s_menor.charAt(e));
+                if (l2.contentEquals(l)) {
+                    letras+=1;
+                }
+                e += 1;
+            }
+
+            i += 1;
+        }
+
+        return letras;
+    }
+
+    public static String LINEARIZAR(String s){
+        return s.replace("\n"," ").trim();
+    }
+
+    public static String LISTA_EM_LINHA_COM(Lista<String> valores,String abrir,String fechar){
+        String ret = abrir+" ";
+        for (String valor : valores) {
+            ret += valor + " ";
+        }
+        ret += fechar;
+        return ret;
+    }
+
 
 }
