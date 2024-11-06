@@ -285,7 +285,7 @@ public class ServicoUmidade {
             }
 
 
-            int valor_aqui = Aleatorio.alatorio_entre(umidade_min, umidade_max);
+            int valor_aqui = Aleatorio.aleatorio_entre(umidade_min, umidade_max);
 
             pontos_escolhidos.adicionar(new Par<Ponto, Integer>(ponto_escolhido, valor_aqui));
 

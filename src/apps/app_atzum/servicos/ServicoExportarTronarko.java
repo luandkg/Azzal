@@ -3,17 +3,172 @@ package apps.app_atzum.servicos;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
+import libs.arquivos.IM;
 import libs.arquivos.Zipper;
 import libs.arquivos.ds.DS;
+import libs.arquivos.ds.DSIndexador;
 import libs.arquivos.ds.DSItem;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.FS;
-import libs.luan.Lista;
-import libs.luan.Strings;
-import libs.luan.fmt;
+import libs.imagem.Imagem;
+import libs.luan.*;
+import libs.tronarko.Tronarko;
 
 public class ServicoExportarTronarko {
+
+
+    public static void VER_ATZUM() {
+
+        String arquivo_atzum = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/atzum.ds");
+
+        DS.DUMP_TABELA(arquivo_atzum);
+
+
+        Opcional<DSItem> op_init = DS.buscar_item(arquivo_atzum, "@Atzum.index");
+
+        if (Opcional.IS_OK(op_init)) {
+            Lista<DSItem> indice = DSIndexador.GET_INDEX(arquivo_atzum, "@Atzum.index");
+           // DSIndexador.VER_TAMANHO(indice);
+            DS.DUMP_ITENS(indice);
+           // ENTT.EXIBIR_TABELA_COM_NOME(indice, "@Atzum.index");
+            fmt.print("Indice Tamanho >> {}", fmt.formatar_tamanho_precisao_dupla(op_init.get().getTamanhoUtilizadoPreAlocado()));
+        }
+
+    }
+
+    public static void EXPORTAR_ATZUM() {
+
+        String arquivo_atzum = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/atzum.ds");
+
+        DS.limpar(arquivo_atzum);
+
+        DS.adicionar_pre_alocado(arquivo_atzum, "@Atzum.index", Matematica.KB(500));
+
+        fmt.print(">> Adicionar objetos");
+
+
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@parametros/cidades.entts", AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts"));
+
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_regioes.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes.png"));
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_contorno_oceanico.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_contorno_oceanico.png"));
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_regioes_contornos.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes_contornos.png"));
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_terra.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_terra.png"));
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_oceanos.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_oceanos.png"));
+
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_relevo.im", AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_relevo.png"));
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_relevo_terra.im", AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_relevo_terra.png"));
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_relevo_agua.im", AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_relevo_agua.png"));
+
+
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/planeta.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/planeta.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/oceanos.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/oceanos.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/regioes.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/regioes.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/subregioes.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/subregioes.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/relevo.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/relevo.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/distancia_terra.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/distancia_terra.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/distancia_oceanica.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/distancia_oceanica.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/sensor_proximidade.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/sensor_proximidade.qtt"));
+
+
+        Opcional<DSItem> op_init = DS.buscar_item(arquivo_atzum, "@Atzum.index");
+
+        if (Opcional.IS_OK(op_init)) {
+
+            fmt.print(">> Indexar");
+
+            DSIndexador.INDEX(arquivo_atzum, "@Atzum.index");
+
+            Lista<DSItem> indice = DSIndexador.GET_INDEX(arquivo_atzum, "@Atzum.index");
+
+           DS.DUMP_ITENS(indice);
+            fmt.print("Indice Tamanho >> {}", fmt.formatar_tamanho_precisao_dupla(op_init.get().getTamanhoUtilizadoPreAlocado()));
+
+        }
+
+        fmt.print(">> Tudo OK !");
+
+    }
+
+    public static void EXPORTAR_TRONARKO() {
+
+        String tronarko_corrente = AtzumProcessoCriativoEmTarefas.GET_BETA_TRONARKO();
+
+        String arquivo_atzum_tronarko = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/atzum_tronarko_" + tronarko_corrente + ".ds");
+
+        DS.limpar(arquivo_atzum_tronarko);
+
+        DS.adicionar_pre_alocado(arquivo_atzum_tronarko, "@AtzumTronarko.index", Matematica.KB(500));
+
+        fmt.print(">> Adicionar objetos");
+
+
+        fmt.print(">> Tronarko Corrente : {}", tronarko_corrente);
+
+
+        String arquivo_sensores_superarko_compactado = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_sensores_por_superarko.dz");
+        String arquivo_cidades_consolidados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades_geral.entts");
+        String arquivo_cidades_dados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades.entts");
+        String arquivo_modelo_dados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_modelos.entts");
+
+        String arquivo_info_modelo_climatico = AtzumCreator.LOCAL_GET_ARQUIVO("comparativos/tronarko_info_" + tronarko_corrente + "_modelo_climatico.png");
+        String arquivo_info_modelo_vegetacao = AtzumCreator.LOCAL_GET_ARQUIVO("comparativos/tronarko_info_" + tronarko_corrente + "_modelo_vegetacao.png");
+
+
+        //  EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@parametros/cidades.entts", AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts"));
+
+        Entidade e_tronarko = new Entidade();
+        e_tronarko.at("Tronarko", tronarko_corrente);
+        e_tronarko.at("Criado", Tronarko.getTronAgora().getTextoZerado());
+
+
+        EXPORTACAO_ADICIONAR_ENTIDADE(arquivo_atzum_tronarko, "@parametros/tronarko.entt", e_tronarko);
+
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_climatico.im", arquivo_info_modelo_climatico);
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_vegetacao.im", arquivo_info_modelo_vegetacao);
+
+
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_sensores_por_superarko.dz", arquivo_sensores_superarko_compactado);
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_cidades_dados_publicados.entts", arquivo_cidades_consolidados);
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_cidades.entts", arquivo_cidades_dados);
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_modelos.entts", arquivo_modelo_dados);
+
+
+        Opcional<DSItem> op_init = DS.buscar_item(arquivo_atzum_tronarko, "@AtzumTronarko.index");
+
+        if (Opcional.IS_OK(op_init)) {
+
+            fmt.print(">> Indexar");
+
+            DSIndexador.INDEX(arquivo_atzum_tronarko, "@AtzumTronarko.index");
+
+            Lista<DSItem> indice = DSIndexador.GET_INDEX(arquivo_atzum_tronarko, "@AtzumTronarko.index");
+            DS.DUMP_ITENS(indice);
+
+          //  ENTT.EXIBIR_TABELA_COM_NOME(indice, "@AtzumTronarko.index");
+            fmt.print("Indice Tamanho >> {}", fmt.formatar_tamanho_precisao_dupla(op_init.get().getTamanhoUtilizadoPreAlocado()));
+
+        }
+
+        fmt.print(">> Tudo OK !");
+
+    }
+
+    public static void EXPORTACAO_ADICIONAR_ENTIDADE(String arquivo_atzum, String item_nome, Entidade entidade) {
+        fmt.print("\t ++ {}", item_nome);
+        DS.adicionar(arquivo_atzum, item_nome, ENTT.TO_DOCUMENTO(entidade));
+    }
+
+
+    public static void EXPORTACAO_ADICIONAR_ARQUIVO(String arquivo_atzum, String item_nome, String arquivo) {
+        fmt.print("\t ++ {}", item_nome);
+        DS.adicionar_arquivo(arquivo_atzum, item_nome, arquivo);
+    }
+
+    public static void EXPORTACAO_ADICIONAR_IMAGEM(String arquivo_atzum, String item_nome, String arquivo_imagem) {
+        fmt.print("\t ++ {}", item_nome);
+        DS.adicionar(arquivo_atzum, item_nome, IM.salvar_to_chunks(Imagem.getImagem(arquivo_imagem)));
+    }
+
 
     public static void EXPORTAR_SENSORES_SUPERARKO() {
 
@@ -22,7 +177,7 @@ public class ServicoExportarTronarko {
         fmt.print(">> Tronarko Corrente : {}", tronarko_corrente);
 
         String arquivo_sensores_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
-        String arquivo_sensores_superarko_compactado = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_sensores_por_superarko_" + tronarko_corrente + ".dz");
+        String arquivo_sensores_superarko_compactado = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_sensores_por_superarko.dz");
 
         DS.limpar(arquivo_sensores_superarko_compactado);
 
@@ -81,7 +236,7 @@ public class ServicoExportarTronarko {
 
         ENTT.EXIBIR_TABELA(dados);
 
-        ENTT.GUARDAR(dados, AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_modelos_" + tronarko_corrente + ".entts"));
+        ENTT.GUARDAR(dados, AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_modelos.entts"));
 
     }
 
@@ -104,7 +259,7 @@ public class ServicoExportarTronarko {
         fmt.print(">> Tronarko Corrente : {}", tronarko_corrente);
 
         String arquivo_sensores_por_sensor = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_sensor.ds");
-        String arquivo_cidades_dados = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_cidades_" + tronarko_corrente + ".entts");
+        String arquivo_cidades_dados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades.entts");
 
         DS.limpar(arquivo_cidades_dados);
 
@@ -159,8 +314,8 @@ public class ServicoExportarTronarko {
         fmt.print(">> Tronarko Corrente : {}", tronarko_corrente);
 
 
-        String arquivo_cidades_dados = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_cidades_" + tronarko_corrente + ".entts");
-        String arquivo_cidades_modelos = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_modelos_" + tronarko_corrente + ".entts");
+        String arquivo_cidades_dados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades.entts");
+        String arquivo_cidades_modelos = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_modelos.entts");
 
         Lista<Entidade> cidades = Atzum.GET_CIDADES_NOMES();
         Lista<Entidade> dados = ENTT.ABRIR(arquivo_cidades_dados);
@@ -219,18 +374,18 @@ public class ServicoExportarTronarko {
                 e_cidade.at("FC" + superarko, e_sensor.at("FC" + superarko));
                 e_cidade.at("IC" + superarko, e_sensor.at("IC" + superarko));
 
-                if(e_sensor.atDouble("T" + superarko)<tMenor){
-                    tMenor=  e_sensor.atDouble("T" + superarko);
+                if (e_sensor.atDouble("T" + superarko) < tMenor) {
+                    tMenor = e_sensor.atDouble("T" + superarko);
                 }
-                if(e_sensor.atDouble("T" + superarko)>tMaior){
-                    tMaior=  e_sensor.atDouble("T" + superarko);
+                if (e_sensor.atDouble("T" + superarko) > tMaior) {
+                    tMaior = e_sensor.atDouble("T" + superarko);
                 }
 
-                if(e_sensor.atDouble("U" + superarko)<uMenor){
-                    uMenor=  e_sensor.atDouble("U" + superarko);
+                if (e_sensor.atDouble("U" + superarko) < uMenor) {
+                    uMenor = e_sensor.atDouble("U" + superarko);
                 }
-                if(e_sensor.atDouble("U" + superarko)>uMaior){
-                    uMaior=  e_sensor.atDouble("U" + superarko);
+                if (e_sensor.atDouble("U" + superarko) > uMaior) {
+                    uMaior = e_sensor.atDouble("U" + superarko);
                 }
 
             }
@@ -245,7 +400,7 @@ public class ServicoExportarTronarko {
 
         ENTT.EXIBIR_TABELA(ENTT.GET_AMOSTRA_PEQUENA(dados_consolidados));
 
-        ENTT.GUARDAR(dados_consolidados, AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_cidades_geral_" + tronarko_corrente + ".entts"));
+        ENTT.GUARDAR(dados_consolidados, AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades_geral.entts"));
 
     }
 
@@ -256,7 +411,7 @@ public class ServicoExportarTronarko {
 
         fmt.print(">> Tronarko Corrente : {}", tronarko_corrente);
 
-        String arquivo_cidades_modelos = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_modelos_" + tronarko_corrente + ".entts");
+        String arquivo_cidades_modelos = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_modelos.entts");
         Lista<Entidade> modelos = ENTT.ABRIR(arquivo_cidades_modelos);
 
         ENTT.EXIBIR_TABELA(ENTT.GET_AMOSTRA_PEQUENA(modelos));
@@ -290,7 +445,7 @@ public class ServicoExportarTronarko {
 
         fmt.print(">> Tronarko Corrente : {}", tronarko_corrente);
 
-        String arquivo_cidades_consolidados = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/tronarko_cidades_geral_" + tronarko_corrente + ".entts");
+        String arquivo_cidades_consolidados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades_geral.entts");
         Lista<Entidade> cidades = ENTT.ABRIR(arquivo_cidades_consolidados);
 
         ENTT.EXIBIR_TABELA(ENTT.GET_AMOSTRA_PEQUENA(cidades));

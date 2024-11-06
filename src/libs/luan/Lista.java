@@ -196,8 +196,8 @@ public class Lista<T> implements Iterable<T> {
 
     }
 
-    public void remover_varios(Lista<T> remocao){
-        for(T remove : remocao){
+    public void remover_varios(Lista<T> remocao) {
+        for (T remove : remocao) {
             remover(remove);
         }
     }
@@ -485,9 +485,8 @@ public class Lista<T> implements Iterable<T> {
     }
 
 
-
-    public T getUltimoValor(){
-        return getValor(getQuantidade()-1);
+    public T getUltimoValor() {
+        return getValor(getQuantidade() - 1);
     }
 
     // SUPER FUNCOES
@@ -707,10 +706,10 @@ public class Lista<T> implements Iterable<T> {
     }
 
 
-    public Lista<T> getCopia(){
+    public Lista<T> getCopia() {
         Lista<T> copia = new Lista<T>();
 
-        for(T item : this){
+        for (T item : this) {
             copia.adicionar(item);
         }
 
@@ -718,83 +717,113 @@ public class Lista<T> implements Iterable<T> {
     }
 
 
-    public static<T> Lista<T> CRIAR(T...varios){
+    public static <T> Lista<T> CRIAR(T... varios) {
         Lista<T> lista = new Lista<T>();
-        for(T item : varios){
+        for (T item : varios) {
             lista.adicionar(item);
         }
         return lista;
     }
 
-    public static<T> boolean IS_IGUAL(Igualdade<T> igualdade,Lista<T> lista_alfa,Lista<T> lista_beta){
+    public static <T> boolean IS_IGUAL(Igualdade<T> igualdade, Lista<T> lista_alfa, Lista<T> lista_beta) {
 
-        if(lista_alfa.getQuantidade()==lista_beta.getQuantidade()){
+        if (lista_alfa.getQuantidade() == lista_beta.getQuantidade()) {
             boolean ret = true;
 
             int i = 0;
             int o = lista_alfa.getQuantidade();
 
-            while(i<o){
-                if(!igualdade.isIgual(lista_alfa.get(i),lista_beta.get(i))){
-                    ret=false;
+            while (i < o) {
+                if (!igualdade.isIgual(lista_alfa.get(i), lista_beta.get(i))) {
+                    ret = false;
                     break;
                 }
-                i+=1;
+                i += 1;
             }
             return ret;
         }
         return false;
     }
 
-    public static<T> boolean IS_IGUAL_ORDENADO(Igualdade<T> igualdade,Ordenavel<T> algoritmo_de_ordenacao,Lista<T> lista_alfa,Lista<T> lista_beta){
+    public static <T> boolean IS_IGUAL_ORDENADO(Igualdade<T> igualdade, Ordenavel<T> algoritmo_de_ordenacao, Lista<T> lista_alfa, Lista<T> lista_beta) {
 
-       // fmt.print("-------- O1 ------");
+        // fmt.print("-------- O1 ------");
 
         Lista<T> copia_lista_alfa = lista_alfa.getCopia();
-        Lista.ORDENAR_CRESCENTE(copia_lista_alfa,algoritmo_de_ordenacao);
+        Lista.ORDENAR_CRESCENTE(copia_lista_alfa, algoritmo_de_ordenacao);
 
-      //  fmt.print("-------- O2 ------");
+        //  fmt.print("-------- O2 ------");
 
         Lista<T> copia_lista_beta = lista_beta.getCopia();
-        Lista.ORDENAR_CRESCENTE(copia_lista_beta,algoritmo_de_ordenacao);
+        Lista.ORDENAR_CRESCENTE(copia_lista_beta, algoritmo_de_ordenacao);
 
-       // fmt.print("COMPARADOR");
-      //  fmt.print(">> ALFA");
-      ///  for(T item : lista_alfa){
-      //      fmt.print("\t ++ {}",item);
-     //   }
-      //  fmt.print(">> BETA");
-      //  for(T item : lista_beta){
-     //       fmt.print("\t ++ {}",item);
-      //  }
-      //  fmt.print("--------------");
-      //  fmt.print(">> ALFA");
-      //  for(T item : copia_lista_alfa){
-      //      fmt.print("\t ++ {}",item);
-      //  }
-     //   fmt.print(">> BETA");
-     //   for(T item : copia_lista_beta){
-      //      fmt.print("\t ++ {}",item);
-     //   }
+        // fmt.print("COMPARADOR");
+        //  fmt.print(">> ALFA");
+        ///  for(T item : lista_alfa){
+        //      fmt.print("\t ++ {}",item);
+        //   }
+        //  fmt.print(">> BETA");
+        //  for(T item : lista_beta){
+        //       fmt.print("\t ++ {}",item);
+        //  }
+        //  fmt.print("--------------");
+        //  fmt.print(">> ALFA");
+        //  for(T item : copia_lista_alfa){
+        //      fmt.print("\t ++ {}",item);
+        //  }
+        //   fmt.print(">> BETA");
+        //   for(T item : copia_lista_beta){
+        //      fmt.print("\t ++ {}",item);
+        //   }
 
-        if(copia_lista_alfa.getQuantidade()==copia_lista_beta.getQuantidade()){
+        if (copia_lista_alfa.getQuantidade() == copia_lista_beta.getQuantidade()) {
             boolean ret = true;
 
             int i = 0;
             int o = copia_lista_alfa.getQuantidade();
 
-            while(i<o){
-             //   fmt.print("\tDiff : {} - {}",copia_lista_alfa.get(i),copia_lista_beta.get(i));
+            while (i < o) {
+                //   fmt.print("\tDiff : {} - {}",copia_lista_alfa.get(i),copia_lista_beta.get(i));
 
-                if(!igualdade.isIgual(copia_lista_alfa.get(i),copia_lista_beta.get(i))){
-                    ret=false;
+                if (!igualdade.isIgual(copia_lista_alfa.get(i), copia_lista_beta.get(i))) {
+                    ret = false;
                     break;
                 }
-                i+=1;
+                i += 1;
             }
             return ret;
         }
         return false;
+    }
+
+
+    public static <T> T PRIMEIRO(Lista<T> lista) {
+        return lista.get(0);
+    }
+
+    public static <T> T ULTIMO(Lista<T> lista) {
+        return lista.get(lista.getQuantidade() - 1);
+    }
+
+
+    public static <T> Opcional<T> GET_DEPOIS_DE(Lista<T> eLista, Igualdade<T> eIgualdade, T eCorrente) {
+
+        Opcional<T> proximo = Opcional.CANCEL();
+        int proximo_indice = 0;
+
+        for (T item_nome : eLista) {
+            if (eIgualdade.isIgual(item_nome, eCorrente)) {
+
+                if (proximo_indice + 1 < eLista.getQuantidade()) {
+                    proximo.set(eLista.get(proximo_indice + 1));
+                }
+
+                break;
+            }
+            proximo_indice += 1;
+        }
+
+        return proximo;
     }
 
 }

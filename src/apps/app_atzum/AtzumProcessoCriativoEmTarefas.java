@@ -374,7 +374,7 @@ public class AtzumProcessoCriativoEmTarefas {
         });
 
 
-        tarefas.criarSequencia("ServicoSensores", "TudoOK", new Acao() {
+        tarefas.criarSequencia("ServicoSensores", "EXPORTAR_ATZUM", new Acao() {
             @Override
             public void fazer() {
 
@@ -391,6 +391,28 @@ public class AtzumProcessoCriativoEmTarefas {
 
             }
         });
+
+        tarefas.criarSequencia("EXPORTAR_ATZUM", "TudoOK", new Acao() {
+            @Override
+            public void fazer() {
+
+                String ATIVIDADE_CORRENTE = "EXPORTAR_ATZUM";
+
+                MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                ServicoExportarTronarko.EXPORTAR_ATZUM();
+                MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
+
+                ALFA_EXIBIR_PUBLICACAO(comparativos);
+
+                e_tronarko.at("Fim", Tronarko.getTronAgora().getTextoZerado());
+
+            }
+        });
+
+
+
+
 
         tarefas.setTarefaCorrente(tarefa);
         tarefas.executeUma();
@@ -602,7 +624,7 @@ public class AtzumProcessoCriativoEmTarefas {
         });
 
 
-        tarefas.criarSequencia("NOMEAR_CIDADES", "EXPORTAR_TRONARKO", new Acao() {
+        tarefas.criarSequencia("NOMEAR_CIDADES", "ORGANIZAR_DADOS_TRONARKO", new Acao() {
             @Override
             public void fazer() {
 
@@ -610,6 +632,30 @@ public class AtzumProcessoCriativoEmTarefas {
 
                 MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 AtzumCentralDados.NOMEAR_CIDADES();
+                MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
+
+                PUBLICAR(comparativos);
+                BETA_EXIBIR_PUBLICACAO(comparativos);
+
+
+            }
+        });
+
+        tarefas.criarSequencia("ORGANIZAR_DADOS_TRONARKO", "EXPORTAR_TRONARKO", new Acao() {
+            @Override
+            public void fazer() {
+
+                String ATIVIDADE_CORRENTE = "ORGANIZAR_DADOS_TRONARKO";
+
+                MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+
+                ServicoExportarTronarko.EXPORTAR_SENSORES_SUPERARKO();
+                ServicoExportarTronarko.EXPORTAR_MODELOS();
+                ServicoExportarTronarko.EXPORTAR_INFOGRAFICOS();
+                ServicoExportarTronarko.EXPORTAR_DADOS_CIDADES();
+                ServicoExportarTronarko.CONSOLIDAR_DADOS_CIDADES();
+
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
 
@@ -628,11 +674,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
                 MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
 
-                ServicoExportarTronarko.EXPORTAR_SENSORES_SUPERARKO();
-                ServicoExportarTronarko.EXPORTAR_MODELOS();
-                ServicoExportarTronarko.EXPORTAR_INFOGRAFICOS();
-                ServicoExportarTronarko.EXPORTAR_DADOS_CIDADES();
-                ServicoExportarTronarko.CONSOLIDAR_DADOS_CIDADES();
+                ServicoExportarTronarko.EXPORTAR_TRONARKO();
 
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));

@@ -671,7 +671,11 @@ public class fmt {
         int TAXA_BINARIA = 1024;
 
         if (t < TAXA_BINARIA) {
-            ret = t + " bytes";
+            if(t==1){
+                ret = t + " byte";
+            }else{
+                ret = t + " bytes";
+            }
         } else {
 
             long valor_antes =t;
@@ -695,7 +699,11 @@ public class fmt {
 
 
                 if (mb < TAXA_BINARIA) {
-                    ret = mb + " Mb e " + sobras + " Kb";
+                    if(sobras==0){
+                        ret = mb + " Mb";
+                    }else{
+                        ret = mb + " Mb e " + sobras + " Kb";
+                    }
                 } else {
 
                     long gb = mb / TAXA_BINARIA;
@@ -1107,4 +1115,18 @@ public class fmt {
         return f2(((double) valor / (double) total) * 100.0) + " %";
     }
 
+    public static String f3(int i){
+       String n = String.valueOf(i);
+        while(n.length()<3){
+            n="0"+n;
+        }
+        return n;
+    }
+
+    public static String f3(String n){
+        while(n.length()<3){
+            n="0"+n;
+        }
+        return n;
+    }
 }

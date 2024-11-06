@@ -202,7 +202,7 @@ public class ServicoTronarko {
 
             int tipo = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("temperatura_t" + modelagem + ".qtt"), ponto_escolhido.getX(), ponto_escolhido.getY());
 
-            int temperatura_corrente = Aleatorio.alatorio_entre(zonas_de_temperatura.get(tipo).getMenor(), zonas_de_temperatura.get(tipo).getMaior());
+            int temperatura_corrente = Aleatorio.aleatorio_entre(zonas_de_temperatura.get(tipo).getMenor(), zonas_de_temperatura.get(tipo).getMaior());
             ex_temperatura_validados.set(temperatura_corrente);
 
             pontos_escolhidos.adicionar(new Par<Ponto, Integer>(ponto_escolhido, temperatura_corrente));

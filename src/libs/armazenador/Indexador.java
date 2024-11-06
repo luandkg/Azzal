@@ -4,6 +4,7 @@ package libs.armazenador;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
+import libs.luan.fmt;
 
 public class Indexador {
 
@@ -19,6 +20,9 @@ public class Indexador {
     public void set(long chave, long endereco) {
 
         while (chave >= getIndiceItensTotalContagem()) {
+
+            fmt.print("AQZ AUMENTAR : {} - {}",chave,getIndiceItensTotalContagem());
+
             aumentar();
         }
 

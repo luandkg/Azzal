@@ -20,5 +20,5 @@ public class FaixaDeTemperatura {
 
     public Cor getCor(){return mCor;}
 
-    public int getTemperaturaAleatoria(){return Aleatorio.alatorio_entre(mMinimo,mMaximo);}
+    public int getTemperaturaAleatoria(){return Aleatorio.aleatorio_entre(mMinimo,mMaximo);}
 }

@@ -16,7 +16,7 @@ public class Aleatorio {
         return ret;
     }
 
-    public static int alatorio_entre(int minimo, int maximo) {
+    public static int aleatorio_entre(int minimo, int maximo) {
 
         int delta = maximo - minimo;
         Random sorte = new Random();

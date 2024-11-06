@@ -3,11 +3,12 @@ package apps.app_momentum;
 import libs.armazenador.Banco;
 import libs.armazenador.Debugador;
 import libs.armazenador.ItemDoBanco;
-import libs.az.AZColecionador;
-import libs.az.Colecao;
-import libs.az.Unicidade;
+import libs.bs.BancoBS;
+import libs.bs.Colecao;
+import libs.bs.Unicidade;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.entt.Entidade;
 import libs.luan.Indexado;
 import libs.luan.Indexamento;
 import libs.luan.Opcional;
@@ -20,12 +21,12 @@ public class AppMomentum {
 
     public static void init() {
 
-        String arquivo_banco = "/home/luan/assets/luan.mt";
+        String arquivo_banco = "/home/luan/assets/luan.bs";
 
-        AZColecionador.checar(arquivo_banco);
+        BancoBS.checar(arquivo_banco);
 
 
-        AZColecionador m = new AZColecionador(arquivo_banco);
+        BancoBS m = new BancoBS(arquivo_banco);
 
         m.getColecao("Lixeira");
 
@@ -98,8 +99,8 @@ public class AppMomentum {
 
             System.out.println(" @@ -->> Adicionando....." + v + " de " + mais_quantos);
 
-            DKGObjeto novo = new DKGObjeto("Objeto");
-            novo.identifique("DATA", Calendario.getData());
+            Entidade novo = new Entidade();
+            novo.at("DATA", Calendario.getData());
             objetos.adicionar(novo);
 
 

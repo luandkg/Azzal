@@ -64,6 +64,16 @@ public class Horario {
 
     }
 
+    public static Horario toHorarioSemSegundos(String s) {
+
+        String sh = String.valueOf(s.charAt(0)) + String.valueOf(s.charAt(1));
+        String sm = String.valueOf(s.charAt(3)) + String.valueOf(s.charAt(4));
+
+
+        return new Horario(Integer.parseInt(sh), Integer.parseInt(sm), 0);
+
+    }
+
 
     public static long diferenca(Horario h1, Horario h2) {
         long v1 = h1.getValor();

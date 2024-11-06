@@ -14,8 +14,18 @@ public class PastaFS {
 
 
     private String mLocal;
-    private String mSeparador = "/";
+    private String mSeparador;
 
+    public static String PLATAFORMA_SEPARADOR() {
+
+        if (PLATAFORMA_CORRENTE == PLATAFORMA_LINUX) {
+            return "/";
+        } else if (PLATAFORMA_CORRENTE == PLATAFORMA_WINDOWS) {
+            return "\\";
+        }
+
+        return "/";
+    }
 
     public static String PLATAFORMA_GET(String local) {
 
@@ -30,12 +40,8 @@ public class PastaFS {
 
 
     public PastaFS(String eLocal) {
+        mSeparador = PLATAFORMA_SEPARADOR();
         mLocal = PLATAFORMA_GET(eLocal);
-
-        if(PLATAFORMA_CORRENTE==PLATAFORMA_WINDOWS){
-            mSeparador="\\";
-        }
-
     }
 
     public String getArquivo(String arquivo) {

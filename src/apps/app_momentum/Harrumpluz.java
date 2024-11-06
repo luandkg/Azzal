@@ -1,13 +1,14 @@
 package apps.app_momentum;
 
 import libs.dkg.DKGObjeto;
+import libs.entt.Entidade;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Harrumpluz {
 
-    public static DKGObjeto construir(String eTitulo) {
+    public static Entidade construir(String eTitulo) {
 
 
         Random sorte = new Random();
@@ -102,18 +103,18 @@ public class Harrumpluz {
         sentimentos.add("INTERESSE");
         sentimentos.add("ALEGRIA");
 
-        DKGObjeto obj_signo = new DKGObjeto(eTitulo);
+        Entidade obj_signo = new Entidade();
 
-        obj_signo.identifique("N10", sorte.nextInt(10));
-        obj_signo.identifique("N100", sorte.nextInt(100));
-        obj_signo.identifique("COR", escolher_um(cores));
-        obj_signo.identifique("LETRA", escolher_um(letras));
-        obj_signo.identifique("VOGAL", escolher_um(vogais));
-        obj_signo.identifique("CONSOANTE", escolher_um(consoantes));
-        obj_signo.identifique("SENTIDO", escolher_um(sentidos));
-        obj_signo.identifique("ELEMENTO", escolher_um(elementos));
-        obj_signo.identifique("ESCOLHA", escolher_um(escolhas));
-        obj_signo.identifique("SENTIMENTO", escolher_um(sentimentos));
+        obj_signo.at("N10", sorte.nextInt(10));
+        obj_signo.at("N100", sorte.nextInt(100));
+        obj_signo.at("COR", escolher_um(cores));
+        obj_signo.at("LETRA", escolher_um(letras));
+        obj_signo.at("VOGAL", escolher_um(vogais));
+        obj_signo.at("CONSOANTE", escolher_um(consoantes));
+        obj_signo.at("SENTIDO", escolher_um(sentidos));
+        obj_signo.at("ELEMENTO", escolher_um(elementos));
+        obj_signo.at("ESCOLHA", escolher_um(escolhas));
+        obj_signo.at("SENTIMENTO", escolher_um(sentimentos));
 
         return obj_signo;
     }

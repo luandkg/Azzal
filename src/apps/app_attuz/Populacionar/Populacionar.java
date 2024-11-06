@@ -47,7 +47,7 @@ public class Populacionar {
 
             if (!HiperMaterializedView10K.isColecaoConstruida(local_populacao, cidade.index())) {
 
-                int tamanho_populacao = Aleatorio.alatorio_entre(minimo, maximo);
+                int tamanho_populacao = Aleatorio.aleatorio_entre(minimo, maximo);
 
                 System.out.println("Construindo " + cidade.get().getNome() + " com " + tamanho_populacao + " pessoas !");
 

@@ -193,8 +193,6 @@ public class PessoaNomeadorDeAkkax {
     public static void VISUALIZAR_AMOSTRA_PEQUENA(){
 
 
-        // Azquo
-
         fmt.print("----------------- AMOSTRA PEQUENA ------------------------");
         fmt.print();
         for(int i=0;i<30;i++){

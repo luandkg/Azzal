@@ -81,7 +81,7 @@ public class ServicoRegioes {
             @Override
             public void fazer() {
 
-                Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
+             //   Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
                 processante.set(processante.get() + 1);
 
                 BufferedImage miniatura = Efeitos.reduzir(render.toImagemSemAlfa(), render.getLargura() / 2, render.getAltura() / 2);
@@ -177,7 +177,7 @@ public class ServicoRegioes {
                 @Override
                 public void fazer() {
 
-                    Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
+                   // Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
                     processante.set(processante.get() + 1);
 
                 }

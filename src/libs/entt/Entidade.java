@@ -131,6 +131,18 @@ public class Entidade {
     }
 
 
+    public void at_remover(String eNome) {
+
+        for (Tag tag : mTags) {
+            if (tag.is_nome(eNome)) {
+                mTags.remover(tag);
+                break;
+            }
+        }
+
+    }
+
+
     public Lista<Tag> tags() {
         return mTags;
     }
@@ -243,30 +255,30 @@ public class Entidade {
     }
 
 
-    public boolean isDiferente(String att_nome,String att_valor){
+    public boolean isDiferente(String att_nome, String att_valor) {
         return !at(att_nome).contentEquals(att_valor);
     }
 
 
-    public void atConglomoreUnico(String att_nome,String att_valor){
+    public void atConglomoreUnico(String att_nome, String att_valor) {
 
         boolean existe = false;
 
-        for(String massa : Strings.DIVIDIR_POR(this.at(att_nome),"|")){
-            massa=massa.replace("|","").replace(" ","").trim();
-            if(!massa.isEmpty()){
-                if(massa.contentEquals(att_valor)){
-                    existe=true;
+        for (String massa : Strings.DIVIDIR_POR(this.at(att_nome), "|")) {
+            massa = massa.replace("|", "").replace(" ", "").trim();
+            if (!massa.isEmpty()) {
+                if (massa.contentEquals(att_valor)) {
+                    existe = true;
                     break;
                 }
             }
         }
 
-        if(!existe){
-            if(this.at(att_nome).isEmpty()){
+        if (!existe) {
+            if (this.at(att_nome).isEmpty()) {
                 this.at(att_nome, " " + att_valor);
-            }else{
-                this.at(att_nome,this.at(att_nome)+ " | " + att_valor);
+            } else {
+                this.at(att_nome, this.at(att_nome) + " | " + att_valor);
             }
         }
 
@@ -286,12 +298,12 @@ public class Entidade {
         return existe;
     }
 
-    public boolean isValido(String nome){
+    public boolean isValido(String nome) {
 
         boolean valido = false;
 
         for (Tag a : mTags) {
-            if(a.is_nome(nome)){
+            if (a.is_nome(nome)) {
                 if (!a.getNome().isEmpty()) {
                     valido = true;
                 }
@@ -302,4 +314,45 @@ public class Entidade {
 
         return valido;
     }
+
+
+    public void tornar_primeiro(String att_nome) {
+
+        Lista<Tag> copia = new Lista<Tag>();
+
+        for (Tag tag : mTags) {
+            copia.adicionar(tag);
+        }
+
+        mTags.limpar();
+
+        at(att_nome, at(att_nome));
+
+        for (Tag tag : copia) {
+            at(tag.getNome(),tag.getValor());
+        }
+
+    }
+
+
+    public void atributo_depois(String att_antes,String att_novo) {
+
+        Lista<Tag> copia = new Lista<Tag>();
+
+        for (Tag tag : mTags) {
+            copia.adicionar(tag);
+        }
+
+        mTags.limpar();
+
+        for (Tag tag : copia) {
+            at(tag.getNome(),tag.getValor());
+            if(tag.is_nome(att_antes)){
+                at(att_novo,"");
+            }
+        }
+
+    }
+
+
 }

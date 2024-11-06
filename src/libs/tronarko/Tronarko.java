@@ -256,6 +256,10 @@ public class Tronarko {
         return a.getTotalEttons() - b.getTotalEttons();
     }
 
+    public static long TOZTE_DIFERENCA(Tozte a,Tozte b){
+        return a.getSuperarkosTotal() - b.getSuperarkosTotal();
+    }
+
 
     public static String TRON_DIFERENCA(Tron iniciado,Tron terminado){
 

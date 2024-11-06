@@ -1,42 +1,45 @@
-package libs.az;
+package libs.bs;
 
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
+import libs.armazenador.ItemDoBancoUTF8;
 import libs.arquivos.binario.Arquivador;
-import libs.dkg.DKG;
-import libs.dkg.DKGObjeto;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
-public class Colecao {
+public class ColecaoUTF8 {
 
     private String mNome;
     private Armazenador mArmazenador;
     private Banco mSequencias;
     private Banco mColecao;
 
-    public Colecao(String eNome, Armazenador eArmazenador, Banco eSequencias, Banco eColecao) {
+    public ColecaoUTF8(String eNome, Armazenador eArmazenador, Banco eSequencias, Banco eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;
         mColecao = eColecao;
 
-        AZSequenciador.organizar_sequencial(mSequencias, mNome);
+        Sequenciador.organizar_sequencial(mSequencias, mNome);
 
     }
 
     public void zerarSequencial() {
-        AZSequenciador.zerar_sequencial(mSequencias, mNome);
+        Sequenciador.zerar_sequencial(mSequencias, mNome);
     }
 
-    public boolean adicionar(DKGObjeto objeto) {
 
-        int chave = AZSequenciador.aumentar_sequencial(mSequencias, mNome);
-        objeto.identifique("ID").setInteiro(chave);
-        objeto.rearranjar("ID", 0);
-        long endereco = mColecao.adicionar(objeto.toDocumento());
+
+
+    public boolean adicionarUTF8(Entidade objeto) {
+
+        int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
+        objeto.at("ID",(chave));
+        long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
 
         mColecao.set(chave, endereco);
 
@@ -46,11 +49,11 @@ public class Colecao {
 
     public void remover_por_chave(int eID) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
-            if (objeto.identifique("ID").getInteiro(0) == eID) {
+        for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
+            Entidade objeto = item.toEntidadeUTF8();
+            if (objeto.atIntOuPadrao("ID",0) == eID) {
 
-                mColecao.set(objeto.identifique("ID").getInteiro(0), 0);
+                mColecao.set(objeto.atIntOuPadrao("ID",0), 0);
 
                 mColecao.remover(item);
                 break;
@@ -59,21 +62,21 @@ public class Colecao {
 
     }
 
-    public void remover(ItemDoBanco item) {
+    public void remover(ItemDoBancoUTF8 item) {
 
-        DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
-        mColecao.set(objeto.identifique("ID").getInteiro(0), 0);
+        Entidade objeto = item.toEntidadeUTF8();
+        mColecao.set(objeto.atIntOuPadrao("ID",0), 0);
 
         mColecao.remover(item);
     }
 
-    public void atualizar_por_chave(int eID, DKGObjeto objeto_novo) {
+    public void atualizar_por_chave(int eID, Entidade objeto_novo) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
-            if (objeto.identifique("ID").getInteiro(0) == eID) {
-                objeto_novo.identifique("ID").setInteiro(eID);
-                item.atualizar(objeto_novo.toString());
+        for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
+            Entidade objeto = item.toEntidadeUTF8();
+            if (objeto.atIntOuPadrao("ID",0) == eID) {
+                objeto_novo.at("ID",eID);
+                item.atualizarUTF8(objeto_novo.toString());
                 break;
             }
         }
@@ -84,20 +87,35 @@ public class Colecao {
         mColecao.limpar();
     }
 
-    public Lista<ItemDoBanco> getItens() {
-        return mColecao.getItens();
+    public void limpar_profundamente() {
+        mColecao.limpar_profundamente();
     }
 
+    public void exibir_dump() {
+        mColecao.exibir_dump();
+    }
+
+    public void limpar_com_log(String eLog) {
+        mColecao.limpar_com_long(eLog);
+    }
+
+    public Lista<ItemDoBancoUTF8> getItens() {
+        return mColecao.getItensUTF8();
+    }
+
+    public long getItensContagem() {
+        return mColecao.getItensContagem();
+    }
 
     public void primeiro_campo(String ePrimeiro) {
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoUTF8 item : getItens()) {
 
-            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
+            Entidade objeto = item.toEntidadeUTF8();
 
-            objeto.rearranjar(ePrimeiro, 0);
+            //  objeto.rearranjar(ePrimeiro, 0);
 
-            item.atualizar(objeto.toString());
+            item.atualizarUTF8(objeto.toString());
 
         }
 
@@ -116,10 +134,10 @@ public class Colecao {
 
         int indice_maior = 0;
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoUTF8 item : getItens()) {
 
-            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
-            int indice = objeto.identifique("ID").getInteiro(0);
+            Entidade objeto = item.toEntidadeUTF8();
+            int indice = objeto.atIntOuPadrao("ID",0);
 
             if (indice > indice_maior) {
                 indice_maior = indice;
@@ -133,10 +151,10 @@ public class Colecao {
             mArquivadorIndice.set_u64(0);
         }
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoUTF8 item : getItens()) {
 
-            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
-            int indice = objeto.identifique("ID").getInteiro(0);
+            Entidade objeto =item.toEntidadeUTF8();
+            int indice = objeto.atIntOuPadrao("ID",0);
 
             long ponteiro = 2L + ((1L + 8L) * indice);
 
@@ -207,18 +225,22 @@ public class Colecao {
         return ret;
     }
 
-    public Lista<DKGObjeto> getObjetos() {
+    public Lista<Entidade> getObjetosUTF8() {
 
-        Lista<ItemDoBanco> itens = getItens();
+        Lista<ItemDoBancoUTF8> itens = getItens();
 
-        Lista<DKGObjeto> objetos = new Lista<DKGObjeto>();
+        Lista<Entidade> objetos = new Lista<Entidade>();
 
-        for (ItemDoBanco item : itens) {
-            DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
+        for (ItemDoBancoUTF8 item : itens) {
+            // fmt.print("ItemDoBanco : {}",item.lerTexto());
+            Entidade obj = item.toEntidadeUTF8();
             objetos.adicionar(obj);
         }
 
         return objetos;
     }
+
+
+
 
 }

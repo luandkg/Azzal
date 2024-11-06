@@ -222,9 +222,9 @@ public class SistemaEleitoral {
 
                     if (senso_de_cidadania == 0) {
                         if (Aleatorio.aleatorio(100) > 80) {
-                            senso_de_cidadania = Aleatorio.alatorio_entre(50, 100);
+                            senso_de_cidadania = Aleatorio.aleatorio_entre(50, 100);
                         } else {
-                            senso_de_cidadania = Aleatorio.alatorio_entre(0, 50);
+                            senso_de_cidadania = Aleatorio.aleatorio_entre(0, 50);
                         }
                     } else {
 

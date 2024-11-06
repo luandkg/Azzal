@@ -3,6 +3,8 @@ package libs.armazenador;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 
 public class ItemDoBanco {
 
@@ -43,6 +45,11 @@ public class ItemDoBanco {
     }
 
 
+    public long getPonteiroDados() {
+        return mPonteiroDados;
+    }
+
+
     public Banco getBanco() {
         return mBanco;
     }
@@ -57,6 +64,10 @@ public class ItemDoBanco {
         mArquivador.setPonteiro(mPonteiroDados);
         TX eTX = new TX();
         return eTX.lerFluxoLimitado(mArquivador, Armazenador.TAMANHO_ITEM).replace("\n", "");
+    }
+
+    public void atualizar(Entidade e) {
+        atualizar(ENTT.TO_DOCUMENTO(e));
     }
 
     public void atualizar(String texto) {

@@ -1,7 +1,6 @@
 package libs.luan;
 
 import libs.arquivos.binario.Inteiro;
-import libs.entt.ENTT;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -1958,7 +1957,7 @@ public class Strings {
         return linhas;
     }
 
-    public static Lista<String> DIVIDIR_POR_OU_POR(String texto, String por1,String por2) {
+    public static Lista<String> DIVIDIR_POR_OU_POR(String texto, String por1, String por2) {
         Lista<String> linhas = new Lista<String>();
 
         int i = 0;
@@ -1968,7 +1967,7 @@ public class Strings {
 
         while (i < o) {
             String c = String.valueOf(texto.charAt(i));
-            if (c.contentEquals(por1)||c.contentEquals(por2)) {
+            if (c.contentEquals(por1) || c.contentEquals(por2)) {
                 if (!linha.isEmpty()) {
                     linhas.adicionar(linha);
                 }
@@ -2105,7 +2104,7 @@ public class Strings {
             while (e < eo) {
                 String l2 = String.valueOf(s_menor.charAt(e));
                 if (l2.contentEquals(l)) {
-                    letras+=1;
+                    letras += 1;
                 }
                 e += 1;
             }
@@ -2116,12 +2115,12 @@ public class Strings {
         return letras;
     }
 
-    public static String LINEARIZAR(String s){
-        return s.replace("\n"," ").trim();
+    public static String LINEARIZAR(String s) {
+        return s.replace("\n", " ").trim();
     }
 
-    public static String LISTA_EM_LINHA_COM(Lista<String> valores,String abrir,String fechar){
-        String ret = abrir+" ";
+    public static String LISTA_EM_LINHA_COM(Lista<String> valores, String abrir, String fechar) {
+        String ret = abrir + " ";
         for (String valor : valores) {
             ret += valor + " ";
         }
@@ -2130,4 +2129,153 @@ public class Strings {
     }
 
 
+    public static String getParteNumerica(String s) {
+        String parte = "";
+
+        String digitos = "0123456789";
+
+        int i = 0;
+        int o = s.length();
+
+        if (o > 0) {
+
+            boolean tem_decimal = false;
+
+            String p = String.valueOf(0);
+
+            if (p.contentEquals("+") || p.contentEquals("-")) {
+                parte += p;
+                i += 1;
+            }
+
+            while (i < o) {
+
+                String d = String.valueOf(s.charAt(i));
+
+                if (d.contentEquals(".") || d.contentEquals(",")) {
+                    parte += d;
+                    tem_decimal = true;
+                    i += 1;
+                    break;
+                } else {
+                    if (digitos.contains(d)) {
+                        parte += d;
+                    } else {
+                        break;
+                    }
+                }
+
+
+                i += 1;
+            }
+
+            if (tem_decimal) {
+                while (i < o) {
+
+                    String d = String.valueOf(s.charAt(i));
+
+                    if (digitos.contains(d)) {
+                        parte += d;
+                    } else {
+                        break;
+                    }
+
+                    i += 1;
+                }
+
+            }
+        }
+
+
+        return parte;
+    }
+
+    public static String getParteDepoisDeNumerica(String s) {
+        String parte = "";
+        String segunda = "";
+
+        String digitos = "0123456789";
+
+        int i = 0;
+        int o = s.length();
+
+        if (o > 0) {
+
+            boolean tem_decimal = false;
+
+            String p = String.valueOf(0);
+
+            if (p.contentEquals("+") || p.contentEquals("-")) {
+                parte += p;
+                i += 1;
+            }
+
+            while (i < o) {
+
+                String d = String.valueOf(s.charAt(i));
+
+                if (d.contentEquals(".") || d.contentEquals(",")) {
+                    parte += p;
+                    tem_decimal = true;
+                    i += 1;
+                    break;
+                } else {
+                    if (digitos.contains(d)) {
+                        parte += p;
+                    } else {
+                        break;
+                    }
+                }
+
+
+                i += 1;
+            }
+
+            if (tem_decimal) {
+                while (i < o) {
+
+                    String d = String.valueOf(s.charAt(i));
+
+                    if (digitos.contains(d)) {
+                        parte += p;
+                    } else {
+                        break;
+                    }
+
+                    i += 1;
+                }
+
+            }
+
+            while (i < o) {
+                String d = String.valueOf(s.charAt(i));
+                segunda += d;
+                i += 1;
+            }
+
+        }
+
+
+        return segunda;
+    }
+
+
+
+    public static boolean temDigito(String texto){
+
+        String digitos = "0123456789";
+
+        int i = 0;
+        int o = texto.length();
+
+        while(i<o){
+            String l = String.valueOf(texto.charAt(i));
+            if(digitos.contains(l)){
+                return true;
+            }
+            i+=1;
+        }
+
+        return false;
+    }
 }

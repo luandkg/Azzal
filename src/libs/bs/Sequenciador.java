@@ -1,11 +1,13 @@
-package libs.ez;
+package libs.bs;
 
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
+import libs.armazenador.ItemDoBanco;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.luan.Opcional;
 
-
-public class AQSequenciador {
+public class Sequenciador {
 
     public static void verificar_banco(Armazenador m, String eBancoNome) {
         if (!m.banco_existe(eBancoNome)) {
@@ -69,14 +71,8 @@ public class AQSequenciador {
         return chave;
     }
 
-    public static int sequencia(ItemDoBanco item) {
-        DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
-        return objeto.identifique("Sequencia").getInteiro(0);
-    }
+    public static void zerar_sequencial(Banco eBanco, String eNome) {
 
-    public static int zerar_sequencial(Banco eBanco, String eNome) {
-
-        int chave = 0;
 
         for (ItemDoBanco item : eBanco.getItens()) {
             DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
@@ -85,10 +81,13 @@ public class AQSequenciador {
                 item.atualizar(objeto.toDocumento());
                 break;
             }
-            // System.out.println(objeto.toDocumento());
         }
 
-        return chave;
+    }
+
+    public static int sequencia(ItemDoBanco item) {
+        DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
+        return objeto.identifique("Sequencia").getInteiro(0);
     }
 
 
@@ -97,9 +96,9 @@ public class AQSequenciador {
         Opcional<ItemDoBanco> item_objeto_contador = procurar_sequencial(eBanco, eNome);
 
         if (item_objeto_contador.temValor()) {
-            AQSequenciador.sequencia(item_objeto_contador.get());
+            Sequenciador.sequencia(item_objeto_contador.get());
         } else {
-            AQSequenciador.criar_sequencial(eBanco, eNome, 0, 1);
+            Sequenciador.criar_sequencial(eBanco, eNome, 0, 1);
         }
 
 
@@ -112,9 +111,9 @@ public class AQSequenciador {
         int ret = 0;
 
         if (item_objeto_contador.temValor()) {
-            ret = AQSequenciador.sequencia(item_objeto_contador.get());
+            ret = Sequenciador.sequencia(item_objeto_contador.get());
         } else {
-            AQSequenciador.criar_sequencial(eBanco, eNome, 0, 1);
+            Sequenciador.criar_sequencial(eBanco, eNome, 0, 1);
             ret = 0;
         }
 

@@ -1,21 +1,23 @@
 package apps.app;
 
-import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_azzal.VamosCalcular;
 import libs.aqz.AQZ;
-import libs.dkg.DKGObjeto;
+import libs.aqz.AQZUTF8;
+import libs.bs.ObservadorItem;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
+import libs.meta_functional.FuncaoAlfa;
 import libs.tempo.Calendario;
+import libs.tempo.Data;
+import libs.tempo.Horario;
 import libs.tronarko.Hazde;
 import libs.tronarko.Intervalos.Hazde_Intervalo;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
 import libs.verkuz.VerkuzImplementador;
-import testes.TesteArquivoDS;
 
 public class AppAzzal {
 
@@ -30,12 +32,12 @@ public class AppAzzal {
         //  AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
 
         //AzzalUnico .unico("Tronarko.Alarme", 900, 800, new apps.app_tronarko.AppAlarme());
-        // AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
+        //  AzzalUnico.unico("Astros", 1550, 1100, new apps.app_tronarko.AppAstros());
 
         // AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
         // AzzalUnico.unico("Citatte", 2000, 1000, new AppCitatte());
 
-        // AzzalUnico.unico("Citatte Modelum", 2000, 1000, new AppCitatteModelum());
+        //  AzzalUnico.unico("Citatte Modelum", 2000, 1000, new AppCitatteModelum());
 
         // CidadeGeradorAleatorio.init_cidades();
         // CidadeGeradorAleatorio.init_cidade();
@@ -153,14 +155,16 @@ public class AppAzzal {
 
         // GGADF2023.init();
 
-        // tempo();
-
-        // tron_me();
-        //   banco_me();
+        // tempo_descritores();
+        //  tempo();
+        //tron_me();
+        //  banco_me();
+        //  tozterum();
+        metropoles();
 
         // AppFerias.recesso_2024_janeiro();
 
-        // aqz_geral();
+        //aqz_geral();
 
         // sequenciador();
 
@@ -176,18 +180,23 @@ public class AppAzzal {
 
         //AtzumProcessoCriativo.init();
 
-        AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+        // AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
 
         // LimonTorrents.INIT();
-        String ARQUIVO_LOCAL_BETA = "comparativos/beta_processo_criativo.entts";
-        Lista<Entidade> beta_dados = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
-        Entidade e_atividade = ENTT.GET_SEMPRE(beta_dados, "Conjunto", "TarefaCorrente");
-        //e_atividade.at("Tronarko","7001");
-        // ENTT.GUARDAR(beta_dados,AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
 
-        TesteArquivoDS.init();
+        // ServicoExportarTronarko.EXPORTAR_ATZUM();
+        // ServicoExportarTronarko.VER_ATZUM();
 
-        int a = 200;
+        // AppAtzum.INICIAR();
+
+        //  TesteArquivoDS.alterar_ultimo();
+        //  TesteArquivoDS.alterar_ultimo_dm();
+
+        // ServicoTectonico.INIT();
+        //  ServicoTectonico.RASTERIZAR();
+        //ServicoTectonico.PLACA_AREA();
+
+        int a = 0;
         while (a > 0) {
 
             AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
@@ -203,6 +212,8 @@ public class AppAzzal {
 
         String tronarko_corrente = AtzumProcessoCriativoEmTarefas.GET_BETA_TRONARKO();
         fmt.print(">> {}", tronarko_corrente);
+
+        //  Palkum.init();
 
         // AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
 
@@ -222,9 +233,9 @@ public class AppAzzal {
 
         // JujutsuKaizen.init();
 
-        // PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
+        //  PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
 
-        //AppStrava.init();
+        // AppStrava.init();
 
         // Teste.init();
 
@@ -238,7 +249,67 @@ public class AppAzzal {
 
     }
 
+    public static void tempo_descritores() {
+
+        String arquivo_banco = "/home/luan/assets/tronarkum.az";
+
+
+        AQZ.EM_ATUALIZACAO(arquivo_banco, "Tempo_v2", new FuncaoAlfa<RefBool, Entidade>() {
+            @Override
+            public RefBool fazer(Entidade entidade) {
+
+                String data = Strings.GET_ATE(entidade.at("time"), " ");
+                String horario = Strings.GET_DEPOIS(entidade.at("time"), " ");
+
+                // if (Strings.isIgual(data, "2024-11-08") || Strings.isIgual(data, "2024-11-09")) {
+
+
+                entidade.at("precipitation_probability", fmt.f3(entidade.at("precipitation_probability")));
+
+                entidade.at("umidade", Strings.getParteNumerica(entidade.at("relative_humidity_2m")));
+
+                if (entidade.atInt("umidade") >= 75) {
+                    entidade.at("umidade", "VaiTerChuva");
+                } else if (entidade.atInt("umidade") >= 60) {
+                    entidade.at("umidade", "Umido");
+                } else {
+                    entidade.at("umidade", "Normal");
+                }
+
+                entidade.at("Tozte", Tronarko.getData(Data.toData(data).getTempoLegivel()).getTextoZerado());
+                entidade.at("Hazde", Tronarko.getHora(Horario.toHorarioSemSegundos(horario).getTempo()).getTextoSemUzzonZerado());
+
+
+                return new RefBool(true);
+                //  }
+
+                // return new RefBool(false);
+            }
+        });
+
+
+        AQZ.EXIBIR_AMOSTRA(arquivo_banco, "Tempo_v2");
+
+        AQZ.EXIBIR_DESCRITORES(arquivo_banco, "Tempo_v2");
+
+        Lista<Entidade> pp_disp_humidity = AQZ.OBTER_DISPERSAO_SEM_EM_ZONAS(arquivo_banco, "Tempo_v2", "relative_humidity_2m", "%", ENTT.GET_ZONAS_PORCENTAGEM());
+        ENTT.EXIBIR_TABELA_COM_TITULO(pp_disp_humidity, "relative_humidity_2m");
+
+
+        Lista<Entidade> pp_temperature_2m = AQZ.OBTER_DISPERSAO_SEM_EM_4ZONAS_DOUBLE(arquivo_banco, "Tempo_v2", "temperature_2m", "°C");
+        ENTT.EXIBIR_TABELA_COM_TITULO(pp_temperature_2m, "temperature_2m");
+
+        fmt.print("Quantidade : {}", ENTT.ATRIBUTO_SOMAR(pp_disp_humidity, "Quantidade"));
+        fmt.print("Quantidade : {}", ENTT.ATRIBUTO_SOMAR(pp_temperature_2m, "Quantidade"));
+
+
+        // fmt.print("ISnumero : {}",Matematica.isNumeroInteiro("6.9"));
+
+    }
+
     public static void tempo() {
+
+        String arquivo_banco = "/home/luan/assets/tronarkum.az";
 
         Lista<Entidade> previsao = AppPrevisaoDoTempo.init();
 
@@ -248,40 +319,155 @@ public class AppAzzal {
                 Strings.CRIAR_LISTA("time", "temperature_2m", "relative_humidity_2m",
                         "windspeed_10m", "precipitation_probability", "rain")));
 
-        String arquivo_banco = "/home/luan/assets/initum.aqz";
+
+        Unico<String> tempos_insercao = new Unico<String>(Strings.IGUALAVEL());
+
+        for (Entidade e : previsao) {
+            String data = Strings.GET_ATE(e.at("time"), " ");
+            tempos_insercao.item(data);
+        }
+
 
         AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo");
         AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo_v2");
 
-        AQZ.INSERIR_VARIOS(arquivo_banco, "Tempo", ENTT.ENTIDADE_TO_OBJETO(previsao));
 
-        AQZ.INSERIR_VARIOS(arquivo_banco, "Tempo_v2", ENTT.ENTIDADE_TO_OBJETO(ENTT.GET_CAMPOS(previsao,
+        for (String tempo_inserindo : tempos_insercao) {
+
+            AQZ.EM_DESTRUICAO(arquivo_banco, "Tempo", new FuncaoAlfa<RefBool, Entidade>() {
+                @Override
+                public RefBool fazer(Entidade entidade) {
+
+                    String data = Strings.GET_ATE(entidade.at("time"), " ");
+
+                    if (Strings.isIgual(data, tempo_inserindo)) {
+                        fmt.print(">> REMOVER PARA INSERCAO :: {} ->> {}", entidade.at("ID"), "<" + data + ">");
+                        return new RefBool(true);
+                    }
+
+                    return new RefBool(false);
+                }
+            });
+
+            AQZ.EM_DESTRUICAO(arquivo_banco, "Tempo_v2", new FuncaoAlfa<RefBool, Entidade>() {
+                @Override
+                public RefBool fazer(Entidade entidade) {
+
+                    String data = Strings.GET_ATE(entidade.at("time"), " ");
+
+                    if (Strings.isIgual(data, tempo_inserindo)) {
+                        fmt.print(">> REMOVER PARA INSERCAO :: {} ->> {}", entidade.at("ID"), "<" + data + ">");
+                        return new RefBool(true);
+                    }
+
+                    return new RefBool(false);
+                }
+            });
+
+        }
+
+
+        AQZ.INSERIR_VARIOS(arquivo_banco, "Tempo", previsao);
+
+        AQZ.INSERIR_VARIOS(arquivo_banco, "Tempo_v2", ENTT.GET_CAMPOS(previsao,
                 Strings.CRIAR_LISTA("time", "temperature_2m", "relative_humidity_2m",
-                        "windspeed_10m", "precipitation_probability", "rain"))));
+                        "windspeed_10m", "precipitation_probability", "rain")));
 
         fmt.print("TEMPO ATUALIZADO !");
+
+
+        Lista<Entidade> tempos = AQZ.EM_DISPERSAO(arquivo_banco, "Tempo_v2", new FuncaoAlfa<String, Entidade>() {
+            @Override
+            public String fazer(Entidade entidade) {
+
+                String data = Strings.GET_ATE(entidade.at("time"), " ");
+                // fmt.print(">> {} ->> {}",entidade.at("ID"),"<"+data+">");
+                return data;
+            }
+        });
+
+
+        ENTT.EXIBIR_TABELA_COM_NOME(tempos, "Tempo_v2 @Datas");
+
+
+        AQZ.EM_DESTRUICAO(arquivo_banco, "Tempo_v2", new FuncaoAlfa<RefBool, Entidade>() {
+            @Override
+            public RefBool fazer(Entidade entidade) {
+
+                String data = Strings.GET_ATE(entidade.at("time"), " ");
+
+                if (Data.isDataValida(data)) {
+
+                    Data data_hoje = Calendario.getDataHoje();
+                    Data data_corrente = Data.toData(data);
+
+                    if (data_corrente.isMenor(data_hoje)) {
+                        fmt.print(">> REMOVER :: {} ->> {}", entidade.at("ID"), "<" + data_corrente.getTempo() + ">");
+                        return new RefBool(true);
+                    }
+
+                }
+
+
+                return new RefBool(false);
+            }
+        });
+
+        fmt.print("Tempo    = {}", AQZ.COLECAO_CONTAGEM(arquivo_banco, "Tempo"));
+        fmt.print("Tempo_v2 = {}", AQZ.COLECAO_CONTAGEM(arquivo_banco, "Tempo_v2"));
+
+
+        // AQZ.ANALISAR(arquivo_banco);
+        //AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco,"@Analise");
+
+
+        AQZ.EXIBIR_DESCRITORES(arquivo_banco, "Tempo_v2");
+
+    }
+
+    public static void tozterum() {
+
+        String arquivo_banco = "/home/luan/assets/testes/teste_alfa.az";
+
+        AQZ.EXIBIR_ESTRUTURA(arquivo_banco);
+
+        AQZ.EXIBIR_AMOSTRA(arquivo_banco, "STRAVA_ACOMPANHAMENTO_DADOS(LL)");
+
+
+        AQZUTF8.EXIBIR_AMOSTRA(arquivo_banco, "STRAVA_ACOMPANHAMENTO_DADOS(LL)");
+        AQZUTF8.EXIBIR_DESCRITORES(arquivo_banco, "STRAVA_ACOMPANHAMENTO_DADOS(LL)");
+
+        //   AQZ.EXIBIR_DISPERSAO(arquivo_banco,"INMET.DADOS","Data");
 
     }
 
     public static void tron_me() {
 
-        String arquivo_banco = "/home/luan/assets/initum.aqz";
+        String arquivo_banco = "/home/luan/assets/tronarkum.az";
 
         String seq = Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ", 10);
 
-        AQZ.INSERIR(arquivo_banco, "Tronakum",
-                DKGObjeto.CRIAR_DIRETO("Tron", "Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tronarkum");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "TronarkumDiario");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo_v2");
 
-        AQZ.LIMPAR_TUDO(arquivo_banco, "TronakumDiario");
+        fmt.print(">> Inserir Tronarkum");
 
-        Lista<DKGObjeto> tronarko_logs = AQZ.COLECAO_ITENS(arquivo_banco, "Tronakum");
+        AQZ.INSERIR(arquivo_banco, "Tronarkum",
+                ENTT.CRIAR("Agora", Tronarko.getTronAgora().getTextoZerado(), "Sequencia", seq));
+
+        fmt.print(">> Limpar TronarkumDiario");
+        AQZ.LIMPAR_TUDO(arquivo_banco, "TronarkumDiario");
+
+        Lista<Entidade> tronarko_logs = AQZ.COLECAO_ITENS(arquivo_banco, "Tronarkum");
 
         Unico<Tozte> toztes = new Unico<Tozte>(Tozte.IGUALDADE());
 
         StringTronarko st = new StringTronarko();
 
-        for (DKGObjeto obj : tronarko_logs) {
-            Tozte proc_tozte = st.getTozteDeComplexo(obj.identifique("Agora").getValor());
+        for (Entidade obj : tronarko_logs) {
+            Tozte proc_tozte = st.getTozteDeComplexo(obj.at("Agora"));
 
             if (toztes.item(proc_tozte)) {
 
@@ -289,13 +475,13 @@ public class AppAzzal {
 
                 Extremos<Hazde> hazde_extremos = new Extremos<Hazde>(Hazde.ORDENADOR());
 
-                hazde_extremos.set(st.getHazdeDeComplexo(obj.identifique("Agora").getValor()));
+                hazde_extremos.set(st.getHazdeDeComplexo(obj.at("Agora")));
 
-                for (DKGObjeto obj2 : tronarko_logs) {
-                    Tozte proc_tozte_aqui = st.getTozteDeComplexo(obj2.identifique("Agora").getValor());
+                for (Entidade obj2 : tronarko_logs) {
+                    Tozte proc_tozte_aqui = st.getTozteDeComplexo(obj2.at("Agora"));
 
                     if (proc_tozte_aqui.isIgual(proc_tozte)) {
-                        Hazde proc_hazde = st.getHazdeDeComplexo(obj2.identifique("Agora").getValor());
+                        Hazde proc_hazde = st.getHazdeDeComplexo(obj2.at("Agora"));
 
                         hazde_extremos.set(proc_hazde);
 
@@ -307,47 +493,98 @@ public class AppAzzal {
                 fmt.print("\t Primeiro - {}", hazde_extremos.getMenor().getTextoZerado());
                 fmt.print("\t Recente  - {}", hazde_extremos.getMaior().getTextoZerado());
 
-                DKGObjeto info = new DKGObjeto("Info");
-                info.identifique("Tozte", proc_tozte.getTextoZerado());
-                info.identifique("Quantidade", quantidade);
+                Entidade info = new Entidade();
+                info.at("Tozte", proc_tozte.getTextoZerado());
+                info.at("Quantidade", quantidade);
 
-                info.identifique("Primeiro", hazde_extremos.getMenor().getTextoZerado());
-                info.identifique("Recente", hazde_extremos.getMaior().getTextoZerado());
-                info.identifique("Intervalo",
+                info.at("Primeiro", hazde_extremos.getMenor().getTextoZerado());
+                info.at("Recente", hazde_extremos.getMaior().getTextoZerado());
+                info.at("Intervalo",
                         new Hazde_Intervalo("I", hazde_extremos.getMenor(), hazde_extremos.getMaior())
                                 .getDiferencaZerado());
 
-                AQZ.INSERIR(arquivo_banco, "TronakumDiario", info);
+                AQZ.INSERIR(arquivo_banco, "TronarkumDiario", info);
 
             }
 
         }
 
-        AQZ.DEFINIR_VIEW(arquivo_banco, "VW_TronakumDiario_ITQ", "TronakumDiario",
+        AQZ.REMOVER_VIEW(arquivo_banco, "VW_TRONAKUMDIARIO_ITQ");
+        AQZ.REMOVER_VIEW(arquivo_banco, "VW_TRONAKUMDIARIO");
+
+        AQZ.DEFINIR_VIEW(arquivo_banco, "VW_TronarkumDiario_ITQ", "TronarkumDiario",
                 Strings.CRIAR_LISTA("ID", "Tozte", "Quantidade"));
-        AQZ.DEFINIR_VIEW(arquivo_banco, "VW_TronakumDiario", "TronakumDiario",
+        AQZ.DEFINIR_VIEW(arquivo_banco, "VW_TronarkumDiario", "TronarkumDiario",
                 Strings.CRIAR_LISTA("ID", "Tozte", "Quantidade", "Primeiro", "Recente", "Intervalo"));
 
-        AQZ.EXIBIR_VIEW(arquivo_banco, "VW_TronakumDiario_ITQ");
-        AQZ.EXIBIR_VIEW(arquivo_banco, "VW_TronakumDiario");
+        AQZ.EXIBIR_VIEW(arquivo_banco, "VW_TronarkumDiario_ITQ");
+        AQZ.EXIBIR_VIEW(arquivo_banco, "VW_TronarkumDiario");
 
-        fmt.print("{}", AQZ.class.getName());
 
     }
 
     public static void banco_me() {
 
-        String arquivo_banco = "/home/luan/assets/initum.aqz";
+        String arquivo_banco = "/home/luan/assets/tronarkum.az";
 
+        AQZ.COLECOES_EXIBIR(arquivo_banco);
+
+        fmt.print("Auto Analisar...");
         AQZ.AUTO_ANALISAR(arquivo_banco);
+
+        fmt.print("Auto Analisar...");
         AQZ.ANALISAR(arquivo_banco);
 
+        fmt.print("Exibir...");
         AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Analise");
 
         AQZ.EXIBIR_COLECAO(arquivo_banco, "Tronakum");
         AQZ.EXIBIR_COLECAO(arquivo_banco, "TronakumDiario");
         AQZ.EXIBIR_COLECAO(arquivo_banco, "Tempo");
         AQZ.EXIBIR_COLECAO(arquivo_banco, "Tempo_v2");
+
+
+        AQZ.EXIBIR_TUDO(arquivo_banco);
+
+
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Numeros");
+        // AQZ.LIMPAR_TUDO(arquivo_banco, "Numeros");
+
+        if (AQZ.UNICO_EXISTE(arquivo_banco, "Numeros", "Tozte", Tronarko.getTozte().getTextoZerado())) {
+
+            Entidade e = AQZ.UNICO_OBTER(arquivo_banco, "Numeros", "Tozte", Tronarko.getTozte().getTextoZerado());
+            e.at("Atualizado", Tronarko.getTronAgora().getTextoZerado());
+            e.at("Atualizacoes", e.atIntOuPadrao("Atualizacoes", 0) + 1);
+
+            AQZ.UNICO_ATUALIZAR(arquivo_banco, "Numeros", "Tozte", Tronarko.getTozte().getTextoZerado(), e);
+
+        } else {
+
+            Entidade e = new Entidade();
+            e.at("Numero", Aleatorio.aleatorio_entre(0, 100));
+            e.at("Criado", Tronarko.getTronAgora().getTextoZerado());
+
+            AQZ.UNICO_ATUALIZAR(arquivo_banco, "Numeros", "Tozte", Tronarko.getTozte().getTextoZerado(), e);
+        }
+
+        Lista<Entidade> valores = AQZ.COLECAO_ITENS(arquivo_banco, "Numeros");
+        ENTT.EXIBIR_TABELA(valores);
+
+        ObservadorItem numero_hoje = AQZ.OBTER_OBSERVADOR(arquivo_banco, "Numeros", "Tozte", Tronarko.getTozte().getTextoZerado());
+        numero_hoje.exibir();
+
+        numero_hoje.at("Numero", numero_hoje.atInt("Numero") + Aleatorio.aleatorio_entre(10, 30));
+
+        if (numero_hoje.atInt("Numero") > 100) {
+            numero_hoje.at("Numero", numero_hoje.atInt("Numero") - 100);
+            numero_hoje.at("Estourou", "SIM");
+            numero_hoje.at("EstourouQuando", Tronarko.getTronAgora().getTextoZerado());
+            numero_hoje.at("EstourouVezes", numero_hoje.atIntOuPadrao("EstourouVezes", 0) + 1);
+        }
+
+        numero_hoje.atualizar();
+        numero_hoje.exibir();
+
 
     }
 
@@ -361,7 +598,7 @@ public class AppAzzal {
 
     public static void aqz_geral() {
 
-        String arquivo_banco = "/home/luan/assets/initum.aqz";
+        String arquivo_banco = "/home/luan/assets/tronarkum.az";
 
         AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Valores");
         AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tronakum");
@@ -370,7 +607,7 @@ public class AppAzzal {
 
         // AQZ.LIMPAR_TUDO(arquivo_banco,"VALORES");
 
-        String arquivo_banco_trons = "/home/luan/assets/trons.mt";
+        String arquivo_banco_trons = "/home/luan/assets/trons.az";
 
         // MigrarToAQZ.MIGRAR(arquivo_banco_trons,"Tronakum",arquivo_banco,"Tronakum");
         // MigrarToAQZ.MIGRAR(arquivo_banco_trons,"TronakumDiario",arquivo_banco,"TronakumDiario");
@@ -384,14 +621,13 @@ public class AppAzzal {
 
             String seq = Aleatorio.aleatorio_desses("BCDFGHJKLMNPQRSTVWXYZ", 10);
 
-            AQZ.INSERIR(arquivo_banco, "VALORES",
-                    DKGObjeto.CRIAR_DIRETO("Item", "Sequencial", numero_sequencial, "Valor", seq));
+            AQZ.INSERIR(arquivo_banco, "VALORES", ENTT.CRIAR("Sequencial", String.valueOf(numero_sequencial), "Valor", seq));
             fmt.print("Inserindo :: {}", v);
         }
         String depois = Calendario.getTempoCompleto();
 
         AQZ.EXIBIR_COLECAO(arquivo_banco, "VALORES");
-        AQZ.INSERIR(arquivo_banco, "Tempo", DKGObjeto.CRIAR_DIRETO("Tempo", "Inicio", antes, "Termino", depois));
+        AQZ.INSERIR(arquivo_banco, "Tempo", ENTT.CRIAR("Inicio", antes, "Termino", depois));
         AQZ.EXIBIR_COLECAO(arquivo_banco, "Tempo");
 
         AQZ.COLECOES_DESTRUIR(arquivo_banco, "Drafts");
@@ -427,4 +663,50 @@ public class AppAzzal {
 
     }
 
+    public static void metropoles() {
+
+        String arquivo_banco = "/home/luan/assets/coisas/Metropoles.az";
+
+        AQZ.EXIBIR_ESTRUTURA(arquivo_banco);
+
+        AQZ.EXIBIR_AMOSTRA(arquivo_banco, "METROPOLES(DF).NOTICICIAS_HOJE");
+
+        Unico<String> toztes = AQZ.FILTRAR_UNICOS(arquivo_banco, "METROPOLES(DF).NOTICICIAS_HOJE", "Tozte.Obtido");
+
+        Lista<Entidade> por_toztes = ENTT.CRIAR_DE_STRINGS(toztes.toLista());
+
+        ENTT.AT_ALTERAR_NOME(por_toztes, "Item", "Tozte");
+        ENTT.SEQUENCIAR(por_toztes, "ID", 0);
+        ENTT.ATRIBUTO_TORNAR_PRIMEIRO(por_toztes, "ID");
+
+
+        Lista<Entidade> tudo = AQZ.COLECAO_ITENS(arquivo_banco, "METROPOLES(DF).NOTICICIAS_HOJE");
+
+        for (Entidade e : por_toztes) {
+
+            e.at("Recente", e.at("Tozte"));
+
+            Tozte recente = StringTronarko.parseTozte(e.at("Recente"));
+
+            for (Entidade outra : ENTT.COLETAR(tudo, "Tozte.Obtido", e.at("Tozte"))) {
+                Tozte outra_tozte = StringTronarko.parseTozte(outra.at("Tozte.Atualizado"));
+                if (outra_tozte.isMaiorQue(recente)) {
+
+                    e.at("Recente", outra.at("Tozte.Atualizado"));
+                    recente = StringTronarko.parseTozte(e.at("Recente"));
+
+                }
+            }
+
+            e.at("CicloDeVida", Tronarko.TOZTE_DIFERENCA( StringTronarko.parseTozte(e.at("Recente")), StringTronarko.parseTozte(e.at("Tozte"))));
+
+
+
+            e.at("Status",e.at("Recente") + " :: "+ e.at("CicloDeVida"));
+
+        }
+
+        ENTT.EXIBIR_TABELA(por_toztes);
+
+    }
 }

@@ -1,6 +1,8 @@
-package libs.ez;
+package libs.bs;
 
-
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
+import libs.armazenador.ItemDoBanco;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -8,37 +10,41 @@ import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
-public class AQColecao {
+public class Colecao {
 
     private String mNome;
     private Armazenador mArmazenador;
     private Banco mSequencias;
     private Banco mColecao;
 
-    public AQColecao(String eNome, Armazenador eArmazenador, Banco eSequencias, Banco eColecao) {
+    public Colecao(String eNome, Armazenador eArmazenador, Banco eSequencias, Banco eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;
         mColecao = eColecao;
 
-        AQSequenciador.organizar_sequencial(mSequencias, mNome);
+        Sequenciador.organizar_sequencial(mSequencias, mNome);
 
     }
 
     public void zerarSequencial() {
-        AQSequenciador.zerar_sequencial(mSequencias, mNome);
+        Sequenciador.zerar_sequencial(mSequencias, mNome);
     }
-
-
-
 
     public boolean adicionar(Entidade objeto) {
 
-        int chave = AQSequenciador.aumentar_sequencial(mSequencias, mNome);
-        objeto.at("ID",(chave));
-        long endereco = mColecao.adicionar(ENTT.TO_DOCUMENTO(objeto));
+        //fmt.print("AQZ STATUS ADD p1");
+
+        int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
+        objeto.at("ID",chave);
+        objeto.tornar_primeiro("ID");
+        long endereco = mColecao.adicionar(objeto);
+
+      //  fmt.print("AQZ STATUS ADD p2 - {} :: {}",chave,endereco);
 
         mColecao.set(chave, endereco);
+
+      //  fmt.print("AQZ STATUS ADD p3");
 
         return false;
     }
@@ -47,10 +53,10 @@ public class AQColecao {
     public void remover_por_chave(int eID) {
 
         for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade objeto = item.toEntidade();
-            if (objeto.atIntOuPadrao("ID",0) == eID) {
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            if (objeto.atInt("ID") == eID) {
 
-                mColecao.set(objeto.atIntOuPadrao("ID",0), 0);
+                mColecao.set(objeto.atInt("ID"), 0);
 
                 mColecao.remover(item);
                 break;
@@ -61,8 +67,8 @@ public class AQColecao {
 
     public void remover(ItemDoBanco item) {
 
-        Entidade objeto = item.toEntidade();
-        mColecao.set(objeto.atIntOuPadrao("ID",0), 0);
+        Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        mColecao.set(objeto.atInt("ID"), 0);
 
         mColecao.remover(item);
     }
@@ -70,8 +76,8 @@ public class AQColecao {
     public void atualizar_por_chave(int eID, Entidade objeto_novo) {
 
         for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade objeto = item.toEntidade();
-            if (objeto.atIntOuPadrao("ID",0) == eID) {
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            if (objeto.atInt("ID") == eID) {
                 objeto_novo.at("ID",eID);
                 item.atualizar(objeto_novo.toString());
                 break;
@@ -84,10 +90,6 @@ public class AQColecao {
         mColecao.limpar();
     }
 
-    public void limpar_com_log(String eLog) {
-        mColecao.limpar_com_long(eLog);
-    }
-
     public Lista<ItemDoBanco> getItens() {
         return mColecao.getItens();
     }
@@ -96,13 +98,14 @@ public class AQColecao {
         return mColecao.getItensContagem();
     }
 
+
     public void primeiro_campo(String ePrimeiro) {
 
         for (ItemDoBanco item : getItens()) {
 
-            Entidade objeto = item.toEntidade();
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
 
-          //  objeto.rearranjar(ePrimeiro, 0);
+            objeto.tornar_primeiro(ePrimeiro);
 
             item.atualizar(objeto.toString());
 
@@ -125,8 +128,8 @@ public class AQColecao {
 
         for (ItemDoBanco item : getItens()) {
 
-            Entidade objeto = item.toEntidade();
-            int indice = objeto.atIntOuPadrao("ID",0);
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            int indice = objeto.atInt("ID");
 
             if (indice > indice_maior) {
                 indice_maior = indice;
@@ -142,8 +145,8 @@ public class AQColecao {
 
         for (ItemDoBanco item : getItens()) {
 
-            Entidade objeto =item.toEntidade();
-            int indice = objeto.atIntOuPadrao("ID",0);
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            int indice = objeto.atInt("ID");
 
             long ponteiro = 2L + ((1L + 8L) * indice);
 
@@ -221,7 +224,7 @@ public class AQColecao {
         Lista<Entidade> objetos = new Lista<Entidade>();
 
         for (ItemDoBanco item : itens) {
-            Entidade obj = item.toEntidade();
+            Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTexto());
             objetos.adicionar(obj);
         }
 

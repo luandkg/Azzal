@@ -255,6 +255,9 @@ public class Data {
         return ret;
     }
 
+    public static boolean isDataValida(String data) {
+        return data.length() == 10;
+    }
 
     public static Data toData(String data) {
 
@@ -308,6 +311,32 @@ public class Data {
                 ret = new Data(Integer.parseInt(ano), Integer.parseInt(mes), Integer.parseInt(dia), DiaSemanal.Domingo);
 
             }
+
+        } else if (data.length() == 10 && data.contains("-")) {
+
+
+            if (String.valueOf(data.charAt(2)).contentEquals("-")) {
+
+                //System.out.println("Tentar Forma 2.1 -->> " + data);
+
+                String dia = String.valueOf(data.charAt(0)) + String.valueOf(data.charAt(1));
+                String mes = String.valueOf(data.charAt(3)) + String.valueOf(data.charAt(4));
+                String ano = String.valueOf(data.charAt(6)) + String.valueOf(data.charAt(7)) + String.valueOf(data.charAt(8)) + String.valueOf(data.charAt(9));
+
+                ret = new Data(Integer.parseInt(ano), Integer.parseInt(mes), Integer.parseInt(dia), DiaSemanal.Domingo);
+
+            } else if (String.valueOf(data.charAt(4)).contentEquals("-")) {
+
+                // System.out.println("Tentar Forma 2.2 -->> " + data);
+
+                String dia = String.valueOf(data.charAt(8)) + String.valueOf(data.charAt(9));
+                String mes = String.valueOf(data.charAt(5)) + String.valueOf(data.charAt(6));
+                String ano = String.valueOf(data.charAt(0)) + String.valueOf(data.charAt(1)) + String.valueOf(data.charAt(2)) + String.valueOf(data.charAt(3));
+
+                ret = new Data(Integer.parseInt(ano), Integer.parseInt(mes), Integer.parseInt(dia), DiaSemanal.Domingo);
+
+            }
+
 
 
         }

@@ -59,4 +59,8 @@ public class ByteChunk {
     }
 
 
+    public void set(int pos,byte b){
+        mBytes[pos] = b;
+    }
+
 }

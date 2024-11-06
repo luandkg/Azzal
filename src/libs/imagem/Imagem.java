@@ -1,5 +1,7 @@
 package libs.imagem;
 
+import libs.luan.fmt;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -148,6 +150,7 @@ public class Imagem {
         } catch (IOException e) {
         }
 
+        fmt.print("Arquivo :: {}",eArquivo);
 
         BufferedImage copia = new BufferedImage(IMG_MOSTRANDO.getWidth(), IMG_MOSTRANDO.getHeight(), BufferedImage.TYPE_INT_RGB);
 

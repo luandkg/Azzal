@@ -1,11 +1,7 @@
-package testes;
+package libs.arquivos;
 
-import libs.arquivos.IM;
-import libs.arquivos.QTT;
-import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
-import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSItem;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -164,8 +160,16 @@ public class DSInterno {
         return valor;
     }
 
+    public static Entidade PARSER_ENTIDADE(DSItem item) {
+        return ENTT.PARSER_ENTIDADE(item.getTexto());
+    }
+
     public static Lista<Entidade> PARSER_ENTIDADES(DSItem item) {
         return ENTT.PARSER(item.getTexto());
+    }
+
+    public static Lista<Entidade> PARSER_ENTIDADES_PRE_ALOCADO(DSItem item) {
+        return ENTT.PARSER(item.getTextoPreAlocado());
     }
 
     public static Lista<DSItem> DS_OBTER_ITENS(DSItem item) {

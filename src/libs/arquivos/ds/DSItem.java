@@ -130,6 +130,8 @@ public class DSItem {
 
         if (tamanho_pre_alocado > 0) {
 
+            arquivar.get();
+            arquivar.get();
 
             byte[] dados = new byte[(int) tamanho_pre_alocado];
 

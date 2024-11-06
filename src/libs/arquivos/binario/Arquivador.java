@@ -370,6 +370,16 @@ int o =(int)GET_TAMANHO(arquivo);
     }
 
 
+    public void set_u8_vector(byte[] dados) {
+        try {
+            for (byte b : dados) {
+                mFile.writeByte((byte) b);
+            }
+        } catch (IOException e) {
+
+        }
+
+    }
 
 
     public void fechar() throws IOException {

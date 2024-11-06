@@ -4,6 +4,7 @@ import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.fmt;
 
 import java.nio.charset.StandardCharsets;
 
@@ -47,30 +48,41 @@ public class DSIndexador {
 
     }
 
-    public static Lista<Entidade> GET_INDEX(String arquivo_ds, String item_ds_nome) {
+    public static Lista<DSItem> GET_INDEX(String arquivo_ds, String item_ds_nome) {
+
+        Lista<DSItem> itens = new Lista<DSItem> ();
         Lista<Entidade> indice = ENTT.PARSER(DS.buscar_item(arquivo_ds, item_ds_nome).get().getTextoPreAlocado());
 
         for (Entidade e : indice) {
             e.at("Arquivo", arquivo_ds);
+            itens.adicionar(new DSItem(arquivo_ds,e.atInt("Index"),e.atInt("Status"),e.at("Nome"),e.atLong("Tamanho"),e.atLong("Inicio")));
         }
 
-        return indice;
+        return itens;
     }
 
 
-    public static Opcional<DSItem> GET_ITEM(Lista<Entidade> indice, String item_nome) {
+    public static Opcional<DSItem> GET_ITEM(Lista<DSItem> indice, String item_nome) {
 
         Opcional<DSItem> ret = Opcional.CANCEL();
 
-        for (Entidade e : indice) {
-            if(e.is("Nome",item_nome)){
-
-                ret.set(new DSItem(e.at("Arquivo"),e.atInt("Index"),e.atInt("Status"),item_nome,e.atInt("Tamanho"),e.atInt("Inicio")));
-
+        for (DSItem e : indice) {
+            if(e.isNome(item_nome)){
+                ret.set(e);
                 break;
             }
         }
 
         return ret;
     }
+
+
+    public static void VER_TAMANHO( Lista<Entidade> indice ){
+
+        for(Entidade item : indice){
+            item.at("Tamanho", fmt.formatar_tamanho_precisao_dupla(item.atLong("Tamanho")));
+        }
+    }
+
+
 }

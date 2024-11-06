@@ -23,4 +23,12 @@ public class VERIFICADOR {
         }
     }
 
+
+    public static void DEVE_SER_VERDADEIRO(boolean obtido, String eErro) {
+        if (obtido) {
+
+        } else {
+            throw new RuntimeException("#VERIFICADOR :: " + eErro);
+        }
+    }
 }

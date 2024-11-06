@@ -1,32 +1,32 @@
-package libs.ez;
+package libs.bs;
 
-
-import libs.dkg.DKGFeatures;
-import libs.dkg.DKGObjeto;
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
+import libs.armazenador.ItemDoBanco;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 
-public class AQColecionador {
+public class BancoBS {
 
     private Armazenador mArmazenador;
     private Banco s_sequencias;
 
-    public AQColecionador(String eArquivo) {
+    public BancoBS(String eArquivo) {
         mArmazenador = new Armazenador(eArquivo);
-        s_sequencias = AQSequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
     }
 
-    public AQColecao getColecao(String eNome) {
-        return new AQColecao(eNome, mArmazenador, s_sequencias, AQSequenciador.organizar_banco(mArmazenador, eNome));
+    public Colecao getColecao(String eNome) {
+        return new Colecao(eNome, mArmazenador, s_sequencias, Sequenciador.organizar_banco(mArmazenador, eNome));
     }
 
-    public AQUnicidade getSettum(String eNome) {
-        return new AQUnicidade(eNome, mArmazenador, s_sequencias, AQSequenciador.organizar_banco(mArmazenador, eNome));
+    public Unicidade getSettum(String eNome) {
+        return new Unicidade(eNome, s_sequencias, Sequenciador.organizar_banco(mArmazenador, eNome));
     }
 
     public long getSequenciaID(String eNome) {
-        return AQSequenciador.get_sequencial_contador(s_sequencias, eNome);
+        return Sequenciador.get_sequencial_contador(s_sequencias, eNome);
     }
 
 
@@ -67,9 +67,9 @@ public class AQColecionador {
     public void auto_analisar() {
 
 
-        AQColecao AQColecao_analise = this.getColecao("@Analise");
-        AQColecao_analise.limpar();
-        AQColecao_analise.zerarSequencial();
+        Colecao colecao_analise = this.getColecao("@Analise");
+        colecao_analise.limpar();
+        colecao_analise.zerarSequencial();
 
         Lista<Entidade> objetos_analisados = new Lista<Entidade>();
 
@@ -103,7 +103,7 @@ public class AQColecionador {
         }
 
         for (Entidade obj_analise : ENTT.ORDENAR_TEXTO(objetos_analisados, "Nome")) {
-            AQColecao_analise.adicionar(obj_analise);
+            colecao_analise.adicionar(obj_analise);
         }
 
         // colecao_analise.primeiro_campo("ID");

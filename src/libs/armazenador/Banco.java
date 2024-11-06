@@ -3,9 +3,12 @@ package libs.armazenador;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
+import libs.luan.fmt;
 
 
 public class Banco {
@@ -182,6 +185,34 @@ public class Banco {
         return itens;
     }
 
+    public Lista<ItemDoBancoUTF8> getItensUTF8() {
+
+        Lista<ItemDoBancoUTF8> itens = new Lista<ItemDoBancoUTF8>();
+
+        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+
+
+        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+
+            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+
+            for (Long pag : pags) {
+
+                Pagina pg = new Pagina(mArquivador, this, pag);
+                itens.adicionar_varios(pg.getItensUTF8());
+            }
+
+
+        }
+
+        return itens;
+    }
+
+
+    public long adicionar(Entidade e) {
+        return adicionar(ENTT.TO_DOCUMENTO(e));
+    }
+
 
     public long adicionar(String conteudo) {
 
@@ -297,7 +328,27 @@ public class Banco {
 
     }
 
+
+    public void remover(ItemDoBancoUTF8 item) {
+
+        mArquivador.setPonteiro(item.getPonteiro());
+        mArquivador.set_u8((byte) 2);
+
+
+        if (item.isDoBanco()) {
+            LocalCache.tentar_guardar_em_cache(mArquivador, item.getBanco().getLocalCache(), item.getPonteiro());
+        } else {
+            LocalCache.tentar_guardar_em_cache(mArquivador, mArmazenador.getGlobalCache(), item.getPonteiro());
+        }
+
+
+    }
+
+
     public void set(long chave, long endereco) {
+
+    //    fmt.print("AQZ STATUS LI - {} ",mLocalIndice.get());
+
         new Indexador(mArquivador, mLocalIndice.get()).set(chave, endereco);
     }
 
@@ -381,4 +432,179 @@ public class Banco {
         }
 
     }
+
+
+
+    public long adicionarUTF8(String conteudo) {
+
+        long endereco = 0;
+
+        // TENTAR USAR CACHE DO BANCO
+        long itens_em_cache = LocalCache.getItensEmCacheContagem(mArquivador, this.getLocalCache());
+
+        if (itens_em_cache > 0) {
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Existem itens disponiveis em cache = " + itens_em_cache);
+            }
+
+            long obter_item_do_cache = LocalCache.getItemDoCacheERemove(mArquivador, this.getLocalCache());
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Utilizar item do cache = " + obter_item_do_cache);
+            }
+
+            if (obter_item_do_cache > 0) {
+                LocalCache.guardarUTF8(mArquivador, obter_item_do_cache, conteudo);
+                endereco = obter_item_do_cache;
+                return endereco;
+            }
+
+        }
+
+        // TENTAR USAR CACHE GLOBAL
+
+        long itens_em_cache_global = LocalCache.getItensEmCacheContagem(mArquivador, mArmazenador.getGlobalCache());
+
+        if (itens_em_cache_global > 0) {
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Existem itens disponiveis em cache global = " + itens_em_cache_global);
+            }
+
+            long obter_item_do_cache_global = LocalCache.getItemDoCacheERemove(mArquivador, mArmazenador.getGlobalCache());
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Utilizar item do cache global = " + obter_item_do_cache_global);
+            }
+
+            if (obter_item_do_cache_global > 0) {
+                LocalCache.guardarUTF8(mArquivador, obter_item_do_cache_global, conteudo);
+                endereco = obter_item_do_cache_global;
+                return endereco;
+            }
+
+        }
+
+
+        // TENTAR USAR ITEM DA PAGINA ATUAL
+        mArquivador.setPonteiro(mPaginaCorrente.get());
+
+        int pagina_status = mArquivador.get_u8();
+
+        //  System.out.println("Pagina Status = " + pagina_status);
+
+        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+
+        if (Armazenador.IS_DEBUG) {
+            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
+        }
+
+
+        if (pagina_atual.temDisponivel()) {
+            endereco = pagina_atual.adicionarUTF8(conteudo);
+        } else {
+
+            // TROCAR DE PAGINA
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("!ERRO - SEM ESPAÇO NA PAGINA");
+                System.out.println("!INFO - PROCURANDO NOVA PAGINA");
+            }
+
+            Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
+
+            // USAR NOVA PAGINA
+            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+
+            if (pagina_trocada.temDisponivel()) {
+                endereco = pagina_trocada.adicionarUTF8(conteudo);
+            } else {
+                if (Armazenador.IS_DEBUG) {
+                    System.out.println("!ERRO - SEM ESPAÇO NA PAGINA");
+                }
+
+            }
+        }
+
+        //  System.out.println("\t - Contagem T = " + pg.contagemTodos());
+        // System.out.println("\t - Contagem Z = " + pg.contagemZerados());
+
+        return endereco;
+    }
+
+
+    public void limpar_profundamente() {
+
+
+        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+
+
+        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+
+            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+
+            fmt.print("CAP :: {}",capitulo_ponteiro);
+            for (Long pag : pags) {
+
+                Pagina pg = new Pagina(mArquivador, this, pag);
+
+                for(Long item : pg.getAlocados()){
+                    fmt.print("\t++ Alocado :: {}",item);
+                }
+
+
+            }
+
+
+        }
+
+    }
+
+    public void exibir_dump() {
+
+
+        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+
+
+        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+
+            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+
+            fmt.print("CAPITULO :: {}",capitulo_ponteiro);
+            for (Long pag : pags) {
+
+                Pagina pg = new Pagina(mArquivador, this, pag);
+
+                fmt.print("\t PAGINA :: {}",pg.getPonteiro());
+
+                for(Long item : pg.getAlocados()){
+                    fmt.print("\t\t++ Alocado :: {}",item);
+                }
+
+
+            }
+
+
+        }
+
+    }
+
+
+    public void limpar_com_long(String log) {
+
+        //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
+        int r = 0;
+
+        Lista<ItemDoBanco> itens = getItens();
+        int total = itens.getQuantidade();
+
+        for (ItemDoBanco item : itens) {
+            remover(item);
+            System.out.println(log + " " + r + " de " + total);
+            r += 1;
+        }
+
+    }
+
 }

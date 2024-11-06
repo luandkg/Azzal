@@ -569,4 +569,38 @@ public class Rasterizador {
         return pontos;
     }
 
+
+    public static Opcional<Ponto> GET_PONTO_COM_COR(Renderizador render,Cor proc_cor){
+        for (int y = 0; y <= render.getAltura(); y++) {
+            for (int x = 0; x <= render.getLargura(); x++) {
+                if (render.getPixel(x, y).igual(proc_cor)) {
+                    return Opcional.OK(new Ponto(x,y));
+                }
+            }
+        }
+        return Opcional.CANCEL();
+    }
+
+    public static Opcional<Ponto> GET_PONTO_COM_COR_DIFERENTES_DE(Renderizador render,Cor proc_cor,Lista<Ponto> pontos){
+        for (int y = 0; y <= render.getAltura(); y++) {
+            for (int x = 0; x <= render.getLargura(); x++) {
+                if (render.getPixel(x, y).igual(proc_cor)) {
+                    Ponto ret = new Ponto(x,y);
+                    boolean proximo = false;
+                    for(Ponto e : pontos){
+                        if(e.isIgual(ret)){
+                            proximo=true;
+                            break;
+                        }
+                    }
+                    if(!proximo){
+                        return Opcional.OK(ret);
+                    }
+                }
+            }
+        }
+        return Opcional.CANCEL();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package apps.app_atzum;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
+import apps.app_atzum.utils.ArquivoAtzumGeral;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.PreferenciasOrganizadas;
@@ -88,6 +89,7 @@ public class AppAtzum extends Cena {
     private Renderizador render_drone;
 
     private Unico<String> mCidadeFatoresClimaticos;
+    private ArquivoAtzumGeral mArquivoAtzumGeral;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -98,7 +100,9 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL_BRANCO = new FonteRunTime(mCores.getBranco(), 10);
 
 
-        mapa_grande = AtzumCreator.GET_MAPA_DE_RELEVO();
+        mArquivoAtzumGeral = new ArquivoAtzumGeral();
+
+        mapa_grande = mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
         mapa_pequeno = Efeitos.reduzirMetade(Imagem.getCopia(mapa_grande));
 
         X1 = X0 + mapa_pequeno.getWidth();
@@ -820,7 +824,8 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa_grande = AtzumCreator.GET_MAPA_DE_RELEVO();
+
+                mapa_grande = mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
                 mCamadaZoom = "Relevo";
                 drone_update(true);
 
@@ -916,7 +921,7 @@ public class AppAtzum extends Cena {
             @Override
             public void onClique() {
 
-                mapa_pequeno = AtzumCreator.GET_MAPA_DE_RELEVO();
+                mapa_pequeno = mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
                 mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
                 mCamada = "Relevo";
 

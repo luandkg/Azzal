@@ -5,10 +5,12 @@ import libs.armazenador.ItemDoBanco;
 import libs.asset.Arquivo;
 import libs.asset.AssetContainer;
 import libs.asset.AssetCreator;
-import libs.az.AZColecionador;
-import libs.az.Colecao;
+import libs.bs.BancoBS;
+import libs.bs.Colecao;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.luan.Opcional;
 import libs.luan.fmt;
 
@@ -19,10 +21,10 @@ public class HarrempluzCreator {
 
         String arquivo_banco = "/home/luan/assets/tron.az";
 
-        AZColecionador.checar(arquivo_banco);
+        BancoBS.checar(arquivo_banco);
 
 
-        AZColecionador colecoes = new AZColecionador(arquivo_banco);
+        BancoBS colecoes = new BancoBS(arquivo_banco);
 
         Colecao tronarko = colecoes.getColecao("Tronarko");
 
@@ -35,17 +37,17 @@ public class HarrempluzCreator {
             for (int m = 1; m <= 50; m++) {
 
 
-                DKGObjeto objeto_megarko = new DKGObjeto("Harrumpluz");
-                objeto_megarko.identifique("Tronarko", t);
-                objeto_megarko.identifique("Megarko", m);
+                Entidade objeto_megarko = new Entidade();
+                objeto_megarko.at("Tronarko", t);
+                objeto_megarko.at("Megarko", m);
 
                 for (int s = 1; s <= 10; s++) {
-                    objeto_megarko.adicionarObjeto(Harrumpluz.construir("S" + s));
+                    objeto_megarko.getEntidades().adicionar(Harrumpluz.construir("S" + s));
                 }
 
                 tronarko.adicionar(objeto_megarko);
 
-                System.out.println(" @@ -->> Adicionando " + fmt.espacar_antes(m, 3) + " / " + fmt.espacar_antes(t, 3) + " :: " + objeto_megarko.toDocumento().length());
+                System.out.println(" @@ -->> Adicionando " + fmt.espacar_antes(m, 3) + " / " + fmt.espacar_antes(t, 3) + " :: " + ENTT.TO_DOCUMENTO(objeto_megarko).length());
 
             }
 
@@ -66,10 +68,10 @@ public class HarrempluzCreator {
 
         String arquivo_banco = "/home/luan/assets/tron.az";
 
-        AZColecionador.checar(arquivo_banco);
+        BancoBS.checar(arquivo_banco);
 
 
-        AZColecionador colecoes = new AZColecionador(arquivo_banco);
+        BancoBS colecoes = new BancoBS(arquivo_banco);
 
 
         Debugador.debug_colecionador_completo(colecoes);

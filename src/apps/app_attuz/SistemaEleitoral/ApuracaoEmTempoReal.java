@@ -55,7 +55,7 @@ public class ApuracaoEmTempoReal {
         presenca_obrigatoria = 0;
         abstensao = 0;
 
-        mostrar_em = Aleatorio.alatorio_entre(10, 30);
+        mostrar_em = Aleatorio.aleatorio_entre(10, 30);
         votos = 0;
 
         mTerritorios = new ArrayList<ApuracaoEmTempoRealTerritorio>();
@@ -135,7 +135,7 @@ public class ApuracaoEmTempoReal {
             }
 
             if (urnas_apuradas >= mostrar_em) {
-                mostrar_em += Aleatorio.alatorio_entre(10, 30);
+                mostrar_em += Aleatorio.aleatorio_entre(10, 30);
 
                 exibir();
 

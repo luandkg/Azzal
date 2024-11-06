@@ -125,7 +125,7 @@ public class ENTT {
         boolean enc = false;
 
         for (Entidade e : mEntts) {
-            if (e.atIntOuPadrao(eNome,0) == (eValor)) {
+            if (e.atIntOuPadrao(eNome, 0) == (eValor)) {
                 ret = e;
                 enc = true;
                 break;
@@ -171,10 +171,10 @@ public class ENTT {
         boolean is_primeiro = true;
 
         for (Entidade e : mEntts) {
-            if(is_primeiro){
-                menor=e.atInt(eNome);
-                is_primeiro=false;
-            }else{
+            if (is_primeiro) {
+                menor = e.atInt(eNome);
+                is_primeiro = false;
+            } else {
                 if (e.atIntOuPadrao(eNome, 0) < menor) {
                     menor = e.atInt(eNome);
                 }
@@ -184,6 +184,39 @@ public class ENTT {
 
         return menor;
     }
+
+    public static double GET_DOUBLE_MAIOR(Lista<Entidade> mEntts, String eNome) {
+        double maior = 0;
+
+        for (Entidade e : mEntts) {
+            if (e.atDoubleOuPadrao(eNome, 0) > maior) {
+                maior = e.atDouble(eNome);
+            }
+        }
+
+        return maior;
+    }
+
+    public static double GET_DOUBLE_MENOR(Lista<Entidade> mEntts, String eNome) {
+        double menor = 0;
+
+        boolean is_primeiro = true;
+
+        for (Entidade e : mEntts) {
+            if (is_primeiro) {
+                menor = e.atDouble(eNome);
+                is_primeiro = false;
+            } else {
+                if (e.atDoubleOuPadrao(eNome, 0) < menor) {
+                    menor = e.atDouble(eNome);
+                }
+            }
+
+        }
+
+        return menor;
+    }
+
 
     public static Lista<Entidade> GET_ATRIBUTOS(Lista<Entidade> entidades) {
 
@@ -295,6 +328,21 @@ public class ENTT {
     }
 
 
+    public static void ATRIBUTO_TORNAR_PRIMEIRO(Lista<Entidade> mEntts, String eNome) {
+
+        for (Entidade e : mEntts) {
+            e.tornar_primeiro(eNome);
+        }
+
+    }
+
+    public static void ATRIBUTO_DEPOIS_DE(Lista<Entidade> mEntts, String eNomeAntes, String eNovoAtt) {
+
+        for (Entidade e : mEntts) {
+            e.atributo_depois(eNomeAntes, eNovoAtt);
+        }
+
+    }
     // FUNCOES ESPECIAIS
 
     public static int ATRIBUTO_SOMAR(Lista<Entidade> mEntts, String nome) {
@@ -717,7 +765,7 @@ public class ENTT {
         int contagem = 0;
 
         for (Entidade e : entts) {
-            if (e.atInt(campo_nome)==campo_valor) {
+            if (e.atInt(campo_nome) == campo_valor) {
                 contagem += 1;
             }
         }
@@ -727,12 +775,12 @@ public class ENTT {
     }
 
 
-    public static int CONTAGEM_UNICOS(Lista<Entidade> entts, String campo_nome ) {
-        return FILTRAR_UNICOS(entts,campo_nome).getQuantidade();
+    public static int CONTAGEM_UNICOS(Lista<Entidade> entts, String campo_nome) {
+        return FILTRAR_UNICOS(entts, campo_nome).getQuantidade();
     }
 
 
-        public static Lista<Entidade> COLETAR_DIFERENTE_DE(Lista<Entidade> entts, String campo_nome, String campo_valor) {
+    public static Lista<Entidade> COLETAR_DIFERENTE_DE(Lista<Entidade> entts, String campo_nome, String campo_valor) {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
         for (Entidade e : entts) {
@@ -1180,21 +1228,46 @@ public class ENTT {
     }
 
 
-    public static Entidade CRIAR_EM_SEQUENCIALMENTE(Lista<Entidade> entts,String sequencia_nome) {
+    public static Entidade CRIAR_EM_SEQUENCIALMENTE(Lista<Entidade> entts, String sequencia_nome) {
         Entidade novo = new Entidade();
-        novo.at(sequencia_nome,ENTT.CONTAGEM(entts));
+        novo.at(sequencia_nome, ENTT.CONTAGEM(entts));
         entts.adicionar(novo);
         return novo;
     }
+
     public static Entidade CRIAR_EM(Lista<Entidade> entts) {
         Entidade novo = new Entidade();
         entts.adicionar(novo);
         return novo;
     }
 
-    public static Entidade CRIAR_EM(Lista<Entidade> entts,String att_nome,String att_valor) {
+    public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome, String att_valor) {
         Entidade novo = new Entidade();
-        novo.at(att_nome,att_valor);
+        novo.at(att_nome, att_valor);
+        entts.adicionar(novo);
+        return novo;
+    }
+
+    public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome1, String att_valor1, String att_nome2, String att_valor2) {
+        Entidade novo = new Entidade();
+        novo.at(att_nome1, att_valor1);
+        novo.at(att_nome2, att_valor2);
+        entts.adicionar(novo);
+        return novo;
+    }
+
+    public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome1, int att_valor1, String att_nome2, int att_valor2) {
+        Entidade novo = new Entidade();
+        novo.at(att_nome1, att_valor1);
+        novo.at(att_nome2, att_valor2);
+        entts.adicionar(novo);
+        return novo;
+    }
+
+    public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome1, double att_valor1, String att_nome2, double att_valor2) {
+        Entidade novo = new Entidade();
+        novo.at(att_nome1, att_valor1);
+        novo.at(att_nome2, att_valor2);
         entts.adicionar(novo);
         return novo;
     }
@@ -1256,9 +1329,9 @@ public class ENTT {
         Lista<Entidade> top = new Lista<Entidade>();
 
         for (Entidade obj : entts) {
-            if(CONTAGEM(top)<10){
+            if (CONTAGEM(top) < 10) {
                 top.adicionar(obj);
-            }else{
+            } else {
                 break;
             }
         }
@@ -1267,12 +1340,12 @@ public class ENTT {
     }
 
 
-    public static Lista<Entidade> LISTA_TO_ENTIDADES(Lista<String> valores){
+    public static Lista<Entidade> LISTA_TO_ENTIDADES(Lista<String> valores) {
 
         Lista<Entidade> entts = CRIAR_LISTA();
 
-        for(String item : valores){
-            CRIAR_EM(entts,"Item",item);
+        for (String item : valores) {
+            CRIAR_EM(entts, "Item", item);
         }
 
         return entts;
@@ -1378,7 +1451,7 @@ public class ENTT {
                 e1.at(oa.getNome(), oa.getValor());
             }
 
-            parser_interno(e1,o);
+            parser_interno(e1, o);
 
             varias.adicionar(e1);
 
@@ -1388,7 +1461,7 @@ public class ENTT {
 
     }
 
-    private static void parser_interno(Entidade e_pai,DKGObjeto o_pai){
+    private static void parser_interno(Entidade e_pai, DKGObjeto o_pai) {
 
         for (DKGObjeto o : o_pai.getObjetos()) {
 
@@ -1398,7 +1471,7 @@ public class ENTT {
                 e1.at(oa.getNome(), oa.getValor());
             }
 
-            parser_interno(e1,o);
+            parser_interno(e1, o);
 
             e_pai.getEntidades().adicionar(e1);
         }
@@ -1406,36 +1479,36 @@ public class ENTT {
     }
 
 
-    public static void ATRIBUTO_ALTERAR(Lista<Entidade> entts,String att_nome,String att_valor){
-        for(Entidade e : entts){
-            e.at(att_nome,att_valor);
+    public static void ATRIBUTO_ALTERAR(Lista<Entidade> entts, String att_nome, String att_valor) {
+        for (Entidade e : entts) {
+            e.at(att_nome, att_valor);
         }
     }
 
-    public static boolean TEM(Lista<Entidade> entts){
-       return entts.getQuantidade()>0;
+    public static boolean TEM(Lista<Entidade> entts) {
+        return entts.getQuantidade() > 0;
     }
 
 
-    public static Lista<Entidade> VALORES(String att_nome,Lista<String> valores){
+    public static Lista<Entidade> VALORES(String att_nome, Lista<String> valores) {
         Lista<Entidade> entts = CRIAR_LISTA();
 
-        for(String item : valores){
+        for (String item : valores) {
             Entidade e = new Entidade();
-            e.at(att_nome,item);
+            e.at(att_nome, item);
             entts.adicionar(e);
         }
 
         return entts;
     }
 
-    public static Lista<Entidade> VALORES_SEQUENCIADOS(String att_sequencia,String att_nome,Lista<String> valores){
+    public static Lista<Entidade> VALORES_SEQUENCIADOS(String att_sequencia, String att_nome, Lista<String> valores) {
         Lista<Entidade> entts = CRIAR_LISTA();
 
-        for(String item : valores){
+        for (String item : valores) {
             Entidade e = new Entidade();
-            e.at(att_sequencia,entts.getQuantidade());
-            e.at(att_nome,item);
+            e.at(att_sequencia, entts.getQuantidade());
+            e.at(att_nome, item);
             entts.adicionar(e);
         }
 
@@ -1443,21 +1516,21 @@ public class ENTT {
     }
 
 
-    public static Lista<Entidade> CRIAR_LISTA_COM(Entidade e){
+    public static Lista<Entidade> CRIAR_LISTA_COM(Entidade e) {
         Lista<Entidade> ls = new Lista<Entidade>();
         ls.adicionar(e);
         return ls;
     }
 
 
-    public static Lista<Entidade> CRIAR_LISTA_VALORES_DE(Lista<Entidade> entradas,Lista<String> campos){
+    public static Lista<Entidade> CRIAR_LISTA_VALORES_DE(Lista<Entidade> entradas, Lista<String> campos) {
         Lista<Entidade> ls = new Lista<Entidade>();
 
-        for(Entidade entrada : entradas){
+        for (Entidade entrada : entradas) {
             Entidade novo = CRIAR_EM(ls);
 
-            for(String campo : campos){
-                novo.at(campo,entrada.at(campo));
+            for (String campo : campos) {
+                novo.at(campo, entrada.at(campo));
             }
 
 
@@ -1465,53 +1538,63 @@ public class ENTT {
         return ls;
     }
 
-    public static void ATRIBUTO_TODOS(Lista<Entidade> entradas,String att_nome,String att_valor){
+    public static void ATRIBUTO_TODOS(Lista<Entidade> entradas, String att_nome, String att_valor) {
 
-        for(Entidade entidade : entradas){
-            entidade.at(att_nome,att_valor);
+        for (Entidade entidade : entradas) {
+            entidade.at(att_nome, att_valor);
         }
 
     }
 
 
-    public static void ATRIBUTO_TODOS(Lista<Entidade> entradas,String att_nome,int att_valor){
+    public static void ATRIBUTO_TODOS(Lista<Entidade> entradas, String att_nome, int att_valor) {
 
-        for(Entidade entidade : entradas){
-            entidade.at(att_nome,att_valor);
+        for (Entidade entidade : entradas) {
+            entidade.at(att_nome, att_valor);
         }
 
     }
 
 
-    public static Lista<Entidade> ABRIR_ZONAS_DE_CARREGAMENTO(String arquivo,int tamanho_zona) {
+    public static Lista<Entidade> ABRIR_ZONAS_DE_CARREGAMENTO(String arquivo, int tamanho_zona) {
 
         Lista<Entidade> lista = new Lista<Entidade>();
 
         int quantidade = DS.ler_todos(arquivo).getQuantidade();
 
-      int inicio= 0;
+        int inicio = 0;
 
-        while(quantidade>=tamanho_zona){
+        while (quantidade >= tamanho_zona) {
             Entidade e_zona = CRIAR_EM(lista);
-            e_zona.at("Inicio",inicio);
-            e_zona.at("Quantidade",tamanho_zona);
-            e_zona.at("Fim",inicio+tamanho_zona);
+            e_zona.at("Inicio", inicio);
+            e_zona.at("Quantidade", tamanho_zona);
+            e_zona.at("Fim", inicio + tamanho_zona);
 
-            inicio+=tamanho_zona;
-            quantidade-=tamanho_zona;
+            inicio += tamanho_zona;
+            quantidade -= tamanho_zona;
         }
 
-        if(quantidade>0){
+        if (quantidade > 0) {
             Entidade e_zona = CRIAR_EM(lista);
-            e_zona.at("Inicio",inicio);
-            e_zona.at("Quantidade",quantidade);
-            e_zona.at("Fim",inicio+quantidade);
+            e_zona.at("Inicio", inicio);
+            e_zona.at("Quantidade", quantidade);
+            e_zona.at("Fim", inicio + quantidade);
 
         }
 
         return lista;
     }
 
+
+    public static Entidade TRANSFORMAR_DE_OBJETO(DKGObjeto objeto) {
+        Entidade e = new Entidade();
+
+        for (DKGAtributo att : objeto.getAtributos()) {
+            e.at(att.getNome(), att.getValor());
+        }
+
+        return e;
+    }
 
     public static Lista<Entidade> TRANSFORMAR_DE_OBJETOS(Lista<DKGObjeto> objetos) {
         Lista<Entidade> ls = new Lista<Entidade>();
@@ -1572,10 +1655,374 @@ public class ENTT {
     }
 
 
-    public static Entidade ADICIONAR_EM(Lista<Entidade> entts,Entidade e) {
+    public static Entidade ADICIONAR_EM(Lista<Entidade> entts, Entidade e) {
         entts.adicionar(e);
         return e;
     }
 
+
+    public static Lista<Entidade> CRIAR_DE_STRINGS(Lista<String> strings) {
+
+        Lista<Entidade> entts = CRIAR_LISTA();
+
+        for (String item : strings) {
+            CRIAR_EM(entts, "Item", item);
+        }
+
+        return entts;
+    }
+
+
+    public static Lista<Entidade> GET_DESCRITORES(Lista<Entidade> entidades) {
+
+        Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (Entidade e : entidades) {
+            for (Tag tag : e.tags()) {
+                atributos.item(tag.getNome());
+            }
+        }
+
+
+        Lista<Entidade> e_atts = new Lista<Entidade>();
+
+
+        for (String att : atributos) {
+            Entidade descritor = ENTT.CRIAR_EM_SEQUENCIALMENTE(e_atts, "ID");
+            descritor.at("Nome", att);
+
+            int itens = entidades.getQuantidade();
+
+            int valores_quantidade = 0;
+            int numeros_quantidade = 0;
+
+            boolean isPrimeiro = true;
+            boolean primeiro_tem_sufixo = false;
+            String primeiro_sufixo = "";
+
+
+            Lista<String> valores = new Lista<String>();
+
+
+            for (Entidade e_item : entidades) {
+
+                if (e_item.atributo_existe(att)) {
+
+                    String att_valor = e_item.at(att);
+
+                    if (isPrimeiro) {
+
+                        String parte_numerica = Strings.getParteNumerica(att_valor);
+                        String parte_sufixo = Strings.getParteDepoisDeNumerica(att_valor);
+
+                        if (!parte_sufixo.contains(" ") && !parte_sufixo.contains("/") && !parte_sufixo.contains(":") && !parte_sufixo.contains("_") && !parte_sufixo.contains("-") && !Strings.temDigito(parte_sufixo)) {
+                            primeiro_tem_sufixo = true;
+                            primeiro_sufixo = parte_sufixo;
+                        }
+
+                    }
+
+                    isPrimeiro = false;
+
+
+                    if (Matematica.isNumero(att_valor)) {
+                        numeros_quantidade += 1;
+
+                        valores.adicionar(att_valor);
+
+                    } else {
+                        if (primeiro_tem_sufixo) {
+
+                            String parte_sufixo = Strings.getParteNumerica(att_valor);
+                            if (!parte_sufixo.isEmpty()) {
+                                valores.adicionar(parte_sufixo);
+                            }
+                        }
+                    }
+
+                    valores_quantidade += 1;
+                }
+
+
+            }
+
+            descritor.at("Quantidade", valores_quantidade);
+
+            if (primeiro_tem_sufixo) {
+                descritor.at("Numeros", valores.getQuantidade());
+            } else {
+                descritor.at("Numeros", numeros_quantidade);
+            }
+
+
+            if (descritor.atIntOuPadrao("Quantidade", 0) == descritor.atIntOuPadrao("Numeros", 0)) {
+
+                if (primeiro_tem_sufixo) {
+                    descritor.at("Primeiro.Sufixo", primeiro_sufixo);
+                }
+
+                descritor.at("Tipo", "Numero");
+
+                int numero_inteiro = 0;
+                int numero_real = 0;
+
+                String numero_menor = valores.get(0);
+                String numero_maior = valores.get(0);
+
+                double valor_menor = Double.parseDouble(numero_menor);
+                double valor_maior = Double.parseDouble(numero_maior);
+
+                for (String numero : valores) {
+
+                    if (Matematica.isNumeroInteiro(numero)) {
+                        numero_inteiro += 1;
+                    } else {
+                        numero_real += 1;
+                    }
+
+                    double valor = Double.parseDouble(numero);
+
+                    if (valor < valor_menor) {
+                        valor_menor = valor;
+                        numero_menor = numero;
+                    }
+
+                    if (valor > valor_maior) {
+                        valor_maior = valor;
+                        numero_maior = numero;
+                    }
+
+                }
+
+                //  descritor.at("Numero.Inteiro", numero_inteiro);
+                // descritor.at("Numero.Real", numero_real);
+
+
+                if (numero_inteiro == valores.getQuantidade()) {
+                    descritor.at("Numero.Tipo", "Inteiro");
+
+
+                    Unico<String> numeros_unicos = new Unico<String>(Strings.IGUALAVEL());
+                    for(String valor : valores){
+                        numeros_unicos.item(valor);
+                    }
+
+
+                    descritor.at("Numeros.Unicos", numeros_unicos.getQuantidade());
+                    descritor.at("Numeros.Chave", Portugues.VALIDAR(itens==numeros_unicos.getQuantidade(),"Primaria","NAO"));
+
+                    if(numeros_unicos.getQuantidade()<itens/4){
+                        descritor.at("Numeros.Chave","Particao");
+                    }
+
+                } else if (numero_real == valores.getQuantidade()) {
+                    descritor.at("Numero.Tipo", "Real");
+                } else {
+                    descritor.at("Numero.Tipo", "Misto");
+                }
+
+
+                descritor.at("Numero.Menor", numero_menor);
+                descritor.at("Numero.Maior", numero_maior);
+
+
+            } else {
+                descritor.at("Tipo", "Texto");
+
+
+                Lista<String> texto_valores = new Lista<String>();
+                Unico<String> texto_unico = new Unico<String>(Strings.IGUALAVEL());
+
+                for (Entidade e_item : entidades) {
+                    if (e_item.atributo_existe(att)) {
+
+                        String att_valor = e_item.at(att);
+
+                        texto_unico.item(att_valor);
+                        texto_valores.adicionar(att_valor);
+
+                    }
+
+                }
+
+                descritor.at("Texto.Valores", texto_valores.getQuantidade());
+                descritor.at("Texto.Unico", texto_unico.getQuantidade());
+
+                if (texto_unico.getQuantidade() == texto_valores.getQuantidade()) {
+                    descritor.at("Texto.Tipo", "Chave");
+
+
+                } else {
+                    descritor.at("Texto.Tipo", "Texto");
+
+                    if(texto_unico.getQuantidade()==1) {
+                        descritor.at("Texto.Tipo", "Constante");
+                    }else   if (texto_unico.getQuantidade() < (texto_valores.getQuantidade() / 4)) {
+                        descritor.at("Texto.Tipo", "Enum");
+                    }
+
+
+
+                }
+
+
+            }
+
+
+        }
+
+        return e_atts;
+    }
+
+    public static void SUBSTITUIR_PARTE(Lista<Entidade> objetos, String att_nome, String proc_parte, String sub_parte) {
+
+        for (Entidade e : objetos) {
+            e.at(att_nome, e.at(att_nome).replace(proc_parte, sub_parte));
+        }
+
+    }
+
+    public static Lista<Entidade> GET_ZONAS_PORCENTAGEM() {
+
+        Lista<Entidade> pp_zonas = new Lista<Entidade>();
+        ENTT.CRIAR_EM(pp_zonas, "Min", 0, "Max", 24);
+        ENTT.CRIAR_EM(pp_zonas, "Min", 25, "Max", 49);
+        ENTT.CRIAR_EM(pp_zonas, "Min", 50, "Max", 74);
+        ENTT.CRIAR_EM(pp_zonas, "Min", 75, "Max", 100);
+
+
+        SEQUENCIAR(pp_zonas, "ID", 1);
+        ATRIBUTO_TORNAR_PRIMEIRO(pp_zonas, "ID");
+        ATRIBUTO_TODOS(pp_zonas, "Quantidade", 0);
+
+        return pp_zonas;
+    }
+
+    public static Lista<Entidade> GET_4ZONAS_DE(Lista<Entidade> dados,String att_nome) {
+
+        int menor = ENTT.GET_INTEIRO_MENOR(dados,att_nome);
+        int maior = ENTT.GET_INTEIRO_MAIOR(dados,att_nome);
+
+        int parte = (maior-menor)/4;
+
+        Lista<Entidade> pp_zonas = new Lista<Entidade>();
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(1*parte)-1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(1*parte), "Max", menor+(2*parte)-1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(2*parte), "Max", menor+(3*parte)-1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(3*parte), "Max", maior);
+
+
+        SEQUENCIAR(pp_zonas, "ID", 1);
+        ATRIBUTO_TORNAR_PRIMEIRO(pp_zonas, "ID");
+        ATRIBUTO_TODOS(pp_zonas, "Quantidade", 0);
+
+        return pp_zonas;
+    }
+
+    public static Lista<Entidade> GET_2ZONAS_DE(Lista<Entidade> dados,String att_nome) {
+
+        int menor = ENTT.GET_INTEIRO_MENOR(dados,att_nome);
+        int maior = ENTT.GET_INTEIRO_MAIOR(dados,att_nome);
+
+        int parte = (maior-menor)/2;
+
+        Lista<Entidade> pp_zonas = new Lista<Entidade>();
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(1*parte)-1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(1*parte), "Max", maior);
+
+
+        SEQUENCIAR(pp_zonas, "ID", 1);
+        ATRIBUTO_TORNAR_PRIMEIRO(pp_zonas, "ID");
+        ATRIBUTO_TODOS(pp_zonas, "Quantidade", 0);
+
+        return pp_zonas;
+    }
+
+    public static void ZONA_ANALISAR(Lista<Entidade> dados,Lista<Entidade> zonas,String att_valor,String att_agrupar){
+
+
+        for (Entidade zona : zonas) {
+
+            int min = zona.atInt("Min");
+            int max = zona.atInt("Max");
+
+            for (Entidade item : dados) {
+
+                int item_valor = item.atInt(att_valor);
+                if (item_valor >= min && item_valor <= max) {
+                    zona.at(att_agrupar, zona.atIntOuPadrao(att_agrupar, 0) + item.atInt(att_agrupar));
+                }
+
+            }
+
+
+        }
+
+    }
+
+
+    public static Lista<Entidade> GET_4ZONAS_DOUBLE_DE(Lista<Entidade> dados,String att_nome) {
+
+        double menor = ENTT.GET_DOUBLE_MENOR(dados,att_nome);
+        double maior = ENTT.GET_DOUBLE_MAIOR(dados,att_nome);
+
+        double parte = (maior-menor)/4.0;
+
+        Lista<Entidade> pp_zonas = new Lista<Entidade>();
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(1*parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(1*parte), "Max", menor+(2*parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(2*parte), "Max", menor+(3*parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(3*parte), "Max", maior+0.1);
+
+
+        SEQUENCIAR(pp_zonas, "ID", 1);
+        ATRIBUTO_TORNAR_PRIMEIRO(pp_zonas, "ID");
+        ATRIBUTO_TODOS(pp_zonas, "Quantidade", 0);
+
+        return pp_zonas;
+    }
+
+    public static Lista<Entidade> GET_2ZONAS_DOUBLE_DE(Lista<Entidade> dados,String att_nome) {
+
+        double menor = ENTT.GET_DOUBLE_MENOR(dados,att_nome);
+        double maior = ENTT.GET_DOUBLE_MAIOR(dados,att_nome);
+
+        double parte = (maior-menor)/2.0;
+
+        Lista<Entidade> pp_zonas = new Lista<Entidade>();
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(parte), "Max", maior+0.1);
+
+
+        SEQUENCIAR(pp_zonas, "ID", 1);
+        ATRIBUTO_TORNAR_PRIMEIRO(pp_zonas, "ID");
+        ATRIBUTO_TODOS(pp_zonas, "Quantidade", 0);
+
+        return pp_zonas;
+    }
+
+
+
+    public static void ZONA_ANALISAR_DOUBLE(Lista<Entidade> dados,Lista<Entidade> zonas,String att_valor,String att_agrupar){
+
+
+        for (Entidade zona : zonas) {
+
+            double min = zona.atDouble("Min");
+            double max = zona.atDouble("Max");
+
+            for (Entidade item : dados) {
+
+                double item_valor = item.atDouble(att_valor);
+                if (item_valor >= min && item_valor < max) {
+                    zona.at(att_agrupar, zona.atIntOuPadrao(att_agrupar, 0) + item.atInt(att_agrupar));
+                }
+
+            }
+
+
+        }
+
+    }
 
 }

@@ -27,7 +27,7 @@ public class Votacao {
         if (!enc) {
             ret = new Urna(eCidade, eZona, eSessao);
             ret.setComecar(HORARIO_COMECAR_ARCO, HORARIO_COMECAR_ITTAS);
-            ret.setFila(Aleatorio.alatorio_entre(5, 10));
+            ret.setFila(Aleatorio.aleatorio_entre(5, 10));
             urnas.adicionar(ret);
         }
         return ret;
@@ -166,7 +166,7 @@ public class Votacao {
                         urna.guardar_voto("Senado", sSenado);
                         urna.guardar_voto("Secretaria", sSecretaria);
 
-                        urna.votar(Aleatorio.alatorio_entre(5, 20));
+                        urna.votar(Aleatorio.aleatorio_entre(5, 20));
 
                         urna.marcar_presenca();
 
@@ -175,8 +175,8 @@ public class Votacao {
                         }
 
                         if (urna.nao_tem_ninguem_esperando()) {
-                            urna.passar_tempo(Aleatorio.alatorio_entre(10, 30));
-                            urna.setFila(Aleatorio.alatorio_entre(5, 10));
+                            urna.passar_tempo(Aleatorio.aleatorio_entre(10, 30));
+                            urna.setFila(Aleatorio.aleatorio_entre(5, 10));
                         }
 
                         politica_eleicao.identifique("TempoTerminou").setValor(urna.getTempo());
