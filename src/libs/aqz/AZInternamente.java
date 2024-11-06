@@ -1,17 +1,22 @@
 package libs.aqz;
 
+import apps.app_campeonatum.VERIFICADOR;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
 import libs.arquivos.binario.Arquivador;
-import libs.bs.ColecaoUTF8;
 import libs.bs.BancoBS;
-import libs.bs.Sequenciador;
 import libs.bs.Colecao;
+import libs.bs.ColecaoUTF8;
+import libs.bs.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.Matematica;
+import libs.luan.fmt;
 import libs.tempo.Calendario;
+
+import java.nio.charset.StandardCharsets;
 
 public class AZInternamente {
 
@@ -21,6 +26,7 @@ public class AZInternamente {
     // ATUALIZADO : 2024 11 05 - COLECAO EM UTF-8
 
     private Armazenador mArmazenador;
+
 
     public AZInternamente(String arquivo_banco) {
 
@@ -95,7 +101,7 @@ public class AZInternamente {
 
         for (ItemDoBanco item : s_bancos.getItens()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTexto());
-            if (obj_colecao.is("Status","OK") && obj_colecao.at("Nome").toUpperCase().contentEquals(colecao_nome)) {
+            if (obj_colecao.is("Status", "OK") && obj_colecao.at("Nome").toUpperCase().contentEquals(colecao_nome)) {
                 existe = true;
                 mArmazenador.fechar();
                 throw new RuntimeException("AQZ ERRO - Já existe uma coleção com esse nome : " + colecao_nome);
@@ -104,7 +110,7 @@ public class AZInternamente {
 
         for (ItemDoBanco item : s_bancos.getItens()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTexto());
-            if (obj_colecao.is("Status","DESTRUIDO")) {
+            if (obj_colecao.is("Status", "DESTRUIDO")) {
 
                 String nome_antigo = obj_colecao.at("Nome");
 
@@ -124,9 +130,9 @@ public class AZInternamente {
                 Sequenciador.zerar_sequencial(s_sequencias, nome_antigo);
 
 
-                int novo_id = init_bancos.atInt("Corrente",0);
+                int novo_id = init_bancos.atInt("Corrente", 0);
 
-                init_bancos.at("Corrente", init_bancos.atInt("Corrente",0) + init_bancos.atInt("Sequencia",0));
+                init_bancos.at("Corrente", init_bancos.atInt("Corrente", 0) + init_bancos.atInt("Sequencia", 0));
                 init_bancos.at("Sequencia", 1);
                 init_bancos.at("DDA", Calendario.getTempoCompleto());
 
@@ -152,9 +158,9 @@ public class AZInternamente {
 
         if (!existe) {
 
-            int banco_id = init_bancos.atInt("Corrente",0);
+            int banco_id = init_bancos.atInt("Corrente", 0);
 
-            init_bancos.at("Corrente", init_bancos.at("Corrente",0) + init_bancos.at("Sequencia",0));
+            init_bancos.at("Corrente", init_bancos.at("Corrente", 0) + init_bancos.at("Sequencia", 0));
             init_bancos.at("Sequencia", 1);
             init_bancos.at("DDA", Calendario.getTempoCompleto());
 
@@ -210,7 +216,7 @@ public class AZInternamente {
 
             long guardar_local_indice = real_arquivador.getPonteiro();
 
-         //   System.out.println("CRIAR INDICE EM :: " + guardar_local_indice);
+            //   System.out.println("CRIAR INDICE EM :: " + guardar_local_indice);
 
             real_arquivador.set_u8((byte) Armazenador.MARCADOR_INDICE);
             real_arquivador.set_u64(0);
@@ -238,11 +244,11 @@ public class AZInternamente {
             nova_colecao.at("DDA", Calendario.getTempoCompleto());
 
 
-            nova_colecao.at("Ponteiro",ponteiro_inicial_do_banco);
-            nova_colecao.at("Capitulos",guardar_capitulos);
-            nova_colecao.at("Cache",guardar_cache);
-            nova_colecao.at("PPPC",guardar_primeira_pagina_do_primeiro_capitulo);
-            nova_colecao.at("Indice",guardar_local_indice);
+            nova_colecao.at("Ponteiro", ponteiro_inicial_do_banco);
+            nova_colecao.at("Capitulos", guardar_capitulos);
+            nova_colecao.at("Cache", guardar_cache);
+            nova_colecao.at("PPPC", guardar_primeira_pagina_do_primeiro_capitulo);
+            nova_colecao.at("Indice", guardar_local_indice);
 
             s_bancos.adicionar(nova_colecao);
 
@@ -263,9 +269,9 @@ public class AZInternamente {
         for (ItemDoBanco item : s_bancos.getItens()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTexto());
 
-          //  fmt.print("AQZ STATUS :: {}",ENTT.TO_DOCUMENTO(obj_colecao));
+            //  fmt.print("AQZ STATUS :: {}",ENTT.TO_DOCUMENTO(obj_colecao));
 
-            if (obj_colecao.is("Status","OK")) {
+            if (obj_colecao.is("Status", "OK")) {
 
                 String nome = obj_colecao.at("Nome");
 
@@ -332,20 +338,20 @@ public class AZInternamente {
 
             String nome = obj_colecao.at("Nome");
 
-            int banco_id = obj_colecao.atInt("BID",0);
+            int banco_id = obj_colecao.atInt("BID", 0);
 
-            long ponteiro_inicial_do_banco = obj_colecao.atLong("Ponteiro",0);
+            long ponteiro_inicial_do_banco = obj_colecao.atLong("Ponteiro", 0);
 
-            long local_itens = obj_colecao.atLong("Capitulos",0);
-            long local_cache = obj_colecao.atLong("Cache",0);
-            long local_corrente = obj_colecao.atLong("PPPC",0);
-            long local_indice = obj_colecao.atLong("Indice",0);
+            long local_itens = obj_colecao.atLong("Capitulos", 0);
+            long local_cache = obj_colecao.atLong("Cache", 0);
+            long local_corrente = obj_colecao.atLong("PPPC", 0);
+            long local_indice = obj_colecao.atLong("Indice", 0);
 
 
-            if (obj_colecao.is("Status","OK") && nome.contentEquals(colecao_nome)) {
+            if (obj_colecao.is("Status", "OK") && nome.contentEquals(colecao_nome)) {
                 Banco banco_remover = new Banco(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice);
                 banco_remover.limpar();
-                obj_colecao.at("Status","DESTRUIDO");
+                obj_colecao.at("Status", "DESTRUIDO");
                 Sequenciador.zerar_sequencial(s_sequencias, colecao_nome);
 
                 //   fmt.print("DESTRUINDO :: {}", obj_colecao.toDocumento());
@@ -370,7 +376,7 @@ public class AZInternamente {
         for (Banco b : colecoes_listar()) {
             if (b.getNome().contentEquals(colecao_nome)) {
 
-               // fmt.print("AQZ STATUS BANCO - {}",colecao_nome);
+                // fmt.print("AQZ STATUS BANCO - {}",colecao_nome);
 
                 return new Colecao(colecao_nome, mArmazenador, s_sequencias, b);
             }
@@ -430,26 +436,26 @@ public class AZInternamente {
 
             Entidade obj_analise = new Entidade();
 
-            obj_analise.at("BID",b.getID());
-            obj_analise.at("Nome",b.getNome());
+            obj_analise.at("BID", b.getID());
+            obj_analise.at("Nome", b.getNome());
 
             long itens_alocados = b.getItensAlocadosContagem();
             long itens_utilizados = b.getItensContagem();
 
-            obj_analise.at("Itens_Disponiveis",itens_alocados);
-            obj_analise.at("Itens_Utilizados",itens_utilizados);
+            obj_analise.at("Itens_Disponiveis", itens_alocados);
+            obj_analise.at("Itens_Utilizados", itens_utilizados);
 
-            obj_analise.at("Disponibilidade",b.getDisponibilidade());
-            obj_analise.at("Usabilidadade",b.getUsabilidade());
+            obj_analise.at("Disponibilidade", b.getDisponibilidade());
+            obj_analise.at("Usabilidadade", b.getUsabilidade());
 
-            obj_analise.at("Capitulos_Contagem",b.getCapitulosContagem());
-            obj_analise.at("Paginas_Contagem",b.getPaginasContagem());
+            obj_analise.at("Capitulos_Contagem", b.getCapitulosContagem());
+            obj_analise.at("Paginas_Contagem", b.getPaginasContagem());
 
-            obj_analise.at("Indice_Disponibilidade",b.getIndiceDisponibilidade());
-            obj_analise.at("Indice_Usabilidade",b.getIndiceUsabilidade());
-            obj_analise.at("Indice_Paginas",b.getIndicePaginasContagem());
-            obj_analise.at("Indice_Contagem",b.getIndiceItensTotalContagem());
-            obj_analise.at("Indice_Utilizados",b.getIndiceItensUtilizadoContagem());
+            obj_analise.at("Indice_Disponibilidade", b.getIndiceDisponibilidade());
+            obj_analise.at("Indice_Usabilidade", b.getIndiceUsabilidade());
+            obj_analise.at("Indice_Paginas", b.getIndicePaginasContagem());
+            obj_analise.at("Indice_Contagem", b.getIndiceItensTotalContagem());
+            obj_analise.at("Indice_Utilizados", b.getIndiceItensUtilizadoContagem());
 
             objetos_analisados.adicionar(obj_analise);
 
@@ -480,28 +486,28 @@ public class AZInternamente {
 
             Entidade obj_analise = new Entidade();
 
-            obj_analise.at("BID",b.getID());
-            obj_analise.at("Nome",b.getNome());
+            obj_analise.at("BID", b.getID());
+            obj_analise.at("Nome", b.getNome());
 
             long itens_alocados = b.getItensAlocadosContagem();
             long itens_utilizados = b.getItensContagem();
 
-            obj_analise.at("Itens_Disponiveis",itens_alocados);
-            obj_analise.at("Itens_Utilizados",itens_utilizados);
+            obj_analise.at("Itens_Disponiveis", itens_alocados);
+            obj_analise.at("Itens_Utilizados", itens_utilizados);
 
-            obj_analise.at("Disponibilidade",b.getDisponibilidade());
-            obj_analise.at("Usabilidadade",b.getUsabilidade());
+            obj_analise.at("Disponibilidade", b.getDisponibilidade());
+            obj_analise.at("Usabilidadade", b.getUsabilidade());
 
-            obj_analise.at("Capitulos_Contagem",b.getCapitulosContagem());
-            obj_analise.at("Paginas_Contagem",b.getPaginasContagem());
+            obj_analise.at("Capitulos_Contagem", b.getCapitulosContagem());
+            obj_analise.at("Paginas_Contagem", b.getPaginasContagem());
 
-            obj_analise.at("Indice_Disponibilidade",b.getIndiceDisponibilidade());
-            obj_analise.at("Indice_Usabilidade",b.getIndiceUsabilidade());
-            obj_analise.at("Indice_Paginas",b.getIndicePaginasContagem());
-            obj_analise.at("Indice_Contagem",b.getIndiceItensTotalContagem());
-            obj_analise.at("Indice_Utilizados",b.getIndiceItensUtilizadoContagem());
+            obj_analise.at("Indice_Disponibilidade", b.getIndiceDisponibilidade());
+            obj_analise.at("Indice_Usabilidade", b.getIndiceUsabilidade());
+            obj_analise.at("Indice_Paginas", b.getIndicePaginasContagem());
+            obj_analise.at("Indice_Contagem", b.getIndiceItensTotalContagem());
+            obj_analise.at("Indice_Utilizados", b.getIndiceItensUtilizadoContagem());
 
-            obj_analise.at("Cache_Itens",b.getItensEmCacheContagem());
+            obj_analise.at("Cache_Itens", b.getItensEmCacheContagem());
 
             objetos_analisados.adicionar(obj_analise);
 
@@ -649,5 +655,7 @@ public class AZInternamente {
         }
 
     }
+
+
 
 }

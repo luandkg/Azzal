@@ -163,7 +163,7 @@ public class Armazenador {
 
     private void interno_banco_criar(String banco_nome) {
 
-        if (banco_nome.length() > 0 && banco_nome.length() < 255) {
+        if (!banco_nome.isEmpty() && banco_nome.length() < 255) {
 
         } else {
             return;

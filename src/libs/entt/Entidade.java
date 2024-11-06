@@ -335,6 +335,31 @@ public class Entidade {
     }
 
 
+    public void tornar_ultimo(String att_nome) {
+
+        Lista<Tag> copia = new Lista<Tag>();
+
+        String att_valor = at(att_nome);
+
+        for (Tag tag : mTags) {
+            copia.adicionar(tag);
+        }
+
+        mTags.limpar();
+
+
+        for (Tag tag : copia) {
+            if(!tag.is_nome(att_nome)){
+                at(tag.getNome(),tag.getValor());
+            }
+        }
+
+        at(att_nome, att_valor);
+
+    }
+
+
+
     public void atributo_depois(String att_antes,String att_novo) {
 
         Lista<Tag> copia = new Lista<Tag>();

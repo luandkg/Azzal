@@ -721,7 +721,7 @@ public class AQZ {
     }
 
 
-    public static Unico<String> FILTRAR_UNICOS(String arquivo_banco, String colecao_nome,String att_nome) {
+    public static Unico<String> FILTRAR_UNICOS(String arquivo_banco, String colecao_nome, String att_nome) {
 
         Unico<String> filtrado = new Unico<String>(Strings.IGUALAVEL());
 
@@ -740,5 +740,101 @@ public class AQZ {
         return filtrado;
     }
 
+
+    public static Lista<Entidade> GET_VOLUMES(String arquivo_banco) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        Lista<Entidade> e_volumes = aqz.volume_listar();
+        aqz.fechar();
+
+        return e_volumes;
+    }
+
+    public static void CRIAR_VOLUME(String arquivo_banco) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        aqz.volume_criar();
+        aqz.fechar();
+
+    }
+
+    public static Lista<Entidade> GET_VOLUMES_DADOS(String arquivo_banco) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        Lista<Entidade> e_volumes = aqz.volume_listar_dados();
+        aqz.fechar();
+
+        return e_volumes;
+    }
+
+    public static void VOLUMES_ZERAR(String arquivo_banco) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        aqz.volumes_zerar();
+        aqz.fechar();
+
+    }
+
+    public static boolean TEM_BLOCO_DISPONIVEL(String arquivo_banco) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        boolean tem = aqz.volume_tem_bloco_disponivel();
+        aqz.fechar();
+
+        return tem;
+    }
+
+    public static boolean ARQUIVO_ALOCAR(String arquivo_banco, String eArquivoNome, String eConteudo) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        boolean tem = aqz.arquivo_alocar(eArquivoNome, eConteudo);
+        aqz.fechar();
+
+        return tem;
+    }
+
+    public static boolean ARQUIVO_ALOCAR(String arquivo_banco, String eArquivoNome, byte[] eConteudo) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        boolean tem = aqz.arquivo_alocar(eArquivoNome, eConteudo);
+        aqz.fechar();
+
+        return tem;
+    }
+
+    public static void ARQUIVO_DUMP(String arquivo_banco) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        aqz.arquivos_dump();
+        aqz.fechar();
+
+    }
+
+    public static Opcional<Entidade> ARQUIVO_PROCURAR(String arquivo_banco, String proc_arquivo_nome) {
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        Opcional<Entidade> op = aqz.procurar_arquivo(proc_arquivo_nome);
+        aqz.fechar();
+
+        return op;
+    }
+
+    public static Opcional<AQZArquivoExternamente> ARQUIVO_PROCURAR_EXTERNAMENTE(String arquivo_banco, String proc_arquivo_nome) {
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        Opcional<AQZArquivoExternamente> op = aqz.procurar_arquivo_externamente(proc_arquivo_nome);
+        aqz.fechar();
+
+        return op;
+    }
+
+    public static void VOLUMES_DUMP(String arquivo_banco) {
+        Lista<Entidade> volumes_dados = AQZ.GET_VOLUMES_DADOS(arquivo_banco);
+        ENTT.EXIBIR_TABELA_COM_NOME(volumes_dados, "@VOLUMES");
+    }
+
+
+    public static long VOLUME_BLOCOS_LIVRES(String arquivo_banco) {
+        Lista<Entidade> volumes_dados = AQZ.GET_VOLUMES_DADOS(arquivo_banco);
+        return ENTT.ATRIBUTO_LONG_SOMAR(volumes_dados, "Objetos.Livre");
+    }
 
 }

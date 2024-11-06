@@ -3,6 +3,7 @@ package apps.app;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_azzal.VamosCalcular;
 import libs.aqz.AQZ;
+import libs.aqz.AQZArquivoExternamente;
 import libs.aqz.AQZUTF8;
 import libs.bs.ObservadorItem;
 import libs.entt.ENTT;
@@ -158,9 +159,9 @@ public class AppAzzal {
         // tempo_descritores();
         //  tempo();
         //tron_me();
-        //  banco_me();
+        banco_me();
         //  tozterum();
-        metropoles();
+        // metropoles();
 
         // AppFerias.recesso_2024_janeiro();
 
@@ -174,7 +175,7 @@ public class AppAzzal {
 
         // AppCampeonatum.init();
 
-        //FITParser.init();
+        // FITParser.init();
 
         fmt.print("Tronarko : {}", Tronarko.getTronAgora().getTextoZerado());
 
@@ -243,7 +244,7 @@ public class AppAzzal {
 
         // Cartaze.init();
 
-        //  TronarkoOrganizarAssets.signos();
+        // TronarkoOrganizarAssets.signos();
 
         //AppCartaze.INIT();
 
@@ -526,6 +527,7 @@ public class AppAzzal {
     public static void banco_me() {
 
         String arquivo_banco = "/home/luan/assets/tronarkum.az";
+        String arquivo_imagem_cidade = "/home/luan/assets/cidade_gama.png";
 
         AQZ.COLECOES_EXIBIR(arquivo_banco);
 
@@ -537,6 +539,12 @@ public class AppAzzal {
 
         fmt.print("Exibir...");
         AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Analise");
+
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tronakum");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "TronakumDiario");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo");
+        AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tempo_v2");
+
 
         AQZ.EXIBIR_COLECAO(arquivo_banco, "Tronakum");
         AQZ.EXIBIR_COLECAO(arquivo_banco, "TronakumDiario");
@@ -585,6 +593,64 @@ public class AppAzzal {
         numero_hoje.atualizar();
         numero_hoje.exibir();
 
+        //    AQZ.VOLUMES_ZERAR(arquivo_banco);
+
+        Lista<Entidade> volumes = AQZ.GET_VOLUMES(arquivo_banco);
+
+        if (volumes.getQuantidade() < 3) {
+            //   AQZ.CRIAR_VOLUME(arquivo_banco);
+        }
+
+
+        if (AQZ.TEM_BLOCO_DISPONIVEL(arquivo_banco)) {
+
+            String conteudo = "";
+
+            conteudo = Tronarko.getTronAgora().getTextoZerado() + "\n";
+
+            int numero_aleatorio = Aleatorio.aleatorio_entre(5, 10);
+            for (int n = 0; n < numero_aleatorio; n++) {
+                conteudo += "\t " + n + " -->> " + Aleatorio.escolha_um(Lista.CRIAR("Java", "Rust", "Python", "C", "C++")) + "\n";
+            }
+
+            //    AQZ.ARQUIVO_ALOCAR(arquivo_banco, "@Status/LuanFreitas/" + Tronarko.getTozte().getTextoInversoZerado().replace("/", "_") + ".status", conteudo);
+        }
+
+        if (AQZ.TEM_BLOCO_DISPONIVEL(arquivo_banco)) {
+            //   AQZ.ARQUIVO_ALOCAR(arquivo_banco, "@Imagem/Cidade.png", Arquivador.GET_BYTES(arquivo_imagem_cidade));
+        }
+
+        String imagem_grande = "/home/luan/Imagens/32c24851b9671e70305e7f85aee7059e.png";
+
+        if (AQZ.TEM_BLOCO_DISPONIVEL(arquivo_banco)) {
+            //  AQZ.ARQUIVO_ALOCAR(arquivo_banco, "@Imagem/Mobile.png", Arquivador.GET_BYTES(imagem_grande));
+        }
+
+
+        //  volumes = AQZ.GET_VOLUMES(arquivo_banco);
+        // ENTT.EXIBIR_TABELA_COM_NOME(volumes, "@VOLUMES");
+
+
+        AQZ.ARQUIVO_DUMP(arquivo_banco);
+
+        AQZ.VOLUMES_DUMP(arquivo_banco);
+
+        Opcional<AQZArquivoExternamente> arq_mob = AQZ.ARQUIVO_PROCURAR_EXTERNAMENTE(arquivo_banco, "@Imagem/Mobile.png");
+
+        if (arq_mob.isOK()) {
+            // ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(arq_mob.get()));
+
+            fmt.print("Nome : {} ->> {}", arq_mob.get().getNome(), fmt.formatar_tamanho_precisao_dupla(arq_mob.get().getTamanho()));
+
+            //Arquivador.CONSTRUIR_ARQUIVO("/home/luan/assets/tronarkum_arquivo_dentro.png", arq_mob.get().getBytes());
+
+            arq_mob.get().remover();
+
+        }
+
+        AQZ.VOLUMES_DUMP(arquivo_banco);
+
+        fmt.print("Volume Blocos Livres :: {}", AQZ.VOLUME_BLOCOS_LIVRES(arquivo_banco));
 
     }
 
@@ -669,9 +735,9 @@ public class AppAzzal {
 
         AQZ.EXIBIR_ESTRUTURA(arquivo_banco);
 
-        AQZ.EXIBIR_AMOSTRA(arquivo_banco, "METROPOLES(DF).NOTICICIAS_HOJE");
+        AQZ.EXIBIR_AMOSTRA(arquivo_banco, "METROPOLES(DF).ARQUIVADOS");
 
-        Unico<String> toztes = AQZ.FILTRAR_UNICOS(arquivo_banco, "METROPOLES(DF).NOTICICIAS_HOJE", "Tozte.Obtido");
+        Unico<String> toztes = AQZ.FILTRAR_UNICOS(arquivo_banco, "METROPOLES(DF).ARQUIVADOS", "Tozte.Obtido");
 
         Lista<Entidade> por_toztes = ENTT.CRIAR_DE_STRINGS(toztes.toLista());
 
@@ -680,7 +746,7 @@ public class AppAzzal {
         ENTT.ATRIBUTO_TORNAR_PRIMEIRO(por_toztes, "ID");
 
 
-        Lista<Entidade> tudo = AQZ.COLECAO_ITENS(arquivo_banco, "METROPOLES(DF).NOTICICIAS_HOJE");
+        Lista<Entidade> tudo = AQZ.COLECAO_ITENS(arquivo_banco, "METROPOLES(DF).ARQUIVADOS");
 
         for (Entidade e : por_toztes) {
 
@@ -690,21 +756,26 @@ public class AppAzzal {
 
             for (Entidade outra : ENTT.COLETAR(tudo, "Tozte.Obtido", e.at("Tozte"))) {
                 Tozte outra_tozte = StringTronarko.parseTozte(outra.at("Tozte.Atualizado"));
-                if (outra_tozte.isMaiorQue(recente)) {
+                if (outra_tozte.isMaiorIgualQue(recente)) {
 
                     e.at("Recente", outra.at("Tozte.Atualizado"));
                     recente = StringTronarko.parseTozte(e.at("Recente"));
 
+                    e.at("NoticiaID", outra.at("ID"));
+                    e.at("Noticia", outra.at("Noticia"));
+
                 }
             }
 
-            e.at("CicloDeVida", Tronarko.TOZTE_DIFERENCA( StringTronarko.parseTozte(e.at("Recente")), StringTronarko.parseTozte(e.at("Tozte"))));
+            e.at("CicloDeVida", Tronarko.TOZTE_DIFERENCA(StringTronarko.parseTozte(e.at("Recente")), StringTronarko.parseTozte(e.at("Tozte"))));
 
 
-
-            e.at("Status",e.at("Recente") + " :: "+ e.at("CicloDeVida"));
+            e.at("Status", e.at("Recente") + " :: " + e.at("CicloDeVida"));
 
         }
+
+        ENTT.ATRIBUTO_TORNAR_ULTIMO(por_toztes, "NoticiaID");
+        ENTT.ATRIBUTO_TORNAR_ULTIMO(por_toztes, "Noticia");
 
         ENTT.EXIBIR_TABELA(por_toztes);
 

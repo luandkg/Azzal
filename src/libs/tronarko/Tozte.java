@@ -83,6 +83,17 @@ public class Tozte {
         return p1 + "/" + p2 + "/" + p3;
     }
 
+
+    public String getTextoInversoZerado() {
+
+        String p1 = S(this.getSuperarko());
+        String p2 = S(this.getHiperarko());
+        String p3 = S(this.getTronarko());
+
+        return p3 + "/" + p2 + "/" + p1;
+    }
+
+
     private String S(int valor) {
 
         String sValor = String.valueOf(valor);

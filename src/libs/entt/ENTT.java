@@ -336,6 +336,14 @@ public class ENTT {
 
     }
 
+    public static void ATRIBUTO_TORNAR_ULTIMO(Lista<Entidade> mEntts, String eNome) {
+
+        for (Entidade e : mEntts) {
+            e.tornar_ultimo(eNome);
+        }
+
+    }
+
     public static void ATRIBUTO_DEPOIS_DE(Lista<Entidade> mEntts, String eNomeAntes, String eNovoAtt) {
 
         for (Entidade e : mEntts) {
@@ -1803,16 +1811,16 @@ public class ENTT {
 
 
                     Unico<String> numeros_unicos = new Unico<String>(Strings.IGUALAVEL());
-                    for(String valor : valores){
+                    for (String valor : valores) {
                         numeros_unicos.item(valor);
                     }
 
 
                     descritor.at("Numeros.Unicos", numeros_unicos.getQuantidade());
-                    descritor.at("Numeros.Chave", Portugues.VALIDAR(itens==numeros_unicos.getQuantidade(),"Primaria","NAO"));
+                    descritor.at("Numeros.Chave", Portugues.VALIDAR(itens == numeros_unicos.getQuantidade(), "Primaria", "NAO"));
 
-                    if(numeros_unicos.getQuantidade()<itens/4){
-                        descritor.at("Numeros.Chave","Particao");
+                    if (numeros_unicos.getQuantidade() < itens / 4) {
+                        descritor.at("Numeros.Chave", "Particao");
                     }
 
                 } else if (numero_real == valores.getQuantidade()) {
@@ -1855,12 +1863,11 @@ public class ENTT {
                 } else {
                     descritor.at("Texto.Tipo", "Texto");
 
-                    if(texto_unico.getQuantidade()==1) {
+                    if (texto_unico.getQuantidade() == 1) {
                         descritor.at("Texto.Tipo", "Constante");
-                    }else   if (texto_unico.getQuantidade() < (texto_valores.getQuantidade() / 4)) {
+                    } else if (texto_unico.getQuantidade() < (texto_valores.getQuantidade() / 4)) {
                         descritor.at("Texto.Tipo", "Enum");
                     }
-
 
 
                 }
@@ -1898,18 +1905,18 @@ public class ENTT {
         return pp_zonas;
     }
 
-    public static Lista<Entidade> GET_4ZONAS_DE(Lista<Entidade> dados,String att_nome) {
+    public static Lista<Entidade> GET_4ZONAS_DE(Lista<Entidade> dados, String att_nome) {
 
-        int menor = ENTT.GET_INTEIRO_MENOR(dados,att_nome);
-        int maior = ENTT.GET_INTEIRO_MAIOR(dados,att_nome);
+        int menor = ENTT.GET_INTEIRO_MENOR(dados, att_nome);
+        int maior = ENTT.GET_INTEIRO_MAIOR(dados, att_nome);
 
-        int parte = (maior-menor)/4;
+        int parte = (maior - menor) / 4;
 
         Lista<Entidade> pp_zonas = new Lista<Entidade>();
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(1*parte)-1);
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(1*parte), "Max", menor+(2*parte)-1);
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(2*parte), "Max", menor+(3*parte)-1);
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(3*parte), "Max", maior);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor + (1 * parte) - 1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (1 * parte), "Max", menor + (2 * parte) - 1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (2 * parte), "Max", menor + (3 * parte) - 1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (3 * parte), "Max", maior);
 
 
         SEQUENCIAR(pp_zonas, "ID", 1);
@@ -1919,16 +1926,16 @@ public class ENTT {
         return pp_zonas;
     }
 
-    public static Lista<Entidade> GET_2ZONAS_DE(Lista<Entidade> dados,String att_nome) {
+    public static Lista<Entidade> GET_2ZONAS_DE(Lista<Entidade> dados, String att_nome) {
 
-        int menor = ENTT.GET_INTEIRO_MENOR(dados,att_nome);
-        int maior = ENTT.GET_INTEIRO_MAIOR(dados,att_nome);
+        int menor = ENTT.GET_INTEIRO_MENOR(dados, att_nome);
+        int maior = ENTT.GET_INTEIRO_MAIOR(dados, att_nome);
 
-        int parte = (maior-menor)/2;
+        int parte = (maior - menor) / 2;
 
         Lista<Entidade> pp_zonas = new Lista<Entidade>();
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(1*parte)-1);
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(1*parte), "Max", maior);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor + (1 * parte) - 1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (1 * parte), "Max", maior);
 
 
         SEQUENCIAR(pp_zonas, "ID", 1);
@@ -1938,7 +1945,7 @@ public class ENTT {
         return pp_zonas;
     }
 
-    public static void ZONA_ANALISAR(Lista<Entidade> dados,Lista<Entidade> zonas,String att_valor,String att_agrupar){
+    public static void ZONA_ANALISAR(Lista<Entidade> dados, Lista<Entidade> zonas, String att_valor, String att_agrupar) {
 
 
         for (Entidade zona : zonas) {
@@ -1961,18 +1968,18 @@ public class ENTT {
     }
 
 
-    public static Lista<Entidade> GET_4ZONAS_DOUBLE_DE(Lista<Entidade> dados,String att_nome) {
+    public static Lista<Entidade> GET_4ZONAS_DOUBLE_DE(Lista<Entidade> dados, String att_nome) {
 
-        double menor = ENTT.GET_DOUBLE_MENOR(dados,att_nome);
-        double maior = ENTT.GET_DOUBLE_MAIOR(dados,att_nome);
+        double menor = ENTT.GET_DOUBLE_MENOR(dados, att_nome);
+        double maior = ENTT.GET_DOUBLE_MAIOR(dados, att_nome);
 
-        double parte = (maior-menor)/4.0;
+        double parte = (maior - menor) / 4.0;
 
         Lista<Entidade> pp_zonas = new Lista<Entidade>();
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(1*parte));
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(1*parte), "Max", menor+(2*parte));
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(2*parte), "Max", menor+(3*parte));
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(3*parte), "Max", maior+0.1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor + (1 * parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (1 * parte), "Max", menor + (2 * parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (2 * parte), "Max", menor + (3 * parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (3 * parte), "Max", maior + 0.1);
 
 
         SEQUENCIAR(pp_zonas, "ID", 1);
@@ -1982,16 +1989,16 @@ public class ENTT {
         return pp_zonas;
     }
 
-    public static Lista<Entidade> GET_2ZONAS_DOUBLE_DE(Lista<Entidade> dados,String att_nome) {
+    public static Lista<Entidade> GET_2ZONAS_DOUBLE_DE(Lista<Entidade> dados, String att_nome) {
 
-        double menor = ENTT.GET_DOUBLE_MENOR(dados,att_nome);
-        double maior = ENTT.GET_DOUBLE_MAIOR(dados,att_nome);
+        double menor = ENTT.GET_DOUBLE_MENOR(dados, att_nome);
+        double maior = ENTT.GET_DOUBLE_MAIOR(dados, att_nome);
 
-        double parte = (maior-menor)/2.0;
+        double parte = (maior - menor) / 2.0;
 
         Lista<Entidade> pp_zonas = new Lista<Entidade>();
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor+(parte));
-        ENTT.CRIAR_EM(pp_zonas, "Min", menor+(parte), "Max", maior+0.1);
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor, "Max", menor + (parte));
+        ENTT.CRIAR_EM(pp_zonas, "Min", menor + (parte), "Max", maior + 0.1);
 
 
         SEQUENCIAR(pp_zonas, "ID", 1);
@@ -2002,8 +2009,7 @@ public class ENTT {
     }
 
 
-
-    public static void ZONA_ANALISAR_DOUBLE(Lista<Entidade> dados,Lista<Entidade> zonas,String att_valor,String att_agrupar){
+    public static void ZONA_ANALISAR_DOUBLE(Lista<Entidade> dados, Lista<Entidade> zonas, String att_valor, String att_agrupar) {
 
 
         for (Entidade zona : zonas) {
@@ -2024,5 +2030,15 @@ public class ENTT {
         }
 
     }
+
+
+    public static long ATRIBUTO_LONG_SOMAR(Lista<Entidade> dados, String att_nome) {
+        long somatorio = 0;
+        for (Entidade e : dados) {
+            somatorio += e.atLong(att_nome);
+        }
+        return somatorio;
+    }
+
 
 }

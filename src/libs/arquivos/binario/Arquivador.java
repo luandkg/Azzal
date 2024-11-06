@@ -33,6 +33,9 @@ public class Arquivador {
         }
     }
 
+    public String getArquivo(){return mArquivo;}
+
+
     public static void remover(String eArq) {
 
         File Arq = new File(eArq);
