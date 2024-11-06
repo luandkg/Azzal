@@ -36,6 +36,10 @@ public class AZInternamente {
 
     }
 
+    public AZInternamente(Armazenador eArmazenador) {
+        mArmazenador =eArmazenador;
+    }
+
     public void fechar() {
         mArmazenador.fechar();
     }

@@ -1,7 +1,11 @@
 package libs.aqz;
 
 import libs.arquivos.binario.Arquivador;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.Matematica;
+import libs.luan.fmt;
 
 import java.nio.charset.StandardCharsets;
 
@@ -114,4 +118,51 @@ public class AQZArquivoInternamente {
     public int getInodesQuantidade() {
         return mInodes.getQuantidade();
     }
+
+    public Lista<Long> getINodes(){return mInodes;}
+
+
+    public byte[] getBytes() {
+
+        byte[] bytes = new byte[(int) getTamanho()];
+
+
+        mArquivador.setPonteiro(mInode);
+
+        int i = 0;
+
+
+        for (Long inode : mInodes) {
+
+            //   fmt.print("Abrindo inode : {}",inode);
+
+            mArquivador.setPonteiro(inode + 2000);
+            int bloco_tamanho = mArquivador.get_u32();
+
+            mArquivador.setPonteiro(inode + 2020);
+            byte[] bloco_dados = mArquivador.get_u8_array(bloco_tamanho);
+
+            long o = (long) i + (long) bloco_tamanho;
+
+            //   fmt.print("\t {} - {} :: {} -> Tamanho {} ",i,o,o-i,bloco_tamanho);
+
+            int tt = i;
+            int a = 0;
+            for (long u = i; u < o; u++) {
+                bytes[i] = bloco_dados[a];
+                a += 1;
+                i += 1;
+            }
+
+            // fmt.print("\t B :: {} - {} - {}", Inteiro.byteToInt(bytes[tt]),Inteiro.byteToInt(bytes[tt+1]),Inteiro.byteToInt(bytes[tt+1]));
+            //  fmt.print("\t C :: {} - {} - {}", Inteiro.byteToInt(confere[tt]),Inteiro.byteToInt(confere[tt+1]),Inteiro.byteToInt(confere[tt+1]));
+
+
+        }
+
+
+        return bytes;
+
+    }
+
 }

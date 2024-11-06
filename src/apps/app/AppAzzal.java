@@ -4,7 +4,9 @@ import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_azzal.VamosCalcular;
 import libs.aqz.AQZ;
 import libs.aqz.AQZArquivoExternamente;
+import libs.aqz.AQZPasta;
 import libs.aqz.AQZUTF8;
+import libs.arquivos.binario.Arquivador;
 import libs.bs.ObservadorItem;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -593,7 +595,7 @@ public class AppAzzal {
         numero_hoje.atualizar();
         numero_hoje.exibir();
 
-        //    AQZ.VOLUMES_ZERAR(arquivo_banco);
+        //AQZ.VOLUMES_ZERAR(arquivo_banco);
 
         Lista<Entidade> volumes = AQZ.GET_VOLUMES(arquivo_banco);
 
@@ -620,10 +622,10 @@ public class AppAzzal {
             //   AQZ.ARQUIVO_ALOCAR(arquivo_banco, "@Imagem/Cidade.png", Arquivador.GET_BYTES(arquivo_imagem_cidade));
         }
 
-        String imagem_grande = "/home/luan/Imagens/32c24851b9671e70305e7f85aee7059e.png";
+        String imagem_grande = "/home/luan/Imagens/1002702.png";
 
         if (AQZ.TEM_BLOCO_DISPONIVEL(arquivo_banco)) {
-            //  AQZ.ARQUIVO_ALOCAR(arquivo_banco, "@Imagem/Mobile.png", Arquivador.GET_BYTES(imagem_grande));
+            //   Opcional<Long> op_ponteiro = AQZ.ARQUIVO_ALOCAR(arquivo_banco, "@Imagem/Mobile.png", Arquivador.GET_BYTES(imagem_grande));
         }
 
 
@@ -643,8 +645,7 @@ public class AppAzzal {
             fmt.print("Nome : {} ->> {}", arq_mob.get().getNome(), fmt.formatar_tamanho_precisao_dupla(arq_mob.get().getTamanho()));
 
             //Arquivador.CONSTRUIR_ARQUIVO("/home/luan/assets/tronarkum_arquivo_dentro.png", arq_mob.get().getBytes());
-
-            arq_mob.get().remover();
+            // arq_mob.get().remover();
 
         }
 
@@ -652,6 +653,34 @@ public class AppAzzal {
 
         fmt.print("Volume Blocos Livres :: {}", AQZ.VOLUME_BLOCOS_LIVRES(arquivo_banco));
 
+
+        AQZPasta dados_assets = new AQZPasta(arquivo_banco, "Assets");
+
+        // dados_assets.limpar();
+
+        boolean adicionado = dados_assets.adicionar_ou_atualizar("@Imagem/Zeta.png", Arquivador.GET_BYTES(imagem_grande));
+
+
+        Lista<Entidade> e_omega = new Lista<Entidade>();
+
+        if (dados_assets.existe("@Documento/Omega.entts")) {
+            e_omega = ENTT.PARSER(dados_assets.getTexto("@Documento/Omega.entts"));
+
+            Entidade novo = ENTT.CRIAR_EM(e_omega);
+            novo.at("SequencialID", ENTT.CONTAGEM(e_omega));
+            novo.at("Tron", Tronarko.getTronAgora().getTextoZerado());
+
+        }
+
+
+        ENTT.EXIBIR_TABELA_COM_NOME(e_omega,"OMEGA DADOS");
+
+        boolean adicionado2 = dados_assets.adicionar_ou_atualizar("@Documento/Omega.entts", ENTT.TO_DOCUMENTO(e_omega));
+       // boolean adicionado3 = dados_assets.adicionar_ou_atualizar("@Documento/INMET_HOJE.entts", ENTT.TO_DOCUMENTO(e_omega));
+
+        dados_assets.dump();
+
+        dados_assets.fechar();
     }
 
     public static void sequenciador() {

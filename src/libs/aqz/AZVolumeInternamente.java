@@ -4,7 +4,6 @@ import apps.app_campeonatum.VERIFICADOR;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
-import libs.arquivos.binario.Inteiro;
 import libs.bs.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -25,6 +24,11 @@ public class AZVolumeInternamente {
     public AZVolumeInternamente(String eArquivo) {
         mArmazenador = new Armazenador(eArquivo);
     }
+
+    public AZVolumeInternamente(Armazenador eArmazenador) {
+        mArmazenador = eArmazenador;
+    }
+
 
 
     public Lista<Entidade> volume_listar() {
@@ -183,16 +187,15 @@ public class AZVolumeInternamente {
     }
 
 
-    public boolean arquivo_alocar(String eNome, String eConteudo) {
+    public Opcional<Long> arquivo_alocar(String eNome, String eConteudo) {
 
         byte[] bytes = eConteudo.getBytes(StandardCharsets.UTF_8);
 
         return arquivo_alocar(eNome, bytes);
     }
 
-    public boolean arquivo_alocar(String eNome, byte[] bytes) {
+    public Opcional<Long> arquivo_alocar(String eNome, byte[] bytes) {
 
-        boolean alocado = false;
 
         Lista<AQZVolume> volumes = volume_listar_volumes();
 
@@ -244,7 +247,8 @@ public class AZVolumeInternamente {
                 bloco_primario.setDados(bytes);
                 bloco_primario.marcar_ultimo();
 
-                alocado = true;
+                return Opcional.OK(bloco_primario.getPonteiroDados());
+
             }
 
 
@@ -304,18 +308,18 @@ public class AZVolumeInternamente {
                         tam = u - i;
                     }
 
-                  //  fmt.print("\t Alocando em BlocoID  :: {} -- {} ->> {} - {}", bloco.getBlocoID(),bloco.getPonteiroDados(), i, u);
+                    //  fmt.print("\t Alocando em BlocoID  :: {} -- {} ->> {} - {}", bloco.getBlocoID(),bloco.getPonteiroDados(), i, u);
 
                     byte[] zona = new byte[tam];
 
                     int b = 0;
                     for (int a = i; a < u; a++) {
                         zona[b] = bytes[a];
-                        b+=1;
+                        b += 1;
                     }
 
-                  //  fmt.print("\t Gravar Dados : {} :: {}",i,u);
-                 //   fmt.print("\t D :: {} - {} - {}", Inteiro.byteToInt(zona[0]),Inteiro.byteToInt(zona[1]),Inteiro.byteToInt(zona[2]) );
+                    //  fmt.print("\t Gravar Dados : {} :: {}",i,u);
+                    //   fmt.print("\t D :: {} - {} - {}", Inteiro.byteToInt(zona[0]),Inteiro.byteToInt(zona[1]),Inteiro.byteToInt(zona[2]) );
 
                     bloco.setDados(zona);
                     i += cluster;
@@ -328,6 +332,7 @@ public class AZVolumeInternamente {
                     blocos_i += 1;
                 }
 
+                return Opcional.OK(bloco_primario.getPonteiroDados());
 
             } else {
                 throw new RuntimeException("Quantidade de blocos alocados insuficiente :: " + blocos + " / " + blocos_alocados.getQuantidade());
@@ -335,7 +340,7 @@ public class AZVolumeInternamente {
 
         }
 
-        return alocado;
+        return Opcional.CANCEL();
     }
 
     public void arquivos_dump() {
@@ -387,6 +392,13 @@ public class AZVolumeInternamente {
 
     }
 
+
+    public long getBlocosLivres(){
+
+        Lista<Entidade> volumes_dados = volume_listar_dados();
+        return ENTT.ATRIBUTO_LONG_SOMAR(volumes_dados, "Objetos.Livre");
+
+    }
 
     public void fechar() {
         mArmazenador.fechar();

@@ -1,9 +1,11 @@
 package libs.aqz;
 
+import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
 import libs.bs.Colecao;
 import libs.bs.ObservadorItem;
+import libs.bs.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
@@ -769,9 +771,15 @@ public class AQZ {
 
     public static void VOLUMES_ZERAR(String arquivo_banco) {
 
-        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        Armazenador  mArmazenador = new Armazenador(arquivo_banco);
+        AZVolumeInternamente aqz = new AZVolumeInternamente(mArmazenador);
         aqz.volumes_zerar();
-        aqz.fechar();
+
+        Banco mSequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        Sequenciador.organizar_sequencial(mSequencias, "@Volume.ChaveUnica");
+        Sequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
+
+        mArmazenador.fechar();
 
     }
 
@@ -784,19 +792,19 @@ public class AQZ {
         return tem;
     }
 
-    public static boolean ARQUIVO_ALOCAR(String arquivo_banco, String eArquivoNome, String eConteudo) {
+    public static Opcional<Long> ARQUIVO_ALOCAR(String arquivo_banco, String eArquivoNome, String eConteudo) {
 
         AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
-        boolean tem = aqz.arquivo_alocar(eArquivoNome, eConteudo);
+        Opcional<Long> tem = aqz.arquivo_alocar(eArquivoNome, eConteudo);
         aqz.fechar();
 
         return tem;
     }
 
-    public static boolean ARQUIVO_ALOCAR(String arquivo_banco, String eArquivoNome, byte[] eConteudo) {
+    public static Opcional<Long> ARQUIVO_ALOCAR(String arquivo_banco, String eArquivoNome, byte[] eConteudo) {
 
         AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
-        boolean tem = aqz.arquivo_alocar(eArquivoNome, eConteudo);
+        Opcional<Long> tem = aqz.arquivo_alocar(eArquivoNome, eConteudo);
         aqz.fechar();
 
         return tem;

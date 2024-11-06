@@ -4,8 +4,11 @@ import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
 import libs.dkg.DKG;
+import libs.dkg.DKGFeatures;
 import libs.dkg.DKGObjeto;
+import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.fmt;
 
 public class Sequenciador {
 
@@ -118,6 +121,19 @@ public class Sequenciador {
         }
 
         return ret;
+    }
+
+    public static void DUMP(Banco eBanco, String eNome) {
+
+        Lista<DKGObjeto> objs = new Lista<DKGObjeto>();
+
+        for (ItemDoBanco item : eBanco.getItens()) {
+            DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
+            objs.adicionar(objeto);
+        }
+
+        DKGFeatures.EXIBIR_TABELA(objs);
+
     }
 
 }
