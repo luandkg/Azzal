@@ -390,6 +390,15 @@ public class AZInternamente {
     }
 
 
+    public Colecao colecao_orgarnizar_e_obter(String eNomeColecao){
+        if (!colecoes_existe(eNomeColecao)) {
+            colecoes_criar(eNomeColecao);
+        }
+
+      return colecoes_obter(eNomeColecao);
+    }
+
+
     public ColecaoUTF8 colecoes_obter_utf8(String colecao_nome) {
 
         colecao_nome = colecao_nome.toUpperCase();

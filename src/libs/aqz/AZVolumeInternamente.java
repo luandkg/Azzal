@@ -33,7 +33,6 @@ public class AZVolumeInternamente {
     }
 
 
-
     public Lista<Entidade> volume_listar() {
         Banco volumes = Sequenciador.organizar_banco(mArmazenador, "@Volumes");
 
@@ -225,7 +224,7 @@ public class AZVolumeInternamente {
             }
         }
 
-      //  fmt.print("Blocos - Precisa : {}", blocos);
+        //  fmt.print("Blocos - Precisa : {}", blocos);
 
         if (blocos == 1) {
 
@@ -233,6 +232,7 @@ public class AZVolumeInternamente {
             boolean encontrado = false;
 
             for (AQZVolume volume : volumes) {
+                volume.atualizar();
                 if (volume.getBlocosDisponiveis() > 0) {
                     bloco_primario = volume.getUmBlocoDisponivel();
                     encontrado = true;
@@ -241,9 +241,9 @@ public class AZVolumeInternamente {
             }
 
             if (encontrado) {
-               // fmt.print("Bloco Primario");
-              //  fmt.print("\t VolumeID :: {}", bloco_primario.getVolume().getVolumeID());
-              //  fmt.print("\t BlocoID  :: {}", bloco_primario.getBlocoID());
+                // fmt.print("Bloco Primario");
+                //  fmt.print("\t VolumeID :: {}", bloco_primario.getVolume().getVolumeID());
+                //  fmt.print("\t BlocoID  :: {}", bloco_primario.getBlocoID());
 
                 bloco_primario.marcarComoRaiz();
                 bloco_primario.setNome(nome_bytes);
@@ -263,6 +263,9 @@ public class AZVolumeInternamente {
             int alocando = 0;
 
             for (AQZVolume volume : volumes) {
+
+                volume.atualizar();
+
                 while (volume.getBlocosDisponiveis() > 0) {
                     AQZVolumeBloco bloco_alocavel = volume.getUmBlocoDisponivel();
                     if (alocando == 0) {
@@ -271,12 +274,15 @@ public class AZVolumeInternamente {
                         bloco_alocavel.marcarComoOcupado();
                     }
 
+                    bloco_alocavel.marcar_ultimo();
+
                     encontrado = true;
                     blocos_alocados.adicionar(bloco_alocavel);
                     if (blocos_alocados.getQuantidade() == blocos) {
                         break;
                     }
                     alocando += 1;
+                    volume.atualizar();
                 }
                 if (blocos_alocados.getQuantidade() == blocos) {
                     break;
@@ -285,14 +291,14 @@ public class AZVolumeInternamente {
 
             if (encontrado && blocos_alocados.getQuantidade() == blocos) {
 
-               // fmt.print("\t Blocos Alocados :: {}", blocos_alocados.getQuantidade());
+                // fmt.print("\t Blocos Alocados :: {}", blocos_alocados.getQuantidade());
 
                 blocos_alocados.get(0).marcarComoRaiz();
                 blocos_alocados.get(blocos_alocados.getQuantidade() - 1).marcar_ultimo();
 
                 AQZVolumeBloco bloco_primario = blocos_alocados.get(0);
                 bloco_primario.setNome(nome_bytes);
-                bloco_primario.setDados(bytes);
+               // bloco_primario.setDados(bytes);
 
                 int i = 0;
                 int o = bytes.length;
@@ -327,11 +333,14 @@ public class AZVolumeInternamente {
                     bloco.setDados(zona);
                     i += cluster;
 
-                    if (blocos_i + 1 < blocos_o) {
-                        bloco.marcar_proximo(blocos_alocados.get(blocos_i + 1).getPonteiroDados());
+                    if (blocos_i + 1 >= blocos_o) {
+                        bloco.marcar_ultimo();
+                        fmt.print("Marcando Ultimo :: {}", bloco.getPonteiroDados());
                     } else {
-                        bloco.marcar_proximo((long) 0);
+                        bloco.marcar_proximo(blocos_alocados.get(blocos_i + 1).getPonteiroDados());
+                        fmt.print("Marcando proximo :: {} ->> {}", bloco.getPonteiroDados(), blocos_alocados.get(blocos_i + 1).getPonteiroDados());
                     }
+
                     blocos_i += 1;
                 }
 
@@ -396,11 +405,35 @@ public class AZVolumeInternamente {
     }
 
 
-    public long getBlocosLivres(){
+    public long getBlocosLivres() {
 
         Lista<Entidade> volumes_dados = volume_listar_dados();
         return ENTT.ATRIBUTO_LONG_SOMAR(volumes_dados, "Objetos.Livre");
 
+    }
+
+
+    public void analisar_integridade() {
+
+        Lista<AQZVolume> volumes = volume_listar_volumes();
+
+        for (AQZVolume volume : volumes) {
+            volume.analisar_integridade();
+        }
+
+    }
+
+    public Lista<Entidade> getCorrompidos() {
+
+        Lista<AQZVolume> volumes = volume_listar_volumes();
+
+        Lista<Entidade> corrompidos = new Lista<Entidade>();
+
+        for (AQZVolume volume : volumes) {
+            corrompidos.adicionar_varios(volume.getCorrompidos());
+        }
+
+        return corrompidos;
     }
 
     public void fechar() {

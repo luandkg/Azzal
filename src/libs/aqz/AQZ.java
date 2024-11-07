@@ -948,4 +948,13 @@ public class AQZ {
         return ENTT.ATRIBUTO_LONG_SOMAR(volumes_dados, "Objetos.Livre");
     }
 
+    public static void VOLUME_ANALISAR_INTEGRIDADE(String arquivo_banco) {
+
+        AZVolumeInternamente aqz = new AZVolumeInternamente(arquivo_banco);
+        aqz.analisar_integridade();
+        aqz.fechar();
+
+    }
+
+
 }

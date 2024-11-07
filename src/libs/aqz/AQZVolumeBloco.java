@@ -33,18 +33,22 @@ public class AQZVolumeBloco {
 
 
     public long getPonteiroDados() {
-        return mAQZVolume.getDadosInicio() + (long) ((long) mBlocoID * Matematica.KB(64));
+        return mAQZVolume.getDadosInicio() + ((long) mBlocoID * Matematica.KB(64));
     }
 
     public void setNome(byte[] bytes) {
 
-        mAQZVolume.getArquivador().setPonteiro(mAQZVolume.getDadosInicio() + (long) ((long) mBlocoID * Matematica.KB(64) + ((long) 1 + 8)));
+        mAQZVolume.getArquivador().setPonteiro(mAQZVolume.getDadosInicio() + ((long) mBlocoID * Matematica.KB(64) + ((long) 1 + 8)));
         mAQZVolume.getArquivador().set_u32(bytes.length);
         mAQZVolume.getArquivador().set_u8_vector(bytes);
 
     }
 
     public void setDados(byte[] dados) {
+
+        if (dados.length > Matematica.KB(50)) {
+            throw new RuntimeException("Quantidade de dados alem da capacidade do bloco !");
+        }
 
         mAQZVolume.getArquivador().setPonteiro(mAQZVolume.getDadosInicio() + (long) ((long) mBlocoID * Matematica.KB(64)) + 2000);
         mAQZVolume.getArquivador().set_u32(dados.length);

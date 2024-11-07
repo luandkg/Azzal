@@ -365,4 +365,14 @@ public class Armazenador {
     public Arquivador getArquivador() {
         return mArquivador;
     }
+
+
+    public static void CHECAR(String eArquivo) {
+
+        if (!existe(eArquivo)) {
+            criar(eArquivo);
+        }
+
+    }
+
 }

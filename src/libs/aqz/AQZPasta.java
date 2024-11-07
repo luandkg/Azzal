@@ -1,17 +1,11 @@
 package libs.aqz;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
 import libs.armazenador.ItemDoBanco;
-import libs.bs.BancoBS;
 import libs.bs.Colecao;
-import libs.bs.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.Lista;
-import libs.luan.Matematica;
-import libs.luan.Opcional;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.tronarko.Tronarko;
 
 import java.nio.charset.StandardCharsets;
@@ -25,7 +19,7 @@ public class AQZPasta {
     private Armazenador mArmazenador;
     private AZVolumeInternamente mAZVolumeInternamente;
     private AZInternamente mAZInternamente;
-    private Banco mSequencias;
+    private AZSequenciometro mAZSequenciometro;
     private Colecao mColecao;
     private String mColecaoNome;
 
@@ -33,20 +27,18 @@ public class AQZPasta {
 
         mColecaoNome = eNomeColecao;
 
-        BancoBS.checar(eArquivo);
+        Armazenador.CHECAR(eArquivo);
 
         mArmazenador = new Armazenador(eArquivo);
         mAZInternamente = new AZInternamente(mArmazenador);
         mAZVolumeInternamente = new AZVolumeInternamente(mArmazenador);
+        mAZSequenciometro = new AZSequenciometro(mArmazenador, "@Volume.ChaveUnica");
 
-        if (!mAZInternamente.colecoes_existe(eNomeColecao)) {
-            mAZInternamente.colecoes_criar(eNomeColecao);
-        }
 
-        mColecao = mAZInternamente.colecoes_obter(eNomeColecao);
-        mSequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        mColecao = mAZInternamente.colecao_orgarnizar_e_obter(eNomeColecao);
 
-        Sequenciador.organizar_sequencial(mSequencias, "@Volume.ChaveUnica");
+        mAZSequenciometro.organizar();
+
     }
 
     public void fechar() {
@@ -76,7 +68,7 @@ public class AQZPasta {
 
         crescer_se_precisar();
 
-        int arquivo_id = Sequenciador.aumentar_sequencial(mSequencias, "@Volume.ChaveUnica");
+        int arquivo_id = mAZSequenciometro.getSequencial();
 
         Lista<Entidade> arquivos = mColecao.getObjetos();
 
@@ -107,7 +99,7 @@ public class AQZPasta {
         boolean existe = false;
 
 
-        int arquivo_id = Sequenciador.aumentar_sequencial(mSequencias, "@Volume.ChaveUnica");
+        int arquivo_id = mAZSequenciometro.getSequencial();
 
         // Sequenciador.DUMP(mSequencias, "@Volume.ChaveUnica");
 
@@ -121,6 +113,7 @@ public class AQZPasta {
 
                 remover(inode_existente);
 
+                fmt.print("Alocacao :: Inicio");
                 Opcional<Long> op_inode = mAZVolumeInternamente.arquivo_alocar(mColecaoNome + "::" + arquivo_id, bytes);
 
                 if (op_inode.isOK()) {
@@ -190,8 +183,13 @@ public class AQZPasta {
         }
     }
 
+    public void limpar_refs() {
+        mColecao.limpar();
+        mColecao.zerarSequencial();
+    }
+
     public byte[] getBytes(String eNome) {
-        byte bytes[] = null;
+        byte bytes[] = new byte[10];
 
         for (ItemDoBanco item : mColecao.getItens()) {
             Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -211,6 +209,23 @@ public class AQZPasta {
 
     public String getTexto(String eNome) {
         return new String(getBytes(eNome), StandardCharsets.UTF_8);
+    }
+
+    public void dump_estrutura_arquivo(String eNome) {
+
+        for (ItemDoBanco item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            if (e_item.is("Nome", eNome)) {
+
+                AQZArquivoInternamente aq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
+                aq.atualizar();
+
+                aq.dump_estrutura();
+
+                break;
+            }
+        }
+
     }
 
     public void remover(String eNome) {
@@ -238,12 +253,14 @@ public class AQZPasta {
 
     private Lista<Long> getInodes(long mInode) {
 
-        Lista<Long> mInodes = new Lista<Long>();
+        Unico<Long> mInodes = new Unico<Long>(Matematica.LONG_IGUALAVEL());
+
 
         mArmazenador.getArquivador().setPonteiro(mInode);
 
-        mInodes.adicionar(mInode);
+        mInodes.item(mInode);
 
+        fmt.print("Buscando iNode : {}", mInode);
 
         int inode_status = mArmazenador.getArquivador().get_u8();
         long inode_proximo = mArmazenador.getArquivador().get_u64();
@@ -251,7 +268,12 @@ public class AQZPasta {
         mArmazenador.getArquivador().setPonteiro(mInode + 9L);
 
         int nome_tamanho = mArmazenador.getArquivador().get_u32();
-        byte[] nome_bytes = mArmazenador.getArquivador().get_u8_array(nome_tamanho);
+
+        if (nome_tamanho >= 1024) {
+            nome_tamanho = 1024;
+        }
+
+        //  byte[] nome_bytes = mArmazenador.getArquivador().get_u8_array(nome_tamanho);
 
         mArmazenador.getArquivador().setPonteiro(mInode + 2000);
         long inode_primario_tamanho = (long) mArmazenador.getArquivador().get_u32();
@@ -267,11 +289,22 @@ public class AQZPasta {
         int blocos_quantidade = 1;
         long arquivo_tamanho = (long) inode_primario_tamanho;
 
+        long ultima_posicao_valida = mArmazenador.getArquivador().getLength();
+
 
         while (inode_proximo > 0) {
 
             long inode_aqui = inode_proximo;
-            mInodes.adicionar(inode_aqui);
+
+            fmt.print("Buscando iNode : {}", inode_aqui);
+
+            if (inode_aqui >= ultima_posicao_valida) {
+                break;
+            }
+
+            mInodes.item(inode_aqui);
+
+            //   fmt.print("Novo inode :: {}",inode_aqui);
 
             mArmazenador.getArquivador().setPonteiro(inode_proximo);
             inode_status = mArmazenador.getArquivador().get_u8();
@@ -288,7 +321,7 @@ public class AQZPasta {
 
         //   mTamanho = arquivo_tamanho;
 
-        return mInodes;
+        return mInodes.toLista();
     }
 
 
@@ -299,6 +332,10 @@ public class AQZPasta {
         ENTT.EXIBIR_TABELA_COM_NOME(volumes, "@VOLUMES");
 
         Lista<Long> mInodes = getInodes(mInode);
+
+
+        fmt.print("Remover inodes : {}", mInodes.getQuantidade());
+
 
         mArmazenador.getArquivador().setPonteiro(mInode);
 
@@ -335,6 +372,15 @@ public class AQZPasta {
                 mArmazenador.getArquivador().setPonteiro(enc_volume_mapa_inicio + bloco_id);
                 mArmazenador.getArquivador().set_u8((byte) 0);
 
+                mArmazenador.getArquivador().setPonteiro(enc_volume_dados_inicio + ((long) bloco_id * Matematica.KB(64)));
+                int status_bloco = mArmazenador.getArquivador().get_u8();
+
+                fmt.print("Status do bloco :: {}", status_bloco);
+
+                mArmazenador.getArquivador().setPonteiro(enc_volume_dados_inicio + ((long) bloco_id * Matematica.KB(64)));
+                mArmazenador.getArquivador().set_u8((byte) 1);
+                mArmazenador.getArquivador().set_u64(0);
+
             }
 
         }
@@ -342,4 +388,95 @@ public class AQZPasta {
 
     }
 
+
+    public Opcional<Entidade> procurar(String eNome) {
+
+        for (ItemDoBanco item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            if (e_item.is("Nome", eNome)) {
+                return Opcional.OK(e_item);
+            }
+        }
+        return Opcional.CANCEL();
+    }
+
+
+    public Opcional<AQZArquivoInternamente> procurarArquivoInternamente(String eNome) {
+
+        for (ItemDoBanco item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            if (e_item.is("Nome", eNome)) {
+                AQZArquivoInternamente arq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
+                arq.atualizar();
+                return Opcional.OK(arq);
+            }
+        }
+        return Opcional.CANCEL();
+    }
+
+
+    public void analisar_integridade() {
+
+        Lista<Entidade> corrompidos = new Lista<Entidade>();
+
+        for (ItemDoBanco item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+
+            AQZArquivoInternamente arq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
+            boolean is_integro = arq.verificar_integridade();
+
+            if (is_integro) {
+                e_item.at("Integridade", "OK");
+            } else {
+                e_item.at("Integridade", "CORROMPIDO");
+            }
+
+            if (e_item.atLong("INode") == 210399880) {
+                e_item.at("InodeProcurado", "CORROMPIDO");
+            }
+
+            corrompidos.adicionar(e_item);
+
+
+        }
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(corrompidos, "AQZ Integridade - INodes Corrompidos");
+
+    }
+
+
+    public Lista<Entidade> getTabelaDeArquivos() {
+
+        Lista<Entidade> dados = mColecao.getObjetos();
+
+        ENTT.ATRIBUTO_TORNAR_ULTIMO(dados, "Tamanho");
+        for (Entidade arquivo : dados) {
+            arquivo.at("TamanhoFormatado", fmt.formatar_tamanho_precisao_dupla(arquivo.atLong("Tamanho")));
+        }
+
+        return dados;
+    }
+
+    public void analisar_corrompidos() {
+
+        Lista<Entidade> corrompidos = mAZVolumeInternamente.getCorrompidos();
+        Lista<Entidade> arquivos = getTabelaDeArquivos();
+
+        ENTT.ATRIBUTO_REMOVER(corrompidos, "Nome");
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(corrompidos, "@Corrompidos");
+        // ENTT.EXIBIR_TABELA_COM_TITULO(arquivos, "@Arquivos");
+
+        Lista<Entidade> arquivos_corrompidos = new Lista<Entidade>();
+
+        for (Entidade corrompido : corrompidos) {
+            Opcional<Entidade> op_corrompido = ENTT.GET_OPCIONAL(arquivos, "INode", corrompido.at("INode"));
+            if (op_corrompido.isOK()) {
+                arquivos_corrompidos.adicionar(op_corrompido.get());
+            }
+        }
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(arquivos_corrompidos, "@ArquivosCorrompidos");
+
+    }
 }
