@@ -5,6 +5,9 @@ import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.luan.Matematica;
+
+import java.nio.charset.StandardCharsets;
 
 public class ItemDoBanco {
 
@@ -70,9 +73,14 @@ public class ItemDoBanco {
         atualizar(ENTT.TO_DOCUMENTO(e));
     }
 
-    public void atualizar(String texto) {
+    public void atualizar(String conteudo) {
+
+        if (conteudo.getBytes(StandardCharsets.UTF_8).length >= (Matematica.KB(10) - 100)) {
+            throw new RuntimeException("AQZ ERRO : O item é maior que 10 Kb !");
+        }
+
         mArquivador.setPonteiro(mPonteiroDados);
-        mArquivador.set_u8_array(TX.toListBytes(texto));
+        mArquivador.set_u8_array(TX.toListBytes(conteudo));
     }
 }
 

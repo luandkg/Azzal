@@ -18,6 +18,10 @@ import java.nio.charset.StandardCharsets;
 
 public class AQZPasta {
 
+    // DESENVOLVEDOR : LUAN FREITAS - luandkg@gmail.com
+    // CRIADO : 2024 11 06
+
+
     private Armazenador mArmazenador;
     private AZVolumeInternamente mAZVolumeInternamente;
     private AZInternamente mAZInternamente;

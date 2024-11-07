@@ -3,6 +3,7 @@ package libs.armazenador;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.luan.Matematica;
 
 import java.nio.charset.StandardCharsets;
 
@@ -65,10 +66,14 @@ public class ItemDoBancoUTF8 {
     }
 
     public void atualizarUTF8(String conteudo) {
-        mArquivador.setPonteiro(mPonteiroDados);
-
 
         byte[] bytes = conteudo.getBytes(StandardCharsets.UTF_8);
+
+        if (bytes.length >= (Matematica.KB(10) - 100)) {
+            throw new RuntimeException("AQZ ERRO : O item é maior que 10 Kb !");
+        }
+
+        mArquivador.setPonteiro(mPonteiroDados);
 
         mArquivador.set_u32(bytes.length);
         mArquivador.set_u8_vector(bytes);

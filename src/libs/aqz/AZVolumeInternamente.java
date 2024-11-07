@@ -17,6 +17,9 @@ import java.nio.charset.StandardCharsets;
 
 public class AZVolumeInternamente {
 
+    // DESENVOLVEDOR : LUAN FREITAS - luandkg@gmail.com
+    // CRIADO : 2024 11 06
+
     public static final int VOLUME_BLOCOS_QUANTIDADE = 5000;
 
     private Armazenador mArmazenador;
@@ -222,7 +225,7 @@ public class AZVolumeInternamente {
             }
         }
 
-        fmt.print("Blocos - Precisa : {}", blocos);
+      //  fmt.print("Blocos - Precisa : {}", blocos);
 
         if (blocos == 1) {
 
@@ -238,9 +241,9 @@ public class AZVolumeInternamente {
             }
 
             if (encontrado) {
-                fmt.print("Bloco Primario");
-                fmt.print("\t VolumeID :: {}", bloco_primario.getVolume().getVolumeID());
-                fmt.print("\t BlocoID  :: {}", bloco_primario.getBlocoID());
+               // fmt.print("Bloco Primario");
+              //  fmt.print("\t VolumeID :: {}", bloco_primario.getVolume().getVolumeID());
+              //  fmt.print("\t BlocoID  :: {}", bloco_primario.getBlocoID());
 
                 bloco_primario.marcarComoRaiz();
                 bloco_primario.setNome(nome_bytes);
@@ -282,7 +285,7 @@ public class AZVolumeInternamente {
 
             if (encontrado && blocos_alocados.getQuantidade() == blocos) {
 
-                fmt.print("\t Blocos Alocados :: {}", blocos_alocados.getQuantidade());
+               // fmt.print("\t Blocos Alocados :: {}", blocos_alocados.getQuantidade());
 
                 blocos_alocados.get(0).marcarComoRaiz();
                 blocos_alocados.get(blocos_alocados.getQuantidade() - 1).marcar_ultimo();

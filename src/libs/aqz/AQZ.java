@@ -11,6 +11,8 @@ import libs.entt.Entidade;
 import libs.luan.*;
 import libs.meta_functional.FuncaoAlfa;
 
+import java.nio.charset.StandardCharsets;
+
 public class AQZ {
 
     // LUAN FREITAS
@@ -102,6 +104,28 @@ public class AQZ {
         Lista<Entidade> objetos = new Lista<Entidade>();
         for (ItemDoBanco item : aqz.colecoes_obter(colecao_nome).getItens()) {
             objetos.adicionar(ENTT.PARSER_ENTIDADE(item.lerTexto()));
+        }
+
+        ENTT.EXIBIR_TABELA(objetos);
+
+        aqz.fechar();
+
+    }
+
+
+    public static void EXIBIR_COLECAO_TAMANHO(String arquivo_banco, String colecao_nome) {
+
+        AZInternamente aqz = new AZInternamente(arquivo_banco);
+
+        Lista<Entidade> objetos = new Lista<Entidade>();
+        for (ItemDoBanco item : aqz.colecoes_obter(colecao_nome).getItens()) {
+
+            String item_dados = item.lerTexto();
+
+            Entidade e_item = ENTT.CRIAR_EM(objetos);
+            e_item.at("Tamanho", item_dados.getBytes(StandardCharsets.UTF_8).length);
+            e_item.at("TamanhoFormatado", fmt.formatar_tamanho_precisao_dupla(e_item.atLong("Tamanho")));
+
         }
 
         ENTT.EXIBIR_TABELA(objetos);
@@ -722,6 +746,85 @@ public class AQZ {
 
     }
 
+    public static void EXIBIR_ESTRUTURA_PUBLICA(String arquivo_banco) {
+
+        AZInternamente aqz = new AZInternamente(arquivo_banco);
+
+        Lista<Entidade> objetos_publicos = new Lista<Entidade>();
+
+        for (Banco item : aqz.colecoes_listar()) {
+            Entidade banco_item = new Entidade();
+
+            banco_item.at("Nome", item.getNome());
+            banco_item.at("Itens", item.getItensContagem());
+            banco_item.at("Usabilidade", item.getUsabilidade());
+            banco_item.at("Disponibilidade", item.getDisponibilidade());
+            banco_item.at("Tamanho", fmt.formatar_tamanho(item.getTamanho()));
+
+            objetos_publicos.adicionar(banco_item);
+        }
+
+        aqz.fechar();
+
+        ENTT.EXIBIR_TABELA_COM_NOME(objetos_publicos, "ESTRUTURA PÚBLICA");
+
+
+    }
+
+    public static void EXIBIR_ESTRUTURA_PUBLICA_DETALHADA(String arquivo_banco) {
+
+        AZInternamente aqz = new AZInternamente(arquivo_banco);
+
+        Lista<Entidade> objetos_publicos = new Lista<Entidade>();
+
+
+
+        for (Banco banco : aqz.colecoes_listar()) {
+            Entidade banco_item = new Entidade();
+
+            banco_item.at("Nome", banco.getNome());
+            banco_item.at("Itens", banco.getItensContagem());
+            banco_item.at("Usabilidade", banco.getUsabilidade());
+            banco_item.at("Disponibilidade", banco.getDisponibilidade());
+            banco_item.at("Tamanho", fmt.formatar_tamanho(banco.getTamanho()));
+
+            boolean isPrimeiro = true;
+            long menor = 0;
+            long maior = 0;
+
+            for (ItemDoBanco item : banco.getItens()) {
+                String item_dados = item.lerTexto();
+                if (isPrimeiro) {
+                    long tam = item_dados.getBytes(StandardCharsets.UTF_8).length;
+                    menor = tam;
+                    maior = tam;
+                } else {
+                    long tam = item_dados.getBytes(StandardCharsets.UTF_8).length;
+                    if (tam < menor) {
+                        menor = tam;
+                    }
+                    if (tam > maior) {
+                        maior = tam;
+                    }
+                }
+                isPrimeiro = false;
+            }
+
+            banco_item.at("Item.menor.tamanho",menor);
+            banco_item.at("Item.menor.tamanho_formatado", fmt.formatar_tamanho_precisao_dupla(menor));
+            banco_item.at("Item.maior.tamanho",maior);
+            banco_item.at("Item.maior.tamanho_formatado", fmt.formatar_tamanho_precisao_dupla(maior));
+
+            objetos_publicos.adicionar(banco_item);
+        }
+
+        aqz.fechar();
+
+        ENTT.EXIBIR_TABELA_COM_NOME(objetos_publicos, "ESTRUTURA PÚBLICA");
+
+
+    }
+
 
     public static Unico<String> FILTRAR_UNICOS(String arquivo_banco, String colecao_nome, String att_nome) {
 
@@ -771,7 +874,7 @@ public class AQZ {
 
     public static void VOLUMES_ZERAR(String arquivo_banco) {
 
-        Armazenador  mArmazenador = new Armazenador(arquivo_banco);
+        Armazenador mArmazenador = new Armazenador(arquivo_banco);
         AZVolumeInternamente aqz = new AZVolumeInternamente(mArmazenador);
         aqz.volumes_zerar();
 

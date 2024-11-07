@@ -4,8 +4,12 @@ import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.luan.Lista;
+import libs.luan.Matematica;
 import libs.luan.Strings;
 import libs.luan.fmt;
+
+import java.nio.charset.StandardCharsets;
 
 public class ObservadorItem {
 
@@ -21,10 +25,16 @@ public class ObservadorItem {
 
     public void atualizar() {
 
+        Lista<Byte> bytes = TX.toListBytes(ENTT.TO_DOCUMENTO(mEntidade));
+
+        if (bytes.getQuantidade() >= (Matematica.KB(10) - 100)) {
+            throw new RuntimeException("AQZ ERRO : O item é maior que 10 Kb !");
+        }
+
         Arquivador mArquivador = new Arquivador(mArquivo);
 
         mArquivador.setPonteiro(mPonteiroDados);
-        mArquivador.set_u8_array(TX.toListBytes(ENTT.TO_DOCUMENTO(mEntidade)));
+        mArquivador.set_u8_array(bytes);
 
         mArquivador.encerrar();
     }

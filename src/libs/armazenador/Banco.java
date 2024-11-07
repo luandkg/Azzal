@@ -5,10 +5,9 @@ import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.Lista;
-import libs.luan.Opcional;
-import libs.luan.RefLong;
-import libs.luan.fmt;
+import libs.luan.*;
+
+import java.nio.charset.StandardCharsets;
 
 
 public class Banco {
@@ -216,6 +215,10 @@ public class Banco {
 
     public long adicionar(String conteudo) {
 
+        if (conteudo.getBytes(StandardCharsets.UTF_8).length >= (Matematica.KB(10) - 100)) {
+            throw new RuntimeException("AQZ ERRO : O item é maior que 10 Kb !");
+        }
+
         long endereco = 0;
 
         // TENTAR USAR CACHE DO BANCO
@@ -347,7 +350,7 @@ public class Banco {
 
     public void set(long chave, long endereco) {
 
-    //    fmt.print("AQZ STATUS LI - {} ",mLocalIndice.get());
+        //    fmt.print("AQZ STATUS LI - {} ",mLocalIndice.get());
 
         new Indexador(mArquivador, mLocalIndice.get()).set(chave, endereco);
     }
@@ -434,8 +437,11 @@ public class Banco {
     }
 
 
-
     public long adicionarUTF8(String conteudo) {
+
+        if (conteudo.getBytes(StandardCharsets.UTF_8).length >= (Matematica.KB(10) - 100)) {
+            throw new RuntimeException("AQZ ERRO : O item é maior que 10 Kb !");
+        }
 
         long endereco = 0;
 
@@ -544,13 +550,13 @@ public class Banco {
 
             Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
-            fmt.print("CAP :: {}",capitulo_ponteiro);
+            fmt.print("CAP :: {}", capitulo_ponteiro);
             for (Long pag : pags) {
 
                 Pagina pg = new Pagina(mArquivador, this, pag);
 
-                for(Long item : pg.getAlocados()){
-                    fmt.print("\t++ Alocado :: {}",item);
+                for (Long item : pg.getAlocados()) {
+                    fmt.print("\t++ Alocado :: {}", item);
                 }
 
 
@@ -571,15 +577,15 @@ public class Banco {
 
             Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
-            fmt.print("CAPITULO :: {}",capitulo_ponteiro);
+            fmt.print("CAPITULO :: {}", capitulo_ponteiro);
             for (Long pag : pags) {
 
                 Pagina pg = new Pagina(mArquivador, this, pag);
 
-                fmt.print("\t PAGINA :: {}",pg.getPonteiro());
+                fmt.print("\t PAGINA :: {}", pg.getPonteiro());
 
-                for(Long item : pg.getAlocados()){
-                    fmt.print("\t\t++ Alocado :: {}",item);
+                for (Long item : pg.getAlocados()) {
+                    fmt.print("\t\t++ Alocado :: {}", item);
                 }
 
 
