@@ -906,6 +906,29 @@ public class ENTT {
         return entts;
     }
 
+    public static Lista<Entidade> ORDENAR_LONG(Lista<Entidade> entts, String campo) {
+
+
+        int n = entts.getQuantidade();
+        Entidade temp = null;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+
+                if (entts.get(j - 1).atLong(campo) > (entts.get(j).atLong(campo))) {
+                    temp = entts.get(j - 1);
+                    entts.set(j - 1, entts.get(j));
+                    entts.set(j, temp);
+
+                }
+
+            }
+        }
+
+        return entts;
+    }
+
+
     public static Lista<Entidade> ORDENAR_DOUBLE_DECRESCENTE(Lista<Entidade> entts, String campo) {
 
 
@@ -1250,6 +1273,13 @@ public class ENTT {
     }
 
     public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome, String att_valor) {
+        Entidade novo = new Entidade();
+        novo.at(att_nome, att_valor);
+        entts.adicionar(novo);
+        return novo;
+    }
+
+    public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome, int att_valor) {
         Entidade novo = new Entidade();
         novo.at(att_nome, att_valor);
         entts.adicionar(novo);
@@ -2038,6 +2068,12 @@ public class ENTT {
             somatorio += e.atLong(att_nome);
         }
         return somatorio;
+    }
+
+    public static void ATRIBUTO_REMOVER(Lista<Entidade> dados, String att_nome) {
+        for (Entidade e : dados) {
+           e.at_remover(att_nome);
+        }
     }
 
 
