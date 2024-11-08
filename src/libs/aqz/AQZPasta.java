@@ -1,12 +1,18 @@
 package libs.aqz;
 
+import libs.aqz.colecao.AZInternamente;
+import libs.aqz.utils.AZSequenciometro;
+import libs.aqz.volume.AQZArquivoInternamente;
+import libs.aqz.volume.AQZInode;
+import libs.aqz.volume.AZVolumeInternamente;
 import libs.armazenador.Armazenador;
-import libs.armazenador.ItemDoBanco;
-import libs.bs.Colecao;
+import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.colecao.Colecao;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.Par;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 
@@ -24,6 +30,8 @@ public class AQZPasta {
     private AZSequenciometro mAZSequenciometro;
     private Colecao mColecao;
     private String mColecaoNome;
+
+    public final static boolean DEBUG=false;
 
     public AQZPasta(String eArquivo, String eNomeColecao) {
 
@@ -114,7 +122,10 @@ public class AQZPasta {
 
                 AQZInode.INODE_REMOVER(mAZVolumeInternamente, mArmazenador, inode_existente);
 
-                fmt.print("Alocacao :: Inicio");
+                if (DEBUG) {
+                    fmt.print("Alocacao :: Inicio");
+                }
+
                 Opcional<Long> op_inode = mAZVolumeInternamente.arquivo_alocar(mColecaoNome + "::" + arquivo_id, bytes);
 
                 if (op_inode.isOK()) {
@@ -291,6 +302,21 @@ public class AQZPasta {
         }
         return Opcional.CANCEL();
     }
+
+
+    public Opcional<Par<Entidade,AQZArquivoInternamente>> procurarArquivoInternamenteComInformacoes(String eNome) {
+
+        for (ItemDoBanco item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+            if (e_item.is("Nome", eNome)) {
+                AQZArquivoInternamente arq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
+                arq.atualizar();
+                return Opcional.OK(new Par<Entidade,AQZArquivoInternamente>(e_item,arq));
+            }
+        }
+        return Opcional.CANCEL();
+    }
+
 
 
     public void analisar_integridade() {

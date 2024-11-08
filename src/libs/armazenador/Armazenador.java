@@ -1,6 +1,7 @@
 package libs.armazenador;
 
 
+import libs.aqz.utils.ItemDoBanco;
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;

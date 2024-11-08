@@ -1,8 +1,7 @@
-package libs.aqz;
+package libs.aqz.volume;
 
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
-import libs.luan.Matematica;
 import libs.luan.fmt;
 
 import java.nio.charset.StandardCharsets;

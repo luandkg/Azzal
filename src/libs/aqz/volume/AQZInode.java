@@ -1,4 +1,4 @@
-package libs.aqz;
+package libs.aqz.volume;
 
 import libs.armazenador.Armazenador;
 import libs.entt.ENTT;

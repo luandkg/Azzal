@@ -1,7 +1,7 @@
 package libs.armazenador;
 
 
-import libs.bs.BancoBS;
+import libs.aqz.BancoBS;
 import libs.luan.fmt;
 
 public class Debugador {

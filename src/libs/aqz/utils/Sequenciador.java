@@ -1,30 +1,16 @@
-package libs.bs;
+package libs.aqz.utils;
 
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
 import libs.dkg.DKG;
 import libs.dkg.DKGFeatures;
 import libs.dkg.DKGObjeto;
 import libs.luan.Lista;
 import libs.luan.Opcional;
-import libs.luan.fmt;
 
 public class Sequenciador {
 
-    public static void verificar_banco(Armazenador m, String eBancoNome) {
-        if (!m.banco_existe(eBancoNome)) {
-            m.banco_criar(eBancoNome);
-        }
-    }
 
-    public static Banco organizar_banco(Armazenador m, String eBancoNome) {
-        if (!m.banco_existe(eBancoNome)) {
-            m.banco_criar(eBancoNome);
-        }
-
-        return m.getBanco(eBancoNome);
-    }
 
     public static void criar_sequencial(Banco eBanco, String eNome, int eInicio, int ePasso) {
 

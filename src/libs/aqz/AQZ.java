@@ -1,11 +1,15 @@
 package libs.aqz;
 
+import libs.aqz.colecao.AZInternamente;
+import libs.aqz.utils.OrquestradorBancario;
+import libs.aqz.volume.AQZArquivoExternamente;
+import libs.aqz.volume.AZVolumeInternamente;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
-import libs.bs.Colecao;
-import libs.bs.ObservadorItem;
-import libs.bs.Sequenciador;
+import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.colecao.Colecao;
+import libs.aqz.utils.ObservadorItem;
+import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
@@ -746,6 +750,34 @@ public class AQZ {
 
     }
 
+    public static void EXIBIR_ESTRUTURA_INTERNA(String arquivo_banco) {
+
+        AZInternamente aqz = new AZInternamente(arquivo_banco);
+
+        Lista<Entidade> objetos_internos = new Lista<Entidade>();
+
+        for (Banco item : aqz.primarios_colecoes()) {
+            Entidade banco_item = new Entidade();
+
+            banco_item.at("Nome", item.getNome());
+            banco_item.at("Itens", item.getItensContagem());
+            banco_item.at("Usabilidade", item.getUsabilidade());
+            banco_item.at("Disponibilidade", item.getDisponibilidade());
+            banco_item.at("Tamanho", fmt.formatar_tamanho(item.getTamanho()));
+
+            objetos_internos.adicionar(banco_item);
+        }
+
+
+
+        aqz.fechar();
+
+        ENTT.EXIBIR_TABELA_COM_NOME(objetos_internos, "ESTRUTURA INTERNA");
+
+
+    }
+
+
     public static void EXIBIR_ESTRUTURA_PUBLICA(String arquivo_banco) {
 
         AZInternamente aqz = new AZInternamente(arquivo_banco);
@@ -878,7 +910,7 @@ public class AQZ {
         AZVolumeInternamente aqz = new AZVolumeInternamente(mArmazenador);
         aqz.volumes_zerar();
 
-        Banco mSequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        Banco mSequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
         Sequenciador.organizar_sequencial(mSequencias, "@Volume.ChaveUnica");
         Sequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
 

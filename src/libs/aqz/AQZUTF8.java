@@ -1,5 +1,6 @@
 package libs.aqz;
 
+import libs.aqz.colecao.AZInternamente;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;

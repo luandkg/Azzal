@@ -1,6 +1,8 @@
-package libs.armazenador;
+package libs.aqz.utils;
 
 
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;

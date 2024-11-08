@@ -1,12 +1,12 @@
 package apps.app_momentum;
 
 import libs.armazenador.Debugador;
-import libs.armazenador.ItemDoBanco;
+import libs.aqz.utils.ItemDoBanco;
 import libs.asset.Arquivo;
 import libs.asset.AssetContainer;
 import libs.asset.AssetCreator;
-import libs.bs.BancoBS;
-import libs.bs.Colecao;
+import libs.aqz.BancoBS;
+import libs.aqz.colecao.Colecao;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.entt.ENTT;

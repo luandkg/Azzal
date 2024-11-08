@@ -1,10 +1,11 @@
-package libs.aqz;
+package libs.aqz.volume;
 
 import apps.app_campeonatum.VERIFICADOR;
+import libs.aqz.utils.OrquestradorBancario;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
-import libs.bs.Sequenciador;
+import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -26,6 +27,8 @@ public class AZVolumeInternamente {
 
     private Armazenador mArmazenador;
 
+    public final static boolean DEBUG=false;
+
     public AZVolumeInternamente(String eArquivo) {
         mArmazenador = new Armazenador(eArquivo);
     }
@@ -36,7 +39,7 @@ public class AZVolumeInternamente {
 
 
     public Lista<Entidade> volume_listar() {
-        Banco volumes = Sequenciador.organizar_banco(mArmazenador, "@Volumes");
+        Banco volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
 
         Lista<Entidade> e_volumes = new Lista<Entidade>();
 
@@ -51,7 +54,7 @@ public class AZVolumeInternamente {
 
     public void volume_criar() {
 
-        Banco volumes = Sequenciador.organizar_banco(mArmazenador, "@Volumes");
+        Banco volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
 
 
         mArmazenador.getArquivador().setPonteiro(mArmazenador.getArquivador().getLength());
@@ -337,10 +340,17 @@ public class AZVolumeInternamente {
 
                     if (blocos_i + 1 >= blocos_o) {
                         bloco.marcar_ultimo();
-                        fmt.print("Marcando Ultimo :: {}", bloco.getPonteiroDados());
+
+                        if (DEBUG) {
+                            fmt.print("Marcando Ultimo :: {}", bloco.getPonteiroDados());
+                        }
+
                     } else {
                         bloco.marcar_proximo(blocos_alocados.get(blocos_i + 1).getPonteiroDados());
-                        fmt.print("Marcando proximo :: {} ->> {}", bloco.getPonteiroDados(), blocos_alocados.get(blocos_i + 1).getPonteiroDados());
+                        if (DEBUG) {
+                            fmt.print("Marcando proximo :: {} ->> {}", bloco.getPonteiroDados(), blocos_alocados.get(blocos_i + 1).getPonteiroDados());
+                        }
+
                     }
 
                     blocos_i += 1;

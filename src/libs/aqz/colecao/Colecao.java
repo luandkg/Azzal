@@ -1,9 +1,10 @@
-package libs.bs;
+package libs.aqz.colecao;
 
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
+import libs.aqz.utils.ItemDoBanco;
 import libs.arquivos.binario.Arquivador;
+import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;

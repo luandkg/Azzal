@@ -1,22 +1,16 @@
-package libs.aqz;
+package libs.aqz.colecao;
 
-import apps.app_campeonatum.VERIFICADOR;
+import libs.aqz.utils.OrquestradorBancario;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
+import libs.aqz.utils.ItemDoBanco;
 import libs.arquivos.binario.Arquivador;
-import libs.bs.BancoBS;
-import libs.bs.Colecao;
-import libs.bs.ColecaoUTF8;
-import libs.bs.Sequenciador;
+import libs.aqz.BancoBS;
+import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
-import libs.luan.Matematica;
-import libs.luan.fmt;
 import libs.tempo.Calendario;
-
-import java.nio.charset.StandardCharsets;
 
 public class AZInternamente {
 
@@ -51,12 +45,12 @@ public class AZInternamente {
         colecao_nome = colecao_nome.toUpperCase();
 
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_bancos = Sequenciador.organizar_banco(mArmazenador, "@Bancos");
-        Banco s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
-        Banco s_auto_analises = Sequenciador.organizar_banco(mArmazenador, "@AutoAnalise");
-        Banco s_analises = Sequenciador.organizar_banco(mArmazenador, "@Analise");
-        Banco s_views = Sequenciador.organizar_banco(mArmazenador, "@Views");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_bancos = OrquestradorBancario.organizar_banco(mArmazenador, "@Bancos");
+        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
+        Banco s_auto_analises = OrquestradorBancario.organizar_banco(mArmazenador, "@AutoAnalise");
+        Banco s_analises = OrquestradorBancario.organizar_banco(mArmazenador, "@Analise");
+        Banco s_views = OrquestradorBancario.organizar_banco(mArmazenador, "@Views");
 
 
         Entidade init_bancos = new Entidade();
@@ -267,8 +261,8 @@ public class AZInternamente {
         Lista<Banco> mBancos = new Lista<Banco>();
 
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_bancos = Sequenciador.organizar_banco(mArmazenador, "@Bancos");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_bancos = OrquestradorBancario.organizar_banco(mArmazenador, "@Bancos");
 
         for (ItemDoBanco item : s_bancos.getItens()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -334,8 +328,8 @@ public class AZInternamente {
 
         colecao_nome = colecao_nome.toUpperCase();
 
-        Banco s_bancos = Sequenciador.organizar_banco(mArmazenador, "@Bancos");
-        Banco s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        Banco s_bancos = OrquestradorBancario.organizar_banco(mArmazenador, "@Bancos");
+        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
 
         for (ItemDoBanco item : s_bancos.getItens()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -375,7 +369,7 @@ public class AZInternamente {
 
         colecao_nome = colecao_nome.toUpperCase();
 
-        Banco s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
 
         for (Banco b : colecoes_listar()) {
             if (b.getNome().contentEquals(colecao_nome)) {
@@ -403,7 +397,7 @@ public class AZInternamente {
 
         colecao_nome = colecao_nome.toUpperCase();
 
-        Banco s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
 
         for (Banco b : colecoes_listar()) {
             if (b.getNome().contentEquals(colecao_nome)) {
@@ -433,11 +427,11 @@ public class AZInternamente {
 
     public void auto_analisar() {
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_bancos = Sequenciador.organizar_banco(mArmazenador, "@Bancos");
-        Banco s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
-        Banco s_auto_analises = Sequenciador.organizar_banco(mArmazenador, "@AutoAnalise");
-        Banco s_analises = Sequenciador.organizar_banco(mArmazenador, "@Analise");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_bancos = OrquestradorBancario.organizar_banco(mArmazenador, "@Bancos");
+        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
+        Banco s_auto_analises = OrquestradorBancario.organizar_banco(mArmazenador, "@AutoAnalise");
+        Banco s_analises = OrquestradorBancario.organizar_banco(mArmazenador, "@Analise");
 
 
         Banco colecao_analise = primarios_colecoes_obter("@AutoAnalise");
@@ -483,11 +477,11 @@ public class AZInternamente {
 
     public void analisar() {
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_bancos = Sequenciador.organizar_banco(mArmazenador, "@Bancos");
-        Banco s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
-        Banco s_auto_analises = Sequenciador.organizar_banco(mArmazenador, "@AutoAnalise");
-        Banco s_analises = Sequenciador.organizar_banco(mArmazenador, "@Analise");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_bancos = OrquestradorBancario.organizar_banco(mArmazenador, "@Bancos");
+        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
+        Banco s_auto_analises = OrquestradorBancario.organizar_banco(mArmazenador, "@AutoAnalise");
+        Banco s_analises = OrquestradorBancario.organizar_banco(mArmazenador, "@Analise");
 
 
         Banco colecao_analise = primarios_colecoes_obter("@Analise");
@@ -536,8 +530,8 @@ public class AZInternamente {
 
     public void views_criar(String view_nome, String colecao_nome, Lista<String> colunas) {
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_views = Sequenciador.organizar_banco(mArmazenador, "@Views");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = OrquestradorBancario.organizar_banco(mArmazenador, "@Views");
 
         if (!views_existe(view_nome)) {
 
@@ -609,8 +603,8 @@ public class AZInternamente {
 
         Lista<String> lista = new Lista<String>();
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_views = Sequenciador.organizar_banco(mArmazenador, "@Views");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = OrquestradorBancario.organizar_banco(mArmazenador, "@Views");
 
         for (ItemDoBanco item : s_views.getItens()) {
             Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -623,8 +617,8 @@ public class AZInternamente {
     public boolean views_existe(String view_nome) {
         view_nome = view_nome.toUpperCase();
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_views = Sequenciador.organizar_banco(mArmazenador, "@Views");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = OrquestradorBancario.organizar_banco(mArmazenador, "@Views");
 
         for (ItemDoBanco item : s_views.getItens()) {
             Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -639,8 +633,8 @@ public class AZInternamente {
     public Entidade views_obter(String view_nome) {
         view_nome = view_nome.toUpperCase();
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_views = Sequenciador.organizar_banco(mArmazenador, "@Views");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = OrquestradorBancario.organizar_banco(mArmazenador, "@Views");
 
         for (ItemDoBanco item : s_views.getItens()) {
             Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -656,8 +650,8 @@ public class AZInternamente {
     public void views_remover(String view_nome) {
         view_nome = view_nome.toUpperCase();
 
-        Banco s_inits = Sequenciador.organizar_banco(mArmazenador, "@Init");
-        Banco s_views = Sequenciador.organizar_banco(mArmazenador, "@Views");
+        Banco s_inits = OrquestradorBancario.organizar_banco(mArmazenador, "@Init");
+        Banco s_views = OrquestradorBancario.organizar_banco(mArmazenador, "@Views");
 
         for (ItemDoBanco item : s_views.getItens()) {
             Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTexto());

@@ -1,6 +1,5 @@
 package libs.aqz;
 
-import libs.bs.BancoBS;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 

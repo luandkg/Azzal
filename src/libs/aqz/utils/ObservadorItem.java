@@ -1,4 +1,4 @@
-package libs.bs;
+package libs.aqz.utils;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
@@ -8,8 +8,6 @@ import libs.luan.Lista;
 import libs.luan.Matematica;
 import libs.luan.Strings;
 import libs.luan.fmt;
-
-import java.nio.charset.StandardCharsets;
 
 public class ObservadorItem {
 

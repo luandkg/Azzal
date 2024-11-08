@@ -1,5 +1,6 @@
-package libs.aqz;
+package libs.aqz.volume;
 
+import libs.aqz.AQZ;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;

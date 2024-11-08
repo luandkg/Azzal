@@ -1,8 +1,12 @@
-package libs.bs;
+package libs.aqz;
 
+import libs.aqz.colecao.Colecao;
+import libs.aqz.colecao.Unicidade;
+import libs.aqz.utils.OrquestradorBancario;
+import libs.aqz.utils.Sequenciador;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
+import libs.aqz.utils.ItemDoBanco;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -14,15 +18,15 @@ public class BancoBS {
 
     public BancoBS(String eArquivo) {
         mArmazenador = new Armazenador(eArquivo);
-        s_sequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
     }
 
     public Colecao getColecao(String eNome) {
-        return new Colecao(eNome, mArmazenador, s_sequencias, Sequenciador.organizar_banco(mArmazenador, eNome));
+        return new Colecao(eNome, mArmazenador, s_sequencias, OrquestradorBancario.organizar_banco(mArmazenador, eNome));
     }
 
     public Unicidade getSettum(String eNome) {
-        return new Unicidade(eNome, s_sequencias, Sequenciador.organizar_banco(mArmazenador, eNome));
+        return new Unicidade(eNome, s_sequencias, OrquestradorBancario.organizar_banco(mArmazenador, eNome));
     }
 
     public long getSequenciaID(String eNome) {

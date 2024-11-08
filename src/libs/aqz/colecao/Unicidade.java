@@ -1,7 +1,8 @@
-package libs.bs;
+package libs.aqz.colecao;
 
+import libs.aqz.utils.Sequenciador;
 import libs.armazenador.Banco;
-import libs.armazenador.ItemDoBanco;
+import libs.aqz.utils.ItemDoBanco;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;

@@ -1,8 +1,7 @@
-package libs.aqz;
+package libs.aqz.utils;
 
 import libs.armazenador.Armazenador;
 import libs.armazenador.Banco;
-import libs.bs.Sequenciador;
 
 public class AZSequenciometro {
 
@@ -16,7 +15,7 @@ public class AZSequenciometro {
     public AZSequenciometro(Armazenador eArmazenador,String eNomeSequencia) {
         mArmazenador =eArmazenador;
         mNomeSequencia=eNomeSequencia;
-        mSequencias = Sequenciador.organizar_banco(mArmazenador, "@Sequencias");
+        mSequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
         Sequenciador.organizar_sequencial(mSequencias, mNomeSequencia);
     }
 
