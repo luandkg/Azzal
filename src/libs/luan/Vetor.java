@@ -143,4 +143,14 @@ public class Vetor<T> implements Iterable<T> {
         return lista;
     }
 
+    public static <T> Vetor<T> CRIAR(T... varios) {
+        Vetor<T> lista = new Vetor<T>(varios.length);
+        int i =0;
+        for (T item : varios) {
+            lista.set(i,item);
+            i+=1;
+        }
+        return lista;
+    }
+
 }
