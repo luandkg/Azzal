@@ -599,4 +599,15 @@ public class StringTronarko {
 
         return ret;
     }
+
+    public static Tozte PARSER_TOZTE(String entrada) {
+
+        int i_superarko = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,0,2));
+        int i_hiperarko = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,3,2));
+        int i_tronarko = Integer.parseInt(Strings.GET_SEQUENCIAL(entrada,6,4));
+
+
+        Tozte ret = new Tozte(i_superarko, i_hiperarko, i_tronarko);
+        return ret;
+    }
 }

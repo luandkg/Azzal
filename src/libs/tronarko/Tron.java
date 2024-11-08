@@ -116,6 +116,10 @@ public class Tron {
         return getTexto();
     }
 
+    public long getSuperarkosTotal() {
+        return (long) (mTozteC.getSuperarkosTotal());
+    }
+
     public long getTotal() {
 
         long Total = 0;
