@@ -11,6 +11,8 @@ import libs.xlsx.Planilha;
 import libs.xlsx.PlanilhaLinha;
 import libs.xlsx.XLSX;
 
+import java.nio.charset.StandardCharsets;
+
 public class ENTT {
 
     public static Entidade CRIAR(String nome, String valor) {
@@ -742,6 +744,19 @@ public class ENTT {
         return filtrados;
     }
 
+    public static Lista<Entidade> COLETAR_E_COLETAR(Lista<Entidade> entts, String campo_nome1, String campo_valor1, String campo_nome2, String campo_valor2) {
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.at(campo_nome1).contentEquals(campo_valor1) && e.at(campo_nome2).contentEquals(campo_valor2)) {
+                filtrados.adicionar(e);
+            }
+        }
+
+
+        return filtrados;
+    }
+
     public static Lista<Entidade> COLETAR_VAZIO(Lista<Entidade> entts, String campo_nome) {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
@@ -1084,6 +1099,11 @@ public class ENTT {
         }
 
         return raiz.toDocumento();
+    }
+
+
+    public static byte[] TO_DOCUMENTO_BYTES(Lista<Entidade> lista){
+        return ENTT.TO_DOCUMENTO(lista).getBytes(StandardCharsets.UTF_8);
     }
 
     public static void interno(Entidade entidadePai, DKGObjeto objetoPai) {
