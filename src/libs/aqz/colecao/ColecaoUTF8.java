@@ -1,11 +1,11 @@
 package libs.aqz.colecao;
 
-import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
 import libs.aqz.utils.ItemDoBanco;
 import libs.aqz.utils.ItemDoBancoUTF8;
-import libs.arquivos.binario.Arquivador;
 import libs.aqz.utils.Sequenciador;
+import libs.armazenador.Armazenador;
+import libs.armazenador.Banco;
+import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -34,12 +34,32 @@ public class ColecaoUTF8 {
     }
 
 
-
-
     public boolean adicionarUTF8(Entidade objeto) {
 
         int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
-        objeto.at("ID",(chave));
+        objeto.at("ID", (chave));
+        long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
+
+        mColecao.set(chave, endereco);
+
+        return false;
+    }
+
+    public boolean adicionarUTF8SemID(Entidade objeto) {
+
+        // int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
+        long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
+
+        //   mColecao.set(chave, endereco);
+
+        return false;
+    }
+
+
+    public boolean adicionarUTF8ComIDInterno(Entidade objeto) {
+
+        int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
+        objeto.at("@ID", (chave));
         long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
 
         mColecao.set(chave, endereco);
@@ -52,9 +72,9 @@ public class ColecaoUTF8 {
 
         for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
             Entidade objeto = item.toEntidadeUTF8();
-            if (objeto.atIntOuPadrao("ID",0) == eID) {
+            if (objeto.atIntOuPadrao("ID", 0) == eID) {
 
-                mColecao.set(objeto.atIntOuPadrao("ID",0), 0);
+                mColecao.set(objeto.atIntOuPadrao("ID", 0), 0);
 
                 mColecao.remover(item);
                 break;
@@ -66,7 +86,7 @@ public class ColecaoUTF8 {
     public void remover(ItemDoBancoUTF8 item) {
 
         Entidade objeto = item.toEntidadeUTF8();
-        mColecao.set(objeto.atIntOuPadrao("ID",0), 0);
+        mColecao.set(objeto.atIntOuPadrao("ID", 0), 0);
 
         mColecao.remover(item);
     }
@@ -75,8 +95,8 @@ public class ColecaoUTF8 {
 
         for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
             Entidade objeto = item.toEntidadeUTF8();
-            if (objeto.atIntOuPadrao("ID",0) == eID) {
-                objeto_novo.at("ID",eID);
+            if (objeto.atIntOuPadrao("ID", 0) == eID) {
+                objeto_novo.at("ID", eID);
                 item.atualizarUTF8(objeto_novo.toString());
                 break;
             }
@@ -138,7 +158,7 @@ public class ColecaoUTF8 {
         for (ItemDoBancoUTF8 item : getItens()) {
 
             Entidade objeto = item.toEntidadeUTF8();
-            int indice = objeto.atIntOuPadrao("ID",0);
+            int indice = objeto.atIntOuPadrao("ID", 0);
 
             if (indice > indice_maior) {
                 indice_maior = indice;
@@ -154,8 +174,8 @@ public class ColecaoUTF8 {
 
         for (ItemDoBancoUTF8 item : getItens()) {
 
-            Entidade objeto =item.toEntidadeUTF8();
-            int indice = objeto.atIntOuPadrao("ID",0);
+            Entidade objeto = item.toEntidadeUTF8();
+            int indice = objeto.atIntOuPadrao("ID", 0);
 
             long ponteiro = 2L + ((1L + 8L) * indice);
 
@@ -240,8 +260,6 @@ public class ColecaoUTF8 {
 
         return objetos;
     }
-
-
 
 
 }
