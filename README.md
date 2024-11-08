@@ -1,8 +1,10 @@
 #### AZZAL
 
-> Sistema de Renderização de Interface Gráfica
+> É um local de criatividade no qual implemento utilizando a linguagem de programação JAVA os vários devaneios que se passam em minha mente.
 
 ![AZZAL UI](https://github.com/luandkg/Azzal/blob/master/res/app_ui.png)
+
+> Sistema de Renderização de Interface Gráfica
 
     Interface
         - Janela
@@ -30,47 +32,22 @@
         - Posicionador
         - Transformador de Cor
 
-# libs.tronarko
+# libs.aqz - Biblioteca de Armazenamento de Coleções e Arquivos
 
-> Sistema de contagem temporal
->
-> O ano é chamado de TRONARKO e possui 500 Superarkos que representam os dias, dividos em 10 faixas de 50 Superarkos
-> entitulados de Hiperarkos
->
-> Cada Superarko é formado por 10 Arcos [ 0 ... 9 ] que representam as horas
+> AQZColecao : Coleção para armazenamento de documentos organizados por atributos
+> 
+> AQZPasta   : Coleção de documentos com INodes de 64Kb em Sistema de File Alocation Table (FAT)
 
-![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/app_tronarko.png)
+# libs.entt - ENTT
 
-# Attuz - Construtor de Mundos
+> Organizador de entidades abstratas para análise grandes volumes de dados
+> 
+> Os conjuntos de dados são formados por Entidades e seus atributos especificados por Tags de Chave/Valor
+> 
+> As chaves podem ser tipadas : Texto, Inteiro, Long e Double
+> 
+> A superclasse ENTT pode analisar, agrupar, classificar, ordenar e várias vou funções para grandes volumes de dados de Entidades
 
-> Aplicação de construção de WorldBuilding
-
-    - Algoritmos para MAPAS
-    - Ferramentas de algoritmos IDW
-    - Geração de mapas : Relevo, Temperatura, Umidade, Latitude, Longitude ...
-    - Aplicativo para visualização de mapa e realizar marcações.
-
-# libs.dkg - Arquivo DKG
-
-> Formato de texto com estilo de marcação para estruturação de dados, possui dois tipos básicos de dados OBJETO e ATRIBUTO.
-> A estrutura é uma classe árvore que permite armazenar vários filhos do tipo OBJETO e cada objeto possui uma lista de atributos únicos.
-
-~~~
-!Alunos :: {
-    !Aluno :: {  @Turma = "A" @Nome = "BELTRANO" @Grupo = "AZUL"     @Status = "PRESENTE" @Visibilidade = "SIM" }
-    !Aluno :: {  @Turma = "B" @Nome = "FULANO"   @Grupo = "VERMELHO" @Status = "AUSENTE"  @Visibilidade = "SIM" }
-}
-~~~
-
-~~~
-!Configuracoes :: {
-    !Tarefas :: {
-        !Status :: {  @Nome = "Acessar" @Nome = "SIM" }
-        !Status :: {  @Nome = "Publicar" @Nome = "NAO" }
-        !Status :: {  @Nome = "Listar" @Nome = "SIM" }
-    }
-}
-~~~
 
 # libs.dg - Biblioteca de Coleções
 
@@ -89,15 +66,21 @@ de Dados da Universidade de Brasília
 5. Iterador
 6. String
 7. Unico
+8. TabelaHash
 
 > Algoritmos implementados 
 
 1. Ordenador
 2. Opcional
-3. Integers
-4. Strings
-5. Texto
-6. TextoDocumento
+3. Iteradores : Vetor, Lista, Unico e TabelaHash
+
+> Classes Essenciais para Programação
+
+1. Inteiro
+2. Strings
+3. Matematica
+4. Texto 
+5. TextoDocumento
 
 > Classes referenciáveis
 
@@ -141,11 +124,7 @@ de Dados da Universidade de Brasília
 > 
 > As coleções possuem ID Sequencial configurável
 
-# ENTT
 
-> Organizador de entidades abstratas para análise grandes volumes de dados
-> 
-> Os conjuntos de dados são formados por Entidades e seus atributos especificados por Tags de Chave/Valor
 
 # Zetta Gráficos
 
@@ -182,3 +161,46 @@ de Dados da Universidade de Brasília
     - libs.movimentador Linear
     - libs.movimentador Vertical
     - libs.movimentador Inteligente
+
+# libs.tronarko
+
+> Sistema de contagem temporal
+>
+> O ano é chamado de TRONARKO e possui 500 Superarkos que representam os dias, dividos em 10 faixas de 50 Superarkos
+> entitulados de Hiperarkos
+>
+> Cada Superarko é formado por 10 Arcos [ 0 ... 9 ] que representam as horas
+
+![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/app_tronarko.png)
+
+# Attuz - Construtor de Mundos
+
+> Aplicação de construção de WorldBuilding
+
+    - Algoritmos para MAPAS
+    - Ferramentas de algoritmos IDW
+    - Geração de mapas : Relevo, Temperatura, Umidade, Latitude, Longitude ...
+    - Aplicativo para visualização de mapa e realizar marcações.
+
+# libs.dkg - Arquivo DKG
+
+> Formato de texto com estilo de marcação para estruturação de dados, possui dois tipos básicos de dados OBJETO e ATRIBUTO.
+> A estrutura é uma classe árvore que permite armazenar vários filhos do tipo OBJETO e cada objeto possui uma lista de atributos únicos.
+
+~~~
+!Alunos :: {
+!Aluno :: {  @Turma = "A" @Nome = "BELTRANO" @Grupo = "AZUL"     @Status = "PRESENTE" @Visibilidade = "SIM" }
+!Aluno :: {  @Turma = "B" @Nome = "FULANO"   @Grupo = "VERMELHO" @Status = "AUSENTE"  @Visibilidade = "SIM" }
+}
+~~~
+
+~~~
+!Configuracoes :: {
+!Tarefas :: {
+!Status :: {  @Nome = "Acessar" @Nome = "SIM" }
+!Status :: {  @Nome = "Publicar" @Nome = "NAO" }
+!Status :: {  @Nome = "Listar" @Nome = "SIM" }
+}
+}
+
+~~~
