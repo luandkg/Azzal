@@ -1,5 +1,7 @@
 package libs.luan;
 
+import libs.meta_functional.AcaoAlfa;
+
 public class Matematica {
 
     public static int maior(int a, int b) {
@@ -153,8 +155,8 @@ public class Matematica {
 
             String p = String.valueOf(0);
 
-            if(p.contentEquals("+")||p.contentEquals("-")){
-                i+=1;
+            if (p.contentEquals("+") || p.contentEquals("-")) {
+                i += 1;
             }
 
             while (i < o) {
@@ -209,8 +211,8 @@ public class Matematica {
 
             String p = String.valueOf(0);
 
-            if(p.contentEquals("+")||p.contentEquals("-")){
-                i+=1;
+            if (p.contentEquals("+") || p.contentEquals("-")) {
+                i += 1;
             }
 
             while (i < o) {
@@ -218,7 +220,7 @@ public class Matematica {
                 String d = String.valueOf(s.charAt(i));
 
                 if (!digitos.contains(d)) {
-                   // fmt.print("OI : {}",d);
+                    // fmt.print("OI : {}",d);
                     ret = false;
                     break;
                 }
@@ -231,6 +233,32 @@ public class Matematica {
 
 
         return ret;
+    }
+
+
+    public static int ate_zero(int valor){
+        if(valor<0){
+            return 0;
+        }
+        return valor;
+    }
+
+
+    public static void PARA_CADA(int eInicio, int eFim, AcaoAlfa<Integer> eAcao) {
+        for (int i = eInicio; i < eFim; i++) {
+            eAcao.fazer(i);
+        }
+    }
+
+
+    public static Igualavel<Long> LONG_IGUALAVEL() {
+        return new Igualavel<Long>() {
+            @Override
+            public boolean is(Long a, Long b) {
+                return a.longValue()==b.longValue();
+            }
+
+        };
     }
 
 }
