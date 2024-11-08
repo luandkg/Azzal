@@ -82,8 +82,8 @@ public class AQZArquivoInternamente {
             mArquivador.setPonteiro(inode_aqui + 2000);
             long inode_tamanho = (long) mArquivador.get_u32();
 
-            if (inode_tamanho > Matematica.KB(50)) {
-                inode_tamanho = Matematica.KB(50);
+            if (inode_tamanho > AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO) {
+                inode_tamanho = AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
             }
 
             arquivo_tamanho += inode_tamanho;
@@ -110,6 +110,11 @@ public class AQZArquivoInternamente {
         mArquivador.setPonteiro(mInode + 9L);
 
         int nome_tamanho = mArquivador.get_u32();
+
+        if(nome_tamanho>1024){
+            nome_tamanho=1024;
+        }
+
         byte[] nome_bytes = mArquivador.get_u8_array(nome_tamanho);
 
         mArquivador.setPonteiro(mInode + 2000);
@@ -159,8 +164,8 @@ public class AQZArquivoInternamente {
             mArquivador.setPonteiro(inode + 2000);
             int bloco_tamanho = mArquivador.get_u32();
 
-            if (bloco_tamanho > Matematica.KB(50)) {
-                bloco_tamanho = Matematica.KB(50);
+            if (bloco_tamanho > AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO) {
+                bloco_tamanho = AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
             }
 
             mArquivador.setPonteiro(inode + 2020);

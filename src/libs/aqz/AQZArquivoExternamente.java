@@ -4,7 +4,6 @@ import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
-import libs.luan.Matematica;
 import libs.luan.fmt;
 
 import java.nio.charset.StandardCharsets;
@@ -43,11 +42,20 @@ public class AQZArquivoExternamente {
         mArquivador.setPonteiro(mInode + 9L);
 
         int nome_tamanho = mArquivador.get_u32();
+
+        if (nome_tamanho > 1024) {
+            nome_tamanho = 1024;
+        }
+
         byte[] nome_bytes = mArquivador.get_u8_array(nome_tamanho);
+
 
         mArquivador.setPonteiro(mInode + 2000);
         long inode_primario_tamanho = (long) mArquivador.get_u32();
 
+        if (inode_primario_tamanho > AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO) {
+            inode_primario_tamanho = AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
+        }
 
         // e_arquivo.at("INode.Status", inode_status);
         // e_arquivo.at("Nome.Tamanho", nome_tamanho);
@@ -71,6 +79,11 @@ public class AQZArquivoExternamente {
 
             mArquivador.setPonteiro(inode_aqui + 2000);
             long inode_tamanho = (long) mArquivador.get_u32();
+
+            if (inode_tamanho > AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO) {
+                inode_tamanho = AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
+            }
+
             arquivo_tamanho += inode_tamanho;
 
             // fmt.print("Passando em inode {} ->> {}", inode_aqui, inode_tamanho);
@@ -115,6 +128,10 @@ public class AQZArquivoExternamente {
             mArquivador.setPonteiro(inode + 2000);
             int bloco_tamanho = mArquivador.get_u32();
 
+            if (bloco_tamanho > AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO) {
+                bloco_tamanho = AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
+            }
+
             mArquivador.setPonteiro(inode + 2020);
             byte[] bloco_dados = mArquivador.get_u8_array(bloco_tamanho);
 
@@ -154,7 +171,7 @@ public class AQZArquivoExternamente {
 
         mArquivador.setPonteiro(mInode);
 
-        long bloco_tamanho = Matematica.KB(64);
+        long bloco_tamanho = AZVolumeInternamente.VOLUME_INODE_TAMANHO;
 
         for (Long inode : mInodes) {
 
@@ -185,7 +202,7 @@ public class AQZArquivoExternamente {
                 fmt.print("Removendo INode : VID : {} - Bloco : {} -->> BlocoID : {}", volume_id, inode, bloco_id);
 
                 mArquivador.setPonteiro(enc_volume_mapa_inicio + bloco_id);
-                mArquivador.set_u8((byte)0);
+                mArquivador.set_u8((byte) 0);
 
             }
 

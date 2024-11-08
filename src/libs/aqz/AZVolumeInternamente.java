@@ -21,6 +21,8 @@ public class AZVolumeInternamente {
     // CRIADO : 2024 11 06
 
     public static final int VOLUME_BLOCOS_QUANTIDADE = 5000;
+    public static final int VOLUME_INODE_TAMANHO = Matematica.KB(64);
+    public static final int VOLUME_INODE_DADOS_TAMANHO = Matematica.KB(60);
 
     private Armazenador mArmazenador;
 
@@ -207,8 +209,8 @@ public class AZVolumeInternamente {
         VERIFICADOR.DEVE_SER_VERDADEIRO(nome_bytes.length < 1024, "Nome Muito Grande !");
 
         int tamanho_real = bytes.length;
-        int blocos = tamanho_real / Matematica.KB(50);
-        int max_tamanho = blocos * Matematica.KB(50);
+        int blocos = tamanho_real / AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
+        int max_tamanho = blocos * AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
 
         if (tamanho_real > max_tamanho) {
             blocos += 1;
@@ -298,13 +300,13 @@ public class AZVolumeInternamente {
 
                 AQZVolumeBloco bloco_primario = blocos_alocados.get(0);
                 bloco_primario.setNome(nome_bytes);
-               // bloco_primario.setDados(bytes);
+                // bloco_primario.setDados(bytes);
 
                 int i = 0;
                 int o = bytes.length;
                 int u = 0;
 
-                int cluster = Matematica.KB(50);
+                int cluster = AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO;
 
                 int blocos_i = 0;
                 int blocos_o = blocos_alocados.getQuantidade();
