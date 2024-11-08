@@ -1408,5 +1408,16 @@ public class Calendario {
         return ret;
     }
 
+    public static String COMPLETO_GET_DATA(String tempo) {
+        return tempo.substring(0, 10);
+    }
+
+    public static String COMPLETO_GET_HORA_E_MINUTO(String tempo) {
+        return tempo.substring(11, 16);
+    }
+
+    public static String COMPLETO_GET_HORARIO(String tempo) {
+        return tempo.substring(11, 19);
+    }
 }
 
