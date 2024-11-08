@@ -156,4 +156,27 @@ public class XMLObjeto {
         }
     }
 
+    public XMLObjeto getObjetoSequencial(String eNome,int proc) {
+        XMLObjeto ret = null;
+
+        int i = 0;
+
+        for (XMLObjeto at : mObjetos) {
+            if (at.getNome().contentEquals(eNome)) {
+                if(i==proc){
+                    ret = at;
+                    break;
+                }
+                i+=1;
+            }
+
+        }
+
+        if (ret == null) {
+            ret = new XMLObjeto(eNome, XML.XML_OBJETO);
+        }
+
+        return ret;
+    }
+
 }
