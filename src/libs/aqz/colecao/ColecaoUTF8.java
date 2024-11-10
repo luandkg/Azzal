@@ -56,7 +56,7 @@ public class ColecaoUTF8 {
     }
 
 
-    public boolean adicionarUTF8ComIDInterno(Entidade objeto) {
+    public Opcional<Long> adicionarUTF8ComIDInterno(Entidade objeto) {
 
         int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
         objeto.at("@ID", (chave));
@@ -64,7 +64,7 @@ public class ColecaoUTF8 {
 
         mColecao.set(chave, endereco);
 
-        return false;
+        return Opcional.OK(endereco);
     }
 
 
@@ -226,15 +226,15 @@ public class ColecaoUTF8 {
         return mColecao.get(procurar_indice);
     }
 
-    public Opcional<ItemDoBanco> getIndexado(long procurar_indice) {
+    public Opcional<ItemDoBancoUTF8> getIndexado(long procurar_indice) {
 
-        Opcional<ItemDoBanco> ret = new Opcional<ItemDoBanco>();
+        Opcional<ItemDoBancoUTF8> ret = new Opcional<ItemDoBancoUTF8>();
 
         Opcional<RefLong> proc2t = get(procurar_indice);
 
         if (proc2t.temValor()) {
 
-            ItemDoBanco item = mArmazenador.getItemDireto(proc2t.get().get());
+            ItemDoBancoUTF8 item = mArmazenador.getItemDiretoUTF8(proc2t.get().get());
 
             if (item.existe()) {
                 ret.set(item);
@@ -244,6 +244,20 @@ public class ColecaoUTF8 {
         }
 
         return ret;
+    }
+
+    public void indexado_atualizar(long procurar_indice,Entidade dados) {
+
+        Opcional<RefLong> proc2t = get(procurar_indice);
+
+        if (proc2t.temValor()) {
+            ItemDoBancoUTF8 item = mArmazenador.getItemDiretoUTF8(proc2t.get().get());
+
+            if (item.existe()) {
+                item.atualizarUTF8(dados);
+            }
+        }
+
     }
 
     public Lista<Entidade> getObjetosUTF8() {

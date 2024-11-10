@@ -5,6 +5,7 @@ import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Resultado;
+import libs.luan.Strings;
 import libs.luan.fmt;
 
 public class AQZTabelas {
@@ -63,7 +64,29 @@ public class AQZTabelas {
     public static void ADICIONAR_OU_EXIBIR_ERRO(AQZTabela pessoas, Entidade novo) {
         Resultado<Boolean, String> resultado = pessoas.adicionar(novo);
         if (resultado.isErro()) {
-            fmt.print(">> ERRO :: {}",resultado.getErro());
+            fmt.print(">> ERRO :: {}", resultado.getErro());
         }
     }
+
+    public static void ATUALIZAR_OU_EXIBIR_ERRO(RefLinhaDaTabela item_ref, Entidade atualizando) {
+        Resultado<Boolean, String> resultado = item_ref.atualizar(atualizando);
+        if (resultado.isErro()) {
+            fmt.print(">> ERRO :: {}", resultado.getErro());
+        }
+    }
+
+
+    public static Entidade CRIAR_VERIFICADOR(String eTipo, String eValor) {
+        return ENTT.CRIAR("Tipo", eTipo, "Valor", eValor);
+    }
+
+    public static Entidade CRIAR_VERIFICADOR(String eTipo, int eValor) {
+        return ENTT.CRIAR("Tipo", eTipo, "Valor", eValor);
+    }
+
+    public static Entidade CRIAR_VERIFICADOR_CONTEM(String eTipo, Lista<String> valores) {
+        return ENTT.CRIAR("Tipo", eTipo, "Valor", Strings.LISTA_TO_TEXTO_TAB(valores));
+    }
+
+
 }

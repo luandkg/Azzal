@@ -406,5 +406,7 @@ public class AZTabelasInternamente {
     }
 
 
+    public Armazenador getArmazenador(){return mArmazenador;}
+
 
 }

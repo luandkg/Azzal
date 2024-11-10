@@ -2,6 +2,7 @@ package libs.armazenador;
 
 
 import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
@@ -114,6 +115,20 @@ public class Armazenador {
 
         return new ItemDoBanco(mArquivador, ePointeiro, dados_ponteiro);
     }
+
+
+
+    public ItemDoBancoUTF8 getItemDiretoUTF8(long ePointeiro) {
+
+        mArquivador.setPonteiro(ePointeiro);
+        long item_ponteiro = mArquivador.getPonteiro();
+
+        int item_status = mArquivador.get_u8();
+        long dados_ponteiro = mArquivador.get_u64();
+
+        return new ItemDoBancoUTF8(mArquivador, ePointeiro, dados_ponteiro);
+    }
+
 
     public void fechar() {
         mArquivador.encerrar();

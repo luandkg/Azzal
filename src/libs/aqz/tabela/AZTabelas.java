@@ -12,7 +12,7 @@ public class AZTabelas {
 
 
     public AQZTabela tabela_orgarnizar_e_obter(String nome_tabela) {
-        return new AQZTabela(nome_tabela,mAZTabelasInternamente.esquemas_obter(nome_tabela),mAZTabelasInternamente.tabela_orgarnizar_e_obter(nome_tabela));
+        return new AQZTabela(mAZTabelasInternamente.getArmazenador(),nome_tabela,mAZTabelasInternamente.esquemas_obter(nome_tabela),mAZTabelasInternamente.tabela_orgarnizar_e_obter(nome_tabela));
     }
 
 
