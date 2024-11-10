@@ -1,24 +1,24 @@
 package libs.aqz.colecao;
 
 import libs.aqz.utils.ItemDoBancoUTF8;
+import libs.aqz.utils.Sequenciador;
 import libs.armazenador.Armazenador;
 import libs.armazenador.ParticaoPrimaria;
 import libs.arquivos.binario.Arquivador;
-import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
-public class ColecaoUTF8 {
+public class ColecaoUTF8Antigamente {
 
     private String mNome;
     private Armazenador mArmazenador;
     private ParticaoPrimaria mSequencias;
     private ParticaoPrimaria mColecao;
 
-    public ColecaoUTF8(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public ColecaoUTF8Antigamente(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;
@@ -28,38 +28,52 @@ public class ColecaoUTF8 {
 
     }
 
-    public String getNome(){return mNome;}
-
     public void zerarSequencial() {
         Sequenciador.zerar_sequencial(mSequencias, mNome);
     }
 
-    public boolean adicionar(Entidade objeto) {
 
-        //fmt.print("AQZ STATUS ADD p1");
+    public boolean adicionarUTF8(Entidade objeto) {
 
         int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
-        objeto.at("ID",chave);
-        objeto.tornar_primeiro("ID");
-        long endereco = mColecao.adicionarUTF8(objeto);
-
-        //  fmt.print("AQZ STATUS ADD p2 - {} :: {}",chave,endereco);
+        objeto.at("ID", (chave));
+        long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
 
         mColecao.set(chave, endereco);
 
-        //  fmt.print("AQZ STATUS ADD p3");
+        return false;
+    }
+
+    public boolean adicionarUTF8SemID(Entidade objeto) {
+
+        // int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
+        long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
+
+        //   mColecao.set(chave, endereco);
 
         return false;
+    }
+
+
+    public Opcional<Long> adicionarUTF8ComIDInterno(Entidade objeto) {
+
+        int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
+        objeto.at("@ID", (chave));
+        long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
+
+        mColecao.set(chave, endereco);
+
+        return Opcional.OK(endereco);
     }
 
 
     public void remover_por_chave(int eID) {
 
         for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
-            if (objeto.atInt("ID") == eID) {
+            Entidade objeto = item.toEntidadeUTF8();
+            if (objeto.atIntOuPadrao("ID", 0) == eID) {
 
-                mColecao.set(objeto.atInt("ID"), 0);
+                mColecao.set(objeto.atIntOuPadrao("ID", 0), 0);
 
                 mColecao.remover(item);
                 break;
@@ -70,8 +84,8 @@ public class ColecaoUTF8 {
 
     public void remover(ItemDoBancoUTF8 item) {
 
-        Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
-        mColecao.set(objeto.atInt("ID"), 0);
+        Entidade objeto = item.toEntidadeUTF8();
+        mColecao.set(objeto.atIntOuPadrao("ID", 0), 0);
 
         mColecao.remover(item);
     }
@@ -79,9 +93,9 @@ public class ColecaoUTF8 {
     public void atualizar_por_chave(int eID, Entidade objeto_novo) {
 
         for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
-            if (objeto.atInt("ID") == eID) {
-                objeto_novo.at("ID",eID);
+            Entidade objeto = item.toEntidadeUTF8();
+            if (objeto.atIntOuPadrao("ID", 0) == eID) {
+                objeto_novo.at("ID", eID);
                 item.atualizarUTF8(objeto_novo.toString());
                 break;
             }
@@ -93,6 +107,18 @@ public class ColecaoUTF8 {
         mColecao.limpar();
     }
 
+    public void limpar_profundamente() {
+        mColecao.limpar_profundamente();
+    }
+
+    public void exibir_dump() {
+        mColecao.exibir_dump();
+    }
+
+    public void limpar_com_log(String eLog) {
+        mColecao.limpar_com_long(eLog);
+    }
+
     public Lista<ItemDoBancoUTF8> getItens() {
         return mColecao.getItensUTF8();
     }
@@ -101,14 +127,13 @@ public class ColecaoUTF8 {
         return mColecao.getItensContagem();
     }
 
-
     public void primeiro_campo(String ePrimeiro) {
 
         for (ItemDoBancoUTF8 item : getItens()) {
 
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            Entidade objeto = item.toEntidadeUTF8();
 
-            objeto.tornar_primeiro(ePrimeiro);
+            //  objeto.rearranjar(ePrimeiro, 0);
 
             item.atualizarUTF8(objeto.toString());
 
@@ -131,8 +156,8 @@ public class ColecaoUTF8 {
 
         for (ItemDoBancoUTF8 item : getItens()) {
 
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
-            int indice = objeto.atInt("ID");
+            Entidade objeto = item.toEntidadeUTF8();
+            int indice = objeto.atIntOuPadrao("ID", 0);
 
             if (indice > indice_maior) {
                 indice_maior = indice;
@@ -148,8 +173,8 @@ public class ColecaoUTF8 {
 
         for (ItemDoBancoUTF8 item : getItens()) {
 
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
-            int indice = objeto.atInt("ID");
+            Entidade objeto = item.toEntidadeUTF8();
+            int indice = objeto.atIntOuPadrao("ID", 0);
 
             long ponteiro = 2L + ((1L + 8L) * indice);
 
@@ -220,18 +245,34 @@ public class ColecaoUTF8 {
         return ret;
     }
 
-    public Lista<Entidade> getObjetos() {
+    public void indexado_atualizar(long procurar_indice,Entidade dados) {
+
+        Opcional<RefLong> proc2t = get(procurar_indice);
+
+        if (proc2t.temValor()) {
+            ItemDoBancoUTF8 item = mArmazenador.getItemDiretoUTF8(proc2t.get().get());
+
+            if (item.existe()) {
+                item.atualizarUTF8(dados);
+            }
+        }
+
+    }
+
+    public Lista<Entidade> getObjetosUTF8() {
 
         Lista<ItemDoBancoUTF8> itens = getItens();
 
         Lista<Entidade> objetos = new Lista<Entidade>();
 
         for (ItemDoBancoUTF8 item : itens) {
-            Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            // fmt.print("ItemDoBanco : {}",item.lerTexto());
+            Entidade obj = item.toEntidadeUTF8();
             objetos.adicionar(obj);
         }
 
         return objetos;
     }
+
 
 }

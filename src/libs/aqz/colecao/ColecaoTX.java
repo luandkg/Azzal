@@ -1,8 +1,9 @@
 package libs.aqz.colecao;
 
-import libs.aqz.utils.ItemDoBancoUTF8;
+import libs.aqz.utils.ItemDoBancoTX;
 import libs.armazenador.Armazenador;
 import libs.armazenador.ParticaoPrimaria;
+import libs.aqz.utils.ItemDoBanco;
 import libs.arquivos.binario.Arquivador;
 import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
@@ -11,14 +12,14 @@ import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
-public class ColecaoUTF8 {
+public class ColecaoTX {
 
     private String mNome;
     private Armazenador mArmazenador;
     private ParticaoPrimaria mSequencias;
     private ParticaoPrimaria mColecao;
 
-    public ColecaoUTF8(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public ColecaoTX(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;
@@ -41,7 +42,7 @@ public class ColecaoUTF8 {
         int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
         objeto.at("ID",chave);
         objeto.tornar_primeiro("ID");
-        long endereco = mColecao.adicionarUTF8(objeto);
+        long endereco = mColecao.adicionarTX(objeto);
 
         //  fmt.print("AQZ STATUS ADD p2 - {} :: {}",chave,endereco);
 
@@ -55,8 +56,8 @@ public class ColecaoUTF8 {
 
     public void remover_por_chave(int eID) {
 
-        for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+        for (ItemDoBanco item : mColecao.getItens()) {
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             if (objeto.atInt("ID") == eID) {
 
                 mColecao.set(objeto.atInt("ID"), 0);
@@ -68,9 +69,9 @@ public class ColecaoUTF8 {
 
     }
 
-    public void remover(ItemDoBancoUTF8 item) {
+    public void remover(ItemDoBanco item) {
 
-        Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+        Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
         mColecao.set(objeto.atInt("ID"), 0);
 
         mColecao.remover(item);
@@ -78,11 +79,11 @@ public class ColecaoUTF8 {
 
     public void atualizar_por_chave(int eID, Entidade objeto_novo) {
 
-        for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+        for (ItemDoBanco item : mColecao.getItens()) {
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             if (objeto.atInt("ID") == eID) {
                 objeto_novo.at("ID",eID);
-                item.atualizarUTF8(objeto_novo.toString());
+                item.atualizar(objeto_novo.toString());
                 break;
             }
         }
@@ -93,8 +94,8 @@ public class ColecaoUTF8 {
         mColecao.limpar();
     }
 
-    public Lista<ItemDoBancoUTF8> getItens() {
-        return mColecao.getItensUTF8();
+    public Lista<ItemDoBancoTX> getItens() {
+        return mColecao.getItensTX();
     }
 
     public long getItensContagem() {
@@ -104,13 +105,13 @@ public class ColecaoUTF8 {
 
     public void primeiro_campo(String ePrimeiro) {
 
-        for (ItemDoBancoUTF8 item : getItens()) {
+        for (ItemDoBancoTX item : getItens()) {
 
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
 
             objeto.tornar_primeiro(ePrimeiro);
 
-            item.atualizarUTF8(objeto.toString());
+            item.atualizarTX(objeto.toString());
 
         }
 
@@ -129,9 +130,9 @@ public class ColecaoUTF8 {
 
         int indice_maior = 0;
 
-        for (ItemDoBancoUTF8 item : getItens()) {
+        for (ItemDoBancoTX item : getItens()) {
 
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             int indice = objeto.atInt("ID");
 
             if (indice > indice_maior) {
@@ -146,9 +147,9 @@ public class ColecaoUTF8 {
             mArquivadorIndice.set_u64(0);
         }
 
-        for (ItemDoBancoUTF8 item : getItens()) {
+        for (ItemDoBancoTX item : getItens()) {
 
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             int indice = objeto.atInt("ID");
 
             long ponteiro = 2L + ((1L + 8L) * indice);
@@ -200,15 +201,15 @@ public class ColecaoUTF8 {
         return mColecao.get(procurar_indice);
     }
 
-    public Opcional<ItemDoBancoUTF8> getIndexado(long procurar_indice) {
+    public Opcional<ItemDoBancoTX> getIndexado(long procurar_indice) {
 
-        Opcional<ItemDoBancoUTF8> ret = new Opcional<ItemDoBancoUTF8>();
+        Opcional<ItemDoBancoTX> ret = new Opcional<ItemDoBancoTX>();
 
         Opcional<RefLong> proc2t = get(procurar_indice);
 
         if (proc2t.temValor()) {
 
-            ItemDoBancoUTF8 item = mArmazenador.getItemDiretoUTF8(proc2t.get().get());
+            ItemDoBancoTX item = mArmazenador.getItemDiretoTX(proc2t.get().get());
 
             if (item.existe()) {
                 ret.set(item);
@@ -222,12 +223,12 @@ public class ColecaoUTF8 {
 
     public Lista<Entidade> getObjetos() {
 
-        Lista<ItemDoBancoUTF8> itens = getItens();
+        Lista<ItemDoBancoTX> itens = getItens();
 
         Lista<Entidade> objetos = new Lista<Entidade>();
 
-        for (ItemDoBancoUTF8 item : itens) {
-            Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+        for (ItemDoBancoTX item : itens) {
+            Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             objetos.adicionar(obj);
         }
 

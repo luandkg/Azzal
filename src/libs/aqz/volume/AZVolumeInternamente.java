@@ -3,9 +3,8 @@ package libs.aqz.volume;
 import apps.app_campeonatum.VERIFICADOR;
 import libs.aqz.utils.OrquestradorBancario;
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.aqz.utils.ItemDoBanco;
-import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -39,7 +38,7 @@ public class AZVolumeInternamente {
 
 
     public Lista<Entidade> volume_listar() {
-        Banco volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
+        ParticaoPrimaria volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
 
         Lista<Entidade> e_volumes = new Lista<Entidade>();
 
@@ -54,7 +53,7 @@ public class AZVolumeInternamente {
 
     public void volume_criar() {
 
-        Banco volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
+        ParticaoPrimaria volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
 
 
         mArmazenador.getArquivador().setPonteiro(mArmazenador.getArquivador().getLength());

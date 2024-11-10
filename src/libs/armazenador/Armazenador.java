@@ -2,6 +2,7 @@ package libs.armazenador;
 
 
 import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.utils.ItemDoBancoTX;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
@@ -13,7 +14,7 @@ public class Armazenador {
 
     private String mArquivo;
     private Arquivador mArquivador;
-    private Lista<Banco> mBancos;
+    private Lista<ParticaoPrimaria> mBancos;
 
     public static final int MAX_BANCOS = 255;
     public static final int MAX_CAPITULOS = 1024;
@@ -51,18 +52,18 @@ public class Armazenador {
         mArquivador = new Arquivador(mArquivo);
         mArquivador.setPonteiro(0);
 
-        mBancos = new Lista<Banco>();
+        mBancos = new Lista<ParticaoPrimaria>();
     }
 
-    public Lista<Banco> getBancos() {
+    public Lista<ParticaoPrimaria> getBancos() {
         if (mBancos.getQuantidade() == 0) {
             organizar_bancos();
         }
         return mBancos;
     }
 
-    public Banco getBanco(String eNome) {
-        for (Banco b : getBancos()) {
+    public ParticaoPrimaria getBanco(String eNome) {
+        for (ParticaoPrimaria b : getBancos()) {
             if (b.getNome().contentEquals(eNome)) {
                 return b;
             }
@@ -73,7 +74,7 @@ public class Armazenador {
 
     public boolean banco_existe(String eNome) {
         boolean ret = false;
-        for (Banco b : getBancos()) {
+        for (ParticaoPrimaria b : getBancos()) {
             if (b.getNome().contentEquals(eNome)) {
                 ret = true;
                 break;
@@ -90,7 +91,7 @@ public class Armazenador {
     }
 
     public void banco_remover(String eNome) {
-        for (Banco b : getBancos()) {
+        for (ParticaoPrimaria b : getBancos()) {
             if (b.getNome().contentEquals(eNome)) {
 
                 b.limpar();
@@ -117,7 +118,6 @@ public class Armazenador {
     }
 
 
-
     public ItemDoBancoUTF8 getItemDiretoUTF8(long ePointeiro) {
 
         mArquivador.setPonteiro(ePointeiro);
@@ -127,6 +127,18 @@ public class Armazenador {
         long dados_ponteiro = mArquivador.get_u64();
 
         return new ItemDoBancoUTF8(mArquivador, ePointeiro, dados_ponteiro);
+    }
+
+
+    public ItemDoBancoTX getItemDiretoTX(long ePointeiro) {
+
+        mArquivador.setPonteiro(ePointeiro);
+        long item_ponteiro = mArquivador.getPonteiro();
+
+        int item_status = mArquivador.get_u8();
+        long dados_ponteiro = mArquivador.get_u64();
+
+        return new ItemDoBancoTX(mArquivador, ePointeiro, dados_ponteiro);
     }
 
 
@@ -169,7 +181,7 @@ public class Armazenador {
 
             if (st == 255) {
                 //  System.out.println("\t - Banco " + banco + " -->> " + st + " --->> " + ponteiro + " :: { Local Itens = " + local_itens + " , Local Cache = " + local_cache + " , Local Indice = " + local_indice + " }");
-                mBancos.adicionar(new Banco(this, mArquivador, banco, ponteiro, local_itens, local_cache, local_corrente, local_indice));
+                mBancos.adicionar(new ParticaoPrimaria(this, mArquivador, banco, ponteiro, local_itens, local_cache, local_corrente, local_indice));
             }
 
         }
@@ -391,4 +403,93 @@ public class Armazenador {
 
     }
 
+    public Particao criarParticao() {
+
+
+        Particao particao = new Particao();
+
+        long ponteiro_final_arquivo = mArquivador.getLength();
+
+        mArquivador.setPonteiro(ponteiro_final_arquivo);
+
+
+        long ponteiro_inicial_do_banco = mArquivador.getPonteiro();
+
+        for (int ponta = 0; ponta < 1024; ponta++) {
+            mArquivador.set_u64(0);
+        }
+
+
+        long guardar_capitulos = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) Armazenador.MARCADOR_SUMARIO);
+        mArquivador.set_u64((byte) 0);
+        mArquivador.set_u64((byte) 0);
+        mArquivador.set_u64((byte) 0);
+
+        for (int capitulo = 0; capitulo < Armazenador.MAX_CAPITULOS; capitulo++) {
+            mArquivador.set_u64(0);
+        }
+
+        long guardar_cache = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) Armazenador.MARCADOR_CACHE);
+        for (int item = 0; item < Armazenador.MAX_ITENS_DO_CACHE; item++) {
+            mArquivador.set_u64(0);
+        }
+
+        long guardar_primeiro_capitulo = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) Armazenador.MARCADOR_CAPITULO);
+        for (int item = 0; item < Armazenador.MAX_PAGINAS; item++) {
+            mArquivador.set_u64(0);
+        }
+
+        long guardar_primeira_pagina_do_primeiro_capitulo = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) Armazenador.MARCADOR_PAGINA);
+        for (int item = 0; item < Armazenador.MAX_ITENS_POR_PAGINA; item++) {
+            mArquivador.set_u8((byte) 0);
+            mArquivador.set_u64(0);
+        }
+
+
+        long guardar_local_indice = mArquivador.getPonteiro();
+
+        //   System.out.println("CRIAR INDICE EM :: " + guardar_local_indice);
+
+        mArquivador.set_u8((byte) Armazenador.MARCADOR_INDICE);
+        mArquivador.set_u64(0);
+        mArquivador.set_u64(0);
+
+        for (int item = 0; item < Armazenador.MAX_ITENS_DO_INDICE; item++) {
+            mArquivador.set_u64(0);
+        }
+
+
+        mArquivador.setPonteiro(guardar_capitulos + 1);
+        mArquivador.set_u64(guardar_primeiro_capitulo);
+
+        mArquivador.setPonteiro(guardar_primeiro_capitulo + 1);
+        mArquivador.set_u64(guardar_primeira_pagina_do_primeiro_capitulo);
+
+
+        particao.ponteiro_inicial_do_banco = ponteiro_inicial_do_banco;
+        particao.guardar_capitulos = guardar_capitulos;
+        particao.guardar_cache = guardar_cache;
+        particao.guardar_primeira_pagina_do_primeiro_capitulo = guardar_primeira_pagina_do_primeiro_capitulo;
+        particao.guardar_local_indice = guardar_local_indice;
+
+        return particao;
+    }
+
+
+
+    public static void checar(String eArquivo) {
+
+        if (!existe(eArquivo)) {
+            criar(eArquivo);
+        }
+
+    }
 }

@@ -1,13 +1,12 @@
 package libs.aqz.tabela;
 
 import libs.aqz.BancoBS;
-import libs.aqz.colecao.Colecao;
-import libs.aqz.colecao.ColecaoUTF8;
+import libs.aqz.colecao.ColecaoUTF8Antigamente;
 import libs.aqz.utils.ItemDoBanco;
 import libs.aqz.utils.OrquestradorBancario;
 import libs.aqz.utils.Sequenciador;
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -40,7 +39,7 @@ public class AZTabelasInternamente {
 
 
 
-    public ColecaoUTF8 tabela_orgarnizar_e_obter(String eNomeColecao){
+    public ColecaoUTF8Antigamente tabela_orgarnizar_e_obter(String eNomeColecao){
         if (!tabelas_existe(eNomeColecao)) {
             tabelas_criar(eNomeColecao);
         }
@@ -53,7 +52,7 @@ public class AZTabelasInternamente {
 
         tabela_nome = tabela_nome.toUpperCase();
 
-        for (Banco b : tabelas_listar()) {
+        for (ParticaoPrimaria b : tabelas_listar()) {
             if (b.getNome().contentEquals(tabela_nome)) {
                 return true;
             }
@@ -71,11 +70,11 @@ public class AZTabelasInternamente {
         tabela_nome = tabela_nome.toUpperCase();
 
 
-        Banco s_tabelas_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados");
-        Banco s_tabelas_esquemas = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas");
+        ParticaoPrimaria s_tabelas_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados");
+        ParticaoPrimaria s_tabelas_esquemas = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas");
 
-        Banco s_sequencias_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados::Sequencias");
-        Banco s_sequencias_esquemas = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas::Sequencias");
+        ParticaoPrimaria s_sequencias_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados::Sequencias");
+        ParticaoPrimaria s_sequencias_esquemas = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas::Sequencias");
 
 
         tabela_criar_dados(s_tabelas_dados, s_sequencias_dados, nome_original, tabela_nome);
@@ -84,7 +83,7 @@ public class AZTabelasInternamente {
     }
 
 
-    private void tabela_criar_dados(Banco s_conjunto_de_bancos, Banco s_conjunto_de_sequencias, String nome_original, String tabela_nome) {
+    private void tabela_criar_dados(ParticaoPrimaria s_conjunto_de_bancos, ParticaoPrimaria s_conjunto_de_sequencias, String nome_original, String tabela_nome) {
 
         Entidade init_bancos = new Entidade();
         ItemDoBanco ref_init_bancos = null;
@@ -155,8 +154,8 @@ public class AZTabelasInternamente {
                 long local_indice = obj_colecao.atLong("Indice");
 
 
-                Banco banco_remover = new Banco(nome_antigo, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice);
-                banco_remover.limpar();
+                ParticaoPrimaria particaoPrimaria_remover = new ParticaoPrimaria(nome_antigo, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice);
+                particaoPrimaria_remover.limpar();
 
                 Sequenciador.zerar_sequencial(s_conjunto_de_sequencias, nome_antigo);
 
@@ -288,12 +287,12 @@ public class AZTabelasInternamente {
     }
 
 
-    public Lista<Banco> tabelas_listar() {
+    public Lista<ParticaoPrimaria> tabelas_listar() {
 
 
-        Lista<Banco> mBancos = new Lista<Banco>();
+        Lista<ParticaoPrimaria> mBancos = new Lista<ParticaoPrimaria>();
 
-        Banco s_tabelas_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados");
+        ParticaoPrimaria s_tabelas_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados");
 
         for (ItemDoBanco item : s_tabelas_dados.getItens()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -314,7 +313,7 @@ public class AZTabelasInternamente {
                 long local_indice = obj_colecao.atLong("Indice");
 
 
-                mBancos.adicionar(new Banco(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice));
+                mBancos.adicionar(new ParticaoPrimaria(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice));
 
 
             }
@@ -328,18 +327,18 @@ public class AZTabelasInternamente {
 
     }
 
-    public ColecaoUTF8 tabelas_obter(String tabela_nome) {
+    public ColecaoUTF8Antigamente tabelas_obter(String tabela_nome) {
 
         tabela_nome = tabela_nome.toUpperCase();
 
-        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados::Sequencias");
+        ParticaoPrimaria s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasDados::Sequencias");
 
-        for (Banco b : tabelas_listar()) {
+        for (ParticaoPrimaria b : tabelas_listar()) {
             if (b.getNome().contentEquals(tabela_nome)) {
 
                 // fmt.print("AQZ STATUS BANCO - {}",colecao_nome);
 
-                return new ColecaoUTF8(tabela_nome, mArmazenador, s_sequencias, b);
+                return new ColecaoUTF8Antigamente(tabela_nome, mArmazenador, s_sequencias, b);
             }
         }
 
@@ -347,12 +346,12 @@ public class AZTabelasInternamente {
     }
 
 
-    public Lista<Banco> esquemas_listar() {
+    public Lista<ParticaoPrimaria> esquemas_listar() {
 
 
-        Lista<Banco> mBancos = new Lista<Banco>();
+        Lista<ParticaoPrimaria> mBancos = new Lista<ParticaoPrimaria>();
 
-        Banco s_tabelas_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas");
+        ParticaoPrimaria s_tabelas_dados = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas");
 
         for (ItemDoBanco item : s_tabelas_dados.getItens()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTexto());
@@ -373,7 +372,7 @@ public class AZTabelasInternamente {
                 long local_indice = obj_colecao.atLong("Indice");
 
 
-                mBancos.adicionar(new Banco(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice));
+                mBancos.adicionar(new ParticaoPrimaria(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice));
 
 
             }
@@ -387,18 +386,18 @@ public class AZTabelasInternamente {
 
     }
 
-    public ColecaoUTF8 esquemas_obter(String tabela_nome) {
+    public ColecaoUTF8Antigamente esquemas_obter(String tabela_nome) {
 
         tabela_nome = tabela_nome.toUpperCase();
 
-        Banco s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas::Sequencias");
+        ParticaoPrimaria s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@TabelasEsquemas::Sequencias");
 
-        for (Banco b : esquemas_listar()) {
+        for (ParticaoPrimaria b : esquemas_listar()) {
             if (b.getNome().contentEquals(tabela_nome)) {
 
                 // fmt.print("AQZ STATUS BANCO - {}",colecao_nome);
 
-                return new ColecaoUTF8(tabela_nome, mArmazenador, s_sequencias, b);
+                return new ColecaoUTF8Antigamente(tabela_nome, mArmazenador, s_sequencias, b);
             }
         }
 

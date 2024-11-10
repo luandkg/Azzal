@@ -1,7 +1,7 @@
 package libs.aqz.colecao;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.aqz.utils.ItemDoBanco;
 import libs.arquivos.binario.Arquivador;
 import libs.aqz.utils.Sequenciador;
@@ -15,10 +15,10 @@ public class Colecao {
 
     private String mNome;
     private Armazenador mArmazenador;
-    private Banco mSequencias;
-    private Banco mColecao;
+    private ParticaoPrimaria mSequencias;
+    private ParticaoPrimaria mColecao;
 
-    public Colecao(String eNome, Armazenador eArmazenador, Banco eSequencias, Banco eColecao) {
+    public Colecao(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;

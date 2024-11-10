@@ -5,7 +5,7 @@ import libs.aqz.utils.OrquestradorBancario;
 import libs.aqz.volume.AQZArquivoExternamente;
 import libs.aqz.volume.AZVolumeInternamente;
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.aqz.utils.ItemDoBanco;
 import libs.aqz.colecao.Colecao;
 import libs.aqz.utils.ObservadorItem;
@@ -46,7 +46,7 @@ public class AQZ {
 
         AZInternamente aqz = new AZInternamente(arquivo_banco);
 
-        for (Banco b : aqz.colecoes_listar()) {
+        for (ParticaoPrimaria b : aqz.colecoes_listar()) {
             colecoes.adicionar(b.getNome());
         }
 
@@ -268,26 +268,26 @@ public class AQZ {
 
         AZInternamente aqz = new AZInternamente(arquivo_banco);
 
-        for (Banco banco : aqz.primarios_colecoes()) {
+        for (ParticaoPrimaria particaoPrimaria : aqz.particoes_primarias()) {
 
             Lista<Entidade> objetos = new Lista<Entidade>();
-            for (ItemDoBanco item : banco.getItens()) {
+            for (ItemDoBanco item : particaoPrimaria.getItens()) {
                 objetos.adicionar(ENTT.PARSER_ENTIDADE(item.lerTexto()));
             }
 
-            ENTT.EXIBIR_TABELA_COM_TITULO(objetos, "INTERNO - " + banco.getNome());
+            ENTT.EXIBIR_TABELA_COM_TITULO(objetos, "INTERNO - " + particaoPrimaria.getNome());
 
         }
 
 
-        for (Banco banco : aqz.colecoes_listar()) {
+        for (ParticaoPrimaria particaoPrimaria : aqz.colecoes_listar()) {
 
             Lista<Entidade> objetos = new Lista<Entidade>();
-            for (ItemDoBanco item : banco.getItens()) {
+            for (ItemDoBanco item : particaoPrimaria.getItens()) {
                 objetos.adicionar(ENTT.PARSER_ENTIDADE(item.lerTexto()));
             }
 
-            ENTT.EXIBIR_TABELA_COM_TITULO(objetos, "PUBLICO - " + banco.getNome());
+            ENTT.EXIBIR_TABELA_COM_TITULO(objetos, "PUBLICO - " + particaoPrimaria.getNome());
 
         }
 
@@ -718,7 +718,7 @@ public class AQZ {
         Lista<Entidade> objetos_internos = new Lista<Entidade>();
         Lista<Entidade> objetos_publicos = new Lista<Entidade>();
 
-        for (Banco item : aqz.primarios_colecoes()) {
+        for (ParticaoPrimaria item : aqz.particoes_primarias()) {
             Entidade banco_item = new Entidade();
 
             banco_item.at("Nome", item.getNome());
@@ -730,7 +730,7 @@ public class AQZ {
             objetos_internos.adicionar(banco_item);
         }
 
-        for (Banco item : aqz.colecoes_listar()) {
+        for (ParticaoPrimaria item : aqz.colecoes_listar()) {
             Entidade banco_item = new Entidade();
 
             banco_item.at("Nome", item.getNome());
@@ -754,25 +754,25 @@ public class AQZ {
 
         AZInternamente aqz = new AZInternamente(arquivo_banco);
 
-        Lista<Entidade> objetos_internos = new Lista<Entidade>();
+        Lista<Entidade> entidades_exibir = new Lista<Entidade>();
 
-        for (Banco item : aqz.primarios_colecoes()) {
-            Entidade banco_item = new Entidade();
+        for (ParticaoPrimaria particao_primaria : aqz.particoes_primarias()) {
+            Entidade particao = new Entidade();
 
-            banco_item.at("Nome", item.getNome());
-            banco_item.at("Itens", item.getItensContagem());
-            banco_item.at("Usabilidade", item.getUsabilidade());
-            banco_item.at("Disponibilidade", item.getDisponibilidade());
-            banco_item.at("Tamanho", fmt.formatar_tamanho(item.getTamanho()));
+            particao.at("Nome", particao_primaria.getNome());
+            particao.at("Itens", particao_primaria.getItensContagem());
+            particao.at("Usabilidade", particao_primaria.getUsabilidade());
+            particao.at("Disponibilidade", particao_primaria.getDisponibilidade());
+            particao.at("Tamanho", fmt.formatar_tamanho(particao_primaria.getTamanho()));
 
-            objetos_internos.adicionar(banco_item);
+            entidades_exibir.adicionar(particao);
         }
 
 
 
         aqz.fechar();
 
-        ENTT.EXIBIR_TABELA_COM_NOME(objetos_internos, "ESTRUTURA INTERNA");
+        ENTT.EXIBIR_TABELA_COM_NOME(entidades_exibir, "ESTRUTURA INTERNA - PARTIÇÕES PRIMÁRIAS");
 
 
     }
@@ -784,7 +784,7 @@ public class AQZ {
 
         Lista<Entidade> objetos_publicos = new Lista<Entidade>();
 
-        for (Banco item : aqz.colecoes_listar()) {
+        for (ParticaoPrimaria item : aqz.colecoes_listar()) {
             Entidade banco_item = new Entidade();
 
             banco_item.at("Nome", item.getNome());
@@ -811,20 +811,20 @@ public class AQZ {
 
 
 
-        for (Banco banco : aqz.colecoes_listar()) {
+        for (ParticaoPrimaria particaoPrimaria : aqz.colecoes_listar()) {
             Entidade banco_item = new Entidade();
 
-            banco_item.at("Nome", banco.getNome());
-            banco_item.at("Itens", banco.getItensContagem());
-            banco_item.at("Usabilidade", banco.getUsabilidade());
-            banco_item.at("Disponibilidade", banco.getDisponibilidade());
-            banco_item.at("Tamanho", fmt.formatar_tamanho(banco.getTamanho()));
+            banco_item.at("Nome", particaoPrimaria.getNome());
+            banco_item.at("Itens", particaoPrimaria.getItensContagem());
+            banco_item.at("Usabilidade", particaoPrimaria.getUsabilidade());
+            banco_item.at("Disponibilidade", particaoPrimaria.getDisponibilidade());
+            banco_item.at("Tamanho", fmt.formatar_tamanho(particaoPrimaria.getTamanho()));
 
             boolean isPrimeiro = true;
             long menor = 0;
             long maior = 0;
 
-            for (ItemDoBanco item : banco.getItens()) {
+            for (ItemDoBanco item : particaoPrimaria.getItens()) {
                 String item_dados = item.lerTexto();
                 if (isPrimeiro) {
                     long tam = item_dados.getBytes(StandardCharsets.UTF_8).length;
@@ -910,7 +910,7 @@ public class AQZ {
         AZVolumeInternamente aqz = new AZVolumeInternamente(mArmazenador);
         aqz.volumes_zerar();
 
-        Banco mSequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
+        ParticaoPrimaria mSequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
         Sequenciador.organizar_sequencial(mSequencias, "@Volume.ChaveUnica");
         Sequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
 

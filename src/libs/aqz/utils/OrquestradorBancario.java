@@ -1,7 +1,7 @@
 package libs.aqz.utils;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 
 public class OrquestradorBancario {
 
@@ -11,7 +11,7 @@ public class OrquestradorBancario {
         }
     }
 
-    public static Banco organizar_banco(Armazenador m, String eBancoNome) {
+    public static ParticaoPrimaria organizar_banco(Armazenador m, String eBancoNome) {
         if (!m.banco_existe(eBancoNome)) {
             m.banco_criar(eBancoNome);
         }

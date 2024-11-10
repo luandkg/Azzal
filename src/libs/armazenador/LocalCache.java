@@ -162,4 +162,33 @@ public class LocalCache {
 
 
 
+    // FUNCOES PARA TX
+
+    public static void guardarTX(Arquivador mArquivador, long obter_item_do_cache, String conteudo) {
+
+        mArquivador.setPonteiro(obter_item_do_cache);
+
+        int item_status = mArquivador.get_u8();
+        long ponteiro_guardar = mArquivador.getPonteiro();
+        long ponteiro_item_dados = mArquivador.get_u64();
+
+
+        if (item_status == Armazenador.ITEM_NAO_ALOCADO) {
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Item do cache ainda nao alocado");
+            }
+
+            ItemGuardar.guardar_em_item_nao_alocado_tx(mArquivador, obter_item_do_cache, ponteiro_guardar, conteudo);
+
+        } else if (item_status == Armazenador.ITEM_ALOCADO_DISPONIVEL) {
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Item do cache ja alocado");
+            }
+
+            ItemGuardar.guardar_em_item_ja_alocado_tx(mArquivador, obter_item_do_cache, ponteiro_item_dados, conteudo);
+        }
+
+
+    }
+
 }

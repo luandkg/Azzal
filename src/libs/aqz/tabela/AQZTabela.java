@@ -1,7 +1,7 @@
 package libs.aqz.tabela;
 
 import apps.app_campeonatum.VERIFICADOR;
-import libs.aqz.colecao.ColecaoUTF8;
+import libs.aqz.colecao.ColecaoUTF8Antigamente;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.armazenador.Armazenador;
 import libs.entt.ENTT;
@@ -14,10 +14,10 @@ public class AQZTabela {
     private String mNome;
 
     private Armazenador mArmazenador;
-    private ColecaoUTF8 mEsquema;
-    private ColecaoUTF8 mDados;
+    private ColecaoUTF8Antigamente mEsquema;
+    private ColecaoUTF8Antigamente mDados;
 
-    public AQZTabela(Armazenador eArmazenador, String eNome, ColecaoUTF8 eEsquema, ColecaoUTF8 eDados) {
+    public AQZTabela(Armazenador eArmazenador, String eNome, ColecaoUTF8Antigamente eEsquema, ColecaoUTF8Antigamente eDados) {
       mArmazenador=eArmazenador;
         mNome = eNome;
         mEsquema = eEsquema;

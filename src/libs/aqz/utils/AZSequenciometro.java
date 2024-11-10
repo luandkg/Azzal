@@ -1,7 +1,7 @@
 package libs.aqz.utils;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 
 public class AZSequenciometro {
 
@@ -9,7 +9,7 @@ public class AZSequenciometro {
     // CRIADO EM : 2024 01 07
 
     private Armazenador mArmazenador;
-    private Banco mSequencias;
+    private ParticaoPrimaria mSequencias;
     private String mNomeSequencia;
 
     public AZSequenciometro(Armazenador eArmazenador,String eNomeSequencia) {

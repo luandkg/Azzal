@@ -78,7 +78,7 @@ public class Paginador {
     }
 
 
-    public static void trocar_de_pagina(Arquivador mArquivador, Banco mBanco, RefLong mLocalBanco, RefLong mLocalCapitulos, RefLong mPaginaCorrente) {
+    public static void trocar_de_pagina(Arquivador mArquivador, ParticaoPrimaria mParticaoPrimaria, RefLong mLocalBanco, RefLong mLocalCapitulos, RefLong mPaginaCorrente) {
 
         if (Armazenador.IS_DEBUG) {
             System.out.println("!INFO - TROCAR DE PAGINA");
@@ -98,7 +98,7 @@ public class Paginador {
                     System.out.println("!INFO - TENTAR REUTILIZAR ALGUMA PAGINA DO CAP{" + capitulo_ponteiro + "}");
                 }
 
-                Pagina pg = new Pagina(mArquivador, mBanco, pagina_ponteiro);
+                Pagina pg = new Pagina(mArquivador, mParticaoPrimaria, pagina_ponteiro);
 
                 if (pg.getPonteiro() != 0) {
 

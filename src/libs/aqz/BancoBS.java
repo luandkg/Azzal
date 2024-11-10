@@ -5,7 +5,7 @@ import libs.aqz.colecao.Unicidade;
 import libs.aqz.utils.OrquestradorBancario;
 import libs.aqz.utils.Sequenciador;
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.aqz.utils.ItemDoBanco;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -14,7 +14,7 @@ import libs.luan.Lista;
 public class BancoBS {
 
     private Armazenador mArmazenador;
-    private Banco s_sequencias;
+    private ParticaoPrimaria s_sequencias;
 
     public BancoBS(String eArquivo) {
         mArmazenador = new Armazenador(eArquivo);
@@ -77,7 +77,7 @@ public class BancoBS {
 
         Lista<Entidade> objetos_analisados = new Lista<Entidade>();
 
-        for (Banco b : getMomentum().getBancos()) {
+        for (ParticaoPrimaria b : getMomentum().getBancos()) {
 
             Entidade obj_analise = new Entidade();
 

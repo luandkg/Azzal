@@ -1,6 +1,6 @@
 package libs.aqz.tabela;
 
-import libs.aqz.colecao.ColecaoUTF8;
+import libs.aqz.colecao.ColecaoUTF8Antigamente;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.entt.Entidade;
 import libs.luan.Resultado;
@@ -10,11 +10,11 @@ public class RefLinhaDaTabela {
     private AQZTabela mTabela;
     private ItemDoBancoUTF8 mItem;
     private Entidade mEntidade;
-    private ColecaoUTF8 mEsquema;
-    private ColecaoUTF8 mDados;
+    private ColecaoUTF8Antigamente mEsquema;
+    private ColecaoUTF8Antigamente mDados;
     private String mNome;
 
-    public RefLinhaDaTabela(AQZTabela eTabela, ColecaoUTF8 eEsquema, ColecaoUTF8 eDados, String eNome, ItemDoBancoUTF8 eItem, Entidade eEntidade) {
+    public RefLinhaDaTabela(AQZTabela eTabela, ColecaoUTF8Antigamente eEsquema, ColecaoUTF8Antigamente eDados, String eNome, ItemDoBancoUTF8 eItem, Entidade eEntidade) {
         mTabela = eTabela;
         mEsquema = eEsquema;
         mDados = eDados;

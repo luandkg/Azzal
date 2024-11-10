@@ -1,17 +1,17 @@
 package libs.aqz.utils;
 
-
 import libs.armazenador.Armazenador;
 import libs.armazenador.ParticaoPrimaria;
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.luan.Lista;
 import libs.luan.Matematica;
 
 import java.nio.charset.StandardCharsets;
 
-public class ItemDoBanco {
+public class ItemDoBancoTX {
 
     private Arquivador mArquivador;
     private ParticaoPrimaria mParticaoPrimaria;
@@ -21,7 +21,7 @@ public class ItemDoBanco {
 
     private boolean mIsDoBanco;
 
-    public ItemDoBanco(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
+    public ItemDoBancoTX(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
         mArquivador = eArquivador;
         mParticaoPrimaria = eParticaoPrimaria;
         mPonteiro = ePonteiro;
@@ -29,7 +29,7 @@ public class ItemDoBanco {
         mIsDoBanco = true;
     }
 
-    public ItemDoBanco(Arquivador eArquivador, long ePonteiro, long ePonteiroDados) {
+    public ItemDoBancoTX(Arquivador eArquivador, long ePonteiro, long ePonteiroDados) {
         mArquivador = eArquivador;
         mPonteiro = ePonteiro;
         mPonteiroDados = ePonteiroDados;
@@ -50,39 +50,62 @@ public class ItemDoBanco {
     }
 
 
-    public long getPonteiroDados() {
-        return mPonteiroDados;
-    }
-
-
     public ParticaoPrimaria getBanco() {
         return mParticaoPrimaria;
     }
 
-    public String lerTexto() {
-        mArquivador.setPonteiro(mPonteiroDados);
-        TX eTX = new TX();
-        return eTX.lerFluxoLimitado(mArquivador, Armazenador.TAMANHO_ITEM);
+
+
+
+
+    public long getPonteiroDados(){return mPonteiroDados;}
+
+
+    public Entidade toEntidadeUTF8(){
+        return ENTT.PARSER_ENTIDADE( lerTextoTX());
     }
 
-    public String lerTextoLinearizado() {
-        mArquivador.setPonteiro(mPonteiroDados);
-        TX eTX = new TX();
-        return eTX.lerFluxoLimitado(mArquivador, Armazenador.TAMANHO_ITEM).replace("\n", "");
+    public void atualizarTX(Entidade entidade) {
+        atualizarTX(ENTT.TO_DOCUMENTO(entidade));
     }
 
-    public void atualizar(Entidade e) {
-        atualizar(ENTT.TO_DOCUMENTO(e));
-    }
+    public void atualizarTX(String conteudo) {
 
-    public void atualizar(String conteudo) {
+        Lista<Byte> bytes = TX.toListBytes(conteudo);
 
-        if (conteudo.getBytes(StandardCharsets.UTF_8).length >= (Matematica.KB(10) - 100)) {
+        if (bytes.getQuantidade() >= (Matematica.KB(10) - 100)) {
             throw new RuntimeException("AQZ ERRO : O item é maior que 10 Kb !");
         }
 
         mArquivador.setPonteiro(mPonteiroDados);
-        mArquivador.set_u8_array(TX.toListBytes(conteudo));
+
+        mArquivador.set_u32(bytes.getQuantidade());
+        mArquivador.set_u8_lista(bytes);
+
+    }
+
+
+    public String lerTextoTX() {
+        mArquivador.setPonteiro(mPonteiroDados);
+
+        int tam = mArquivador.get_u32();
+        int contando = 0;
+        int limite = Armazenador.TAMANHO_ITEM;
+
+        byte[] bytes= new byte[tam];
+
+
+        while (contando<tam && contando<limite) {
+
+            byte valor = mArquivador.get();
+            bytes[contando]=valor;
+
+            contando += 1;
+
+        }
+
+
+        return TX.ler_vetor(bytes);
     }
 }
 

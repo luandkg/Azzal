@@ -1286,6 +1286,18 @@ public class Strings {
         return texto;
     }
 
+
+    public static String LISTA_TO_TEXTO_TAB(Lista<String> ls) {
+        String texto = "";
+
+        for (String item : ls) {
+            texto += item + "\t";
+        }
+
+        return texto;
+    }
+
+
     public static String LISTA_TO_TEXTO_FRASE(ArrayList<String> ls) {
         String texto = "";
 

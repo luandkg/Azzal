@@ -1,7 +1,7 @@
 package libs.aqz.utils;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -12,16 +12,16 @@ import java.nio.charset.StandardCharsets;
 public class ItemDoBancoUTF8 {
 
     private Arquivador mArquivador;
-    private Banco mBanco;
+    private ParticaoPrimaria mParticaoPrimaria;
 
     private long mPonteiro;
     private long mPonteiroDados;
 
     private boolean mIsDoBanco;
 
-    public ItemDoBancoUTF8(Arquivador eArquivador, Banco eBanco, long ePonteiro, long ePonteiroDados) {
+    public ItemDoBancoUTF8(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
         mArquivador = eArquivador;
-        mBanco = eBanco;
+        mParticaoPrimaria = eParticaoPrimaria;
         mPonteiro = ePonteiro;
         mPonteiroDados = ePonteiroDados;
         mIsDoBanco = true;
@@ -48,8 +48,8 @@ public class ItemDoBancoUTF8 {
     }
 
 
-    public Banco getBanco() {
-        return mBanco;
+    public ParticaoPrimaria getBanco() {
+        return mParticaoPrimaria;
     }
 
 

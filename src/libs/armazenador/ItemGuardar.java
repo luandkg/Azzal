@@ -3,6 +3,7 @@ package libs.armazenador;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 
 import java.nio.charset.StandardCharsets;
 
@@ -83,5 +84,48 @@ public class ItemGuardar {
 
     }
 
+
+    // FUNCOES TX
+
+    public static void guardar_em_item_nao_alocado_tx(Arquivador mArquivador, long ponteiro_item, long ponteiro_guardar, String conteudo) {
+
+        mArquivador.setPonteiro(mArquivador.getLength());
+
+        long ponteiro_item_dados = mArquivador.getPonteiro();
+        mArquivador.set_u8_em_bloco(Armazenador.TAMANHO_ITEM, (byte) 0);
+
+        mArquivador.setPonteiro(ponteiro_item_dados);
+
+        Lista<Byte> bytes = TX.toListBytes(conteudo);
+
+        mArquivador.set_u32(bytes.getQuantidade());
+        mArquivador.set_u8_lista(bytes);
+
+        mArquivador.setPonteiro(ponteiro_item);
+        mArquivador.set_u8((byte) Armazenador.ITEM_ALOCADO_OCUPADO);
+
+        mArquivador.setPonteiro(ponteiro_guardar);
+        mArquivador.set_u64(ponteiro_item_dados);
+
+
+    }
+
+    public static void guardar_em_item_ja_alocado_tx(Arquivador mArquivador, long ponteiro_item, long ponteiro_guardar, String conteudo) {
+
+        mArquivador.setPonteiro(ponteiro_guardar);
+
+        Lista<Byte> bytes = TX.toListBytes(conteudo);
+
+
+        mArquivador.set_u32(bytes.getQuantidade());
+        mArquivador.set_u8_lista(bytes);
+
+        mArquivador.setPonteiro(ponteiro_item);
+        mArquivador.set_u8((byte) Armazenador.ITEM_ALOCADO_OCUPADO);
+        if (Armazenador.IS_DEBUG) {
+            System.out.println("!INFO -- REAPROVEITAR ITEM ALOCADO :: " + ponteiro_item);
+        }
+
+    }
 
 }

@@ -13,8 +13,8 @@ public class Debugador {
     public static void debug_colecionador_completo(BancoBS BancoBS) {
 
         Debugador.debug_colecionador(BancoBS);
-        for (Banco banco : BancoBS.getMomentum().getBancos()) {
-            Debugador.debug_banco(banco);
+        for (ParticaoPrimaria particaoPrimaria : BancoBS.getMomentum().getBancos()) {
+            Debugador.debug_banco(particaoPrimaria);
         }
 
     }
@@ -27,36 +27,36 @@ public class Debugador {
 
     }
 
-    public static void debug_banco(Banco banco) {
+    public static void debug_banco(ParticaoPrimaria particaoPrimaria) {
 
-        System.out.println("\t - Banco " + banco.getID() + " -->> " + banco.getNome() + " :: { Local Capitulos = " + banco.getLocalCapitulos() + " , Local Cache = " + banco.getLocalCache() + " , Local Indice = " + banco.getLocalIndice() + " , Pagina Corrente = " + banco.getPaginaCorrente() + " }");
+        System.out.println("\t - Banco " + particaoPrimaria.getID() + " -->> " + particaoPrimaria.getNome() + " :: { Local Capitulos = " + particaoPrimaria.getLocalCapitulos() + " , Local Cache = " + particaoPrimaria.getLocalCache() + " , Local Indice = " + particaoPrimaria.getLocalIndice() + " , Pagina Corrente = " + particaoPrimaria.getPaginaCorrente() + " }");
 
-        System.out.println("\t\t -->> Capitulos                  =  " + banco.getCapitulosContagem());
-        System.out.println("\t\t -->> Paginas Referenciadas      =  " + banco.getPaginasTotalContagem());
-        System.out.println("\t\t -->> Paginas Alocadas           =  " + banco.getPaginasContagem());
-        System.out.println("\t\t -->> Itens   Referenciados      =  " + banco.getItensTotalContagem());
-        System.out.println("\t\t -->> Itens   Alocados           =  " + banco.getItensAlocadosContagem());
-        System.out.println("\t\t -->> Itens   Utilizados         =  " + banco.getItensContagem());
-        System.out.println("\t\t -->> Itens   em Cache           =  " + banco.getItensEmCacheContagem());
-
-
-        System.out.println("\t\t -->> Usabilidade                =  " + banco.getUsabilidade() + "%");
-        System.out.println("\t\t -->> Disponibilidade            =  " + banco.getDisponibilidade() + "%");
-
-        System.out.println("\t\t -->> Tamanho Cheio              =  " + fmt.espacar_depois(String.valueOf(banco.getTamanhoCheio()), 10) + " :: " + fmt.formatar_tamanho(banco.getTamanhoCheio()));
-        System.out.println("\t\t -->> Tamanho Alocado            =  " + fmt.espacar_depois(String.valueOf(banco.getTamanho()), 10) + " :: " + fmt.formatar_tamanho(banco.getTamanho()));
-        System.out.println("\t\t -->> Tamanho Utilizado          =  " + fmt.espacar_depois(String.valueOf(banco.getTamanhoUtilizado()), 10) + " :: " + fmt.formatar_tamanho(banco.getTamanhoUtilizado()));
+        System.out.println("\t\t -->> Capitulos                  =  " + particaoPrimaria.getCapitulosContagem());
+        System.out.println("\t\t -->> Paginas Referenciadas      =  " + particaoPrimaria.getPaginasTotalContagem());
+        System.out.println("\t\t -->> Paginas Alocadas           =  " + particaoPrimaria.getPaginasContagem());
+        System.out.println("\t\t -->> Itens   Referenciados      =  " + particaoPrimaria.getItensTotalContagem());
+        System.out.println("\t\t -->> Itens   Alocados           =  " + particaoPrimaria.getItensAlocadosContagem());
+        System.out.println("\t\t -->> Itens   Utilizados         =  " + particaoPrimaria.getItensContagem());
+        System.out.println("\t\t -->> Itens   em Cache           =  " + particaoPrimaria.getItensEmCacheContagem());
 
 
-        System.out.println("\t\t -->> Indice  Paginas            =  " + banco.getIndicePaginasContagem());
-        System.out.println("\t\t -->> Indice  Itens Cheio        =  " + banco.getIndiceItensTotalContagem());
-        System.out.println("\t\t -->> Indice  Itens Utilizado    =  " + banco.getIndiceItensUtilizadoContagem());
+        System.out.println("\t\t -->> Usabilidade                =  " + particaoPrimaria.getUsabilidade() + "%");
+        System.out.println("\t\t -->> Disponibilidade            =  " + particaoPrimaria.getDisponibilidade() + "%");
 
-        System.out.println("\t\t -->> Indice Tamanho Cheio       =  " + fmt.espacar_depois(String.valueOf(banco.getIndiceTamanhoCheio()), 10) + " :: " + fmt.formatar_tamanho(banco.getIndiceTamanhoCheio()));
-        System.out.println("\t\t -->> Indice Tamanho Utilizado   =  " + fmt.espacar_depois(String.valueOf(banco.getIndiceTamanhoUtilizado()), 10) + " :: " + fmt.formatar_tamanho(banco.getIndiceTamanhoUtilizado()));
+        System.out.println("\t\t -->> Tamanho Cheio              =  " + fmt.espacar_depois(String.valueOf(particaoPrimaria.getTamanhoCheio()), 10) + " :: " + fmt.formatar_tamanho(particaoPrimaria.getTamanhoCheio()));
+        System.out.println("\t\t -->> Tamanho Alocado            =  " + fmt.espacar_depois(String.valueOf(particaoPrimaria.getTamanho()), 10) + " :: " + fmt.formatar_tamanho(particaoPrimaria.getTamanho()));
+        System.out.println("\t\t -->> Tamanho Utilizado          =  " + fmt.espacar_depois(String.valueOf(particaoPrimaria.getTamanhoUtilizado()), 10) + " :: " + fmt.formatar_tamanho(particaoPrimaria.getTamanhoUtilizado()));
 
-        System.out.println("\t\t -->> Indice Usabilidade         =  " + banco.getIndiceUsabilidade() + "%");
-        System.out.println("\t\t -->> Indice Disponibilidade     =  " + banco.getIndiceDisponibilidade() + "%");
+
+        System.out.println("\t\t -->> Indice  Paginas            =  " + particaoPrimaria.getIndicePaginasContagem());
+        System.out.println("\t\t -->> Indice  Itens Cheio        =  " + particaoPrimaria.getIndiceItensTotalContagem());
+        System.out.println("\t\t -->> Indice  Itens Utilizado    =  " + particaoPrimaria.getIndiceItensUtilizadoContagem());
+
+        System.out.println("\t\t -->> Indice Tamanho Cheio       =  " + fmt.espacar_depois(String.valueOf(particaoPrimaria.getIndiceTamanhoCheio()), 10) + " :: " + fmt.formatar_tamanho(particaoPrimaria.getIndiceTamanhoCheio()));
+        System.out.println("\t\t -->> Indice Tamanho Utilizado   =  " + fmt.espacar_depois(String.valueOf(particaoPrimaria.getIndiceTamanhoUtilizado()), 10) + " :: " + fmt.formatar_tamanho(particaoPrimaria.getIndiceTamanhoUtilizado()));
+
+        System.out.println("\t\t -->> Indice Usabilidade         =  " + particaoPrimaria.getIndiceUsabilidade() + "%");
+        System.out.println("\t\t -->> Indice Disponibilidade     =  " + particaoPrimaria.getIndiceDisponibilidade() + "%");
 
     }
 

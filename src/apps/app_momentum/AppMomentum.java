@@ -1,6 +1,6 @@
 package apps.app_momentum;
 
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.armazenador.Debugador;
 import libs.aqz.utils.ItemDoBanco;
 import libs.aqz.BancoBS;
@@ -36,8 +36,8 @@ public class AppMomentum {
         m.remover_colecao("Lixeira");
 
         Debugador.debug_colecionador(m);
-        for (Banco banco : m.getMomentum().getBancos()) {
-            Debugador.debug_banco(banco);
+        for (ParticaoPrimaria particaoPrimaria : m.getMomentum().getBancos()) {
+            Debugador.debug_banco(particaoPrimaria);
         }
 
 

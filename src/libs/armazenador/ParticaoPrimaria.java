@@ -2,6 +2,7 @@ package libs.armazenador;
 
 
 import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.utils.ItemDoBancoTX;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
@@ -12,7 +13,7 @@ import libs.luan.*;
 import java.nio.charset.StandardCharsets;
 
 
-public class Banco {
+public class ParticaoPrimaria {
 
     private Armazenador mArmazenador;
     private Arquivador mArquivador;
@@ -27,7 +28,7 @@ public class Banco {
     private String mNome;
 
 
-    public Banco(Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
+    public ParticaoPrimaria(Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
         mArmazenador = eArmazenador;
         mArquivador = eArquivador;
         mBancoID = banco_id;
@@ -41,7 +42,7 @@ public class Banco {
     }
 
 
-    public Banco(String eNome, Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
+    public ParticaoPrimaria(String eNome, Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
         mArmazenador = eArmazenador;
         mArquivador = eArquivador;
         mBancoID = banco_id;
@@ -201,6 +202,29 @@ public class Banco {
 
                 Pagina pg = new Pagina(mArquivador, this, pag);
                 itens.adicionar_varios(pg.getItensUTF8());
+            }
+
+
+        }
+
+        return itens;
+    }
+
+    public Lista<ItemDoBancoTX> getItensTX() {
+
+        Lista<ItemDoBancoTX> itens = new Lista<ItemDoBancoTX>();
+
+        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+
+
+        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+
+            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+
+            for (Long pag : pags) {
+
+                Pagina pg = new Pagina(mArquivador, this, pag);
+                itens.adicionar_varios(pg.getItensTX());
             }
 
 
@@ -438,6 +462,10 @@ public class Banco {
 
     }
 
+    public long adicionarUTF8(Entidade e) {
+        return adicionarUTF8(ENTT.TO_DOCUMENTO(e));
+    }
+
 
     public long adicionarUTF8(String conteudo) {
 
@@ -614,5 +642,113 @@ public class Banco {
         }
 
     }
+
+
+    public long adicionarTX(Entidade e) {
+        return adicionarTX(ENTT.TO_DOCUMENTO(e));
+    }
+
+    public long adicionarTX(String conteudo) {
+
+        if (conteudo.getBytes(StandardCharsets.UTF_8).length >= (Matematica.KB(10) - 100)) {
+            throw new RuntimeException("AQZ ERRO : O item é maior que 10 Kb !");
+        }
+
+        long endereco = 0;
+
+        // TENTAR USAR CACHE DO BANCO
+        long itens_em_cache = LocalCache.getItensEmCacheContagem(mArquivador, this.getLocalCache());
+
+        if (itens_em_cache > 0) {
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Existem itens disponiveis em cache = " + itens_em_cache);
+            }
+
+            long obter_item_do_cache = LocalCache.getItemDoCacheERemove(mArquivador, this.getLocalCache());
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Utilizar item do cache = " + obter_item_do_cache);
+            }
+
+            if (obter_item_do_cache > 0) {
+                LocalCache.guardarTX(mArquivador, obter_item_do_cache, conteudo);
+                endereco = obter_item_do_cache;
+                return endereco;
+            }
+
+        }
+
+        // TENTAR USAR CACHE GLOBAL
+
+        long itens_em_cache_global = LocalCache.getItensEmCacheContagem(mArquivador, mArmazenador.getGlobalCache());
+
+        if (itens_em_cache_global > 0) {
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Existem itens disponiveis em cache global = " + itens_em_cache_global);
+            }
+
+            long obter_item_do_cache_global = LocalCache.getItemDoCacheERemove(mArquivador, mArmazenador.getGlobalCache());
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("Utilizar item do cache global = " + obter_item_do_cache_global);
+            }
+
+            if (obter_item_do_cache_global > 0) {
+                LocalCache.guardarTX(mArquivador, obter_item_do_cache_global, conteudo);
+                endereco = obter_item_do_cache_global;
+                return endereco;
+            }
+
+        }
+
+
+        // TENTAR USAR ITEM DA PAGINA ATUAL
+        mArquivador.setPonteiro(mPaginaCorrente.get());
+
+        int pagina_status = mArquivador.get_u8();
+
+        //  System.out.println("Pagina Status = " + pagina_status);
+
+        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+
+        if (Armazenador.IS_DEBUG) {
+            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
+        }
+
+
+        if (pagina_atual.temDisponivel()) {
+            endereco = pagina_atual.adicionarTX(conteudo);
+        } else {
+
+            // TROCAR DE PAGINA
+
+            if (Armazenador.IS_DEBUG) {
+                System.out.println("!ERRO - SEM ESPAÇO NA PAGINA");
+                System.out.println("!INFO - PROCURANDO NOVA PAGINA");
+            }
+
+            Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
+
+            // USAR NOVA PAGINA
+            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+
+            if (pagina_trocada.temDisponivel()) {
+                endereco = pagina_trocada.adicionarTX(conteudo);
+            } else {
+                if (Armazenador.IS_DEBUG) {
+                    System.out.println("!ERRO - SEM ESPAÇO NA PAGINA");
+                }
+
+            }
+        }
+
+        //  System.out.println("\t - Contagem T = " + pg.contagemTodos());
+        // System.out.println("\t - Contagem Z = " + pg.contagemZerados());
+
+        return endereco;
+    }
+
 
 }
