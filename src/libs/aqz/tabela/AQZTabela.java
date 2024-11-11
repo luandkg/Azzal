@@ -1,12 +1,15 @@
 package libs.aqz.tabela;
 
 import apps.app_campeonatum.VERIFICADOR;
-import libs.aqz.colecao.ColecaoUTF8Antigamente;
+import libs.aqz.colecao.ColecaoUTF8;
+import libs.aqz.extincao.ColecaoUTF8Antigamente;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.armazenador.Armazenador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.*;
+import libs.luan.Lista;
+import libs.luan.Opcional;
+import libs.luan.Resultado;
 import libs.tronarko.Tronarko;
 
 public class AQZTabela {
@@ -14,11 +17,11 @@ public class AQZTabela {
     private String mNome;
 
     private Armazenador mArmazenador;
-    private ColecaoUTF8Antigamente mEsquema;
-    private ColecaoUTF8Antigamente mDados;
+    private ColecaoUTF8 mEsquema;
+    private ColecaoUTF8 mDados;
 
-    public AQZTabela(Armazenador eArmazenador, String eNome, ColecaoUTF8Antigamente eEsquema, ColecaoUTF8Antigamente eDados) {
-      mArmazenador=eArmazenador;
+    public AQZTabela(Armazenador eArmazenador, String eNome, ColecaoUTF8 eEsquema, ColecaoUTF8 eDados) {
+        mArmazenador = eArmazenador;
         mNome = eNome;
         mEsquema = eEsquema;
         mDados = eDados;
@@ -27,7 +30,7 @@ public class AQZTabela {
 
     public void exibir_esquema() {
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
 
         ENTT.EXIBIR_TABELA_COM_NOME(esquema, "ESQUEMA :: " + mNome);
 
@@ -35,7 +38,7 @@ public class AQZTabela {
 
     public void exibir_dados() {
 
-        Lista<Entidade> dados = mDados.getObjetosUTF8();
+        Lista<Entidade> dados = mDados.getObjetos();
 
         ENTT.EXIBIR_TABELA_COM_NOME(dados, "DADOS :: " + mNome);
 
@@ -67,7 +70,7 @@ public class AQZTabela {
         VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
         VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
             throw new RuntimeException("AQZTabela : Coluna já existente - " + coluna_nome);
@@ -86,7 +89,7 @@ public class AQZTabela {
         e_coluna.at("DDC", Tronarko.getTronAgora().getTextoZerado());
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-        mEsquema.adicionarUTF8(e_coluna);
+        mEsquema.adicionar(e_coluna);
 
     }
 
@@ -96,7 +99,7 @@ public class AQZTabela {
         VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
         VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
             throw new RuntimeException("AQZTabela : Coluna já existente - " + coluna_nome);
@@ -111,7 +114,7 @@ public class AQZTabela {
         e_coluna.at("DDC", Tronarko.getTronAgora().getTextoZerado());
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-        mEsquema.adicionarUTF8(e_coluna);
+        mEsquema.adicionar(e_coluna);
 
     }
 
@@ -121,7 +124,7 @@ public class AQZTabela {
         VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
         VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
             throw new RuntimeException("AQZTabela : Coluna já existente - " + coluna_nome);
@@ -136,7 +139,7 @@ public class AQZTabela {
         e_coluna.at("DDC", Tronarko.getTronAgora().getTextoZerado());
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-        mEsquema.adicionarUTF8(e_coluna);
+        mEsquema.adicionar(e_coluna);
 
     }
 
@@ -146,7 +149,7 @@ public class AQZTabela {
         VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
         VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (!ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
             throw new RuntimeException("AQZTabela : Coluna nao existente - " + coluna_nome);
@@ -166,7 +169,7 @@ public class AQZTabela {
         e_coluna.at("DDC", Tronarko.getTronAgora().getTextoZerado());
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-        mEsquema.adicionarUTF8(e_coluna);
+        mEsquema.adicionar(e_coluna);
 
     }
 
@@ -176,7 +179,7 @@ public class AQZTabela {
         VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
         VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (!ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
             throw new RuntimeException("AQZTabela : Coluna nao existente - " + coluna_nome);
@@ -196,7 +199,7 @@ public class AQZTabela {
         e_coluna.at("DDC", Tronarko.getTronAgora().getTextoZerado());
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-        mEsquema.adicionarUTF8(e_coluna);
+        mEsquema.adicionar(e_coluna);
 
     }
 
@@ -206,7 +209,7 @@ public class AQZTabela {
         VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
         VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (!ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
             throw new RuntimeException("AQZTabela : Coluna nao existente - " + coluna_nome);
@@ -228,16 +231,15 @@ public class AQZTabela {
         verificador.at("Nome", "VERIFICADOR");
         e_coluna.getEntidades().adicionar(verificador);
 
-        mEsquema.adicionarUTF8(e_coluna);
+        mEsquema.adicionar(e_coluna);
 
     }
 
     // MANIPULAR DADOS
 
     public Resultado<Boolean, String> adicionar(Entidade novo) {
-        return AQZTabelaManipuladoraDeDados.adicionar(mArmazenador,mEsquema, mDados, mNome, novo);
+        return AQZTabelaManipuladoraDeDados.adicionar(mArmazenador, mEsquema, mDados, mNome, novo);
     }
-
 
 
     public Opcional<Entidade> procurar_um(String att_nome, String att_valor) {
@@ -276,14 +278,12 @@ public class AQZTabela {
     }
 
 
-
-
     public Opcional<RefLinhaDaTabela> procurar_ref(String att_nome, int att_valor) {
 
         for (ItemDoBancoUTF8 item : mDados.getItens()) {
             Entidade obj = item.toEntidadeUTF8();
             if (obj.is(att_nome, att_valor)) {
-                return Opcional.OK(new RefLinhaDaTabela(this,mEsquema,mDados,mNome, item, obj));
+                return Opcional.OK(new RefLinhaDaTabela(this, mEsquema, mDados, mNome, item, obj));
             }
         }
 

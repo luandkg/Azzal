@@ -1,6 +1,7 @@
 package libs.aqz.tabela;
 
-import libs.aqz.colecao.ColecaoUTF8Antigamente;
+import libs.aqz.colecao.ColecaoUTF8;
+import libs.aqz.extincao.ColecaoUTF8Antigamente;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.armazenador.Armazenador;
 import libs.entt.ENTT;
@@ -11,14 +12,14 @@ import libs.tronarko.Tronarko;
 
 public class AQZTabelaManipuladoraDeDados {
 
-    public static Resultado<Boolean, String> adicionar(Armazenador mArmazenador, ColecaoUTF8Antigamente mEsquema, ColecaoUTF8Antigamente mDados, String mNome, Entidade novo) {
+    public static Resultado<Boolean, String> adicionar(Armazenador mArmazenador, ColecaoUTF8 mEsquema, ColecaoUTF8 mDados, String mNome, Entidade novo) {
 
         boolean adicao_valida = true;
         String adicao_erro = "";
 
         Entidade adicao_entidade = new Entidade();
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
         Lista<Entidade> esquema_colunas_validar_antes = ENTT.COLETAR_E_COLETAR(esquema, "Formato", "DADOS", "Obrigatoria", "SIM");
         Lista<Entidade> esquema_colunas_auto_inserivel = ENTT.COLETAR(esquema, "Formato", "INSERIVEL");
         Lista<Entidade> esquema_colunas_primarias = ENTT.COLETAR(esquema, "Formato", "PRIMARIA");
@@ -210,14 +211,14 @@ public class AQZTabelaManipuladoraDeDados {
 
     }
 
-    public static Resultado<Boolean, String> atualizar(ColecaoUTF8Antigamente mEsquema, ColecaoUTF8Antigamente mDados, String mNome, ItemDoBancoUTF8 eItemExistente, Entidade novo) {
+    public static Resultado<Boolean, String> atualizar(ColecaoUTF8 mEsquema, ColecaoUTF8 mDados, String mNome, ItemDoBancoUTF8 eItemExistente, Entidade novo) {
 
         boolean adicao_valida = true;
         String adicao_erro = "";
 
         Entidade adicao_entidade = new Entidade();
 
-        Lista<Entidade> esquema = mEsquema.getObjetosUTF8();
+        Lista<Entidade> esquema = mEsquema.getObjetos();
         Lista<Entidade> esquema_colunas_validar_antes = ENTT.COLETAR_E_COLETAR(esquema, "Formato", "DADOS", "Obrigatoria", "SIM");
         Lista<Entidade> esquema_colunas_nao_obrigatorios = ENTT.COLETAR_E_COLETAR(esquema, "Formato", "DADOS", "Obrigatoria", "NAO");
 
@@ -620,7 +621,7 @@ public class AQZTabelaManipuladoraDeDados {
     }
 
 
-    public static boolean validar_existe_inserido(ColecaoUTF8Antigamente mDados, String att_nome, String att_valor) {
+    public static boolean validar_existe_inserido(ColecaoUTF8 mDados, String att_nome, String att_valor) {
 
         boolean ret = false;
 

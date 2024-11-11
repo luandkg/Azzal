@@ -1,11 +1,10 @@
 package libs.aqz.colecao;
 
+import libs.aqz.utils.AZSequenciador;
 import libs.aqz.utils.ItemDoBancoTX;
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
-import libs.aqz.utils.ItemDoBanco;
+import libs.armazenador.ParticaoMestre;
 import libs.arquivos.binario.Arquivador;
-import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -16,31 +15,40 @@ public class ColecaoTX {
 
     private String mNome;
     private Armazenador mArmazenador;
-    private ParticaoPrimaria mSequencias;
-    private ParticaoPrimaria mColecao;
+    private ParticaoMestre mSequencias;
+    private ParticaoMestre mColecao;
+    private int mBID;
 
-    public ColecaoTX(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public ColecaoTX(int eBID, String eNome, Armazenador eArmazenador, ParticaoMestre eSequencias, ParticaoMestre eColecao) {
+        mBID = eBID;
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;
         mColecao = eColecao;
 
-        Sequenciador.organizar_sequencial(mSequencias, mNome);
+        AZSequenciador.organizar_sequencial(mSequencias, mNome);
 
     }
 
-    public String getNome(){return mNome;}
+    public String getNome() {
+        return mNome;
+    }
+
+
+    public int getID() {
+        return mBID;
+    }
 
     public void zerarSequencial() {
-        Sequenciador.zerar_sequencial(mSequencias, mNome);
+        AZSequenciador.zerar_sequencial(mSequencias, mNome);
     }
 
     public boolean adicionar(Entidade objeto) {
 
         //fmt.print("AQZ STATUS ADD p1");
 
-        int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
-        objeto.at("ID",chave);
+        int chave = AZSequenciador.aumentar_sequencial(mSequencias, mNome);
+        objeto.at("ID", chave);
         objeto.tornar_primeiro("ID");
         long endereco = mColecao.adicionarTX(objeto);
 
@@ -56,8 +64,8 @@ public class ColecaoTX {
 
     public void remover_por_chave(int eID) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItensTX()) {
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (objeto.atInt("ID") == eID) {
 
                 mColecao.set(objeto.atInt("ID"), 0);
@@ -69,9 +77,9 @@ public class ColecaoTX {
 
     }
 
-    public void remover(ItemDoBanco item) {
+    public void remover(ItemDoBancoTX item) {
 
-        Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
         mColecao.set(objeto.atInt("ID"), 0);
 
         mColecao.remover(item);
@@ -79,11 +87,11 @@ public class ColecaoTX {
 
     public void atualizar_por_chave(int eID, Entidade objeto_novo) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItensTX()) {
+            Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (objeto.atInt("ID") == eID) {
-                objeto_novo.at("ID",eID);
-                item.atualizar(objeto_novo.toString());
+                objeto_novo.at("ID", eID);
+                item.atualizarTX(objeto_novo.toString());
                 break;
             }
         }

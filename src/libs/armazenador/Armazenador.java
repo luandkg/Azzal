@@ -15,6 +15,7 @@ public class Armazenador {
     private String mArquivo;
     private Arquivador mArquivador;
     private Lista<ParticaoPrimaria> mBancos;
+    private Lista<ParticaoMestre> mParticoes;
 
     public static final int MAX_BANCOS = 255;
     public static final int MAX_CAPITULOS = 1024;
@@ -53,6 +54,8 @@ public class Armazenador {
         mArquivador.setPonteiro(0);
 
         mBancos = new Lista<ParticaoPrimaria>();
+        mParticoes = new Lista<ParticaoMestre>();
+
     }
 
     public Lista<ParticaoPrimaria> getBancos() {
@@ -484,7 +487,6 @@ public class Armazenador {
     }
 
 
-
     public static void checar(String eArquivo) {
 
         if (!existe(eArquivo)) {
@@ -492,4 +494,97 @@ public class Armazenador {
         }
 
     }
+
+    public ParticaoPrimaria getParticaoPrimaria(String eBancoNome) {
+        if (!banco_existe(eBancoNome)) {
+            banco_criar(eBancoNome);
+        }
+
+        return getBanco(eBancoNome);
+    }
+
+
+    public ParticaoMestre getParticaoMestre(String eParticaoNome) {
+        if (!particao_existe(eParticaoNome)) {
+            particao_criar(eParticaoNome);
+        }
+
+        return getParticao(eParticaoNome);
+    }
+
+
+    public boolean particao_existe(String eParticaoNome) {
+        boolean ret = false;
+        for (ParticaoMestre b : getParticoes()) {
+            if (b.getNome().contentEquals(eParticaoNome)) {
+                ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+
+
+    public void particao_criar(String eNome) {
+        if (!particao_existe(eNome)) {
+            interno_banco_criar(eNome);
+            mParticoes.limpar();
+        }
+    }
+
+    public Lista<ParticaoMestre> getParticoes() {
+        if (mParticoes.getQuantidade() == 0) {
+            particoes_organizar();
+        }
+        return mParticoes;
+    }
+
+    private ParticaoMestre getParticao(String eNome) {
+        for (ParticaoMestre b : getParticoes()) {
+            if (b.getNome().contentEquals(eNome)) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    private void particoes_organizar() {
+        mParticoes.limpar();
+
+        mArquivador.setPonteiro(0);
+
+        int b1 = mArquivador.get_u8();
+        int b2 = mArquivador.get_u8();
+
+        int v1 = mArquivador.get_u8();
+        int v2 = mArquivador.get_u8();
+
+
+        //   System.out.println("Inicio -->> " + b1 + "." + b2);
+        ///     System.out.println("Versao -->> " + v1 + "." + v2);
+
+
+        for (int banco = 0; banco < MAX_BANCOS; banco++) {
+
+            long ponteiro = mArquivador.getPonteiro();
+
+            int st = mArquivador.get_u8();
+            mArquivador.setPonteiro(mArquivador.getPonteiro() + 1024);
+
+            long local_itens = mArquivador.get_u64();
+            long local_cache = mArquivador.get_u64();
+            long local_corrente = mArquivador.get_u64();
+            long local_indice = mArquivador.get_u64();
+
+
+            if (st == 255) {
+                //  System.out.println("\t - Banco " + banco + " -->> " + st + " --->> " + ponteiro + " :: { Local Itens = " + local_itens + " , Local Cache = " + local_cache + " , Local Indice = " + local_indice + " }");
+                mParticoes.adicionar(new ParticaoMestre(this, mArquivador, banco, ponteiro, local_itens, local_cache, local_corrente, local_indice));
+            }
+
+        }
+
+
+    }
+
 }

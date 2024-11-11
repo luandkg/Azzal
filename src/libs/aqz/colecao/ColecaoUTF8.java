@@ -1,10 +1,10 @@
 package libs.aqz.colecao;
 
+import libs.aqz.utils.AZSequenciador;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
+import libs.armazenador.ParticaoMestre;
 import libs.arquivos.binario.Arquivador;
-import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -15,30 +15,30 @@ public class ColecaoUTF8 {
 
     private String mNome;
     private Armazenador mArmazenador;
-    private ParticaoPrimaria mSequencias;
-    private ParticaoPrimaria mColecao;
+    private ParticaoMestre mSequencias;
+    private ParticaoMestre mColecao;
 
-    public ColecaoUTF8(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public ColecaoUTF8(String eNome, Armazenador eArmazenador, ParticaoMestre eSequencias, ParticaoMestre eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;
         mColecao = eColecao;
 
-        Sequenciador.organizar_sequencial(mSequencias, mNome);
+        AZSequenciador.organizar_sequencial(mSequencias, mNome);
 
     }
 
     public String getNome(){return mNome;}
 
     public void zerarSequencial() {
-        Sequenciador.zerar_sequencial(mSequencias, mNome);
+        AZSequenciador.zerar_sequencial(mSequencias, mNome);
     }
 
     public boolean adicionar(Entidade objeto) {
 
         //fmt.print("AQZ STATUS ADD p1");
 
-        int chave = Sequenciador.aumentar_sequencial(mSequencias, mNome);
+        int chave = AZSequenciador.aumentar_sequencial(mSequencias, mNome);
         objeto.at("ID",chave);
         objeto.tornar_primeiro("ID");
         long endereco = mColecao.adicionarUTF8(objeto);
@@ -234,4 +234,46 @@ public class ColecaoUTF8 {
         return objetos;
     }
 
+
+
+    public void indexado_atualizar(long procurar_indice,Entidade dados) {
+
+        Opcional<RefLong> proc2t = get(procurar_indice);
+
+        if (proc2t.temValor()) {
+            ItemDoBancoUTF8 item = mArmazenador.getItemDiretoUTF8(proc2t.get().get());
+
+            if (item.existe()) {
+                item.atualizarUTF8(dados);
+            }
+        }
+
+    }
+
+
+    public Opcional<Long> adicionarUTF8ComIDInterno(Entidade objeto) {
+
+        int chave = AZSequenciador.aumentar_sequencial(mSequencias, mNome);
+        objeto.at("@ID", (chave));
+        long endereco = mColecao.adicionarUTF8(ENTT.TO_DOCUMENTO(objeto));
+
+        mColecao.set(chave, endereco);
+
+        return Opcional.OK(endereco);
+    }
+
+
+    public Opcional<ItemDoBancoUTF8> obter_opcional(String att_nome, String att_valor) {
+
+        for (ItemDoBancoUTF8 item : getItens()) {
+            Entidade e_item = item.toEntidadeUTF8();
+
+            if (e_item.is(att_nome,att_valor)) {
+                return Opcional.OK(item);
+            }
+
+        }
+
+        return Opcional.CANCEL();
+    }
 }

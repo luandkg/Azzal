@@ -1,8 +1,6 @@
 package libs.armazenador;
 
 
-import libs.aqz.extincao.ItemDoBancoUTF8Antigamente;
-import libs.aqz.utils.ItemDoBanco;
 import libs.aqz.utils.ItemDoBancoTX;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.arquivos.TX;
@@ -14,7 +12,7 @@ import libs.luan.*;
 import java.nio.charset.StandardCharsets;
 
 
-public class ParticaoPrimaria {
+public class ParticaoMestre {
 
     private Armazenador mArmazenador;
     private Arquivador mArquivador;
@@ -29,7 +27,7 @@ public class ParticaoPrimaria {
     private String mNome;
 
 
-    public ParticaoPrimaria(Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
+    public ParticaoMestre(Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
         mArmazenador = eArmazenador;
         mArquivador = eArquivador;
         mBancoID = banco_id;
@@ -43,7 +41,7 @@ public class ParticaoPrimaria {
     }
 
 
-    public ParticaoPrimaria(String eNome, Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
+    public ParticaoMestre(String eNome, Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
         mArmazenador = eArmazenador;
         mArquivador = eArquivador;
         mBancoID = banco_id;
@@ -165,32 +163,10 @@ public class ParticaoPrimaria {
         return contando.get();
     }
 
-    public Lista<ItemDoBanco> getItens() {
 
-        Lista<ItemDoBanco> itens = new Lista<ItemDoBanco>();
+    public Lista<ItemDoBancoUTF8> getItensUTF8() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
-
-
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
-
-            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
-
-            for (Long pag : pags) {
-
-                Pagina pg = new Pagina(mArquivador, this, pag);
-                itens.adicionar_varios(pg.getItens());
-            }
-
-
-        }
-
-        return itens;
-    }
-
-    public Lista<ItemDoBancoUTF8Antigamente> getItensUTF8() {
-
-        Lista<ItemDoBancoUTF8Antigamente> itens = new Lista<ItemDoBancoUTF8Antigamente>();
+        Lista<ItemDoBancoUTF8> itens = new Lista<ItemDoBancoUTF8>();
 
         Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
@@ -201,7 +177,7 @@ public class ParticaoPrimaria {
 
             for (Long pag : pags) {
 
-                Pagina pg = new Pagina(mArquivador, this, pag);
+                PaginaMestre pg = new PaginaMestre(mArquivador, this, pag);
                 itens.adicionar_varios(pg.getItensUTF8());
             }
 
@@ -211,11 +187,31 @@ public class ParticaoPrimaria {
         return itens;
     }
 
+    public Lista<ItemDoBancoTX> getItensTX() {
+
+        Lista<ItemDoBancoTX> itens = new Lista<ItemDoBancoTX>();
+
+        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
 
-    public long adicionar(Entidade e) {
-        return adicionar(ENTT.TO_DOCUMENTO(e));
+        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+
+            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+
+            for (Long pag : pags) {
+
+                PaginaMestre pg = new PaginaMestre(mArquivador, this, pag);
+                itens.adicionar_varios(pg.getItensTX());
+            }
+
+
+        }
+
+        return itens;
     }
+
+
+
 
 
     public long adicionar(String conteudo) {
@@ -281,7 +277,7 @@ public class ParticaoPrimaria {
 
         //  System.out.println("Pagina Status = " + pagina_status);
 
-        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+        PaginaMestre pagina_atual = new PaginaMestre(mArquivador, this, mPaginaCorrente.get());
 
         if (Armazenador.IS_DEBUG) {
             System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
@@ -302,7 +298,7 @@ public class ParticaoPrimaria {
             Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
 
             // USAR NOVA PAGINA
-            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+            PaginaMestre pagina_trocada = new PaginaMestre(mArquivador, this, mPaginaCorrente.get());
 
             if (pagina_trocada.temDisponivel()) {
                 endereco = pagina_trocada.adicionar(conteudo);
@@ -321,21 +317,6 @@ public class ParticaoPrimaria {
     }
 
 
-    public void remover(ItemDoBanco item) {
-
-        mArquivador.setPonteiro(item.getPonteiro());
-        mArquivador.set_u8((byte) 2);
-
-
-        if (item.isDoBanco()) {
-            LocalCache.tentar_guardar_em_cache(mArquivador, item.getBanco().getLocalCache(), item.getPonteiro());
-        } else {
-            LocalCache.tentar_guardar_em_cache(mArquivador, mArmazenador.getGlobalCache(), item.getPonteiro());
-        }
-
-
-    }
-
     public void remover(ItemDoBancoTX item) {
 
         mArquivador.setPonteiro(item.getPonteiro());
@@ -353,22 +334,6 @@ public class ParticaoPrimaria {
 
 
     public void remover(ItemDoBancoUTF8 item) {
-
-        mArquivador.setPonteiro(item.getPonteiro());
-        mArquivador.set_u8((byte) 2);
-
-
-        if (item.isDoBanco()) {
-            LocalCache.tentar_guardar_em_cache(mArquivador, item.getBanco().getLocalCache(), item.getPonteiro());
-        } else {
-            LocalCache.tentar_guardar_em_cache(mArquivador, mArmazenador.getGlobalCache(), item.getPonteiro());
-        }
-
-
-    }
-
-
-    public void remover(ItemDoBancoUTF8Antigamente item) {
 
         mArquivador.setPonteiro(item.getPonteiro());
         mArquivador.set_u8((byte) 2);
@@ -464,7 +429,7 @@ public class ParticaoPrimaria {
         //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
         int r = 0;
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoTX item : getItensTX()) {
             remover(item);
             //     System.out.println("Removendo " + r);
             r += 1;
@@ -540,7 +505,7 @@ public class ParticaoPrimaria {
 
         //  System.out.println("Pagina Status = " + pagina_status);
 
-        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+        PaginaMestre pagina_atual = new PaginaMestre(mArquivador, this, mPaginaCorrente.get());
 
         if (Armazenador.IS_DEBUG) {
             System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
@@ -561,7 +526,7 @@ public class ParticaoPrimaria {
             Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
 
             // USAR NOVA PAGINA
-            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+            PaginaMestre pagina_trocada = new PaginaMestre(mArquivador, this, mPaginaCorrente.get());
 
             if (pagina_trocada.temDisponivel()) {
                 endereco = pagina_trocada.adicionarUTF8(conteudo);
@@ -593,7 +558,7 @@ public class ParticaoPrimaria {
             fmt.print("CAP :: {}", capitulo_ponteiro);
             for (Long pag : pags) {
 
-                Pagina pg = new Pagina(mArquivador, this, pag);
+                PaginaMestre pg = new PaginaMestre(mArquivador, this, pag);
 
                 for (Long item : pg.getAlocados()) {
                     fmt.print("\t++ Alocado :: {}", item);
@@ -620,7 +585,7 @@ public class ParticaoPrimaria {
             fmt.print("CAPITULO :: {}", capitulo_ponteiro);
             for (Long pag : pags) {
 
-                Pagina pg = new Pagina(mArquivador, this, pag);
+                PaginaMestre pg = new PaginaMestre(mArquivador, this, pag);
 
                 fmt.print("\t PAGINA :: {}", pg.getPonteiro());
 
@@ -642,10 +607,10 @@ public class ParticaoPrimaria {
         //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
         int r = 0;
 
-        Lista<ItemDoBanco> itens = getItens();
+        Lista<ItemDoBancoTX> itens = getItensTX();
         int total = itens.getQuantidade();
 
-        for (ItemDoBanco item : itens) {
+        for (ItemDoBancoTX item : itens) {
             remover(item);
             System.out.println(log + " " + r + " de " + total);
             r += 1;
@@ -721,7 +686,7 @@ public class ParticaoPrimaria {
 
         //  System.out.println("Pagina Status = " + pagina_status);
 
-        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+        PaginaMestre pagina_atual = new PaginaMestre(mArquivador, this, mPaginaCorrente.get());
 
         if (Armazenador.IS_DEBUG) {
             System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
@@ -742,7 +707,7 @@ public class ParticaoPrimaria {
             Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
 
             // USAR NOVA PAGINA
-            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+            PaginaMestre pagina_trocada = new PaginaMestre(mArquivador, this, mPaginaCorrente.get());
 
             if (pagina_trocada.temDisponivel()) {
                 endereco = pagina_trocada.adicionarTX(conteudo);

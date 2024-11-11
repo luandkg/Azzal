@@ -1,4 +1,4 @@
-package libs.aqz.colecao;
+package libs.aqz.extincao;
 
 import libs.armazenador.Armazenador;
 import libs.armazenador.ParticaoPrimaria;
@@ -11,14 +11,14 @@ import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
-public class Colecao {
+public class ColecaoAntigamente {
 
     private String mNome;
     private Armazenador mArmazenador;
     private ParticaoPrimaria mSequencias;
     private ParticaoPrimaria mColecao;
 
-    public Colecao(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public ColecaoAntigamente(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;

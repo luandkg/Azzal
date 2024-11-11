@@ -1,7 +1,7 @@
 package libs.aqz.utils;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
+import libs.armazenador.ParticaoMestre;
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
@@ -9,19 +9,17 @@ import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Matematica;
 
-import java.nio.charset.StandardCharsets;
-
 public class ItemDoBancoTX {
 
     private Arquivador mArquivador;
-    private ParticaoPrimaria mParticaoPrimaria;
+    private ParticaoMestre mParticaoPrimaria;
 
     private long mPonteiro;
     private long mPonteiroDados;
 
     private boolean mIsDoBanco;
 
-    public ItemDoBancoTX(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
+    public ItemDoBancoTX(Arquivador eArquivador, ParticaoMestre eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
         mArquivador = eArquivador;
         mParticaoPrimaria = eParticaoPrimaria;
         mPonteiro = ePonteiro;
@@ -50,7 +48,7 @@ public class ItemDoBancoTX {
     }
 
 
-    public ParticaoPrimaria getBanco() {
+    public ParticaoMestre getBanco() {
         return mParticaoPrimaria;
     }
 

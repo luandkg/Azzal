@@ -1,6 +1,5 @@
-package libs.aqz;
+package libs.aqz.extincao;
 
-import libs.aqz.colecao.AZInternamente;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -12,7 +11,7 @@ public class AQZUTF8Antigamente {
 
     public static  Lista<Entidade> OBTER_CONTEUDO(String arquivo_banco, String colecao) {
 
-        AZInternamente aqz = new AZInternamente(arquivo_banco);
+        AZInternamenteAntigamente aqz = new AZInternamenteAntigamente(arquivo_banco);
 
         Lista<Entidade> dados = aqz.colecoes_obter_utf8(colecao).getObjetosUTF8();
 
@@ -24,7 +23,7 @@ public class AQZUTF8Antigamente {
 
     public static void EXIBIR_CONTEUDO(String arquivo_banco, String colecao) {
 
-        AZInternamente aqz = new AZInternamente(arquivo_banco);
+        AZInternamenteAntigamente aqz = new AZInternamenteAntigamente(arquivo_banco);
 
         Lista<Entidade> dados = aqz.colecoes_obter_utf8(colecao).getObjetosUTF8();
 
@@ -37,7 +36,7 @@ public class AQZUTF8Antigamente {
 
     public static void EXIBIR_AMOSTRA(String arquivo_banco, String colecao) {
 
-        AZInternamente aqz = new AZInternamente(arquivo_banco);
+        AZInternamenteAntigamente aqz = new AZInternamenteAntigamente(arquivo_banco);
 
         Lista<Entidade> dados = aqz.colecoes_obter_utf8(colecao).getObjetosUTF8();
 
@@ -49,7 +48,7 @@ public class AQZUTF8Antigamente {
 
     public static void EXIBIR_DESCRITORES(String arquivo_banco, String colecao) {
 
-        AZInternamente aqz = new AZInternamente(arquivo_banco);
+        AZInternamenteAntigamente aqz = new AZInternamenteAntigamente(arquivo_banco);
 
         Lista<Entidade> dados = aqz.colecoes_obter_utf8(colecao).getObjetosUTF8();
 

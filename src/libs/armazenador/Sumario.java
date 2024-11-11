@@ -30,7 +30,7 @@ public class Sumario {
             long cap_local = mArquivador.get_u64();
 
             if (cap_local != 0) {
-                capitulos.add(new Long(cap_local));
+                capitulos.add(cap_local);
             }
 
         }
@@ -85,6 +85,37 @@ public class Sumario {
         for (Long pagina_ponteiro : Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
             Pagina pg = new Pagina(mArquivador, mParticaoPrimaria, pagina_ponteiro);
             contador.set(contador.get() + pg.contagemTodos());
+        }
+
+
+    }
+
+    public static void realizar_contagem_de_paginas_todos_no_capitulo(Arquivador mArquivador, ParticaoMestre mParticaoPrimaria, long capitulo_ponteiro, RefLong contador) {
+
+        for (Long pagina_ponteiro : Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
+            PaginaMestre pg = new PaginaMestre(mArquivador, mParticaoPrimaria, pagina_ponteiro);
+            contador.set(contador.get() + pg.contagemTodos());
+        }
+
+
+    }
+
+
+    public static void realizar_contagem_de_paginas_utilizadas_no_capitulo(Arquivador mArquivador, ParticaoMestre mParticaoPrimaria, long capitulo_ponteiro, RefLong contador) {
+
+        for (Long pagina_ponteiro : Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
+            PaginaMestre pg = new PaginaMestre(mArquivador, mParticaoPrimaria, pagina_ponteiro);
+            contador.set(contador.get() + pg.contagemUsados());
+        }
+
+
+    }
+
+    public static void realizar_contagem_de_paginas_alocados_no_capitulo(Arquivador mArquivador, ParticaoMestre mParticaoPrimaria, long capitulo_ponteiro, RefLong contador) {
+
+        for (Long pagina_ponteiro : Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
+            PaginaMestre pg = new PaginaMestre(mArquivador, mParticaoPrimaria, pagina_ponteiro);
+            contador.set(contador.get() + pg.contagemAlocados());
         }
 
 

@@ -4,6 +4,8 @@ import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import libs.aqz.AQZ;
 import libs.aqz.volume.AQZArquivoInternamente;
 import libs.aqz.AQZPasta;
+import libs.aqz.volume.AQZPastas;
+import libs.aqz.volume.AQZVolumes;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -18,14 +20,16 @@ public class TesteAQZVolumes {
 
     public static void init() {
 
-        String arquivo_banco = "/home/luan/assets/tronarkum.az";
+        String arquivo_banco = "/home/luan/assets/Migratorium.az";
 
         //  AQZ.VOLUMES_ZERAR(arquivo_banco);
 
-        AQZ.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco);
+        AQZ.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco);
 
-        AQZ.VOLUMES_DUMP(arquivo_banco);
-        fmt.print("Volume Blocos Livres :: {}", AQZ.VOLUME_BLOCOS_LIVRES(arquivo_banco));
+        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
+        fmt.print("Volume Blocos Livres :: {}", AQZVolumes.VOLUME_BLOCOS_LIVRES(arquivo_banco));
+
+        AQZPastas.EXIBIR_PASTAS(arquivo_banco);
 
         AQZPasta dados_textos_objetos = new AQZPasta(arquivo_banco, "TextoObjetos");
         //   dados_assets.limpar_refs();
@@ -86,10 +90,10 @@ public class TesteAQZVolumes {
 
 
         //  AQZ.VOLUMES_DUMP(arquivo_banco);
-        fmt.print("Volume Blocos Livres :: {}", AQZ.VOLUME_BLOCOS_LIVRES(arquivo_banco));
+        fmt.print("Volume Blocos Livres :: {}", AQZVolumes.VOLUME_BLOCOS_LIVRES(arquivo_banco));
 
 
-        AQZ.VOLUMES_DUMP(arquivo_banco);
+        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
         //   AQZ.ARQUIVO_DUMP(arquivo_banco);
 
         //    AQZ.VOLUME_ANALISAR_INTEGRIDADE(arquivo_banco);
@@ -107,15 +111,15 @@ public class TesteAQZVolumes {
 
         //  AQZ.VOLUMES_ZERAR(arquivo_banco);
 
-        AQZ.VOLUMES_DUMP(arquivo_banco);
-        fmt.print("Volume Blocos Livres :: {}", AQZ.VOLUME_BLOCOS_LIVRES(arquivo_banco));
+        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
+        fmt.print("Volume Blocos Livres :: {}", AQZVolumes.VOLUME_BLOCOS_LIVRES(arquivo_banco));
 
 
         AQZPasta dados_assets = new AQZPasta(arquivo_banco, "TextoObjetos");
         dados_assets.fechar();
 
-        AQZ.VOLUMES_DUMP(arquivo_banco);
-        AQZ.ARQUIVO_DUMP(arquivo_banco);
+        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
+        AQZVolumes.ARQUIVO_DUMP(arquivo_banco);
 
     }
 

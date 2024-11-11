@@ -1,10 +1,10 @@
 package libs.aqz.volume;
 
 import apps.app_campeonatum.VERIFICADOR;
-import libs.aqz.utils.OrquestradorBancario;
+import libs.aqz.utils.AZSequenciador;
+import libs.aqz.utils.ItemDoBancoTX;
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
-import libs.aqz.utils.ItemDoBanco;
+import libs.armazenador.ParticaoMestre;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -28,6 +28,10 @@ public class AZVolumeInternamente {
 
     public final static boolean DEBUG=false;
 
+    public static final String COLECAO_VOLUMES_DADOS = "@Volumes::Dados";
+    public static final String COLECAO_VOLUMES_SEQUENCIAS = "@Volumes::Sequencias";
+
+
     public AZVolumeInternamente(String eArquivo) {
         mArmazenador = new Armazenador(eArquivo);
     }
@@ -38,12 +42,12 @@ public class AZVolumeInternamente {
 
 
     public Lista<Entidade> volume_listar() {
-        ParticaoPrimaria volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
+        ParticaoMestre volumes = mArmazenador.getParticaoMestre(  COLECAO_VOLUMES_DADOS);
 
         Lista<Entidade> e_volumes = new Lista<Entidade>();
 
-        for (ItemDoBanco item : volumes.getItens()) {
-            Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : volumes.getItensTX()) {
+            Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             e_volumes.adicionar(obj);
 
         }
@@ -53,7 +57,11 @@ public class AZVolumeInternamente {
 
     public void volume_criar() {
 
-        ParticaoPrimaria volumes = OrquestradorBancario.organizar_banco(mArmazenador, "@Volumes");
+        ParticaoMestre volumes = mArmazenador.getParticaoMestre( COLECAO_VOLUMES_DADOS);
+
+        ParticaoMestre mSequencias = mArmazenador.getParticaoMestre(  COLECAO_VOLUMES_SEQUENCIAS);
+        AZSequenciador.organizar_sequencial(mSequencias, "@Volume.ChaveUnica");
+        AZSequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
 
 
         mArmazenador.getArquivador().setPonteiro(mArmazenador.getArquivador().getLength());
@@ -84,7 +92,7 @@ public class AZVolumeInternamente {
         novo_volume.at("DadosInicio", volume_dados_inicio);
         novo_volume.at("DadosFim", volume_dados_fim);
         novo_volume.at("Data", Calendario.getTempoCompleto());
-        volumes.adicionar(novo_volume);
+        volumes.adicionarTX(novo_volume);
 
     }
 

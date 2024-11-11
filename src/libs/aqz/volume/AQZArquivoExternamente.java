@@ -165,7 +165,7 @@ public class AQZArquivoExternamente {
 
         atualizar();
 
-        Lista<Entidade> volumes = AQZ.GET_VOLUMES(mArquivo);
+        Lista<Entidade> volumes = AQZVolumes.GET_VOLUMES(mArquivo);
         ENTT.EXIBIR_TABELA_COM_NOME(volumes, "@VOLUMES");
 
         Arquivador mArquivador = new Arquivador(mArquivo);

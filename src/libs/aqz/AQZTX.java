@@ -1,10 +1,9 @@
 package libs.aqz;
 
-import libs.aqz.colecao.AQZInternamenteTX;
+import libs.aqz.colecao.AZInternamenteTX;
 import libs.aqz.colecao.ColecaoTX;
-import libs.aqz.utils.ItemDoBanco;
 import libs.aqz.utils.ItemDoBancoTX;
-import libs.armazenador.ParticaoPrimaria;
+import libs.armazenador.ParticaoMestre;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -14,11 +13,11 @@ public class AQZTX {
 
     public static void EXIBIR_ESTRUTURA_PUBLICA(String arquivo_banco) {
 
-        AQZInternamenteTX aqz = new AQZInternamenteTX(arquivo_banco);
+        AZInternamenteTX aqz = new AZInternamenteTX(arquivo_banco);
 
         Lista<Entidade> objetos_publicos = new Lista<Entidade>();
 
-        for (ParticaoPrimaria item : aqz.particoes_listar()) {
+        for (ParticaoMestre item : aqz.particoes_listar()) {
             Entidade banco_item = new Entidade();
 
             banco_item.at("Nome", item.getNome());
@@ -39,7 +38,7 @@ public class AQZTX {
 
     public static void EXIBIR_COLECAO(String arquivo_banco, String colecao_nome) {
 
-        AQZInternamenteTX aqz = new AQZInternamenteTX(arquivo_banco);
+        AZInternamenteTX aqz = new AZInternamenteTX(arquivo_banco);
 
         Lista<Entidade> objetos = new Lista<Entidade>();
         for (ItemDoBancoTX item : aqz.colecoes_obter(colecao_nome).getItens()) {
@@ -54,13 +53,13 @@ public class AQZTX {
 
     public static void EXIBIR_TUDO(String arquivo_banco) {
 
-        AQZInternamenteTX aqz = new AQZInternamenteTX(arquivo_banco);
+        AZInternamenteTX aqz = new AZInternamenteTX(arquivo_banco);
 
-        for (ParticaoPrimaria particaoPrimaria : aqz.particoes_primarias()) {
+        for (ParticaoMestre particaoPrimaria : aqz.particoes_primarias()) {
 
             Lista<Entidade> objetos = new Lista<Entidade>();
-            for (ItemDoBanco item : particaoPrimaria.getItens()) {
-                objetos.adicionar(ENTT.PARSER_ENTIDADE(item.lerTexto()));
+            for (ItemDoBancoTX item : particaoPrimaria.getItensTX()) {
+                objetos.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoTX()));
             }
 
             ENTT.EXIBIR_TABELA_COM_TITULO(objetos, "TX :: INTERNO - " + particaoPrimaria.getNome());

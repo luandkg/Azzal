@@ -1,7 +1,7 @@
 package libs.aqz.utils;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
+import libs.armazenador.ParticaoMestre;
 
 public class AZSequenciometro {
 
@@ -9,21 +9,21 @@ public class AZSequenciometro {
     // CRIADO EM : 2024 01 07
 
     private Armazenador mArmazenador;
-    private ParticaoPrimaria mSequencias;
+    private ParticaoMestre mSequencias;
     private String mNomeSequencia;
 
-    public AZSequenciometro(Armazenador eArmazenador,String eNomeSequencia) {
-        mArmazenador =eArmazenador;
-        mNomeSequencia=eNomeSequencia;
-        mSequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
-        Sequenciador.organizar_sequencial(mSequencias, mNomeSequencia);
+    public AZSequenciometro(Armazenador eArmazenador, ParticaoMestre eSequencias, String eNomeSequencia) {
+        mArmazenador = eArmazenador;
+        mSequencias = eSequencias;
+        mNomeSequencia = eNomeSequencia;
+        AZSequenciador.organizar_sequencial(mSequencias, mNomeSequencia);
     }
 
-    public void organizar(){
-        Sequenciador.organizar_sequencial(mSequencias, mNomeSequencia);
+    public void organizar() {
+        AZSequenciador.organizar_sequencial(mSequencias, mNomeSequencia);
     }
 
-    public int getSequencial(){
-       return Sequenciador.aumentar_sequencial(mSequencias, mNomeSequencia);
+    public int getSequencial() {
+        return AZSequenciador.aumentar_sequencial(mSequencias, mNomeSequencia);
     }
 }

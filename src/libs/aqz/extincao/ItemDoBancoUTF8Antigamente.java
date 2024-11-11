@@ -1,7 +1,7 @@
-package libs.aqz.utils;
+package libs.aqz.extincao;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoMestre;
+import libs.armazenador.ParticaoPrimaria;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -9,17 +9,17 @@ import libs.luan.Matematica;
 
 import java.nio.charset.StandardCharsets;
 
-public class ItemDoBancoUTF8 {
+public class ItemDoBancoUTF8Antigamente {
 
     private Arquivador mArquivador;
-    private ParticaoMestre mParticaoPrimaria;
+    private ParticaoPrimaria mParticaoPrimaria;
 
     private long mPonteiro;
     private long mPonteiroDados;
 
     private boolean mIsDoBanco;
 
-    public ItemDoBancoUTF8(Arquivador eArquivador, ParticaoMestre eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
+    public ItemDoBancoUTF8Antigamente(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
         mArquivador = eArquivador;
         mParticaoPrimaria = eParticaoPrimaria;
         mPonteiro = ePonteiro;
@@ -27,7 +27,7 @@ public class ItemDoBancoUTF8 {
         mIsDoBanco = true;
     }
 
-    public ItemDoBancoUTF8(Arquivador eArquivador, long ePonteiro, long ePonteiroDados) {
+    public ItemDoBancoUTF8Antigamente(Arquivador eArquivador, long ePonteiro, long ePonteiroDados) {
         mArquivador = eArquivador;
         mPonteiro = ePonteiro;
         mPonteiroDados = ePonteiroDados;
@@ -48,9 +48,11 @@ public class ItemDoBancoUTF8 {
     }
 
 
-    public ParticaoMestre getBanco() {
+    public ParticaoPrimaria getBanco() {
         return mParticaoPrimaria;
     }
+
+
 
 
 

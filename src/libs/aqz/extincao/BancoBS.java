@@ -1,8 +1,5 @@
-package libs.aqz;
+package libs.aqz.extincao;
 
-import libs.aqz.colecao.Colecao;
-import libs.aqz.colecao.Unicidade;
-import libs.aqz.utils.OrquestradorBancario;
 import libs.aqz.utils.Sequenciador;
 import libs.armazenador.Armazenador;
 import libs.armazenador.ParticaoPrimaria;
@@ -18,15 +15,15 @@ public class BancoBS {
 
     public BancoBS(String eArquivo) {
         mArmazenador = new Armazenador(eArquivo);
-        s_sequencias = OrquestradorBancario.organizar_banco(mArmazenador, "@Sequencias");
+        s_sequencias = mArmazenador.getParticaoPrimaria( "@Sequencias");
     }
 
-    public Colecao getColecao(String eNome) {
-        return new Colecao(eNome, mArmazenador, s_sequencias, OrquestradorBancario.organizar_banco(mArmazenador, eNome));
+    public ColecaoAntigamente getColecao(String eNome) {
+        return new ColecaoAntigamente(eNome, mArmazenador, s_sequencias, mArmazenador.getParticaoPrimaria(  eNome));
     }
 
-    public Unicidade getSettum(String eNome) {
-        return new Unicidade(eNome, s_sequencias, OrquestradorBancario.organizar_banco(mArmazenador, eNome));
+    public UnicidadeAntigamente getSettum(String eNome) {
+        return new UnicidadeAntigamente(eNome, s_sequencias, mArmazenador.getParticaoPrimaria(  eNome));
     }
 
     public long getSequenciaID(String eNome) {
@@ -71,9 +68,9 @@ public class BancoBS {
     public void auto_analisar() {
 
 
-        Colecao colecao_analise = this.getColecao("@Analise");
-        colecao_analise.limpar();
-        colecao_analise.zerarSequencial();
+        ColecaoAntigamente colecao_Antigamente_analise = this.getColecao("@Analise");
+        colecao_Antigamente_analise.limpar();
+        colecao_Antigamente_analise.zerarSequencial();
 
         Lista<Entidade> objetos_analisados = new Lista<Entidade>();
 
@@ -107,7 +104,7 @@ public class BancoBS {
         }
 
         for (Entidade obj_analise : ENTT.ORDENAR_TEXTO(objetos_analisados, "Nome")) {
-            colecao_analise.adicionar(obj_analise);
+            colecao_Antigamente_analise.adicionar(obj_analise);
         }
 
         // colecao_analise.primeiro_campo("ID");

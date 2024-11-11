@@ -84,9 +84,9 @@ public class Sequenciador {
         Opcional<ItemDoBanco> item_objeto_contador = procurar_sequencial(eParticaoPrimaria, eNome);
 
         if (item_objeto_contador.temValor()) {
-            Sequenciador.sequencia(item_objeto_contador.get());
+            sequencia(item_objeto_contador.get());
         } else {
-            Sequenciador.criar_sequencial(eParticaoPrimaria, eNome, 0, 1);
+            criar_sequencial(eParticaoPrimaria, eNome, 0, 1);
         }
 
 
@@ -99,9 +99,9 @@ public class Sequenciador {
         int ret = 0;
 
         if (item_objeto_contador.temValor()) {
-            ret = Sequenciador.sequencia(item_objeto_contador.get());
+            ret = sequencia(item_objeto_contador.get());
         } else {
-            Sequenciador.criar_sequencial(eParticaoPrimaria, eNome, 0, 1);
+            criar_sequencial(eParticaoPrimaria, eNome, 0, 1);
             ret = 0;
         }
 

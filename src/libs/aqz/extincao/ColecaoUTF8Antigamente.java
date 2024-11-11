@@ -1,4 +1,4 @@
-package libs.aqz.colecao;
+package libs.aqz.extincao;
 
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.aqz.utils.Sequenciador;
@@ -69,7 +69,7 @@ public class ColecaoUTF8Antigamente {
 
     public void remover_por_chave(int eID) {
 
-        for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
+        for (ItemDoBancoUTF8Antigamente item : mColecao.getItensUTF8()) {
             Entidade objeto = item.toEntidadeUTF8();
             if (objeto.atIntOuPadrao("ID", 0) == eID) {
 
@@ -92,7 +92,7 @@ public class ColecaoUTF8Antigamente {
 
     public void atualizar_por_chave(int eID, Entidade objeto_novo) {
 
-        for (ItemDoBancoUTF8 item : mColecao.getItensUTF8()) {
+        for (ItemDoBancoUTF8Antigamente item : mColecao.getItensUTF8()) {
             Entidade objeto = item.toEntidadeUTF8();
             if (objeto.atIntOuPadrao("ID", 0) == eID) {
                 objeto_novo.at("ID", eID);
@@ -119,7 +119,7 @@ public class ColecaoUTF8Antigamente {
         mColecao.limpar_com_long(eLog);
     }
 
-    public Lista<ItemDoBancoUTF8> getItens() {
+    public Lista<ItemDoBancoUTF8Antigamente> getItens() {
         return mColecao.getItensUTF8();
     }
 
@@ -129,7 +129,7 @@ public class ColecaoUTF8Antigamente {
 
     public void primeiro_campo(String ePrimeiro) {
 
-        for (ItemDoBancoUTF8 item : getItens()) {
+        for (ItemDoBancoUTF8Antigamente item : getItens()) {
 
             Entidade objeto = item.toEntidadeUTF8();
 
@@ -154,7 +154,7 @@ public class ColecaoUTF8Antigamente {
 
         int indice_maior = 0;
 
-        for (ItemDoBancoUTF8 item : getItens()) {
+        for (ItemDoBancoUTF8Antigamente item : getItens()) {
 
             Entidade objeto = item.toEntidadeUTF8();
             int indice = objeto.atIntOuPadrao("ID", 0);
@@ -171,7 +171,7 @@ public class ColecaoUTF8Antigamente {
             mArquivadorIndice.set_u64(0);
         }
 
-        for (ItemDoBancoUTF8 item : getItens()) {
+        for (ItemDoBancoUTF8Antigamente item : getItens()) {
 
             Entidade objeto = item.toEntidadeUTF8();
             int indice = objeto.atIntOuPadrao("ID", 0);
@@ -261,11 +261,11 @@ public class ColecaoUTF8Antigamente {
 
     public Lista<Entidade> getObjetosUTF8() {
 
-        Lista<ItemDoBancoUTF8> itens = getItens();
+        Lista<ItemDoBancoUTF8Antigamente> itens = getItens();
 
         Lista<Entidade> objetos = new Lista<Entidade>();
 
-        for (ItemDoBancoUTF8 item : itens) {
+        for (ItemDoBancoUTF8Antigamente item : itens) {
             // fmt.print("ItemDoBanco : {}",item.lerTexto());
             Entidade obj = item.toEntidadeUTF8();
             objetos.adicionar(obj);

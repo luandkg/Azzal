@@ -1,21 +1,19 @@
 package libs.armazenador;
 
 
-import libs.aqz.extincao.ItemDoBancoUTF8Antigamente;
-import libs.aqz.utils.ItemDoBanco;
 import libs.aqz.utils.ItemDoBancoTX;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 
 
-public class Pagina {
+public class PaginaMestre {
 
     private Arquivador mArquivador;
-    private ParticaoPrimaria mParticaoPrimaria;
+    private ParticaoMestre mParticaoPrimaria;
     private long mPonteiro;
 
-    public Pagina(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro) {
+    public PaginaMestre(Arquivador eArquivador, ParticaoMestre eParticaoPrimaria, long ePonteiro) {
         mArquivador = eArquivador;
         mParticaoPrimaria = eParticaoPrimaria;
         mPonteiro = ePonteiro;
@@ -186,34 +184,9 @@ public class Pagina {
 
     }
 
-    public Lista<ItemDoBanco> getItens() {
+    public Lista<ItemDoBancoTX> getItens() {
 
-        Lista<ItemDoBanco> itens = new Lista<ItemDoBanco>();
-
-        mArquivador.setPonteiro(mPonteiro);
-
-        int pagina_status = mArquivador.get_u8();
-
-        for (int item = 0; item < Armazenador.MAX_ITENS_POR_PAGINA; item++) {
-
-            long item_ponteiro = mArquivador.getPonteiro();
-
-            int item_status = mArquivador.get_u8();
-            long pag_local = mArquivador.get_u64();
-
-            if (item_status == Armazenador.ITEM_ALOCADO_OCUPADO) {
-                itens.adicionar(new ItemDoBanco(mArquivador, mParticaoPrimaria, item_ponteiro, pag_local));
-            }
-
-        }
-
-        return itens;
-
-    }
-
-    public Lista<ItemDoBancoUTF8Antigamente> getItensUTF8() {
-
-        Lista<ItemDoBancoUTF8Antigamente> itens = new Lista<ItemDoBancoUTF8Antigamente>();
+        Lista<ItemDoBancoTX> itens = new Lista<ItemDoBancoTX>();
 
         mArquivador.setPonteiro(mPonteiro);
 
@@ -227,7 +200,7 @@ public class Pagina {
             long pag_local = mArquivador.get_u64();
 
             if (item_status == Armazenador.ITEM_ALOCADO_OCUPADO) {
-                itens.adicionar(new ItemDoBancoUTF8Antigamente(mArquivador, mParticaoPrimaria, item_ponteiro, pag_local));
+                itens.adicionar(new ItemDoBancoTX(mArquivador, mParticaoPrimaria, item_ponteiro, pag_local));
             }
 
         }
@@ -236,6 +209,55 @@ public class Pagina {
 
     }
 
+    public Lista<ItemDoBancoUTF8> getItensUTF8() {
+
+        Lista<ItemDoBancoUTF8> itens = new Lista<ItemDoBancoUTF8>();
+
+        mArquivador.setPonteiro(mPonteiro);
+
+        int pagina_status = mArquivador.get_u8();
+
+        for (int item = 0; item < Armazenador.MAX_ITENS_POR_PAGINA; item++) {
+
+            long item_ponteiro = mArquivador.getPonteiro();
+
+            int item_status = mArquivador.get_u8();
+            long pag_local = mArquivador.get_u64();
+
+            if (item_status == Armazenador.ITEM_ALOCADO_OCUPADO) {
+                itens.adicionar(new ItemDoBancoUTF8(mArquivador, mParticaoPrimaria, item_ponteiro, pag_local));
+            }
+
+        }
+
+        return itens;
+
+    }
+
+    public Lista<ItemDoBancoTX> getItensTX() {
+
+        Lista<ItemDoBancoTX> itens = new Lista<ItemDoBancoTX>();
+
+        mArquivador.setPonteiro(mPonteiro);
+
+        int pagina_status = mArquivador.get_u8();
+
+        for (int item = 0; item < Armazenador.MAX_ITENS_POR_PAGINA; item++) {
+
+            long item_ponteiro = mArquivador.getPonteiro();
+
+            int item_status = mArquivador.get_u8();
+            long pag_local = mArquivador.get_u64();
+
+            if (item_status == Armazenador.ITEM_ALOCADO_OCUPADO) {
+                itens.adicionar(new ItemDoBancoTX(mArquivador, mParticaoPrimaria, item_ponteiro, pag_local));
+            }
+
+        }
+
+        return itens;
+
+    }
 
     // FUNCOES PARA UTF-8
 

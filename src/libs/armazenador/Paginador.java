@@ -254,4 +254,91 @@ public class Paginador {
         return contando;
 
     }
+
+
+    public static void trocar_de_pagina(Arquivador mArquivador, ParticaoMestre mParticaoPrimaria, RefLong mLocalBanco, RefLong mLocalCapitulos, RefLong mPaginaCorrente) {
+
+        if (Armazenador.IS_DEBUG) {
+            System.out.println("!INFO - TROCAR DE PAGINA");
+        }
+
+        mArquivador.setPonteiro(mLocalCapitulos.get());
+
+        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+
+        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+
+
+            boolean encontrado = false;
+
+            for (Long pagina_ponteiro : getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
+                if (Armazenador.IS_DEBUG) {
+                    System.out.println("!INFO - TENTAR REUTILIZAR ALGUMA PAGINA DO CAP{" + capitulo_ponteiro + "}");
+                }
+
+                PaginaMestre pg = new PaginaMestre(mArquivador, mParticaoPrimaria, pagina_ponteiro);
+
+                if (pg.getPonteiro() != 0) {
+
+                    if (Armazenador.IS_DEBUG) {
+                        System.out.println("!INFO - PAGINA{" + pagina_ponteiro + "} -->> " + pg.contagemUsados() + " : " + pg.contagemTodos());
+                    }
+
+
+                    if (pg.temDisponivel()) {
+                        mPaginaCorrente.set(pg.getPonteiro());
+                        if (Armazenador.IS_DEBUG) {
+                            System.out.println("!INFO - REUTILIZAR PAGINA{" + pagina_ponteiro + "} : " + pg.getPonteiro());
+                        }
+
+                        encontrado = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!encontrado) {
+
+
+                Opcional<Long> nova_pagina = alocar_nova_pagina(mArquivador, capitulo_ponteiro);
+
+                if (nova_pagina.temValor()) {
+
+                    mPaginaCorrente.set(nova_pagina.get());
+
+                    mArquivador.setPonteiro(mLocalBanco.get() + 1 + 1024 + 8 + 8);
+                    mArquivador.set_u64(nova_pagina.get());
+
+                    encontrado = true;
+                }
+
+
+                if (!encontrado) {
+                    if (Armazenador.IS_DEBUG) {
+                        System.out.println("!INFO - SEM ESPACO NO CAPITULO");
+                    }
+
+
+                    Opcional<Long> novo_capitulo_primeira_pagina = alocar_novo_capitulo_com_uma_pagina(mArquivador, mLocalCapitulos.get());
+
+                    if (novo_capitulo_primeira_pagina.temValor()) {
+
+                        mPaginaCorrente.set(novo_capitulo_primeira_pagina.get());
+
+                        mArquivador.setPonteiro(mLocalBanco.get() + 1 + 1024 + 8 + 8);
+                        mArquivador.set_u64(mPaginaCorrente.get());
+
+
+                    }
+
+
+                }
+
+            }
+
+        }
+
+
+    }
+
 }

@@ -1,13 +1,14 @@
 package libs.aqz;
 
-import libs.aqz.colecao.AZInternamente;
+import libs.aqz.volume.AZInternamentePastas;
+import libs.aqz.colecao.ColecaoTX;
 import libs.aqz.utils.AZSequenciometro;
+import libs.aqz.utils.ItemDoBancoTX;
 import libs.aqz.volume.AQZArquivoInternamente;
 import libs.aqz.volume.AQZInode;
 import libs.aqz.volume.AZVolumeInternamente;
 import libs.armazenador.Armazenador;
-import libs.aqz.utils.ItemDoBanco;
-import libs.aqz.colecao.Colecao;
+import libs.armazenador.ParticaoMestre;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -26,9 +27,9 @@ public class AQZPasta {
 
     private Armazenador mArmazenador;
     private AZVolumeInternamente mAZVolumeInternamente;
-    private AZInternamente mAZInternamente;
+    private AZInternamentePastas mAZInternamentePastas;
     private AZSequenciometro mAZSequenciometro;
-    private Colecao mColecao;
+    private ColecaoTX mColecao;
     private String mColecaoNome;
 
     public final static boolean DEBUG=false;
@@ -40,11 +41,15 @@ public class AQZPasta {
         Armazenador.CHECAR(eArquivo);
 
         mArmazenador = new Armazenador(eArquivo);
-        mAZInternamente = new AZInternamente(mArmazenador);
+        mAZInternamentePastas = new AZInternamentePastas(mArmazenador);
         mAZVolumeInternamente = new AZVolumeInternamente(mArmazenador);
-        mAZSequenciometro = new AZSequenciometro(mArmazenador, "@Volume.ChaveUnica");
 
-        mColecao = mAZInternamente.colecao_orgarnizar_e_obter(eNomeColecao);
+
+        ParticaoMestre mSequencias = mArmazenador.getParticaoMestre( AZVolumeInternamente.COLECAO_VOLUMES_SEQUENCIAS);
+
+        mAZSequenciometro = new AZSequenciometro(mArmazenador, mSequencias,"VID");
+
+        mColecao = mAZInternamentePastas.colecao_orgarnizar_e_obter(eNomeColecao);
 
         mAZSequenciometro.organizar();
 
@@ -114,8 +119,8 @@ public class AQZPasta {
 
         //fmt.print("Chave Unica : {}",arquivo_id);
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
 
                 long inode_existente = e_item.atLong("INode");
@@ -134,13 +139,13 @@ public class AQZPasta {
                     e_item.at("Tamanho", bytes.length);
                     e_item.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-                    item.atualizar(e_item);
+                    item.atualizarTX(e_item);
                     return true;
                 }
 
                 e_item.at("INode", "");
                 e_item.at("Status", "Corrompido");
-                item.atualizar(e_item);
+                item.atualizarTX(e_item);
                 break;
             }
         }
@@ -173,8 +178,8 @@ public class AQZPasta {
 
     public boolean existe(String eNome) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
                 return true;
             }
@@ -184,8 +189,8 @@ public class AQZPasta {
 
     public void limpar() {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
 
             long inode_existente = e_item.atLong("INode");
 
@@ -197,8 +202,8 @@ public class AQZPasta {
 
     public void limparComDebug() {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
 
             fmt.print("\t >> OPERAÇÃO REMOVER :: {}", e_item.at("Nome"));
 
@@ -218,8 +223,8 @@ public class AQZPasta {
     public byte[] getBytes(String eNome) {
         byte bytes[] = new byte[10];
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
 
                 AQZArquivoInternamente aq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
@@ -240,8 +245,8 @@ public class AQZPasta {
 
     public void dump_estrutura_arquivo(String eNome) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
 
                 AQZArquivoInternamente aq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
@@ -257,15 +262,15 @@ public class AQZPasta {
 
     public void remover(String eNome) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
 
                 long inode_existente = e_item.atLong("INode");
 
                 e_item.at("INode", "");
                 e_item.at("Status", "Removido");
-                item.atualizar(e_item);
+                item.atualizarTX(e_item);
 
                 AQZInode.INODE_REMOVER(mAZVolumeInternamente, mArmazenador, inode_existente);
 
@@ -280,8 +285,8 @@ public class AQZPasta {
 
     public Opcional<Entidade> procurar(String eNome) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
                 return Opcional.OK(e_item);
             }
@@ -292,8 +297,8 @@ public class AQZPasta {
 
     public Opcional<AQZArquivoInternamente> procurarArquivoInternamente(String eNome) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
                 AQZArquivoInternamente arq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
                 arq.atualizar();
@@ -306,8 +311,8 @@ public class AQZPasta {
 
     public Opcional<Par<Entidade,AQZArquivoInternamente>> procurarArquivoInternamenteComInformacoes(String eNome) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             if (e_item.is("Nome", eNome)) {
                 AQZArquivoInternamente arq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
                 arq.atualizar();
@@ -323,8 +328,8 @@ public class AQZPasta {
 
         Lista<Entidade> corrompidos = new Lista<Entidade>();
 
-        for (ItemDoBanco item : mColecao.getItens()) {
-            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTexto());
+        for (ItemDoBancoTX item : mColecao.getItens()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
 
             AQZArquivoInternamente arq = new AQZArquivoInternamente(mArmazenador.getArquivador(), e_item.atLong("INode"));
             boolean is_integro = arq.verificar_integridade();

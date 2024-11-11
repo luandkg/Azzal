@@ -1,20 +1,20 @@
-package libs.aqz.colecao;
+package libs.aqz.extincao;
 
 import libs.aqz.utils.Sequenciador;
-import libs.armazenador.Banco;
+import libs.armazenador.ParticaoPrimaria;
 import libs.aqz.utils.ItemDoBanco;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 
 
-public class Unicidade {
+public class UnicidadeAntigamente {
 
     private String mNome;
-    private Banco mSequencias;
-    private Banco mColecao;
+    private ParticaoPrimaria mSequencias;
+    private ParticaoPrimaria mColecao;
 
-    public Unicidade(String eNome,  Banco eSequencias, Banco eColecao) {
+    public UnicidadeAntigamente(String eNome, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
         mNome = eNome;
         mSequencias = eSequencias;
         mColecao = eColecao;

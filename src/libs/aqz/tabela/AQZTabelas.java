@@ -1,6 +1,6 @@
 package libs.aqz.tabela;
 
-import libs.armazenador.ParticaoPrimaria;
+import libs.armazenador.ParticaoMestre;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -16,7 +16,7 @@ public class AQZTabelas {
 
         Lista<Entidade> objetos_publicos = new Lista<Entidade>();
 
-        for (ParticaoPrimaria item : aqz.tabelas_listar()) {
+        for (ParticaoMestre item : aqz.tabelas_listar()) {
             Entidade banco_item = new Entidade();
 
             banco_item.at("Nome", item.getNome());
@@ -41,7 +41,7 @@ public class AQZTabelas {
 
         Lista<Entidade> objetos_publicos = new Lista<Entidade>();
 
-        for (ParticaoPrimaria item : aqz.esquemas_listar()) {
+        for (ParticaoMestre item : aqz.esquemas_listar()) {
             Entidade banco_item = new Entidade();
 
             banco_item.at("Nome", item.getNome());

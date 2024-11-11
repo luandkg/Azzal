@@ -410,4 +410,51 @@ public class TX {
 
     }
 
+    public static String ler_vetor(byte[] bytes) {
+
+        TX eTX = new TX();
+
+        String texto = "";
+
+        // System.out.println("Texto TX - Iniciado");
+
+        boolean lendo = true;
+
+        int ii = 0;
+        int oo = bytes.length;
+
+        while (lendo && (ii < oo)) {
+
+            int valor = Inteiro.byteToInt(bytes[ii]);
+            ii += 1;
+
+            if (valor == 0) {
+                lendo = false;
+            } else {
+                if (valor == 255) {
+
+                    int valor2 = Inteiro.byteToInt(bytes[ii]);
+                    ii += 1;
+
+                    int menos = valor2 - 1;
+                    texto += eTX.getCaracter(menos);
+
+                } else {
+
+                    int menos = valor - 1;
+                    texto += eTX.getCaracter(menos);
+
+                }
+            }
+
+            if (ii > oo) {
+                break;
+            }
+
+        }
+
+
+        return texto;
+    }
+
 }
