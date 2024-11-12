@@ -62,7 +62,7 @@ public class AZVolumeInternamente {
         ParticaoMestre mSequencias = mArmazenador.getParticaoMestre(COLECAO_VOLUMES_SEQUENCIAS);
 
         AZSequenciador.organizar_sequencial(mSequencias, "@Volume.ChaveUnica");
-       // AZSequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
+        // AZSequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
 
 
         boolean volume_iniciado = false;
@@ -87,7 +87,7 @@ public class AZVolumeInternamente {
         novo_volume.at("DDC", Tronarko.getTronAgora().getTextoZerado());
         novo_volume.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-        volume_iniciado_ponteiro=  volumes.adicionarTX(novo_volume);
+        volume_iniciado_ponteiro = volumes.adicionarTX(novo_volume);
         volume_iniciado = true;
 
 
@@ -151,7 +151,7 @@ public class AZVolumeInternamente {
                     novo_volume.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
 
-                    ItemGuardar.guardar_item_direto(mArmazenador.getArquivador(),volume_iniciado_ponteiro,TX.toListBytes(ENTT.TO_DOCUMENTO(novo_volume)));
+                    ItemGuardar.guardar_item_direto(mArmazenador.getArquivador(), volume_iniciado_ponteiro, TX.toListBytes(ENTT.TO_DOCUMENTO(novo_volume)));
 
 
                     fmt.print("Alocando :: Atualizando ->> {}", volume_iniciado_ponteiro);
@@ -190,7 +190,7 @@ public class AZVolumeInternamente {
             novo_volume.at("Blocos", blocos_alocados);
             novo_volume.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
-            ItemGuardar.guardar_item_direto(mArmazenador.getArquivador(),volume_iniciado_ponteiro,TX.toListBytes(ENTT.TO_DOCUMENTO(novo_volume)));
+            ItemGuardar.guardar_item_direto(mArmazenador.getArquivador(), volume_iniciado_ponteiro, TX.toListBytes(ENTT.TO_DOCUMENTO(novo_volume)));
 
             fmt.print("Alocando :: Finalizando ->> {}", volume_iniciado_ponteiro);
 
@@ -208,6 +208,8 @@ public class AZVolumeInternamente {
         for (Entidade volume : e_volumes) {
             Entidade volume_dado = ENTT.CRIAR_EM(volumes_dados);
             volume_dado.at("VID", volume.at("VID"));
+            volume_dado.at("Tipo", volume.at("Tipo"));
+            volume_dado.at("Status", volume.at("Status"));
 
             long mapa_inicio = volume.atLong("MapaInicio");
             long mapa_fim = volume.atLong("MapaFim");
@@ -215,10 +217,10 @@ public class AZVolumeInternamente {
             long dados_inicio = volume.atLong("DadosInicio");
             long dados_fim = volume.atLong("DadosFim");
 
-            volume_dado.at("Mapa.Tamanho", mapa_fim - mapa_inicio);
-            volume_dado.at("Dados.Tamanho", dados_fim - dados_inicio);
+            long volume_quantidade_de_blocos = volume.atLong("Blocos");
 
-            long volume_quantidade_de_blocos = mapa_fim - mapa_inicio;
+            volume_dado.at("Objetos.Quantidade", volume_quantidade_de_blocos);
+
 
             if (volume_quantidade_de_blocos > VOLUME_BLOCOS_QUANTIDADE) {
                 volume_quantidade_de_blocos = VOLUME_BLOCOS_QUANTIDADE;
@@ -249,6 +251,10 @@ public class AZVolumeInternamente {
             volume_dado.at("Objetos.Livre", objetos_livres);
             volume_dado.at("Objetos.Ocupado", objetos_ocupados);
             volume_dado.at("Objetos.Raiz", objetos_raiz);
+            volume_dado.at("Tamanho.Alocado", fmt.formatar_tamanho_precisao_dupla(volume_quantidade_de_blocos * AZVolumeInternamente.VOLUME_INODE_TAMANHO));
+            volume_dado.at("Tamanho.Utilizavel", fmt.formatar_tamanho_precisao_dupla(volume_quantidade_de_blocos * AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO));
+            volume_dado.at("Tamanho.Disponivel", fmt.formatar_tamanho_precisao_dupla(objetos_livres * AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO));
+            volume_dado.at("Tamanho.Ocupado", fmt.formatar_tamanho_precisao_dupla(objetos_ocupados * AZVolumeInternamente.VOLUME_INODE_DADOS_TAMANHO));
 
         }
 
@@ -305,8 +311,9 @@ public class AZVolumeInternamente {
 
             long dados_inicio = volume.atLong("DadosInicio");
             long dados_fim = volume.atLong("DadosFim");
+            long blocos = volume.atLong("Blocos");
 
-            AQZVolume volume_dado = new AQZVolume(mArmazenador.getArquivador(), volume.atIntOuPadrao("VID", 0), mapa_inicio, mapa_fim, dados_inicio, dados_fim);
+            AQZVolume volume_dado = new AQZVolume(mArmazenador.getArquivador(), volume.atIntOuPadrao("VID", 0), mapa_inicio, mapa_fim,blocos, dados_inicio, dados_fim);
             volumes_dados.adicionar(volume_dado);
 
         }

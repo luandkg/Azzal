@@ -2,12 +2,15 @@ package libs.aqz.colecao;
 
 import libs.aqz.utils.AZSequenciador;
 import libs.aqz.utils.ItemDoBancoTX;
+import libs.aqz.utils.ProcuradorTX;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Particao;
 import libs.armazenador.ParticaoMestre;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.Opcional;
+import libs.luan.Par;
 import libs.tempo.Calendario;
 
 public class AZInternamenteUTF8 {
@@ -51,48 +54,29 @@ public class AZInternamenteUTF8 {
         ParticaoMestre s_bancos = mArmazenador.getParticaoMestre(COLECOES_DADOS);
         ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre(COLECOES_SEQUENCIAS);
 
+        String coluna_nome_sequenciador="UTF8";
 
-        Entidade init_bancos = new Entidade();
-        ItemDoBancoTX ref_init_bancos = null;
-        boolean init_bancos_existe = false;
+        Opcional<Par<ItemDoBancoTX, Entidade>> sequenciador = ProcuradorTX.procurar(s_inits, "Nome", coluna_nome_sequenciador);
 
-        for (ItemDoBancoTX item : s_inits.getItensTX()) {
-            Entidade item_dkg = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
-            if (item_dkg.at("Nome").toUpperCase().contentEquals("COLECAO")) {
-                ref_init_bancos = item;
-                init_bancos = item_dkg;
-                init_bancos_existe = true;
-                break;
-            }
-        }
+        if (!sequenciador.isOK()) {
 
-
-        if (!init_bancos_existe) {
             Entidade nova_init = new Entidade();
-            nova_init.at("ID", s_inits.getItensAlocadosContagem());
-            nova_init.at("Nome", "COLECAO");
-            nova_init.at("Corrente", 0);
-            nova_init.at("Sequencia", 1);
+            nova_init.at("Nome", coluna_nome_sequenciador);
+            nova_init.at("Sequencia", 0);
+            nova_init.at("Passo", 1);
             nova_init.at("DDC", Calendario.getTempoCompleto());
             nova_init.at("DDA", Calendario.getTempoCompleto());
             s_inits.adicionarTX(nova_init);
 
-            for (ItemDoBancoTX item : s_inits.getItensTX()) {
-                Entidade item_dkg = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
-                if (item_dkg.at("Nome").toUpperCase().contentEquals("COLECAO")) {
-                    ref_init_bancos = item;
-                    init_bancos = item_dkg;
-                    init_bancos_existe = true;
-                    break;
-                }
-            }
-
-            if (!init_bancos_existe) {
-                mArmazenador.fechar();
-                throw new RuntimeException("AQZ ERRO - Init nao encontrada : @ColecoesTX::Dados");
-            }
-
+            sequenciador = ProcuradorTX.procurar(s_inits, "Nome", coluna_nome_sequenciador);
         }
+
+        if (!sequenciador.isOK()) {
+            mArmazenador.fechar();
+            throw new RuntimeException("AQZ ERRO - Init nao encontrada : " + coluna_nome_sequenciador);
+        }
+
+
 
         boolean existe = false;
         boolean criado = false;
@@ -128,13 +112,15 @@ public class AZInternamenteUTF8 {
                 AZSequenciador.zerar_sequencial(s_sequencias, nome_antigo);
 
 
-                int novo_id = init_bancos.atInt("Corrente");
 
-                init_bancos.at("Corrente", init_bancos.atInt("Corrente") + init_bancos.atInt("Sequencia"));
-                init_bancos.at("Sequencia", 1);
-                init_bancos.at("DDA", Calendario.getTempoCompleto());
+                int novo_id = sequenciador.get().getValor().atInt("Sequencia");
 
-                ref_init_bancos.atualizarTX(init_bancos);
+                sequenciador.get().getValor().at("Sequencia", sequenciador.get().getValor().atInt("Sequencia") + sequenciador.get().getValor().atInt("Passo"));
+                sequenciador.get().getValor().at("DDA", Calendario.getTempoCompleto());
+
+                sequenciador.get().getChave().atualizarTX(sequenciador.get().getValor());
+
+
 
                 obj_colecao.at("PID", novo_id);
                 obj_colecao.at("Status", "OK");
@@ -156,14 +142,15 @@ public class AZInternamenteUTF8 {
 
         if (!existe) {
 
-            int banco_id = init_bancos.atIntOuPadrao("Corrente", 0);
 
-            init_bancos.at("Sequencia", 1);
-            init_bancos.at("Corrente", init_bancos.atInt("Corrente") + init_bancos.atInt("Sequencia"));
+            int novo_id = sequenciador.get().getValor().atInt("Sequencia");
 
-            init_bancos.at("DDA", Calendario.getTempoCompleto());
+            sequenciador.get().getValor().at("Sequencia", sequenciador.get().getValor().atInt("Sequencia") + sequenciador.get().getValor().atInt("Passo"));
+            sequenciador.get().getValor().at("DDA", Calendario.getTempoCompleto());
 
-            ref_init_bancos.atualizarTX(init_bancos);
+            sequenciador.get().getChave().atualizarTX(sequenciador.get().getValor());
+
+
 
 
             Particao particao = mArmazenador.criarParticao();
@@ -171,7 +158,7 @@ public class AZInternamenteUTF8 {
 
             Entidade nova_colecao = new Entidade();
 
-            nova_colecao.at("PID", banco_id);
+            nova_colecao.at("PID", novo_id);
             nova_colecao.at("Status", "OK");
             nova_colecao.at("Nome", colecao_nome.toUpperCase());
             nova_colecao.at("NomeOriginal", nome_original);

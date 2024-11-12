@@ -23,7 +23,7 @@ public class AQZVolume {
     private int objetos_ocupados = 0;
     private int objetos_raiz = 0;
 
-    public AQZVolume(Arquivador eArquivador, int volume_id, long eMapaInicio, long eMapaFim, long eDadosInicio, long eDadosFim) {
+    public AQZVolume(Arquivador eArquivador, int volume_id, long eMapaInicio, long eMapaFim,long eBlocos, long eDadosInicio, long eDadosFim) {
         mArquivador = eArquivador;
         mVolumeID = volume_id;
         mMapaInicio = eMapaInicio;
@@ -31,7 +31,7 @@ public class AQZVolume {
         mDadosInicio = eDadosInicio;
         mDadosFim = eDadosFim;
 
-         mBlocosQuantidade = mMapaFim - mMapaInicio;
+         mBlocosQuantidade = eBlocos;
 
         if (mBlocosQuantidade > AZVolumeInternamente. VOLUME_BLOCOS_QUANTIDADE) {
             mBlocosQuantidade = AZVolumeInternamente. VOLUME_BLOCOS_QUANTIDADE;
@@ -170,7 +170,7 @@ public class AQZVolume {
         }
 
 
-        ENTT.EXIBIR_TABELA_COM_NOME(arquivos, "@ARQUIVOS");
+        ENTT.EXIBIR_TABELA_COM_NOME(arquivos, "@ARQUIVOS :: VOLUME ( "+this.getVolumeID()+" )");
 
     }
 

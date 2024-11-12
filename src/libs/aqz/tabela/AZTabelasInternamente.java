@@ -1,14 +1,17 @@
 package libs.aqz.tabela;
 
-import libs.aqz.utils.AZSequenciador;
 import libs.aqz.colecao.ColecaoUTF8;
+import libs.aqz.utils.AZSequenciador;
 import libs.aqz.utils.ItemDoBancoTX;
+import libs.aqz.utils.ProcuradorTX;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Particao;
 import libs.armazenador.ParticaoMestre;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.Opcional;
+import libs.luan.Par;
 import libs.tempo.Calendario;
 
 public class AZTabelasInternamente {
@@ -65,62 +68,45 @@ public class AZTabelasInternamente {
 
         tabela_nome = tabela_nome.toUpperCase();
 
+        ParticaoMestre s_tabelas = mArmazenador.getParticaoMestre("@Tabelas");
 
-        ParticaoMestre s_tabelas_dados = mArmazenador.getParticaoMestre(  "@TabelasDados");
-        ParticaoMestre s_tabelas_esquemas = mArmazenador.getParticaoMestre(  "@TabelasEsquemas");
+        ParticaoMestre s_tabelas_dados = mArmazenador.getParticaoMestre("@TabelasDados");
+        ParticaoMestre s_tabelas_esquemas = mArmazenador.getParticaoMestre("@TabelasEsquemas");
 
-        ParticaoMestre s_sequencias_dados = mArmazenador.getParticaoMestre( "@TabelasDados::Sequencias");
-        ParticaoMestre s_sequencias_esquemas = mArmazenador.getParticaoMestre(  "@TabelasEsquemas::Sequencias");
+        ParticaoMestre s_sequencias_dados = mArmazenador.getParticaoMestre("@TabelasDados::Sequencias");
+        ParticaoMestre s_sequencias_esquemas = mArmazenador.getParticaoMestre("@TabelasEsquemas::Sequencias");
 
 
-        tabela_criar_dados(s_tabelas_dados, s_sequencias_dados, nome_original, tabela_nome);
-        tabela_criar_dados(s_tabelas_esquemas, s_sequencias_esquemas, nome_original, tabela_nome);
+        tabela_criar_dados(s_tabelas,"@TabelaID", s_tabelas_dados, s_sequencias_dados, nome_original, tabela_nome);
+        tabela_criar_dados(s_tabelas,"@EsquemaID", s_tabelas_esquemas, s_sequencias_esquemas, nome_original, tabela_nome);
 
     }
 
 
-    private void tabela_criar_dados(ParticaoMestre s_conjunto_de_bancos, ParticaoMestre s_conjunto_de_sequencias, String nome_original, String tabela_nome) {
-
-        Entidade init_bancos = new Entidade();
-        ItemDoBancoTX ref_init_bancos = null;
-        boolean init_bancos_existe = false;
-
-        for (ItemDoBancoTX item : s_conjunto_de_bancos.getItensTX()) {
-            Entidade item_dkg = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
-            if (item_dkg.at("Nome").toUpperCase().contentEquals("TABELA")) {
-                ref_init_bancos = item;
-                init_bancos = item_dkg;
-                init_bancos_existe = true;
-                break;
-            }
-        }
+    private void tabela_criar_dados(ParticaoMestre s_conjunto_mestre,String coluna_nome_sequenciador, ParticaoMestre s_conjunto_de_bancos, ParticaoMestre s_conjunto_de_sequencias, String nome_original, String tabela_nome) {
 
 
-        if (!init_bancos_existe) {
+        Opcional<Par<ItemDoBancoTX, Entidade>> sequenciador = ProcuradorTX.procurar(s_conjunto_mestre, "Nome", coluna_nome_sequenciador);
+
+        if (!sequenciador.isOK()) {
+
             Entidade nova_init = new Entidade();
-            nova_init.at("Nome", "TABELA");
-            nova_init.at("Corrente", 0);
-            nova_init.at("Sequencia", 1);
+            nova_init.at("Nome", coluna_nome_sequenciador);
+            nova_init.at("Sequencia", 0);
+            nova_init.at("Passo", 1);
             nova_init.at("DDC", Calendario.getTempoCompleto());
             nova_init.at("DDA", Calendario.getTempoCompleto());
-            s_conjunto_de_bancos.adicionarTX(nova_init);
+            s_conjunto_mestre.adicionarTX(nova_init);
 
-            for (ItemDoBancoTX item : s_conjunto_de_bancos.getItensTX()) {
-                Entidade item_dkg = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
-                if (item_dkg.at("Nome").toUpperCase().contentEquals("TABELA")) {
-                    ref_init_bancos = item;
-                    init_bancos = item_dkg;
-                    init_bancos_existe = true;
-                    break;
-                }
-            }
-
-            if (!init_bancos_existe) {
-                mArmazenador.fechar();
-                throw new RuntimeException("AQZ ERRO - Init nao encontrada : TABELAS");
-            }
-
+            sequenciador = ProcuradorTX.procurar(s_conjunto_mestre, "Nome", coluna_nome_sequenciador);
         }
+
+        if (!sequenciador.isOK()) {
+            mArmazenador.fechar();
+            throw new RuntimeException("AQZ ERRO - Init nao encontrada : " + coluna_nome_sequenciador);
+        }
+
+
 
         boolean existe = false;
         boolean criado = false;
@@ -140,7 +126,7 @@ public class AZTabelasInternamente {
 
                 String nome_antigo = obj_colecao.at("Nome");
 
-                int banco_id = obj_colecao.atInt("BID");
+                int banco_id = obj_colecao.atInt("PID");
 
                 long ponteiro_inicial_do_banco = obj_colecao.atLong("Ponteiro");
 
@@ -156,15 +142,14 @@ public class AZTabelasInternamente {
                 AZSequenciador.zerar_sequencial(s_conjunto_de_sequencias, nome_antigo);
 
 
-                int novo_id = init_bancos.atInt("Corrente", 0);
+                int novo_id = sequenciador.get().getValor().atInt("Sequencia");
 
-                init_bancos.at("Corrente", init_bancos.atInt("Corrente", 0) + init_bancos.atInt("Sequencia", 0));
-                init_bancos.at("Sequencia", 1);
-                init_bancos.at("DDA", Calendario.getTempoCompleto());
+                sequenciador.get().getValor().at("Sequencia", sequenciador.get().getValor().atInt("Sequencia") + sequenciador.get().getValor().atInt("Passo"));
+                sequenciador.get().getValor().at("DDA", Calendario.getTempoCompleto());
 
-                ref_init_bancos.atualizarTX(init_bancos);
+                sequenciador.get().getChave().atualizarTX(sequenciador.get().getValor());
 
-                obj_colecao.at("BID", novo_id);
+                obj_colecao.at("PID", novo_id);
                 obj_colecao.at("Status", "OK");
                 obj_colecao.at("Nome", tabela_nome.toUpperCase());
                 obj_colecao.at("NomeOriginal", nome_original);
@@ -184,20 +169,19 @@ public class AZTabelasInternamente {
 
         if (!existe) {
 
-            int banco_id = init_bancos.atInt("Corrente", 0);
+            int novo_id = sequenciador.get().getValor().atInt("Sequencia");
 
-            init_bancos.at("Corrente", init_bancos.at("Corrente", 0) + init_bancos.at("Sequencia", 0));
-            init_bancos.at("Sequencia", 1);
-            init_bancos.at("DDA", Calendario.getTempoCompleto());
+            sequenciador.get().getValor().at("Sequencia", sequenciador.get().getValor().atInt("Sequencia") + sequenciador.get().getValor().atInt("Passo"));
+            sequenciador.get().getValor().at("DDA", Calendario.getTempoCompleto());
 
-            ref_init_bancos.atualizarTX(init_bancos);
+            sequenciador.get().getChave().atualizarTX(sequenciador.get().getValor());
 
             Particao particao = mArmazenador.criarParticao();
 
 
             Entidade nova_colecao = new Entidade();
 
-            nova_colecao.at("BID", banco_id);
+            nova_colecao.at("PID", novo_id);
             nova_colecao.at("Status", "OK");
             nova_colecao.at("Nome", tabela_nome.toUpperCase());
             nova_colecao.at("NomeOriginal", nome_original);
@@ -223,7 +207,7 @@ public class AZTabelasInternamente {
 
         Lista<ParticaoMestre> mBancos = new Lista<ParticaoMestre>();
 
-        ParticaoMestre s_tabelas_dados = mArmazenador.getParticaoMestre(  "@TabelasDados");
+        ParticaoMestre s_tabelas_dados = mArmazenador.getParticaoMestre("@TabelasDados");
 
         for (ItemDoBancoTX item : s_tabelas_dados.getItensTX()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
@@ -234,7 +218,7 @@ public class AZTabelasInternamente {
 
                 String nome = obj_colecao.at("Nome");
 
-                int banco_id = obj_colecao.atInt("BID");
+                int banco_id = obj_colecao.atInt("PID");
 
                 long ponteiro_inicial_do_banco = obj_colecao.atLong("Ponteiro");
 
@@ -262,7 +246,7 @@ public class AZTabelasInternamente {
 
         tabela_nome = tabela_nome.toUpperCase();
 
-        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre(  "@TabelasDados::Sequencias");
+        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre("@TabelasDados::Sequencias");
 
         for (ParticaoMestre b : tabelas_listar()) {
             if (b.getNome().contentEquals(tabela_nome)) {
@@ -282,7 +266,7 @@ public class AZTabelasInternamente {
 
         Lista<ParticaoMestre> mBancos = new Lista<ParticaoMestre>();
 
-        ParticaoMestre s_tabelas_dados = mArmazenador.getParticaoMestre(  "@TabelasEsquemas");
+        ParticaoMestre s_tabelas_dados = mArmazenador.getParticaoMestre("@TabelasEsquemas");
 
         for (ItemDoBancoTX item : s_tabelas_dados.getItensTX()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
@@ -293,7 +277,7 @@ public class AZTabelasInternamente {
 
                 String nome = obj_colecao.at("Nome");
 
-                int banco_id = obj_colecao.atInt("BID");
+                int banco_id = obj_colecao.atInt("PID");
 
                 long ponteiro_inicial_do_banco = obj_colecao.atLong("Ponteiro");
 
@@ -321,7 +305,7 @@ public class AZTabelasInternamente {
 
         tabela_nome = tabela_nome.toUpperCase();
 
-        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre(  "@TabelasEsquemas::Sequencias");
+        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre("@TabelasEsquemas::Sequencias");
 
         for (ParticaoMestre b : esquemas_listar()) {
             if (b.getNome().contentEquals(tabela_nome)) {
@@ -333,6 +317,20 @@ public class AZTabelasInternamente {
         }
 
         return null;
+    }
+
+
+    public boolean esquema_existe(String esquema_nome) {
+
+        esquema_nome = esquema_nome.toUpperCase();
+
+        for (ParticaoMestre b : esquemas_listar()) {
+            if (b.getNome().contentEquals(esquema_nome)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

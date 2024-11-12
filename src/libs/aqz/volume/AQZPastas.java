@@ -1,5 +1,6 @@
 package libs.aqz.volume;
 
+import libs.aqz.AQZPasta;
 import libs.aqz.colecao.ColecaoTX;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -25,6 +26,12 @@ public class AQZPastas {
 
         aqz.fechar();
 
+    }
+
+    public static void REMOVER_TUDO(String arquivo_banco,String pasta_nome){
+        AQZPasta pasta = new AQZPasta(arquivo_banco, pasta_nome);
+        pasta.limpar();
+        pasta.fechar();
     }
 
 }
