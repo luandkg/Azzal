@@ -1,4 +1,4 @@
-package libs.aqz.utils;
+package libs.aqz.extincao;
 
 import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
