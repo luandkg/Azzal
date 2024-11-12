@@ -19,6 +19,7 @@ public class Indexador {
 
     public void set(long chave, long endereco) {
 
+
         while (chave >= getIndiceItensTotalContagem()) {
 
             fmt.print("AQZ AUMENTAR : {} - {}",chave,getIndiceItensTotalContagem());

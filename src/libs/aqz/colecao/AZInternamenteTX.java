@@ -128,7 +128,7 @@ public class AZInternamenteTX {
                 AZSequenciador.zerar_sequencial(s_sequencias, nome_antigo);
 
 
-                int novo_id = init_bancos.atInt("Corrente", 0);
+                int novo_id = init_bancos.atIntOuPadrao("Corrente", 0);
 
                 init_bancos.at("Corrente", init_bancos.atInt("Corrente") + init_bancos.atInt("Sequencia"));
                 init_bancos.at("Sequencia", 1);

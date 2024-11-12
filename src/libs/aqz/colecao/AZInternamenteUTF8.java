@@ -26,7 +26,7 @@ public class AZInternamenteUTF8 {
 
     public AZInternamenteUTF8(String arquivo_banco) {
 
-        Armazenador.checar(arquivo_banco);
+        Armazenador.CHECAR(arquivo_banco);
         mArmazenador = new Armazenador(arquivo_banco);
 
 

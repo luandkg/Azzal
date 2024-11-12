@@ -14,6 +14,7 @@ public class AQZVolume {
     private int mVolumeID;
     private long mMapaInicio;
     private long mMapaFim;
+    private long mBlocosQuantidade;
 
     private long mDadosInicio;
     private long mDadosFim;
@@ -29,6 +30,13 @@ public class AQZVolume {
         mMapaFim = eMapaFim;
         mDadosInicio = eDadosInicio;
         mDadosFim = eDadosFim;
+
+         mBlocosQuantidade = mMapaFim - mMapaInicio;
+
+        if (mBlocosQuantidade > AZVolumeInternamente. VOLUME_BLOCOS_QUANTIDADE) {
+            mBlocosQuantidade = AZVolumeInternamente. VOLUME_BLOCOS_QUANTIDADE;
+        }
+
     }
 
     public int getVolumeID() {
@@ -53,7 +61,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int mapa = 0; mapa < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; mapa++) {
+        for (int mapa = 0; mapa < mBlocosQuantidade; mapa++) {
             int mapa_status = mArquivador.get_u8();
 
             if (mapa_status == 0) {
@@ -81,7 +89,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int blocoID = 0; blocoID < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; blocoID++) {
+        for (int blocoID = 0; blocoID < mBlocosQuantidade; blocoID++) {
             int mapa_status = mArquivador.get_u8();
 
             if (mapa_status == 0) {
@@ -104,7 +112,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int mapa = 0; mapa < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; mapa++) {
+        for (int mapa = 0; mapa < mBlocosQuantidade; mapa++) {
             mArquivador.set_u8((byte) 0);
         }
 
@@ -121,7 +129,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int blocoID = 0; blocoID < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; blocoID++) {
+        for (int blocoID = 0; blocoID < mBlocosQuantidade; blocoID++) {
             int mapa_status = mArquivador.get_u8();
 
             if (mapa_status == 2) {
@@ -172,7 +180,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int blocoID = 0; blocoID < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; blocoID++) {
+        for (int blocoID = 0; blocoID < mBlocosQuantidade; blocoID++) {
             int mapa_status = mArquivador.get_u8();
 
             if (mapa_status == 2) {
@@ -225,7 +233,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int blocoID = 0; blocoID < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; blocoID++) {
+        for (int blocoID = 0; blocoID < mBlocosQuantidade; blocoID++) {
             int mapa_status = mArquivador.get_u8();
 
             if (mapa_status == 2) {
@@ -273,7 +281,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int blocoID = 0; blocoID < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; blocoID++) {
+        for (int blocoID = 0; blocoID < mBlocosQuantidade; blocoID++) {
             int mapa_status = mArquivador.get_u8();
 
             if (mapa_status == 2) {
@@ -327,7 +335,7 @@ public class AQZVolume {
 
         mArquivador.setPonteiro(mMapaInicio);
 
-        for (int blocoID = 0; blocoID < AZVolumeInternamente.VOLUME_BLOCOS_QUANTIDADE; blocoID++) {
+        for (int blocoID = 0; blocoID < mBlocosQuantidade; blocoID++) {
             int mapa_status = mArquivador.get_u8();
 
             if (mapa_status == 2) {

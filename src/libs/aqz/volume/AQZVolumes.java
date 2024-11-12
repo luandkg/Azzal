@@ -96,6 +96,16 @@ public class AQZVolumes {
         return op;
     }
 
+    public static void EXIBIR_VOLUMES(String arquivo_banco) {
+        Lista<Entidade> volumes_dados = GET_VOLUMES(arquivo_banco);
+        ENTT.EXIBIR_TABELA_COM_NOME(volumes_dados, "@VOLUMES");
+    }
+
+    public static void EXIBIR_VOLUMES_DADOS(String arquivo_banco) {
+        Lista<Entidade> volumes_dados = GET_VOLUMES_DADOS(arquivo_banco);
+        ENTT.EXIBIR_TABELA_COM_NOME(volumes_dados, "@VOLUMES - DADOS");
+    }
+
     public static void VOLUMES_DUMP(String arquivo_banco) {
         Lista<Entidade> volumes_dados = GET_VOLUMES_DADOS(arquivo_banco);
         ENTT.EXIBIR_TABELA_COM_NOME(volumes_dados, "@VOLUMES");

@@ -51,6 +51,9 @@ public class AQZPasta {
 
         mColecao = mAZInternamentePastas.colecao_orgarnizar_e_obter(eNomeColecao);
 
+
+       // ENTT.EXIBIR_TABELA_COM_TITULO(mColecao.getObjetos(),"@Pastamente");
+
         mAZSequenciometro.organizar();
 
     }

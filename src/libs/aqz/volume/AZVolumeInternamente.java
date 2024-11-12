@@ -4,14 +4,16 @@ import apps.app_campeonatum.VERIFICADOR;
 import libs.aqz.utils.AZSequenciador;
 import libs.aqz.utils.ItemDoBancoTX;
 import libs.armazenador.Armazenador;
+import libs.armazenador.ItemGuardar;
 import libs.armazenador.ParticaoMestre;
+import libs.arquivos.TX;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Matematica;
 import libs.luan.Opcional;
 import libs.luan.fmt;
-import libs.tempo.Calendario;
+import libs.tronarko.Tronarko;
 
 import java.nio.charset.StandardCharsets;
 
@@ -26,7 +28,7 @@ public class AZVolumeInternamente {
 
     private Armazenador mArmazenador;
 
-    public final static boolean DEBUG=false;
+    public final static boolean DEBUG = false;
 
     public static final String COLECAO_VOLUMES_DADOS = "@Volumes::Dados";
     public static final String COLECAO_VOLUMES_SEQUENCIAS = "@Volumes::Sequencias";
@@ -42,14 +44,13 @@ public class AZVolumeInternamente {
 
 
     public Lista<Entidade> volume_listar() {
-        ParticaoMestre volumes = mArmazenador.getParticaoMestre(  COLECAO_VOLUMES_DADOS);
+        ParticaoMestre volumes = mArmazenador.getParticaoMestre(COLECAO_VOLUMES_DADOS);
 
         Lista<Entidade> e_volumes = new Lista<Entidade>();
 
         for (ItemDoBancoTX item : volumes.getItensTX()) {
             Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
             e_volumes.adicionar(obj);
-
         }
 
         return e_volumes;
@@ -57,14 +58,54 @@ public class AZVolumeInternamente {
 
     public void volume_criar() {
 
-        ParticaoMestre volumes = mArmazenador.getParticaoMestre( COLECAO_VOLUMES_DADOS);
+        ParticaoMestre volumes = mArmazenador.getParticaoMestre(COLECAO_VOLUMES_DADOS);
+        ParticaoMestre mSequencias = mArmazenador.getParticaoMestre(COLECAO_VOLUMES_SEQUENCIAS);
 
-        ParticaoMestre mSequencias = mArmazenador.getParticaoMestre(  COLECAO_VOLUMES_SEQUENCIAS);
         AZSequenciador.organizar_sequencial(mSequencias, "@Volume.ChaveUnica");
-        AZSequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
+       // AZSequenciador.zerar_sequencial(mSequencias, "@Volume.ChaveUnica");
+
+
+        boolean volume_iniciado = false;
+        long volume_iniciado_ponteiro = 0;
+
+
+        long numero_vid = volumes.getItensAlocadosContagem();
+
+        long ultima_ptr = mArmazenador.getArquivador().getLength();
+
+        Entidade novo_volume = new Entidade();
+
+        novo_volume.at("VID", numero_vid);
+        novo_volume.at("Tipo", "VOLUME");
+        novo_volume.at("Status", "NAO");
+        novo_volume.at("Ponteiro", ultima_ptr);
+        novo_volume.at("MapaInicio", ultima_ptr);
+        novo_volume.at("MapaFim", ultima_ptr);
+        novo_volume.at("DadosInicio", ultima_ptr);
+        novo_volume.at("DadosFim", ultima_ptr);
+        novo_volume.at("Blocos", 0);
+        novo_volume.at("DDC", Tronarko.getTronAgora().getTextoZerado());
+        novo_volume.at("DDM", Tronarko.getTronAgora().getTextoZerado());
+
+        volume_iniciado_ponteiro=  volumes.adicionarTX(novo_volume);
+        volume_iniciado = true;
+
+
+        Lista<Entidade> vols = ENTT.CRIAR_LISTA();
+        for (ItemDoBancoTX item : volumes.getItensTX()) {
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
+            vols.adicionar(e_item);
+            if (e_item.is("VID", numero_vid)) {
+                volume_iniciado = true;
+                volume_iniciado_ponteiro = item.getPonteiroDados();
+            }
+        }
+
+        ENTT.EXIBIR_TABELA(vols);
 
 
         mArmazenador.getArquivador().setPonteiro(mArmazenador.getArquivador().getLength());
+
 
         long volume_inicio = mArmazenador.getArquivador().getPonteiro();
         long volume_mapa_inicio = mArmazenador.getArquivador().getPonteiro();
@@ -76,23 +117,85 @@ public class AZVolumeInternamente {
         long volume_mapa_fim = mArmazenador.getArquivador().getPonteiro();
         long volume_dados_inicio = mArmazenador.getArquivador().getPonteiro();
 
+        long volume_crescendo = mArmazenador.getArquivador().getPonteiro();
+
+        int alocando_por_parte = VOLUME_BLOCOS_QUANTIDADE / 100;
+        int alocando = 0;
+        int partes_alocadas = 0;
+
+        int blocos_alocados = 0;
+
+
+        long ponteiro_parou_em = mArmazenador.getArquivador().getPonteiro();
+
         for (int bloco = 0; bloco < VOLUME_BLOCOS_QUANTIDADE; bloco++) {
             mArmazenador.getArquivador().set_u8_em_bloco(Matematica.KB(64), (byte) 0);
+
+            if (alocando >= alocando_por_parte) {
+
+                ponteiro_parou_em = mArmazenador.getArquivador().getPonteiro();
+
+                if (volume_iniciado) {
+
+                    long volume_alocado_ate = mArmazenador.getArquivador().getPonteiro();
+
+                    novo_volume.at("VID", numero_vid);
+                    novo_volume.at("Tipo", "VOLUME");
+                    novo_volume.at("Status", "ALOCANDO");
+                    novo_volume.at("Ponteiro", volume_inicio);
+                    novo_volume.at("MapaFim", (volume_mapa_inicio + (long) blocos_alocados));
+                    novo_volume.at("DadosInicio", volume_dados_inicio);
+                    novo_volume.at("DadosFim", (volume_dados_inicio + (long) blocos_alocados * VOLUME_INODE_TAMANHO));
+                    novo_volume.at("DadosFim", volume_alocado_ate);
+                    novo_volume.at("Blocos", blocos_alocados);
+                    novo_volume.at("DDM", Tronarko.getTronAgora().getTextoZerado());
+
+
+                    ItemGuardar.guardar_item_direto(mArmazenador.getArquivador(),volume_iniciado_ponteiro,TX.toListBytes(ENTT.TO_DOCUMENTO(novo_volume)));
+
+
+                    fmt.print("Alocando :: Atualizando ->> {}", volume_iniciado_ponteiro);
+
+                    vols = ENTT.CRIAR_LISTA();
+                    for (ItemDoBancoTX item : volumes.getItensTX()) {
+                        vols.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoTX()));
+                    }
+
+                    ENTT.EXIBIR_TABELA(vols);
+                }
+
+
+                mArmazenador.getArquivador().setPonteiro(ponteiro_parou_em);
+
+                alocando = 0;
+                partes_alocadas += 1;
+            }
+
+            alocando += 1;
+            blocos_alocados += 1;
         }
 
         long volume_dados_fim = mArmazenador.getArquivador().getPonteiro();
 
+        if (volume_iniciado) {
 
-        Entidade novo_volume = new Entidade();
-        novo_volume.at("VID", volumes.getItensContagem());
-        novo_volume.at("Tipo", "VOLUME");
-        novo_volume.at("Ponteiro", volume_inicio);
-        novo_volume.at("MapaInicio", volume_mapa_inicio);
-        novo_volume.at("MapaFim", volume_mapa_fim);
-        novo_volume.at("DadosInicio", volume_dados_inicio);
-        novo_volume.at("DadosFim", volume_dados_fim);
-        novo_volume.at("Data", Calendario.getTempoCompleto());
-        volumes.adicionarTX(novo_volume);
+            novo_volume.at("VID", numero_vid);
+            novo_volume.at("Tipo", "VOLUME");
+            novo_volume.at("Status", "OK");
+            novo_volume.at("Ponteiro", volume_inicio);
+            novo_volume.at("MapaInicio", volume_mapa_inicio);
+            novo_volume.at("MapaFim", (volume_mapa_inicio + (long) blocos_alocados));
+            novo_volume.at("DadosInicio", volume_dados_inicio);
+            novo_volume.at("DadosFim", (volume_dados_inicio + (long) blocos_alocados * VOLUME_INODE_TAMANHO));
+            novo_volume.at("Blocos", blocos_alocados);
+            novo_volume.at("DDM", Tronarko.getTronAgora().getTextoZerado());
+
+            ItemGuardar.guardar_item_direto(mArmazenador.getArquivador(),volume_iniciado_ponteiro,TX.toListBytes(ENTT.TO_DOCUMENTO(novo_volume)));
+
+            fmt.print("Alocando :: Finalizando ->> {}", volume_iniciado_ponteiro);
+
+        }
+
 
     }
 
@@ -115,6 +218,12 @@ public class AZVolumeInternamente {
             volume_dado.at("Mapa.Tamanho", mapa_fim - mapa_inicio);
             volume_dado.at("Dados.Tamanho", dados_fim - dados_inicio);
 
+            long volume_quantidade_de_blocos = mapa_fim - mapa_inicio;
+
+            if (volume_quantidade_de_blocos > VOLUME_BLOCOS_QUANTIDADE) {
+                volume_quantidade_de_blocos = VOLUME_BLOCOS_QUANTIDADE;
+            }
+
             long objetos_livres = 0;
             long objetos_ocupados = 0;
             long objetos_raiz = 0;
@@ -122,7 +231,7 @@ public class AZVolumeInternamente {
 
             mArmazenador.getArquivador().setPonteiro(mapa_inicio);
 
-            for (int mapa = 0; mapa < VOLUME_BLOCOS_QUANTIDADE; mapa++) {
+            for (int mapa = 0; mapa < volume_quantidade_de_blocos; mapa++) {
                 int mapa_status = mArmazenador.getArquivador().get_u8();
 
                 if (mapa_status == 0) {
@@ -159,9 +268,15 @@ public class AZVolumeInternamente {
             long mapa_fim = volume.atLong("MapaFim");
 
 
+            long volume_quantidade_de_blocos = mapa_fim - mapa_inicio;
+
+            if (volume_quantidade_de_blocos > VOLUME_BLOCOS_QUANTIDADE) {
+                volume_quantidade_de_blocos = VOLUME_BLOCOS_QUANTIDADE;
+            }
+
             mArmazenador.getArquivador().setPonteiro(mapa_inicio);
 
-            for (int mapa = 0; mapa < VOLUME_BLOCOS_QUANTIDADE; mapa++) {
+            for (int mapa = 0; mapa < volume_quantidade_de_blocos; mapa++) {
                 int mapa_status = mArmazenador.getArquivador().get_u8();
 
                 if (mapa_status == 0) {

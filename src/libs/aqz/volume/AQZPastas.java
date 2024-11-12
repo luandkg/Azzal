@@ -21,7 +21,7 @@ public class AQZPastas {
             objetos.adicionar(e);
         }
 
-        ENTT.EXIBIR_TABELA(objetos);
+        ENTT.EXIBIR_TABELA_COM_TITULO(objetos,"PASTAS");
 
         aqz.fechar();
 

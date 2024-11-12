@@ -1,7 +1,7 @@
 package libs.aqz.volume;
 
-import libs.aqz.utils.AZSequenciador;
 import libs.aqz.colecao.ColecaoTX;
+import libs.aqz.utils.AZSequenciador;
 import libs.aqz.utils.ItemDoBancoTX;
 import libs.armazenador.Armazenador;
 import libs.armazenador.Particao;
@@ -9,6 +9,7 @@ import libs.armazenador.ParticaoMestre;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.fmt;
 import libs.tempo.Calendario;
 
 public class AZInternamentePastas {
@@ -22,7 +23,7 @@ public class AZInternamentePastas {
     public final String AQZ_INIT = "@Init";
 
     public final String COLECOES_DADOS = "@Pastas::Dados";
-    public final String COLECOES_SEQUENCIAS= "@Pastas::Sequencias";
+    public final String COLECOES_SEQUENCIAS = "@Pastas::Sequencias";
 
 
     public AZInternamentePastas(String arquivo_banco) {
@@ -48,9 +49,9 @@ public class AZInternamentePastas {
         colecao_nome = colecao_nome.toUpperCase();
 
 
-        ParticaoMestre s_inits = mArmazenador.getParticaoMestre(  AQZ_INIT);
-        ParticaoMestre s_bancos = mArmazenador.getParticaoMestre( COLECOES_DADOS );
-        ParticaoMestre s_sequencias =mArmazenador.getParticaoMestre(  COLECOES_SEQUENCIAS);
+        ParticaoMestre s_inits = mArmazenador.getParticaoMestre(AQZ_INIT);
+        ParticaoMestre s_bancos = mArmazenador.getParticaoMestre(COLECOES_DADOS);
+        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre(COLECOES_SEQUENCIAS);
 
 
         Entidade init_bancos = new Entidade();
@@ -67,6 +68,7 @@ public class AZInternamentePastas {
             }
         }
 
+        fmt.print("Pastando v1 :: {}", s_inits.getItensTX().getQuantidade());
 
         if (!init_bancos_existe) {
             Entidade nova_init = new Entidade();
@@ -78,6 +80,8 @@ public class AZInternamentePastas {
             nova_init.at("DDA", Calendario.getTempoCompleto());
             s_inits.adicionarTX(nova_init);
 
+            fmt.print("Pastando v2 :: {}", s_inits.getItensTX().getQuantidade());
+
             for (ItemDoBancoTX item : s_inits.getItensTX()) {
                 Entidade item_dkg = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
                 if (item_dkg.at("Nome").toUpperCase().contentEquals("COLECAO")) {
@@ -88,9 +92,12 @@ public class AZInternamentePastas {
                 }
             }
 
+            fmt.print("Pastando v3 :: {}", s_inits.getItensTX().getQuantidade());
+
+
             if (!init_bancos_existe) {
                 mArmazenador.fechar();
-                throw new RuntimeException("AQZ ERRO - Init nao encontrada : @ColecoesTX::Dados");
+                throw new RuntimeException("AQZ ERRO - Init nao encontrada : " + COLECOES_DADOS);
             }
 
         }
@@ -129,9 +136,9 @@ public class AZInternamentePastas {
                 AZSequenciador.zerar_sequencial(s_sequencias, nome_antigo);
 
 
-                int novo_id = init_bancos.atInt("Corrente", 0);
+                int novo_id = init_bancos.atInt("Corrente");
 
-                init_bancos.at("Corrente", init_bancos.atInt("Corrente", 0) + init_bancos.atInt("Sequencia", 0));
+                init_bancos.at("Corrente", init_bancos.atInt("Corrente") + init_bancos.atInt("Sequencia"));
                 init_bancos.at("Sequencia", 1);
                 init_bancos.at("DDA", Calendario.getTempoCompleto());
 
@@ -157,9 +164,9 @@ public class AZInternamentePastas {
 
         if (!existe) {
 
-            int banco_id = init_bancos.atInt("Corrente", 0);
+            int banco_id = init_bancos.atInt("Corrente");
 
-            init_bancos.at("Corrente", init_bancos.at("Corrente", 0) + init_bancos.at("Sequencia", 0));
+            init_bancos.at("Corrente", init_bancos.atInt("Corrente") + init_bancos.atInt("Sequencia"));
             init_bancos.at("Sequencia", 1);
             init_bancos.at("DDA", Calendario.getTempoCompleto());
 
@@ -197,7 +204,7 @@ public class AZInternamentePastas {
         Lista<ParticaoMestre> colecoes = new Lista<ParticaoMestre>();
 
 
-        ParticaoMestre s_bancos = mArmazenador.getParticaoMestre(  COLECOES_DADOS);
+        ParticaoMestre s_bancos = mArmazenador.getParticaoMestre(COLECOES_DADOS);
 
 
         for (ItemDoBancoTX item : s_bancos.getItensTX()) {
@@ -218,7 +225,7 @@ public class AZInternamentePastas {
                 long local_corrente = obj_colecao.atLong("PPPC");
                 long local_indice = obj_colecao.atLong("Indice");
 
-                ParticaoMestre  particaoPrimaria=  new ParticaoMestre(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice);
+                ParticaoMestre particaoPrimaria = new ParticaoMestre(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice);
                 colecoes.adicionar(particaoPrimaria);
 
 
@@ -240,9 +247,9 @@ public class AZInternamentePastas {
         Lista<ColecaoTX> colecoes = new Lista<ColecaoTX>();
 
 
-        ParticaoMestre s_inits = mArmazenador.getParticaoMestre( AQZ_INIT);
-        ParticaoMestre s_bancos =mArmazenador.getParticaoMestre(  COLECOES_DADOS);
-        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre( COLECOES_SEQUENCIAS);
+        ParticaoMestre s_inits = mArmazenador.getParticaoMestre(AQZ_INIT);
+        ParticaoMestre s_bancos = mArmazenador.getParticaoMestre(COLECOES_DADOS);
+        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre(COLECOES_SEQUENCIAS);
 
 
         for (ItemDoBancoTX item : s_bancos.getItensTX()) {
@@ -254,7 +261,7 @@ public class AZInternamentePastas {
 
                 String nome = obj_colecao.at("Nome");
 
-                int banco_id = obj_colecao.atInt("PID");
+                int indice = obj_colecao.atInt("PID");
 
                 long ponteiro_inicial_do_banco = obj_colecao.atLong("Ponteiro");
 
@@ -263,8 +270,8 @@ public class AZInternamentePastas {
                 long local_corrente = obj_colecao.atLong("PPPC");
                 long local_indice = obj_colecao.atLong("Indice");
 
-                ParticaoMestre  particaoPrimaria=  new ParticaoMestre(nome, mArmazenador, mArmazenador.getArquivador(), banco_id, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice);
-                ColecaoTX colecao = new ColecaoTX(banco_id,particaoPrimaria.getNome(), mArmazenador, s_sequencias, particaoPrimaria);
+                ParticaoMestre particaoPrimaria = new ParticaoMestre(nome, mArmazenador, mArmazenador.getArquivador(), indice, ponteiro_inicial_do_banco, local_itens, local_cache, local_corrente, local_indice);
+                ColecaoTX colecao = new ColecaoTX(indice, particaoPrimaria.getNome(), mArmazenador, s_sequencias, particaoPrimaria);
                 colecoes.adicionar(colecao);
 
 
@@ -310,8 +317,8 @@ public class AZInternamentePastas {
 
         colecao_nome = colecao_nome.toUpperCase();
 
-        ParticaoMestre s_bancos =mArmazenador.getParticaoMestre(  COLECOES_DADOS);
-        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre(  COLECOES_SEQUENCIAS);
+        ParticaoMestre s_bancos = mArmazenador.getParticaoMestre(COLECOES_DADOS);
+        ParticaoMestre s_sequencias = mArmazenador.getParticaoMestre(COLECOES_SEQUENCIAS);
 
         for (ItemDoBancoTX item : s_bancos.getItensTX()) {
             Entidade obj_colecao = ENTT.PARSER_ENTIDADE(item.lerTextoTX());
@@ -388,6 +395,8 @@ public class AZInternamentePastas {
         return null;
     }
 
-    public Armazenador getArmazenador(){return mArmazenador;}
+    public Armazenador getArmazenador() {
+        return mArmazenador;
+    }
 
 }

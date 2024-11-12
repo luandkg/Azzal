@@ -128,4 +128,12 @@ public class ItemGuardar {
 
     }
 
+
+    public static void guardar_item_direto(Arquivador mArquivador, long ponteiro_dados,Lista<Byte> bytes){
+        mArquivador.setPonteiro(ponteiro_dados);
+        mArquivador.set_u32(bytes.getQuantidade());
+        mArquivador.set_u8_lista(bytes);
+    }
+
+
 }

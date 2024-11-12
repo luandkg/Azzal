@@ -1,19 +1,19 @@
 package libs.armazenador;
 
 
-import libs.aqz.BancoBS;
+import libs.aqz.colecao.AZInternamenteTX;
 import libs.luan.fmt;
 
 public class Debugador {
 
-    public static void debug_colecionador(BancoBS BancoBS) {
-        debug_momentum(BancoBS.getMomentum());
+    public static void debug_colecionador(AZInternamenteTX BancoBS) {
+        debug_momentum(BancoBS.getArmazenador());
     }
 
-    public static void debug_colecionador_completo(BancoBS BancoBS) {
+    public static void debug_colecionador_completo(AZInternamenteTX BancoBS) {
 
         Debugador.debug_colecionador(BancoBS);
-        for (ParticaoPrimaria particaoPrimaria : BancoBS.getMomentum().getBancos()) {
+        for (ParticaoPrimaria particaoPrimaria : BancoBS.getArmazenador().getBancos()) {
             Debugador.debug_banco(particaoPrimaria);
         }
 
