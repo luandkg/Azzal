@@ -60,35 +60,10 @@ public class Sumario {
         return contando;
     }
 
-    public static void realizar_contagem_de_paginas_alocados_no_capitulo(Arquivador mArquivador, ParticaoPrimaria mParticaoPrimaria, long capitulo_ponteiro, RefLong contador) {
-
-        for (Long pagina_ponteiro : Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
-            Pagina pg = new Pagina(mArquivador, mParticaoPrimaria, pagina_ponteiro);
-            contador.set(contador.get() + pg.contagemAlocados());
-        }
 
 
-    }
-
-    public static void realizar_contagem_de_paginas_utilizadas_no_capitulo(Arquivador mArquivador, ParticaoPrimaria mParticaoPrimaria, long capitulo_ponteiro, RefLong contador) {
-
-        for (Long pagina_ponteiro : Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
-            Pagina pg = new Pagina(mArquivador, mParticaoPrimaria, pagina_ponteiro);
-            contador.set(contador.get() + pg.contagemUsados());
-        }
 
 
-    }
-
-    public static void realizar_contagem_de_paginas_todos_no_capitulo(Arquivador mArquivador, ParticaoPrimaria mParticaoPrimaria, long capitulo_ponteiro, RefLong contador) {
-
-        for (Long pagina_ponteiro : Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
-            Pagina pg = new Pagina(mArquivador, mParticaoPrimaria, pagina_ponteiro);
-            contador.set(contador.get() + pg.contagemTodos());
-        }
-
-
-    }
 
     public static void realizar_contagem_de_paginas_todos_no_capitulo(Arquivador mArquivador, ParticaoMestre mParticaoPrimaria, long capitulo_ponteiro, RefLong contador) {
 

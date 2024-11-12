@@ -1,10 +1,8 @@
 package libs.aqz.extincao;
 
-import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
-import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.extincao.armazenador_antigo.ArmazenadorEmExtincao;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.arquivos.binario.Arquivador;
-import libs.aqz.utils.Sequenciador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -14,11 +12,11 @@ import libs.luan.RefLong;
 public class ColecaoAntigamente {
 
     private String mNome;
-    private Armazenador mArmazenador;
-    private ParticaoPrimaria mSequencias;
-    private ParticaoPrimaria mColecao;
+    private ArmazenadorEmExtincao mArmazenador;
+    private ParticaoEmExtincao mSequencias;
+    private ParticaoEmExtincao mColecao;
 
-    public ColecaoAntigamente(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public ColecaoAntigamente(String eNome, ArmazenadorEmExtincao eArmazenador, ParticaoEmExtincao eSequencias, ParticaoEmExtincao eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;
@@ -53,7 +51,7 @@ public class ColecaoAntigamente {
 
     public void remover_por_chave(int eID) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
+        for (ItemDoBancoEmExtincao item : mColecao.getItens()) {
             Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             if (objeto.atInt("ID") == eID) {
 
@@ -66,7 +64,7 @@ public class ColecaoAntigamente {
 
     }
 
-    public void remover(ItemDoBanco item) {
+    public void remover(ItemDoBancoEmExtincao item) {
 
         Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
         mColecao.set(objeto.atInt("ID"), 0);
@@ -76,7 +74,7 @@ public class ColecaoAntigamente {
 
     public void atualizar_por_chave(int eID, Entidade objeto_novo) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
+        for (ItemDoBancoEmExtincao item : mColecao.getItens()) {
             Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             if (objeto.atInt("ID") == eID) {
                 objeto_novo.at("ID",eID);
@@ -91,7 +89,7 @@ public class ColecaoAntigamente {
         mColecao.limpar();
     }
 
-    public Lista<ItemDoBanco> getItens() {
+    public Lista<ItemDoBancoEmExtincao> getItens() {
         return mColecao.getItens();
     }
 
@@ -102,7 +100,7 @@ public class ColecaoAntigamente {
 
     public void primeiro_campo(String ePrimeiro) {
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoEmExtincao item : getItens()) {
 
             Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
 
@@ -127,7 +125,7 @@ public class ColecaoAntigamente {
 
         int indice_maior = 0;
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoEmExtincao item : getItens()) {
 
             Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             int indice = objeto.atInt("ID");
@@ -144,7 +142,7 @@ public class ColecaoAntigamente {
             mArquivadorIndice.set_u64(0);
         }
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoEmExtincao item : getItens()) {
 
             Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             int indice = objeto.atInt("ID");
@@ -198,15 +196,15 @@ public class ColecaoAntigamente {
         return mColecao.get(procurar_indice);
     }
 
-    public Opcional<ItemDoBanco> getIndexado(long procurar_indice) {
+    public Opcional<ItemDoBancoEmExtincao> getIndexado(long procurar_indice) {
 
-        Opcional<ItemDoBanco> ret = new Opcional<ItemDoBanco>();
+        Opcional<ItemDoBancoEmExtincao> ret = new Opcional<ItemDoBancoEmExtincao>();
 
         Opcional<RefLong> proc2t = get(procurar_indice);
 
         if (proc2t.temValor()) {
 
-            ItemDoBanco item = mArmazenador.getItemDireto(proc2t.get().get());
+            ItemDoBancoEmExtincao item = mArmazenador.getItemDireto(proc2t.get().get());
 
             if (item.existe()) {
                 ret.set(item);
@@ -220,11 +218,11 @@ public class ColecaoAntigamente {
 
     public Lista<Entidade> getObjetos() {
 
-        Lista<ItemDoBanco> itens = getItens();
+        Lista<ItemDoBancoEmExtincao> itens = getItens();
 
         Lista<Entidade> objetos = new Lista<Entidade>();
 
-        for (ItemDoBanco item : itens) {
+        for (ItemDoBancoEmExtincao item : itens) {
             Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTexto());
             objetos.adicionar(obj);
         }

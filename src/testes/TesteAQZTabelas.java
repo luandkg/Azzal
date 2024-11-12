@@ -1,6 +1,6 @@
 package testes;
 
-import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
+import libs.aqz.AQZParticoes;
 import libs.aqz.tabela.*;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -11,15 +11,17 @@ public class TesteAQZTabelas {
 
     public static void init() {
 
-        String arquivo_banco = "/home/luan/assets/tronarkum.az";
+        String arquivo_migratorium = "/home/luan/assets/migratorium.az";
 
         //  AQZ.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco);
         // AQZ.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco);
 
+        AQZParticoes.EXIBIR_PARTICOES(arquivo_migratorium);
+        AZTabelas.EXIBIR_ESTRUTURA_INTERNA(arquivo_migratorium);
 
-        AZTabelas tabelas = new AZTabelas(arquivo_banco);
+        AZTabelas tabelas = new AZTabelas(arquivo_migratorium);
 
-        AQZTabela pessoas = tabelas.tabela_orgarnizar_e_obter("Pessoas");
+        AQZTabela pessoas = tabelas.tabela_orgarnizar_e_obter("Pessoas.v2");
 
         pessoas.zerar();
 
@@ -54,7 +56,7 @@ public class TesteAQZTabelas {
             pessoas.criar_verificador("V_Status", "Status", AQZTabelas.CRIAR_VERIFICADOR_CONTEM("Texto::Existe", Lista.CRIAR("DISPONIVEL", "BLOQUEADO", "OCUPADO", "TRANSMITINDO")));
 
             pessoas.criar_verificador("V_Documento::DocumentoValido_Tamanho", "Documento", AQZTabelas.CRIAR_VERIFICADOR("Texto::TamanhoIgual", 18));
-            pessoas.criar_verificador("V_Documento::DocumentoValido_Unico", "Documento",  AQZTabelas.CRIAR_VERIFICADOR("Valor::Tipo", "UNICO"));
+            pessoas.criar_verificador("V_Documento::DocumentoValido_Unico", "Documento", AQZTabelas.CRIAR_VERIFICADOR("Valor::Tipo", "UNICO"));
 
         }
 
@@ -74,13 +76,13 @@ public class TesteAQZTabelas {
 
     public static void adicionar_dados() {
 
-        String arquivo_banco = "/home/luan/assets/tronarkum.az";
+        String arquivo_migratorium = "/home/luan/assets/migratorium.az";
 
         //  AQZ.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco);
         // AQZ.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco);
 
 
-        AZTabelas tabelas = new AZTabelas(arquivo_banco);
+        AZTabelas tabelas = new AZTabelas(arquivo_migratorium);
 
         AQZTabela pessoas = tabelas.tabela_orgarnizar_e_obter("Pessoas");
 

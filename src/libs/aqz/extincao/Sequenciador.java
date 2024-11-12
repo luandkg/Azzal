@@ -1,6 +1,6 @@
-package libs.aqz.utils;
+package libs.aqz.extincao;
 
-import libs.armazenador.ParticaoPrimaria;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.dkg.DKG;
 import libs.dkg.DKGFeatures;
 import libs.dkg.DKGObjeto;
@@ -11,21 +11,21 @@ public class Sequenciador {
 
 
 
-    public static void criar_sequencial(ParticaoPrimaria eParticaoPrimaria, String eNome, int eInicio, int ePasso) {
+    public static void criar_sequencial(ParticaoEmExtincao eParticaoEmExtincao, String eNome, int eInicio, int ePasso) {
 
         DKGObjeto objeto = new DKGObjeto("Sequencia");
         objeto.identifique("Nome").setValor(eNome);
         objeto.identifique("Sequencia").setInteiro(eInicio);
         objeto.identifique("Passo").setInteiro(ePasso);
-        eParticaoPrimaria.adicionar(objeto.toString());
+        eParticaoEmExtincao.adicionar(objeto.toString());
 
     }
 
-    public static Opcional<ItemDoBanco> procurar_sequencial(ParticaoPrimaria eParticaoPrimaria, String eNome) {
+    public static Opcional<ItemDoBancoEmExtincao> procurar_sequencial(ParticaoEmExtincao eParticaoEmExtincao, String eNome) {
 
-        Opcional<ItemDoBanco> ret = new Opcional<ItemDoBanco>();
+        Opcional<ItemDoBancoEmExtincao> ret = new Opcional<ItemDoBancoEmExtincao>();
 
-        for (ItemDoBanco item : eParticaoPrimaria.getItens()) {
+        for (ItemDoBancoEmExtincao item : eParticaoEmExtincao.getItens()) {
             DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
             if (objeto.identifique("Nome").isValor(eNome)) {
                 ret.set(item);
@@ -37,11 +37,11 @@ public class Sequenciador {
         return ret;
     }
 
-    public static int aumentar_sequencial(ParticaoPrimaria eParticaoPrimaria, String eNome) {
+    public static int aumentar_sequencial(ParticaoEmExtincao eParticaoEmExtincao, String eNome) {
 
         int chave = 0;
 
-        for (ItemDoBanco item : eParticaoPrimaria.getItens()) {
+        for (ItemDoBancoEmExtincao item : eParticaoEmExtincao.getItens()) {
             DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
             if (objeto.identifique("Nome").isValor(eNome)) {
 
@@ -59,10 +59,10 @@ public class Sequenciador {
         return chave;
     }
 
-    public static void zerar_sequencial(ParticaoPrimaria eParticaoPrimaria, String eNome) {
+    public static void zerar_sequencial(ParticaoEmExtincao eParticaoEmExtincao, String eNome) {
 
 
-        for (ItemDoBanco item : eParticaoPrimaria.getItens()) {
+        for (ItemDoBancoEmExtincao item : eParticaoEmExtincao.getItens()) {
             DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
             if (objeto.identifique("Nome").isValor(eNome)) {
                 objeto.identifique("Sequencia").setInteiro(0);
@@ -73,46 +73,46 @@ public class Sequenciador {
 
     }
 
-    public static int sequencia(ItemDoBanco item) {
+    public static int sequencia(ItemDoBancoEmExtincao item) {
         DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
         return objeto.identifique("Sequencia").getInteiro(0);
     }
 
 
-    public static void organizar_sequencial(ParticaoPrimaria eParticaoPrimaria, String eNome) {
+    public static void organizar_sequencial(ParticaoEmExtincao eParticaoEmExtincao, String eNome) {
 
-        Opcional<ItemDoBanco> item_objeto_contador = procurar_sequencial(eParticaoPrimaria, eNome);
+        Opcional<ItemDoBancoEmExtincao> item_objeto_contador = procurar_sequencial(eParticaoEmExtincao, eNome);
 
         if (item_objeto_contador.temValor()) {
             sequencia(item_objeto_contador.get());
         } else {
-            criar_sequencial(eParticaoPrimaria, eNome, 0, 1);
+            criar_sequencial(eParticaoEmExtincao, eNome, 0, 1);
         }
 
 
     }
 
-    public static int get_sequencial_contador(ParticaoPrimaria eParticaoPrimaria, String eNome) {
+    public static int get_sequencial_contador(ParticaoEmExtincao eParticaoEmExtincao, String eNome) {
 
-        Opcional<ItemDoBanco> item_objeto_contador = procurar_sequencial(eParticaoPrimaria, eNome);
+        Opcional<ItemDoBancoEmExtincao> item_objeto_contador = procurar_sequencial(eParticaoEmExtincao, eNome);
 
         int ret = 0;
 
         if (item_objeto_contador.temValor()) {
             ret = sequencia(item_objeto_contador.get());
         } else {
-            criar_sequencial(eParticaoPrimaria, eNome, 0, 1);
+            criar_sequencial(eParticaoEmExtincao, eNome, 0, 1);
             ret = 0;
         }
 
         return ret;
     }
 
-    public static void DUMP(ParticaoPrimaria eParticaoPrimaria, String eNome) {
+    public static void DUMP(ParticaoEmExtincao eParticaoEmExtincao, String eNome) {
 
         Lista<DKGObjeto> objs = new Lista<DKGObjeto>();
 
-        for (ItemDoBanco item : eParticaoPrimaria.getItens()) {
+        for (ItemDoBancoEmExtincao item : eParticaoEmExtincao.getItens()) {
             DKGObjeto objeto = DKG.PARSER_TO_OBJETO(item.lerTexto());
             objs.adicionar(objeto);
         }

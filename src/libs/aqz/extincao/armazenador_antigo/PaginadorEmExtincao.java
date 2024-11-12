@@ -1,13 +1,15 @@
-package libs.armazenador;
+package libs.aqz.extincao.armazenador_antigo;
 
 
+import libs.armazenador.Armazenador;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.RefLong;
 
 
-public class Paginador {
+public class PaginadorEmExtincao {
 
     public static Opcional<Long> alocar_nova_pagina(Arquivador mArquivador, long capitulo_ponteiro) {
 
@@ -78,6 +80,90 @@ public class Paginador {
     }
 
 
+    public static void trocar_de_pagina(Arquivador mArquivador, ParticaoEmExtincao mParticaoEmExtincao, RefLong mLocalBanco, RefLong mLocalCapitulos, RefLong mPaginaCorrente) {
+
+        if (Armazenador.IS_DEBUG) {
+            System.out.println("!INFO - TROCAR DE PAGINA");
+        }
+
+        mArquivador.setPonteiro(mLocalCapitulos.get());
+
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
+
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
+
+
+            boolean encontrado = false;
+
+            for (Long pagina_ponteiro : getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
+                if (Armazenador.IS_DEBUG) {
+                    System.out.println("!INFO - TENTAR REUTILIZAR ALGUMA PAGINA DO CAP{" + capitulo_ponteiro + "}");
+                }
+
+                PaginaEmExtincao pg = new PaginaEmExtincao(mArquivador, mParticaoEmExtincao, pagina_ponteiro);
+
+                if (pg.getPonteiro() != 0) {
+
+                    if (Armazenador.IS_DEBUG) {
+                        System.out.println("!INFO - PAGINA{" + pagina_ponteiro + "} -->> " + pg.contagemUsados() + " : " + pg.contagemTodos());
+                    }
+
+
+                    if (pg.temDisponivel()) {
+                        mPaginaCorrente.set(pg.getPonteiro());
+                        if (Armazenador.IS_DEBUG) {
+                            System.out.println("!INFO - REUTILIZAR PAGINA{" + pagina_ponteiro + "} : " + pg.getPonteiro());
+                        }
+
+                        encontrado = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!encontrado) {
+
+
+                Opcional<Long> nova_pagina = alocar_nova_pagina(mArquivador, capitulo_ponteiro);
+
+                if (nova_pagina.temValor()) {
+
+                    mPaginaCorrente.set(nova_pagina.get());
+
+                    mArquivador.setPonteiro(mLocalBanco.get() + 1 + 1024 + 8 + 8);
+                    mArquivador.set_u64(nova_pagina.get());
+
+                    encontrado = true;
+                }
+
+
+                if (!encontrado) {
+                    if (Armazenador.IS_DEBUG) {
+                        System.out.println("!INFO - SEM ESPACO NO CAPITULO");
+                    }
+
+
+                    Opcional<Long> novo_capitulo_primeira_pagina = alocar_novo_capitulo_com_uma_pagina(mArquivador, mLocalCapitulos.get());
+
+                    if (novo_capitulo_primeira_pagina.temValor()) {
+
+                        mPaginaCorrente.set(novo_capitulo_primeira_pagina.get());
+
+                        mArquivador.setPonteiro(mLocalBanco.get() + 1 + 1024 + 8 + 8);
+                        mArquivador.set_u64(mPaginaCorrente.get());
+
+
+                    }
+
+
+                }
+
+            }
+
+        }
+
+
+    }
 
     public static Opcional<Long> alocar_novo_capitulo_com_uma_pagina(Arquivador mArquivador, long capitulos_ponteiro) {
 
@@ -172,89 +258,5 @@ public class Paginador {
     }
 
 
-    public static void trocar_de_pagina(Arquivador mArquivador, ParticaoMestre mParticaoPrimaria, RefLong mLocalBanco, RefLong mLocalCapitulos, RefLong mPaginaCorrente) {
-
-        if (Armazenador.IS_DEBUG) {
-            System.out.println("!INFO - TROCAR DE PAGINA");
-        }
-
-        mArquivador.setPonteiro(mLocalCapitulos.get());
-
-        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
-
-        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
-
-
-            boolean encontrado = false;
-
-            for (Long pagina_ponteiro : getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro)) {
-                if (Armazenador.IS_DEBUG) {
-                    System.out.println("!INFO - TENTAR REUTILIZAR ALGUMA PAGINA DO CAP{" + capitulo_ponteiro + "}");
-                }
-
-                PaginaMestre pg = new PaginaMestre(mArquivador, mParticaoPrimaria, pagina_ponteiro);
-
-                if (pg.getPonteiro() != 0) {
-
-                    if (Armazenador.IS_DEBUG) {
-                        System.out.println("!INFO - PAGINA{" + pagina_ponteiro + "} -->> " + pg.contagemUsados() + " : " + pg.contagemTodos());
-                    }
-
-
-                    if (pg.temDisponivel()) {
-                        mPaginaCorrente.set(pg.getPonteiro());
-                        if (Armazenador.IS_DEBUG) {
-                            System.out.println("!INFO - REUTILIZAR PAGINA{" + pagina_ponteiro + "} : " + pg.getPonteiro());
-                        }
-
-                        encontrado = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!encontrado) {
-
-
-                Opcional<Long> nova_pagina = alocar_nova_pagina(mArquivador, capitulo_ponteiro);
-
-                if (nova_pagina.temValor()) {
-
-                    mPaginaCorrente.set(nova_pagina.get());
-
-                    mArquivador.setPonteiro(mLocalBanco.get() + 1 + 1024 + 8 + 8);
-                    mArquivador.set_u64(nova_pagina.get());
-
-                    encontrado = true;
-                }
-
-
-                if (!encontrado) {
-                    if (Armazenador.IS_DEBUG) {
-                        System.out.println("!INFO - SEM ESPACO NO CAPITULO");
-                    }
-
-
-                    Opcional<Long> novo_capitulo_primeira_pagina = alocar_novo_capitulo_com_uma_pagina(mArquivador, mLocalCapitulos.get());
-
-                    if (novo_capitulo_primeira_pagina.temValor()) {
-
-                        mPaginaCorrente.set(novo_capitulo_primeira_pagina.get());
-
-                        mArquivador.setPonteiro(mLocalBanco.get() + 1 + 1024 + 8 + 8);
-                        mArquivador.set_u64(mPaginaCorrente.get());
-
-
-                    }
-
-
-                }
-
-            }
-
-        }
-
-
-    }
 
 }

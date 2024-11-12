@@ -1,8 +1,6 @@
 package libs.aqz.extincao;
 
-import libs.aqz.utils.Sequenciador;
-import libs.armazenador.ParticaoPrimaria;
-import libs.aqz.utils.ItemDoBanco;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
@@ -11,10 +9,10 @@ import libs.luan.Lista;
 public class UnicidadeAntigamente {
 
     private String mNome;
-    private ParticaoPrimaria mSequencias;
-    private ParticaoPrimaria mColecao;
+    private ParticaoEmExtincao mSequencias;
+    private ParticaoEmExtincao mColecao;
 
-    public UnicidadeAntigamente(String eNome, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public UnicidadeAntigamente(String eNome, ParticaoEmExtincao eSequencias, ParticaoEmExtincao eColecao) {
         mNome = eNome;
         mSequencias = eSequencias;
         mColecao = eColecao;
@@ -25,7 +23,7 @@ public class UnicidadeAntigamente {
 
     public boolean contem_valor(String valor) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
+        for (ItemDoBancoEmExtincao item : mColecao.getItens()) {
             Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             if (objeto.is("Valor",valor)) {
                 return true;
@@ -53,7 +51,7 @@ public class UnicidadeAntigamente {
 
     public void remover_valor(String valor) {
 
-        for (ItemDoBanco item : mColecao.getItens()) {
+        for (ItemDoBancoEmExtincao item : mColecao.getItens()) {
             Entidade objeto = ENTT.PARSER_ENTIDADE(item.lerTexto());
             if (objeto.is("Valor",valor)) {
                 mColecao.remover(item);
@@ -63,7 +61,7 @@ public class UnicidadeAntigamente {
 
     }
 
-    public Lista<ItemDoBanco> getItens() {
+    public Lista<ItemDoBancoEmExtincao> getItens() {
         return mColecao.getItens();
     }
 }

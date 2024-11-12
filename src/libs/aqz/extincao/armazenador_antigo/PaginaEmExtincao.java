@@ -1,23 +1,24 @@
-package libs.armazenador;
+package libs.aqz.extincao.armazenador_antigo;
 
 
 import libs.aqz.extincao.ItemDoBancoUTF8Antigamente;
-import libs.aqz.utils.ItemDoBanco;
-import libs.aqz.utils.ItemDoBancoTX;
-import libs.aqz.utils.ItemDoBancoUTF8;
+import libs.aqz.extincao.ItemDoBancoEmExtincao;
+import libs.armazenador.Armazenador;
+import libs.armazenador.ItemGuardar;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 
 
-public class Pagina {
+public class PaginaEmExtincao {
 
     private Arquivador mArquivador;
-    private ParticaoPrimaria mParticaoPrimaria;
+    private ParticaoEmExtincao mParticaoEmExtincao;
     private long mPonteiro;
 
-    public Pagina(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro) {
+    public PaginaEmExtincao(Arquivador eArquivador, ParticaoEmExtincao eParticaoEmExtincao, long ePonteiro) {
         mArquivador = eArquivador;
-        mParticaoPrimaria = eParticaoPrimaria;
+        mParticaoEmExtincao = eParticaoEmExtincao;
         mPonteiro = ePonteiro;
     }
 
@@ -186,9 +187,9 @@ public class Pagina {
 
     }
 
-    public Lista<ItemDoBanco> getItens() {
+    public Lista<ItemDoBancoEmExtincao> getItens() {
 
-        Lista<ItemDoBanco> itens = new Lista<ItemDoBanco>();
+        Lista<ItemDoBancoEmExtincao> itens = new Lista<ItemDoBancoEmExtincao>();
 
         mArquivador.setPonteiro(mPonteiro);
 
@@ -202,7 +203,7 @@ public class Pagina {
             long pag_local = mArquivador.get_u64();
 
             if (item_status == Armazenador.ITEM_ALOCADO_OCUPADO) {
-                itens.adicionar(new ItemDoBanco(mArquivador, mParticaoPrimaria, item_ponteiro, pag_local));
+                itens.adicionar(new ItemDoBancoEmExtincao(mArquivador, mParticaoEmExtincao, item_ponteiro, pag_local));
             }
 
         }
@@ -227,7 +228,7 @@ public class Pagina {
             long pag_local = mArquivador.get_u64();
 
             if (item_status == Armazenador.ITEM_ALOCADO_OCUPADO) {
-                itens.adicionar(new ItemDoBancoUTF8Antigamente(mArquivador, mParticaoPrimaria, item_ponteiro, pag_local));
+                itens.adicionar(new ItemDoBancoUTF8Antigamente(mArquivador, mParticaoEmExtincao, item_ponteiro, pag_local));
             }
 
         }

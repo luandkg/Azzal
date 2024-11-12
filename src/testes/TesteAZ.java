@@ -1,9 +1,7 @@
 package testes;
 
-import libs.aqz.AQZ;
-import libs.aqz.AQZTX;
-import libs.aqz.AQZUTF8;
-import libs.aqz.MigrattorAQZ;
+import libs.aqz.*;
+import libs.aqz.extincao.AQZExtincao;
 import libs.aqz.extincao.AQZUTF8Antigamente;
 import libs.entt.Entidade;
 import libs.luan.fmt;
@@ -27,6 +25,12 @@ public class TesteAZ {
 
         AQZUTF8.EXIBIR_TUDO(arquivo_migratorium);
 
+        AQZParticoes.EXIBIR_PARTICOES(arquivo_migratorium);
+        AQZParticoes.EXIBIR_ESTRUTURA_INTERNA(arquivo_migratorium);
+
+
+
+
 
     }
 
@@ -49,8 +53,8 @@ public class TesteAZ {
         boolean migrar_viagens = true;
 
 
-        AQZ.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco_origem);
-        AQZ.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco_origem);
+        AQZExtincao.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco_origem);
+        AQZExtincao.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco_origem);
 
 
         AQZTX.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco_destino);
@@ -92,7 +96,7 @@ public class TesteAZ {
         AQZUTF8.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco_destino_inmet);
 
 
-        AQZ.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco_origem_metro);
+        AQZExtincao.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco_origem_metro);
         AQZUTF8.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco_destino_metro);
 
         if (migrar_metropoles) {
@@ -102,7 +106,7 @@ public class TesteAZ {
         AQZUTF8.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco_destino_metro);
 
 
-        AQZ.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco_origem_viagens);
+        AQZExtincao.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco_origem_viagens);
         AQZUTF8.EXIBIR_ESTRUTURA_PUBLICA(arquivo_banco_destino_viagens);
 
         if (migrar_viagens) {
@@ -124,7 +128,7 @@ public class TesteAZ {
 
     public static void MIGRAR_TUDO(String arquivo_banco_origem, String arquivo_banco_destino) {
 
-        for (String colecao : AQZ.COLECOES_LISTAR(arquivo_banco_origem)) {
+        for (String colecao : AQZExtincao.COLECOES_LISTAR(arquivo_banco_origem)) {
             MIGRAR_TX(arquivo_banco_origem, arquivo_banco_destino, colecao);
         }
 
@@ -132,7 +136,7 @@ public class TesteAZ {
 
     public static void MIGRAR_TUDO_TX_PARA_UTF8(String arquivo_banco_origem, String arquivo_banco_destino) {
 
-        for (String colecao : AQZ.COLECOES_LISTAR(arquivo_banco_origem)) {
+        for (String colecao : AQZExtincao.COLECOES_LISTAR(arquivo_banco_origem)) {
             MIGRAR_TX_PARA_UTF8(arquivo_banco_origem, arquivo_banco_destino, colecao);
         }
 
@@ -141,7 +145,7 @@ public class TesteAZ {
 
     public static void MIGRAR_TX(String arquivo_banco_origem, String arquivo_banco_destino, String colecao_nome) {
 
-        AQZ.EXIBIR_COLECAO(arquivo_banco_origem, colecao_nome);
+        AQZExtincao.EXIBIR_COLECAO(arquivo_banco_origem, colecao_nome);
 
         MigrattorAQZ.MIGRAR_TX_BRUTO_PARA_TX_STRING_VIEW(arquivo_banco_origem, arquivo_banco_destino, colecao_nome);
 
@@ -165,7 +169,7 @@ public class TesteAZ {
 
         fmt.print("Migrar TX -> UTF-8 :: " + colecao_nome);
 
-        AQZ.EXIBIR_COLECAO(arquivo_banco_origem, colecao_nome);
+        AQZExtincao.EXIBIR_COLECAO(arquivo_banco_origem, colecao_nome);
 
         MigrattorAQZ.MIGRAR_TX_BRUTO_PARA_UTF8(arquivo_banco_origem, arquivo_banco_destino, colecao_nome);
 

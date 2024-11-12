@@ -98,8 +98,8 @@ public class ParticaoMestre {
 
 
     public long getCapitulosContagem() {
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
-        return sumario.getCapitulosUtilizadosContagem();
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        return eSumario.getCapitulosUtilizadosContagem();
     }
 
     public long getPaginasTotalContagem() {
@@ -123,11 +123,11 @@ public class ParticaoMestre {
 
     public long getItensTotalContagem() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
         RefLong contando = new RefLong(0);
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
             Sumario.realizar_contagem_de_paginas_todos_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
 
         }
@@ -137,11 +137,11 @@ public class ParticaoMestre {
 
     public long getItensContagem() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
         RefLong contando = new RefLong(0);
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
             Sumario.realizar_contagem_de_paginas_utilizadas_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
 
         }
@@ -151,11 +151,11 @@ public class ParticaoMestre {
 
     public long getItensAlocadosContagem() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
         RefLong contando = new RefLong(0);
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
             Sumario.realizar_contagem_de_paginas_alocados_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
 
         }
@@ -168,10 +168,10 @@ public class ParticaoMestre {
 
         Lista<ItemDoBancoUTF8> itens = new Lista<ItemDoBancoUTF8>();
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
 
             Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
@@ -191,10 +191,10 @@ public class ParticaoMestre {
 
         Lista<ItemDoBancoTX> itens = new Lista<ItemDoBancoTX>();
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
 
             Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
@@ -548,10 +548,10 @@ public class ParticaoMestre {
     public void limpar_profundamente() {
 
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
 
             Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
@@ -575,10 +575,10 @@ public class ParticaoMestre {
     public void exibir_dump() {
 
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        Sumario eSumario = new Sumario(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : eSumario.getCapitulosUtilizados()) {
 
             Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 

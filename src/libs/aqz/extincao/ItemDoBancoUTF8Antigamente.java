@@ -1,7 +1,7 @@
 package libs.aqz.extincao;
 
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -12,16 +12,16 @@ import java.nio.charset.StandardCharsets;
 public class ItemDoBancoUTF8Antigamente {
 
     private Arquivador mArquivador;
-    private ParticaoPrimaria mParticaoPrimaria;
+    private ParticaoEmExtincao mParticaoEmExtincao;
 
     private long mPonteiro;
     private long mPonteiroDados;
 
     private boolean mIsDoBanco;
 
-    public ItemDoBancoUTF8Antigamente(Arquivador eArquivador, ParticaoPrimaria eParticaoPrimaria, long ePonteiro, long ePonteiroDados) {
+    public ItemDoBancoUTF8Antigamente(Arquivador eArquivador, ParticaoEmExtincao eParticaoEmExtincao, long ePonteiro, long ePonteiroDados) {
         mArquivador = eArquivador;
-        mParticaoPrimaria = eParticaoPrimaria;
+        mParticaoEmExtincao = eParticaoEmExtincao;
         mPonteiro = ePonteiro;
         mPonteiroDados = ePonteiroDados;
         mIsDoBanco = true;
@@ -48,8 +48,8 @@ public class ItemDoBancoUTF8Antigamente {
     }
 
 
-    public ParticaoPrimaria getBanco() {
-        return mParticaoPrimaria;
+    public ParticaoEmExtincao getBanco() {
+        return mParticaoEmExtincao;
     }
 
 

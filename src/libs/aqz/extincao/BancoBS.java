@@ -1,29 +1,28 @@
 package libs.aqz.extincao;
 
-import libs.aqz.utils.Sequenciador;
 import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
-import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.extincao.armazenador_antigo.ArmazenadorEmExtincao;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 
 public class BancoBS {
 
-    private Armazenador mArmazenador;
-    private ParticaoPrimaria s_sequencias;
+    private ArmazenadorEmExtincao mArmazenador;
+    private ParticaoEmExtincao s_sequencias;
 
     public BancoBS(String eArquivo) {
-        mArmazenador = new Armazenador(eArquivo);
-        s_sequencias = mArmazenador.getParticaoPrimaria( "@Sequencias");
+        mArmazenador = new ArmazenadorEmExtincao(eArquivo);
+        s_sequencias = mArmazenador.getParticaoEmExtincao( "@Sequencias");
     }
 
     public ColecaoAntigamente getColecao(String eNome) {
-        return new ColecaoAntigamente(eNome, mArmazenador, s_sequencias, mArmazenador.getParticaoPrimaria(  eNome));
+        return new ColecaoAntigamente(eNome, mArmazenador, s_sequencias, mArmazenador.getParticaoEmExtincao(  eNome));
     }
 
     public UnicidadeAntigamente getSettum(String eNome) {
-        return new UnicidadeAntigamente(eNome, s_sequencias, mArmazenador.getParticaoPrimaria(  eNome));
+        return new UnicidadeAntigamente(eNome, s_sequencias, mArmazenador.getParticaoEmExtincao(  eNome));
     }
 
     public long getSequenciaID(String eNome) {
@@ -35,9 +34,9 @@ public class BancoBS {
         mArmazenador.banco_remover(eNome);
     }
 
-    public ItemDoBanco getItemDireto(long ePointeiro) {
+    public ItemDoBancoEmExtincao getItemDireto(long ePointeiro) {
 
-        ItemDoBanco item = mArmazenador.getItemDireto(ePointeiro);
+        ItemDoBancoEmExtincao item = mArmazenador.getItemDireto(ePointeiro);
         if (item.existe()) {
             return item;
         } else {
@@ -47,7 +46,7 @@ public class BancoBS {
     }
 
 
-    public Armazenador getMomentum() {
+    public ArmazenadorEmExtincao getMomentum() {
         return mArmazenador;
     }
 
@@ -74,7 +73,7 @@ public class BancoBS {
 
         Lista<Entidade> objetos_analisados = new Lista<Entidade>();
 
-        for (ParticaoPrimaria b : getMomentum().getBancos()) {
+        for (ParticaoEmExtincao b : getMomentum().getBancos()) {
 
             Entidade obj_analise = new Entidade();
 

@@ -1,9 +1,8 @@
 package libs.aqz.extincao;
 
 import libs.aqz.utils.ItemDoBancoUTF8;
-import libs.aqz.utils.Sequenciador;
-import libs.armazenador.Armazenador;
-import libs.armazenador.ParticaoPrimaria;
+import libs.aqz.extincao.armazenador_antigo.ArmazenadorEmExtincao;
+import libs.armazenador.ParticaoEmExtincao;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -14,11 +13,11 @@ import libs.luan.RefLong;
 public class ColecaoUTF8Antigamente {
 
     private String mNome;
-    private Armazenador mArmazenador;
-    private ParticaoPrimaria mSequencias;
-    private ParticaoPrimaria mColecao;
+    private ArmazenadorEmExtincao mArmazenador;
+    private ParticaoEmExtincao mSequencias;
+    private ParticaoEmExtincao mColecao;
 
-    public ColecaoUTF8Antigamente(String eNome, Armazenador eArmazenador, ParticaoPrimaria eSequencias, ParticaoPrimaria eColecao) {
+    public ColecaoUTF8Antigamente(String eNome, ArmazenadorEmExtincao eArmazenador, ParticaoEmExtincao eSequencias, ParticaoEmExtincao eColecao) {
         mNome = eNome;
         mArmazenador = eArmazenador;
         mSequencias = eSequencias;

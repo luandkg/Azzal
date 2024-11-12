@@ -4,6 +4,7 @@ import libs.aqz.colecao.AZInternamenteTX;
 import libs.aqz.colecao.AZInternamenteUTF8;
 import libs.aqz.colecao.ColecaoTX;
 import libs.aqz.colecao.ColecaoUTF8;
+import libs.aqz.extincao.AQZExtincao;
 import libs.aqz.extincao.AQZUTF8Antigamente;
 import libs.armazenador.Armazenador;
 import libs.entt.ENTT;
@@ -17,7 +18,7 @@ public class MigrattorAQZ {
     public static void MIGRAR_TX_BRUTO_PARA_TX_STRING_VIEW(String arquivo_banco_origem,String arquivo_banco_destino,String colecao_nome){
 
 
-        Lista<Entidade> dados_original = AQZ.COLECAO_ITENS(arquivo_banco_origem, colecao_nome);
+        Lista<Entidade> dados_original = AQZExtincao.COLECAO_ITENS(arquivo_banco_origem, colecao_nome);
 
         Armazenador armazenador_destino = new Armazenador(arquivo_banco_destino);
 
@@ -71,7 +72,7 @@ public class MigrattorAQZ {
     public static void MIGRAR_TX_BRUTO_PARA_UTF8(String arquivo_banco_origem,String arquivo_banco_destino,String colecao_nome){
 
 
-        Lista<Entidade> dados_original = AQZ.COLECAO_ITENS(arquivo_banco_origem, colecao_nome);
+        Lista<Entidade> dados_original = AQZExtincao.COLECAO_ITENS(arquivo_banco_origem, colecao_nome);
 
         Armazenador armazenador_destino = new Armazenador(arquivo_banco_destino);
 

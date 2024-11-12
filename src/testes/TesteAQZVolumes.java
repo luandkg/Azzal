@@ -1,9 +1,9 @@
 package testes;
 
 import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
-import libs.aqz.AQZ;
-import libs.aqz.volume.AQZArquivoInternamente;
+import libs.aqz.AQZParticoes;
 import libs.aqz.AQZPasta;
+import libs.aqz.volume.AQZArquivoInternamente;
 import libs.aqz.volume.AQZPastas;
 import libs.aqz.volume.AQZVolumes;
 import libs.arquivos.binario.Arquivador;
@@ -20,16 +20,28 @@ public class TesteAQZVolumes {
 
     public static void init() {
 
-        String arquivo_banco = "/home/luan/assets/Migratorium.az";
+        String arquivo_banco = "/home/luan/assets/migratorium.az";
 
-        //  AQZ.VOLUMES_ZERAR(arquivo_banco);
+        //  AQZVolumes.VOLUMES_ZERAR(arquivo_banco);
 
-        AQZ.EXIBIR_ESTRUTURA_INTERNA(arquivo_banco);
+        //  AQZVolumes.CRIAR_VOLUME(arquivo_banco);
 
-        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
+        AQZParticoes.EXIBIR_PARTICOES(arquivo_banco);
+
+        AQZVolumes.EXIBIR_VOLUMES(arquivo_banco);
+        AQZVolumes.EXIBIR_VOLUMES_DADOS(arquivo_banco);
+
+      //  AQZPastas.REMOVER_TUDO(arquivo_banco, "TextoObjetos");
+       // AQZPastas.REMOVER_TUDO(arquivo_banco, "Assets");
+       // AQZVolumes.VOLUMES_ZERAR(arquivo_banco);
+
+
         fmt.print("Volume Blocos Livres :: {}", AQZVolumes.VOLUME_BLOCOS_LIVRES(arquivo_banco));
 
         AQZPastas.EXIBIR_PASTAS(arquivo_banco);
+
+        AQZPasta p2 = new AQZPasta(arquivo_banco, "Photos");
+        p2.fechar();
 
         AQZPasta dados_textos_objetos = new AQZPasta(arquivo_banco, "TextoObjetos");
         //   dados_assets.limpar_refs();
@@ -71,10 +83,10 @@ public class TesteAQZVolumes {
 
         AQZPasta dados_assets = new AQZPasta(arquivo_banco, "ASSETS");
 
-        String imagem_grande = "/home/luan/Imagens/Screenshot_20240408_193134.png";
-        dados_assets.adicionar_ou_atualizar("@Imagem/FundoVerde.png", Arquivador.GET_BYTES(imagem_grande));
+        String imagem_grande = "/home/luan/Imagens/Screenshot 2024-06-20 at 10-49-56 Google.png";
+        dados_assets.adicionar_ou_atualizar("@Imagem/FundoAmarelo.png", Arquivador.GET_BYTES(imagem_grande));
 
-        Opcional<Par<Entidade, AQZArquivoInternamente>> arq_fundo_verde = dados_assets.procurarArquivoInternamenteComInformacoes("@Imagem/FundoVerde.png");
+        Opcional<Par<Entidade, AQZArquivoInternamente>> arq_fundo_verde = dados_assets.procurarArquivoInternamenteComInformacoes("@Imagem/FundoAmarelo.png");
 
         if (arq_fundo_verde.isOK()) {
             ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(arq_fundo_verde.get().getChave()));
@@ -86,6 +98,7 @@ public class TesteAQZVolumes {
 
         }
 
+        dados_assets.dump();
         dados_assets.fechar();
 
 
@@ -93,8 +106,10 @@ public class TesteAQZVolumes {
         fmt.print("Volume Blocos Livres :: {}", AQZVolumes.VOLUME_BLOCOS_LIVRES(arquivo_banco));
 
 
-        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
-        //   AQZ.ARQUIVO_DUMP(arquivo_banco);
+        AQZVolumes.EXIBIR_VOLUMES(arquivo_banco);
+        AQZVolumes.EXIBIR_VOLUMES_DADOS(arquivo_banco);
+
+        AQZVolumes.ARQUIVO_DUMP(arquivo_banco);
 
         //    AQZ.VOLUME_ANALISAR_INTEGRIDADE(arquivo_banco);
 
@@ -111,14 +126,14 @@ public class TesteAQZVolumes {
 
         //  AQZ.VOLUMES_ZERAR(arquivo_banco);
 
-        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
+        AQZVolumes.EXIBIR_VOLUMES(arquivo_banco);
         fmt.print("Volume Blocos Livres :: {}", AQZVolumes.VOLUME_BLOCOS_LIVRES(arquivo_banco));
 
 
         AQZPasta dados_assets = new AQZPasta(arquivo_banco, "TextoObjetos");
         dados_assets.fechar();
 
-        AQZVolumes.VOLUMES_DUMP(arquivo_banco);
+        AQZVolumes.EXIBIR_VOLUMES(arquivo_banco);
         AQZVolumes.ARQUIVO_DUMP(arquivo_banco);
 
     }

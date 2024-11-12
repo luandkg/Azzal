@@ -1,11 +1,10 @@
 package apps.app_momentum;
 
-import libs.armazenador.ParticaoPrimaria;
-import libs.armazenador.Debugador;
-import libs.aqz.utils.ItemDoBanco;
-import libs.aqz.BancoBS;
-import libs.aqz.colecao.Colecao;
-import libs.aqz.colecao.Unicidade;
+import libs.armazenador.ParticaoEmExtincao;
+import libs.aqz.extincao.ItemDoBancoEmExtincao;
+import libs.aqz.extincao.BancoBS;
+import libs.aqz.extincao.ColecaoAntigamente;
+import libs.aqz.extincao.UnicidadeAntigamente;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.entt.Entidade;
@@ -21,7 +20,7 @@ public class AppMomentum {
 
     public static void init() {
 
-        String arquivo_banco = "/home/luan/assets/luan.bs";
+        String arquivo_banco = "/home/luan/assets/momentum.az";
 
         BancoBS.checar(arquivo_banco);
 
@@ -30,23 +29,23 @@ public class AppMomentum {
 
         m.getColecao("Lixeira");
 
-        Debugador.debug_colecionador_completo(m);
+       // Debugador.debug_colecionador_completo(m);
 
 
         m.remover_colecao("Lixeira");
 
-        Debugador.debug_colecionador(m);
-        for (ParticaoPrimaria particaoPrimaria : m.getMomentum().getBancos()) {
-            Debugador.debug_banco(particaoPrimaria);
+      //  Debugador.debug_colecionador(m);
+        for (ParticaoEmExtincao particaoEmExtincao : m.getMomentum().getBancos()) {
+           // Debugador.debug_banco(particaoEmExtincao);
         }
 
 
         System.out.println("## Objetos (ID) = " + m.getSequenciaID("Objetos"));
 
-        Debugador.debug_colecionador_completo(m);
+     //   Debugador.debug_colecionador_completo(m);
 
 
-        Unicidade valores = m.getSettum("Valores");
+        UnicidadeAntigamente valores = m.getSettum("Valores");
 
         Random sorte = new Random();
         int s = sorte.nextInt(20);
@@ -63,23 +62,23 @@ public class AppMomentum {
 
         System.out.println("Settum - " + ss + " :: " + ss_status);
 
-        for (ItemDoBanco item : valores.getItens()) {
+        for (ItemDoBancoEmExtincao item : valores.getItens()) {
             System.out.println("@@@ " + item.lerTextoLinearizado());
         }
 
 
-        Debugador.debug_colecionador_completo(m);
+      //  Debugador.debug_colecionador_completo(m);
 
 
-        Colecao objetos = m.getColecao("Objetos");
+        ColecaoAntigamente objetos = m.getColecao("Objetos");
 
         int remover_quantos = sorte.nextInt(30) + 5;
         int removendo = 0;
 
-        for (Indexado<ItemDoBanco> item_indexado : Indexamento.embaralhar(objetos.getItens())) {
+        for (Indexado<ItemDoBancoEmExtincao> item_indexado : Indexamento.embaralhar(objetos.getItens())) {
             if (removendo < remover_quantos) {
 
-                ItemDoBanco item = item_indexado.get();
+                ItemDoBancoEmExtincao item = item_indexado.get();
 
                 System.out.println(" @@ -->> Removendo.... - " + removendo + " :: " + item.getPonteiro() + " -->> " + item.lerTextoLinearizado());
                 // objetos.remover(item);
@@ -90,7 +89,7 @@ public class AppMomentum {
 
         }
 
-        Debugador.debug_colecionador_completo(m);
+      //  Debugador.debug_colecionador_completo(m);
 
 
         int mais_quantos = sorte.nextInt(200) + 50;
@@ -107,15 +106,15 @@ public class AppMomentum {
         }
 
 
-        Debugador.debug_colecionador_completo(m);
+      //  Debugador.debug_colecionador_completo(m);
 
 
-        Opcional<ItemDoBanco> proc2 = objetos.getIndexado(150);
+        Opcional<ItemDoBancoEmExtincao> proc2 = objetos.getIndexado(150);
         System.out.println("T150 :: " + proc2.temValor());
 
         if (proc2.temValor()) {
 
-            ItemDoBanco item = proc2.get();
+            ItemDoBancoEmExtincao item = proc2.get();
 
             System.out.println("V150 :: " + item.lerTextoLinearizado());
 
@@ -125,12 +124,12 @@ public class AppMomentum {
 
         objetos.remover_por_chave(300);
 
-        Opcional<ItemDoBanco> proc300 = objetos.getIndexado(300);
+        Opcional<ItemDoBancoEmExtincao> proc300 = objetos.getIndexado(300);
         System.out.println("T300 :: " + proc300.temValor());
 
         if (proc300.temValor()) {
 
-            ItemDoBanco item = proc300.get();
+            ItemDoBancoEmExtincao item = proc300.get();
 
             System.out.println("V300 :: " + item.lerTextoLinearizado());
 
@@ -138,12 +137,12 @@ public class AppMomentum {
 
         }
 
-        Opcional<ItemDoBanco> proc2t = objetos.getIndexado(2000);
+        Opcional<ItemDoBancoEmExtincao> proc2t = objetos.getIndexado(2000);
         System.out.println("T2000 :: " + proc2t.temValor());
 
         if (proc2t.temValor()) {
 
-            ItemDoBanco item = proc2t.get();
+            ItemDoBancoEmExtincao item = proc2t.get();
 
             System.out.println("V2000 :: " + item.lerTextoLinearizado());
 
@@ -151,14 +150,14 @@ public class AppMomentum {
         }
 
 
-        Debugador.debug_colecionador_completo(m);
+      //  Debugador.debug_colecionador_completo(m);
 
 
-        for (ItemDoBanco item : objetos.getItens()) {
+        for (ItemDoBancoEmExtincao item : objetos.getItens()) {
             //System.out.println(" ## -->> " + item.lerTextoLinearizado());
         }
 
-        for (ItemDoBanco item : m.getColecao("@Sequencias").getItens()) {
+        for (ItemDoBancoEmExtincao item : m.getColecao("@Sequencias").getItens()) {
             System.out.println(" ## -->> " + item.lerTextoLinearizado());
         }
 
@@ -169,13 +168,13 @@ public class AppMomentum {
 
     }
 
-    public static void comparar_velocidade_de_busca(Colecao eColecao, int chave_id) {
+    public static void comparar_velocidade_de_busca(ColecaoAntigamente eColecaoAntigamente, int chave_id) {
 
         long at1 = System.nanoTime();
 
         boolean enc = false;
 
-        for (ItemDoBanco item : eColecao.getItens()) {
+        for (ItemDoBancoEmExtincao item : eColecaoAntigamente.getItens()) {
             DKGObjeto obj = DKG.PARSER_TO_OBJETO(item.lerTexto());
             if (obj.identifique("ID").isValor(chave_id)) {
 
@@ -192,11 +191,11 @@ public class AppMomentum {
 
         long bt1 = System.nanoTime();
 
-        Opcional<ItemDoBanco> proc500 = eColecao.getIndexado(chave_id);
+        Opcional<ItemDoBancoEmExtincao> proc500 = eColecaoAntigamente.getIndexado(chave_id);
         System.out.println("T" + chave_id + " :: " + proc500.temValor());
 
         if (proc500.temValor()) {
-            ItemDoBanco item = proc500.get();
+            ItemDoBancoEmExtincao item = proc500.get();
             System.out.println("V" + chave_id + " :: " + item.lerTextoLinearizado());
         }
 

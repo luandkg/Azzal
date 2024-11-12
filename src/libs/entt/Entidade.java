@@ -223,6 +223,23 @@ public class Entidade {
         return ret;
     }
 
+    public boolean is(String nome, long valor) {
+
+        boolean ret = false;
+
+        for (Tag tag : mTags) {
+            if (tag.is_nome(nome)) {
+                long tag_valor = Long.parseLong(tag.getValor());
+                if (tag_valor == valor) {
+                    ret = true;
+                }
+                break;
+            }
+        }
+
+        return ret;
+    }
+
 
     public boolean isInteiro(String att_nome) {
         String att_valor = at(att_nome);

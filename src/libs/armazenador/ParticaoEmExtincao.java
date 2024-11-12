@@ -2,7 +2,11 @@ package libs.armazenador;
 
 
 import libs.aqz.extincao.ItemDoBancoUTF8Antigamente;
-import libs.aqz.utils.ItemDoBanco;
+import libs.aqz.extincao.armazenador_antigo.ArmazenadorEmExtincao;
+import libs.aqz.extincao.armazenador_antigo.PaginaEmExtincao;
+import libs.aqz.extincao.armazenador_antigo.PaginadorEmExtincao;
+import libs.aqz.extincao.armazenador_antigo.SumarioEmExtincao;
+import libs.aqz.extincao.ItemDoBancoEmExtincao;
 import libs.aqz.utils.ItemDoBancoTX;
 import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.arquivos.TX;
@@ -14,9 +18,9 @@ import libs.luan.*;
 import java.nio.charset.StandardCharsets;
 
 
-public class ParticaoPrimaria {
+public class ParticaoEmExtincao {
 
-    private Armazenador mArmazenador;
+    private ArmazenadorEmExtincao mArmazenador;
     private Arquivador mArquivador;
     private long mBancoID;
     private RefLong mLocalBanco;
@@ -29,7 +33,7 @@ public class ParticaoPrimaria {
     private String mNome;
 
 
-    public ParticaoPrimaria(Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
+    public ParticaoEmExtincao(ArmazenadorEmExtincao eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
         mArmazenador = eArmazenador;
         mArquivador = eArquivador;
         mBancoID = banco_id;
@@ -43,7 +47,7 @@ public class ParticaoPrimaria {
     }
 
 
-    public ParticaoPrimaria(String eNome, Armazenador eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
+    public ParticaoEmExtincao(String eNome, ArmazenadorEmExtincao eArmazenador, Arquivador eArquivador, long banco_id, long local_banco, long local_capitulos, long local_cache, long local_corrente, long local_indice) {
         mArmazenador = eArmazenador;
         mArquivador = eArquivador;
         mBancoID = banco_id;
@@ -100,8 +104,8 @@ public class ParticaoPrimaria {
 
 
     public long getCapitulosContagem() {
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
-        return sumario.getCapitulosUtilizadosContagem();
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
+        return sumarioEmExtincao.getCapitulosUtilizadosContagem();
     }
 
     public long getPaginasTotalContagem() {
@@ -111,12 +115,12 @@ public class ParticaoPrimaria {
 
     public long getPaginasContagem() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
         long contando = 0;
 
-        for (Long capitulando : sumario.getCapitulosUtilizados()) {
-            contando += Paginador.getPaginasUtilizadasContagem(mArquivador, capitulando);
+        for (Long capitulando : sumarioEmExtincao.getCapitulosUtilizados()) {
+            contando += PaginadorEmExtincao.getPaginasUtilizadasContagem(mArquivador, capitulando);
 
         }
 
@@ -125,12 +129,12 @@ public class ParticaoPrimaria {
 
     public long getItensTotalContagem() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
         RefLong contando = new RefLong(0);
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
-            Sumario.realizar_contagem_de_paginas_todos_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
+            SumarioEmExtincao.realizar_contagem_de_paginas_todos_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
 
         }
 
@@ -139,12 +143,12 @@ public class ParticaoPrimaria {
 
     public long getItensContagem() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
         RefLong contando = new RefLong(0);
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
-            Sumario.realizar_contagem_de_paginas_utilizadas_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
+            SumarioEmExtincao.realizar_contagem_de_paginas_utilizadas_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
 
         }
 
@@ -153,32 +157,32 @@ public class ParticaoPrimaria {
 
     public long getItensAlocadosContagem() {
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
         RefLong contando = new RefLong(0);
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
-            Sumario.realizar_contagem_de_paginas_alocados_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
+            SumarioEmExtincao.realizar_contagem_de_paginas_alocados_no_capitulo(mArquivador, this, capitulo_ponteiro, contando);
 
         }
 
         return contando.get();
     }
 
-    public Lista<ItemDoBanco> getItens() {
+    public Lista<ItemDoBancoEmExtincao> getItens() {
 
-        Lista<ItemDoBanco> itens = new Lista<ItemDoBanco>();
+        Lista<ItemDoBancoEmExtincao> itens = new Lista<ItemDoBancoEmExtincao>();
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
 
-            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+            Lista<Long> pags = PaginadorEmExtincao.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
             for (Long pag : pags) {
 
-                Pagina pg = new Pagina(mArquivador, this, pag);
+                PaginaEmExtincao pg = new PaginaEmExtincao(mArquivador, this, pag);
                 itens.adicionar_varios(pg.getItens());
             }
 
@@ -192,16 +196,16 @@ public class ParticaoPrimaria {
 
         Lista<ItemDoBancoUTF8Antigamente> itens = new Lista<ItemDoBancoUTF8Antigamente>();
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
 
-            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+            Lista<Long> pags = PaginadorEmExtincao.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
             for (Long pag : pags) {
 
-                Pagina pg = new Pagina(mArquivador, this, pag);
+                PaginaEmExtincao pg = new PaginaEmExtincao(mArquivador, this, pag);
                 itens.adicionar_varios(pg.getItensUTF8());
             }
 
@@ -281,15 +285,15 @@ public class ParticaoPrimaria {
 
         //  System.out.println("Pagina Status = " + pagina_status);
 
-        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+        PaginaEmExtincao pagina_EmExtincao_atual = new PaginaEmExtincao(mArquivador, this, mPaginaCorrente.get());
 
         if (Armazenador.IS_DEBUG) {
-            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
+            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_EmExtincao_atual.contagemUsados() + " : " + pagina_EmExtincao_atual.contagemTodos());
         }
 
 
-        if (pagina_atual.temDisponivel()) {
-            endereco = pagina_atual.adicionar(conteudo);
+        if (pagina_EmExtincao_atual.temDisponivel()) {
+            endereco = pagina_EmExtincao_atual.adicionar(conteudo);
         } else {
 
             // TROCAR DE PAGINA
@@ -299,13 +303,13 @@ public class ParticaoPrimaria {
                 System.out.println("!INFO - PROCURANDO NOVA PAGINA");
             }
 
-            Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
+            PaginadorEmExtincao.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
 
             // USAR NOVA PAGINA
-            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+            PaginaEmExtincao pagina_EmExtincao_trocada = new PaginaEmExtincao(mArquivador, this, mPaginaCorrente.get());
 
-            if (pagina_trocada.temDisponivel()) {
-                endereco = pagina_trocada.adicionar(conteudo);
+            if (pagina_EmExtincao_trocada.temDisponivel()) {
+                endereco = pagina_EmExtincao_trocada.adicionar(conteudo);
             } else {
                 if (Armazenador.IS_DEBUG) {
                     System.out.println("!ERRO - SEM ESPAÇO NA PAGINA");
@@ -321,7 +325,7 @@ public class ParticaoPrimaria {
     }
 
 
-    public void remover(ItemDoBanco item) {
+    public void remover(ItemDoBancoEmExtincao item) {
 
         mArquivador.setPonteiro(item.getPonteiro());
         mArquivador.set_u8((byte) 2);
@@ -464,7 +468,7 @@ public class ParticaoPrimaria {
         //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
         int r = 0;
 
-        for (ItemDoBanco item : getItens()) {
+        for (ItemDoBancoEmExtincao item : getItens()) {
             remover(item);
             //     System.out.println("Removendo " + r);
             r += 1;
@@ -540,15 +544,15 @@ public class ParticaoPrimaria {
 
         //  System.out.println("Pagina Status = " + pagina_status);
 
-        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+        PaginaEmExtincao pagina_EmExtincao_atual = new PaginaEmExtincao(mArquivador, this, mPaginaCorrente.get());
 
         if (Armazenador.IS_DEBUG) {
-            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
+            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_EmExtincao_atual.contagemUsados() + " : " + pagina_EmExtincao_atual.contagemTodos());
         }
 
 
-        if (pagina_atual.temDisponivel()) {
-            endereco = pagina_atual.adicionarUTF8(conteudo);
+        if (pagina_EmExtincao_atual.temDisponivel()) {
+            endereco = pagina_EmExtincao_atual.adicionarUTF8(conteudo);
         } else {
 
             // TROCAR DE PAGINA
@@ -558,13 +562,13 @@ public class ParticaoPrimaria {
                 System.out.println("!INFO - PROCURANDO NOVA PAGINA");
             }
 
-            Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
+            PaginadorEmExtincao.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
 
             // USAR NOVA PAGINA
-            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+            PaginaEmExtincao pagina_EmExtincao_trocada = new PaginaEmExtincao(mArquivador, this, mPaginaCorrente.get());
 
-            if (pagina_trocada.temDisponivel()) {
-                endereco = pagina_trocada.adicionarUTF8(conteudo);
+            if (pagina_EmExtincao_trocada.temDisponivel()) {
+                endereco = pagina_EmExtincao_trocada.adicionarUTF8(conteudo);
             } else {
                 if (Armazenador.IS_DEBUG) {
                     System.out.println("!ERRO - SEM ESPAÇO NA PAGINA");
@@ -583,17 +587,17 @@ public class ParticaoPrimaria {
     public void limpar_profundamente() {
 
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
 
-            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+            Lista<Long> pags = PaginadorEmExtincao.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
             fmt.print("CAP :: {}", capitulo_ponteiro);
             for (Long pag : pags) {
 
-                Pagina pg = new Pagina(mArquivador, this, pag);
+                PaginaEmExtincao pg = new PaginaEmExtincao(mArquivador, this, pag);
 
                 for (Long item : pg.getAlocados()) {
                     fmt.print("\t++ Alocado :: {}", item);
@@ -610,17 +614,17 @@ public class ParticaoPrimaria {
     public void exibir_dump() {
 
 
-        Sumario sumario = new Sumario(mArquivador, mLocalCapitulos.get());
+        SumarioEmExtincao sumarioEmExtincao = new SumarioEmExtincao(mArquivador, mLocalCapitulos.get());
 
 
-        for (Long capitulo_ponteiro : sumario.getCapitulosUtilizados()) {
+        for (Long capitulo_ponteiro : sumarioEmExtincao.getCapitulosUtilizados()) {
 
-            Lista<Long> pags = Paginador.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
+            Lista<Long> pags = PaginadorEmExtincao.getPaginasUtilizadasDoCapitulo(mArquivador, capitulo_ponteiro);
 
             fmt.print("CAPITULO :: {}", capitulo_ponteiro);
             for (Long pag : pags) {
 
-                Pagina pg = new Pagina(mArquivador, this, pag);
+                PaginaEmExtincao pg = new PaginaEmExtincao(mArquivador, this, pag);
 
                 fmt.print("\t PAGINA :: {}", pg.getPonteiro());
 
@@ -642,10 +646,10 @@ public class ParticaoPrimaria {
         //  System.out.println("Preparar para remover :: " + getItens().getQuantidade());
         int r = 0;
 
-        Lista<ItemDoBanco> itens = getItens();
+        Lista<ItemDoBancoEmExtincao> itens = getItens();
         int total = itens.getQuantidade();
 
-        for (ItemDoBanco item : itens) {
+        for (ItemDoBancoEmExtincao item : itens) {
             remover(item);
             System.out.println(log + " " + r + " de " + total);
             r += 1;
@@ -721,15 +725,15 @@ public class ParticaoPrimaria {
 
         //  System.out.println("Pagina Status = " + pagina_status);
 
-        Pagina pagina_atual = new Pagina(mArquivador, this, mPaginaCorrente.get());
+        PaginaEmExtincao pagina_EmExtincao_atual = new PaginaEmExtincao(mArquivador, this, mPaginaCorrente.get());
 
         if (Armazenador.IS_DEBUG) {
-            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_atual.contagemUsados() + " : " + pagina_atual.contagemTodos());
+            System.out.println("!INFO - PAGINA{" + mPaginaCorrente + "} -->> " + pagina_EmExtincao_atual.contagemUsados() + " : " + pagina_EmExtincao_atual.contagemTodos());
         }
 
 
-        if (pagina_atual.temDisponivel()) {
-            endereco = pagina_atual.adicionarTX(conteudo);
+        if (pagina_EmExtincao_atual.temDisponivel()) {
+            endereco = pagina_EmExtincao_atual.adicionarTX(conteudo);
         } else {
 
             // TROCAR DE PAGINA
@@ -739,13 +743,13 @@ public class ParticaoPrimaria {
                 System.out.println("!INFO - PROCURANDO NOVA PAGINA");
             }
 
-            Paginador.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
+            PaginadorEmExtincao.trocar_de_pagina(mArquivador, this, mLocalBanco, mLocalCapitulos, mPaginaCorrente);
 
             // USAR NOVA PAGINA
-            Pagina pagina_trocada = new Pagina(mArquivador, this, mPaginaCorrente.get());
+            PaginaEmExtincao pagina_EmExtincao_trocada = new PaginaEmExtincao(mArquivador, this, mPaginaCorrente.get());
 
-            if (pagina_trocada.temDisponivel()) {
-                endereco = pagina_trocada.adicionarTX(conteudo);
+            if (pagina_EmExtincao_trocada.temDisponivel()) {
+                endereco = pagina_EmExtincao_trocada.adicionarTX(conteudo);
             } else {
                 if (Armazenador.IS_DEBUG) {
                     System.out.println("!ERRO - SEM ESPAÇO NA PAGINA");
