@@ -32,7 +32,7 @@ public class XMLParser {
             if (letra.contentEquals(" ") || letra.contentEquals("\t") || letra.contentEquals("\n")) {
             } else if (letra.contentEquals("<")) {
                 mIndex += 1;
-                parser_objeto(mObjetos);
+                parser_objeto(null,mObjetos);
             }
 
             mIndex += 1;
@@ -40,7 +40,7 @@ public class XMLParser {
 
     }
 
-    public boolean parser_objeto(Lista<XMLObjeto> objetos_raiz) {
+    public boolean parser_objeto(XMLObjeto ePai,Lista<XMLObjeto> objetos_raiz) {
 
         boolean deve_sair_do_objeto_pai = false;
 
@@ -99,6 +99,11 @@ public class XMLParser {
 
             String nome = getNome();
             XMLObjeto proc = new XMLObjeto(nome);
+
+            if(ePai!=null){
+                proc.setPai(ePai);
+            }
+
             objetos_raiz.adicionar(proc);
 
             boolean deve_fechar = false;
@@ -144,7 +149,7 @@ public class XMLParser {
                     if (letra.contentEquals("<")) {
                         mIndex += 1;
 
-                        if (parser_objeto(proc.getObjetos())) {
+                        if (parser_objeto(proc,proc.getObjetos())) {
                             break;
                         }
                     } else {

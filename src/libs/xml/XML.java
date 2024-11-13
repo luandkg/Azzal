@@ -1,7 +1,9 @@
 package libs.xml;
 
 import libs.luan.Lista;
+import libs.luan.Strings;
 import libs.luan.Texto;
+import libs.luan.Unico;
 
 
 public class XML {
@@ -119,5 +121,255 @@ public class XML {
         return documento;
     }
 
+
+    public static Lista<String> COLETAR_ATRIBUTOS(XML xml) {
+
+        Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            for (XMLAtributo att : pai.getAtributos()) {
+                atributos.item(att.getNome());
+            }
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_ATRIBUTOS_INTERNO(atributos, obj);
+            }
+
+        }
+
+        return atributos.toLista();
+    }
+
+    public static Lista<String> COLETAR_ATRIBUTOS(XMLObjeto xml) {
+
+        Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            for (XMLAtributo att : pai.getAtributos()) {
+                atributos.item(att.getNome());
+            }
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_ATRIBUTOS_INTERNO(atributos, obj);
+            }
+
+        }
+
+        return atributos.toLista();
+    }
+
+    private static void COLETAR_ATRIBUTOS_INTERNO(Unico<String> atributos, XMLObjeto pai) {
+
+        for (XMLAtributo att : pai.getAtributos()) {
+            atributos.item(att.getNome());
+        }
+
+        for (XMLObjeto obj : pai.getObjetos()) {
+            COLETAR_ATRIBUTOS_INTERNO(atributos, obj);
+        }
+
+    }
+
+
+    public static Lista<String> COLETAR_OBJETOS(XML xml) {
+
+        Unico<String> objetos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            objetos.item(pai.getNome());
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_OBJETOS_INTERNO(objetos, obj);
+            }
+
+        }
+
+        return objetos.toLista();
+    }
+
+    public static Lista<String> COLETAR_OBJETOS(XMLObjeto xml) {
+
+        Unico<String> objetos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            objetos.item(pai.getNome());
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_OBJETOS_INTERNO(objetos, obj);
+            }
+
+        }
+
+        return objetos.toLista();
+    }
+
+    private static void COLETAR_OBJETOS_INTERNO(Unico<String> objetos, XMLObjeto pai) {
+
+        objetos.item(pai.getNome());
+
+        for (XMLObjeto obj : pai.getObjetos()) {
+            COLETAR_OBJETOS_INTERNO(objetos, obj);
+        }
+
+    }
+
+    public static Lista<String> COLETAR_CONTEUDOS(XML xml) {
+
+        Unico<String> conteudos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            conteudos.item(pai.getConteudo());
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_CONTEUDOS_INTERNO(conteudos, obj);
+            }
+
+        }
+
+        return conteudos.toLista();
+    }
+
+    public static Lista<String> COLETAR_CONTEUDOS(XMLObjeto xml) {
+
+        Unico<String> conteudos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            conteudos.item(pai.getConteudo());
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_CONTEUDOS_INTERNO(conteudos, obj);
+            }
+
+        }
+
+        return conteudos.toLista();
+    }
+
+    private static void COLETAR_CONTEUDOS_INTERNO(Unico<String> conteudos, XMLObjeto pai) {
+
+        conteudos.item(pai.getConteudo());
+
+        for (XMLObjeto obj : pai.getObjetos()) {
+            COLETAR_CONTEUDOS_INTERNO(conteudos, obj);
+        }
+
+    }
+
+
+    public static Lista<XMLObjeto> COLETAR_OBJETOS_COM_CONTEUDO(XML xml, String conteudo) {
+
+        Lista<XMLObjeto> conteudos = new Lista<XMLObjeto>();
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            if (pai.isConteudo(conteudo)) {
+                conteudos.adicionar(pai);
+            }
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_OBJETOS_COM_CONTEUDO_INTERNO(conteudos, obj, conteudo);
+            }
+
+        }
+
+        return conteudos;
+    }
+
+    private static void COLETAR_OBJETOS_COM_CONTEUDO_INTERNO(Lista<XMLObjeto> conteudos, XMLObjeto pai, String conteudo) {
+
+        if (pai.isConteudo(conteudo)) {
+            conteudos.adicionar(pai);
+        }
+        for (XMLObjeto obj : pai.getObjetos()) {
+            COLETAR_OBJETOS_COM_CONTEUDO_INTERNO(conteudos, obj, conteudo);
+        }
+
+    }
+
+
+    public static Lista<XMLObjeto> COLETAR_OBJETOS_COM_ATRIBUTO(XML xml, String att_nome) {
+
+        Lista<XMLObjeto> conteudos = new Lista<XMLObjeto>();
+
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            boolean tem_att = false;
+
+            for (XMLAtributo att : pai.getAtributos()) {
+                if (att.isIgual(att_nome)) {
+                    tem_att = true;
+                    break;
+                }
+            }
+
+            if (tem_att) {
+                conteudos.adicionar(pai);
+            }
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_OBJETOS_COM_ATRIBUTO_INTERNO(conteudos, obj, att_nome);
+            }
+
+        }
+
+        return conteudos;
+    }
+
+    public static Lista<XMLObjeto> COLETAR_OBJETOS_COM_ATRIBUTO(XMLObjeto xml, String att_nome) {
+
+        Lista<XMLObjeto> conteudos = new Lista<XMLObjeto>();
+
+
+        for (XMLObjeto pai : xml.getObjetos()) {
+
+            boolean tem_att = false;
+
+            for (XMLAtributo att : pai.getAtributos()) {
+                if (att.isIgual(att_nome)) {
+                    tem_att = true;
+                    break;
+                }
+            }
+
+            if (tem_att) {
+                conteudos.adicionar(pai);
+            }
+
+            for (XMLObjeto obj : pai.getObjetos()) {
+                COLETAR_OBJETOS_COM_ATRIBUTO_INTERNO(conteudos, obj, att_nome);
+            }
+
+        }
+
+        return conteudos;
+    }
+
+    private static void COLETAR_OBJETOS_COM_ATRIBUTO_INTERNO(Lista<XMLObjeto> conteudos, XMLObjeto pai, String att_nome) {
+
+        boolean tem_att = false;
+
+        for (XMLAtributo att : pai.getAtributos()) {
+            if (att.isIgual(att_nome)) {
+                tem_att = true;
+                break;
+            }
+        }
+
+        if (tem_att) {
+            conteudos.adicionar(pai);
+        }
+
+        for (XMLObjeto obj : pai.getObjetos()) {
+            COLETAR_OBJETOS_COM_ATRIBUTO_INTERNO(conteudos, obj, att_nome);
+        }
+
+    }
 
 }
