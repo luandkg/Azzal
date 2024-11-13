@@ -85,6 +85,36 @@ public class AQZUTF8 {
 
     }
 
+    public static void EXIBIR_TUDO_EM_AMOSTRA(String arquivo_banco) {
+
+        AZInternamenteUTF8 aqz = new AZInternamenteUTF8(arquivo_banco);
+
+        for (ParticaoMestre particaoPrimaria : aqz.particoes_primarias()) {
+
+            Lista<Entidade> objetos = new Lista<Entidade>();
+            for (ItemDoBancoTX item : particaoPrimaria.getItensTX()) {
+                objetos.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoTX()));
+            }
+
+            ENTT.EXIBIR_TABELA_COM_TITULO(objetos, "UTF8 :: INTERNO - " + particaoPrimaria.getNome());
+
+        }
+
+        for (ColecaoUTF8 colecao : aqz.colecoes_listar()) {
+
+            Lista<Entidade> objetos = new Lista<Entidade>();
+            for (ItemDoBancoUTF8 item : colecao.getItens()) {
+                objetos.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoUTF8()));
+            }
+
+            ENTT.EXIBIR_TABELA_COM_TITULO(ENTT.GET_AMOSTRA_PEQUENA(objetos), "UTF8 :: PUBLICO #AMOSTRA - " + colecao.getNome() + " ( " + objetos.getQuantidade() + " )");
+
+        }
+
+
+        aqz.fechar();
+
+    }
 
 
     public static void COLECOES_ORGANIZAR(String arquivo_banco, String colecao_nome) {
@@ -114,8 +144,6 @@ public class AQZUTF8 {
     }
 
 
-
-
     public static void INSERIR_VARIOS(String arquivo_banco, String colecao_nome, Lista<Entidade> novos) {
         AZInternamenteUTF8 aqz = new AZInternamenteUTF8(arquivo_banco);
 
@@ -127,8 +155,6 @@ public class AQZUTF8 {
 
         aqz.fechar();
     }
-
-
 
 
     public static Entidade NOVA_ENTIDADE() {
@@ -179,4 +205,28 @@ public class AQZUTF8 {
         // item.atualizarUTF8();
     }
 
+
+    public static void TRANSFERIR_COLECOES(String arquivo_banco_origem, String arquivo_banco_destino) {
+
+        AZInternamenteUTF8 origem = new AZInternamenteUTF8(arquivo_banco_origem);
+        AZInternamenteUTF8 destino = new AZInternamenteUTF8(arquivo_banco_destino);
+
+        for (ColecaoUTF8 origem_colecao : origem.colecoes_listar()) {
+
+            fmt.print(">> Transferindo coleção UTF-8 : "+origem_colecao.getNome());
+
+            ColecaoUTF8 colecao_destino = destino.colecao_orgarnizar_e_obter(origem_colecao.getNome());
+            colecao_destino.zerarSequencial();
+            colecao_destino.limpar();
+
+            for (Entidade e : origem_colecao.getObjetos()) {
+                colecao_destino.adicionar(e);
+            }
+
+        }
+
+        origem.fechar();
+        destino.fechar();
+
+    }
 }

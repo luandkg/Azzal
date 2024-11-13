@@ -1560,6 +1560,27 @@ public class ENTT {
         return entts;
     }
 
+
+    public static Lista<Entidade> VALORES_ENTRE(String att_nome, Lista<String> valores,int inicio,int fim) {
+        Lista<Entidade> entts = CRIAR_LISTA();
+
+        int i = 0;
+
+        for (String item : valores) {
+
+            if(i>=inicio && i<=fim){
+                Entidade e = new Entidade();
+                e.at(att_nome, item);
+                entts.adicionar(e);
+            }
+
+
+            i+=1;
+        }
+
+        return entts;
+    }
+
     public static Lista<Entidade> VALORES_SEQUENCIADOS(String att_sequencia, String att_nome, Lista<String> valores) {
         Lista<Entidade> entts = CRIAR_LISTA();
 

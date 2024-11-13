@@ -1969,6 +1969,7 @@ public class Strings {
         return linhas;
     }
 
+
     public static Lista<String> DIVIDIR_POR_OU_POR(String texto, String por1, String por2) {
         Lista<String> linhas = new Lista<String>();
 
@@ -2272,22 +2273,74 @@ public class Strings {
     }
 
 
-
-    public static boolean temDigito(String texto){
+    public static boolean temDigito(String texto) {
 
         String digitos = "0123456789";
 
         int i = 0;
         int o = texto.length();
 
-        while(i<o){
+        while (i < o) {
             String l = String.valueOf(texto.charAt(i));
-            if(digitos.contains(l)){
+            if (digitos.contains(l)) {
                 return true;
             }
-            i+=1;
+            i += 1;
         }
 
         return false;
+    }
+
+
+    public static Lista<String> LISTA_TRIM(Lista<String> strings) {
+
+        int i = 0;
+        int o = strings.getQuantidade();
+
+        while (i < o) {
+            strings.set(i, strings.get(i).trim());
+            i += 1;
+        }
+
+        return strings;
+    }
+
+    public static String GET_DIGITOS(String s) {
+
+        int i = 0;
+        int o = s.length();
+        String ret = "";
+
+        while (i < o) {
+            String l = String.valueOf(s.charAt(i));
+            if (isDigito(l)) {
+                ret += l;
+            }
+            i += 1;
+        }
+
+        return ret;
+    }
+
+    public static int CONTAGEM_PARTE(String texto, String divisor, String esse) {
+
+        Lista<String> partes = DIVIDIR_POR(texto, divisor);
+        int contar = 0;
+
+        for (String parte : partes) {
+            if (parte.trim().contentEquals(esse)) {
+                contar += 1;
+            }
+        }
+
+        return contar;
+    }
+
+    public static String GET_TEXTO_MAIOR(String a, String b) {
+        if (a.length() > b.length()) {
+            return a;
+        } else {
+            return b;
+        }
     }
 }

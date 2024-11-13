@@ -160,7 +160,7 @@ public class Armazenador {
 
                 long guardar_local_indice = mArquivador.getPonteiro();
 
-                System.out.println("CRIAR INDICE EM :: " + guardar_local_indice);
+             //   System.out.println("CRIAR INDICE EM :: " + guardar_local_indice);
 
                 mArquivador.set_u8((byte) Armazenador.MARCADOR_INDICE);
                 mArquivador.set_u64(0);
