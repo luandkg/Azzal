@@ -1,8 +1,6 @@
 package servicos;
 
 
-
-import libs.dkg.DKG;
 import libs.dkg.DKGAtributo;
 import libs.dkg.DKGObjeto;
 import libs.entt.ENTT;
@@ -18,7 +16,6 @@ import libs.xml.XMLObjeto;
 public class INMET {
 
     private static final String API_DADOS_CAPITAIS = "https://apiprevmet3.inmet.gov.br/previsao/capitais";
-
 
 
     public static Lista<Entidade> GET_DADOS() {
@@ -160,7 +157,7 @@ public class INMET {
 
     }
 
-    public static Lista<Entidade> GET_ALERTAR_CLIMATICOS(){
+    public static Lista<Entidade> GET_ALERTAR_CLIMATICOS() {
 
         Lista<Entidade> alerta_dados = ENTT.CRIAR_LISTA();
 
@@ -169,15 +166,81 @@ public class INMET {
         if (dados.isOK()) {
 
 
-
             XML xml = XML.PARSER_XML(dados.get());
-            xml.getObjeto("rss").getObjeto("channel").exibir_quadro();
+            //  xml.getObjeto("rss").getObjeto("channel").exibir_quadro();
 
+            //    xml.exibir();
+
+            fmt.print("---------------RAIZ ---------------");
+            xml.exibir_objetos();
+            fmt.print("------------------------------");
 
             for (XMLObjeto alerta : xml.getObjeto("rss").getObjeto("channel").getObjetos()) {
+
+                alerta.exibir_objetos();
+
+                // fmt.print(":: ITEM");
+                if (alerta.getObjetos().possuiObjetos()) {
+                    fmt.print("---------------OBJ---------------");
+                    alerta.exibir_objetos();
+
+                    for (XMLObjeto sub_obj : alerta.getObjetos()) {
+                        fmt.print("--------------- SUB OBJ ---------------");
+                        fmt.print("Nome     :: {}", sub_obj.getNome());
+                        fmt.print("Contagem :: {}", sub_obj.contagemCoisas());
+                        sub_obj.exibir_objetos();
+                        fmt.print("------------------------------");
+
+                    }
+                    fmt.print("------------------------------");
+
+                }
+
+
+                for (XMLObjeto tr_objeto : alerta.getObjetosComNome("tr")) {
+                    fmt.print("TR :: Nome     :: {}", tr_objeto.getNome());
+                    if (tr_objeto.temObjetoComNome("td")) {
+
+                        tr_objeto.exibir_objetos();
+
+                        XMLObjeto td_objeto = tr_objeto.getObjeto("td");
+
+                        for (XMLObjeto sub_tr_objeto : td_objeto.getObjetosComNome("a")) {
+
+                            fmt.print("--------------- SUB TR ---------------");
+                            sub_tr_objeto.exibir_objetos();
+                            fmt.print("Contagem :: {}", sub_tr_objeto.contagemCoisas());
+
+                            for (XMLObjeto sub_sub_tr_objeto : sub_tr_objeto.getObjetosComNome("tr")) {
+                                fmt.print("--------------- TRILHA AVISO ---------------");
+
+                                if (sub_sub_tr_objeto.temObjetoComNome("th") && sub_sub_tr_objeto.temObjetoComNome("td")) {
+                                    XMLObjeto cabecalho = sub_sub_tr_objeto.getObjeto("th");
+                                    XMLObjeto aviso_dados = sub_sub_tr_objeto.getObjeto("td");
+
+                                    if (cabecalho.isConteudo("Link Gráfico")) {
+                                        fmt.print("Objeto Gráfico : {}", cabecalho.getConteudo());
+                                        aviso_dados.exibir();
+
+                                    }
+
+                                }
+
+                                // sub_sub_tr_objeto.exibir();
+                                fmt.print("--------------- ------------ ---------------");
+
+                            }
+
+
+                        }
+                    }
+                }
+
                 if (alerta.getObjeto("description").getObjetos().getQuantidade() > 0) {
+
+
                     String conteudo = alerta.getObjeto("description").getObjetos().get(0).getConteudo();
-                    // fmt.print(">> {}",conteudo);
+                    fmt.print(">> {}", conteudo);
                     if (conteudo.contains("Distrito Federal")) {
                         //objetos_df.adicionar(alerta);
 
@@ -194,7 +257,7 @@ public class INMET {
 
 
                         XML xml_conteudo = XML.PARSER_XML(conteudo);
-                        //xml_conteudo.exibir_objetos_mais();
+                        xml_conteudo.exibir();
 
                         e.at("Acontecimento", xml_conteudo.getObjeto("table").getObjetoSequencial("tr", 1).getObjeto("td").getConteudo());
                         e.at("Nivel", xml_conteudo.getObjeto("table").getObjetoSequencial("tr", 2).getObjeto("td").getConteudo());
@@ -235,6 +298,150 @@ public class INMET {
     }
 
 
+    public static Lista<Entidade> GET_ALERTAR_CLIMATICOS_V2() {
 
+        Lista<Entidade> alerta_dados = ENTT.CRIAR_LISTA();
+
+        Opcional<String> dados = Internet.GET_PAGINA_HTML_TIMEOUT("https://apiprevmet3.inmet.gov.br/avisos/rss");
+
+        if (dados.isOK()) {
+
+
+            XML xml = XML.PARSER_XML(dados.get());
+            //  xml.getObjeto("rss").getObjeto("channel").exibir_quadro();
+
+            //    xml.exibir();
+
+            //  fmt.print("---------------RAIZ ---------------");
+            //   xml.exibir_objetos();
+            //   fmt.print("------------------------------");
+
+
+            //   Lista<String> atributos = XML.COLETAR_ATRIBUTOS(xml);
+            //ENTT.EXIBIR_TABELA_COM_NOME(ENTT.VALORES_SEQUENCIADOS("ID", "Atributo", atributos), "XML ATRIBUTOS");
+
+            //  Lista<String> objetos = XML.COLETAR_OBJETOS(xml);
+            //  ENTT.EXIBIR_TABELA_COM_NOME(ENTT.VALORES_SEQUENCIADOS("ID", "Objeto", objetos), "XML OBJETOS");
+
+            //   Lista<String> conteudos = XML.COLETAR_CONTEUDOS(xml);
+            //   ENTT.EXIBIR_TABELA_COM_NOME(ENTT.VALORES_SEQUENCIADOS("ID", "Conteudo", conteudos), "XML CONTEUDOS");
+
+
+            Lista<XMLObjeto> objetos_com_conteudo_alert = XML.COLETAR_OBJETOS_COM_CONTEUDO(xml, "Alert");
+
+            //    fmt.print("Alertas : {}", objetos_com_conteudo_alert.getQuantidade());
+
+
+            for (XMLObjeto alerta : objetos_com_conteudo_alert) {
+                if (alerta.temPai()) {
+                    if (alerta.getPai().temPai()) {
+
+                      //  fmt.print("--------------------- PAI -----------------------");
+                        XMLObjeto alerta_avo = alerta.getPai().getPai();
+                        // alerta_avo.exibir_quadro_detalhado();
+
+                      //  Lista<String> atributos = XML.COLETAR_CONTEUDOS(alerta_avo);
+                     //   ENTT.EXIBIR_TABELA_COM_NOME(ENTT.VALORES_SEQUENCIADOS("ID", "Atributo", atributos), "XML ATRIBUTOS");
+
+                        Lista<XMLObjeto> objetos_com_att = XML.COLETAR_OBJETOS_COM_ATRIBUTO(alerta_avo, "href");
+                        for (XMLObjeto oa : objetos_com_att) {
+                         //   oa.exibir_se();
+                        }
+
+                        Opcional<Entidade> op_alerta = TRANSFORMAR_EM_QUADRO_DO_INMET(alerta_avo);
+                        if (op_alerta.isOK()) {
+                            if (op_alerta.get().at("Área").contains("Distrito Federal")) {
+
+                                Entidade e_alerta = op_alerta.get();
+                                e_alerta.at("AlertaRSS", e_alerta.at("Início") + " :: " + e_alerta.at("Fim"));
+
+                                e_alerta.tornar_primeiro("Duplicado");
+
+                                e_alerta.tornar_primeiro("AlertaRSS");
+                                alerta_dados.adicionar(e_alerta);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            for (Entidade e : alerta_dados) {
+                Lista<Entidade> iguais = ENTT.COLETAR(alerta_dados, "AlertaRSS", e.at("AlertaRSS"));
+                if (iguais.getQuantidade() > 1) {
+                    ENTT.ATRIBUTO_TODOS(iguais, "Duplicado", "SIM");
+                    ENTT.GET_PRIMEIRO(iguais).at("Duplicado", "");
+                }
+            }
+
+
+            ENTT.AT_ALTERAR_NOME(alerta_dados,"Evento","Acontecimento");
+            ENTT.AT_ALTERAR_NOME(alerta_dados,"Severidade","Nivel");
+            ENTT.AT_ALTERAR_NOME(alerta_dados,"Início","Data.Inicio");
+            ENTT.AT_ALTERAR_NOME(alerta_dados,"Fim","Data.Fim");
+            ENTT.AT_ALTERAR_NOME(alerta_dados,"Descrição","Descricao");
+            ENTT.AT_ALTERAR_NOME(alerta_dados,"Área","Regiao");
+
+            for(Entidade e : alerta_dados){
+
+                String i_data = Data.toData(Calendario.COMPLETO_GET_DATA(e.at("Data.Inicio"))).getTempoInverso();
+                String i_horario = Calendario.COMPLETO_GET_HORARIO(e.at("Data.Inicio"));
+
+                e.at("Data.Inicio", i_data + " " + i_horario);
+
+                String f_data = Data.toData(Calendario.COMPLETO_GET_DATA(e.at("Data.Fim"))).getTempoInverso();
+                String f_horario = Calendario.COMPLETO_GET_HORARIO(e.at("Data.Fim"));
+
+                e.at("Data.Fim", f_data + " " + f_horario);
+
+                //    e.at("AA",xml_conteudo.getObjeto("table").getObjetoSequencial("tr",7).toTexto());
+                //  e.at("Conteudo",conteudo);
+
+                e.at("Tozte", Tronarko.getData(Data.toData(i_data).getTempoLegivel()).getTextoZerado());
+                e.at("Hazde", Tronarko.getHora(f_horario).getTextoZerado());
+
+                e.at("AlertaRSS", e.at("Data.Inicio") + " :: " + e.at("Data.Fim"));
+
+            }
+
+            ENTT.REMOVER_SE(alerta_dados,"Duplicado","SIM");
+            ENTT.ATRIBUTO_REMOVER(alerta_dados,"Duplicado");
+            ENTT.ATRIBUTO_REMOVER(alerta_dados,"Status");
+
+          //  ENTT.EXIBIR_TABELA(alerta_dados);
+
+        }
+
+        return alerta_dados;
+    }
+
+
+    public static Opcional<Entidade> TRANSFORMAR_EM_QUADRO_DO_INMET(XMLObjeto objeto_alerta) {
+
+        Entidade novo = new Entidade();
+
+        boolean tem = false;
+
+        for (XMLObjeto obj : objeto_alerta.getObjetos()) {
+
+
+            if (obj.temObjetoComNome("th") && obj.temObjetoComNome("td")) {
+
+                XMLObjeto th = obj.getObjeto("th");
+                XMLObjeto td = obj.getObjeto("td");
+
+                novo.at(th.getConteudo(), td.getConteudo());
+                tem = true;
+
+            }
+
+        }
+
+        if (tem) {
+            return Opcional.OK(novo);
+        }
+
+        return Opcional.CANCEL();
+    }
 
 }
