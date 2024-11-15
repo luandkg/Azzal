@@ -28,6 +28,11 @@ public class Aleatorio {
         return ret;
     }
 
+
+    public static String aleatorio_numero_real(int minimo,int maximo){
+        return Aleatorio.aleatorio_entre(minimo, maximo) + "." + Aleatorio.aleatorio_entre(0, 100);
+    }
+
     public static String aleatorio_escolha(String opcao_1, String opcao_2) {
 
         Random sorte = new Random();
