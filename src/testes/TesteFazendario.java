@@ -45,8 +45,31 @@ public class TesteFazendario {
         fmt.print("---------------------------- AÇÃO 8 ----------------------");
         teste_desocupar(fazenda, "@Fundamento");
 
-
         fazenda.dump_armazens_existentes();
+
+        fmt.print("---------------------------- AÇÃO 9 ----------------------");
+
+        Opcional<Armazem> armazem_teste = fazenda.procurar_armazem("@Teste");
+        if (armazem_teste.isOK()) {
+
+            Armazem teste = armazem_teste.get();
+
+            fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getSumario());
+            fmt.print("\t ++ Sumarios          : {}", teste.getSumariosContagem());
+            fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
+            fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
+
+            for(int a=0;a<300;a++){
+                teste.item_adicionar("Luan Freitas :: "+a);
+            }
+
+            fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getSumario());
+            fmt.print("\t ++ Sumarios          : {}", teste.getSumariosContagem());
+            fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
+            fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
+
+        }
+
 
         fazenda.fechar();
 

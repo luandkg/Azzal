@@ -3,6 +3,7 @@ package libs.fazendario;
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Strings;
+import libs.luan.fmt;
 
 public class Armazem {
 
@@ -11,6 +12,10 @@ public class Armazem {
 
     private int mIndice;
     private long mPonteiro;
+
+    private boolean mTemSumario = false;
+    private long mPonteiroSumario;
+
 
     public Armazem(Fazendario eFazendario, Arquivador eArquivador, int eIndice) {
         mFazendario = eFazendario;
@@ -75,13 +80,60 @@ public class Armazem {
 
     }
 
-    public void setPonteiro(long ptr) {
+    public void setSumario(long ptr) {
         mArquivador.setPonteiro(mPonteiro + 2L);
         mArquivador.set_u64(ptr);
     }
 
-    public long getPonteiro() {
+    public long getSumario() {
         mArquivador.setPonteiro(mPonteiro + 2L);
         return mArquivador.get_u64();
     }
+
+
+    public long getSumarioPonteiro() {
+        if (!mTemSumario) {
+            mTemSumario = true;
+            mPonteiroSumario = getSumario();
+        }
+        return mPonteiroSumario;
+    }
+
+    public long getSumariosContagem() {
+
+        long sumario_ponteiro = getSumarioPonteiro();
+
+        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, sumario_ponteiro);
+
+        return sumario.getSumariosContagem();
+    }
+
+    public long getAndaresContagem() {
+
+        long sumario_ponteiro = getSumarioPonteiro();
+
+        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, sumario_ponteiro);
+
+        return sumario.getAndaresContagem();
+    }
+
+    public long getItensAlocadosContagem() {
+
+        long sumario_ponteiro = getSumarioPonteiro();
+
+        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, sumario_ponteiro);
+
+        return sumario.getItensAlocadosContagem();
+    }
+
+    public void item_adicionar(String texto) {
+
+        fmt.print("\t ++ Adicionar Item : Armazem :: {}",mIndice);
+
+        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, getSumarioPonteiro());
+
+        sumario.item_adicionar(texto);
+
+    }
+
 }

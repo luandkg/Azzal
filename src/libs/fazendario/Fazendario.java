@@ -15,8 +15,25 @@ public class Fazendario {
 
 
     public final static int ARMAZEM_TIPO_ARMAZEM = 53;
+    public final static int ARMAZEM_TIPO_ANDAR = 55;
+
     public final static int NAO_TEM = 0;
     public final static int ARMAZEM_FIM = 255;
+    public final static int ANDAR_FIM = 255;
+
+    public final static int ESTA_VAZIO = 0;
+    public final static int TEM = 255;
+
+
+    public final static int ESPACO_VAZIO_E_NAO_ALOCADO = 0;
+    public final static int ESPACO_VAZIO_E_JA_ALOCADO = 1;
+    public final static int ESPACO_OCUPADO = 2;
+
+
+    public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_ESPACOS = 10;//Matematica.KB(64);
+
+    public final static long TAMANHO_ESPACO_ITEM = Matematica.KB(10);
 
 
     private Arquivador mArquivador;
@@ -84,38 +101,23 @@ public class Fazendario {
         for (Armazem armazem : getArmazens()) {
             if (armazem.isDisponivel()) {
 
-                long ponteiro = armazem.getPonteiro();
+                long ponteiro = armazem.getSumario();
 
                 //  armazem.zerar();
 
                 armazem.setStatus(ARMAZEM_JA_INICIADO_E_OCUPADO);
                 armazem.setNome(eNome);
-                armazem.setPonteiro(ponteiro);
+                armazem.setSumario(ponteiro);
 
 
                 break;
             } else if (armazem.isNaoIniciado()) {
 
-                mArquivador.ir_para_o_fim();
-
-                long ponteiro = mArquivador.getPonteiro();
-
-                mArquivador.set_u8((byte) armazem.getIndice());
-                mArquivador.set_u8((byte) ARMAZEM_TIPO_ARMAZEM);
-                mArquivador.set_u8((byte) NAO_TEM);
-                mArquivador.set_u64((long) 0);
-                mArquivador.set_u8((byte) NAO_TEM);
-
-
-                for (int i = 0; i < Matematica.KB(64); i++) {
-                    mArquivador.set_u64((long) NAO_TEM);
-                }
-
-                mArquivador.set_u8((byte) ARMAZEM_FIM);
+                long ponteiro_sumario = criar_sumario(armazem.getIndice());
 
                 armazem.setStatus(ARMAZEM_JA_INICIADO_E_OCUPADO);
                 armazem.setNome(eNome);
-                armazem.setPonteiro(ponteiro);
+                armazem.setSumario(ponteiro_sumario);
 
                 break;
             }
@@ -182,12 +184,12 @@ public class Fazendario {
             if (armazem.isOcupado()) {
                 Entidade e_armazem = ENTT.CRIAR_EM(armazens, "ID", armazem.getIndice());
                 e_armazem.at("Status", "Ocupado");
-                e_armazem.at("Ponteiro", armazem.getPonteiro());
+                e_armazem.at("Sumario", armazem.getSumario());
                 e_armazem.at("Nome", armazem.getNome());
             } else if (armazem.isDisponivel()) {
                 Entidade e_armazem = ENTT.CRIAR_EM(armazens, "ID", armazem.getIndice());
                 e_armazem.at("Status", "Disponivel");
-                e_armazem.at("Ponteiro", armazem.getPonteiro());
+                e_armazem.at("Sumario", armazem.getSumario());
                 e_armazem.at("Nome", "");
             }
         }
@@ -225,5 +227,53 @@ public class Fazendario {
         }
 
     }
+
+
+    public long criar_sumario(int indice) {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) indice);     // Indice
+        mArquivador.set_u8((byte) ARMAZEM_TIPO_ARMAZEM);    // Tipo para Armazem - Armazem Sumario
+        mArquivador.set_u8((byte) NAO_TEM);                 // Tem outra página de Armazem Sumario
+        mArquivador.set_u64((long) 0);                      // Ponteiro da proxima página Armazem Sumario
+        mArquivador.set_u8((byte) NAO_TEM);
+
+
+        for (int i = 0; i < QUANTIDADE_DE_ANDARES; i++) {
+            mArquivador.set_u64((long) NAO_TEM);
+        }
+
+        mArquivador.set_u8((byte) ARMAZEM_FIM);
+
+        return ponteiro;
+    }
+
+    public long criar_andar(int indice) {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) indice);                  // Indice
+        mArquivador.set_u8((byte) ARMAZEM_TIPO_ANDAR);     // Tipo para Armazem - Armazem Sumario
+        mArquivador.set_u64((long) 0);                      // Espacos Existentes
+        mArquivador.set_u64((long) 0);                      // Espacos Ocupados
+        mArquivador.set_u64((long) 0);                      // Proximo espaco vazio
+        mArquivador.set_u8((byte) NAO_TEM);
+
+
+        for (int i = 0; i < QUANTIDADE_DE_ESPACOS; i++) {
+            mArquivador.set_u8((byte) NAO_TEM);
+            mArquivador.set_u64((long) NAO_TEM);
+        }
+
+        mArquivador.set_u8((byte) ANDAR_FIM);
+
+        return ponteiro;
+    }
+
 
 }
