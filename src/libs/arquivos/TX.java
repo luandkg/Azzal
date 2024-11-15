@@ -6,7 +6,6 @@ import libs.luan.Lista;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class TX {
 
@@ -456,5 +455,17 @@ public class TX {
 
         return texto;
     }
+
+
+    public static int INDICE_DE_CARACTERE(String letra) {
+        TX eTX = new TX();
+        return eTX.getIndice(letra);
+    }
+
+    public static String OBTER_CARACTERE(int indice) {
+        TX eTX = new TX();
+        return eTX.getCaracter(indice-1);
+    }
+
 
 }

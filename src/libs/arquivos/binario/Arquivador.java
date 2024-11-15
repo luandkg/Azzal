@@ -400,4 +400,8 @@ int o =(int)GET_TAMANHO(arquivo);
     }
 
 
+    public void ir_para_o_fim(){
+        setPonteiro(getLength());
+    }
+
 }

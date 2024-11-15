@@ -2343,4 +2343,15 @@ public class Strings {
             return b;
         }
     }
+
+
+    public static String GET_STRING_VIEW(byte[] string_bytes) {
+        return new String(string_bytes, StandardCharsets.UTF_8);
+    }
+
+    public static byte[] GET_STRING_VIEW_BYTES(String s) {
+        return s.getBytes(StandardCharsets.UTF_8);
+    }
+
+
 }
