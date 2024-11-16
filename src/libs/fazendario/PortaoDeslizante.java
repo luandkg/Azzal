@@ -3,7 +3,7 @@ package libs.fazendario;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.fmt;
 
-public class SumarioDeslizante {
+public class PortaoDeslizante {
 
     private Arquivador mArquivador;
     private Fazendario mFazendario;
@@ -14,7 +14,7 @@ public class SumarioDeslizante {
     private boolean mTemOutroSumario;
     private long mOutroSumarioPonteiro;
 
-    public SumarioDeslizante(Arquivador eArquivador, Fazendario eFazendario, int eIndice, long eSumarioPonteiro) {
+    public PortaoDeslizante(Arquivador eArquivador, Fazendario eFazendario, int eIndice, long eSumarioPonteiro) {
         mArquivador = eArquivador;
         mFazendario = eFazendario;
         mSumarioPonteiro = eSumarioPonteiro;
@@ -41,15 +41,15 @@ public class SumarioDeslizante {
         }
     }
 
-    public boolean temOutroSumario() {
+    public boolean temOutroPortao() {
         return mTemOutroSumario;
     }
 
-    public long getOutroSumario() {
+    public long getOutroPortao() {
         return mOutroSumarioPonteiro;
     }
 
-    public void setProximoSumario(long ptr) {
+    public void setProximoPortao(long ptr) {
 
         mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L);
         mArquivador.set_u8((byte) Fazendario.TEM);
@@ -143,7 +143,7 @@ public class SumarioDeslizante {
 
             if (ponteiro_andar == Fazendario.ESTA_VAZIO) {
 
-                long ponteiro_andar_novo = mFazendario.criar_andar(mIndice);
+                long ponteiro_andar_novo = mFazendario.CRIAR_ANDAR(mIndice);
 
                 mArquivador.setPonteiro(local_ponteiro_andar);
                 mArquivador.set_u64(ponteiro_andar_novo);

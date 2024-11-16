@@ -6,6 +6,7 @@ import libs.fazendario.Armazem;
 import libs.fazendario.Fazendario;
 import libs.luan.Opcional;
 import libs.luan.fmt;
+import libs.tronarko.Tronarko;
 
 public class TesteFazendario {
 
@@ -54,17 +55,17 @@ public class TesteFazendario {
 
             Armazem teste = armazem_teste.get();
 
-            fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getSumario());
-            fmt.print("\t ++ Sumarios          : {}", teste.getSumariosContagem());
+            fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getPortao());
+            fmt.print("\t ++ Portoes           : {}", teste.getPortoesContagem());
             fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
             fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
 
-            for(int a=0;a<300;a++){
-                teste.item_adicionar("Luan Freitas :: "+a);
+            for(int a=0;a<20;a++){
+                teste.item_adicionar("Luan Freitas :: "+a + " -- "+ Tronarko.getTronAgora().getTextoZerado() + " :: "+Tronarko.getTozte().getHiperarko_Status().toString());
             }
 
-            fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getSumario());
-            fmt.print("\t ++ Sumarios          : {}", teste.getSumariosContagem());
+            fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getPortao());
+            fmt.print("\t ++ Portoes           : {}", teste.getPortoesContagem());
             fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
             fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
 

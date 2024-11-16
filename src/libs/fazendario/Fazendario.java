@@ -31,9 +31,9 @@ public class Fazendario {
 
 
     public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_ESPACOS = 10;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_SETORES = 10;//Matematica.KB(64);
 
-    public final static long TAMANHO_ESPACO_ITEM = Matematica.KB(10);
+    public final static long TAMANHO_SETOR_ITEM = Matematica.KB(10);
 
 
     private Arquivador mArquivador;
@@ -101,23 +101,23 @@ public class Fazendario {
         for (Armazem armazem : getArmazens()) {
             if (armazem.isDisponivel()) {
 
-                long ponteiro = armazem.getSumario();
+                long ponteiro = armazem.getPortao();
 
                 //  armazem.zerar();
 
                 armazem.setStatus(ARMAZEM_JA_INICIADO_E_OCUPADO);
                 armazem.setNome(eNome);
-                armazem.setSumario(ponteiro);
+                armazem.setPortao(ponteiro);
 
 
                 break;
             } else if (armazem.isNaoIniciado()) {
 
-                long ponteiro_sumario = criar_sumario(armazem.getIndice());
+                long ponteiro_portao = CRIAR_PORTAO(armazem.getIndice());
 
                 armazem.setStatus(ARMAZEM_JA_INICIADO_E_OCUPADO);
                 armazem.setNome(eNome);
-                armazem.setSumario(ponteiro_sumario);
+                armazem.setPortao(ponteiro_portao);
 
                 break;
             }
@@ -184,12 +184,12 @@ public class Fazendario {
             if (armazem.isOcupado()) {
                 Entidade e_armazem = ENTT.CRIAR_EM(armazens, "ID", armazem.getIndice());
                 e_armazem.at("Status", "Ocupado");
-                e_armazem.at("Sumario", armazem.getSumario());
+                e_armazem.at("Portao", armazem.getPortao());
                 e_armazem.at("Nome", armazem.getNome());
             } else if (armazem.isDisponivel()) {
                 Entidade e_armazem = ENTT.CRIAR_EM(armazens, "ID", armazem.getIndice());
                 e_armazem.at("Status", "Disponivel");
-                e_armazem.at("Sumario", armazem.getSumario());
+                e_armazem.at("Portao", armazem.getPortao());
                 e_armazem.at("Nome", "");
             }
         }
@@ -229,7 +229,7 @@ public class Fazendario {
     }
 
 
-    public long criar_sumario(int indice) {
+    public long CRIAR_PORTAO(int indice) {
 
         mArquivador.ir_para_o_fim();
 
@@ -251,7 +251,7 @@ public class Fazendario {
         return ponteiro;
     }
 
-    public long criar_andar(int indice) {
+    public long CRIAR_ANDAR(int indice) {
 
         mArquivador.ir_para_o_fim();
 
@@ -265,7 +265,7 @@ public class Fazendario {
         mArquivador.set_u8((byte) NAO_TEM);
 
 
-        for (int i = 0; i < QUANTIDADE_DE_ESPACOS; i++) {
+        for (int i = 0; i < QUANTIDADE_DE_SETORES; i++) {
             mArquivador.set_u8((byte) NAO_TEM);
             mArquivador.set_u64((long) NAO_TEM);
         }

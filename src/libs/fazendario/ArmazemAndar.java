@@ -36,7 +36,7 @@ public class ArmazemAndar {
 
         mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 1L);
 
-        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_SETORES; i++) {
 
             long tem_ponteiro_espaco = mArquivador.get_u8();
             long ponteiro_espaco = mArquivador.get_u64();
@@ -55,7 +55,7 @@ public class ArmazemAndar {
 
         mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 1L);
 
-        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_SETORES; i++) {
 
             long tem_ponteiro_espaco = mArquivador.get_u8();
             long ponteiro_espaco = mArquivador.get_u64();
@@ -78,7 +78,7 @@ public class ArmazemAndar {
 
         fmt.print("\t ++ Adicionar Item : Andar {} ", mAndarPonteiro);
 
-        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_SETORES; i++) {
 
             long ponteiro_local = mArquivador.getPonteiro();
 
@@ -90,7 +90,7 @@ public class ArmazemAndar {
                 mArquivador.ir_para_o_fim();
                 long ponteiro_dados = mArquivador.getPonteiro();
 
-                mArquivador.set_u8_em_bloco(Fazendario.TAMANHO_ESPACO_ITEM, (byte) 0);
+                mArquivador.set_u8_em_bloco(Fazendario.TAMANHO_SETOR_ITEM, (byte) 0);
 
                 mArquivador.setPonteiro(ponteiro_local);
                 mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);

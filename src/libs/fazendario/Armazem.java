@@ -13,8 +13,8 @@ public class Armazem {
     private int mIndice;
     private long mPonteiro;
 
-    private boolean mTemSumario = false;
-    private long mPonteiroSumario;
+    private boolean mTemPortao = false;
+    private long mPonteiroPortao;
 
 
     public Armazem(Fazendario eFazendario, Arquivador eArquivador, int eIndice) {
@@ -80,48 +80,48 @@ public class Armazem {
 
     }
 
-    public void setSumario(long ptr) {
+    public void setPortao(long ptr) {
         mArquivador.setPonteiro(mPonteiro + 2L);
         mArquivador.set_u64(ptr);
     }
 
-    public long getSumario() {
+    public long getPortao() {
         mArquivador.setPonteiro(mPonteiro + 2L);
         return mArquivador.get_u64();
     }
 
 
-    public long getSumarioPonteiro() {
-        if (!mTemSumario) {
-            mTemSumario = true;
-            mPonteiroSumario = getSumario();
+    public long getPortaoPonteiro() {
+        if (!mTemPortao) {
+            mTemPortao = true;
+            mPonteiroPortao = getPortao();
         }
-        return mPonteiroSumario;
+        return mPonteiroPortao;
     }
 
-    public long getSumariosContagem() {
+    public long getPortoesContagem() {
 
-        long sumario_ponteiro = getSumarioPonteiro();
+        long sumario_ponteiro = getPortaoPonteiro();
 
-        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, sumario_ponteiro);
+        ArmazemPortao sumario = new ArmazemPortao(mArquivador,mFazendario,mIndice, sumario_ponteiro);
 
-        return sumario.getSumariosContagem();
+        return sumario.getPortoesContagem();
     }
 
     public long getAndaresContagem() {
 
-        long sumario_ponteiro = getSumarioPonteiro();
+        long sumario_ponteiro = getPortaoPonteiro();
 
-        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, sumario_ponteiro);
+        ArmazemPortao sumario = new ArmazemPortao(mArquivador,mFazendario,mIndice, sumario_ponteiro);
 
         return sumario.getAndaresContagem();
     }
 
     public long getItensAlocadosContagem() {
 
-        long sumario_ponteiro = getSumarioPonteiro();
+        long sumario_ponteiro = getPortaoPonteiro();
 
-        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, sumario_ponteiro);
+        ArmazemPortao sumario = new ArmazemPortao(mArquivador,mFazendario,mIndice, sumario_ponteiro);
 
         return sumario.getItensAlocadosContagem();
     }
@@ -130,9 +130,9 @@ public class Armazem {
 
         fmt.print("\t ++ Adicionar Item : Armazem :: {}",mIndice);
 
-        ArmazemSumario sumario = new ArmazemSumario(mArquivador,mFazendario,mIndice, getSumarioPonteiro());
+        ArmazemPortao portao = new ArmazemPortao(mArquivador,mFazendario,mIndice, getPortaoPonteiro());
 
-        sumario.item_adicionar(texto);
+        portao.item_adicionar(texto);
 
     }
 
