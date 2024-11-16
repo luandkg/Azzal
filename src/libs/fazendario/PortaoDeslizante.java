@@ -154,6 +154,10 @@ public class PortaoDeslizante {
                 fmt.print("\t ++ Criando ZDR :: {} ->> {} ", i, ponteiro_zona_de_reciclagem);
 
 
+                ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, ponteiro_zona_de_reciclagem);
+                zdr.setEspacosExistentes(Fazendario.QUANTIDADE_DE_ESPACOS);
+                zdr.setEspacosOcupados((byte) 0);
+
                 ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar_novo);
 
                 andar.setEspacosExistentes(Fazendario.QUANTIDADE_DE_ESPACOS);

@@ -6,7 +6,6 @@ import libs.fazendario.Armazem;
 import libs.fazendario.Fazendario;
 import libs.fazendario.ItemAlocado;
 import libs.luan.Opcional;
-import libs.luan.Strings;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 
@@ -80,16 +79,42 @@ public class TesteFazendario {
             fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
             fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
 
-            int ii=0;
+            int ii = 0;
+            int aa = 0;
+            int removidos = 0;
+
             for (ItemAlocado alocado : teste.getItensAlocados()) {
-                fmt.print("\t ++ Item Alocado :: {} = {} -- {} = {}", alocado.getPonteiroStatus(), alocado.getStatus(),alocado.getPonteiroDados(),alocado.getTextoUTF8());
-                if(ii==5){
-                    ii=0;
-                    fmt.print("-- Remover item :: {}",alocado.getPonteiroStatus());
+                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.getTextoUTF8());
+                if (ii == 5) {
+                    ii = 0;
+                    fmt.print("-- Remover item :: {}", alocado.getPonteiroStatus());
+                    alocado.remover();
+                    removidos+=1;
                 }
-                ii+=1;
+                ii += 1;
+                aa += 1;
             }
 
+            fmt.print("Removidos = {}", removidos);
+
+            fmt.print("----- Segunda Listagem ---------");
+            aa = 0;
+            for (ItemAlocado alocado : teste.getItensAlocados()) {
+                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.getTextoUTF8());
+                aa += 1;
+            }
+
+
+            for (int i = 0; i < 10; i++) {
+                teste.item_adicionar("Vamos além");
+            }
+
+            fmt.print("----- Terceira Listagem ---------");
+            aa = 0;
+            for (ItemAlocado alocado : teste.getItensAlocados()) {
+                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.getTextoUTF8());
+                aa += 1;
+            }
         }
 
 

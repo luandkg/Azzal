@@ -32,7 +32,7 @@ public class Fazendario {
 
 
     public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_ESPACOS = 10;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
 
     public final static long TAMANHO_SETOR_ITEM = Matematica.KB(10);
 

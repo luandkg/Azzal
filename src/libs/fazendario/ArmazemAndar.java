@@ -2,6 +2,7 @@ package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
+import libs.luan.Opcional;
 import libs.luan.Strings;
 import libs.luan.fmt;
 
@@ -59,6 +60,12 @@ public class ArmazemAndar {
         return mArquivador.get_u64();
     }
 
+    public long getZonaDeReciclagem() {
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L);
+        return mArquivador.get_u64();
+    }
+
+
     public long getItensAlocadosContagem() {
         long ret = 0;
 
@@ -86,6 +93,12 @@ public class ArmazemAndar {
         if (proximo_vazio < Fazendario.QUANTIDADE_DE_ESPACOS) {
             ret = true;
         } else {
+
+            ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, getZonaDeReciclagem());
+
+            if (zdr.temReciclaveis()) {
+                return true;
+            }
 
             mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
 
@@ -135,6 +148,30 @@ public class ArmazemAndar {
 
             fmt.print("\t ++ Adicionar Item : Andar {} ", mAndarPonteiro);
 
+            ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, getZonaDeReciclagem());
+
+            Opcional<Long> reciclado = zdr.obterItemReciclado();
+
+            if (reciclado.isOK()) {
+
+                fmt.print("\t ++ Andar :: Adicionar utilizando item reciclado !");
+
+
+                long deslocar = reciclado.get() * (1L + 8L);
+                mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
+
+                long ponteiro_local = mArquivador.getPonteiro();
+
+                long tem_ponteiro_espaco = mArquivador.get_u8();
+                long ponteiro_espaco = mArquivador.get_u64();
+
+                item_adicionar_no_espaco(ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
+
+
+                return;
+            }
+
+
             fmt.print("\t ++ Andar :: Adicionar utilizando varredura no andar");
 
             mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
@@ -174,7 +211,7 @@ public class ArmazemAndar {
 
             mArquivador.setPonteiro(ponteiro_dados);
 
-            byte[] bytes=Strings.GET_STRING_VIEW_BYTES(texto);
+            byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
             mArquivador.set_u32(bytes.length);
             mArquivador.set_u8_vector(bytes);
 
@@ -188,7 +225,7 @@ public class ArmazemAndar {
 
             mArquivador.setPonteiro(ponteiro_espaco);
 
-            byte[] bytes=Strings.GET_STRING_VIEW_BYTES(texto);
+            byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
 
             mArquivador.set_u32(bytes.length);
             mArquivador.set_u8_vector(bytes);
@@ -205,6 +242,7 @@ public class ArmazemAndar {
 
         mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
 
+
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
             long ptr_status = mArquivador.getPonteiro();
@@ -213,9 +251,30 @@ public class ArmazemAndar {
             long ptr_dados = mArquivador.getPonteiro();
             long ponteiro_espaco = mArquivador.get_u64();
 
-            if (tem_ponteiro_espaco == Fazendario.ESPACO_OCUPADO || tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
-                itens.adicionar(new ItemAlocado(mArquivador,ptr_status,ponteiro_espaco));
+            if (tem_ponteiro_espaco == Fazendario.ESPACO_OCUPADO) {
+                itens.adicionar(new ItemAlocado(mArquivador, this, i, ptr_status, ponteiro_espaco));
             }
+        }
+
+
+    }
+
+
+    public void remover(ItemAlocado item) {
+
+        if (!item.isRemovido()) {
+
+
+            long zona_de_reciclagem = getZonaDeReciclagem();
+
+
+            ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, zona_de_reciclagem);
+            zdr.adicionar(item.getIndiceSequencial());
+
+
+            item.marcarRemovido();
+            mArquivador.setPonteiro(item.getPonteiroStatus());
+            mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
         }
 
 
