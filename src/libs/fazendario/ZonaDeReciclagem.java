@@ -14,7 +14,7 @@ public class ZonaDeReciclagem {
         mArquivador = eArquivador;
         mPonteiroZonaDeReciclagem = ePonteiroZonaDeReciclagem;
 
-        //  mArquivador.set_u8((byte) indice);                          // Indice
+        //  mArquivador.set_u64((byte) indice);                          // Indice
         //   mArquivador.set_u8((byte) ARMAZEM_TIPO_ZONA_DE_RECICLAGEM); // Tipo para Armazem - Armazem Sumario
         //   mArquivador.set_u64((long) 0);                              // Espacos Existentes
         //    mArquivador.set_u64((long) 0);                              // Espacos Ocupados
@@ -23,22 +23,22 @@ public class ZonaDeReciclagem {
     }
 
     public void setEspacosExistentes(long quantidade) {
-        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L));
+        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (8L + 1L));
         mArquivador.set_u64(quantidade);
     }
 
     public void setEspacosOcupados(long quantidade) {
-        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L));
+        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (8L + 1L + 8L));
         mArquivador.set_u64(quantidade);
     }
 
     public long getEspacosExistentes() {
-        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L));
+        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (8L + 1L));
         return mArquivador.get_u64();
     }
 
     public long getEspacosOcupados() {
-        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L));
+        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (8L + 1L + 8L));
         return mArquivador.get_u64();
     }
 
@@ -52,7 +52,7 @@ public class ZonaDeReciclagem {
 
         if (ocupados > 0) {
 
-            mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L + 8L + 1L + ((ocupados - 1L) * 8L)));
+            mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (8L + 1L + 8L + 8L + 1L + ((ocupados - 1L) * 8L)));
             long id = mArquivador.get_u64();
 
             ocupados -= 1;
@@ -60,8 +60,7 @@ public class ZonaDeReciclagem {
                 ocupados = 0;
             }
 
-            mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L));
-            mArquivador.set_u64(ocupados);
+            setEspacosOcupados(ocupados);
 
             return Opcional.OK(id);
         }
@@ -76,13 +75,12 @@ public class ZonaDeReciclagem {
 
         if (ocupados < espacos) {
 
-            mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L + 8L + 1L + (ocupados * 8L)));
+            mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (8L + 1L + 8L + 8L + 1L + (ocupados * 8L)));
             mArquivador.set_u64(valor);
 
             ocupados += 1;
 
-            mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L));
-            mArquivador.set_u64(ocupados);
+            setEspacosOcupados(ocupados);
 
         } else {
             throw new RuntimeException("Não existe espaco na ZonaDeReciclagem !");
@@ -92,7 +90,7 @@ public class ZonaDeReciclagem {
 
 
     public void zerar() {
-        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L));
-        mArquivador.set_u64((long) 0);
+        setEspacosOcupados((long) 0);
+        setEspacosExistentes(Fazendario.QUANTIDADE_DE_ESPACOS);
     }
 }

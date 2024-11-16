@@ -17,16 +17,27 @@ public class Armazem {
     private boolean mTemPortao = false;
     private long mPonteiroPortao;
 
+    public static final int ARMAZEM_TIPO_PRIMARIO = 0;
+    public static final int ARMAZEM_TIPO_LOCATARIO = 1;
 
-    public Armazem(Fazendario eFazendario, Arquivador eArquivador, long eIndice) {
+
+    public Armazem(int eTipo, Fazendario eFazendario, Arquivador eArquivador, long eIndice) {
         mFazendario = eFazendario;
         mArquivador = eArquivador;
 
         mIndice = eIndice;
-        mPonteiro = 4L + ((long) mIndice * (1024 + 4 + 8 + 1+8));
 
+        if (eTipo == ARMAZEM_TIPO_PRIMARIO) {
+            mPonteiro = 4L + ((long) mIndice * (1024 + 4 + 8 + 1 + 8));
+        } else {
+            mPonteiro = eIndice;
+        }
     }
 
+
+    public long getPonteiroCorrente() {
+        return mPonteiro;
+    }
 
     public long getIndice() {
         return mIndice;
@@ -70,7 +81,7 @@ public class Armazem {
     }
 
     public void setNome(String eNome) {
-        mArquivador.setPonteiro(mPonteiro + 8L+1L + 8L);
+        mArquivador.setPonteiro(mPonteiro + 8L + 1L + 8L);
 
         byte[] bytes = Strings.GET_STRING_VIEW_BYTES(eNome);
 
@@ -82,12 +93,12 @@ public class Armazem {
     }
 
     public void setPortao(long ptr) {
-        mArquivador.setPonteiro(mPonteiro + 8L+1L);
+        mArquivador.setPonteiro(mPonteiro + 8L + 1L);
         mArquivador.set_u64(ptr);
     }
 
     public long getPortao() {
-        mArquivador.setPonteiro(mPonteiro + 8L+1L);
+        mArquivador.setPonteiro(mPonteiro + 8L + 1L);
         return mArquivador.get_u64();
     }
 
@@ -119,7 +130,7 @@ public class Armazem {
     }
 
     public long getEspacosContagem() {
-        return getPortoesContagem()*Fazendario.QUANTIDADE_DE_ANDARES*Fazendario.QUANTIDADE_DE_ESPACOS;
+        return getPortoesContagem() * Fazendario.QUANTIDADE_DE_ANDARES * Fazendario.QUANTIDADE_DE_ESPACOS;
     }
 
     public long getItensAlocadosContagem() {
@@ -193,7 +204,6 @@ public class Armazem {
         portao.zerar();
 
     }
-
 
 
 }

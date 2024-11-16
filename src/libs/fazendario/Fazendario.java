@@ -89,8 +89,8 @@ public class Fazendario {
         mArquivador.setPonteiro(4L);
 
         for (int i = 0; i < 256; i++) {
-            mArquivador.setPonteiro(4L + (i * (8+1+8+4+1024)));
-            armazens.adicionar(new Armazem(this, mArquivador, i));
+            mArquivador.setPonteiro(4L + (i * (8 + 1 + 8 + 4 + 1024)));
+            armazens.adicionar(new Armazem(Armazem.ARMAZEM_TIPO_PRIMARIO, this, mArquivador, i));
         }
 
         return armazens;
@@ -255,7 +255,7 @@ public class Fazendario {
 
         for (int i = 0; i < 256; i++) {
 
-            mArquivador.setPonteiro(4L + (i * (1024 + 4 + 8 + 1+8)));
+            mArquivador.setPonteiro(4L + (i * (1024 + 4 + 8 + 1 + 8)));
 
             long bloco_indice = mArquivador.get_u64();
             int bloco_status = mArquivador.get_u8();
@@ -273,13 +273,37 @@ public class Fazendario {
     }
 
 
+    public long CRIAR_ARMAZEM_LOCATARIO() {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro_armazem_locatario = mArquivador.getPonteiro();
+
+        mArquivador.set_u64((long) ponteiro_armazem_locatario);
+        mArquivador.set_u8((byte) ARMAZEM_NAO_INICIADO);
+        mArquivador.set_u64((byte) 0);
+        mArquivador.set_u32((byte) 0);
+        mArquivador.set_u8_em_bloco(1024, (byte) 0);
+
+        long ponteiro_portao = CRIAR_PORTAO(ponteiro_armazem_locatario);
+
+        Armazem armazem = new Armazem(Armazem.ARMAZEM_TIPO_LOCATARIO, this, mArquivador, ponteiro_armazem_locatario);
+
+        armazem.setStatus(ARMAZEM_JA_INICIADO_E_OCUPADO);
+        armazem.setNome(String.valueOf(ponteiro_armazem_locatario));
+        armazem.setPortao(ponteiro_portao);
+
+        return ponteiro_armazem_locatario;
+    }
+
+
     public long CRIAR_PORTAO(long indice) {
 
         mArquivador.ir_para_o_fim();
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u64( indice);     // Indice
+        mArquivador.set_u64(indice);     // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ARMAZEM);    // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u8((byte) NAO_TEM);                 // Tem outra página de Armazem Sumario
         mArquivador.set_u64((long) 0);                      // Ponteiro da proxima página Armazem Sumario
@@ -301,7 +325,7 @@ public class Fazendario {
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u64( indice);                  // Indice
+        mArquivador.set_u64(indice);                  // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ANDAR);     // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u64((long) 0);                      // Espacos Existentes
         mArquivador.set_u64((long) 0);                      // Espacos Ocupados
@@ -326,7 +350,7 @@ public class Fazendario {
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u64( indice);                          // Indice
+        mArquivador.set_u64(indice);                                // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ZONA_DE_RECICLAGEM); // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u64((long) 0);                              // Espacos Existentes
         mArquivador.set_u64((long) 0);                              // Espacos Ocupados
@@ -342,4 +366,8 @@ public class Fazendario {
         return ponteiro;
     }
 
+
+    public Armazem OBTER_ARMAZEM_LOCATORIO(long ponteiro){
+        return new Armazem(Armazem.ARMAZEM_TIPO_LOCATARIO, this, mArquivador,ponteiro );
+    }
 }
