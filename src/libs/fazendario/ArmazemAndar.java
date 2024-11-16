@@ -1,5 +1,6 @@
 package libs.fazendario;
 
+import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 import libs.luan.Opcional;
@@ -22,7 +23,7 @@ public class ArmazemAndar {
 
         mArquivador.setPonteiro(mAndarPonteiro);
 
-        int armazem_indice = mArquivador.get_u8();
+        long armazem_indice = mArquivador.get_u64();
         int armazem_tipo = mArquivador.get_u8();
         long andar_espacos_existentes = mArquivador.get_u64();
         long andar_espacos_ocupados = mArquivador.get_u64();
@@ -35,33 +36,33 @@ public class ArmazemAndar {
     }
 
     public void setEspacosExistentes(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L);
         mArquivador.set_u64(ptr);
     }
 
     public void setEspacosOcupados(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L);
         mArquivador.set_u64(ptr);
     }
 
     public void setProximoEspacoVazio(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L);
         mArquivador.set_u64(ptr);
     }
 
     public void setZonaDeReciclagem(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L);
         mArquivador.set_u64(ptr);
     }
 
 
     public long getProximoEspacoVazio() {
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L);
         return mArquivador.get_u64();
     }
 
     public long getZonaDeReciclagem() {
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L);
         return mArquivador.get_u64();
     }
 
@@ -69,7 +70,7 @@ public class ArmazemAndar {
     public long getItensAlocadosContagem() {
         long ret = 0;
 
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -88,7 +89,7 @@ public class ArmazemAndar {
     public long getItensNaoAlocadosContagem() {
         long ret = 0;
 
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -96,6 +97,25 @@ public class ArmazemAndar {
             long ponteiro_espaco = mArquivador.get_u64();
 
             if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO) {
+                ret += 1;
+            }
+        }
+
+
+        return ret;
+    }
+
+    public long getItensUtilizadosContagem() {
+        long ret = 0;
+
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+
+            long tem_ponteiro_espaco = mArquivador.get_u8();
+            long ponteiro_espaco = mArquivador.get_u64();
+
+            if (tem_ponteiro_espaco == Fazendario.ESPACO_OCUPADO) {
                 ret += 1;
             }
         }
@@ -125,7 +145,7 @@ public class ArmazemAndar {
                 return true;
             }
 
-            mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+            mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
 
             for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -157,7 +177,7 @@ public class ArmazemAndar {
             fmt.print("\t ++ Andar :: Adicionar utilizando proximo vazio : {}", proximo_vazio);
 
             long deslocar = proximo_vazio * (1L + 8L);
-            mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
+            mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
 
             long ponteiro_local = mArquivador.getPonteiro();
 
@@ -183,7 +203,7 @@ public class ArmazemAndar {
 
 
                 long deslocar = reciclado.get() * (1L + 8L);
-                mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
+                mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
 
                 long ponteiro_local = mArquivador.getPonteiro();
 
@@ -199,7 +219,7 @@ public class ArmazemAndar {
 
             fmt.print("\t ++ Andar :: Adicionar utilizando varredura no andar");
 
-            mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+            mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
 
             for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -237,6 +257,9 @@ public class ArmazemAndar {
             mArquivador.setPonteiro(ponteiro_dados);
 
             byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
+
+            VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
+
             mArquivador.set_u32(bytes.length);
             mArquivador.set_u8_vector(bytes);
 
@@ -252,6 +275,8 @@ public class ArmazemAndar {
 
             byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
 
+            VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
+
             mArquivador.set_u32(bytes.length);
             mArquivador.set_u8_vector(bytes);
 
@@ -265,7 +290,7 @@ public class ArmazemAndar {
 
     public void obter_itens_alocados(Lista<ItemAlocado> itens) {
 
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
 
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
@@ -307,7 +332,7 @@ public class ArmazemAndar {
 
     public void zerar() {
 
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
 
 
         Lista<Long> zerar_ponteiros = new Lista<Long>();

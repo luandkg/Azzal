@@ -53,7 +53,7 @@ public class Fazendario {
             mArquivador.set_u8((byte) 1);
 
             for (int i = 0; i < 256; i++) {
-                mArquivador.set_u8((byte) i);
+                mArquivador.set_u64((long) i);
                 mArquivador.set_u8((byte) ARMAZEM_NAO_INICIADO);
                 mArquivador.set_u64((byte) 0);
                 mArquivador.set_u32((byte) 0);
@@ -89,7 +89,7 @@ public class Fazendario {
         mArquivador.setPonteiro(4L);
 
         for (int i = 0; i < 256; i++) {
-            mArquivador.setPonteiro(4L + (i * (1024 + 4 + 8 + 2)));
+            mArquivador.setPonteiro(4L + (i * (8+1+8+4+1024)));
             armazens.adicionar(new Armazem(this, mArquivador, i));
         }
 
@@ -217,6 +217,7 @@ public class Fazendario {
                 e_armazem.at("NaoAlocados", armazem.getItensNaoAlocadosContagem());
 
                 e_armazem.at("Reciclaveis", armazem.getItensReciclaveisContagem());
+                e_armazem.at("Utilizados", armazem.getItensUtilizadosContagem());
 
             } else if (armazem.isDisponivel()) {
                 Entidade e_armazem = ENTT.CRIAR_EM(armazens, "ID", armazem.getIndice());
@@ -232,6 +233,7 @@ public class Fazendario {
                 e_armazem.at("NaoAlocados", armazem.getItensNaoAlocadosContagem());
 
                 e_armazem.at("Reciclaveis", armazem.getItensReciclaveisContagem());
+                e_armazem.at("Utilizados", armazem.getItensUtilizadosContagem());
 
             }
         }
@@ -253,9 +255,9 @@ public class Fazendario {
 
         for (int i = 0; i < 256; i++) {
 
-            mArquivador.setPonteiro(4L + (i * (1024 + 4 + 8 + 2)));
+            mArquivador.setPonteiro(4L + (i * (1024 + 4 + 8 + 1+8)));
 
-            int bloco_indice = mArquivador.get_u8();
+            long bloco_indice = mArquivador.get_u64();
             int bloco_status = mArquivador.get_u8();
             long bloco_local = mArquivador.get_u64();
             int bloco_nome_tamanho = mArquivador.get_u32();
@@ -271,13 +273,13 @@ public class Fazendario {
     }
 
 
-    public long CRIAR_PORTAO(int indice) {
+    public long CRIAR_PORTAO(long indice) {
 
         mArquivador.ir_para_o_fim();
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u8((byte) indice);     // Indice
+        mArquivador.set_u64( indice);     // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ARMAZEM);    // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u8((byte) NAO_TEM);                 // Tem outra página de Armazem Sumario
         mArquivador.set_u64((long) 0);                      // Ponteiro da proxima página Armazem Sumario
@@ -293,13 +295,13 @@ public class Fazendario {
         return ponteiro;
     }
 
-    public long CRIAR_ANDAR(int indice) {
+    public long CRIAR_ANDAR(long indice) {
 
         mArquivador.ir_para_o_fim();
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u8((byte) indice);                  // Indice
+        mArquivador.set_u64( indice);                  // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ANDAR);     // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u64((long) 0);                      // Espacos Existentes
         mArquivador.set_u64((long) 0);                      // Espacos Ocupados
@@ -318,13 +320,13 @@ public class Fazendario {
         return ponteiro;
     }
 
-    public long CRIAR_ZONA_DE_RECICLAGEM(int indice) {
+    public long CRIAR_ZONA_DE_RECICLAGEM(long indice) {
 
         mArquivador.ir_para_o_fim();
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u8((byte) indice);                          // Indice
+        mArquivador.set_u64( indice);                          // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ZONA_DE_RECICLAGEM); // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u64((long) 0);                              // Espacos Existentes
         mArquivador.set_u64((long) 0);                              // Espacos Ocupados

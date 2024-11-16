@@ -9,13 +9,13 @@ public class PortaoDeslizante {
     private Arquivador mArquivador;
     private Fazendario mFazendario;
 
-    private int mIndice;
+    private long mIndice;
     private long mSumarioPonteiro;
 
     private boolean mTemOutroSumario;
     private long mOutroSumarioPonteiro;
 
-    public PortaoDeslizante(Arquivador eArquivador, Fazendario eFazendario, int eIndice, long eSumarioPonteiro) {
+    public PortaoDeslizante(Arquivador eArquivador, Fazendario eFazendario, long eIndice, long eSumarioPonteiro) {
         mArquivador = eArquivador;
         mFazendario = eFazendario;
         mSumarioPonteiro = eSumarioPonteiro;
@@ -28,7 +28,7 @@ public class PortaoDeslizante {
 
         mArquivador.setPonteiro(mSumarioPonteiro);
 
-        int armazem_indice = mArquivador.get_u8();
+        long armazem_indice = mArquivador.get_u64();
         int armazem_tipo = mArquivador.get_u8();
         int armazem_tem_outra_pagina = mArquivador.get_u8();
         long armazem_outra_pagina_ponteiro = mArquivador.get_u64();
@@ -50,7 +50,7 @@ public class PortaoDeslizante {
 
     public void setProximoPortao(long ptr) {
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L);
         mArquivador.set_u8((byte) Fazendario.TEM);
         mArquivador.set_u64(ptr);
     }
@@ -59,7 +59,7 @@ public class PortaoDeslizante {
 
         long contagem = 0;
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
             long ponteiro_andar = mArquivador.get_u64();
@@ -76,11 +76,11 @@ public class PortaoDeslizante {
 
         long contagem = 0;
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
 
-            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
 
             long ponteiro_andar = mArquivador.get_u64();
 
@@ -102,11 +102,11 @@ public class PortaoDeslizante {
 
         long contagem = 0;
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
 
-            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
 
             long ponteiro_andar = mArquivador.get_u64();
 
@@ -124,15 +124,41 @@ public class PortaoDeslizante {
         return contagem;
     }
 
+    public long getItensUtilizadosContagem() {
+
+        long contagem = 0;
+
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
+
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
+
+            long ponteiro_andar = mArquivador.get_u64();
+
+            if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
+                // fmt.print("Andar --- {}",ponteiro_andar);
+
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                long cont = andar.getItensUtilizadosContagem();
+                contagem += cont;
+                //   fmt.print("++ {}",cont);
+
+            }
+        }
+
+        return contagem;
+    }
+
     public long getItensReciclaveisContagem() {
 
         long contagem = 0;
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
 
-            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
 
             long ponteiro_andar = mArquivador.get_u64();
 
@@ -154,11 +180,11 @@ public class PortaoDeslizante {
     public boolean temEspaco() {
         boolean ret = false;
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
 
-            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
 
             long ponteiro_andar = mArquivador.get_u64();
 
@@ -182,11 +208,11 @@ public class PortaoDeslizante {
 
     public void item_adicionar(String texto) {
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
 
-            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
 
             long local_ponteiro_andar = mArquivador.getPonteiro();
 
@@ -208,7 +234,7 @@ public class PortaoDeslizante {
 
                 ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, ponteiro_zona_de_reciclagem);
                 zdr.setEspacosExistentes(Fazendario.QUANTIDADE_DE_ESPACOS);
-                zdr.setEspacosOcupados((byte) 0);
+                zdr.setEspacosOcupados((long) 0);
 
                 ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar_novo);
 
@@ -242,11 +268,11 @@ public class PortaoDeslizante {
 
     public void obter_itens_alocados(Lista<ItemAlocado> itens) {
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
 
-            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
 
             long ponteiro_andar = mArquivador.get_u64();
 
@@ -264,11 +290,11 @@ public class PortaoDeslizante {
 
     public void zerar() {
 
-        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
 
-            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
 
             long ponteiro_andar = mArquivador.get_u64();
 

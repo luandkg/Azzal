@@ -9,16 +9,16 @@ public class ArmazemPortao {
     private Arquivador mArquivador;
     private Fazendario mFazendario;
 
-    private int mArmazemIndice;
+    private long mArmazemIndice;
     private long mSumarioPonteiro;
 
-    public ArmazemPortao(Arquivador eArquivador, Fazendario eFazendario, int eArmazemIndice, long eSumarioPonteiro) {
+    public ArmazemPortao(Arquivador eArquivador, Fazendario eFazendario, long eArmazemIndice, long eSumarioPonteiro) {
         mArquivador = eArquivador;
         mFazendario = eFazendario;
         mArmazemIndice = eArmazemIndice;
         mSumarioPonteiro = eSumarioPonteiro;
 
-        //      set_u8((byte) armazem.getIndice());     // Indice
+        //      set_u64((byte) armazem.getIndice());     // Indice
         //      set_u8((byte) ARMAZEM_TIPO_ARMAZEM);    // Tipo para Armazem - Armazem Sumario
         //      set_u8((byte) NAO_TEM);                 // Tem outra página de Armazem Sumario
         //      set_u64((long) 0);                      // Ponteiro da proxima página Armazem Sumario
@@ -123,6 +123,34 @@ public class ArmazemPortao {
             PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
 
             contagem += sumario_local.getItensNaoAlocadosContagem();
+
+            if (sumario_local.temOutroPortao()) {
+                sumario_lendo = true;
+                local_ponteiro_sumario = sumario_local.getOutroPortao();
+            } else {
+                sumario_lendo = false;
+            }
+
+        }
+
+
+        return contagem;
+    }
+
+    public long getItensUtilizadosContagem() {
+        long contagem = 0;
+
+
+        long local_ponteiro_sumario = mSumarioPonteiro;
+
+        boolean sumario_lendo = true;
+
+        while (sumario_lendo) {
+
+            // fmt.print("Sumario :: {}",local_ponteiro_sumario);
+            PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
+
+            contagem += sumario_local.getItensUtilizadosContagem();
 
             if (sumario_local.temOutroPortao()) {
                 sumario_lendo = true;

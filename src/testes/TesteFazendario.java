@@ -1,10 +1,14 @@
 package testes;
 
+import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.fazendario.Armazem;
 import libs.fazendario.Fazendario;
 import libs.fazendario.ItemAlocado;
+import libs.luan.Aleatorio;
 import libs.luan.Opcional;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
@@ -84,12 +88,12 @@ public class TesteFazendario {
             int removidos = 0;
 
             for (ItemAlocado alocado : teste.getItensAlocados()) {
-                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.getTextoUTF8());
+                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.lerTextoUTF8());
                 if (ii == 5) {
                     ii = 0;
                     fmt.print("-- Remover item :: {}", alocado.getPonteiroStatus());
                     alocado.remover();
-                    removidos+=1;
+                    removidos += 1;
                 }
                 ii += 1;
                 aa += 1;
@@ -100,7 +104,7 @@ public class TesteFazendario {
             fmt.print("----- Segunda Listagem ---------");
             aa = 0;
             for (ItemAlocado alocado : teste.getItensAlocados()) {
-                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.getTextoUTF8());
+                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.lerTextoUTF8());
                 aa += 1;
             }
 
@@ -112,7 +116,7 @@ public class TesteFazendario {
             fmt.print("----- Terceira Listagem ---------");
             aa = 0;
             for (ItemAlocado alocado : teste.getItensAlocados()) {
-                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.getTextoUTF8());
+                fmt.print("\t ++ Item Alocado :: <{}>  {} = {} -- {} = {}", aa, alocado.getPonteiroStatus(), alocado.getStatus(), alocado.getPonteiroDados(), alocado.lerTextoUTF8());
                 aa += 1;
             }
         }
@@ -124,6 +128,159 @@ public class TesteFazendario {
         fazenda.fechar();
 
     }
+
+    public static void teste_alta_pressao() {
+
+        int repetir = Aleatorio.aleatorio_entre(10, 20);
+         repetir = Aleatorio.aleatorio_entre(10, 20);
+
+        for (int a = 0; a < repetir; a++) {
+            teste_pressao();
+        }
+
+/*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|                                                            FAZENDARIO - ARMAZENS : OCUPADOS E DISPONIVEIS                                                            |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|ID      |Status       |Portao        |Nome              |Portoes      |Andares      |Espacos      |Alocados      |NaoAlocados      |Reciclaveis      |Utilizados      |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|0       |Ocupado      |265732        |@Pressao::12      |3            |21           |600          |408           |12               |377              |31              |
+|1       |Ocupado      |1548597       |@Pressao::11      |3            |28           |600          |541           |19               |115              |426             |
+|2       |Ocupado      |1559326       |@Pressao::18      |3            |23           |600          |452           |8                |345              |107             |
+|3       |Ocupado      |2739395       |@Pressao::16      |2            |13           |400          |248           |12               |81               |167             |
+|4       |Ocupado      |3817064       |@Pressao::15      |2            |16           |400          |312           |8                |0                |312             |
+|5       |Ocupado      |4669150       |@Pressao::19      |5            |47           |1000         |928           |12               |123              |805             |
+|6       |Ocupado      |4679879       |@Pressao::17      |3            |27           |600          |536           |4                |0                |536             |
+|7       |Ocupado      |8783985       |@Pressao::10      |3            |22           |600          |434           |6                |0                |434             |
+|8       |Ocupado      |11934094      |@Pressao::14      |6            |55           |1200         |1091          |9                |0                |1091            |
+|9       |Ocupado      |14283503      |@Pressao::13      |4            |34           |800          |671           |9                |0                |671             |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                */
+
+    }
+
+    public static void teste_pressao() {
+
+        fmt.print("----------------- FAZENDARIO ------------------");
+
+        String arquivo_fazenda = "/home/luan/assets/teste_fazendas/fazenda_pressao.az";
+
+        //  Arquivador.remover(arquivo_fazenda);
+
+        boolean deve_adicionar=true;
+        boolean deve_atualizar=true;
+
+        boolean deve_remover = true;
+        boolean deve_reciclar_tudo = true;
+
+
+        Fazendario pressao = new Fazendario(arquivo_fazenda);
+
+
+        String colecao_nome = "@Pressao::" + Aleatorio.aleatorio_entre(10, 20);
+
+
+        if (!pressao.existe_armazem(colecao_nome)) {
+            pressao.alocar_armazem(colecao_nome);
+        }
+
+        Armazem armazem_pressao = Opcional.SOME(pressao.procurar_armazem(colecao_nome));
+
+        if(deve_adicionar){
+
+            if (Aleatorio.aleatorio(100) > 80) {
+                armazem_pressao.item_adicionar(ENTT.TO_DOCUMENTO(ENTT.CRIAR("Texto", PessoaNomeadorDeAkkax.get(), "TDN", Tronarko.getTronAgora().getTextoZerado())));
+            } else {
+                for (int a = 0; a < Aleatorio.aleatorio_entre(100, 300); a++) {
+                    armazem_pressao.item_adicionar(ENTT.CRIAR("Texto", PessoaNomeadorDeAkkax.get(), "TDN", Tronarko.getTronAgora().getTextoZerado()).toTexto());
+                }
+            }
+
+        }
+
+
+
+        long indice_de_exclusao = armazem_pressao.getItensAlocadosContagem() / 10;
+        long indice_de_exclusao_metade = indice_de_exclusao / 2;
+
+        if (indice_de_exclusao_metade > 0 && deve_remover) {
+
+            int exclusao_inicio = (int) indice_de_exclusao_metade + Aleatorio.aleatorio_entre(10, 50);
+            int exclusao_fim = exclusao_inicio + (int) (indice_de_exclusao_metade / 4) + Aleatorio.aleatorio_entre(10, 50);
+
+
+            for (int a = 0; a < Aleatorio.aleatorio_entre(exclusao_inicio, exclusao_fim); a++) {
+
+                int aa = Aleatorio.aleatorio_entre(30, 50);
+                int ii = 0;
+
+                for (ItemAlocado item : armazem_pressao.getItensAlocados()) {
+                    if (ii >= aa) {
+                        item.remover();
+                        break;
+                    }
+                    ii += 1;
+                }
+            }
+
+        }
+
+        if (Aleatorio.aleatorio(100) > 80 && deve_remover) {
+
+            int ii = 0;
+            int aa = Aleatorio.aleatorio_entre(100, 200);
+
+            for (ItemAlocado item : armazem_pressao.getItensAlocados()) {
+                if (ii < aa) {
+                    item.remover();
+                }
+                ii += 1;
+            }
+
+        }
+
+        if (Aleatorio.aleatorio(100) > 50 && deve_atualizar) {
+
+            int ii = 0;
+            int aa = Aleatorio.aleatorio_entre(100, 200);
+
+            for (ItemAlocado item : armazem_pressao.getItensAlocados()) {
+                if (ii < aa) {
+
+                    Entidade e = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+                    e.at("ADS", Tronarko.getTronAgora().getTextoZerado());
+                    e.at("Valor", e.atIntOuPadrao("Valor", 0) + 1);
+
+                    item.atualizarUTF8(ENTT.TO_DOCUMENTO(e));
+
+                }
+                ii += 1;
+            }
+
+        }
+
+
+        if (Aleatorio.aleatorio(100) > 80) {
+            //   fmt.print("!! Zerando : {}", colecao_nome);
+            // armazem_pressao.zerar();
+        }
+
+        if (Aleatorio.aleatorio(100) > 90 && deve_reciclar_tudo) {
+            for (ItemAlocado item : armazem_pressao.getItensAlocados()) {
+                item.remover();
+            }
+        }
+
+
+        fmt.print("!! Modificado : {}", colecao_nome);
+
+        pressao.dump_armazens_existentes_completo();
+
+
+        pressao.fechar();
+    }
+
 
     public static void teste_alocar(Fazendario fazenda, String nome) {
 

@@ -11,45 +11,45 @@ public class Armazem {
     private Fazendario mFazendario;
     private Arquivador mArquivador;
 
-    private int mIndice;
+    private long mIndice;
     private long mPonteiro;
 
     private boolean mTemPortao = false;
     private long mPonteiroPortao;
 
 
-    public Armazem(Fazendario eFazendario, Arquivador eArquivador, int eIndice) {
+    public Armazem(Fazendario eFazendario, Arquivador eArquivador, long eIndice) {
         mFazendario = eFazendario;
         mArquivador = eArquivador;
 
         mIndice = eIndice;
-        mPonteiro = 4L + ((long) mIndice * (1024 + 4 + 8 + 2));
+        mPonteiro = 4L + ((long) mIndice * (1024 + 4 + 8 + 1+8));
 
     }
 
 
-    public int getIndice() {
+    public long getIndice() {
         return mIndice;
     }
 
     public boolean isDisponivel() {
-        mArquivador.setPonteiro(mPonteiro + 1L);
+        mArquivador.setPonteiro(mPonteiro + 8L);
         return mArquivador.get_u8() == Fazendario.ARMAZEM_JA_INICIADO_E_DISPONIVEL;
     }
 
     public boolean isNaoIniciado() {
-        mArquivador.setPonteiro(mPonteiro + 1L);
+        mArquivador.setPonteiro(mPonteiro + 8L);
         return mArquivador.get_u8() == Fazendario.ARMAZEM_NAO_INICIADO;
     }
 
     public boolean isOcupado() {
-        mArquivador.setPonteiro(mPonteiro + 1L);
+        mArquivador.setPonteiro(mPonteiro + 8L);
         return mArquivador.get_u8() == Fazendario.ARMAZEM_JA_INICIADO_E_OCUPADO;
     }
 
     public String getNome() {
 
-        mArquivador.setPonteiro(mPonteiro + 2L + 8L);
+        mArquivador.setPonteiro(mPonteiro + 8L + 1L + 8L);
 
         int bloco_nome_tamanho = mArquivador.get_u32();
         if (bloco_nome_tamanho > 1024) {
@@ -65,12 +65,12 @@ public class Armazem {
     }
 
     public void setStatus(int s) {
-        mArquivador.setPonteiro(mPonteiro + 1L);
+        mArquivador.setPonteiro(mPonteiro + 8L);
         mArquivador.set_u8((byte) s);
     }
 
     public void setNome(String eNome) {
-        mArquivador.setPonteiro(mPonteiro + 2L + 8L);
+        mArquivador.setPonteiro(mPonteiro + 8L+1L + 8L);
 
         byte[] bytes = Strings.GET_STRING_VIEW_BYTES(eNome);
 
@@ -82,12 +82,12 @@ public class Armazem {
     }
 
     public void setPortao(long ptr) {
-        mArquivador.setPonteiro(mPonteiro + 2L);
+        mArquivador.setPonteiro(mPonteiro + 8L+1L);
         mArquivador.set_u64(ptr);
     }
 
     public long getPortao() {
-        mArquivador.setPonteiro(mPonteiro + 2L);
+        mArquivador.setPonteiro(mPonteiro + 8L+1L);
         return mArquivador.get_u64();
     }
 
@@ -140,6 +140,15 @@ public class Armazem {
         return sumario.getItensNaoAlocadosContagem();
     }
 
+    public long getItensUtilizadosContagem() {
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        ArmazemPortao sumario = new ArmazemPortao(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        return sumario.getItensUtilizadosContagem();
+    }
+
     public long getItensReciclaveisContagem() {
 
         long sumario_ponteiro = getPortaoPonteiro();
@@ -184,5 +193,7 @@ public class Armazem {
         portao.zerar();
 
     }
+
+
 
 }
