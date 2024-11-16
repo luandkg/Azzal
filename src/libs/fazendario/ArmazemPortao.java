@@ -1,6 +1,7 @@
 package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 import libs.luan.fmt;
 
 public class ArmazemPortao {
@@ -167,5 +168,31 @@ public class ArmazemPortao {
 
     }
 
+
+    public void obter_itens_alocados(Lista<ItemAlocado> itens) {
+
+
+        long local_ponteiro_sumario = mSumarioPonteiro;
+
+        boolean sumario_lendo = true;
+
+        while (sumario_lendo) {
+
+            // fmt.print("Sumario :: {}",local_ponteiro_sumario);
+            PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
+
+            sumario_local.obter_itens_alocados(itens);
+
+
+            if (sumario_local.temOutroPortao()) {
+                sumario_lendo = true;
+                local_ponteiro_sumario = sumario_local.getOutroPortao();
+            } else {
+                sumario_lendo = false;
+            }
+
+        }
+
+    }
 
 }

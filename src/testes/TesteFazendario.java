@@ -4,7 +4,9 @@ import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.fazendario.Armazem;
 import libs.fazendario.Fazendario;
+import libs.fazendario.ItemAlocado;
 import libs.luan.Opcional;
+import libs.luan.Strings;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 
@@ -60,14 +62,33 @@ public class TesteFazendario {
             fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
             fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
 
-            for(int a=0;a<20;a++){
-                teste.item_adicionar("Luan Freitas :: "+a + " -- "+ Tronarko.getTronAgora().getTextoZerado() + " :: "+Tronarko.getTozte().getHiperarko_Status().toString());
+            for (int a = 0; a < 20; a++) {
+                teste.item_adicionar("Luan Freitas :: " + a + " -- " + Tronarko.getTronAgora().getTextoZerado() + " :: " + Tronarko.getTozte().getHiperarko_Status().toString());
             }
 
             fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getPortao());
             fmt.print("\t ++ Portoes           : {}", teste.getPortoesContagem());
             fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
             fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
+
+            for (int a = 0; a < 30; a++) {
+                teste.item_adicionar("Indo sequencialmente :: " + a + " -- " + Tronarko.getTronAgora().getTextoZerado() + " :: " + Tronarko.getTozte().getHiperarko_Status().toString());
+            }
+
+            fmt.print("\t ++ Ponteiro Sumario  : {}", teste.getPortao());
+            fmt.print("\t ++ Portoes           : {}", teste.getPortoesContagem());
+            fmt.print("\t ++ Andares           : {}", teste.getAndaresContagem());
+            fmt.print("\t ++ Itens Alocados    : {}", teste.getItensAlocadosContagem());
+
+            int ii=0;
+            for (ItemAlocado alocado : teste.getItensAlocados()) {
+                fmt.print("\t ++ Item Alocado :: {} = {} -- {} = {}", alocado.getPonteiroStatus(), alocado.getStatus(),alocado.getPonteiroDados(),alocado.getTextoUTF8());
+                if(ii==5){
+                    ii=0;
+                    fmt.print("-- Remover item :: {}",alocado.getPonteiroStatus());
+                }
+                ii+=1;
+            }
 
         }
 

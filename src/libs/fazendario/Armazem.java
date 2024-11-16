@@ -2,6 +2,7 @@ package libs.fazendario;
 
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 import libs.luan.Strings;
 import libs.luan.fmt;
 
@@ -134,6 +135,20 @@ public class Armazem {
 
         portao.item_adicionar(texto);
 
+    }
+
+
+    public Lista<ItemAlocado> getItensAlocados() {
+
+        Lista<ItemAlocado> itens = new Lista<ItemAlocado>();
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        ArmazemPortao sumario = new ArmazemPortao(mArquivador,mFazendario,mIndice, sumario_ponteiro);
+
+        sumario.obter_itens_alocados(itens);
+
+        return itens;
     }
 
 }

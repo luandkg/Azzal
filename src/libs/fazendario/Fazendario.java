@@ -16,6 +16,7 @@ public class Fazendario {
 
     public final static int ARMAZEM_TIPO_ARMAZEM = 53;
     public final static int ARMAZEM_TIPO_ANDAR = 55;
+    public final static int ARMAZEM_TIPO_ZONA_DE_RECICLAGEM = 56;
 
     public final static int NAO_TEM = 0;
     public final static int ARMAZEM_FIM = 255;
@@ -31,7 +32,7 @@ public class Fazendario {
 
 
     public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_SETORES = 10;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_ESPACOS = 10;//Matematica.KB(64);
 
     public final static long TAMANHO_SETOR_ITEM = Matematica.KB(10);
 
@@ -262,10 +263,11 @@ public class Fazendario {
         mArquivador.set_u64((long) 0);                      // Espacos Existentes
         mArquivador.set_u64((long) 0);                      // Espacos Ocupados
         mArquivador.set_u64((long) 0);                      // Proximo espaco vazio
+        mArquivador.set_u64((long) 0);                      // Area de Reciclagem de Espacos
         mArquivador.set_u8((byte) NAO_TEM);
 
 
-        for (int i = 0; i < QUANTIDADE_DE_SETORES; i++) {
+        for (int i = 0; i < QUANTIDADE_DE_ESPACOS; i++) {
             mArquivador.set_u8((byte) NAO_TEM);
             mArquivador.set_u64((long) NAO_TEM);
         }
@@ -275,5 +277,26 @@ public class Fazendario {
         return ponteiro;
     }
 
+    public long CRIAR_ZONA_DE_RECICLAGEM(int indice) {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) indice);                          // Indice
+        mArquivador.set_u8((byte) ARMAZEM_TIPO_ZONA_DE_RECICLAGEM); // Tipo para Armazem - Armazem Sumario
+        mArquivador.set_u64((long) 0);                              // Espacos Existentes
+        mArquivador.set_u64((long) 0);                              // Espacos Ocupados
+        mArquivador.set_u8((byte) NAO_TEM);
+
+
+        for (int i = 0; i < QUANTIDADE_DE_ESPACOS; i++) {
+            mArquivador.set_u64((long) NAO_TEM);
+        }
+
+        mArquivador.set_u8((byte) ANDAR_FIM);
+
+        return ponteiro;
+    }
 
 }

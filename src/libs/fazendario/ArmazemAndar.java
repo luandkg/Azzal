@@ -1,6 +1,7 @@
 package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.Lista;
 import libs.luan.Strings;
 import libs.luan.fmt;
 
@@ -25,18 +26,45 @@ public class ArmazemAndar {
         long andar_espacos_existentes = mArquivador.get_u64();
         long andar_espacos_ocupados = mArquivador.get_u64();
         long andar_proximo_espaco_vazio = mArquivador.get_u64();
+        long andar_espaco_de_reciclagem = mArquivador.get_u64();
 
         int armazem_vazio = mArquivador.get_u8();
 
 
     }
 
+    public void setEspacosExistentes(long ptr) {
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L);
+        mArquivador.set_u64(ptr);
+    }
+
+    public void setEspacosOcupados(long ptr) {
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L);
+        mArquivador.set_u64(ptr);
+    }
+
+    public void setProximoEspacoVazio(long ptr) {
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L);
+        mArquivador.set_u64(ptr);
+    }
+
+    public void setZonaDeReciclagem(long ptr) {
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L);
+        mArquivador.set_u64(ptr);
+    }
+
+
+    public long getProximoEspacoVazio() {
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L);
+        return mArquivador.get_u64();
+    }
+
     public long getItensAlocadosContagem() {
         long ret = 0;
 
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
 
-        for (int i = 0; i < Fazendario.QUANTIDADE_DE_SETORES; i++) {
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
             long tem_ponteiro_espaco = mArquivador.get_u8();
             long ponteiro_espaco = mArquivador.get_u64();
@@ -53,17 +81,26 @@ public class ArmazemAndar {
     public boolean temEspaco() {
         boolean ret = false;
 
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 1L);
+        long proximo_vazio = getProximoEspacoVazio();
 
-        for (int i = 0; i < Fazendario.QUANTIDADE_DE_SETORES; i++) {
+        if (proximo_vazio < Fazendario.QUANTIDADE_DE_ESPACOS) {
+            ret = true;
+        } else {
 
-            long tem_ponteiro_espaco = mArquivador.get_u8();
-            long ponteiro_espaco = mArquivador.get_u64();
+            mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
 
-            if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO || tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
-                ret = true;
-                break;
+            for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+
+                long tem_ponteiro_espaco = mArquivador.get_u8();
+                long ponteiro_espaco = mArquivador.get_u64();
+
+                if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO || tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+                    ret = true;
+                    break;
+                }
             }
+
+
         }
 
 
@@ -73,48 +110,114 @@ public class ArmazemAndar {
     public void item_adicionar(String texto) {
 
 
-        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 1L);
+        long proximo_vazio = getProximoEspacoVazio();
+        fmt.print("\t ++ Andar :: Proximo Vazio = {} ", proximo_vazio);
 
 
-        fmt.print("\t ++ Adicionar Item : Andar {} ", mAndarPonteiro);
+        if (proximo_vazio < Fazendario.QUANTIDADE_DE_ESPACOS) {
 
-        for (int i = 0; i < Fazendario.QUANTIDADE_DE_SETORES; i++) {
+            fmt.print("\t ++ Andar :: Adicionar utilizando proximo vazio : {}", proximo_vazio);
+
+            long deslocar = proximo_vazio * (1L + 8L);
+            mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
 
             long ponteiro_local = mArquivador.getPonteiro();
 
             long tem_ponteiro_espaco = mArquivador.get_u8();
             long ponteiro_espaco = mArquivador.get_u64();
 
-            if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO) {
+            item_adicionar_no_espaco(ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
 
-                mArquivador.ir_para_o_fim();
-                long ponteiro_dados = mArquivador.getPonteiro();
+            proximo_vazio += 1;
+            setProximoEspacoVazio(proximo_vazio);
 
-                mArquivador.set_u8_em_bloco(Fazendario.TAMANHO_SETOR_ITEM, (byte) 0);
+        } else {
 
-                mArquivador.setPonteiro(ponteiro_local);
-                mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
-                mArquivador.set_u64(ponteiro_dados);
+            fmt.print("\t ++ Adicionar Item : Andar {} ", mAndarPonteiro);
 
-                mArquivador.setPonteiro(ponteiro_dados);
-                mArquivador.set_u8_vector(Strings.GET_STRING_VIEW_BYTES(texto));
+            fmt.print("\t ++ Andar :: Adicionar utilizando varredura no andar");
 
-                fmt.print("\t ++ Alocando novo espaco : {}", ponteiro_dados);
+            mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
 
-                break;
-            } else if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+            for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
-                mArquivador.setPonteiro(ponteiro_local);
-                mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
+                long ponteiro_local = mArquivador.getPonteiro();
 
-                mArquivador.setPonteiro(ponteiro_espaco);
-                mArquivador.set_u8_vector(Strings.GET_STRING_VIEW_BYTES(texto));
+                long tem_ponteiro_espaco = mArquivador.get_u8();
+                long ponteiro_espaco = mArquivador.get_u64();
 
-                fmt.print("\t ++ Utilizando espaco existente : {}", ponteiro_espaco);
+                if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO || tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+                    item_adicionar_no_espaco(ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
+                    break;
+                }
 
-                break;
+            }
+
+
+        }
+
+
+    }
+
+    public void item_adicionar_no_espaco(long ponteiro_local, long tem_ponteiro_espaco, long ponteiro_espaco, String texto) {
+
+        if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO) {
+
+            mArquivador.ir_para_o_fim();
+            long ponteiro_dados = mArquivador.getPonteiro();
+
+            mArquivador.set_u8_em_bloco(Fazendario.TAMANHO_SETOR_ITEM, (byte) 0);
+
+            mArquivador.setPonteiro(ponteiro_local);
+            mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
+            mArquivador.set_u64(ponteiro_dados);
+
+            mArquivador.setPonteiro(ponteiro_dados);
+
+            byte[] bytes=Strings.GET_STRING_VIEW_BYTES(texto);
+            mArquivador.set_u32(bytes.length);
+            mArquivador.set_u8_vector(bytes);
+
+            fmt.print("\t ++ Alocando novo espaco : {}", ponteiro_dados);
+
+
+        } else if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+
+            mArquivador.setPonteiro(ponteiro_local);
+            mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
+
+            mArquivador.setPonteiro(ponteiro_espaco);
+
+            byte[] bytes=Strings.GET_STRING_VIEW_BYTES(texto);
+
+            mArquivador.set_u32(bytes.length);
+            mArquivador.set_u8_vector(bytes);
+
+            fmt.print("\t ++ Utilizando espaco existente : {}", ponteiro_espaco);
+
+
+        }
+
+    }
+
+
+    public void obter_itens_alocados(Lista<ItemAlocado> itens) {
+
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+
+            long ptr_status = mArquivador.getPonteiro();
+            long tem_ponteiro_espaco = mArquivador.get_u8();
+
+            long ptr_dados = mArquivador.getPonteiro();
+            long ponteiro_espaco = mArquivador.get_u64();
+
+            if (tem_ponteiro_espaco == Fazendario.ESPACO_OCUPADO || tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+                itens.adicionar(new ItemAlocado(mArquivador,ptr_status,ponteiro_espaco));
             }
         }
+
 
     }
 
