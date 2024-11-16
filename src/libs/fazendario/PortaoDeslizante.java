@@ -98,6 +98,58 @@ public class PortaoDeslizante {
         return contagem;
     }
 
+    public long getItensNaoAlocadosContagem() {
+
+        long contagem = 0;
+
+        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
+
+            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+
+            long ponteiro_andar = mArquivador.get_u64();
+
+            if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
+                // fmt.print("Andar --- {}",ponteiro_andar);
+
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                long cont = andar.getItensNaoAlocadosContagem();
+                contagem += cont;
+                //   fmt.print("++ {}",cont);
+
+            }
+        }
+
+        return contagem;
+    }
+
+    public long getItensReciclaveisContagem() {
+
+        long contagem = 0;
+
+        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
+
+            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+
+            long ponteiro_andar = mArquivador.get_u64();
+
+            if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
+                // fmt.print("Andar --- {}",ponteiro_andar);
+
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                long cont = andar.getItensReciclaveisContagem();
+                contagem += cont;
+                //   fmt.print("++ {}",cont);
+
+            }
+        }
+
+        return contagem;
+    }
+
 
     public boolean temEspaco() {
         boolean ret = false;
@@ -203,6 +255,28 @@ public class PortaoDeslizante {
 
                 ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
                 andar.obter_itens_alocados(itens);
+                //   fmt.print("++ {}",cont);
+
+            }
+        }
+
+    }
+
+    public void zerar() {
+
+        mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
+
+            mArquivador.setPonteiro(mSumarioPonteiro + 1L + 1L + 1L + 8L + 1L + (i * (8L)));
+
+            long ponteiro_andar = mArquivador.get_u64();
+
+            if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
+                // fmt.print("Andar --- {}",ponteiro_andar);
+
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                andar.zerar();
                 //   fmt.print("++ {}",cont);
 
             }

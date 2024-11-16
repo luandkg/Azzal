@@ -55,9 +55,9 @@ public class ZonaDeReciclagem {
             mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L + 8L + 1L + ((ocupados - 1L) * 8L)));
             long id = mArquivador.get_u64();
 
-            ocupados-=1;
-            if(ocupados<0){
-                ocupados=0;
+            ocupados -= 1;
+            if (ocupados < 0) {
+                ocupados = 0;
             }
 
             mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L));
@@ -90,4 +90,9 @@ public class ZonaDeReciclagem {
 
     }
 
+
+    public void zerar() {
+        mArquivador.setPonteiro(mPonteiroZonaDeReciclagem + (1L + 1L + 8L));
+        mArquivador.set_u64((long) 0);
+    }
 }

@@ -118,6 +118,9 @@ public class TesteFazendario {
         }
 
 
+        fazenda.dump_armazens_existentes();
+        fazenda.dump_armazens_existentes_completo();
+
         fazenda.fechar();
 
     }

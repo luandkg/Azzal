@@ -134,7 +134,7 @@ public class Fazendario {
 
                 if (armazem.isNome(eNome)) {
 
-                    //  armazem.zerar();
+                    armazem.zerar();
 
                     armazem.setStatus(ARMAZEM_JA_INICIADO_E_DISPONIVEL);
                     armazem.setNome("");
@@ -192,6 +192,47 @@ public class Fazendario {
                 e_armazem.at("Status", "Disponivel");
                 e_armazem.at("Portao", armazem.getPortao());
                 e_armazem.at("Nome", "");
+            }
+        }
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(armazens, "FAZENDARIO - ARMAZENS : OCUPADOS E DISPONIVEIS");
+    }
+
+    public void dump_armazens_existentes_completo() {
+
+        Lista<Entidade> armazens = ENTT.CRIAR_LISTA();
+
+        for (Armazem armazem : getArmazens()) {
+            if (armazem.isOcupado()) {
+                Entidade e_armazem = ENTT.CRIAR_EM(armazens, "ID", armazem.getIndice());
+                e_armazem.at("Status", "Ocupado");
+                e_armazem.at("Portao", armazem.getPortao());
+                e_armazem.at("Nome", armazem.getNome());
+
+                e_armazem.at("Portoes", armazem.getPortoesContagem());
+                e_armazem.at("Andares", armazem.getAndaresContagem());
+                e_armazem.at("Espacos", armazem.getEspacosContagem());
+
+                e_armazem.at("Alocados", armazem.getItensAlocadosContagem());
+                e_armazem.at("NaoAlocados", armazem.getItensNaoAlocadosContagem());
+
+                e_armazem.at("Reciclaveis", armazem.getItensReciclaveisContagem());
+
+            } else if (armazem.isDisponivel()) {
+                Entidade e_armazem = ENTT.CRIAR_EM(armazens, "ID", armazem.getIndice());
+                e_armazem.at("Status", "Disponivel");
+                e_armazem.at("Portao", armazem.getPortao());
+                e_armazem.at("Nome", "");
+
+                e_armazem.at("Portoes", armazem.getPortoesContagem());
+                e_armazem.at("Andares", armazem.getAndaresContagem());
+                e_armazem.at("Espacos", armazem.getEspacosContagem());
+
+                e_armazem.at("Alocados", armazem.getItensAlocadosContagem());
+                e_armazem.at("NaoAlocados", armazem.getItensNaoAlocadosContagem());
+
+                e_armazem.at("Reciclaveis", armazem.getItensReciclaveisContagem());
+
             }
         }
 

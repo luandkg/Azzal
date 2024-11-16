@@ -109,6 +109,62 @@ public class ArmazemPortao {
         return contagem;
     }
 
+    public long getItensNaoAlocadosContagem() {
+        long contagem = 0;
+
+
+        long local_ponteiro_sumario = mSumarioPonteiro;
+
+        boolean sumario_lendo = true;
+
+        while (sumario_lendo) {
+
+            // fmt.print("Sumario :: {}",local_ponteiro_sumario);
+            PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
+
+            contagem += sumario_local.getItensNaoAlocadosContagem();
+
+            if (sumario_local.temOutroPortao()) {
+                sumario_lendo = true;
+                local_ponteiro_sumario = sumario_local.getOutroPortao();
+            } else {
+                sumario_lendo = false;
+            }
+
+        }
+
+
+        return contagem;
+    }
+
+    public long getItensReciclaveisContagem() {
+        long contagem = 0;
+
+
+        long local_ponteiro_sumario = mSumarioPonteiro;
+
+        boolean sumario_lendo = true;
+
+        while (sumario_lendo) {
+
+            // fmt.print("Sumario :: {}",local_ponteiro_sumario);
+            PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
+
+            contagem += sumario_local.getItensReciclaveisContagem();
+
+            if (sumario_local.temOutroPortao()) {
+                sumario_lendo = true;
+                local_ponteiro_sumario = sumario_local.getOutroPortao();
+            } else {
+                sumario_lendo = false;
+            }
+
+        }
+
+
+        return contagem;
+    }
+
     public void item_adicionar(String texto) {
 
 
@@ -182,6 +238,32 @@ public class ArmazemPortao {
             PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
 
             sumario_local.obter_itens_alocados(itens);
+
+
+            if (sumario_local.temOutroPortao()) {
+                sumario_lendo = true;
+                local_ponteiro_sumario = sumario_local.getOutroPortao();
+            } else {
+                sumario_lendo = false;
+            }
+
+        }
+
+    }
+
+    public void zerar() {
+
+
+        long local_ponteiro_sumario = mSumarioPonteiro;
+
+        boolean sumario_lendo = true;
+
+        while (sumario_lendo) {
+
+            // fmt.print("Sumario :: {}",local_ponteiro_sumario);
+            PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
+
+            sumario_local.zerar();
 
 
             if (sumario_local.temOutroPortao()) {

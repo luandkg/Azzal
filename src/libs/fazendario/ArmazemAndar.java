@@ -85,6 +85,31 @@ public class ArmazemAndar {
         return ret;
     }
 
+    public long getItensNaoAlocadosContagem() {
+        long ret = 0;
+
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+
+            long tem_ponteiro_espaco = mArquivador.get_u8();
+            long ponteiro_espaco = mArquivador.get_u64();
+
+            if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO) {
+                ret += 1;
+            }
+        }
+
+
+        return ret;
+    }
+
+    public long getItensReciclaveisContagem() {
+        ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, getZonaDeReciclagem());
+
+        return zdr.getEspacosOcupados();
+    }
+
     public boolean temEspaco() {
         boolean ret = false;
 
@@ -279,5 +304,38 @@ public class ArmazemAndar {
 
 
     }
+
+    public void zerar() {
+
+        mArquivador.setPonteiro(mAndarPonteiro + 1L + 1L + 8L + 8L + 8L + 8L + 1L);
+
+
+        Lista<Long> zerar_ponteiros = new Lista<Long>();
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
+
+            long ptr_status = mArquivador.getPonteiro();
+            long tem_ponteiro_espaco = mArquivador.get_u8();
+
+            long ptr_dados = mArquivador.getPonteiro();
+            long ponteiro_espaco = mArquivador.get_u64();
+
+            if (tem_ponteiro_espaco == Fazendario.ESPACO_OCUPADO) {
+                zerar_ponteiros.adicionar(ptr_status);
+            }
+        }
+
+        for (Long ptr : zerar_ponteiros) {
+            mArquivador.setPonteiro(ptr);
+            mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
+        }
+
+        ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, getZonaDeReciclagem());
+        zdr.zerar();
+
+        setProximoEspacoVazio((long) 0);
+
+    }
+
 
 }
