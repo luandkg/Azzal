@@ -3,10 +3,12 @@ package libs.zettaquorum;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.fazendario.Armazem;
+import libs.fazendario.ArmazemIndiceSumario;
 import libs.fazendario.Fazendario;
 import libs.fazendario.ItemAlocado;
 import libs.luan.Opcional;
 import libs.luan.Par;
+import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 
 public class ZettaQuorum {
@@ -79,7 +81,7 @@ public class ZettaQuorum {
 
                     item_alocado.atualizarUTF8(ENTT.TO_DOCUMENTO(e_item));
 
-                    deve_zerar_sequencia=true;
+                    deve_zerar_sequencia = true;
 
 
                     criada = true;
@@ -120,14 +122,24 @@ public class ZettaQuorum {
 
             mSequencias.adicionar(sequencia_novo);
 
-            op_sequencia = mSequencias.procurar_unico_atualizavel("Nome",  String.valueOf(armazem.getPonteiroCorrente()));
+            op_sequencia = mSequencias.procurar_unico_atualizavel("Nome", String.valueOf(armazem.getPonteiroCorrente()));
         }
 
         if (!op_indice.isOK()) {
 
+            fmt.print(">> Criar indice sumario !");
+
+            long ponteiro_indice = mFazendario.CRIAR_AREA_INDEXADA_SUMARIO(armazem.getPonteiroCorrente());
+
+            ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(),ponteiro_indice);
+            indice_sumario.zerar();
+
+
+
+
             Entidade indice_novo = new Entidade();
             indice_novo.at("Nome", String.valueOf(armazem.getPonteiroCorrente()));
-            indice_novo.at("Ponteiro", 0);
+            indice_novo.at("Ponteiro", ponteiro_indice);
             indice_novo.at("DDC", Tronarko.getTronAgora().getTextoZerado());
             indice_novo.at("DDA", Tronarko.getTronAgora().getTextoZerado());
 
@@ -137,16 +149,15 @@ public class ZettaQuorum {
         }
 
 
-
-
-        if(deve_zerar_sequencia){
+        if (deve_zerar_sequencia) {
             op_sequencia.get().getValor().at("Corrente", 0);
-            op_sequencia.get().getChave().atualizarUTF8(ENTT.TO_DOCUMENTO( op_sequencia.get().getValor()));
+            op_sequencia.get().getChave().atualizarUTF8(ENTT.TO_DOCUMENTO(op_sequencia.get().getValor()));
         }
 
         ZettaSequenciador sequenciador = new ZettaSequenciador(op_sequencia.get().getChave(), op_sequencia.get().getValor());
+        ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(),op_indice.get().getValor().atLong("Ponteiro"));
 
-        colecao = new ZettaColecao(armazem, sequenciador);
+        colecao = new ZettaColecao(armazem, sequenciador, indice_sumario);
 
         return colecao;
 

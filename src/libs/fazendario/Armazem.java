@@ -170,13 +170,13 @@ public class Armazem {
     }
 
 
-    public void item_adicionar(String texto) {
+    public ItemAlocado item_adicionar(String texto) {
 
         fmt.print("\t ++ Adicionar Item : Armazem :: {}", mIndice);
 
         ArmazemPortao portao = new ArmazemPortao(mArquivador, mFazendario, mIndice, getPortaoPonteiro());
 
-        portao.item_adicionar(texto);
+      return  portao.item_adicionar(texto);
 
     }
 

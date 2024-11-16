@@ -206,7 +206,9 @@ public class PortaoDeslizante {
         return ret;
     }
 
-    public void item_adicionar(String texto) {
+    public ItemAlocado item_adicionar(String texto) {
+
+        ItemAlocado item = null;
 
         mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
 
@@ -244,7 +246,7 @@ public class PortaoDeslizante {
                 andar.setZonaDeReciclagem(ponteiro_zona_de_reciclagem);
 
                 if (andar.temEspaco()) {
-                    andar.item_adicionar(texto);
+                    item = andar.item_adicionar(texto);
                     break;
                 }
 
@@ -256,13 +258,14 @@ public class PortaoDeslizante {
                 ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
 
                 if (andar.temEspaco()) {
-                    andar.item_adicionar(texto);
+                    item = andar.item_adicionar(texto);
                     break;
                 }
 
             }
         }
 
+        return item;
     }
 
 

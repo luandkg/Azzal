@@ -193,8 +193,9 @@ public class ArmazemPortao {
         return contagem;
     }
 
-    public void item_adicionar(String texto) {
+    public ItemAlocado item_adicionar(String texto) {
 
+        ItemAlocado item = null;
 
         long local_ponteiro_sumario = mSumarioPonteiro;
 
@@ -212,7 +213,7 @@ public class ArmazemPortao {
             fmt.print("\t ++ Adicionar Item : ArmazemPortao :: {} ->> {} ", mArmazemIndice, local_ponteiro_sumario);
 
             if (sumario_local.temEspaco()) {
-                sumario_local.item_adicionar(texto);
+              item=  sumario_local.item_adicionar(texto);
                 item_adicionado = true;
                 break;
             }
@@ -244,12 +245,13 @@ public class ArmazemPortao {
             fmt.print("\t ++ Alocando novo ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, ponteiro_sumario);
 
             if (sumario_local.temEspaco()) {
-                sumario_local.item_adicionar(texto);
+             item=   sumario_local.item_adicionar(texto);
                 item_adicionado = true;
             }
 
         }
 
+        return item;
     }
 
 

@@ -17,6 +17,9 @@ public class Fazendario {
     public final static int ARMAZEM_TIPO_ARMAZEM = 53;
     public final static int ARMAZEM_TIPO_ANDAR = 55;
     public final static int ARMAZEM_TIPO_ZONA_DE_RECICLAGEM = 56;
+    public final static int ARMAZEM_TIPO_AREA_INDEXADA = 57;
+    public final static int ARMAZEM_TIPO_INDICE_PAGINA = 58;
+
 
     public final static int NAO_TEM = 0;
     public final static int ARMAZEM_FIM = 255;
@@ -33,6 +36,8 @@ public class Fazendario {
 
     public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
     public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = 10;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
 
     public final static long TAMANHO_SETOR_ITEM = Matematica.KB(10);
 
@@ -297,6 +302,19 @@ public class Fazendario {
     }
 
 
+    public Armazem OBTER_ARMAZEM_LOCATORIO(long ponteiro) {
+        return new Armazem(Armazem.ARMAZEM_TIPO_LOCATARIO, this, mArquivador, ponteiro);
+    }
+
+    public ArmazemIndiceSumario OBTER_INDICE_SUMARIO(long armazem_id, long ponteiro) {
+        return new ArmazemIndiceSumario(mArquivador, this, armazem_id, ponteiro);
+    }
+
+    public IndiceSumarioDeslizante OBTER_INDICE_SUMARIO_DESLIZANTE(long armazem_id, long ponteiro) {
+        return new IndiceSumarioDeslizante(mArquivador, this, armazem_id, ponteiro);
+    }
+
+
     public long CRIAR_PORTAO(long indice) {
 
         mArquivador.ir_para_o_fim();
@@ -367,7 +385,54 @@ public class Fazendario {
     }
 
 
-    public Armazem OBTER_ARMAZEM_LOCATORIO(long ponteiro){
-        return new Armazem(Armazem.ARMAZEM_TIPO_LOCATARIO, this, mArquivador,ponteiro );
+    public long CRIAR_AREA_INDEXADA_SUMARIO(long indice) {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro = mArquivador.getPonteiro();
+
+        mArquivador.set_u64(indice);                                // Indice
+        mArquivador.set_u8((byte) ARMAZEM_TIPO_AREA_INDEXADA);      // Tipo para Armazem - Area Indexada
+        mArquivador.set_u64((long) 0);                              // MENOR INDICE
+        mArquivador.set_u64((long) 0);                              // MAIOR INDICE
+        mArquivador.set_u8((byte) NAO_TEM);                         // TEM PROXIMA
+        mArquivador.set_u64((long) 0);                              // Ponteiro da Proxima pagina indexada
+
+
+        for (int i = 0; i < QUANTIDADE_DE_PAGINAS_INDEXADAS; i++) {
+            mArquivador.set_u8((byte) NAO_TEM);
+            mArquivador.set_u64((long) NAO_TEM); // MENOR INDICE
+            mArquivador.set_u64((long) NAO_TEM); // MAIOR INDICE
+            mArquivador.set_u64((long) NAO_TEM); // PONTEIRO PAGINA
+        }
+
+        mArquivador.set_u8((byte) ANDAR_FIM);
+
+        return ponteiro;
     }
+
+    public long CRIAR_INDICE_PAGINA(long indice) {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro = mArquivador.getPonteiro();
+
+        mArquivador.set_u64(indice);                                // Indice
+        mArquivador.set_u8((byte) ARMAZEM_TIPO_INDICE_PAGINA);      // Tipo para Armazem - Area Indexada
+        mArquivador.set_u64((long) 0);                              // MENOR INDICE
+        mArquivador.set_u64((long) 0);                              // MAIOR INDICE
+        mArquivador.set_u8((byte) NAO_TEM);                         // TEM PROXIMA
+
+
+        for (int i = 0; i < QUANTIDADE_DE_INDICES_POR_PAGINA; i++) {
+            mArquivador.set_u8((byte) NAO_TEM);
+            mArquivador.set_u64((long) NAO_TEM); // PONTEIRO DADOS
+        }
+
+        mArquivador.set_u8((byte) ANDAR_FIM);
+
+        return ponteiro;
+    }
+
+
 }

@@ -26,9 +26,10 @@ public class TesteZetaQuorum {
 
 
         tronarkum.exibir_colecao();
+        tronarkum.exibir_indice();
 
 
-        zeta.dump();
+        //zeta.dump();
 
         zeta.fechar();
     }
