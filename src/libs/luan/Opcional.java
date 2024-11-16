@@ -61,4 +61,10 @@ public class Opcional<T> {
     public static<T> boolean IS_OK(Opcional<T> op){
         return op.isOK();
     }
+
+
+    public static<T> T SOME(Opcional<T> opcional){
+        return opcional.get();
+    }
+
 }

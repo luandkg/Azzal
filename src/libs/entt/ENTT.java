@@ -1306,6 +1306,13 @@ public class ENTT {
         return novo;
     }
 
+    public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome, long att_valor) {
+        Entidade novo = new Entidade();
+        novo.at(att_nome, att_valor);
+        entts.adicionar(novo);
+        return novo;
+    }
+
     public static Entidade CRIAR_EM(Lista<Entidade> entts, String att_nome1, String att_valor1, String att_nome2, String att_valor2) {
         Entidade novo = new Entidade();
         novo.at(att_nome1, att_valor1);

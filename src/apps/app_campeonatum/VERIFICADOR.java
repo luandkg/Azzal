@@ -36,6 +36,14 @@ public class VERIFICADOR {
         }
     }
 
+    public static void MENOR_OU_IGUAL(long obtido, long esperado ) {
+        if (obtido <= esperado) {
+
+        } else {
+            throw new RuntimeException("#VERIFICADOR " + obtido + " != " + esperado );
+        }
+    }
+
     public static void MAIOR_OU_IGUAL(int obtido, int esperado, String frase_debug) {
         if (obtido >= esperado) {
 
