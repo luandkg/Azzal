@@ -34,12 +34,18 @@ public class Fazendario {
     public final static int ESPACO_OCUPADO = 2;
 
 
-    public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = 10;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
-
     public final static long TAMANHO_SETOR_ITEM = Matematica.KB(10);
+
+
+    public final static long QUANTIDADE_DE_ANDARES = Matematica.KB(4);
+    public final static long QUANTIDADE_DE_ESPACOS = Matematica.KB(4);
+    public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = Matematica.KB(4);
+    public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = Matematica.KB(4);
+
+  //  public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
+ //   public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
+  //  public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = 10;//Matematica.KB(64);
+  //  public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
 
 
     private Arquivador mArquivador;
