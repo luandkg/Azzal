@@ -67,7 +67,7 @@ public class ZettaQuorum {
 
         for (Entidade indice : indices) {
 
-            ArmazemIndiceSumario ai_indice = mFazendario.OBTER_INDICE_SUMARIO(indice.atLong("Nome"), indice.atLong("Ponteiro"));
+            ArmazemIndiceSumario ai_indice = mFazendario.OBTER_INDICE_SUMARIO(indice.atLong("Identificador"), indice.atLong("Ponteiro"));
 
             indice.at("Sumarios", ai_indice.getSumariosContagem());
             indice.at("Paginas", ai_indice.getPaginasContagem());
@@ -117,6 +117,8 @@ public class ZettaQuorum {
 
                     e_item.at("Status", "OK");
                     e_item.at("Nome", colecao_nome);
+                    e_item.at("DDC", Tronarko.getTronAgora().getTextoZerado());
+                    e_item.at("DDA", Tronarko.getTronAgora().getTextoZerado());
 
                     item_alocado.atualizarUTF8(ENTT.TO_DOCUMENTO(e_item));
 
@@ -137,6 +139,8 @@ public class ZettaQuorum {
                 novo.at("Status", "OK");
                 novo.at("Nome", colecao_nome);
                 novo.at("Ponteiro", ptr_armazem_locatario);
+                novo.at("DDC", Tronarko.getTronAgora().getTextoZerado());
+                novo.at("DDA", Tronarko.getTronAgora().getTextoZerado());
 
                 mColecoes.adicionar(novo);
 
@@ -146,14 +150,14 @@ public class ZettaQuorum {
 
         }
 
-        Opcional<Par<ItemAlocado, Entidade>> op_sequencia = mSequencias.procurar_unico_atualizavel("Nome", String.valueOf(armazem.getPonteiroCorrente()));
-        Opcional<Par<ItemAlocado, Entidade>> op_indice = mIndices.procurar_unico_atualizavel("Nome", String.valueOf(armazem.getPonteiroCorrente()));
+        Opcional<Par<ItemAlocado, Entidade>> op_sequencia = mSequencias.procurar_unico_atualizavel("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
+        Opcional<Par<ItemAlocado, Entidade>> op_indice = mIndices.procurar_unico_atualizavel("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
 
 
         if (!op_sequencia.isOK()) {
 
             Entidade sequencia_novo = new Entidade();
-            sequencia_novo.at("Nome", String.valueOf(armazem.getPonteiroCorrente()));
+            sequencia_novo.at("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
             sequencia_novo.at("Corrente", 0);
             sequencia_novo.at("Passo", 1);
             sequencia_novo.at("DDC", Tronarko.getTronAgora().getTextoZerado());
@@ -161,7 +165,7 @@ public class ZettaQuorum {
 
             mSequencias.adicionar(sequencia_novo);
 
-            op_sequencia = mSequencias.procurar_unico_atualizavel("Nome", String.valueOf(armazem.getPonteiroCorrente()));
+            op_sequencia = mSequencias.procurar_unico_atualizavel("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
         }
 
         if (!op_indice.isOK()) {
@@ -175,14 +179,14 @@ public class ZettaQuorum {
 
 
             Entidade indice_novo = new Entidade();
-            indice_novo.at("Nome", String.valueOf(armazem.getPonteiroCorrente()));
+            indice_novo.at("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
             indice_novo.at("Ponteiro", ponteiro_indice);
             indice_novo.at("DDC", Tronarko.getTronAgora().getTextoZerado());
             indice_novo.at("DDA", Tronarko.getTronAgora().getTextoZerado());
 
             mIndices.adicionar(indice_novo);
 
-            op_indice = mIndices.procurar_unico_atualizavel("Nome", String.valueOf(armazem.getPonteiroCorrente()));
+            op_indice = mIndices.procurar_unico_atualizavel("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
         }
 
 

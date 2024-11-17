@@ -27,4 +27,11 @@ public class ZettaSequenciador {
         return corrente;
     }
 
+    public void zerar(){
+
+        mEntidade.at("Corrente",0);
+        mEntidade.at("DDA", Tronarko.getTronAgora().getTextoZerado());
+        mItemAlocado.atualizarUTF8(ENTT.TO_DOCUMENTO(mEntidade));
+
+    }
 }

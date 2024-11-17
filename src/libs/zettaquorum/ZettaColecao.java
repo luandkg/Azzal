@@ -2,10 +2,7 @@ package libs.zettaquorum;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.Armazem;
-import libs.fazendario.ArmazemIndiceSumario;
-import libs.fazendario.IndiceLocalizado;
-import libs.fazendario.ItemAlocado;
+import libs.fazendario.*;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.Strings;
@@ -13,25 +10,31 @@ import testes.ItemColecionavel;
 
 public class ZettaColecao {
 
-    private Armazem mArmazem;
+    private Armazem mDados;
     private ZettaSequenciador mSequenciador;
     private ArmazemIndiceSumario mIndice;
 
     public ZettaColecao(Armazem eArmazem, ZettaSequenciador eSequenciador, ArmazemIndiceSumario eIndice) {
-        mArmazem = eArmazem;
+        mDados = eArmazem;
         mSequenciador = eSequenciador;
         mIndice = eIndice;
     }
 
     public long contagem() {
-        return mArmazem.getItensUtilizadosContagem();
+        return mDados.getItensUtilizadosContagem();
+    }
+
+    public void zerar() {
+        mIndice.zerar();
+        mSequenciador.zerar();
+        mDados.zerar();
     }
 
     public Lista<Entidade> getItens() {
 
         Lista<Entidade> lista = new Lista<Entidade>();
 
-        for (ItemAlocado item : mArmazem.getItensAlocados()) {
+        for (ItemAlocado item : mDados.getItensAlocados()) {
 
             Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
             e_item.at("@PTR", item.getPonteiroDados());
@@ -48,7 +51,7 @@ public class ZettaColecao {
     public Lista<ItemColecionavel> getItensEditaveis() {
         Lista<ItemColecionavel> lista = new Lista<ItemColecionavel>();
 
-        for (ItemAlocado item : mArmazem.getItensAlocados()) {
+        for (ItemAlocado item : mDados.getItensAlocados()) {
 
             Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
             e_item.at("@PTR", item.getPonteiroDados());
@@ -69,7 +72,7 @@ public class ZettaColecao {
         e.at("@ID", proximo);
 
 
-        ItemAlocado item = mArmazem.item_adicionar(ENTT.TO_DOCUMENTO(e));
+        ItemAlocado item = mDados.item_adicionar(ENTT.TO_DOCUMENTO(e));
 
         //  fmt.print("@ID :: {}",e.at("@ID"));
 
@@ -98,11 +101,11 @@ public class ZettaColecao {
 
 
     public void exibir_colecao() {
-        ENTT.EXIBIR_TABELA_COM_NOME(getItens(), "COLEÇÃO :: " + mArmazem.getNome());
+        ENTT.EXIBIR_TABELA_COM_NOME(getItens(), "COLEÇÃO :: " + mDados.getNome());
     }
 
     public void exibir_indice() {
-        ENTT.EXIBIR_TABELA_COM_NOME(getIndices(), "INDICE :: " + mArmazem.getNome());
+        ENTT.EXIBIR_TABELA_COM_NOME(getIndices(), "INDICE :: " + mDados.getNome());
     }
 
     public Opcional<IndiceLocalizado> procurar_indice(long indice) {
@@ -119,10 +122,15 @@ public class ZettaColecao {
 
         if (op_indice.isOK()) {
 
-            mArmazem.getArquivador().setPonteiro(op_indice.get().getPonteiro());
+            mDados.getArquivador().setPonteiro(op_indice.get().getPonteiro());
 
-            int tam = mArmazem.getArquivador().get_u32();
-            byte[] dados = mArmazem.getArquivador().get_u8_array(tam);
+            long tam = mDados.getArquivador().get_u32();
+
+            if (tam > Fazendario.TAMANHO_SETOR_ITEM) {
+                tam = Fazendario.TAMANHO_SETOR_ITEM;
+            }
+
+            byte[] dados = mDados.getArquivador().get_u8_array((int)tam);
 
             Entidade e_item = ENTT.PARSER_ENTIDADE(Strings.GET_STRING_VIEW(dados));
 
