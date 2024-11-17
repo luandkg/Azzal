@@ -2,7 +2,6 @@ package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
-import libs.luan.fmt;
 
 public class PortaoDeslizante {
 
@@ -227,11 +226,11 @@ public class PortaoDeslizante {
                 mArquivador.setPonteiro(local_ponteiro_andar);
                 mArquivador.set_u64(ponteiro_andar_novo);
 
-               // fmt.print("\t ++ Criando Andar :: {} ->> {} ", i, ponteiro_andar_novo);
+                // fmt.print("\t ++ Criando Andar :: {} ->> {} ", i, ponteiro_andar_novo);
 
 
                 long ponteiro_zona_de_reciclagem = mFazendario.CRIAR_ZONA_DE_RECICLAGEM(mIndice);
-            //    fmt.print("\t ++ Criando ZDR :: {} ->> {} ", i, ponteiro_zona_de_reciclagem);
+                //    fmt.print("\t ++ Criando ZDR :: {} ->> {} ", i, ponteiro_zona_de_reciclagem);
 
 
                 ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, ponteiro_zona_de_reciclagem);
@@ -253,7 +252,7 @@ public class PortaoDeslizante {
                 break;
             } else if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
 
-              //  fmt.print("\t ++ Estrando no Andar :: {} ->> {} ", i, ponteiro_andar);
+                //  fmt.print("\t ++ Estrando no Andar :: {} ->> {} ", i, ponteiro_andar);
 
                 ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
 
@@ -308,6 +307,32 @@ public class PortaoDeslizante {
                 andar.zerar();
                 //   fmt.print("++ {}",cont);
 
+            }
+        }
+
+    }
+
+    public void obter_itens_alocados_intervalo(Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
+
+        mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_ANDARES; i++) {
+
+            mArquivador.setPonteiro(mSumarioPonteiro + 8L + 1L + 1L + 8L + 1L + (i * (8L)));
+
+            long ponteiro_andar = mArquivador.get_u64();
+
+            if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
+                // fmt.print("Andar --- {}",ponteiro_andar);
+
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                andar.obter_itens_alocados_intervalo(itens,intervalo);
+                //   fmt.print("++ {}",cont);
+
+            }
+
+            if (intervalo.ultrapassou()) {
+                break;
             }
         }
 

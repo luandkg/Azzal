@@ -132,7 +132,6 @@ public class TesteFazendario {
     public static void teste_alta_pressao() {
 
         int repetir = Aleatorio.aleatorio_entre(10, 20);
-         repetir = Aleatorio.aleatorio_entre(10, 20);
 
         for (int a = 0; a < repetir; a++) {
             teste_pressao();

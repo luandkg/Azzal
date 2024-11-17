@@ -1,5 +1,7 @@
 package libs.matematica;
 
+import libs.luan.Lista;
+
 public class Matematica {
 
     public static float getAngulo(float progresso) {
@@ -144,5 +146,25 @@ public class Matematica {
 
         return p1 + p2;
     }
+
+
+    public static Lista<IntervaloLong> PAGINAR_LONG(long quantidade, long pagina) {
+        Lista<IntervaloLong> paginas = new Lista<IntervaloLong>();
+
+        long contando = 0;
+
+        while (contando < quantidade) {
+
+            long antes = contando;
+            long depois = contando + pagina;
+
+            paginas.adicionar(new IntervaloLong(antes, depois));
+
+            contando += pagina;
+        }
+
+        return paginas;
+    }
+
 
 }

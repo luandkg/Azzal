@@ -144,4 +144,27 @@ public class ZettaColecao {
 
         return Opcional.CANCEL();
     }
+
+
+    public Lista<Entidade> getItensIntervalo(long minimo,long maximo) {
+
+        Lista<Entidade> lista = new Lista<Entidade>();
+
+        for (ItemAlocado item : mDados.getItensAlocadosIntervalo(minimo,maximo)) {
+
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            e_item.at("@PTR", item.getPonteiroDados());
+
+            e_item.tornar_primeiro("@PTR");
+            e_item.tornar_primeiro("@ID");
+
+            lista.adicionar(e_item);
+        }
+
+        return lista;
+    }
+
+    public void exibir_colecao(long minimo,long maximo) {
+        ENTT.EXIBIR_TABELA_COM_NOME(getItensIntervalo(minimo,maximo), "COLEÇÃO :: " + mDados.getNome());
+    }
 }

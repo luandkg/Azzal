@@ -35,7 +35,9 @@ public class Armazem {
     }
 
 
-    public Arquivador getArquivador(){return mArquivador;}
+    public Arquivador getArquivador() {
+        return mArquivador;
+    }
 
     public long getPonteiroCorrente() {
         return mPonteiro;
@@ -174,7 +176,7 @@ public class Armazem {
 
     public ItemAlocado item_adicionar(String texto) {
 
-       // fmt.print("\t ++ Adicionar Item : Armazem :: {}", mIndice);
+        // fmt.print("\t ++ Adicionar Item : Armazem :: {}", mIndice);
 
         ArmazemPortao portao = new ArmazemPortao(mArquivador, mFazendario, mIndice, getPortaoPonteiro());
 
@@ -205,6 +207,22 @@ public class Armazem {
 
         portao.zerar();
 
+    }
+
+
+    public Lista<ItemAlocado> getItensAlocadosIntervalo(long minimo, long maximo) {
+
+        ContadorIntervalado intervalo = new ContadorIntervalado(minimo, maximo, 0);
+
+        Lista<ItemAlocado> itens = new Lista<ItemAlocado>();
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        ArmazemPortao sumario = new ArmazemPortao(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        sumario.obter_itens_alocados_intervalo(itens,intervalo);
+
+        return itens;
     }
 
 
