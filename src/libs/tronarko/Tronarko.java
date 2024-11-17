@@ -296,4 +296,11 @@ public class Tronarko {
     }
 
 
+    public static Tozte TOZTE_PRIMEIRO(int eTronarko){
+        return new Tozte(1,1,eTronarko);
+    }
+
+    public static Tozte TOZTE_ULTIMO(int eTronarko){
+        return new Tozte(50,10,eTronarko);
+    }
 }

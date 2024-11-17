@@ -20,6 +20,14 @@ public class TronarkoFalsum {
         mPassado = -1;
     }
 
+    public TronarkoFalsum(Tozte eInicio, Tozte eFim) {
+        mInicio = new Tron(new Hazde(0, 0, 0), eInicio);
+        mFim = new Tron(new Hazde(9, 99, 99), eFim);
+
+        mCorrente = mInicio.getCopia();
+        mPassado = -1;
+    }
+
     public void avancar(int mais) {
         mCorrente = mCorrente.modificar_Uzzon(mais);
 

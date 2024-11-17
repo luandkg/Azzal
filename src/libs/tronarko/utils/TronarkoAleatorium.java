@@ -1,6 +1,7 @@
 package libs.tronarko.utils;
 
 import libs.luan.Aleatorio;
+import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tron;
 
@@ -13,6 +14,11 @@ public class TronarkoAleatorium {
     public TronarkoAleatorium(Tron eInicio, Tron eFim) {
         mInicio = eInicio;
         mFim = eFim;
+    }
+
+    public TronarkoAleatorium(Tozte eInicio, Tozte eFim) {
+        mInicio = new Tron(new Hazde(0, 0, 0), eInicio);
+        mFim = new Tron(new Hazde(9, 99, 99), eFim);
     }
 
     public Tozte getTozte(){
