@@ -4,6 +4,7 @@ import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.fmt;
 
 public class IndiceSumarioDeslizante {
 
@@ -419,6 +420,7 @@ public class IndiceSumarioDeslizante {
 
             if (status == Fazendario.TEM) {
 
+
                 //  fmt.print("IndicePagina :: {} -->> {} = {} :: ({})", i, status, pagina_ponteiro_local, item_ponteiro_pagina);
                 //   fmt.print("\t - Menor :: {}", indo_menor);
                 //   fmt.print("\t - Maior :: {}", (indo_menor + somando));
@@ -428,6 +430,8 @@ public class IndiceSumarioDeslizante {
                 IndicePagina pagina = new IndicePagina(mArquivador, item_ponteiro_pagina);
                 Opcional<IndiceLocalizado> maior_local = pagina.getIndiceMaior();
 
+               // fmt.print("\t ++ Buscando o maior indice :: IndiceSumarioDeslizante -- {}",maior_local.isOK());
+
                 if (maior_local.isOK() && maior.isOK()) {
 
                     if (maior_local.get().getIndice() > maior.get().getIndice()) {
@@ -435,7 +439,9 @@ public class IndiceSumarioDeslizante {
                     }
 
                 } else {
-                    maior = maior_local;
+                    if(maior_local.isOK()){
+                        maior = maior_local;
+                    }
                 }
 
             }

@@ -1,5 +1,6 @@
 package testes;
 
+import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.fazendario.ArmazemIndiceSumario;
 import libs.fazendario.ItemAlocado;
@@ -27,6 +28,17 @@ public class ItemColecionavel {
 
         return mEntidade;
     }
+
+
+    public void atualizar() {
+
+        if (mRemovido) {
+            throw new RuntimeException("ItemColecionavel removido !");
+        }
+
+        mItem.atualizarUTF8(ENTT.TO_DOCUMENTO(mEntidade));
+    }
+
 
     public void remover() {
         if (mRemovido) {

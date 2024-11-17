@@ -4,6 +4,7 @@ import libs.arquivos.binario.Arquivador;
 import libs.luan.DeslizadorEstrutural;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.fmt;
 
 public class ArmazemIndiceSumario {
 
@@ -241,6 +242,8 @@ public class ArmazemIndiceSumario {
 
             Opcional<IndiceLocalizado> maior_local = indices.get().getIndiceMaior();
 
+         //   fmt.print("Buscando o maior indice :: ArmazemIndiceSumario -- {}",maior_local.isOK());
+
             if (maior_local.isOK() && maior.isOK()) {
 
                 if (maior_local.get().getIndice() > maior.get().getIndice()) {
@@ -248,7 +251,9 @@ public class ArmazemIndiceSumario {
                 }
 
             } else {
-                maior = maior_local;
+                if(maior_local.isOK()){
+                    maior = maior_local;
+                }
             }
 
             if (indices.get().temProximo()) {
