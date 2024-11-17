@@ -6,7 +6,6 @@ import libs.fazendario.*;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.Strings;
-import testes.ItemColecionavel;
 
 public class ZettaColecao {
 
