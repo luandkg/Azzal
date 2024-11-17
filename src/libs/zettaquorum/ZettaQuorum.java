@@ -6,6 +6,7 @@ import libs.fazendario.Armazem;
 import libs.fazendario.ArmazemIndiceSumario;
 import libs.fazendario.Fazendario;
 import libs.fazendario.ItemAlocado;
+import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.Par;
 import libs.luan.fmt;
@@ -38,8 +39,22 @@ public class ZettaQuorum {
 
     public void dump() {
 
+        Lista<Entidade> indices = mIndices.getItens();
+
+        for (Entidade indice : indices) {
+
+            ArmazemIndiceSumario ai_indice = mFazendario.OBTER_INDICE_SUMARIO(indice.atLong("Nome"), indice.atLong("Ponteiro"));
+
+            indice.at("Sumarios", ai_indice.getSumariosContagem());
+            indice.at("Paginas", ai_indice.getPaginasContagem());
+            indice.at("Maximo", ai_indice.getMaximo());
+            indice.at("Indices", ai_indice.getIndicesContagem());
+
+
+        }
+
         ENTT.EXIBIR_TABELA_COM_NOME(mSequencias.getItens(), "ZETTA-QUORUM : @COLECOES::SEQUENCIAS");
-        ENTT.EXIBIR_TABELA_COM_NOME(mIndices.getItens(), "ZETTA-QUORUM : @COLECOES::INDICES");
+        ENTT.EXIBIR_TABELA_COM_NOME(indices, "ZETTA-QUORUM : @COLECOES::INDICES");
         ENTT.EXIBIR_TABELA_COM_NOME(mColecoes.getItens(), "ZETTA-QUORUM : @COLECOES::DADOS");
 
     }
@@ -131,10 +146,8 @@ public class ZettaQuorum {
 
             long ponteiro_indice = mFazendario.CRIAR_AREA_INDEXADA_SUMARIO(armazem.getPonteiroCorrente());
 
-            ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(),ponteiro_indice);
+            ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(), ponteiro_indice);
             indice_sumario.zerar();
-
-
 
 
             Entidade indice_novo = new Entidade();
@@ -155,7 +168,7 @@ public class ZettaQuorum {
         }
 
         ZettaSequenciador sequenciador = new ZettaSequenciador(op_sequencia.get().getChave(), op_sequencia.get().getValor());
-        ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(),op_indice.get().getValor().atLong("Ponteiro"));
+        ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(), op_indice.get().getValor().atLong("Ponteiro"));
 
         colecao = new ZettaColecao(armazem, sequenciador, indice_sumario);
 

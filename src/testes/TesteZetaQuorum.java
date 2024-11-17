@@ -1,6 +1,8 @@
 package testes;
 
+import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import libs.entt.Entidade;
+import libs.luan.Aleatorio;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 import libs.zettaquorum.ZettaColecao;
@@ -19,17 +21,24 @@ public class TesteZetaQuorum {
         ZettaColecao tronarkum = zeta.getColecaoSempre("@Tronarkum");
 
 
-        Entidade item = new Entidade();
-        item.at("Tron", Tronarko.getTronAgora().getTextoZerado());
+        for(int a=0;a<30;a++){
 
-        tronarkum.adicionar(item);
+            Entidade item = new Entidade();
+            item.at("Tron", Tronarko.getTronAgora().getTextoZerado());
+            item.at("Valor", PessoaNomeadorDeAkkax.get());
+            item.at("TTS", Aleatorio.aleatorio_entre(1,50)+"/"+Aleatorio.aleatorio_entre(1,10) +"/"+Aleatorio.aleatorio_entre(6900,7100));
+
+            tronarkum.adicionar(item);
+
+        }
+
 
 
         tronarkum.exibir_colecao();
         tronarkum.exibir_indice();
 
 
-        //zeta.dump();
+        zeta.dump();
 
         zeta.fechar();
     }

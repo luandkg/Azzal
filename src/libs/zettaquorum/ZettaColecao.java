@@ -47,9 +47,13 @@ public class ZettaColecao {
 
         e.at("@ID", proximo);
 
+
+
         ItemAlocado item = mArmazem.item_adicionar(ENTT.TO_DOCUMENTO(e));
 
-        fmt.print("Ponteiro Dados :: {}",item.getPonteiroDados());
+      //  fmt.print("@ID :: {}",e.at("@ID"));
+
+        // fmt.print("Ponteiro Dados :: {}",item.getPonteiroDados());
 
         mIndice.setItem(proximo, item.getPonteiroDados());
     }

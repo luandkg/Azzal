@@ -1,6 +1,7 @@
 package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.DeslizadorEstrutural;
 import libs.luan.Lista;
 import libs.luan.fmt;
 
@@ -31,21 +32,19 @@ public class ArmazemPortao {
         long contagem = 0;
 
 
-        long local_ponteiro_sumario = mSumarioPonteiro;
+        DeslizadorEstrutural<PortaoDeslizante> portoes = new DeslizadorEstrutural<>(new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, mSumarioPonteiro));
 
-        boolean sumario_lendo = true;
 
-        while (sumario_lendo) {
+        while (portoes.temProximo()) {
 
-            PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
+            PortaoDeslizante sumario_local = portoes.get();
 
-            contagem +=1;
+            contagem += 1;
 
             if (sumario_local.temOutroPortao()) {
-                sumario_lendo = true;
-                local_ponteiro_sumario = sumario_local.getOutroPortao();
+                portoes.setProximo(new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, sumario_local.getOutroPortao()));
             } else {
-                sumario_lendo = false;
+                portoes.finalizar();
             }
 
         }
@@ -91,7 +90,7 @@ public class ArmazemPortao {
 
         while (sumario_lendo) {
 
-           // fmt.print("Sumario :: {}",local_ponteiro_sumario);
+            // fmt.print("Sumario :: {}",local_ponteiro_sumario);
             PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
 
             contagem += sumario_local.getItensAlocadosContagem();
@@ -210,10 +209,10 @@ public class ArmazemPortao {
 
             sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
 
-            fmt.print("\t ++ Adicionar Item : ArmazemPortao :: {} ->> {} ", mArmazemIndice, local_ponteiro_sumario);
+          //  fmt.print("\t ++ Adicionar Item : ArmazemPortao :: {} ->> {} ", mArmazemIndice, local_ponteiro_sumario);
 
             if (sumario_local.temEspaco()) {
-              item=  sumario_local.item_adicionar(texto);
+                item = sumario_local.item_adicionar(texto);
                 item_adicionado = true;
                 break;
             }
@@ -225,7 +224,7 @@ public class ArmazemPortao {
                 long local_ponteiro_sumario_anterior = local_ponteiro_sumario;
                 local_ponteiro_sumario = sumario_local.getOutroPortao();
 
-                fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
+           //    fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
 
             } else {
                 sumario_lendo = false;
@@ -235,17 +234,17 @@ public class ArmazemPortao {
 
         if (!item_adicionado) {
 
-            long local_ponteiro_sumario_anterior=local_ponteiro_sumario;
+            long local_ponteiro_sumario_anterior = local_ponteiro_sumario;
 
             long ponteiro_sumario = mFazendario.CRIAR_PORTAO(mArmazemIndice);
             sumario_local.setProximoPortao(ponteiro_sumario);
 
             sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, ponteiro_sumario);
 
-            fmt.print("\t ++ Alocando novo ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, ponteiro_sumario);
+           //fmt.print("\t ++ Alocando novo ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, ponteiro_sumario);
 
             if (sumario_local.temEspaco()) {
-             item=   sumario_local.item_adicionar(texto);
+                item = sumario_local.item_adicionar(texto);
                 item_adicionado = true;
             }
 

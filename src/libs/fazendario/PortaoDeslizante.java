@@ -227,11 +227,11 @@ public class PortaoDeslizante {
                 mArquivador.setPonteiro(local_ponteiro_andar);
                 mArquivador.set_u64(ponteiro_andar_novo);
 
-                fmt.print("\t ++ Criando Andar :: {} ->> {} ", i, ponteiro_andar_novo);
+               // fmt.print("\t ++ Criando Andar :: {} ->> {} ", i, ponteiro_andar_novo);
 
 
                 long ponteiro_zona_de_reciclagem = mFazendario.CRIAR_ZONA_DE_RECICLAGEM(mIndice);
-                fmt.print("\t ++ Criando ZDR :: {} ->> {} ", i, ponteiro_zona_de_reciclagem);
+            //    fmt.print("\t ++ Criando ZDR :: {} ->> {} ", i, ponteiro_zona_de_reciclagem);
 
 
                 ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, ponteiro_zona_de_reciclagem);
@@ -253,7 +253,7 @@ public class PortaoDeslizante {
                 break;
             } else if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
 
-                fmt.print("\t ++ Estrando no Andar :: {} ->> {} ", i, ponteiro_andar);
+              //  fmt.print("\t ++ Estrando no Andar :: {} ->> {} ", i, ponteiro_andar);
 
                 ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
 

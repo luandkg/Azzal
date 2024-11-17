@@ -169,12 +169,12 @@ public class ArmazemAndar {
 
 
         long proximo_vazio = getProximoEspacoVazio();
-        fmt.print("\t ++ Andar :: Proximo Vazio = {} ", proximo_vazio);
+        //    fmt.print("\t ++ Andar :: Proximo Vazio = {} ", proximo_vazio);
 
 
         if (proximo_vazio < Fazendario.QUANTIDADE_DE_ESPACOS) {
 
-            fmt.print("\t ++ Andar :: Adicionar utilizando proximo vazio : {}", proximo_vazio);
+            //  fmt.print("\t ++ Andar :: Adicionar utilizando proximo vazio : {}", proximo_vazio);
 
             long deslocar = proximo_vazio * (1L + 8L);
             mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
@@ -193,7 +193,7 @@ public class ArmazemAndar {
             return new ItemAlocado(mArquivador, this, (int) indice_espaco, ponteiro_local, ponteiro_dados_final);
         } else {
 
-            fmt.print("\t ++ Adicionar Item : Andar {} ", mAndarPonteiro);
+            //  fmt.print("\t ++ Adicionar Item : Andar {} ", mAndarPonteiro);
 
             ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, getZonaDeReciclagem());
 
@@ -201,7 +201,7 @@ public class ArmazemAndar {
 
             if (reciclado.isOK()) {
 
-                fmt.print("\t ++ Andar :: Adicionar utilizando item reciclado !");
+                //   fmt.print("\t ++ Andar :: Adicionar utilizando item reciclado !");
 
 
                 long deslocar = reciclado.get() * (1L + 8L);
@@ -221,7 +221,7 @@ public class ArmazemAndar {
             }
 
 
-            fmt.print("\t ++ Andar :: Adicionar utilizando varredura no andar");
+            //   fmt.print("\t ++ Andar :: Adicionar utilizando varredura no andar");
 
             mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
 
@@ -273,7 +273,7 @@ public class ArmazemAndar {
             mArquivador.set_u32(bytes.length);
             mArquivador.set_u8_vector(bytes);
 
-            fmt.print("\t ++ Alocando novo espaco : {}", ponteiro_dados);
+            //   fmt.print("\t ++ Alocando novo espaco : {}", ponteiro_dados);
 
 
         } else if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
@@ -292,7 +292,7 @@ public class ArmazemAndar {
             mArquivador.set_u32(bytes.length);
             mArquivador.set_u8_vector(bytes);
 
-            fmt.print("\t ++ Utilizando espaco existente : {}", ponteiro_espaco);
+            //     fmt.print("\t ++ Utilizando espaco existente : {}", ponteiro_espaco);
 
 
         }

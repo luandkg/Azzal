@@ -1,6 +1,7 @@
 package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
+import libs.luan.DeslizadorEstrutural;
 import libs.luan.Lista;
 import libs.luan.fmt;
 
@@ -22,42 +23,52 @@ public class ArmazemIndiceSumario {
 
     public void zerar() {
 
-        long maior = Fazendario.QUANTIDADE_DE_PAGINAS_INDEXADAS * Fazendario.QUANTIDADE_DE_INDICES_POR_PAGINA;
+        DeslizadorEstrutural<IndiceSumarioDeslizante> indices = new DeslizadorEstrutural<>(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, mPonteiro));
 
-        fmt.print("Maior = " + maior);
+        while (indices.temProximo()) {
 
-        IndiceSumarioDeslizante indice_deslizante = new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, mPonteiro);
+            indices.get().zerar();
 
-        indice_deslizante.setMenor(0);
-        indice_deslizante.setMaior(maior);
+            if (indices.get().temProximo()) {
+                indices.setProximo(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, indices.get().getProximoIndiceSumarioPagina()));
+            } else {
+                indices.finalizar();
+            }
+
+        }
+
+
     }
 
 
     public void setItem(long indice, long ponteiro_dados) {
-
-        IndiceSumarioDeslizante indice_primario = new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, mPonteiro);
-
-        long menor = indice_primario.getMenor();
-        long maior = indice_primario.getMaior();
-
-        fmt.print("Item :: SET ( " + indice + " : " + ponteiro_dados + " ) ->> {} :: {}", menor, maior);
-
-        long ponteiro_local = mPonteiro;
-        boolean tem_proximo = true;
-
 
         long mais = Fazendario.QUANTIDADE_DE_PAGINAS_INDEXADAS * Fazendario.QUANTIDADE_DE_INDICES_POR_PAGINA;
 
         long total_menor = 0;
         long total_maior = mais;
 
-        while (tem_proximo) {
 
-            IndiceSumarioDeslizante indice_deslizante = new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, ponteiro_local);
+        DeslizadorEstrutural<IndiceSumarioDeslizante> indices = new DeslizadorEstrutural<>(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, mPonteiro));
+        IndiceSumarioDeslizante indice_primario = indices.get();
 
 
+        indice_primario.setMenor(total_menor);
+        indice_primario.setMaior(total_maior );
 
-            fmt.print("\t ++ Indice Sumario :: " + indice_deslizante.getPonteiro() + " ->> " + indice_deslizante.getMenor() + " :: " + indice_deslizante.getMaior());
+
+        long menor = indice_primario.getMenor();
+        long maior = indice_primario.getMaior();
+
+      //  fmt.print("Item :: SET ( " + indice + " : " + ponteiro_dados + " ) ->> {} :: {}", menor, maior);
+
+
+        while (indices.temProximo()) {
+
+            IndiceSumarioDeslizante indice_deslizante = indices.get();
+
+
+           // fmt.print("\t ++ Indice Sumario :: " + indice_deslizante.getPonteiro() + " ->> " + indice_deslizante.getMenor() + " :: " + indice_deslizante.getMaior());
 
 
             if (indice >= indice_deslizante.getMenor() && indice < indice_deslizante.getMaior()) {
@@ -68,13 +79,8 @@ public class ArmazemIndiceSumario {
             }
 
 
-            // IndicePagina :: 1 -->> 0 = 290328 :: (-4421410033682612224)
-            // IndicePagina :: 1 -->> 255 = 290328 :: (414371)
-
-            tem_proximo = indice_deslizante.temProximo();
-
-            if (tem_proximo) {
-                ponteiro_local = indice_deslizante.getProximoIndiceSumarioPagina();
+            if (indice_deslizante.temProximo()) {
+                indices.setProximo(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, indice_deslizante.getProximoIndiceSumarioPagina()));
             } else {
 
                 long ponteiro_indice = mFazendario.CRIAR_AREA_INDEXADA_SUMARIO(mArmazemID);
@@ -87,8 +93,8 @@ public class ArmazemIndiceSumario {
 
                 indice_deslizante.marcarProximo(ponteiro_indice);
 
-                tem_proximo = true;
-                ponteiro_local = ponteiro_indice;
+                indices.setProximo(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, ponteiro_indice));
+
 
             }
 
@@ -123,6 +129,84 @@ public class ArmazemIndiceSumario {
         }
 
         return indices;
+    }
+
+
+    public long getSumariosContagem() {
+
+        long ponteiro_local = mPonteiro;
+        boolean tem_proximo = true;
+
+        long contagem = 0;
+
+        while (tem_proximo) {
+
+            IndiceSumarioDeslizante indice_deslizante = new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, ponteiro_local);
+
+            contagem += 1;
+
+            tem_proximo = indice_deslizante.temProximo();
+
+            if (tem_proximo) {
+                ponteiro_local = indice_deslizante.getProximoIndiceSumarioPagina();
+            }
+
+        }
+
+        return contagem;
+    }
+
+    public long getPaginasContagem() {
+
+        long ponteiro_local = mPonteiro;
+        boolean tem_proximo = true;
+
+        long contagem = 0;
+
+        while (tem_proximo) {
+
+            IndiceSumarioDeslizante indice_deslizante = new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, ponteiro_local);
+
+            contagem += indice_deslizante.getPaginasContagem();
+
+            tem_proximo = indice_deslizante.temProximo();
+
+            if (tem_proximo) {
+                ponteiro_local = indice_deslizante.getProximoIndiceSumarioPagina();
+            }
+
+        }
+
+        return contagem;
+    }
+
+
+    public long getIndicesContagem() {
+
+        long ponteiro_local = mPonteiro;
+        boolean tem_proximo = true;
+
+        long contagem = 0;
+
+        while (tem_proximo) {
+
+            IndiceSumarioDeslizante indice_deslizante = new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, ponteiro_local);
+
+            contagem += indice_deslizante.getIndicesContagem();
+
+            tem_proximo = indice_deslizante.temProximo();
+
+            if (tem_proximo) {
+                ponteiro_local = indice_deslizante.getProximoIndiceSumarioPagina();
+            }
+
+        }
+
+        return contagem;
+    }
+
+    public long getMaximo() {
+        return getSumariosContagem() * Fazendario.QUANTIDADE_DE_INDICES_POR_PAGINA * Fazendario.QUANTIDADE_DE_PAGINAS_INDEXADAS;
     }
 
 }
