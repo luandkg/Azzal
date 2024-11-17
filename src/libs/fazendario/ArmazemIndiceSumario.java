@@ -3,7 +3,7 @@ package libs.fazendario;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.DeslizadorEstrutural;
 import libs.luan.Lista;
-import libs.luan.fmt;
+import libs.luan.Opcional;
 
 public class ArmazemIndiceSumario {
 
@@ -54,13 +54,13 @@ public class ArmazemIndiceSumario {
 
 
         indice_primario.setMenor(total_menor);
-        indice_primario.setMaior(total_maior );
+        indice_primario.setMaior(total_maior);
 
 
         long menor = indice_primario.getMenor();
         long maior = indice_primario.getMaior();
 
-      //  fmt.print("Item :: SET ( " + indice + " : " + ponteiro_dados + " ) ->> {} :: {}", menor, maior);
+        //  fmt.print("Item :: SET ( " + indice + " : " + ponteiro_dados + " ) ->> {} :: {}", menor, maior);
 
 
         while (indices.temProximo()) {
@@ -68,7 +68,7 @@ public class ArmazemIndiceSumario {
             IndiceSumarioDeslizante indice_deslizante = indices.get();
 
 
-           // fmt.print("\t ++ Indice Sumario :: " + indice_deslizante.getPonteiro() + " ->> " + indice_deslizante.getMenor() + " :: " + indice_deslizante.getMaior());
+            // fmt.print("\t ++ Indice Sumario :: " + indice_deslizante.getPonteiro() + " ->> " + indice_deslizante.getMenor() + " :: " + indice_deslizante.getMaior());
 
 
             if (indice >= indice_deslizante.getMenor() && indice < indice_deslizante.getMaior()) {
@@ -207,6 +207,83 @@ public class ArmazemIndiceSumario {
 
     public long getMaximo() {
         return getSumariosContagem() * Fazendario.QUANTIDADE_DE_INDICES_POR_PAGINA * Fazendario.QUANTIDADE_DE_PAGINAS_INDEXADAS;
+    }
+
+    public Opcional<IndiceLocalizado> procurar_indice(long indice) {
+
+        DeslizadorEstrutural<IndiceSumarioDeslizante> indices = new DeslizadorEstrutural<>(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, mPonteiro));
+
+        while (indices.temProximo()) {
+
+            if (indice >= indices.get().getMenor() && indice < indices.get().getMaior()) {
+                return indices.get().procurar_indice(indice);
+            }
+
+            if (indices.get().temProximo()) {
+                indices.setProximo(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, indices.get().getProximoIndiceSumarioPagina()));
+            } else {
+                indices.finalizar();
+            }
+
+        }
+
+
+        return Opcional.CANCEL();
+    }
+
+    public Opcional<IndiceLocalizado> getIndiceMaior() {
+
+        DeslizadorEstrutural<IndiceSumarioDeslizante> indices = new DeslizadorEstrutural<>(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, mPonteiro));
+
+        Opcional<IndiceLocalizado> maior = Opcional.CANCEL();
+
+        while (indices.temProximo()) {
+
+            Opcional<IndiceLocalizado> maior_local = indices.get().getIndiceMaior();
+
+            if (maior_local.isOK() && maior.isOK()) {
+
+                if (maior_local.get().getIndice() > maior.get().getIndice()) {
+                    maior = maior_local;
+                }
+
+            } else {
+                maior = maior_local;
+            }
+
+            if (indices.get().temProximo()) {
+                indices.setProximo(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, indices.get().getProximoIndiceSumarioPagina()));
+            } else {
+                indices.finalizar();
+            }
+
+        }
+
+        return maior;
+
+    }
+
+
+    public Opcional<Boolean> remover(long indice) {
+
+        DeslizadorEstrutural<IndiceSumarioDeslizante> indices = new DeslizadorEstrutural<>(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, mPonteiro));
+
+        while (indices.temProximo()) {
+
+            if (indice >= indices.get().getMenor() && indice < indices.get().getMaior()) {
+                return indices.get().remover(indice);
+            }
+
+            if (indices.get().temProximo()) {
+                indices.setProximo(new IndiceSumarioDeslizante(mArquivador, mFazendario, mArmazemID, indices.get().getProximoIndiceSumarioPagina()));
+            } else {
+                indices.finalizar();
+            }
+
+        }
+
+
+        return Opcional.CANCEL();
     }
 
 }

@@ -35,6 +35,8 @@ public class Armazem {
     }
 
 
+    public Arquivador getArquivador(){return mArquivador;}
+
     public long getPonteiroCorrente() {
         return mPonteiro;
     }

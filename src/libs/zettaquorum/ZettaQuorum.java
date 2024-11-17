@@ -39,6 +39,30 @@ public class ZettaQuorum {
 
     public void dump() {
 
+
+        Lista<Entidade> colecoes = mColecoes.getItens();
+
+        for (Entidade colecao : colecoes) {
+
+            Armazem armazem = mFazendario.OBTER_ARMAZEM_LOCATORIO(colecao.atLong("Ponteiro"));
+
+            colecao.at("Identificador", armazem.getNome());
+            colecao.at("Portao", armazem.getPortao());
+
+            colecao.at("Portoes", armazem.getPortoesContagem());
+            colecao.at("Andares", armazem.getAndaresContagem());
+            colecao.at("Espacos", armazem.getEspacosContagem());
+
+            colecao.at("Alocados", armazem.getItensAlocadosContagem());
+            colecao.at("NaoAlocados", armazem.getItensNaoAlocadosContagem());
+
+            colecao.at("Reciclaveis", armazem.getItensReciclaveisContagem());
+            colecao.at("Utilizados", armazem.getItensUtilizadosContagem());
+
+
+        }
+
+
         Lista<Entidade> indices = mIndices.getItens();
 
         for (Entidade indice : indices) {
@@ -55,7 +79,7 @@ public class ZettaQuorum {
 
         ENTT.EXIBIR_TABELA_COM_NOME(mSequencias.getItens(), "ZETTA-QUORUM : @COLECOES::SEQUENCIAS");
         ENTT.EXIBIR_TABELA_COM_NOME(indices, "ZETTA-QUORUM : @COLECOES::INDICES");
-        ENTT.EXIBIR_TABELA_COM_NOME(mColecoes.getItens(), "ZETTA-QUORUM : @COLECOES::DADOS");
+        ENTT.EXIBIR_TABELA_COM_NOME(colecoes, "ZETTA-QUORUM : @COLECOES::DADOS");
 
     }
 

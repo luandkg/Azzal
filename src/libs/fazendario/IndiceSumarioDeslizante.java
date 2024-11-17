@@ -3,7 +3,7 @@ package libs.fazendario;
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
-import libs.luan.fmt;
+import libs.luan.Opcional;
 
 public class IndiceSumarioDeslizante {
 
@@ -69,9 +69,9 @@ public class IndiceSumarioDeslizante {
 
     public void setItem(long indice, long ponteiro_dados) {
 
-       // fmt.print("IndiceSumarioDeslizante :: {}", mPonteiro);
-     //   fmt.print("\t - Menor :: {}", getMenor());
-      //  fmt.print("\t - Maior :: {}", getMaior());
+        // fmt.print("IndiceSumarioDeslizante :: {}", mPonteiro);
+        //   fmt.print("\t - Menor :: {}", getMenor());
+        //  fmt.print("\t - Maior :: {}", getMaior());
 
         mArquivador.setPonteiro(mPonteiro + 8L + 1L + 8L + 8L + 1L + 8L);
 
@@ -93,15 +93,15 @@ public class IndiceSumarioDeslizante {
             long item_maior = mArquivador.get_u64(); // MAIOR INDICE
             long item_ponteiro_pagina = mArquivador.get_u64(); // PONTEIRO PAGINA
 
-          //  fmt.print("IndicePagina :: {} -->> {} = {} :: ({})", i, status, pagina_ponteiro_local, item_ponteiro_pagina);
-           //    fmt.print("\t - Menor :: {}", indo_menor);
-           //   fmt.print("\t - Maior :: {}", (indo_menor + somando));
+            //  fmt.print("IndicePagina :: {} -->> {} = {} :: ({})", i, status, pagina_ponteiro_local, item_ponteiro_pagina);
+            //    fmt.print("\t - Menor :: {}", indo_menor);
+            //   fmt.print("\t - Maior :: {}", (indo_menor + somando));
 
             if (indice >= indo_menor && indice < (indo_menor + somando)) {
 
                 if (status == Fazendario.NAO_TEM) {
 
-                  //     fmt.print("Alocando nova pagina !");
+                    //     fmt.print("Alocando nova pagina !");
 
                     long ponteiro_conteudo_pagina = mFazendario.CRIAR_INDICE_PAGINA(mArmazemID);
 
@@ -118,7 +118,7 @@ public class IndiceSumarioDeslizante {
                     pagina.setMaior((indo_menor + somando));
 
                 } else {
-                  //   fmt.print("Utilizando  pagina : {}", item_ponteiro_pagina);
+                    //   fmt.print("Utilizando  pagina : {}", item_ponteiro_pagina);
                 }
 
 
@@ -337,5 +337,165 @@ public class IndiceSumarioDeslizante {
         return contagem;
     }
 
+    public Opcional<IndiceLocalizado> procurar_indice(long indice) {
 
+        long contagem = 0;
+
+        //  fmt.print("IndiceSumarioDeslizante :: {}", mPonteiro);
+        //  fmt.print("\t - Menor :: {}", getMenor());
+        //   fmt.print("\t - Maior :: {}", getMaior());
+
+        mArquivador.setPonteiro(mPonteiro + 8L + 1L + 8L + 8L + 1L + 8L);
+
+        long sumario_ponteiro_dados = mArquivador.getPonteiro();
+
+        long indo_menor = getMenor();
+        long somando = Fazendario.QUANTIDADE_DE_INDICES_POR_PAGINA;
+
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_PAGINAS_INDEXADAS; i++) {
+
+            mArquivador.setPonteiro(sumario_ponteiro_dados + ((long) i * (1L + 8L + 8L + 8L)));
+
+            long pagina_ponteiro_local = mArquivador.getPonteiro();
+
+
+            int status = mArquivador.get_u8();
+            long item_menor = mArquivador.get_u64(); // MENOR INDICE
+            long item_maior = mArquivador.get_u64(); // MAIOR INDICE
+            long item_ponteiro_pagina = mArquivador.get_u64(); // PONTEIRO PAGINA
+
+
+            if (status == Fazendario.TEM) {
+
+                //    fmt.print("IndicePagina :: {} -->> {} = {} :: ({})", i, status, pagina_ponteiro_local, item_ponteiro_pagina);
+                //    fmt.print("\t - Menor :: {}", indo_menor);
+                //     fmt.print("\t - Maior :: {}", (indo_menor + somando));
+
+                VERIFICADOR.DEVE_SER_VERDADEIRO(pagina_ponteiro_local > 0, "Precisa ser maior que 0");
+
+                IndicePagina pagina = new IndicePagina(mArquivador, item_ponteiro_pagina);
+
+                if (indice >= pagina.getMenor() && indice < pagina.getMaior()) {
+                    return pagina.procurar_indice(indice);
+                }
+
+            }
+
+
+            indo_menor += somando;
+        }
+
+        return Opcional.CANCEL();
+    }
+
+    public Opcional<IndiceLocalizado> getIndiceMaior() {
+
+        //  fmt.print("IndiceSumarioDeslizante :: {}", mPonteiro);
+        //  fmt.print("\t - Menor :: {}", getMenor());
+        //  fmt.print("\t - Maior :: {}", getMaior());
+
+        mArquivador.setPonteiro(mPonteiro + 8L + 1L + 8L + 8L + 1L + 8L);
+
+        long sumario_ponteiro_dados = mArquivador.getPonteiro();
+
+        long indo_menor = getMenor();
+        long somando = Fazendario.QUANTIDADE_DE_INDICES_POR_PAGINA;
+
+        Opcional<IndiceLocalizado> maior = Opcional.CANCEL();
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_PAGINAS_INDEXADAS; i++) {
+
+            mArquivador.setPonteiro(sumario_ponteiro_dados + ((long) i * (1L + 8L + 8L + 8L)));
+
+            long pagina_ponteiro_local = mArquivador.getPonteiro();
+
+
+            int status = mArquivador.get_u8();
+            long item_menor = mArquivador.get_u64(); // MENOR INDICE
+            long item_maior = mArquivador.get_u64(); // MAIOR INDICE
+            long item_ponteiro_pagina = mArquivador.get_u64(); // PONTEIRO PAGINA
+
+
+            if (status == Fazendario.TEM) {
+
+                //  fmt.print("IndicePagina :: {} -->> {} = {} :: ({})", i, status, pagina_ponteiro_local, item_ponteiro_pagina);
+                //   fmt.print("\t - Menor :: {}", indo_menor);
+                //   fmt.print("\t - Maior :: {}", (indo_menor + somando));
+
+                VERIFICADOR.DEVE_SER_VERDADEIRO(pagina_ponteiro_local > 0, "Precisa ser maior que 0");
+
+                IndicePagina pagina = new IndicePagina(mArquivador, item_ponteiro_pagina);
+                Opcional<IndiceLocalizado> maior_local = pagina.getIndiceMaior();
+
+                if (maior_local.isOK() && maior.isOK()) {
+
+                    if (maior_local.get().getIndice() > maior.get().getIndice()) {
+                        maior = maior_local;
+                    }
+
+                } else {
+                    maior = maior_local;
+                }
+
+            }
+
+
+            indo_menor += somando;
+        }
+
+        return maior;
+    }
+
+    public Opcional<Boolean> remover(long indice) {
+
+        long contagem = 0;
+
+        //  fmt.print("IndiceSumarioDeslizante :: {}", mPonteiro);
+        //  fmt.print("\t - Menor :: {}", getMenor());
+        //   fmt.print("\t - Maior :: {}", getMaior());
+
+        mArquivador.setPonteiro(mPonteiro + 8L + 1L + 8L + 8L + 1L + 8L);
+
+        long sumario_ponteiro_dados = mArquivador.getPonteiro();
+
+        long indo_menor = getMenor();
+        long somando = Fazendario.QUANTIDADE_DE_INDICES_POR_PAGINA;
+
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_PAGINAS_INDEXADAS; i++) {
+
+            mArquivador.setPonteiro(sumario_ponteiro_dados + ((long) i * (1L + 8L + 8L + 8L)));
+
+            long pagina_ponteiro_local = mArquivador.getPonteiro();
+
+
+            int status = mArquivador.get_u8();
+            long item_menor = mArquivador.get_u64(); // MENOR INDICE
+            long item_maior = mArquivador.get_u64(); // MAIOR INDICE
+            long item_ponteiro_pagina = mArquivador.get_u64(); // PONTEIRO PAGINA
+
+
+            if (status == Fazendario.TEM) {
+
+                //    fmt.print("IndicePagina :: {} -->> {} = {} :: ({})", i, status, pagina_ponteiro_local, item_ponteiro_pagina);
+                //    fmt.print("\t - Menor :: {}", indo_menor);
+                //     fmt.print("\t - Maior :: {}", (indo_menor + somando));
+
+                VERIFICADOR.DEVE_SER_VERDADEIRO(pagina_ponteiro_local > 0, "Precisa ser maior que 0");
+
+                IndicePagina pagina = new IndicePagina(mArquivador, item_ponteiro_pagina);
+
+                if (indice >= pagina.getMenor() && indice < pagina.getMaior()) {
+                    return pagina.remover(indice);
+                }
+
+            }
+
+
+            indo_menor += somando;
+        }
+
+        return Opcional.CANCEL();
+    }
 }
