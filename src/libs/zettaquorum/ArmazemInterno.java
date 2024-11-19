@@ -13,16 +13,18 @@ public class ArmazemInterno {
 
     private Fazendario mFazendario;
     private Armazem mArmazem;
+    private String mNome;
 
-    public ArmazemInterno(Fazendario eFazendario, String nome) {
+    public ArmazemInterno(Fazendario eFazendario, String eNome) {
 
         mFazendario = eFazendario;
+        mNome=eNome;
 
-        if (!mFazendario.existe_armazem(nome)) {
-            mFazendario.alocar_armazem(nome);
+        if (!mFazendario.existe_armazem(mNome)) {
+            mFazendario.alocar_armazem(mNome);
         }
 
-        mArmazem = Opcional.SOME(mFazendario.procurar_armazem(nome));
+        mArmazem = Opcional.SOME(mFazendario.procurar_armazem(mNome));
 
     }
 
@@ -69,5 +71,13 @@ public class ArmazemInterno {
         return Opcional.CANCEL();
     }
 
+
+    public void zerar() {
+        mArmazem.zerar();
+    }
+
+    public void dump() {
+        ENTT.EXIBIR_TABELA_COM_NOME(getItens(), "ARMAZEM -- " +mNome);
+    }
 
 }

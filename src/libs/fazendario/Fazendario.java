@@ -19,14 +19,20 @@ public class Fazendario {
     public final static int ARMAZEM_TIPO_ZONA_DE_RECICLAGEM = 56;
     public final static int ARMAZEM_TIPO_AREA_INDEXADA = 57;
     public final static int ARMAZEM_TIPO_INDICE_PAGINA = 58;
+    public final static int ARMAZEM_TIPO_PLANTACAO = 59;
 
 
     public final static int NAO_TEM = 0;
     public final static int ARMAZEM_FIM = 255;
     public final static int ANDAR_FIM = 255;
+    public final static int FIM_PLANTACAO = 255;
 
     public final static int ESTA_VAZIO = 0;
     public final static int TEM = 255;
+
+
+    public final static int OBJETO_PEQUENO = 50;
+    public final static int OBJETO_GRANDE = 100;
 
 
     public final static int ESPACO_VAZIO_E_NAO_ALOCADO = 0;
@@ -37,15 +43,16 @@ public class Fazendario {
     public final static long TAMANHO_SETOR_ITEM = Matematica.KB(10);
 
 
-    public final static long QUANTIDADE_DE_ANDARES = Matematica.KB(4);
-    public final static long QUANTIDADE_DE_ESPACOS = Matematica.KB(4);
-    public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = Matematica.KB(4);
-    public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = Matematica.KB(4);
+    // public final static long QUANTIDADE_DE_ANDARES = Matematica.KB(4);
+    //  public final static long QUANTIDADE_DE_ESPACOS = Matematica.KB(4);
+    //  public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = Matematica.KB(4);
+    //  public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = Matematica.KB(4);
 
-  //  public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
- //   public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
-  //  public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = 10;//Matematica.KB(64);
-  //  public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = 10;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
+    public final static long QUANTIDADE_DE_AREAS = 10;//Matematica.KB(64);
 
 
     private Arquivador mArquivador;
@@ -327,10 +334,13 @@ public class Fazendario {
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u64(indice);     // Indice
+        mArquivador.set_u64(indice);                        // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ARMAZEM);    // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u8((byte) NAO_TEM);                 // Tem outra página de Armazem Sumario
         mArquivador.set_u64((long) 0);                      // Ponteiro da proxima página Armazem Sumario
+        mArquivador.set_u8((byte) NAO_TEM);                 // Tem ponteiro para local de objetos grandes : Plantacao
+        mArquivador.set_u64((long) 0);                      // Ponteiro para Plantacao
+
         mArquivador.set_u8((byte) NAO_TEM);
 
 
@@ -349,7 +359,7 @@ public class Fazendario {
 
         long ponteiro = mArquivador.getPonteiro();
 
-        mArquivador.set_u64(indice);                  // Indice
+        mArquivador.set_u64(indice);                        // Indice
         mArquivador.set_u8((byte) ARMAZEM_TIPO_ANDAR);     // Tipo para Armazem - Armazem Sumario
         mArquivador.set_u64((long) 0);                      // Espacos Existentes
         mArquivador.set_u64((long) 0);                      // Espacos Ocupados
@@ -436,6 +446,42 @@ public class Fazendario {
         }
 
         mArquivador.set_u8((byte) ANDAR_FIM);
+
+        return ponteiro;
+    }
+
+
+    public long CRIAR_PLANTACAO(long indice) {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro = mArquivador.getPonteiro();
+
+        mArquivador.set_u64(indice);                                // Indice
+        mArquivador.set_u8((byte) ARMAZEM_TIPO_PLANTACAO);          // Tipo para Armazem - Area Indexada
+
+        long ponteiro_definir = mArquivador.getPonteiro();
+
+        mArquivador.set_u64((long) 0);                              // MAPA INICIO
+        mArquivador.set_u64((long) 0);                              // MAPA FIM
+        mArquivador.set_u8((byte) NAO_TEM);                         // TEM PROXIMA
+
+        long ponteiro_mapa_inicio = mArquivador.getPonteiro();
+
+        for (int i = 0; i < QUANTIDADE_DE_AREAS; i++) {
+            mArquivador.set_u8((byte) NAO_TEM);
+            mArquivador.set_u64((long) NAO_TEM); // PONTEIRO PARA MIM MESMO
+            mArquivador.set_u64((long) NAO_TEM); //PONTEIRO PARA DADOS DE 16KB
+        }
+
+        long ponteiro_mapa_fim = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) FIM_PLANTACAO);
+
+        mArquivador.setPonteiro(ponteiro_definir);
+        mArquivador.set_u64(ponteiro_mapa_inicio);
+        mArquivador.set_u64(ponteiro_mapa_fim);
+
 
         return ponteiro;
     }

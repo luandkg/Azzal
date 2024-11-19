@@ -15,7 +15,13 @@ public class PortaoDeslizante {
     private boolean mTemOutroSumario;
     private long mOutroSumarioPonteiro;
 
+    private boolean mTemPlantacao;
+    private long mPlantacaoPonteiro;
+
+
     private long PORTAO_ESPACADOR_TEM_PROXIMO;
+    private long PORTAO_ESPACADOR_TEM_PLANTACAO;
+
     private long PORTAO_ESPACADOR_CONTEUDO;
     private long PORTAO_ESPACO_ANDAR_TAMANHO;
 
@@ -25,6 +31,8 @@ public class PortaoDeslizante {
         mSumarioPonteiro = eSumarioPonteiro;
         mIndice = eIndice;
 
+        mTemOutroSumario=false;
+        mTemPlantacao=false;
 
         // ESTRUTURA - PORTAO
 
@@ -45,32 +53,48 @@ public class PortaoDeslizante {
         long PORTAO_ESPACO_PORTAO_TIPO = Tipo.u8;
         long PORTAO_ESPACO_TEM_PROXIMO = Tipo.u8;
         long PORTAO_ESPACO_PROXIMO_PONTEIRO = Tipo.u64;
+        long PORTAO_ESPACO_TEM_PLANTACAO = Tipo.u8;
+        long PORTAO_ESPACO_PLANTACAO = Tipo.u64;
+
         long PORTAO_ESPACO_FIM_CABECALHO = Tipo.u8;
 
         PORTAO_ESPACO_ANDAR_TAMANHO = Tipo.u64;
 
         PORTAO_ESPACADOR_TEM_PROXIMO = Tipo.SOMAR(PORTAO_TAMANHO_INDICE, PORTAO_ESPACO_PORTAO_TIPO);
-        PORTAO_ESPACADOR_CONTEUDO = Tipo.SOMAR(PORTAO_TAMANHO_INDICE, PORTAO_ESPACO_PORTAO_TIPO, PORTAO_ESPACO_TEM_PROXIMO, PORTAO_ESPACO_PROXIMO_PONTEIRO, PORTAO_ESPACO_FIM_CABECALHO);
+        PORTAO_ESPACADOR_TEM_PLANTACAO = Tipo.SOMAR(PORTAO_TAMANHO_INDICE, PORTAO_ESPACO_PORTAO_TIPO, PORTAO_ESPACO_TEM_PROXIMO, PORTAO_ESPACO_PROXIMO_PONTEIRO);
 
-        atualizar();
-    }
+        PORTAO_ESPACADOR_CONTEUDO = Tipo.SOMAR(PORTAO_TAMANHO_INDICE, PORTAO_ESPACO_PORTAO_TIPO, PORTAO_ESPACO_TEM_PROXIMO, PORTAO_ESPACO_PROXIMO_PONTEIRO, PORTAO_ESPACO_TEM_PLANTACAO + PORTAO_ESPACO_PLANTACAO + PORTAO_ESPACO_FIM_CABECALHO);
 
-
-    public void atualizar() {
 
         mArquivador.setPonteiro(mSumarioPonteiro);
 
         long armazem_indice = mArquivador.get_u64();
         int armazem_tipo = mArquivador.get_u8();
+
         int armazem_tem_outra_pagina = mArquivador.get_u8();
         long armazem_outra_pagina_ponteiro = mArquivador.get_u64();
+
+        int tem_plantacao_valor = mArquivador.get_u8();
+        long plantacao_ponteiro = mArquivador.get_u64();
+
         int armazem_vazio = mArquivador.get_u8();
+
+
+        if (tem_plantacao_valor == Fazendario.TEM) {
+            mTemPlantacao=true;
+            mPlantacaoPonteiro=plantacao_ponteiro;
+        }
+
 
         if (armazem_tem_outra_pagina == Fazendario.TEM) {
             mTemOutroSumario = true;
             mOutroSumarioPonteiro = armazem_outra_pagina_ponteiro;
         }
     }
+
+
+    public long getIndice(){return mIndice;}
+
 
     public boolean temOutroPortao() {
         return mTemOutroSumario;
@@ -83,6 +107,22 @@ public class PortaoDeslizante {
     public void setProximoPortao(long ptr) {
 
         mArquivador.setPonteiro(mSumarioPonteiro + PORTAO_ESPACADOR_TEM_PROXIMO);
+        mArquivador.set_u8((byte) Fazendario.TEM);
+        mArquivador.set_u64(ptr);
+    }
+
+    public boolean temPlantacao() {
+        return mTemPlantacao;
+    }
+
+    public long getPlantacao() {
+        return mPlantacaoPonteiro;
+    }
+
+
+    public void setPlantacao(long ptr) {
+
+        mArquivador.setPonteiro(mSumarioPonteiro + PORTAO_ESPACADOR_TEM_PLANTACAO);
         mArquivador.set_u8((byte) Fazendario.TEM);
         mArquivador.set_u64(ptr);
     }
@@ -119,7 +159,7 @@ public class PortaoDeslizante {
             if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar);
                 long cont = andar.getItensAlocadosContagem();
                 contagem += cont;
                 //   fmt.print("++ {}",cont);
@@ -145,7 +185,7 @@ public class PortaoDeslizante {
             if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar);
                 long cont = andar.getItensNaoAlocadosContagem();
                 contagem += cont;
                 //   fmt.print("++ {}",cont);
@@ -171,7 +211,7 @@ public class PortaoDeslizante {
             if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, mFazendario,ponteiro_andar);
                 long cont = andar.getItensUtilizadosContagem();
                 contagem += cont;
                 //   fmt.print("++ {}",cont);
@@ -197,7 +237,7 @@ public class PortaoDeslizante {
             if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, mFazendario,ponteiro_andar);
                 long cont = andar.getItensReciclaveisContagem();
                 contagem += cont;
                 //   fmt.print("++ {}",cont);
@@ -225,7 +265,7 @@ public class PortaoDeslizante {
                 break;
             } else if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, mFazendario,ponteiro_andar);
 
                 if (andar.temEspaco()) {
                     ret = true;
@@ -238,7 +278,7 @@ public class PortaoDeslizante {
         return ret;
     }
 
-    public ItemAlocado item_adicionar(String texto) {
+    public ItemAlocado item_adicionar(PortaoDeslizante portao_primario, String texto) {
 
         ItemAlocado item = null;
 
@@ -270,7 +310,7 @@ public class PortaoDeslizante {
                 zdr.setEspacosExistentes(Fazendario.QUANTIDADE_DE_ESPACOS);
                 zdr.setEspacosOcupados((long) 0);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar_novo);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar_novo);
 
                 andar.setEspacosExistentes(Fazendario.QUANTIDADE_DE_ESPACOS);
                 andar.setEspacosOcupados((long) 0);
@@ -278,7 +318,7 @@ public class PortaoDeslizante {
                 andar.setZonaDeReciclagem(ponteiro_zona_de_reciclagem);
 
                 if (andar.temEspaco()) {
-                    item = andar.item_adicionar(texto);
+                    item = andar.item_adicionar(portao_primario, texto);
                     break;
                 }
 
@@ -287,10 +327,10 @@ public class PortaoDeslizante {
 
                 //  fmt.print("\t ++ Estrando no Andar :: {} ->> {} ", i, ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar);
 
                 if (andar.temEspaco()) {
-                    item = andar.item_adicionar(texto);
+                    item = andar.item_adicionar(portao_primario, texto);
                     break;
                 }
 
@@ -314,7 +354,7 @@ public class PortaoDeslizante {
             if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar);
                 andar.obter_itens_alocados(itens);
                 //   fmt.print("++ {}",cont);
 
@@ -336,7 +376,7 @@ public class PortaoDeslizante {
             if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador, mFazendario,ponteiro_andar);
                 andar.zerar();
                 //   fmt.print("++ {}",cont);
 
@@ -358,7 +398,7 @@ public class PortaoDeslizante {
             if (ponteiro_andar != Fazendario.ESTA_VAZIO) {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
-                ArmazemAndar andar = new ArmazemAndar(mArquivador, ponteiro_andar);
+                ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar);
                 andar.obter_itens_alocados_intervalo(itens, intervalo);
                 //   fmt.print("++ {}",cont);
 

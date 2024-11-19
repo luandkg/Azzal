@@ -2,18 +2,65 @@ package libs.fazendario;
 
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
-import libs.luan.Lista;
-import libs.luan.Opcional;
-import libs.luan.Strings;
+import libs.luan.*;
+import libs.matematica.Tipo;
 
 public class ArmazemAndar {
 
     private Arquivador mArquivador;
+    private Fazendario mFazendario;
+
     private long mAndarPonteiro;
 
-    public ArmazemAndar(Arquivador eArquivador, long eAndarPonteiro) {
+    private long ANDAR_POSICAO_ESPACOS;
+    private long ANDAR_POSICAO_ESPACOS_EXISTENTES;
+    private long ANDAR_POSICAO_ESPACOS_OCUPADOS;
+    private long ANDAR_POSICAO_PROXIMO_VAZIO;
+    private long ANDAR_POSICAO_AREA_DE_RECICLAGEM;
+
+    private long ANDAR_TAMANHO_ESPACO;
+
+    public ArmazemAndar(Arquivador eArquivador, Fazendario eFazendario, long eAndarPonteiro) {
         mArquivador = eArquivador;
+        mFazendario = eFazendario;
         mAndarPonteiro = eAndarPonteiro;
+
+
+        //  mArquivador.set_u64(indice);                        // Indice
+        //     mArquivador.set_u8((byte) ARMAZEM_TIPO_ANDAR);     // Tipo para Armazem - Armazem Sumario
+        //    mArquivador.set_u64((long) 0);                      // Espacos Existentes
+        //    mArquivador.set_u64((long) 0);                      // Espacos Ocupados
+        //     mArquivador.set_u64((long) 0);                      // Proximo espaco vazio
+        //    mArquivador.set_u64((long) 0);                      // Area de Reciclagem de Espacos
+        //     mArquivador.set_u8((byte) NAO_TEM);
+
+
+        //   for (int i = 0; i < QUANTIDADE_DE_ESPACOS; i++) {
+        //        mArquivador.set_u8((byte) NAO_TEM);
+        //        mArquivador.set_u64((long) NAO_TEM);
+        //    }
+
+        //    mArquivador.set_u8((byte) ANDAR_FIM);
+
+        long ANDAR_TAMANHO_INDICE = Tipo.u64;
+        long ANDAR_TAMANHO_TIPO = Tipo.u8;
+        long ANDAR_TAMANHO_ESPACOS_EXISTENTES = Tipo.u64;
+        long ANDAR_TAMANHO_ESPACOS_OCUPADOS = Tipo.u64;
+        long ANDAR_TAMANHO_PROXIMO_ESPACO_VAZIO = Tipo.u64;
+        long ANDAR_TAMANHO_PONTEIRO_AREA_DE_RECICLAGEM = Tipo.u64;
+        long ANDAR_TAMANHO_VAZIO = Tipo.u8;
+
+        long ANDAR_TAMANHO_ESPACO_STATUS = Tipo.u8;
+        long ANDAR_TAMANHO_ESPACO_PONTEIRO = Tipo.u64;
+
+        ANDAR_TAMANHO_ESPACO = Tipo.SOMAR(ANDAR_TAMANHO_ESPACO_STATUS, ANDAR_TAMANHO_ESPACO_PONTEIRO);
+
+        ANDAR_POSICAO_ESPACOS = Tipo.SOMAR(ANDAR_TAMANHO_INDICE, ANDAR_TAMANHO_TIPO, ANDAR_TAMANHO_ESPACOS_EXISTENTES, ANDAR_TAMANHO_ESPACOS_OCUPADOS, ANDAR_TAMANHO_PROXIMO_ESPACO_VAZIO, ANDAR_TAMANHO_PONTEIRO_AREA_DE_RECICLAGEM, ANDAR_TAMANHO_VAZIO);
+        ANDAR_POSICAO_ESPACOS_EXISTENTES = Tipo.SOMAR(ANDAR_TAMANHO_INDICE, ANDAR_TAMANHO_TIPO);
+        ANDAR_POSICAO_ESPACOS_OCUPADOS = Tipo.SOMAR(ANDAR_TAMANHO_INDICE, ANDAR_TAMANHO_TIPO, ANDAR_TAMANHO_ESPACOS_EXISTENTES);
+        ANDAR_POSICAO_PROXIMO_VAZIO = Tipo.SOMAR(ANDAR_TAMANHO_INDICE, ANDAR_TAMANHO_TIPO, ANDAR_TAMANHO_ESPACOS_EXISTENTES, ANDAR_TAMANHO_ESPACOS_OCUPADOS);
+        ANDAR_POSICAO_AREA_DE_RECICLAGEM = Tipo.SOMAR(ANDAR_TAMANHO_INDICE, ANDAR_TAMANHO_TIPO, ANDAR_TAMANHO_ESPACOS_EXISTENTES, ANDAR_TAMANHO_ESPACOS_OCUPADOS, ANDAR_TAMANHO_PROXIMO_ESPACO_VAZIO);
+
         atualizar();
     }
 
@@ -35,33 +82,33 @@ public class ArmazemAndar {
     }
 
     public void setEspacosExistentes(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS_EXISTENTES);
         mArquivador.set_u64(ptr);
     }
 
     public void setEspacosOcupados(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS_OCUPADOS);
         mArquivador.set_u64(ptr);
     }
 
     public void setProximoEspacoVazio(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_PROXIMO_VAZIO);
         mArquivador.set_u64(ptr);
     }
 
     public void setZonaDeReciclagem(long ptr) {
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_AREA_DE_RECICLAGEM);
         mArquivador.set_u64(ptr);
     }
 
 
     public long getProximoEspacoVazio() {
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_PROXIMO_VAZIO);
         return mArquivador.get_u64();
     }
 
     public long getZonaDeReciclagem() {
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_AREA_DE_RECICLAGEM);
         return mArquivador.get_u64();
     }
 
@@ -69,7 +116,7 @@ public class ArmazemAndar {
     public long getItensAlocadosContagem() {
         long ret = 0;
 
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -88,7 +135,7 @@ public class ArmazemAndar {
     public long getItensNaoAlocadosContagem() {
         long ret = 0;
 
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -107,7 +154,7 @@ public class ArmazemAndar {
     public long getItensUtilizadosContagem() {
         long ret = 0;
 
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -144,7 +191,7 @@ public class ArmazemAndar {
                 return true;
             }
 
-            mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+            mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
             for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -164,7 +211,7 @@ public class ArmazemAndar {
         return ret;
     }
 
-    public ItemAlocado item_adicionar(String texto) {
+    public ItemAlocado item_adicionar(PortaoDeslizante portao_primario, String texto) {
 
 
         long proximo_vazio = getProximoEspacoVazio();
@@ -175,8 +222,8 @@ public class ArmazemAndar {
 
             //  fmt.print("\t ++ Andar :: Adicionar utilizando proximo vazio : {}", proximo_vazio);
 
-            long deslocar = proximo_vazio * (1L + 8L);
-            mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
+            long deslocar = proximo_vazio * ANDAR_TAMANHO_ESPACO;
+            mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS + deslocar);
 
             long indice_espaco = proximo_vazio;
             long ponteiro_local = mArquivador.getPonteiro();
@@ -184,7 +231,7 @@ public class ArmazemAndar {
             long tem_ponteiro_espaco = mArquivador.get_u8();
             long ponteiro_espaco = mArquivador.get_u64();
 
-            long ponteiro_dados_final = item_adicionar_no_espaco(ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
+            long ponteiro_dados_final = item_adicionar_no_espaco(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
 
             proximo_vazio += 1;
             setProximoEspacoVazio(proximo_vazio);
@@ -203,8 +250,8 @@ public class ArmazemAndar {
                 //   fmt.print("\t ++ Andar :: Adicionar utilizando item reciclado !");
 
 
-                long deslocar = reciclado.get() * (1L + 8L);
-                mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L + deslocar);
+                long deslocar = reciclado.get() * ANDAR_TAMANHO_ESPACO;
+                mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS + deslocar);
 
                 long indice_espaco = reciclado.get();
                 long ponteiro_local = mArquivador.getPonteiro();
@@ -212,7 +259,7 @@ public class ArmazemAndar {
                 long tem_ponteiro_espaco = mArquivador.get_u8();
                 long ponteiro_espaco = mArquivador.get_u64();
 
-                long ponteiro_dados_final = item_adicionar_no_espaco(ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
+                long ponteiro_dados_final = item_adicionar_no_espaco(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
 
                 return new ItemAlocado(mArquivador, this, (int) indice_espaco, ponteiro_local, ponteiro_dados_final);
 
@@ -222,7 +269,7 @@ public class ArmazemAndar {
 
             //   fmt.print("\t ++ Andar :: Adicionar utilizando varredura no andar");
 
-            mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+            mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
             for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
 
@@ -232,7 +279,7 @@ public class ArmazemAndar {
                 long ponteiro_espaco = mArquivador.get_u64();
 
                 if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO || tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
-                    long ponteiro_dados_final = item_adicionar_no_espaco(ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
+                    long ponteiro_dados_final = item_adicionar_no_espaco(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
 
                     return new ItemAlocado(mArquivador, this, (int) i, ponteiro_local, ponteiro_dados_final);
 
@@ -246,7 +293,24 @@ public class ArmazemAndar {
         return null;
     }
 
-    public long item_adicionar_no_espaco(long ponteiro_local, long tem_ponteiro_espaco, long ponteiro_espaco, String texto) {
+    public long item_adicionar_no_espaco(PortaoDeslizante portao_primario, long ponteiro_local, long tem_ponteiro_espaco, long ponteiro_espaco, String texto) {
+
+        byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
+
+        boolean objeto_maior = bytes.length + 10 >= Fazendario.TAMANHO_SETOR_ITEM;
+
+        if (objeto_maior) {
+            if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+                fmt.print(">> TEM PLANTACAO :: {}", portao_primario.getPlantacao());
+            } else {
+                fmt.print(">> NAO TEM PLANTACAO :: {}", portao_primario.getPlantacao());
+
+                long ponteiro_plantacao = mFazendario.CRIAR_PLANTACAO(portao_primario.getIndice());
+                portao_primario.setPlantacao(ponteiro_plantacao);
+
+            }
+        }
+
 
         long ponteiro_dados_retornar = ponteiro_espaco;
 
@@ -261,16 +325,40 @@ public class ArmazemAndar {
             mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
             mArquivador.set_u64(ponteiro_dados);
 
-            mArquivador.setPonteiro(ponteiro_dados);
 
             ponteiro_dados_retornar = ponteiro_dados;
 
-            byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
 
             VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
 
-            mArquivador.set_u32(bytes.length);
-            mArquivador.set_u8_vector(bytes);
+
+            if (objeto_maior) {
+
+                int blocos = (int) ((long) bytes.length / Matematica.KB(16));
+                long bytes_alocados = (long) blocos * Fazendario.TAMANHO_SETOR_ITEM;
+                if (bytes_alocados < (long) bytes.length) {
+                    blocos += 1;
+                }
+
+                mArquivador.setPonteiro(ponteiro_dados);
+                mArquivador.set_u8((byte) Fazendario.OBJETO_GRANDE);
+                mArquivador.set_u64(bytes.length);
+                mArquivador.set_u32(blocos);
+
+                Lista<Long> blocos_alocados = new Lista<Long>();
+
+                for (Long bloco : blocos_alocados) {
+                    mArquivador.set_u64(bloco);
+                }
+
+
+            } else {
+                mArquivador.setPonteiro(ponteiro_dados);
+                mArquivador.set_u8((byte) Fazendario.OBJETO_PEQUENO);
+                mArquivador.set_u32(bytes.length);
+                mArquivador.set_u8_vector(bytes);
+            }
+
 
             //   fmt.print("\t ++ Alocando novo espaco : {}", ponteiro_dados);
 
@@ -284,7 +372,6 @@ public class ArmazemAndar {
 
             ponteiro_dados_retornar = ponteiro_espaco;
 
-            byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
 
             VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
 
@@ -302,7 +389,7 @@ public class ArmazemAndar {
 
     public void obter_itens_alocados(Lista<ItemAlocado> itens) {
 
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
@@ -344,7 +431,7 @@ public class ArmazemAndar {
 
     public void zerar() {
 
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
 
         Lista<Long> zerar_ponteiros = new Lista<Long>();
@@ -377,7 +464,7 @@ public class ArmazemAndar {
 
     public void obter_itens_alocados_intervalo(Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
 
-        mArquivador.setPonteiro(mAndarPonteiro + 8L + 1L + 8L + 8L + 8L + 8L + 1L);
+        mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_ESPACOS; i++) {
