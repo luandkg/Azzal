@@ -2,6 +2,7 @@ package libs.fazendario;
 
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
+import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Strings;
 import libs.luan.fmt;
@@ -228,7 +229,9 @@ public class Armazem {
     }
 
 
-    public void dump_plantacoes() {
+    public Lista<Entidade> getDumpPlantacoes() {
+
+        Lista<Entidade> dump = new Lista<Entidade>();
 
         long sumario_ponteiro = getPortaoPonteiro();
 
@@ -238,9 +241,11 @@ public class Armazem {
 
             PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), portao_primario.getPlantacao());
 
-            pa.dump();
+            dump=pa.getDump();
 
         }
+
+        return dump;
     }
 
 }

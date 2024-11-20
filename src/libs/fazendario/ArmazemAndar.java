@@ -440,30 +440,12 @@ public class ArmazemAndar {
             int item_tipo = mArquivador.get_u8();
 
             if (item_tipo == Fazendario.OBJETO_GRANDE) {
-
-                int bytes_quantidade = mArquivador.get_u32();
-                int blocos = mArquivador.get_u32();
-
-                Lista<Long> blocos_alocados = new Lista<Long>();
-                for (int b = 0; b < blocos; b++) {
-                    long bloco_ref = mArquivador.get_u64();
-
-                    fmt.print("\t -- BlocoRef :: {}", bloco_ref);
-                    blocos_alocados.adicionar(bloco_ref);
-
-                }
-
-                for (Long bloco : blocos_alocados) {
-
-                    mArquivador.setPonteiro(bloco);
-                    mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
-
-                }
-
+                PlantacaoAcessoDireto.REMOVER(mArquivador);
             }
 
 
             item.marcarRemovido();
+
             mArquivador.setPonteiro(item.getPonteiroStatus());
             mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
         }

@@ -18,7 +18,7 @@ public class ArmazemInterno {
     public ArmazemInterno(Fazendario eFazendario, String eNome) {
 
         mFazendario = eFazendario;
-        mNome=eNome;
+        mNome = eNome;
 
         if (!mFazendario.existe_armazem(mNome)) {
             mFazendario.alocar_armazem(mNome);
@@ -77,11 +77,14 @@ public class ArmazemInterno {
     }
 
     public void dump() {
-        ENTT.EXIBIR_TABELA_COM_NOME(getItens(), "ARMAZEM -- " +mNome);
+        ENTT.EXIBIR_TABELA_COM_NOME(getItens(), "ARMAZEM -- " + mNome);
     }
 
-    public void dump_plantacoes(){
-        mArmazem.dump_plantacoes();
+    public void dump_plantacoes() {
+        Lista<Entidade> dump_plantacoes = mArmazem.getDumpPlantacoes();
+
+        ENTT.EXIBIR_TABELA_COM_NOME(dump_plantacoes, "PLANTACOES -- "+mNome);
+
     }
 
 }

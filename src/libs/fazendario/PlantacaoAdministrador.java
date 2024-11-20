@@ -78,7 +78,7 @@ public class PlantacaoAdministrador {
 
         }
 
-        fmt.print("Blocos Alocados :: {} -- {} -- {}",blocos_obtidos_contagem,blocos_necessarios,saiu);
+        fmt.print("Blocos Alocados :: {} -- {} -- {}", blocos_obtidos_contagem, blocos_necessarios, saiu);
 
         if (saiu) {
             if (blocos_obtidos_contagem < blocos_necessarios) {
@@ -184,7 +184,7 @@ public class PlantacaoAdministrador {
 
             plantacao_corrente.zerar();
 
-            fmt.print("Plantacao Zerando :: {}",plantacao_corrente.getPonteiro());
+            fmt.print("Plantacao Zerando :: {}", plantacao_corrente.getPonteiro());
 
             if (plantacao_corrente.temProximo()) {
                 portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
@@ -199,7 +199,7 @@ public class PlantacaoAdministrador {
     }
 
 
-    public void dump() {
+    public Lista<Entidade> getDump() {
 
         DeslizadorEstrutural<PlantacaoDeslizante> portoes_deslizantes = new DeslizadorEstrutural<PlantacaoDeslizante>(new PlantacaoDeslizante(mArquivador, mPonteiroPlantacao));
 
@@ -212,7 +212,7 @@ public class PlantacaoAdministrador {
             PlantacaoDeslizante plantacao_corrente = portoes_deslizantes.get();
 
 
-            Entidade e_plantacao = ENTT.CRIAR_EM(plantacoes);
+            Entidade e_plantacao = ENTT.CRIAR_EM_SEQUENCIALMENTE(plantacoes,"PlantacaoID");
             e_plantacao.at("Ponteiro", plantacao_corrente.getPonteiro());
             e_plantacao.at("Quantidade", plantacao_corrente.getQuantidade());
             e_plantacao.at("Alocados", plantacao_corrente.getAlocados());
@@ -232,8 +232,7 @@ public class PlantacaoAdministrador {
 
         }
 
-
-        ENTT.EXIBIR_TABELA_COM_NOME(plantacoes, "PLANTACOES");
+        return plantacoes;
     }
 
 
