@@ -254,7 +254,7 @@ public class ArmazemPortao {
     }
 
 
-    public void obter_itens_alocados(Lista<ItemAlocado> itens) {
+    public void obter_itens_alocados(PortaoDeslizante portao_primario,Lista<ItemAlocado> itens) {
 
 
         long local_ponteiro_sumario = mSumarioPonteiro;
@@ -266,7 +266,7 @@ public class ArmazemPortao {
             // fmt.print("Sumario :: {}",local_ponteiro_sumario);
             PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
 
-            sumario_local.obter_itens_alocados(itens);
+            sumario_local.obter_itens_alocados(portao_primario,itens);
 
 
             if (sumario_local.temOutroPortao()) {
@@ -318,7 +318,7 @@ public class ArmazemPortao {
     }
 
 
-    public void obter_itens_alocados_intervalo(Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
+    public void obter_itens_alocados_intervalo(PortaoDeslizante portao_primario,Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
 
 
         long local_ponteiro_sumario = mSumarioPonteiro;
@@ -330,7 +330,7 @@ public class ArmazemPortao {
             // fmt.print("Sumario :: {}",local_ponteiro_sumario);
             PortaoDeslizante sumario_local = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
 
-            sumario_local.obter_itens_alocados_intervalo(itens, intervalo);
+            sumario_local.obter_itens_alocados_intervalo(portao_primario,itens, intervalo);
 
 
             if (sumario_local.temOutroPortao()) {

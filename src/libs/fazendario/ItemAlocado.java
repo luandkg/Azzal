@@ -1,6 +1,5 @@
 package libs.fazendario;
 
-import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 import libs.luan.Strings;
@@ -9,6 +8,9 @@ import libs.luan.fmt;
 public class ItemAlocado {
 
     private Arquivador mArquivador;
+    private Fazendario mFazendario;
+    private PortaoDeslizante mPortaoPrimario;
+
     private ArmazemAndar mArmazemAndar;
 
     private int mIndiceSequencial;
@@ -17,8 +19,11 @@ public class ItemAlocado {
 
     private boolean mRemovido = false;
 
-    public ItemAlocado(Arquivador eArquivador, ArmazemAndar eArmazemAndar, int eIndiceSequencial, long ePonteiroStatus, long ePonteiroDados) {
+    public ItemAlocado(Arquivador eArquivador, Fazendario eFazendario,PortaoDeslizante rPortaoPrimario, ArmazemAndar eArmazemAndar, int eIndiceSequencial, long ePonteiroStatus, long ePonteiroDados) {
         mArquivador = eArquivador;
+        mFazendario = eFazendario;
+        mPortaoPrimario=rPortaoPrimario;
+
         mArmazemAndar = eArmazemAndar;
         mIndiceSequencial = eIndiceSequencial;
         mPonteiroStatus = ePonteiroStatus;
@@ -139,13 +144,40 @@ public class ItemAlocado {
 
     public void atualizarUTF8(String texto) {
 
-        byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
+        //  byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
 
-        VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
+        // VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
 
         mArquivador.setPonteiro(mPonteiroDados);
 
-        mArquivador.set_u32(bytes.length);
-        mArquivador.set_u8_vector(bytes);
+        int item_tipo = mArquivador.get_u8();
+
+        if (item_tipo == Fazendario.OBJETO_GRANDE) {
+
+            fmt.print("Remover bloco grande -- Antes de atualizar !");
+            int bytes_quantidade = mArquivador.get_u32();
+            int blocos = mArquivador.get_u32();
+
+            Lista<Long> blocos_alocados = new Lista<Long>();
+            for (int b = 0; b < blocos; b++) {
+                long bloco_ref = mArquivador.get_u64();
+
+                fmt.print("\t -- BlocoRef :: {}", bloco_ref);
+                blocos_alocados.adicionar(bloco_ref);
+
+            }
+
+            for (Long bloco : blocos_alocados) {
+
+                mArquivador.setPonteiro(bloco);
+                mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
+
+            }
+
+        }
+
+        ArmazemAndar.item_adicionar_em_espaco_alocado(mArquivador, mFazendario, mPortaoPrimario, mPonteiroDados, texto);
+
+
     }
 }

@@ -238,7 +238,7 @@ public class ArmazemAndar {
             proximo_vazio += 1;
             setProximoEspacoVazio(proximo_vazio);
 
-            return new ItemAlocado(mArquivador, this, (int) indice_espaco, ponteiro_local, ponteiro_dados_final);
+            return new ItemAlocado(mArquivador, mFazendario,portao_primario,this, (int) indice_espaco, ponteiro_local, ponteiro_dados_final);
         } else {
 
             //  fmt.print("\t ++ Adicionar Item : Andar {} ", mAndarPonteiro);
@@ -263,7 +263,7 @@ public class ArmazemAndar {
 
                 long ponteiro_dados_final = item_adicionar_no_espaco(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
 
-                return new ItemAlocado(mArquivador, this, (int) indice_espaco, ponteiro_local, ponteiro_dados_final);
+                return new ItemAlocado(mArquivador,  mFazendario,portao_primario,this, (int) indice_espaco, ponteiro_local, ponteiro_dados_final);
 
 
             }
@@ -283,7 +283,7 @@ public class ArmazemAndar {
                 if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO || tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
                     long ponteiro_dados_final = item_adicionar_no_espaco(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, texto);
 
-                    return new ItemAlocado(mArquivador, this, (int) i, ponteiro_local, ponteiro_dados_final);
+                    return new ItemAlocado(mArquivador,  mFazendario,portao_primario,this, (int) i, ponteiro_local, ponteiro_dados_final);
 
                 }
 
@@ -314,7 +314,7 @@ public class ArmazemAndar {
 
             //   fmt.print("\t ++ Alocando novo espaco : {}", ponteiro_dados);
 
-            ponteiro_dados_retornar = item_adicionar_em_espaco_alocado(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, ponteiro_dados, texto);
+            ponteiro_dados_retornar = item_adicionar_em_espaco_alocado(mArquivador,mFazendario,portao_primario,  ponteiro_dados, texto);
 
 
         } else if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
@@ -324,7 +324,7 @@ public class ArmazemAndar {
 
             //     fmt.print("\t ++ Utilizando espaco existente : {}", ponteiro_espaco);
 
-            ponteiro_dados_retornar = item_adicionar_em_espaco_alocado(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, ponteiro_espaco, texto);
+            ponteiro_dados_retornar = item_adicionar_em_espaco_alocado(mArquivador,mFazendario,portao_primario, ponteiro_espaco, texto);
 
 
         }
@@ -333,7 +333,7 @@ public class ArmazemAndar {
     }
 
 
-    public long item_adicionar_em_espaco_alocado(PortaoDeslizante portao_primario, long ponteiro_local, long tem_ponteiro_espaco, long ponteiro_espaco, long ponteiro_dados, String texto) {
+    public static long item_adicionar_em_espaco_alocado(Arquivador mArquivador,Fazendario mFazendario,PortaoDeslizante portao_primario, long ponteiro_dados, String texto) {
 
         byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
 
@@ -401,7 +401,7 @@ public class ArmazemAndar {
     }
 
 
-    public void obter_itens_alocados(Lista<ItemAlocado> itens) {
+    public void obter_itens_alocados(PortaoDeslizante portao_primario,Lista<ItemAlocado> itens) {
 
         mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
@@ -415,7 +415,7 @@ public class ArmazemAndar {
             long ponteiro_espaco = mArquivador.get_u64();
 
             if (tem_ponteiro_espaco == Fazendario.ESPACO_OCUPADO) {
-                itens.adicionar(new ItemAlocado(mArquivador, this, i, ptr_status, ponteiro_espaco));
+                itens.adicionar(new ItemAlocado(mArquivador,  mFazendario,portao_primario,this, i, ptr_status, ponteiro_espaco));
             }
         }
 
@@ -504,7 +504,7 @@ public class ArmazemAndar {
     }
 
 
-    public void obter_itens_alocados_intervalo(Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
+    public void obter_itens_alocados_intervalo(PortaoDeslizante portao_primario,Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
 
         mArquivador.setPonteiro(mAndarPonteiro + ANDAR_POSICAO_ESPACOS);
 
@@ -520,7 +520,7 @@ public class ArmazemAndar {
             if (tem_ponteiro_espaco == Fazendario.ESPACO_OCUPADO) {
 
                 if (intervalo.isDentro()) {
-                    itens.adicionar(new ItemAlocado(mArquivador, this, i, ptr_status, ponteiro_espaco));
+                    itens.adicionar(new ItemAlocado(mArquivador,  mFazendario,portao_primario,this, i, ptr_status, ponteiro_espaco));
                 }
 
                 intervalo.mais();

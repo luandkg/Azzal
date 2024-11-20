@@ -192,8 +192,9 @@ public class Armazem {
         long sumario_ponteiro = getPortaoPonteiro();
 
         ArmazemPortao sumario = new ArmazemPortao(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
 
-        sumario.obter_itens_alocados(itens);
+        sumario.obter_itens_alocados(portao_primario,itens);
 
         return itens;
     }
@@ -219,8 +220,9 @@ public class Armazem {
         long sumario_ponteiro = getPortaoPonteiro();
 
         ArmazemPortao sumario = new ArmazemPortao(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
 
-        sumario.obter_itens_alocados_intervalo(itens,intervalo);
+        sumario.obter_itens_alocados_intervalo(portao_primario,itens,intervalo);
 
         return itens;
     }

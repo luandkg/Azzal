@@ -341,7 +341,7 @@ public class PortaoDeslizante {
     }
 
 
-    public void obter_itens_alocados(Lista<ItemAlocado> itens) {
+    public void obter_itens_alocados(PortaoDeslizante portao_primario,Lista<ItemAlocado> itens) {
 
         mArquivador.setPonteiro(mSumarioPonteiro + PORTAO_ESPACADOR_CONTEUDO);
 
@@ -355,7 +355,7 @@ public class PortaoDeslizante {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
                 ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar);
-                andar.obter_itens_alocados(itens);
+                andar.obter_itens_alocados(portao_primario,itens);
                 //   fmt.print("++ {}",cont);
 
             }
@@ -385,7 +385,7 @@ public class PortaoDeslizante {
 
     }
 
-    public void obter_itens_alocados_intervalo(Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
+    public void obter_itens_alocados_intervalo(PortaoDeslizante portao_primario,Lista<ItemAlocado> itens, ContadorIntervalado intervalo) {
 
         mArquivador.setPonteiro(mSumarioPonteiro + PORTAO_ESPACADOR_CONTEUDO);
 
@@ -399,7 +399,7 @@ public class PortaoDeslizante {
                 // fmt.print("Andar --- {}",ponteiro_andar);
 
                 ArmazemAndar andar = new ArmazemAndar(mArquivador,mFazendario, ponteiro_andar);
-                andar.obter_itens_alocados_intervalo(itens, intervalo);
+                andar.obter_itens_alocados_intervalo(portao_primario,itens, intervalo);
                 //   fmt.print("++ {}",cont);
 
             }
