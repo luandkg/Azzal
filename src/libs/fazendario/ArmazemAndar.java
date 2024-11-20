@@ -1,6 +1,5 @@
 package libs.fazendario;
 
-import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 import libs.luan.Opcional;
@@ -363,7 +362,7 @@ public class ArmazemAndar {
             }
         }
 
-       // VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
+        // VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
 
 
         if (objeto_maior) {
@@ -372,7 +371,7 @@ public class ArmazemAndar {
             if (plantacao_ja_alocado) {
 
 
-                PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador,mFazendario,portao_primario.getIndice(), plantacao_ponteiro_alocado);
+                PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), plantacao_ponteiro_alocado);
 
                 Lista<Long> blocos_alocados = pa.adicionar(bytes);
 
@@ -434,6 +433,34 @@ public class ArmazemAndar {
 
             ZonaDeReciclagem zdr = new ZonaDeReciclagem(mArquivador, zona_de_reciclagem);
             zdr.adicionar(item.getIndiceSequencial());
+
+
+            mArquivador.setPonteiro(item.getPonteiroDados());
+
+            int item_tipo = mArquivador.get_u8();
+
+            if (item_tipo == Fazendario.OBJETO_GRANDE) {
+
+                int bytes_quantidade = mArquivador.get_u32();
+                int blocos = mArquivador.get_u32();
+
+                Lista<Long> blocos_alocados = new Lista<Long>();
+                for (int b = 0; b < blocos; b++) {
+                    long bloco_ref = mArquivador.get_u64();
+
+                    fmt.print("\t -- BlocoRef :: {}", bloco_ref);
+                    blocos_alocados.adicionar(bloco_ref);
+
+                }
+
+                for (Long bloco : blocos_alocados) {
+
+                    mArquivador.setPonteiro(bloco);
+                    mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
+
+                }
+
+            }
 
 
             item.marcarRemovido();

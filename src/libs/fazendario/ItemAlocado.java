@@ -79,7 +79,7 @@ public class ItemAlocado {
             byte[] bytes = mArquivador.get_u8_array(texto_tamanhho);
             ss = Strings.GET_STRING_VIEW(bytes);
 
-        } else {
+        } else if (item_tipo == Fazendario.OBJETO_GRANDE) {
 
             fmt.print("Ler Grande ---->> ");
             int bytes_quantidade = mArquivador.get_u32();
