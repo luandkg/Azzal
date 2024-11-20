@@ -142,7 +142,7 @@ public class PlantacaoAdministrador {
             int o = bytes_escrevendo_ate;
 
 
-            if(i<o){
+            if (i < o) {
 
                 byte[] bloco_aqui = new byte[o - i];
 
@@ -160,7 +160,6 @@ public class PlantacaoAdministrador {
             }
 
 
-
             bytes_escrevendo += (int) Fazendario.TAMANHO_AREA_ITEM;
             bytes_escrevendo_ate += (int) Fazendario.TAMANHO_AREA_ITEM;
 
@@ -173,5 +172,28 @@ public class PlantacaoAdministrador {
         return blocos_alocados;
     }
 
+
+    public void zerar() {
+
+        DeslizadorEstrutural<PlantacaoDeslizante> portoes_deslizantes = new DeslizadorEstrutural<PlantacaoDeslizante>(new PlantacaoDeslizante(mArquivador, mPonteiroPlantacao));
+
+        while (portoes_deslizantes.temProximo()) {
+
+            PlantacaoDeslizante plantacao_corrente = portoes_deslizantes.get();
+
+            plantacao_corrente.zerar();
+
+
+            if (plantacao_corrente.temProximo()) {
+                portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
+                //    fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
+            } else {
+                portoes_deslizantes.finalizar();
+            }
+
+        }
+
+
+    }
 
 }

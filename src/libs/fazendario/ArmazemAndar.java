@@ -341,7 +341,7 @@ public class ArmazemAndar {
         boolean objeto_maior = bytes.length + 10 >= Fazendario.TAMANHO_SETOR_ITEM;
 
         boolean plantacao_ja_alocado = false;
-        long platancao_ponteiro_alocado = 0;
+        long plantacao_ponteiro_alocado = 0;
 
 
         if (objeto_maior) {
@@ -349,7 +349,7 @@ public class ArmazemAndar {
                 fmt.print(">> TEM PLANTACAO :: {}", portao_primario.getPlantacao());
 
                 plantacao_ja_alocado = true;
-                platancao_ponteiro_alocado = portao_primario.getPlantacao();
+                plantacao_ponteiro_alocado = portao_primario.getPlantacao();
 
             } else {
                 fmt.print(">> NAO TEM PLANTACAO :: {}", portao_primario.getPlantacao());
@@ -358,7 +358,7 @@ public class ArmazemAndar {
                 portao_primario.setPlantacao(ponteiro_plantacao);
 
                 plantacao_ja_alocado = true;
-                platancao_ponteiro_alocado = ponteiro_plantacao;
+                plantacao_ponteiro_alocado = ponteiro_plantacao;
 
             }
         }
@@ -372,7 +372,7 @@ public class ArmazemAndar {
             if (plantacao_ja_alocado) {
 
 
-                PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador,mFazendario,portao_primario.getIndice(), platancao_ponteiro_alocado);
+                PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador,mFazendario,portao_primario.getIndice(), plantacao_ponteiro_alocado);
 
                 Lista<Long> blocos_alocados = pa.adicionar(bytes);
 

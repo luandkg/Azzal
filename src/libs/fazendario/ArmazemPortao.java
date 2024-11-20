@@ -3,6 +3,7 @@ package libs.fazendario;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.DeslizadorEstrutural;
 import libs.luan.Lista;
+import libs.luan.fmt;
 
 public class ArmazemPortao {
 
@@ -212,7 +213,7 @@ public class ArmazemPortao {
             //  fmt.print("\t ++ Adicionar Item : ArmazemPortao :: {} ->> {} ", mArmazemIndice, local_ponteiro_sumario);
 
             if (sumario_local.temEspaco()) {
-                item = sumario_local.item_adicionar(portao_primario,texto);
+                item = sumario_local.item_adicionar(portao_primario, texto);
                 item_adicionado = true;
                 break;
             }
@@ -243,7 +244,7 @@ public class ArmazemPortao {
             //fmt.print("\t ++ Alocando novo ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, ponteiro_sumario);
 
             if (portoes_deslizantes.get().temEspaco()) {
-                item = portoes_deslizantes.get().item_adicionar(portao_primario,texto);
+                item = portoes_deslizantes.get().item_adicionar(portao_primario, texto);
                 item_adicionado = true;
             }
 
@@ -302,6 +303,17 @@ public class ArmazemPortao {
             }
 
         }
+
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mArmazemIndice, local_ponteiro_sumario);
+
+        if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+            fmt.print(">> TEM PLANTACAO :: {}", portao_primario.getPlantacao());
+
+            PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador,mFazendario,portao_primario.getIndice(), portao_primario.getPlantacao());
+            pa.zerar();
+
+        }
+
 
     }
 

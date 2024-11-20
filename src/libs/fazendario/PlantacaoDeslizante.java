@@ -81,7 +81,7 @@ public class PlantacaoDeslizante {
         Lista<Long> obtidos = new Lista<Long>();
 
 
-        mArquivador.setPonteiro(mPonteiroPlantacao+PLANTACAO_LOCAL_MAPA);
+        mArquivador.setPonteiro(mPonteiroPlantacao + PLANTACAO_LOCAL_MAPA);
 
         for (int i = 0; i < Fazendario.QUANTIDADE_DE_AREAS; i++) {
 
@@ -89,7 +89,7 @@ public class PlantacaoDeslizante {
             long area_ponteiro = mArquivador.get_u64();
             long area_ponteiro_dados = mArquivador.get_u64();
 
-            if (area_status == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO||area_status == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+            if (area_status == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO || area_status == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
                 obtidos.adicionar(area_ponteiro);
             }
 
@@ -101,6 +101,31 @@ public class PlantacaoDeslizante {
         }
 
         return obtidos;
+    }
+
+
+    public void zerar() {
+
+        mArquivador.setPonteiro(mPonteiroPlantacao + PLANTACAO_LOCAL_MAPA);
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_AREAS; i++) {
+
+            long ponteiro_antes = mArquivador.getPonteiro();
+
+            int area_status = mArquivador.get_u8();
+            long area_ponteiro = mArquivador.get_u64();
+            long area_ponteiro_dados = mArquivador.get_u64();
+
+            if (area_status == Fazendario.ESPACO_OCUPADO) {
+
+                mArquivador.setPonteiro(ponteiro_antes);
+                mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
+
+                mArquivador.setPonteiro(ponteiro_antes);
+            }
+
+        }
+
     }
 
 }

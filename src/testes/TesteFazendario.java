@@ -10,8 +10,10 @@ import libs.fazendario.Fazendario;
 import libs.fazendario.ItemAlocado;
 import libs.luan.Aleatorio;
 import libs.luan.Opcional;
+import libs.luan.Strings;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
+import libs.zettaquorum.ArmazemInterno;
 
 public class TesteFazendario {
 
@@ -167,8 +169,8 @@ public class TesteFazendario {
 
         //  Arquivador.remover(arquivo_fazenda);
 
-        boolean deve_adicionar=true;
-        boolean deve_atualizar=true;
+        boolean deve_adicionar = true;
+        boolean deve_atualizar = true;
 
         boolean deve_remover = true;
         boolean deve_reciclar_tudo = true;
@@ -186,7 +188,7 @@ public class TesteFazendario {
 
         Armazem armazem_pressao = Opcional.SOME(pressao.procurar_armazem(colecao_nome));
 
-        if(deve_adicionar){
+        if (deve_adicionar) {
 
             if (Aleatorio.aleatorio(100) > 80) {
                 armazem_pressao.item_adicionar(ENTT.TO_DOCUMENTO(ENTT.CRIAR("Texto", PessoaNomeadorDeAkkax.get(), "TDN", Tronarko.getTronAgora().getTextoZerado())));
@@ -197,7 +199,6 @@ public class TesteFazendario {
             }
 
         }
-
 
 
         long indice_de_exclusao = armazem_pressao.getItensAlocadosContagem() / 10;
@@ -310,4 +311,65 @@ public class TesteFazendario {
 
     }
 
+
+    public static void teste_2() {
+
+        String arquivo_fazenda = "/home/luan/assets/teste_fazendas/fazenda_alfa.az";
+
+        //Arquivador.remover(arquivo_fazenda);
+
+        Fazendario fazenda = new Fazendario(arquivo_fazenda);
+
+        ArmazemInterno valores = new ArmazemInterno(fazenda, "@Valores");
+
+       // valores.zerar();
+
+
+        valores.adicionar(ENTT.CRIAR("Tron", Tronarko.getTronAgora().getTextoZerado()));
+
+        valores.dump();
+
+        fazenda.fechar();
+    }
+
+    public static void teste_objetos_grandes() {
+
+        String arquivo_fazenda = "/home/luan/assets/teste_fazendas/fazenda_alfa.az";
+
+       // Arquivador.remover(arquivo_fazenda);
+
+        Fazendario fazenda = new Fazendario(arquivo_fazenda);
+
+        ArmazemInterno valores = new ArmazemInterno(fazenda, "@Valores");
+
+      //   valores.zerar();
+
+
+        Entidade grandemente = new Entidade();
+
+        int max_at = Aleatorio.aleatorio_entre(500,800);
+
+
+        if(Aleatorio.aleatorio(100)>80){
+            max_at=3;
+        }
+
+
+        grandemente.at("Max",max_at);
+
+        for(int a=0;a<=max_at;a++){
+            grandemente.at("Valor"+a,"Entao deu : "+(a*5000));
+            grandemente.at("Tempo"+a, Tronarko.getTronAgora().getTextoZerado());
+        }
+
+        String conteudo = ENTT.TO_DOCUMENTO(grandemente);
+
+        fmt.print("Tamanho :: {}",fmt.formatar_tamanho(Strings.GET_STRING_VIEW_BYTES(conteudo).length));
+
+        valores.adicionar(grandemente);
+
+        valores.dump();
+
+        fazenda.fechar();
+    }
 }
