@@ -184,6 +184,7 @@ public class PlantacaoAdministrador {
 
             plantacao_corrente.zerar();
 
+            fmt.print("Plantacao Zerando :: {}",plantacao_corrente.getPonteiro());
 
             if (plantacao_corrente.temProximo()) {
                 portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
@@ -220,7 +221,7 @@ public class PlantacaoAdministrador {
 
 
             e_plantacao.at("TemProximo", Portugues.VALIDAR(plantacao_corrente.temProximo(), "SIM", "NÃO"));
-            e_plantacao.at("Proximo", plantacao_corrente.getProximo());
+            e_plantacao.at("PonteiroProximo", plantacao_corrente.getProximo());
 
             if (plantacao_corrente.temProximo()) {
                 portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));

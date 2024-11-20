@@ -119,12 +119,14 @@ public class PlantacaoDeslizante {
             long area_ponteiro = mArquivador.get_u64();
             long area_ponteiro_dados = mArquivador.get_u64();
 
+            long ponteiro_depois = mArquivador.getPonteiro();
+
             if (area_status == Fazendario.ESPACO_OCUPADO) {
 
                 mArquivador.setPonteiro(ponteiro_antes);
                 mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
 
-                mArquivador.setPonteiro(ponteiro_antes);
+                mArquivador.setPonteiro(ponteiro_depois);
             }
 
         }
