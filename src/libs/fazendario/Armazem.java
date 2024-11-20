@@ -194,7 +194,7 @@ public class Armazem {
         ArmazemPortao sumario = new ArmazemPortao(mArquivador, mFazendario, mIndice, sumario_ponteiro);
         PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
 
-        sumario.obter_itens_alocados(portao_primario,itens);
+        sumario.obter_itens_alocados(portao_primario, itens);
 
         return itens;
     }
@@ -222,10 +222,25 @@ public class Armazem {
         ArmazemPortao sumario = new ArmazemPortao(mArquivador, mFazendario, mIndice, sumario_ponteiro);
         PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
 
-        sumario.obter_itens_alocados_intervalo(portao_primario,itens,intervalo);
+        sumario.obter_itens_alocados_intervalo(portao_primario, itens, intervalo);
 
         return itens;
     }
 
+
+    public void dump_plantacoes() {
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+
+            PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), portao_primario.getPlantacao());
+
+            pa.dump();
+
+        }
+    }
 
 }

@@ -61,6 +61,9 @@ public class PlantacaoDeslizante {
 
     }
 
+    public long getPonteiro() {
+        return mPonteiroPlantacao;
+    }
 
     public boolean temProximo() {
         return mTemProximo;
@@ -71,7 +74,7 @@ public class PlantacaoDeslizante {
     }
 
     public void setProximo(long eProximo) {
-        mArquivador.setPonteiro(PLANTACAO_LOCAL_TEM_PROXIMO);
+        mArquivador.setPonteiro(mPonteiroPlantacao+PLANTACAO_LOCAL_TEM_PROXIMO);
         mArquivador.set_u8((byte) Fazendario.TEM);
         mArquivador.set_u64(eProximo);
     }
@@ -126,6 +129,105 @@ public class PlantacaoDeslizante {
 
         }
 
+    }
+
+
+    public int getQuantidade() {
+
+        mArquivador.setPonteiro(mPonteiroPlantacao + PLANTACAO_LOCAL_MAPA);
+
+        int contando = 0;
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_AREAS; i++) {
+
+            long ponteiro_antes = mArquivador.getPonteiro();
+
+            int area_status = mArquivador.get_u8();
+            long area_ponteiro = mArquivador.get_u64();
+            long area_ponteiro_dados = mArquivador.get_u64();
+
+            if (area_status == Fazendario.ESPACO_OCUPADO) {
+
+
+            }
+
+            contando += 1;
+
+        }
+
+        return contando;
+    }
+
+    public int getAlocados() {
+
+        mArquivador.setPonteiro(mPonteiroPlantacao + PLANTACAO_LOCAL_MAPA);
+
+        int contando = 0;
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_AREAS; i++) {
+
+            long ponteiro_antes = mArquivador.getPonteiro();
+
+            int area_status = mArquivador.get_u8();
+            long area_ponteiro = mArquivador.get_u64();
+            long area_ponteiro_dados = mArquivador.get_u64();
+
+            if (area_status == Fazendario.ESPACO_OCUPADO || area_status == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+                contando += 1;
+            }
+
+
+        }
+
+        return contando;
+    }
+
+    public int getOcupados() {
+
+        mArquivador.setPonteiro(mPonteiroPlantacao + PLANTACAO_LOCAL_MAPA);
+
+        int contando = 0;
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_AREAS; i++) {
+
+            long ponteiro_antes = mArquivador.getPonteiro();
+
+            int area_status = mArquivador.get_u8();
+            long area_ponteiro = mArquivador.get_u64();
+            long area_ponteiro_dados = mArquivador.get_u64();
+
+            if (area_status == Fazendario.ESPACO_OCUPADO) {
+                contando += 1;
+            }
+
+
+        }
+
+        return contando;
+    }
+
+    public int getDisponiveis() {
+
+        mArquivador.setPonteiro(mPonteiroPlantacao + PLANTACAO_LOCAL_MAPA);
+
+        int contando = 0;
+
+        for (int i = 0; i < Fazendario.QUANTIDADE_DE_AREAS; i++) {
+
+            long ponteiro_antes = mArquivador.getPonteiro();
+
+            int area_status = mArquivador.get_u8();
+            long area_ponteiro = mArquivador.get_u64();
+            long area_ponteiro_dados = mArquivador.get_u64();
+
+            if (area_status == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO || area_status == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
+                contando += 1;
+            }
+
+
+        }
+
+        return contando;
     }
 
 }

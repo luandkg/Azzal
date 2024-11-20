@@ -2,10 +2,9 @@ package libs.fazendario;
 
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
-import libs.luan.DeslizadorEstrutural;
-import libs.luan.Lista;
-import libs.luan.Matematica;
-import libs.luan.fmt;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
+import libs.luan.*;
 
 public class PlantacaoAdministrador {
 
@@ -78,6 +77,8 @@ public class PlantacaoAdministrador {
             }
 
         }
+
+        fmt.print("Blocos Alocados :: {} -- {} -- {}",blocos_obtidos_contagem,blocos_necessarios,saiu);
 
         if (saiu) {
             if (blocos_obtidos_contagem < blocos_necessarios) {
@@ -195,5 +196,44 @@ public class PlantacaoAdministrador {
 
 
     }
+
+
+    public void dump() {
+
+        DeslizadorEstrutural<PlantacaoDeslizante> portoes_deslizantes = new DeslizadorEstrutural<PlantacaoDeslizante>(new PlantacaoDeslizante(mArquivador, mPonteiroPlantacao));
+
+
+        Lista<Entidade> plantacoes = new Lista<Entidade>();
+
+
+        while (portoes_deslizantes.temProximo()) {
+
+            PlantacaoDeslizante plantacao_corrente = portoes_deslizantes.get();
+
+
+            Entidade e_plantacao = ENTT.CRIAR_EM(plantacoes);
+            e_plantacao.at("Ponteiro", plantacao_corrente.getPonteiro());
+            e_plantacao.at("Quantidade", plantacao_corrente.getQuantidade());
+            e_plantacao.at("Alocados", plantacao_corrente.getAlocados());
+            e_plantacao.at("Disponiveis", plantacao_corrente.getDisponiveis());
+            e_plantacao.at("Ocupados", plantacao_corrente.getOcupados());
+
+
+            e_plantacao.at("TemProximo", Portugues.VALIDAR(plantacao_corrente.temProximo(), "SIM", "NÃO"));
+            e_plantacao.at("Proximo", plantacao_corrente.getProximo());
+
+            if (plantacao_corrente.temProximo()) {
+                portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
+                //    fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
+            } else {
+                portoes_deslizantes.finalizar();
+            }
+
+        }
+
+
+        ENTT.EXIBIR_TABELA_COM_NOME(plantacoes, "PLANTACOES");
+    }
+
 
 }

@@ -80,4 +80,8 @@ public class ArmazemInterno {
         ENTT.EXIBIR_TABELA_COM_NOME(getItens(), "ARMAZEM -- " +mNome);
     }
 
+    public void dump_plantacoes(){
+        mArmazem.dump_plantacoes();
+    }
+
 }
