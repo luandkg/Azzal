@@ -1,6 +1,7 @@
 package libs.zettaquorum;
 
 import libs.arquivos.binario.Arquivador;
+import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.fazendario.*;
 import libs.luan.*;
@@ -24,7 +25,22 @@ public class Silos {
 
 
     public void dump() {
-        mSilos.dump();
+
+        Lista<Entidade> silos = mSilos.getItens();
+
+        for (Entidade e_silo : silos) {
+
+            Silo silo = new Silo(mArquivador, e_silo.atLong("Ponteiro"));
+
+            e_silo.at("Quantidade", silo.getQuantidade());
+            e_silo.at("Alocados", silo.getAlocados());
+            e_silo.at("Disponiveis", silo.getDisponiveis());
+            e_silo.at("Ocupados", silo.getOcupados());
+
+        }
+
+
+        ENTT.EXIBIR_TABELA_COM_NOME(silos, "ARMAZEM -- @Silos::Dados ( " + mSilos.getIndice() + " )");
     }
 
     public void dump_arquivos() {
@@ -35,8 +51,30 @@ public class Silos {
         return mArquivos.getItens();
     }
 
-    public Lista<Par<ItemAlocado, Entidade>> getArquivosAtualizaveis() {
-        return mArquivos.getItensAtualizaveis();
+    public Lista<ZettaArquivo> getArquivosAtualizaveis() {
+
+        Lista<ZettaArquivo> lista = new Lista<ZettaArquivo>();
+
+        for (Par<ItemAlocado, Entidade> par : mArquivos.getItensAtualizaveis()) {
+            lista.adicionar(new ZettaArquivo(this, par.getChave(), par.getValor()));
+        }
+
+        return lista;
+    }
+
+
+    public Opcional<ZettaArquivo> procurar_arquivo(String eNome) {
+
+        Opcional<ZettaArquivo> ret = Opcional.CANCEL();
+
+        for (Par<ItemAlocado, Entidade> par : mArquivos.getItensAtualizaveis()) {
+            if (par.getValor().is("Nome", eNome)) {
+                ret = Opcional.OK(new ZettaArquivo(this, par.getChave(), par.getValor()));
+                break;
+            }
+        }
+
+        return ret;
     }
 
 
@@ -252,5 +290,54 @@ public class Silos {
 
         }
 
+    }
+
+
+    public void adicionar_ou_atualizar(String nome, byte[] bytes) {
+
+        boolean atualizado = false;
+
+        for (ZettaArquivo arquivo : getArquivosAtualizaveis()) {
+
+            if (arquivo.isNome(nome)) {
+
+                arquivo.atualizar_dados(bytes);
+
+                atualizado = true;
+                break;
+            }
+
+        }
+
+        if (!atualizado) {
+            adicionar_arquivo(nome, bytes);
+        }
+
+    }
+
+
+    public void adicionar_arquivo_se_nao_existir(String eNome, byte[] eBytes) {
+
+        boolean existe = false;
+
+        for (ZettaArquivo arquivo : getArquivosAtualizaveis()) {
+            if (arquivo.isNome(eNome)) {
+                existe = true;
+                break;
+            }
+
+        }
+
+        if (!existe) {
+            adicionar_arquivo(eNome, eBytes);
+        }
+
+    }
+
+
+    public void limpar(){
+        for (ZettaArquivo arquivo : getArquivosAtualizaveis()) {
+              arquivo.remover();
+        }
     }
 }

@@ -46,21 +46,26 @@ public class Fazendario {
     public final static long TAMANHO_SETOR_ITEM = Matematica.KB(10);
 
 
-    // public final static long QUANTIDADE_DE_ANDARES = Matematica.KB(4);
-    //  public final static long QUANTIDADE_DE_ESPACOS = Matematica.KB(4);
-    //  public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = Matematica.KB(4);
-    //  public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = Matematica.KB(4);
+     public final static long QUANTIDADE_DE_ANDARES = Matematica.KB(4);
+      public final static long QUANTIDADE_DE_ESPACOS = Matematica.KB(4);
+      public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = Matematica.KB(4);
+      public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = Matematica.KB(4);
 
-    public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = 10;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
-    public final static long QUANTIDADE_DE_AREAS = 10;//Matematica.KB(64);
+
+    public final static long QUANTIDADE_DE_AREAS = Matematica.KB(64);
+    public final static long QUANTIDADE_DE_AREAS_NO_SILO = Matematica.KB(64);
+
+
+    //  public final static long QUANTIDADE_DE_ANDARES = 10;//Matematica.KB(64);
+    //  public final static long QUANTIDADE_DE_ESPACOS = 20;//Matematica.KB(64);
+    //   public final static long QUANTIDADE_DE_PAGINAS_INDEXADAS = 10;//Matematica.KB(64);
+    //   public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
+    //   public final static long QUANTIDADE_DE_AREAS = 10;//Matematica.KB(64);
+    //  public final static long QUANTIDADE_DE_AREAS_NO_SILO = 10;//Matematica.KB(64);
 
     public final static long TAMANHO_AREA_ITEM = Matematica.KB(16);
 
 
-    public final static long QUANTIDADE_DE_AREAS_NO_SILO = 10;//Matematica.KB(64);
 
 
 

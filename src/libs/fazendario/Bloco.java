@@ -61,7 +61,7 @@ public class Bloco {
 
         int quantidade_inodes = mArquivador.get_u32();
 
-        mArquivador.setPonteiro(inode.ponteiro_dados_aqui + 4L+(8L * quantidade_inodes));
+        mArquivador.setPonteiro(inode.ponteiro_dados_aqui + 4L + (8L * quantidade_inodes));
         mArquivador.set_u64(novo);
 
         quantidade_inodes += 1;
@@ -69,6 +69,33 @@ public class Bloco {
         mArquivador.setPonteiro(inode.ponteiro_dados_aqui);
         mArquivador.set_u32(quantidade_inodes);
 
+
+    }
+
+
+    public void remover() {
+
+        Inode inode = mSilos.getInode(mPonteiro);
+
+        mArquivador.setPonteiro(inode.ponteiro_dados_aqui);
+
+        int quantidade_inodes = mArquivador.get_u32();
+
+        Lista<Long> inodes = getInodes();
+
+        for (long inode_local : inodes) {
+            Inode inode_corrente = mSilos.getInode(inode_local);
+
+            mArquivador.setPonteiro(inode_corrente.ponteiro_eu_mesmo);
+            mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
+        }
+
+
+        mArquivador.setPonteiro(inode.ponteiro_dados_aqui);
+        mArquivador.set_u32(0);
+
+        mArquivador.setPonteiro(inode.ponteiro_eu_mesmo);
+        mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
 
     }
 
