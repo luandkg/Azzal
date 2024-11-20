@@ -6,6 +6,7 @@ import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
+import libs.zettaquorum.Silos;
 
 public class Fazendario {
 
@@ -20,12 +21,14 @@ public class Fazendario {
     public final static int ARMAZEM_TIPO_AREA_INDEXADA = 57;
     public final static int ARMAZEM_TIPO_INDICE_PAGINA = 58;
     public final static int ARMAZEM_TIPO_PLANTACAO = 59;
+    public final static int ARMAZEM_TIPO_SILO = 60;
 
 
     public final static int NAO_TEM = 0;
     public final static int ARMAZEM_FIM = 255;
     public final static int ANDAR_FIM = 255;
     public final static int FIM_PLANTACAO = 255;
+    public final static int FIM_SILO = 255;
 
     public final static int ESTA_VAZIO = 0;
     public final static int TEM = 255;
@@ -55,6 +58,11 @@ public class Fazendario {
     public final static long QUANTIDADE_DE_AREAS = 10;//Matematica.KB(64);
 
     public final static long TAMANHO_AREA_ITEM = Matematica.KB(16);
+
+
+    public final static long QUANTIDADE_DE_AREAS_NO_SILO = 10;//Matematica.KB(64);
+
+
 
     private Arquivador mArquivador;
 
@@ -94,6 +102,10 @@ public class Fazendario {
         VERIFICADOR.IGUALDADE(s_formato, "AZ");
         VERIFICADOR.IGUALDADE(s_versao, "0.1");
 
+    }
+
+    public Silos getSilos(){
+        return new Silos(mArquivador,this);
     }
 
     public void fechar() {
@@ -492,6 +504,53 @@ public class Fazendario {
         long ponteiro_mapa_fim = mArquivador.getPonteiro();
 
         mArquivador.set_u8((byte) FIM_PLANTACAO);
+
+        mArquivador.setPonteiro(ponteiro_definir);
+        mArquivador.set_u64(ponteiro_mapa_inicio);
+        mArquivador.set_u64(ponteiro_mapa_fim);
+
+
+        return ponteiro;
+    }
+
+    public long CRIAR_SILO(long indice) {
+
+        mArquivador.ir_para_o_fim();
+
+        long ponteiro = mArquivador.getPonteiro();
+
+        mArquivador.set_u64(indice);                                // Indice
+        mArquivador.set_u8((byte) ARMAZEM_TIPO_SILO);               // Tipo para Silo
+
+        long ponteiro_definir = mArquivador.getPonteiro();
+
+        mArquivador.set_u64((long) 0);                              // MAPA INICIO
+        mArquivador.set_u64((long) 0);                              // MAPA FIM
+        mArquivador.set_u8((byte) NAO_TEM);                         // TEM PROXIMA
+
+        long ponteiro_mapa_inicio = mArquivador.getPonteiro();
+
+        for (int i = 0; i < QUANTIDADE_DE_AREAS_NO_SILO; i++) {
+
+            long ponteiro_antes = mArquivador.getPonteiro();
+
+            mArquivador.set_u8((byte) NAO_TEM);
+            mArquivador.set_u64((long) NAO_TEM); // PONTEIRO PARA MIM MESMO
+            mArquivador.set_u64((long) NAO_TEM); //PONTEIRO PARA DADOS DE 16KB
+
+            long ponteiro_depois = mArquivador.getPonteiro();
+
+            mArquivador.setPonteiro(ponteiro_antes);
+            mArquivador.set_u8((byte) NAO_TEM);
+            mArquivador.set_u64(ponteiro_antes); // PONTEIRO PARA MIM MESMO
+
+            mArquivador.setPonteiro(ponteiro_depois);
+
+        }
+
+        long ponteiro_mapa_fim = mArquivador.getPonteiro();
+
+        mArquivador.set_u8((byte) FIM_SILO);
 
         mArquivador.setPonteiro(ponteiro_definir);
         mArquivador.set_u64(ponteiro_mapa_inicio);

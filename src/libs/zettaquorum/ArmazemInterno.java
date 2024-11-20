@@ -28,8 +28,17 @@ public class ArmazemInterno {
 
     }
 
+
+    public long getIndice(){
+        return mArmazem.getIndice();
+    }
+
     public Lista<ItemAlocado> getItensAlocados() {
         return mArmazem.getItensAlocados();
+    }
+
+    public long getItensAlocadosContagem(){
+        return mArmazem.getItensAlocadosContagem();
     }
 
     public Lista<Entidade> getItens() {
@@ -38,6 +47,17 @@ public class ArmazemInterno {
 
         for (ItemAlocado item : mArmazem.getItensAlocados()) {
             lista.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoUTF8()));
+        }
+
+        return lista;
+    }
+
+    public Lista<Par<ItemAlocado,Entidade>> getItensAtualizaveis() {
+
+        Lista<Par<ItemAlocado,Entidade>> lista = new Lista<Par<ItemAlocado,Entidade>>();
+
+        for (ItemAlocado item : mArmazem.getItensAlocados()) {
+            lista.adicionar(new Par<ItemAlocado,Entidade>(item,ENTT.PARSER_ENTIDADE(item.lerTextoUTF8())));
         }
 
         return lista;
