@@ -19,10 +19,10 @@ public class ItemAlocado {
 
     private boolean mRemovido = false;
 
-    public ItemAlocado(Arquivador eArquivador, Fazendario eFazendario,PortaoDeslizante rPortaoPrimario, ArmazemAndar eArmazemAndar, int eIndiceSequencial, long ePonteiroStatus, long ePonteiroDados) {
+    public ItemAlocado(Arquivador eArquivador, Fazendario eFazendario, PortaoDeslizante rPortaoPrimario, ArmazemAndar eArmazemAndar, int eIndiceSequencial, long ePonteiroStatus, long ePonteiroDados) {
         mArquivador = eArquivador;
         mFazendario = eFazendario;
-        mPortaoPrimario=rPortaoPrimario;
+        mPortaoPrimario = rPortaoPrimario;
 
         mArmazemAndar = eArmazemAndar;
         mIndiceSequencial = eIndiceSequencial;
@@ -106,9 +106,11 @@ public class ItemAlocado {
             byte[] bytes_completo = new byte[bytes_quantidade];
 
             int bytes_i = 0;
-            int bytes_ate = (int) Fazendario.TAMANHO_AREA_ITEM;
+            int bytes_o = (int) Fazendario.TAMANHO_AREA_ITEM;
 
-            int bytes_o = bytes_quantidade;
+            if (bytes_o > bytes_quantidade) {
+                bytes_o = bytes_quantidade;
+            }
 
             for (Long bloco : blocos_alocados) {
 
@@ -120,14 +122,14 @@ public class ItemAlocado {
 
                 mArquivador.setPonteiro(area_ponteiro_dados);
 
-                while (bytes_i < bytes_ate) {
+                while (bytes_i < bytes_o) {
                     bytes_completo[bytes_i] = mArquivador.get();
                     bytes_i += 1;
                 }
 
-                bytes_ate += (int) Fazendario.TAMANHO_AREA_ITEM;
-                if (bytes_ate > bytes_quantidade) {
-                    bytes_ate = bytes_quantidade;
+                bytes_o += (int) Fazendario.TAMANHO_AREA_ITEM;
+                if (bytes_o > bytes_quantidade) {
+                    bytes_o = bytes_quantidade;
                 }
             }
 
@@ -155,24 +157,7 @@ public class ItemAlocado {
         if (item_tipo == Fazendario.OBJETO_GRANDE) {
 
             fmt.print("Remover bloco grande -- Antes de atualizar !");
-            int bytes_quantidade = mArquivador.get_u32();
-            int blocos = mArquivador.get_u32();
-
-            Lista<Long> blocos_alocados = new Lista<Long>();
-            for (int b = 0; b < blocos; b++) {
-                long bloco_ref = mArquivador.get_u64();
-
-                fmt.print("\t -- BlocoRef :: {}", bloco_ref);
-                blocos_alocados.adicionar(bloco_ref);
-
-            }
-
-            for (Long bloco : blocos_alocados) {
-
-                mArquivador.setPonteiro(bloco);
-                mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
-
-            }
+            PlantacaoAcessoDireto.REMOVER(mArquivador);
 
         }
 
