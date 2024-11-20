@@ -386,7 +386,7 @@ public class ArmazemAndar {
 
 
             } else {
-                throw new RuntimeException("Problemaq na alocação de objetos grandes !");
+                throw new RuntimeException("Problema na alocação de objetos grandes !");
             }
 
 
