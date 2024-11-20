@@ -74,6 +74,10 @@ public class ZettaArquivo {
 
     public byte[] getBytes() {
         if (!mRemovido) {
+
+            mEntidade.at("DDL",Tronarko.getTronAgora().getTextoZerado());
+            mItem.atualizarUTF8(ENTT.TO_DOCUMENTO(mEntidade));
+
             SuperBloco superbloco = mSilos.getSuperBloco(mEntidade);
 
             byte[] todos_bytes = superbloco.getBytes();

@@ -8,12 +8,11 @@ import libs.entt.Entidade;
 import libs.fazendario.Armazem;
 import libs.fazendario.Fazendario;
 import libs.fazendario.ItemAlocado;
-import libs.luan.Aleatorio;
-import libs.luan.Opcional;
-import libs.luan.Strings;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.tronarko.Tronarko;
-import libs.zettaquorum.ArmazemInterno;
+import libs.zettaquorum.ArmazemPrimario;
+import libs.zettaquorum.Silos;
+import libs.zettaquorum.ZettaArquivo;
 
 public class TesteFazendario {
 
@@ -320,9 +319,9 @@ public class TesteFazendario {
 
         Fazendario fazenda = new Fazendario(arquivo_fazenda);
 
-        ArmazemInterno valores = new ArmazemInterno(fazenda, "@Valores");
+        ArmazemPrimario valores = new ArmazemPrimario(fazenda, "@Valores");
 
-       // valores.zerar();
+        // valores.zerar();
 
 
         valores.adicionar(ENTT.CRIAR("Tron", Tronarko.getTronAgora().getTextoZerado()));
@@ -336,40 +335,152 @@ public class TesteFazendario {
 
         String arquivo_fazenda = "/home/luan/assets/teste_fazendas/fazenda_alfa.az";
 
-       // Arquivador.remover(arquivo_fazenda);
+        // Arquivador.remover(arquivo_fazenda);
 
         Fazendario fazenda = new Fazendario(arquivo_fazenda);
 
-        ArmazemInterno valores = new ArmazemInterno(fazenda, "@Valores");
+        ArmazemPrimario valores = new ArmazemPrimario(fazenda, "@Valores");
 
-      //   valores.zerar();
+        //  valores.zerar();
 
 
         Entidade grandemente = new Entidade();
 
-        int max_at = Aleatorio.aleatorio_entre(500,800);
+        int max_at = Aleatorio.aleatorio_entre(500, 800);
 
 
-        if(Aleatorio.aleatorio(100)>80){
-            max_at=3;
+        if (Aleatorio.aleatorio(100) > 80) {
+            max_at = 3;
         }
 
 
-        grandemente.at("Max",max_at);
+        grandemente.at("Max", max_at);
+        grandemente.at("Status", "Alfa");
 
-        for(int a=0;a<=max_at;a++){
-            grandemente.at("Valor"+a,"Entao deu : "+(a*5000));
-            grandemente.at("Tempo"+a, Tronarko.getTronAgora().getTextoZerado());
+        for (int a = 0; a <= max_at; a++) {
+            grandemente.at("Valor" + a, "Entao deu : " + (a * 5000));
+            grandemente.at("Tempo" + a, Tronarko.getTronAgora().getTextoZerado());
         }
 
         String conteudo = ENTT.TO_DOCUMENTO(grandemente);
 
-        fmt.print("Tamanho :: {}",fmt.formatar_tamanho(Strings.GET_STRING_VIEW_BYTES(conteudo).length));
+        fmt.print("Tamanho :: {}", fmt.formatar_tamanho(Strings.GET_STRING_VIEW_BYTES(conteudo).length));
 
         valores.adicionar(grandemente);
 
+
+        for (ItemAlocado item : valores.getItensAlocados()) {
+            Entidade aa = new Entidade();
+            aa.at("Oiee", Tronarko.getTronAgora().getTextoZerado());
+
+
+            max_at = Aleatorio.aleatorio_entre(500, 800);
+
+            aa.at("Max", max_at);
+
+            for (int a = 0; a <= max_at; a++) {
+                aa.at("Valor" + a, "Entao deu : " + (a * 5000));
+                aa.at("Tempo" + a, Tronarko.getTronAgora().getTextoZerado());
+            }
+
+
+            item.atualizarUTF8(ENTT.TO_DOCUMENTO(aa));
+        }
+
+
         valores.dump();
 
+        valores.dump_plantacoes();
+
         fazenda.fechar();
+    }
+
+    public static void teste_depositos() {
+
+        String arquivo_fazenda = "/home/luan/assets/teste_fazendas/fazenda_alfa.az";
+
+        //  Arquivador.remover(arquivo_fazenda);
+
+        Fazendario fazenda = new Fazendario(arquivo_fazenda);
+
+        Silos silos = fazenda.getSilos();
+
+        silos.adicionar_arquivo_se_nao_existir("@Textos/TronarkoLogs.txt", Strings.GET_STRING_VIEW_BYTES("----------- Tronarko :: LOGS ----------"));
+        silos.adicionar_arquivo_se_nao_existir("@Textos/Tronarko.txt", Strings.GET_STRING_VIEW_BYTES(Tronarko.getTronAgora().getTextoZerado()));
+
+        //  fmt.print("OP : Adicionando imagem...");
+        //  String imagem_grande = "/home/luan/Imagens/Homem-olhando-para-sua-primeira-arvore-Worldbuilding-1024x574.png";
+        //  silos.adicionar_ou_atualizar("@Imagem/FundoAmarelo.png", Arquivador.GET_BYTES(imagem_grande));
+
+
+        silos.dump();
+        silos.dump_arquivos();
+
+        for (ZettaArquivo arquivo : silos.getArquivosAtualizaveis()) {
+
+            if (arquivo.isNome("@Textos/TronarkoLogs.txt")) {
+
+                fmt.print(">> Editar :: {}", arquivo.getNome());
+
+                for (int a = 0; a < 500; a++) {
+                    arquivo.expandir(Strings.GET_STRING_VIEW_BYTES("\n++ Edição nova :: " + Tronarko.getTronAgora().getTextoZerado()));
+                    fmt.print(">> Arquivo :: {}", arquivo.getNome());
+                    //    silos.exibir_arquivo(arquivo);
+                }
+
+                break;
+            }
+        }
+
+        fmt.print("OP : Editar arquivos...");
+
+        for (ZettaArquivo arquivo : silos.getArquivosAtualizaveis()) {
+
+            fmt.print(">> Arquivo :: {}", arquivo.getNome());
+
+            //   silos.exibir_arquivo(arquivo);
+
+            if (arquivo.isNome("@Textos/TronarkoLogs.txt")) {
+
+                byte[] todos_bytes = arquivo.getBytes();
+
+                fmt.print("---------------------------------------------");
+                fmt.print("{}", Strings.GET_STRING_VIEW(todos_bytes));
+                fmt.print("---------------------------------------------");
+
+            }
+
+
+        }
+
+        silos.dump_arquivos();
+
+
+        Opcional<ZettaArquivo> op_fa = silos.procurar_arquivo("1200px-Protein_structure_examples.png");
+
+        if (op_fa.isOK()) {
+
+            fmt.print(">> Arquivo :: {}", op_fa.get().getNome());
+
+            //    silos.exibir_arquivo(arquivo);
+
+            Arquivador.CONSTRUIR_ARQUIVO("/home/luan/assets/tronarkum_arquivo_dentro.png", op_fa.get().getBytes());
+        }
+
+
+        fmt.print("OP :: Remover todos os arquivos !");
+        // silos.limpar();
+
+        for (String arquivo : FS.lista_de_arquivos_total("/home/luan/Imagens/Hummm")) {
+           // fmt.print("OP Adicionando : {}",arquivo);
+           // silos.adicionar_ou_atualizar(new File(arquivo).getName(), Arquivador.GET_BYTES(arquivo));
+        }
+
+
+        silos.dump_arquivos();
+
+        fazenda.fechar();
+
+
     }
 }

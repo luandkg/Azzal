@@ -16,18 +16,18 @@ public class ZettaQuorum {
 
     private Fazendario mFazendario;
 
-    private ArmazemInterno mSequencias;
-    private ArmazemInterno mIndices;
-    private ArmazemInterno mColecoes;
+    private ArmazemPrimario mSequencias;
+    private ArmazemPrimario mIndices;
+    private ArmazemPrimario mColecoes;
 
 
     public ZettaQuorum(String eArquivo) {
 
         mFazendario = new Fazendario(eArquivo);
 
-        mSequencias = new ArmazemInterno(mFazendario, "@COLECOES::SEQUENCIAS");
-        mIndices = new ArmazemInterno(mFazendario, "@COLECOES::INDICES");
-        mColecoes = new ArmazemInterno(mFazendario, "@COLECOES::DADOS");
+        mSequencias = new ArmazemPrimario(mFazendario, "@COLECOES::SEQUENCIAS");
+        mIndices = new ArmazemPrimario(mFazendario, "@COLECOES::INDICES");
+        mColecoes = new ArmazemPrimario(mFazendario, "@COLECOES::DADOS");
 
 
     }

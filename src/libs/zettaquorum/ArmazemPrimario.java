@@ -9,13 +9,13 @@ import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.Par;
 
-public class ArmazemInterno {
+public class ArmazemPrimario {
 
     private Fazendario mFazendario;
     private Armazem mArmazem;
     private String mNome;
 
-    public ArmazemInterno(Fazendario eFazendario, String eNome) {
+    public ArmazemPrimario(Fazendario eFazendario, String eNome) {
 
         mFazendario = eFazendario;
         mNome = eNome;

@@ -12,15 +12,14 @@ public class Silos {
     private Arquivador mArquivador;
     private Fazendario mFazendario;
 
-    private ArmazemInterno mSilos;
-    private ArmazemInterno mArquivos;
+    private ArmazemPrimario mSilos;
+    private ArmazemPrimario mArquivos;
 
     public Silos(Arquivador eArquivador, Fazendario eFazendario) {
         mArquivador = eArquivador;
         mFazendario = eFazendario;
-        mSilos = new ArmazemInterno(mFazendario, "@Silos::Dados");
-        mArquivos = new ArmazemInterno(mFazendario, "@Silos::Arquivos");
-
+        mSilos = new ArmazemPrimario(mFazendario, "@SILOS::DADOS");
+        mArquivos = new ArmazemPrimario(mFazendario, "@SILOS::ARQUIVOS");
     }
 
 
