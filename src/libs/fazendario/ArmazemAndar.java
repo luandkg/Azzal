@@ -2,7 +2,10 @@ package libs.fazendario;
 
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
-import libs.luan.*;
+import libs.luan.Lista;
+import libs.luan.Opcional;
+import libs.luan.Strings;
+import libs.luan.fmt;
 import libs.matematica.Tipo;
 
 public class ArmazemAndar {
@@ -295,22 +298,6 @@ public class ArmazemAndar {
 
     public long item_adicionar_no_espaco(PortaoDeslizante portao_primario, long ponteiro_local, long tem_ponteiro_espaco, long ponteiro_espaco, String texto) {
 
-        byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
-
-        boolean objeto_maior = bytes.length + 10 >= Fazendario.TAMANHO_SETOR_ITEM;
-
-        if (objeto_maior) {
-            if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
-                fmt.print(">> TEM PLANTACAO :: {}", portao_primario.getPlantacao());
-            } else {
-                fmt.print(">> NAO TEM PLANTACAO :: {}", portao_primario.getPlantacao());
-
-                long ponteiro_plantacao = mFazendario.CRIAR_PLANTACAO(portao_primario.getIndice());
-                portao_primario.setPlantacao(ponteiro_plantacao);
-
-            }
-        }
-
 
         long ponteiro_dados_retornar = ponteiro_espaco;
 
@@ -326,41 +313,9 @@ public class ArmazemAndar {
             mArquivador.set_u64(ponteiro_dados);
 
 
-            ponteiro_dados_retornar = ponteiro_dados;
-
-
-            VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
-
-
-            if (objeto_maior) {
-
-                int blocos = (int) ((long) bytes.length / Matematica.KB(16));
-                long bytes_alocados = (long) blocos * Fazendario.TAMANHO_SETOR_ITEM;
-                if (bytes_alocados < (long) bytes.length) {
-                    blocos += 1;
-                }
-
-                mArquivador.setPonteiro(ponteiro_dados);
-                mArquivador.set_u8((byte) Fazendario.OBJETO_GRANDE);
-                mArquivador.set_u64(bytes.length);
-                mArquivador.set_u32(blocos);
-
-                Lista<Long> blocos_alocados = new Lista<Long>();
-
-                for (Long bloco : blocos_alocados) {
-                    mArquivador.set_u64(bloco);
-                }
-
-
-            } else {
-                mArquivador.setPonteiro(ponteiro_dados);
-                mArquivador.set_u8((byte) Fazendario.OBJETO_PEQUENO);
-                mArquivador.set_u32(bytes.length);
-                mArquivador.set_u8_vector(bytes);
-            }
-
-
             //   fmt.print("\t ++ Alocando novo espaco : {}", ponteiro_dados);
+
+            ponteiro_dados_retornar = item_adicionar_em_espaco_alocado(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, ponteiro_dados, texto);
 
 
         } else if (tem_ponteiro_espaco == Fazendario.ESPACO_VAZIO_E_JA_ALOCADO) {
@@ -368,22 +323,82 @@ public class ArmazemAndar {
             mArquivador.setPonteiro(ponteiro_local);
             mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
 
-            mArquivador.setPonteiro(ponteiro_espaco);
-
-            ponteiro_dados_retornar = ponteiro_espaco;
-
-
-            VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
-
-            mArquivador.set_u32(bytes.length);
-            mArquivador.set_u8_vector(bytes);
-
             //     fmt.print("\t ++ Utilizando espaco existente : {}", ponteiro_espaco);
+
+            ponteiro_dados_retornar = item_adicionar_em_espaco_alocado(portao_primario, ponteiro_local, tem_ponteiro_espaco, ponteiro_espaco, ponteiro_espaco, texto);
 
 
         }
 
         return ponteiro_dados_retornar;
+    }
+
+
+    public long item_adicionar_em_espaco_alocado(PortaoDeslizante portao_primario, long ponteiro_local, long tem_ponteiro_espaco, long ponteiro_espaco, long ponteiro_dados, String texto) {
+
+        byte[] bytes = Strings.GET_STRING_VIEW_BYTES(texto);
+
+        boolean objeto_maior = bytes.length + 10 >= Fazendario.TAMANHO_SETOR_ITEM;
+
+        boolean plantacao_ja_alocado = false;
+        long platancao_ponteiro_alocado = 0;
+
+
+        if (objeto_maior) {
+            if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+                fmt.print(">> TEM PLANTACAO :: {}", portao_primario.getPlantacao());
+
+                plantacao_ja_alocado = true;
+                platancao_ponteiro_alocado = portao_primario.getPlantacao();
+
+            } else {
+                fmt.print(">> NAO TEM PLANTACAO :: {}", portao_primario.getPlantacao());
+
+                long ponteiro_plantacao = mFazendario.CRIAR_PLANTACAO(portao_primario.getIndice());
+                portao_primario.setPlantacao(ponteiro_plantacao);
+
+                plantacao_ja_alocado = true;
+                platancao_ponteiro_alocado = ponteiro_plantacao;
+
+            }
+        }
+
+       // VERIFICADOR.MENOR_OU_IGUAL(bytes.length + 10, Fazendario.TAMANHO_SETOR_ITEM);
+
+
+        if (objeto_maior) {
+
+
+            if (plantacao_ja_alocado) {
+
+
+                PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador,mFazendario,portao_primario.getIndice(), platancao_ponteiro_alocado);
+
+                Lista<Long> blocos_alocados = pa.adicionar(bytes);
+
+                mArquivador.setPonteiro(ponteiro_dados);
+                mArquivador.set_u8((byte) Fazendario.OBJETO_GRANDE);
+                mArquivador.set_u32(bytes.length);
+                mArquivador.set_u32(blocos_alocados.getQuantidade());
+
+                for (Long bloco : blocos_alocados) {
+                    mArquivador.set_u64(bloco);
+                }
+
+
+            } else {
+                throw new RuntimeException("Problemaq na alocação de objetos grandes !");
+            }
+
+
+        } else {
+            mArquivador.setPonteiro(ponteiro_dados);
+            mArquivador.set_u8((byte) Fazendario.OBJETO_PEQUENO);
+            mArquivador.set_u32(bytes.length);
+            mArquivador.set_u8_vector(bytes);
+        }
+
+        return ponteiro_dados;
     }
 
 

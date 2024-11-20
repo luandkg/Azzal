@@ -54,6 +54,7 @@ public class Fazendario {
     public final static long QUANTIDADE_DE_INDICES_POR_PAGINA = 5;//Matematica.KB(64);
     public final static long QUANTIDADE_DE_AREAS = 10;//Matematica.KB(64);
 
+    public final static long TAMANHO_AREA_ITEM = Matematica.KB(16);
 
     private Arquivador mArquivador;
 
@@ -465,13 +466,27 @@ public class Fazendario {
         mArquivador.set_u64((long) 0);                              // MAPA INICIO
         mArquivador.set_u64((long) 0);                              // MAPA FIM
         mArquivador.set_u8((byte) NAO_TEM);                         // TEM PROXIMA
+        mArquivador.set_u64((long) 0);                              //PONTEIRO PARA PROXIMO
+        mArquivador.set_u8((byte) NAO_TEM);                         // VAZIO
 
         long ponteiro_mapa_inicio = mArquivador.getPonteiro();
 
         for (int i = 0; i < QUANTIDADE_DE_AREAS; i++) {
+
+            long ponteiro_antes = mArquivador.getPonteiro();
+
             mArquivador.set_u8((byte) NAO_TEM);
             mArquivador.set_u64((long) NAO_TEM); // PONTEIRO PARA MIM MESMO
             mArquivador.set_u64((long) NAO_TEM); //PONTEIRO PARA DADOS DE 16KB
+
+            long ponteiro_depois = mArquivador.getPonteiro();
+
+            mArquivador.setPonteiro(ponteiro_antes);
+            mArquivador.set_u8((byte) NAO_TEM);
+            mArquivador.set_u64(ponteiro_antes); // PONTEIRO PARA MIM MESMO
+
+            mArquivador.setPonteiro(ponteiro_depois);
+
         }
 
         long ponteiro_mapa_fim = mArquivador.getPonteiro();
