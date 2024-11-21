@@ -88,8 +88,8 @@ public class TesteZettaPastas {
         // silos.limpar();
 
         for (String arquivo : FS.lista_de_arquivos_total("/home/luan/Imagens/Hummm")) {
-            // fmt.print("OP Adicionando : {}",arquivo);
-            // silos.adicionar_ou_atualizar(new File(arquivo).getName(), Arquivador.GET_BYTES(arquivo));
+           //  fmt.print("OP Adicionando : {}",arquivo);
+           // tronarkum.adicionar_ou_atualizar(FS.GET_NOME_DO_ARQUIVO(arquivo), Arquivador.GET_BYTES(arquivo));
         }
 
 

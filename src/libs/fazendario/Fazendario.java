@@ -306,6 +306,20 @@ public class Fazendario {
     }
 
 
+    public Inode getInode(long ptr) {
+
+        mArquivador.setPonteiro(ptr);
+
+        int bloco_status_aqui = mArquivador.get_u8();
+        long ponteiro_eu_mesmo = mArquivador.get_u64();
+        long ponteiro_dados_aqui = mArquivador.get_u64();
+
+        Inode inode = new Inode(bloco_status_aqui, ponteiro_eu_mesmo, ponteiro_dados_aqui);
+
+        return inode;
+    }
+
+
     public long CRIAR_ARMAZEM_LOCATARIO() {
 
         mArquivador.ir_para_o_fim();

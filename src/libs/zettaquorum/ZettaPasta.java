@@ -126,7 +126,7 @@ public class ZettaPasta {
             mArquivador.setPonteiro(ponteiro_dados_aqui);
             mArquivador.set_u32(0);
 
-            SuperBloco super_inode = new SuperBloco(mArquivador, this, bloco_a);
+            SuperBloco super_inode = new SuperBloco(mArquivador, mFazendario,this, bloco_a);
 
             super_inode.guardar(eBytes);
 
@@ -265,28 +265,17 @@ public class ZettaPasta {
 
     }
 
-    public Inode getInode(long ptr) {
 
-        mArquivador.setPonteiro(ptr);
-
-        int bloco_status_aqui = mArquivador.get_u8();
-        long ponteiro_eu_mesmo = mArquivador.get_u64();
-        long ponteiro_dados_aqui = mArquivador.get_u64();
-
-        Inode inode = new Inode(bloco_status_aqui, ponteiro_eu_mesmo, ponteiro_dados_aqui);
-
-        return inode;
-    }
 
     public SuperBloco getSuperBloco(Entidade arquivo) {
-        SuperBloco superbloco = new SuperBloco(mArquivador, this, arquivo.atLong("INode"));
+        SuperBloco superbloco = new SuperBloco(mArquivador, mFazendario,this, arquivo.atLong("INode"));
         return superbloco;
     }
 
 
     public void exibir_arquivo(Entidade arquivo) {
 
-        SuperBloco superbloco = new SuperBloco(mArquivador, this, arquivo.atLong("INode"));
+        SuperBloco superbloco = new SuperBloco(mArquivador, mFazendario,this, arquivo.atLong("INode"));
 
         long arquivo_tamanho_completo = superbloco.getTamanhoEscrito();
 
@@ -300,7 +289,7 @@ public class ZettaPasta {
 
         for (Long bloco_ptr : superbloco.getBlocos()) {
 
-            Bloco bloco = new Bloco(mArquivador, this, bloco_ptr);
+            Bloco bloco = new Bloco(mArquivador, mFazendario,this, bloco_ptr);
 
             fmt.print("\t >> {} -->> {}", bloco_ptr, bloco.getInodesContagem());
 
