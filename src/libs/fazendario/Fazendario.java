@@ -6,7 +6,6 @@ import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
-import libs.zettaquorum.Silos;
 
 public class Fazendario {
 
@@ -109,9 +108,7 @@ public class Fazendario {
 
     }
 
-    public Silos getSilos(){
-        return new Silos(mArquivador,this);
-    }
+
 
     public void fechar() {
         mArquivador.encerrar();
@@ -565,5 +562,7 @@ public class Fazendario {
         return ponteiro;
     }
 
+
+    public Arquivador getArquivador(){return mArquivador;}
 
 }

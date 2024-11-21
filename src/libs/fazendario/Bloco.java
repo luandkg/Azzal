@@ -2,28 +2,28 @@ package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
-import libs.zettaquorum.Silos;
+import libs.zettaquorum.ZettaPasta;
 
 public class Bloco {
 
     private Arquivador mArquivador;
-    private Silos mSilos;
+    private ZettaPasta mPasta;
     private long mPonteiro;
 
-    public Bloco(Arquivador eArquivador, Silos eSilos, long ePonteiro) {
+    public Bloco(Arquivador eArquivador, ZettaPasta ePasta, long ePonteiro) {
         mArquivador = eArquivador;
-        mSilos = eSilos;
+        mPasta = ePasta;
         mPonteiro = ePonteiro;
     }
 
     public long getPonteiroDados() {
-        Inode inode = mSilos.getInode(mPonteiro);
+        Inode inode = mPasta.getInode(mPonteiro);
         return inode.ponteiro_dados_aqui;
     }
 
     public Lista<Long> getInodes() {
 
-        Inode inode = mSilos.getInode(mPonteiro);
+        Inode inode = mPasta.getInode(mPonteiro);
 
         mArquivador.setPonteiro(inode.ponteiro_dados_aqui);
 
@@ -44,7 +44,7 @@ public class Bloco {
 
     public int getInodesContagem() {
 
-        Inode inode = mSilos.getInode(mPonteiro);
+        Inode inode = mPasta.getInode(mPonteiro);
 
         mArquivador.setPonteiro(inode.ponteiro_dados_aqui);
 
@@ -55,7 +55,7 @@ public class Bloco {
 
     public void adicionar_inode(long novo) {
 
-        Inode inode = mSilos.getInode(mPonteiro);
+        Inode inode = mPasta.getInode(mPonteiro);
 
         mArquivador.setPonteiro(inode.ponteiro_dados_aqui);
 
@@ -75,7 +75,7 @@ public class Bloco {
 
     public void remover() {
 
-        Inode inode = mSilos.getInode(mPonteiro);
+        Inode inode = mPasta.getInode(mPonteiro);
 
         mArquivador.setPonteiro(inode.ponteiro_dados_aqui);
 
@@ -84,7 +84,7 @@ public class Bloco {
         Lista<Long> inodes = getInodes();
 
         for (long inode_local : inodes) {
-            Inode inode_corrente = mSilos.getInode(inode_local);
+            Inode inode_corrente = mPasta.getInode(inode_local);
 
             mArquivador.setPonteiro(inode_corrente.ponteiro_eu_mesmo);
             mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);

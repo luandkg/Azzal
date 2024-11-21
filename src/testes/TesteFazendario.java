@@ -11,7 +11,6 @@ import libs.fazendario.ItemAlocado;
 import libs.luan.*;
 import libs.tronarko.Tronarko;
 import libs.zettaquorum.ArmazemPrimario;
-import libs.zettaquorum.Silos;
 import libs.zettaquorum.ZettaArquivo;
 
 public class TesteFazendario {
@@ -395,92 +394,5 @@ public class TesteFazendario {
         fazenda.fechar();
     }
 
-    public static void teste_depositos() {
 
-        String arquivo_fazenda = "/home/luan/assets/teste_fazendas/fazenda_alfa.az";
-
-        //  Arquivador.remover(arquivo_fazenda);
-
-        Fazendario fazenda = new Fazendario(arquivo_fazenda);
-
-        Silos silos = fazenda.getSilos();
-
-        silos.adicionar_arquivo_se_nao_existir("@Textos/TronarkoLogs.txt", Strings.GET_STRING_VIEW_BYTES("----------- Tronarko :: LOGS ----------"));
-        silos.adicionar_arquivo_se_nao_existir("@Textos/Tronarko.txt", Strings.GET_STRING_VIEW_BYTES(Tronarko.getTronAgora().getTextoZerado()));
-
-        //  fmt.print("OP : Adicionando imagem...");
-        //  String imagem_grande = "/home/luan/Imagens/Homem-olhando-para-sua-primeira-arvore-Worldbuilding-1024x574.png";
-        //  silos.adicionar_ou_atualizar("@Imagem/FundoAmarelo.png", Arquivador.GET_BYTES(imagem_grande));
-
-
-        silos.dump();
-        silos.dump_arquivos();
-
-        for (ZettaArquivo arquivo : silos.getArquivosAtualizaveis()) {
-
-            if (arquivo.isNome("@Textos/TronarkoLogs.txt")) {
-
-                fmt.print(">> Editar :: {}", arquivo.getNome());
-
-                for (int a = 0; a < 500; a++) {
-                    arquivo.expandir(Strings.GET_STRING_VIEW_BYTES("\n++ Edição nova :: " + Tronarko.getTronAgora().getTextoZerado()));
-                    fmt.print(">> Arquivo :: {}", arquivo.getNome());
-                    //    silos.exibir_arquivo(arquivo);
-                }
-
-                break;
-            }
-        }
-
-        fmt.print("OP : Editar arquivos...");
-
-        for (ZettaArquivo arquivo : silos.getArquivosAtualizaveis()) {
-
-            fmt.print(">> Arquivo :: {}", arquivo.getNome());
-
-            //   silos.exibir_arquivo(arquivo);
-
-            if (arquivo.isNome("@Textos/TronarkoLogs.txt")) {
-
-                byte[] todos_bytes = arquivo.getBytes();
-
-                fmt.print("---------------------------------------------");
-                fmt.print("{}", Strings.GET_STRING_VIEW(todos_bytes));
-                fmt.print("---------------------------------------------");
-
-            }
-
-
-        }
-
-        silos.dump_arquivos();
-
-
-        Opcional<ZettaArquivo> op_fa = silos.procurar_arquivo("1200px-Protein_structure_examples.png");
-
-        if (op_fa.isOK()) {
-
-            fmt.print(">> Arquivo :: {}", op_fa.get().getNome());
-
-            //    silos.exibir_arquivo(arquivo);
-
-            Arquivador.CONSTRUIR_ARQUIVO("/home/luan/assets/tronarkum_arquivo_dentro.png", op_fa.get().getBytes());
-        }
-
-
-        fmt.print("OP :: Remover todos os arquivos !");
-        // silos.limpar();
-
-        for (String arquivo : FS.lista_de_arquivos_total("/home/luan/Imagens/Hummm")) {
-           // fmt.print("OP Adicionando : {}",arquivo);
-           // silos.adicionar_ou_atualizar(new File(arquivo).getName(), Arquivador.GET_BYTES(arquivo));
-        }
-
-
-        silos.dump_arquivos();
-
-        fazenda.fechar();
-
-
-    }
 }

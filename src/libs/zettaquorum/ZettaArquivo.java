@@ -2,6 +2,7 @@ package libs.zettaquorum;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.fazendario.ArmazemIndiceSumario;
 import libs.fazendario.ItemAlocado;
 import libs.fazendario.SuperBloco;
 import libs.luan.fmt;
@@ -9,14 +10,16 @@ import libs.tronarko.Tronarko;
 
 public class ZettaArquivo {
 
-    private Silos mSilos;
+    private ZettaPasta mPasta;
     private ItemAlocado mItem;
     private Entidade mEntidade;
+    private ArmazemIndiceSumario mIndice;
 
     private boolean mRemovido = false;
 
-    public ZettaArquivo(Silos eSilos, ItemAlocado eItem, Entidade eEntidade) {
-        mSilos = eSilos;
+    public ZettaArquivo(ZettaPasta ePasta,ArmazemIndiceSumario eIndice, ItemAlocado eItem, Entidade eEntidade) {
+        mPasta = ePasta;
+        mIndice=eIndice;
         mItem = eItem;
         mEntidade = eEntidade;
     }
@@ -33,7 +36,7 @@ public class ZettaArquivo {
     public void atualizar_dados(byte[] bytes) {
 
         if (!mRemovido) {
-            SuperBloco superbloco = mSilos.getSuperBloco(mEntidade);
+            SuperBloco superbloco = mPasta.getSuperBloco(mEntidade);
             superbloco.limpar_dados();
 
             superbloco.guardar(bytes);
@@ -55,7 +58,7 @@ public class ZettaArquivo {
     public void expandir(byte[] bytes) {
 
         if (!mRemovido) {
-            SuperBloco superbloco = mSilos.getSuperBloco(mEntidade);
+            SuperBloco superbloco = mPasta.getSuperBloco(mEntidade);
 
             superbloco.expandir(bytes);
 
@@ -78,7 +81,7 @@ public class ZettaArquivo {
             mEntidade.at("DDL",Tronarko.getTronAgora().getTextoZerado());
             mItem.atualizarUTF8(ENTT.TO_DOCUMENTO(mEntidade));
 
-            SuperBloco superbloco = mSilos.getSuperBloco(mEntidade);
+            SuperBloco superbloco = mPasta.getSuperBloco(mEntidade);
 
             byte[] todos_bytes = superbloco.getBytes();
             return todos_bytes;
@@ -91,9 +94,11 @@ public class ZettaArquivo {
         if (!mRemovido) {
             mRemovido = true;
 
-            SuperBloco superbloco = mSilos.getSuperBloco(mEntidade);
+            SuperBloco superbloco = mPasta.getSuperBloco(mEntidade);
             superbloco.limpar_dados();
             superbloco.remover_a_si_mesmo();
+
+            mIndice.remover(mEntidade.atLong("@ID"));
 
             mItem.remover();
         }

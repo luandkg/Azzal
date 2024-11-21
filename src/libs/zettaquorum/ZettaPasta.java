@@ -7,19 +7,23 @@ import libs.fazendario.*;
 import libs.luan.*;
 import libs.tronarko.Tronarko;
 
-public class Silos {
+public class ZettaPasta {
 
     private Arquivador mArquivador;
     private Fazendario mFazendario;
-
     private ArmazemPrimario mSilos;
-    private ArmazemPrimario mArquivos;
 
-    public Silos(Arquivador eArquivador, Fazendario eFazendario) {
+    private Armazem mArquivos;
+    private ZettaSequenciador mSequenciador;
+    private ArmazemIndiceSumario mIndice;
+
+    public ZettaPasta(Arquivador eArquivador, Fazendario eFazendario,ArmazemPrimario eSilos, Armazem eArquivos, ZettaSequenciador eSequenciador, ArmazemIndiceSumario eIndice) {
         mArquivador = eArquivador;
-        mFazendario = eFazendario;
-        mSilos = new ArmazemPrimario(mFazendario, "@SILOS::DADOS");
-        mArquivos = new ArmazemPrimario(mFazendario, "@SILOS::ARQUIVOS");
+        mFazendario=eFazendario;
+        mSilos = eSilos;
+        mArquivos = eArquivos;
+        mSequenciador = eSequenciador;
+        mIndice = eIndice;
     }
 
 
@@ -42,20 +46,43 @@ public class Silos {
         ENTT.EXIBIR_TABELA_COM_NOME(silos, "ARMAZEM -- @Silos::Dados ( " + mSilos.getIndice() + " )");
     }
 
+
+    public Lista<Entidade> getItensArquivos() {
+
+        Lista<Entidade> lista = new Lista<Entidade>();
+
+        for (ItemAlocado item : mArquivos.getItensAlocados()) {
+            lista.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoUTF8()));
+        }
+
+        return lista;
+    }
+
+    public Lista<Par<ItemAlocado, Entidade>> getItensArquivosAtualizaveis() {
+
+        Lista<Par<ItemAlocado, Entidade>> lista = new Lista<Par<ItemAlocado, Entidade>>();
+
+        for (ItemAlocado item : mArquivos.getItensAlocados()) {
+            lista.adicionar(new Par<ItemAlocado, Entidade>(item, ENTT.PARSER_ENTIDADE(item.lerTextoUTF8())));
+        }
+
+        return lista;
+    }
+
     public void dump_arquivos() {
-        mArquivos.dump();
+        ENTT.EXIBIR_TABELA_COM_NOME(getItensArquivos(), "@DUMP - ARQUIVOS");
     }
 
     public Lista<Entidade> getArquivos() {
-        return mArquivos.getItens();
+        return getItensArquivos();
     }
 
     public Lista<ZettaArquivo> getArquivosAtualizaveis() {
 
         Lista<ZettaArquivo> lista = new Lista<ZettaArquivo>();
 
-        for (Par<ItemAlocado, Entidade> par : mArquivos.getItensAtualizaveis()) {
-            lista.adicionar(new ZettaArquivo(this, par.getChave(), par.getValor()));
+        for (Par<ItemAlocado, Entidade> par : getItensArquivosAtualizaveis()) {
+            lista.adicionar(new ZettaArquivo(this,mIndice, par.getChave(), par.getValor()));
         }
 
         return lista;
@@ -66,9 +93,9 @@ public class Silos {
 
         Opcional<ZettaArquivo> ret = Opcional.CANCEL();
 
-        for (Par<ItemAlocado, Entidade> par : mArquivos.getItensAtualizaveis()) {
+        for (Par<ItemAlocado, Entidade> par : getItensArquivosAtualizaveis()) {
             if (par.getValor().is("Nome", eNome)) {
-                ret = Opcional.OK(new ZettaArquivo(this, par.getChave(), par.getValor()));
+                ret = Opcional.OK(new ZettaArquivo(this, mIndice,par.getChave(), par.getValor()));
                 break;
             }
         }
@@ -114,8 +141,14 @@ public class Silos {
             arquivo.at("DDA", Tronarko.getTronAgora().getTextoZerado());
             arquivo.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
+            long proximo = mSequenciador.getProximo();
 
-            mArquivos.adicionar(arquivo);
+            arquivo.at("@ID", proximo);
+
+            ItemAlocado item =  mArquivos.item_adicionar(ENTT.TO_DOCUMENTO(arquivo));
+
+            mIndice.setItem(proximo, item.getPonteiroDados());
+
         }
 
 
@@ -334,9 +367,10 @@ public class Silos {
     }
 
 
-    public void limpar(){
+    public void limpar() {
         for (ZettaArquivo arquivo : getArquivosAtualizaveis()) {
-              arquivo.remover();
+            arquivo.remover();
         }
     }
+
 }
