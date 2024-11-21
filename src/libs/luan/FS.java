@@ -57,10 +57,8 @@ public class FS {
         return pasta_caminho + arquivo;
     }
 
-    public static String GET_NOME_DO_ARQUIVO(String arquivo_caminho, String pasta_caminho, String extensao) {
-        String regional = arquivo_caminho.replace(pasta_caminho, "");
-        regional = regional.replace(extensao, "");
-        return regional;
+    public static String GET_NOME_DO_ARQUIVO(String arquivo_caminho) {
+        return new File(arquivo_caminho).getName();
     }
 
     public static String GET_PASTA_DOCUMENTOS() {
