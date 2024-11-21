@@ -61,6 +61,9 @@ public class Opcional<T> {
     public static<T> boolean IS_OK(Opcional<T> op){
         return op.isOK();
     }
+    public static<T> boolean IS_VAZIO(Opcional<T> op){
+        return op.isVazio();
+    }
 
 
     public static<T> T SOME(Opcional<T> opcional){
