@@ -153,12 +153,11 @@ public class ZettaPastas {
         ZettaSequenciador sequenciador = new ZettaSequenciador(op_sequencia.get().getChave(), op_sequencia.get().getValor());
         ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(), op_indice.get().getValor().atLong("Ponteiro"));
 
-        colecao = new ZettaPasta( mFazendario.getArquivador(),mFazendario, mSilos,armazem, sequenciador, indice_sumario);
+        colecao = new ZettaPasta(mFazendario.getArquivador(), mFazendario, mSilos, armazem, sequenciador, indice_sumario);
 
         return colecao;
 
     }
-
 
 
     public void dump() {
@@ -207,6 +206,32 @@ public class ZettaPastas {
 
     }
 
+
+    public void dump_pastas() {
+
+        Lista<Entidade> pastas = mPastas.getItens();
+
+        for (Entidade pasta : pastas) {
+
+            Armazem armazem = mFazendario.OBTER_ARMAZEM_LOCATORIO(pasta.atLong("Ponteiro"));
+
+            long tamanho = 0;
+
+            for(ItemAlocado e_item : armazem.getItensAlocados()){
+
+                Entidade e = ENTT.PARSER_ENTIDADE(e_item.lerTextoUTF8());
+
+                tamanho+=e.atLong("Tamanho");
+            }
+
+            pasta.at("Tamanho",tamanho);
+            pasta.at("TamanhoFormatado",fmt.formatar_tamanho_precisao_dupla(tamanho));
+
+        }
+
+        ENTT.EXIBIR_TABELA_COM_NOME(pastas, "ZETTA-PASTAS : @PASTAS::PASTAS");
+
+    }
 
 
 }

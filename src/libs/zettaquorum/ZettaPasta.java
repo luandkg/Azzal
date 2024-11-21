@@ -52,7 +52,14 @@ public class ZettaPasta {
         Lista<Entidade> lista = new Lista<Entidade>();
 
         for (ItemAlocado item : mArquivos.getItensAlocados()) {
-            lista.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoUTF8()));
+
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            e_item.at("@PTR", item.getPonteiroDados());
+
+            e_item.tornar_primeiro("@PTR");
+            e_item.tornar_primeiro("@ID");
+
+            lista.adicionar(e_item);
         }
 
         return lista;
@@ -114,7 +121,7 @@ public class ZettaPasta {
 
             long bloco_a = bloco_arquivo.get();
 
-            marcar_ocupado(bloco_a);
+            mFazendario.marcar_ocupado(bloco_a);
 
             mArquivador.setPonteiro(bloco_a);
 
@@ -239,31 +246,7 @@ public class ZettaPasta {
     }
 
 
-    public void marcar_ocupado(long bloco_ponteiro) {
 
-        mArquivador.setPonteiro(bloco_ponteiro);
-
-        int bloco_status = mArquivador.get_u8();
-
-        if (bloco_status == Fazendario.ESPACO_VAZIO_E_NAO_ALOCADO) {
-
-            mArquivador.ir_para_o_fim();
-            long ponteiro_dados = mArquivador.getPonteiro();
-
-            mArquivador.set_u8_em_bloco(Fazendario.TAMANHO_AREA_ITEM, (byte) 0);
-
-            mArquivador.setPonteiro(bloco_ponteiro);
-            mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
-            long pular = mArquivador.get_u64();
-            mArquivador.set_u64(ponteiro_dados);
-
-        }
-
-
-        mArquivador.setPonteiro(bloco_ponteiro);
-        mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
-
-    }
 
 
 
