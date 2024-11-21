@@ -4,6 +4,8 @@ import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 import libs.luan.Matematica;
 import libs.luan.Opcional;
+import libs.luan.fmt;
+import libs.matematica.Tipo;
 import libs.zettaquorum.ZettaPasta;
 
 public class SuperBloco {
@@ -36,10 +38,12 @@ public class SuperBloco {
 
     private void expandir_em_parcelas(byte[] bytes) {
 
-        if (bytes.length < Matematica.KB(16)) {
+        if (bytes.length <= Matematica.KB(16)) {
+            fmt.print("Expandir abaixo/igual 16Kb");
             expandir_internamente(bytes);
         } else {
 
+            fmt.print("Expandir acima de 16Kb");
 
             int bytes_total = bytes.length;
             int bytes_alocando = 0;
@@ -62,6 +66,8 @@ public class SuperBloco {
                     i += 1;
                 }
 
+                fmt.print("\t >> Expandir parcelado : {}", bytes_parcela.length);
+
                 expandir_internamente(bytes_parcela);
 
                 bytes_alocando += Matematica.KB(16);
@@ -72,9 +78,21 @@ public class SuperBloco {
 
     }
 
+    public void exibir_estrutura() {
+
+        fmt.print("------------------- EXIBIR SUPERINODE ---------------");
+        fmt.print("Tamanho  : {} ->> {}", getTamanhoEscrito(),fmt.formatar_tamanho_precisao_dupla(getTamanhoEscrito()));
+        fmt.print("Blocos   : {}", getBlocosContagem());
+
+        for (long bloco : getBlocos()) {
+            fmt.print("\t >> Bloco : {} --> {} inodes", bloco,new Bloco(mArquivador,mFazendario,mPasta,bloco).getInodesContagem());
+        }
+
+    }
 
     private void expandir_internamente(byte[] bytes) {
 
+        exibir_estrutura();
 
         // obter ultimo ponteiro
 
@@ -84,11 +102,13 @@ public class SuperBloco {
 
         //  fmt.print(" :: TAMANHO ESCRITO : {}", tamanho_escrito);
 
-        //   fmt.print(" :: BLOCOS EXISTENTES : {}", getBlocos().getQuantidade());
+        fmt.print(" :: BLOCOS EXISTENTES : {}", getBlocos().getQuantidade());
 
         Lista<Long> blocos = getBlocos();
 
         if (blocos.getQuantidade() > 0) {
+
+            fmt.print("\t >> Expandir já tem blocos !");
 
             long tamanho_alocado = ((getBlocos().getQuantidade() - 1) * 1000L) * Fazendario.TAMANHO_AREA_ITEM;
 
@@ -101,18 +121,21 @@ public class SuperBloco {
             long tamanho_sobrou = tamanho_alocado - tamanho_escrito;
             long ultimo_ponteiro_escrever = (Fazendario.TAMANHO_AREA_ITEM - tamanho_sobrou);
 
+            fmt.print(" :: ARQUIVO TAMANHO              : {}", tamanho_escrito);
 
-            // fmt.print(" :: ULTIMO BLOCO : {}", ultimo.getPonteiroDados());
-            //  fmt.print(" :: INODES       : {}", ultimo.getInodesContagem());
+            fmt.print(" :: ULTIMO BLOCO : {}", ultimo.getPonteiroDados());
+            fmt.print(" :: INODES       : {}", ultimo.getInodesContagem());
 
-            //   fmt.print(" :: ALOCADO              : {}", tamanho_alocado);
-            //   fmt.print(" :: USADO                : {}", tamanho_escrito);
-            //   fmt.print(" :: SOBROU               : {}", tamanho_sobrou);
-            //   fmt.print(" :: ULTIMO PTR ESCREVER  : {}", ultimo_ponteiro_escrever);
+            fmt.print(" :: ALOCADO              : {}", tamanho_alocado);
+            fmt.print(" :: USADO                : {}", tamanho_escrito);
+            fmt.print(" :: SOBROU               : {}", tamanho_sobrou);
+            fmt.print(" :: ULTIMO PTR ESCREVER  : {}", ultimo_ponteiro_escrever);
 
-            //   fmt.print(" :: ESCREVER             : {}", bytes.length);
+            fmt.print(" :: ESCREVER             : {}", bytes.length);
 
             if (bytes.length <= tamanho_sobrou) {
+
+                fmt.print("\t >> Ultimo bloco tem espaco suficiente !");
 
                 long ponteiro_ultimo_dados = ultimo.getPonteiroDados();
                 long ponteiro_ultimo_bloco_ultimo_inode = ultimo.getInodes().getUltimoValor();
@@ -125,6 +148,8 @@ public class SuperBloco {
                 setTamanhoEscrito(tamanho_escrito + bytes.length);
 
             } else {
+
+                fmt.print("\t >> Ultimo bloco não cabe tudo !");
 
                 byte[] escrever_no_ultimo = new byte[(int) tamanho_sobrou];
                 byte[] escrever_no_novo = new byte[bytes.length - (int) tamanho_sobrou];
@@ -149,22 +174,29 @@ public class SuperBloco {
                     i += 1;
                 }
 
-                //   fmt.print(">> Ultimo : {}", escrever_no_ultimo.length);
-                //   fmt.print(">> Novo   : {}", escrever_no_novo.length);
+                fmt.print(">> Divisão Ultimo : {}", escrever_no_ultimo.length);
+                fmt.print(">> Divisão Novo   : {}", escrever_no_novo.length);
 
+                if (escrever_no_ultimo.length > 0) {
 
-                long ponteiro_ultimo_dados = ultimo.getPonteiroDados();
-                long ponteiro_ultimo_bloco_ultimo_inode = ultimo.getInodes().getUltimoValor();
+                    fmt.print(">> OP : Escrever no ultimo !");
 
-                Inode e_ponteiro_ultimo_bloco_ultimo_inode = mFazendario.getInode(ponteiro_ultimo_bloco_ultimo_inode);
+                    long ponteiro_ultimo_dados = ultimo.getPonteiroDados();
+                    long ponteiro_ultimo_bloco_ultimo_inode = ultimo.getInodes().getUltimoValor();
 
-                mArquivador.setPonteiro(e_ponteiro_ultimo_bloco_ultimo_inode.ponteiro_dados_aqui + ultimo_ponteiro_escrever);
-                mArquivador.set_u8_vector(escrever_no_ultimo);
+                    Inode e_ponteiro_ultimo_bloco_ultimo_inode = mFazendario.getInode(ponteiro_ultimo_bloco_ultimo_inode);
 
-                setTamanhoEscrito(tamanho_escrito + escrever_no_ultimo.length);
+                    mArquivador.setPonteiro(e_ponteiro_ultimo_bloco_ultimo_inode.ponteiro_dados_aqui + ultimo_ponteiro_escrever);
+                    mArquivador.set_u8_vector(escrever_no_ultimo);
+
+                    setTamanhoEscrito(tamanho_escrito + escrever_no_ultimo.length);
+
+                }
+
 
                 if (ultimo.getInodesContagem() < 1000) {
-                    //    fmt.print(">> alocando bloco de dados inode");
+                    fmt.print(">> OP : Alocar novo Inode !");
+
 
                     Opcional<Long> dados_inode = mPasta.obter_um();
                     long dados_inode_ptr = dados_inode.get();
@@ -189,7 +221,50 @@ public class SuperBloco {
 
                     //    fmt.print("## AUMENTANDO BLOCO DE INODES");
                 } else {
-                    throw new RuntimeException("PROBLEMA COM TAMANHO");
+                    fmt.print(">> OP : Precisa de outro bloco !");
+
+                    fmt.print(">> Blocos : {}", getBlocos().getQuantidade());
+
+                    //    fmt.print(">> alocando novo bloco de blocos");
+
+                    Opcional<Long> op_novo_bloco = mPasta.obter_um();
+                    if (op_novo_bloco.isOK()) {
+
+                        long ptr_novo_bloco = op_novo_bloco.get();
+                        mFazendario.marcar_ocupado(ptr_novo_bloco);
+
+                        Inode inode_bloco = mFazendario.getInode(ptr_novo_bloco);
+                        mArquivador.setPonteiro(inode_bloco.ponteiro_dados_aqui);
+                        mArquivador.set_u32(0);
+
+                        adicionar_bloco(ptr_novo_bloco);
+
+                        //    fmt.print(">> alocando bloco de dados inode");
+
+                        Opcional<Long> op_novo_inode = mPasta.obter_um();
+                        if (op_novo_inode.isOK()) {
+
+                            long ptr_novo_inode = op_novo_inode.get();
+                            mFazendario.marcar_ocupado(ptr_novo_inode);
+                            Inode inode_novo_inode = mFazendario.getInode(ptr_novo_inode);
+
+                            Bloco novo_bloco = new Bloco(mArquivador, mFazendario, mPasta, ptr_novo_bloco);
+                            novo_bloco.adicionar_inode(ptr_novo_inode);
+
+                            mArquivador.setPonteiro(inode_novo_inode.ponteiro_dados_aqui);
+                            mArquivador.set_u8_vector(escrever_no_novo);
+
+                            setTamanhoEscrito(getTamanhoEscrito() + escrever_no_novo.length);
+
+                        } else {
+                            throw new RuntimeException("PROBLEMA : FALTA ESPAÇO !");
+                        }
+
+                    } else {
+                        throw new RuntimeException("PROBLEMA : FALTA ESPAÇO !");
+                    }
+
+                    //  throw new RuntimeException("PROBLEMA COM TAMANHO");
                 }
 
 
@@ -197,7 +272,7 @@ public class SuperBloco {
 
         } else if (blocos.getQuantidade() == 0) {
 
-            //      fmt.print(">> PRIMEIRA ALOCACAO NO ARQUIVO");
+            fmt.print(">> PRIMEIRA ALOCACAO NO ARQUIVO");
 
             int bytes_i = 0;
             int bytes_o = bytes.length;
@@ -225,7 +300,7 @@ public class SuperBloco {
                 }
 
                 if (is_primeiro) {
-                    guardar_parcela(parcela);
+                    guardar_primeiro_bloco(parcela);
                     is_primeiro = false;
                 } else {
                     expandir_em_parcelas(parcela);
@@ -242,9 +317,9 @@ public class SuperBloco {
     }
 
 
-    private void guardar_parcela(byte[] bytes) {
+    private void guardar_primeiro_bloco(byte[] bytes) {
 
-        Inode e_superinode = mFazendario.getInode(mPonteiro);
+        fmt.print(">> GUARDAR PRIMEIRO INODE");
 
         Lista<Long> blocos = getBlocos();
 
@@ -253,36 +328,46 @@ public class SuperBloco {
             //  fmt.print(">> alocando nova pagina em superinode");
 
             // Alocar nova pagina para superbloco
-            Opcional<Long> pagina_inode = mPasta.obter_um();
-            if (pagina_inode.isOK()) {
+            Opcional<Long> op_novo_bloco = mPasta.obter_um();
+            if (op_novo_bloco.isOK()) {
 
-                long bloco_a = pagina_inode.get();
-                mFazendario.marcar_ocupado(bloco_a);
+                long ptr_novo_bloco = op_novo_bloco.get();
+                mFazendario.marcar_ocupado(ptr_novo_bloco);
 
-                Inode e_pagina_inode = mFazendario.getInode(bloco_a);
-                mArquivador.setPonteiro(e_pagina_inode.ponteiro_dados_aqui);
+                Inode inode_bloco = mFazendario.getInode(ptr_novo_bloco);
+                mArquivador.setPonteiro(inode_bloco.ponteiro_dados_aqui);
                 mArquivador.set_u32(0);
+
+                adicionar_bloco(ptr_novo_bloco);
+                setTamanhoEscrito(0);
 
                 //    fmt.print(">> alocando bloco de dados inode");
 
-                Opcional<Long> dados_inode = mPasta.obter_um();
-                long dados_inode_ptr = dados_inode.get();
-                mFazendario.marcar_ocupado(dados_inode_ptr);
-                Inode e_dados_inode = mFazendario.getInode(dados_inode_ptr);
+                Opcional<Long> op_novo_inode = mPasta.obter_um();
+                if (op_novo_inode.isOK()) {
 
-                mArquivador.setPonteiro(e_pagina_inode.ponteiro_dados_aqui);
-                mArquivador.set_u32(1);
-                mArquivador.set_u64(dados_inode_ptr);
+                    long ptr_novo_inode = op_novo_inode.get();
+                    mFazendario.marcar_ocupado(ptr_novo_inode);
+                    Inode inode_novo_inode = mFazendario.getInode(ptr_novo_inode);
 
-                mArquivador.setPonteiro(e_dados_inode.ponteiro_dados_aqui);
-                mArquivador.set_u8_vector(bytes);
+                    mArquivador.setPonteiro(inode_bloco.ponteiro_dados_aqui);
+                    mArquivador.set_u32(0);
+
+                    Bloco novo_bloco = new Bloco(mArquivador, mFazendario, mPasta, ptr_novo_bloco);
+                    novo_bloco.adicionar_inode(ptr_novo_inode);
 
 
-                mArquivador.setPonteiro(e_superinode.ponteiro_dados_aqui);
-                mArquivador.set_u64(bytes.length);
-                mArquivador.set_u32(1);
-                mArquivador.set_u64(bloco_a);
+                    mArquivador.setPonteiro(inode_novo_inode.ponteiro_dados_aqui);
+                    mArquivador.set_u8_vector(bytes);
 
+                    setTamanhoEscrito(bytes.length);
+
+                } else {
+                    throw new RuntimeException("PROBLEMA : FALTA ESPAÇO !");
+                }
+
+            } else {
+                throw new RuntimeException("PROBLEMA : FALTA ESPAÇO !");
             }
 
 
@@ -307,6 +392,41 @@ public class SuperBloco {
         mArquivador.setPonteiro(e_superinode.ponteiro_dados_aqui);
         mArquivador.set_u64(tam);
 
+    }
+
+    public void adicionar_bloco(long ptr) {
+
+        Inode e_superinode = mFazendario.getInode(mPonteiro);
+        mArquivador.setPonteiro(e_superinode.ponteiro_dados_aqui);
+
+        long bytes_escritos = mArquivador.get_u64();
+        int quantidade_de_blocos = mArquivador.get_u32();
+
+        if (quantidade_de_blocos < 100) {
+
+            mArquivador.setPonteiro(e_superinode.ponteiro_dados_aqui + (8L + 4L) + ((long) quantidade_de_blocos * Tipo.u64));
+            mArquivador.set_u64(ptr);
+
+            mArquivador.setPonteiro(e_superinode.ponteiro_dados_aqui);
+            bytes_escritos = mArquivador.get_u64();
+            mArquivador.set_u32(quantidade_de_blocos + 1);
+
+        } else {
+            throw new RuntimeException("Máximo de blocos por Superbloco = 100");
+        }
+
+
+    }
+
+    public int getBlocosContagem() {
+        Inode e_superinode = mFazendario.getInode(mPonteiro);
+
+        mArquivador.setPonteiro(e_superinode.ponteiro_dados_aqui);
+
+        long bytes_escritos = mArquivador.get_u64();
+
+        int quantidade_de_blocos = mArquivador.get_u32();
+        return quantidade_de_blocos;
     }
 
     public Lista<Long> getBlocos() {
@@ -452,8 +572,6 @@ public class SuperBloco {
 
         //   fmt.print("\t -- {}", arquivo_tamanho_completo);
 
-        byte[] bytes_completos = new byte[(int) arquivo_tamanho_completo];
-
         //    fmt.print("Mapa de Blocos");
 
         long dados_arquivo_inicio = 0;
@@ -461,11 +579,12 @@ public class SuperBloco {
 
         int bytes_indice_geral = 0;
 
+        fmt.print("Remover blocos");
         for (Long bloco_ptr : getBlocos()) {
 
             Bloco bloco = new Bloco(mArquivador, mFazendario, mPasta, bloco_ptr);
 
-            //  fmt.print("\t >> {} -->> {}", bloco_ptr, bloco.getInodesContagem());
+            fmt.print("\t >> Remover Bloco {} -->> {}", bloco_ptr, bloco.getInodesContagem());
 
             for (Long inode : bloco.getInodes()) {
 
@@ -476,7 +595,7 @@ public class SuperBloco {
 
                 long dados_arquivo_bloco_tamanho = dados_arquivo_fim - dados_arquivo_inicio;
 
-                //   fmt.print("\t\t ++ {}   :: {} : {} - {} :: {}", inode, dados_arquivo_inicio, dados_arquivo_fim, dados_arquivo_bloco_tamanho, fmt.formatar_tamanho_precisao_dupla(dados_arquivo_bloco_tamanho));
+                fmt.print("\t\t Remover Inode ++ {}   :: {} : {} - {} :: {}", inode, dados_arquivo_inicio, dados_arquivo_fim, dados_arquivo_bloco_tamanho, fmt.formatar_tamanho_precisao_dupla(dados_arquivo_bloco_tamanho));
 
                 Inode inode_corrente = mFazendario.getInode(inode);
 
