@@ -93,6 +93,15 @@ public class Tozte {
         return p3 + "/" + p2 + "/" + p1;
     }
 
+    public String getTextoInversoZerado_UnderLine() {
+
+        String p1 = S(this.getSuperarko());
+        String p2 = S(this.getHiperarko());
+        String p3 = S(this.getTronarko());
+
+        return p3 + "_" + p2 + "_" + p1;
+    }
+
 
     private String S(int valor) {
 
