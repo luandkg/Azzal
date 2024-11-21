@@ -32,6 +32,9 @@ public class ZettaArquivo {
         return mEntidade.is("Nome", eNome);
     }
 
+    public String getTamanhoFormatado(){
+        return mEntidade.at("TamanhoFormatado");
+    }
 
     public void atualizar_dados(byte[] bytes) {
 

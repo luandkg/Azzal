@@ -216,14 +216,18 @@ public class ZettaPastas {
             Armazem armazem = mFazendario.OBTER_ARMAZEM_LOCATORIO(pasta.atLong("Ponteiro"));
 
             long tamanho = 0;
+            long arquivos = 0;
+
 
             for(ItemAlocado e_item : armazem.getItensAlocados()){
 
                 Entidade e = ENTT.PARSER_ENTIDADE(e_item.lerTextoUTF8());
 
                 tamanho+=e.atLong("Tamanho");
+                arquivos+=1;
             }
 
+            pasta.at("Arquivos",arquivos);
             pasta.at("Tamanho",tamanho);
             pasta.at("TamanhoFormatado",fmt.formatar_tamanho_precisao_dupla(tamanho));
 
