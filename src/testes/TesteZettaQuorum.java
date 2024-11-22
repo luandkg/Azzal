@@ -3,18 +3,18 @@ package testes;
 import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.fazendario.Fazendario;
 import libs.fazendario.IndiceLocalizado;
+import libs.fts.FTS;
 import libs.luan.*;
 import libs.matematica.IntervaloLong;
 import libs.matematica.Matematica;
+import libs.portugues.PortuguesFTS;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.TronarkoAleatorium;
-import libs.zettaquorum.ItemColecionavel;
-import libs.zettaquorum.OpcionalZ;
-import libs.zettaquorum.ZettaColecao;
-import libs.zettaquorum.ZettaQuorum;
+import libs.zettaquorum.*;
 
-public class TesteZetaQuorum {
+public class TesteZettaQuorum {
 
 
     public static void init_estresse() {
@@ -30,7 +30,7 @@ public class TesteZetaQuorum {
         long contagem = 0;
 
 
-        while (contagem < 10000) {
+        while (contagem < 100) {
 
             init();
 
@@ -110,6 +110,23 @@ public class TesteZetaQuorum {
                 item.get().at("Atualizado", Tronarko.getTronAgora().getTextoZerado());
                 item.get().at("Atualizacoes", item.get().atIntOuPadrao("Atualizacoes", 0) + 1);
 
+
+                Lista<Entidade> palavras = ENTT.CRIAR_LISTA();
+
+                Lista<String> palavras_texto = new Lista<String>();
+                for (String palavra : Strings.DIVIDIR_POR(item.get().at("Texto"), " ")) {
+                    palavra = palavra.trim();
+                    if (!palavra.isEmpty()) {
+                        palavras_texto.adicionar(palavra);
+                    }
+                }
+
+                for (String palavra : palavras_texto) {
+                    Entidade e_palavra = ENTT.GET_SEMPRE(palavras, "Palavra", palavra);
+                    e_palavra.at("Ranking", Strings.CONTAGEM_EM_LISTA(palavras_texto, palavra));
+                }
+
+                item.get().at("FTS", Strings.LINEARIZAR(ENTT.TO_DOCUMENTO(palavras)));
                 item.atualizar();
             }
 
@@ -174,6 +191,89 @@ public class TesteZetaQuorum {
         }
 
         //tronarkum.exibir_colecao();
+    }
+
+    public static void ver_estrutura() {
+
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta.az";
+
+        fmt.print(">> DUMP : FAZENDARIO");
+        Fazendario fazendario = new Fazendario(arquivo_zeta);
+        fazendario.dump_armazens_existentes_completo();
+        fazendario.fechar();
+
+        fmt.print("");
+        fmt.print(">> DUMP : COLEÇÕES");
+        ZettaQuorum colecoes = new ZettaQuorum(arquivo_zeta);
+        colecoes.dump();
+        colecoes.fechar();
+
+        fmt.print("");
+        fmt.print(">> DUMP : PASTAS");
+        ZettaPastas pastas = new ZettaPastas(arquivo_zeta);
+        pastas.dump();
+        pastas.fechar();
+
+    }
+
+
+    public static void init_fts() {
+
+        fmt.print("----------------- ZETA QUORUM ------------------");
+
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta.az";
+
+        ZettaQuorum zeta = new ZettaQuorum(arquivo_zeta);
+
+        ZettaColecao fts = zeta.getColecaoSempre("@FTS");
+
+        if (fts.contagem() == 0) {
+            Lista<Entidade> dados = ENTT.ABRIR("/home/luan/assets/mangas/saint_seiya.entts");
+            ENTT.EXIBIR_TABELA(dados);
+
+            for (Entidade e : dados) {
+                fmt.print(">> Adicionando dados");
+                fts.adicionar(e);
+            }
+        }
+
+
+        for (ItemColecionavel item : fts.getItensEditaveis()) {
+
+            item.get().at("ResumoFTS", FTS.PARSER_TO_DOCUMENTO(item.get().at("Resumo")));
+
+           //    item.atualizar();
+        }
+
+        // fts.exibir_colecao();
+
+        fts.exibir_colecao(0, 10);
+
+        PortuguesFTS portugues = new PortuguesFTS();
+
+        for (Entidade item : fts.getItens()) {
+
+            fmt.print("------------------------------");
+            fmt.print("Resumo :: {}", Strings.LINEARIZAR(item.at("Resumo")));
+            // fmt.print("FTS    :: {}",Strings.LINEARIZAR(item.at("ResumoFTS") ));
+
+            Lista<Entidade> fts_dados = FTS.GET_DOCUMENTO(item.at("ResumoFTS"));
+
+            FTS.RETIRAR_PALAVRAS(fts_dados,portugues.getArtigos());
+            FTS.RETIRAR_PALAVRAS(fts_dados,portugues.getPreposicoes());
+            FTS.RETIRAR_PALAVRAS(fts_dados,portugues.getPronomes());
+            FTS.RETIRAR_PALAVRAS(fts_dados,portugues.getPronomesPossessivos());
+
+            FTS.ORDENAR_MAIOR_RANKING(fts_dados);
+
+            ENTT.EXIBIR_TABELA(ENTT.SLICE(fts_dados, 0, 10));
+
+
+        }
+
+        zeta.fechar();
+
+
     }
 
 
