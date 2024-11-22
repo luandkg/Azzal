@@ -982,6 +982,17 @@ public class Strings {
         return enc;
     }
 
+    public static int CONTAGEM_EM_LISTA(Lista<String> lista, String item) {
+        int enc = 0;
+        for (String r : lista) {
+            if (r.contentEquals(item)) {
+                enc +=1;
+            }
+        }
+
+        return enc;
+    }
+
     public static String numero_sinal(int num) {
 
         String s = "";
@@ -1969,6 +1980,32 @@ public class Strings {
         return linhas;
     }
 
+    public static Lista<String> DIVIDIR_POR_QUALQUER_UM_DESSES(String texto, String por) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (por.contains(c)) {
+                if (!linha.isEmpty()) {
+                    linhas.adicionar(linha);
+                }
+                linha = c;
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (!linha.isEmpty()) {
+            linhas.adicionar(linha);
+        }
+        return linhas;
+    }
+
 
     public static Lista<String> DIVIDIR_POR_OU_POR(String texto, String por1, String por2) {
         Lista<String> linhas = new Lista<String>();
@@ -2354,4 +2391,32 @@ public class Strings {
     }
 
 
+    public static String TRIM(String s){
+        return s.trim();
+    }
+
+    public static String CAIXA_ALTA(String s){
+        return s.toUpperCase();
+    }
+
+    public static String CAIXA_BAIXA(String s){
+        return s.toLowerCase();
+    }
+
+    public static String PURIFICAR(String s,String nao){
+
+        int i = 0;
+        int o = s.length();
+        String ret = "";
+
+        while (i < o) {
+            String l = String.valueOf(s.charAt(i));
+            if(!nao.contains(l)){
+                ret += l;
+            }
+            i += 1;
+        }
+
+        return ret;
+    }
 }
