@@ -986,7 +986,7 @@ public class Strings {
         int enc = 0;
         for (String r : lista) {
             if (r.contentEquals(item)) {
-                enc +=1;
+                enc += 1;
             }
         }
 
@@ -2391,19 +2391,19 @@ public class Strings {
     }
 
 
-    public static String TRIM(String s){
+    public static String TRIM(String s) {
         return s.trim();
     }
 
-    public static String CAIXA_ALTA(String s){
+    public static String CAIXA_ALTA(String s) {
         return s.toUpperCase();
     }
 
-    public static String CAIXA_BAIXA(String s){
+    public static String CAIXA_BAIXA(String s) {
         return s.toLowerCase();
     }
 
-    public static String PURIFICAR(String s,String nao){
+    public static String PURIFICAR(String s, String nao) {
 
         int i = 0;
         int o = s.length();
@@ -2411,12 +2411,51 @@ public class Strings {
 
         while (i < o) {
             String l = String.valueOf(s.charAt(i));
-            if(!nao.contains(l)){
+            if (!nao.contains(l)) {
                 ret += l;
             }
             i += 1;
         }
 
         return ret;
+    }
+
+
+    public static Lista<String> RETIRAR_ITEM_SE_COMECAR_COM(Lista<String> lista, String comeca_com) {
+
+        Lista<String> ret = new Lista<String>();
+
+        for (String item : lista) {
+            if (!item.startsWith(comeca_com)) {
+                ret.adicionar(item);
+            }
+        }
+
+        return ret;
+    }
+
+    public static boolean LISTAS_IGUAIS(Lista<String> lista_a, Lista<String> lista_b) {
+
+
+        if (lista_a.getQuantidade() == lista_b.getQuantidade()) {
+
+            Unico<String> unico_a = new Unico<String>(Strings.IGUALAVEL());
+            Unico<String> unico_b = new Unico<String>(Strings.IGUALAVEL());
+
+            for (String item : lista_a) {
+                unico_a.item(item);
+            }
+
+            for (String item : lista_b) {
+                unico_b.item(item);
+            }
+
+            if (unico_a.getQuantidade() == unico_b.getQuantidade()) {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 }
