@@ -17,13 +17,18 @@ import libs.luan.fmt;
 
 public class TronarkoRenderizadorSensores {
 
+    public static final String PASTA_TRONARKO_VALORES = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores/");
+
+
+    public static String GET_ARQUIVO(int modelo){
+       return PASTA_TRONARKO_VALORES + modelo + ".png";
+    }
+
     public static void TRONARKO_VER_SENSORES_TEMPERATURA() {
 
         fmt.print(">> Ver dados sensores !");
 
         Lista<IntervaloDeValorColorido> FAIXAS_DE_TEMPERATURA = Atzum.GET_TEMPERATURA_INTERVALOS_COLORIDOS();
-
-        String pasta_tronarko_valores = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores/");
 
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
@@ -77,7 +82,7 @@ public class TronarkoRenderizadorSensores {
             }
 
 
-            Imagem.exportar(render.toImagemSemAlfa(), pasta_tronarko_valores + modelo + ".png");
+            Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 
         }
 
@@ -90,7 +95,6 @@ public class TronarkoRenderizadorSensores {
 
         Lista<IntervaloDeValorColorido> FAIXAS_DE_UMIDADE = Atzum.GET_UMIDADE_INTERVALOS_COLORIDOS();
 
-        String pasta_tronarko_valores = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores/");
 
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
@@ -145,7 +149,7 @@ public class TronarkoRenderizadorSensores {
             }
 
 
-            Imagem.exportar(render.toImagemSemAlfa(), pasta_tronarko_valores + modelo + ".png");
+            Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 
         }
 
@@ -154,11 +158,6 @@ public class TronarkoRenderizadorSensores {
     public static void TRONARKO_VER_SENSORES_MASSAS_DE_AR() {
 
         fmt.print(">> Ver dados sensores !");
-
-
-        Lista<IntervaloDeValorColorido> FAIXAS_DE_UMIDADE = Atzum.GET_UMIDADE_INTERVALOS_COLORIDOS();
-
-        String pasta_tronarko_valores = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores/");
 
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
@@ -219,7 +218,7 @@ public class TronarkoRenderizadorSensores {
             }
 
 
-            Imagem.exportar(render.toImagemSemAlfa(), pasta_tronarko_valores + modelo + ".png");
+            Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 
         }
 
@@ -228,11 +227,6 @@ public class TronarkoRenderizadorSensores {
     public static void TRONARKO_VER_SENSORES_FATORES_CLIMATICOS() {
 
         fmt.print(">> Ver dados sensores !");
-
-
-        Lista<IntervaloDeValorColorido> FAIXAS_DE_UMIDADE = Atzum.GET_UMIDADE_INTERVALOS_COLORIDOS();
-
-        String pasta_tronarko_valores = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores/");
 
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
@@ -292,7 +286,7 @@ public class TronarkoRenderizadorSensores {
             }
 
 
-            Imagem.exportar(render.toImagemSemAlfa(), pasta_tronarko_valores + modelo + ".png");
+            Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 
         }
 

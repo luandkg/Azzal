@@ -3,6 +3,7 @@ package apps.app_atzum.servicos;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
+import apps.app_atzum.renderizadores.TronarkoRenderizadorSensores;
 import libs.arquivos.IM;
 import libs.arquivos.Zipper;
 import libs.arquivos.ds.DS;
@@ -28,9 +29,9 @@ public class ServicoExportarTronarko {
 
         if (Opcional.IS_OK(op_init)) {
             Lista<DSItem> indice = DSIndexador.GET_INDEX(arquivo_atzum, "@Atzum.index");
-           // DSIndexador.VER_TAMANHO(indice);
+            // DSIndexador.VER_TAMANHO(indice);
             DS.DUMP_ITENS(indice);
-           // ENTT.EXIBIR_TABELA_COM_NOME(indice, "@Atzum.index");
+            // ENTT.EXIBIR_TABELA_COM_NOME(indice, "@Atzum.index");
             fmt.print("Indice Tamanho >> {}", fmt.formatar_tamanho_precisao_dupla(op_init.get().getTamanhoUtilizadoPreAlocado()));
         }
 
@@ -80,7 +81,7 @@ public class ServicoExportarTronarko {
 
             Lista<DSItem> indice = DSIndexador.GET_INDEX(arquivo_atzum, "@Atzum.index");
 
-           DS.DUMP_ITENS(indice);
+            DS.DUMP_ITENS(indice);
             fmt.print("Indice Tamanho >> {}", fmt.formatar_tamanho_precisao_dupla(op_init.get().getTamanhoUtilizadoPreAlocado()));
 
         }
@@ -140,6 +141,36 @@ public class ServicoExportarTronarko {
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_modelos.entts", arquivo_modelo_dados);
 
 
+
+        fmt.print(">> Exportando sensores : Umidade !");
+        TronarkoRenderizadorSensores.TRONARKO_VER_SENSORES_UMIDADE();
+
+        for (int modelo = 1; modelo <= 10; modelo++) {
+            EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/umidade/modelo_" + modelo + ".im", TronarkoRenderizadorSensores.GET_ARQUIVO(modelo));
+        }
+
+        fmt.print(">> Exportando sensores : Temperatura !");
+        TronarkoRenderizadorSensores.TRONARKO_VER_SENSORES_TEMPERATURA();
+
+        for (int modelo = 1; modelo <= 10; modelo++) {
+            EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/temperatura/modelo_" + modelo + ".im", TronarkoRenderizadorSensores.GET_ARQUIVO(modelo));
+        }
+
+        fmt.print(">> Exportando sensores : Massa de Ar !");
+        TronarkoRenderizadorSensores.TRONARKO_VER_SENSORES_MASSAS_DE_AR();
+
+        for (int modelo = 1; modelo <= 10; modelo++) {
+            EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/massa_de_ar/modelo_" + modelo + ".im", TronarkoRenderizadorSensores.GET_ARQUIVO(modelo));
+        }
+
+        fmt.print(">> Exportando sensores : Fator Climático!");
+        TronarkoRenderizadorSensores.TRONARKO_VER_SENSORES_FATORES_CLIMATICOS();
+
+        for (int modelo = 1; modelo <= 10; modelo++) {
+            EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/fator_climatico/modelo_" + modelo + ".im", TronarkoRenderizadorSensores.GET_ARQUIVO(modelo));
+        }
+
+
         Opcional<DSItem> op_init = DS.buscar_item(arquivo_atzum_tronarko, "@AtzumTronarko.index");
 
         if (Opcional.IS_OK(op_init)) {
@@ -151,7 +182,7 @@ public class ServicoExportarTronarko {
             Lista<DSItem> indice = DSIndexador.GET_INDEX(arquivo_atzum_tronarko, "@AtzumTronarko.index");
             DS.DUMP_ITENS(indice);
 
-          //  ENTT.EXIBIR_TABELA_COM_NOME(indice, "@AtzumTronarko.index");
+            //  ENTT.EXIBIR_TABELA_COM_NOME(indice, "@AtzumTronarko.index");
             fmt.print("Indice Tamanho >> {}", fmt.formatar_tamanho_precisao_dupla(op_init.get().getTamanhoUtilizadoPreAlocado()));
 
         }
