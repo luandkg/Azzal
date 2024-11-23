@@ -113,6 +113,9 @@ public class ServicoExportarTronarko {
         String arquivo_info_modelo_climatico = AtzumCreator.LOCAL_GET_ARQUIVO("comparativos/tronarko_info_" + tronarko_corrente + "_modelo_climatico.png");
         String arquivo_info_modelo_vegetacao = AtzumCreator.LOCAL_GET_ARQUIVO("comparativos/tronarko_info_" + tronarko_corrente + "_modelo_vegetacao.png");
 
+        String arquivo_modelo_climatico = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_climatico.png");
+        String arquivo_modelo_vegetacao = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_vegetacao.png");
+
 
         //  EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@parametros/cidades.entts", AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts"));
 
@@ -123,8 +126,12 @@ public class ServicoExportarTronarko {
 
         EXPORTACAO_ADICIONAR_ENTIDADE(arquivo_atzum_tronarko, "@parametros/tronarko.entt", e_tronarko);
 
-        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_climatico.im", arquivo_info_modelo_climatico);
-        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_vegetacao.im", arquivo_info_modelo_vegetacao);
+
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_climatico.im", arquivo_modelo_climatico);
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_vegetacao.im", arquivo_modelo_vegetacao);
+
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_info_climatico.im", arquivo_info_modelo_climatico);
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_info_vegetacao.im", arquivo_info_modelo_vegetacao);
 
 
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_sensores_por_superarko.dz", arquivo_sensores_superarko_compactado);
