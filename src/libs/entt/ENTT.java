@@ -238,6 +238,33 @@ public class ENTT {
         return e_atts;
     }
 
+
+    public static Lista<String> GET_ATRIBUTOS_NOMES(Lista<Entidade> entidades) {
+
+        Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (Entidade e : entidades) {
+            for (Tag tag : e.tags()) {
+                atributos.item(tag.getNome());
+            }
+        }
+
+
+        return atributos.toLista();
+    }
+
+    public static Lista<String> GET_ATRIBUTOS_NOMES(Entidade entidades) {
+
+        Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
+
+        for (Tag tag : entidades.tags()) {
+            atributos.item(tag.getNome());
+        }
+
+
+        return atributos.toLista();
+    }
+
     public static Lista<Entidade> GET_CAMPOS(Lista<Entidade> mEntts, Lista<String> campos) {
         Lista<Entidade> ret = new Lista<Entidade>();
 
@@ -1102,7 +1129,7 @@ public class ENTT {
     }
 
 
-    public static byte[] TO_DOCUMENTO_BYTES(Lista<Entidade> lista){
+    public static byte[] TO_DOCUMENTO_BYTES(Lista<Entidade> lista) {
         return ENTT.TO_DOCUMENTO(lista).getBytes(StandardCharsets.UTF_8);
     }
 
@@ -1568,21 +1595,21 @@ public class ENTT {
     }
 
 
-    public static Lista<Entidade> VALORES_ENTRE(String att_nome, Lista<String> valores,int inicio,int fim) {
+    public static Lista<Entidade> VALORES_ENTRE(String att_nome, Lista<String> valores, int inicio, int fim) {
         Lista<Entidade> entts = CRIAR_LISTA();
 
         int i = 0;
 
         for (String item : valores) {
 
-            if(i>=inicio && i<=fim){
+            if (i >= inicio && i <= fim) {
                 Entidade e = new Entidade();
                 e.at(att_nome, item);
                 entts.adicionar(e);
             }
 
 
-            i+=1;
+            i += 1;
         }
 
         return entts;
@@ -1605,6 +1632,13 @@ public class ENTT {
     public static Lista<Entidade> CRIAR_LISTA_COM(Entidade e) {
         Lista<Entidade> ls = new Lista<Entidade>();
         ls.adicionar(e);
+        return ls;
+    }
+
+    public static Lista<Entidade> CRIAR_LISTA_COM(Entidade e1,Entidade e2) {
+        Lista<Entidade> ls = new Lista<Entidade>();
+        ls.adicionar(e1);
+        ls.adicionar(e2);
         return ls;
     }
 
@@ -2120,9 +2154,94 @@ public class ENTT {
 
     public static void ATRIBUTO_REMOVER(Lista<Entidade> dados, String att_nome) {
         for (Entidade e : dados) {
-           e.at_remover(att_nome);
+            e.at_remover(att_nome);
         }
     }
 
 
+    public static Lista<Entidade> ANALISAR_OBTER_NOVOS(Lista<Entidade> dados_primarios, Lista<Entidade> dados_secundarios, String att_primario, String att_secundario) {
+
+        Lista<Entidade> novos = new Lista<Entidade>();
+
+        for (Entidade primario : dados_primarios) {
+
+            boolean existe = false;
+
+            String primario_valor = primario.at(att_primario);
+
+            for (Entidade secundario : dados_secundarios) {
+
+                String secundario_valor = secundario.at(att_secundario);
+
+                if (Strings.isIgual(primario_valor, secundario_valor)) {
+                    existe = true;
+                    break;
+                }
+
+            }
+
+            if (!existe) {
+                novos.adicionar(primario);
+            }
+
+        }
+
+        return novos;
+    }
+
+    public static Lista<Entidade> ANALISAR_OBTER_EXCLUIDOS(Lista<Entidade> dados_primarios, Lista<Entidade> dados_secundarios, String att_primario, String att_secundario) {
+
+        Lista<Entidade> excluidos = new Lista<Entidade>();
+
+        for (Entidade secundario : dados_secundarios) {
+
+            boolean existe = false;
+
+            String secundario_valor = secundario.at(att_secundario);
+
+            for (Entidade primario : dados_primarios) {
+
+                String primario_valor = primario.at(att_primario);
+
+                if (Strings.isIgual(primario_valor, secundario_valor)) {
+                    existe = true;
+                    break;
+                }
+
+            }
+
+            if (!existe) {
+                excluidos.adicionar(secundario);
+            }
+
+        }
+
+        return excluidos;
+    }
+
+
+    public static Lista<Par<Entidade, Entidade>> ANALISAR_OBTER_EM_COMUM_PARES(Lista<Entidade> dados_primarios, Lista<Entidade> dados_secundarios, String att_primario, String att_secundario) {
+
+        Lista<Par<Entidade, Entidade>> comum = new Lista<Par<Entidade, Entidade>>();
+
+        for (Entidade primario : dados_primarios) {
+
+            String primario_valor = primario.at(att_primario);
+
+            for (Entidade secundario : dados_secundarios) {
+
+                String secundario_valor = secundario.at(att_secundario);
+
+                if (Strings.isIgual(primario_valor, secundario_valor)) {
+                    comum.adicionar(new Par<Entidade, Entidade>(primario, secundario));
+                    break;
+                }
+
+            }
+
+
+        }
+
+        return comum;
+    }
 }
