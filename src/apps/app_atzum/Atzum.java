@@ -2,6 +2,7 @@ package apps.app_atzum;
 
 
 import apps.app_atzum.utils.AtzumPontos;
+import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_atzum.utils.MassaDeAr;
 import libs.arquivos.binario.Inteiro;
 import libs.azzal.geometria.Ponto;
@@ -161,6 +162,27 @@ public class Atzum {
             ret = "TEMPESTADE";
         } else if (eCor.igual(mMassaDeArHiperTempestade)) {
             ret = "HIPERTEMPESTADE";
+        }
+
+        return ret;
+    }
+
+    public Cor GET_MASSA_DE_AR_COR(String massa_de_ar) {
+
+        Cor ret =new Cor(0,0,0);
+
+        if (massa_de_ar.contentEquals("FRIO")) {
+            ret = mMassaDeArFria;
+        } else if (massa_de_ar.contentEquals("SUPERFRIO")) {
+            ret = mSuperMassaDeArFria;
+        } else if (massa_de_ar.contentEquals("QUENTE")) {
+            ret = mMassaDeArQuente;
+        } else if (massa_de_ar.contentEquals("SUPERQUENTE")) {
+            ret = mSuperMassaDeArQuente;
+        } else if (massa_de_ar.contentEquals("TEMPESTADE")) {
+            ret = mMassaDeArTempestade;
+        } else if (massa_de_ar.contentEquals("HIPERTEMPESTADE")) {
+            ret = mMassaDeArHiperTempestade;
         }
 
         return ret;
@@ -446,5 +468,75 @@ public class Atzum {
         return mMassasDeAr;
     }
 
+
+    public static Ponto SENSOR_NORMALIZAR(Lista<Entidade> sensores,Entidade sensor){
+
+        int sensor_px = 0;
+        int sensor_py = 0;
+
+
+        int padrao_sensor_px = sensor.atInt("X");
+        int padrao_sensor_py = sensor.atInt("Y");
+
+        for (Entidade e : sensores) {
+            if (e.atInt("X") == padrao_sensor_px && e.atInt("Y") == padrao_sensor_py) {
+                sensor = e;
+                break;
+            }
+        }
+
+        if (sensor.is("Tipo", "Comum")) {
+            sensor_px = sensor.atInt("X");
+            sensor_py = sensor.atInt("Y");
+        } else if (sensor.is("Tipo", "Cidade")) {
+            sensor_px = sensor.atInt("X");
+            sensor_py = sensor.atInt("Y");
+        } else if (sensor.is("Tipo", "Referenciado")) {
+            sensor_px = sensor.atInt("RefX");
+            sensor_py = sensor.atInt("RefY");
+        }
+
+        return new Ponto(sensor_px,sensor_py);
+
+    }
+
+    public static Lista<IntervaloDeValorColorido> GET_TEMPERATURA_INTERVALOS_COLORIDOS() {
+
+        Cor COR_MUITO_QUENTE = Cor.getHexCor("#BF360C");
+        Cor COR_QUENTE = Cor.getHexCor("#FB8C00");
+        Cor COR_FRIO = Cor.getHexCor("#1976D2");
+        Cor COR_MUITO_FRIO = Cor.getHexCor("#0D47A1");
+        Cor COR_NORMAL = Cor.getHexCor("#8BC34A");
+
+        Lista<IntervaloDeValorColorido> FAIXAS_DE_TEMPERATURA = new Lista<IntervaloDeValorColorido>();
+
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-30, -15, COR_MUITO_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-15, 10, COR_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(10, 30, COR_NORMAL));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(30, 35, COR_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(35, 45, COR_MUITO_QUENTE));
+
+        return FAIXAS_DE_TEMPERATURA;
+    }
+
+
+        public static Lista<IntervaloDeValorColorido> GET_UMIDADE_INTERVALOS_COLORIDOS(){
+
+        Cor COR_MUITO_QUENTE = Cor.getHexCor("#BF360C");
+        Cor COR_QUENTE = Cor.getHexCor("#FB8C00");
+        Cor COR_FRIO = Cor.getHexCor("#1976D2");
+        Cor COR_MUITO_FRIO = Cor.getHexCor("#0D47A1");
+        Cor COR_NORMAL = Cor.getHexCor("#8BC34A");
+
+        Lista<IntervaloDeValorColorido> FAIXAS_DE_UMIDADE = new Lista<IntervaloDeValorColorido>();
+
+        FAIXAS_DE_UMIDADE.adicionar(new IntervaloDeValorColorido(0, 20, COR_MUITO_QUENTE));
+        FAIXAS_DE_UMIDADE.adicionar(new IntervaloDeValorColorido(20, 40, COR_QUENTE));
+        FAIXAS_DE_UMIDADE.adicionar(new IntervaloDeValorColorido(40, 60, COR_NORMAL));
+        FAIXAS_DE_UMIDADE.adicionar(new IntervaloDeValorColorido(60, 80, COR_FRIO));
+        FAIXAS_DE_UMIDADE.adicionar(new IntervaloDeValorColorido(80, 100, COR_MUITO_FRIO));
+
+        return FAIXAS_DE_UMIDADE;
+    }
 
 }

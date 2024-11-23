@@ -6,7 +6,7 @@ import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.utils.AtzumCreatorInfo;
 import apps.app_atzum.utils.AtzumPontosInteiro;
-import apps.app_atzum.utils.FaixaDeTemperatura;
+import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_atzum.utils.Rasterizador;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
@@ -543,13 +543,13 @@ public class ServicoTemperatura {
         Cor COR_MUITO_FRIO = Cor.getHexCor("#0D47A1");
         Cor COR_NORMAL = Cor.getHexCor("#8BC34A");
 
-        Lista<FaixaDeTemperatura> FAIXAS_DE_TEMPERATURA = new Lista<FaixaDeTemperatura>();
+        Lista<IntervaloDeValorColorido> FAIXAS_DE_TEMPERATURA = new Lista<IntervaloDeValorColorido>();
 
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(36, 45, COR_MUITO_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(30, 35, COR_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(15, 25, COR_NORMAL));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-15, 10, COR_FRIO));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-30, -15, COR_MUITO_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(36, 45, COR_MUITO_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(30, 35, COR_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(15, 25, COR_NORMAL));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-15, 10, COR_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-30, -15, COR_MUITO_FRIO));
 
 
         Renderizador temperatura_zonas = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_" + modelagem + "_v2.png"));
@@ -558,7 +558,7 @@ public class ServicoTemperatura {
         Cores mCores = new Cores();
         Renderizador render_publicar = Renderizador.CONSTRUIR(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
 
-        for (FaixaDeTemperatura temperatura : FAIXAS_DE_TEMPERATURA) {
+        for (IntervaloDeValorColorido temperatura : FAIXAS_DE_TEMPERATURA) {
 
             Lista<Ponto> pontos_de_temperatura = new Lista<Ponto>();
 
@@ -913,13 +913,13 @@ public class ServicoTemperatura {
         Cor COR_MUITO_FRIO = Cor.getHexCor("#0D47A1");
         Cor COR_NORMAL = Cor.getHexCor("#8BC34A");
 
-        Lista<FaixaDeTemperatura> FAIXAS_DE_TEMPERATURA = new Lista<FaixaDeTemperatura>();
+        Lista<IntervaloDeValorColorido> FAIXAS_DE_TEMPERATURA = new Lista<IntervaloDeValorColorido>();
 
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(36, 45, COR_MUITO_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(30, 35, COR_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(10, 30, COR_NORMAL));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-15, 10, COR_FRIO));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-30, -15, COR_MUITO_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(36, 45, COR_MUITO_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(30, 35, COR_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(10, 30, COR_NORMAL));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-15, 10, COR_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-30, -15, COR_MUITO_FRIO));
 
 
 
@@ -933,7 +933,7 @@ public class ServicoTemperatura {
 
                     Cor cor_temp = mCores.getBranco();
 
-                    for(FaixaDeTemperatura temp_zona : FAIXAS_DE_TEMPERATURA){
+                    for(IntervaloDeValorColorido temp_zona : FAIXAS_DE_TEMPERATURA){
                         if(valor>=temp_zona.getMinimo() && valor<=temp_zona.getMaximo()){
                             cor_temp=temp_zona.getCor();
                             break;

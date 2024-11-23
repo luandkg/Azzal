@@ -4,7 +4,7 @@ import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.escalas.EscalaAQ4;
 import apps.app_atzum.escalas.EscalaRT3;
 import apps.app_atzum.escalas.EscalaVT2;
-import apps.app_atzum.utils.FaixaDeTemperatura;
+import apps.app_atzum.utils.IntervaloDeValorColorido;
 import libs.arquivos.QTT;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
@@ -49,13 +49,13 @@ public class TronarkoRenderizadores {
         Cor COR_MUITO_FRIO = Cor.getHexCor("#0D47A1");
         Cor COR_NORMAL = Cor.getHexCor("#8BC34A");
 
-        Lista<FaixaDeTemperatura> FAIXAS_DE_TEMPERATURA = new Lista<FaixaDeTemperatura>();
+        Lista<IntervaloDeValorColorido> FAIXAS_DE_TEMPERATURA = new Lista<IntervaloDeValorColorido>();
 
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(36, 45, COR_MUITO_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(30, 35, COR_QUENTE));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(10, 30, COR_NORMAL));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-15, 10, COR_FRIO));
-        FAIXAS_DE_TEMPERATURA.adicionar(new FaixaDeTemperatura(-30, -15, COR_MUITO_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(36, 45, COR_MUITO_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(30, 35, COR_QUENTE));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(10, 30, COR_NORMAL));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-15, 10, COR_FRIO));
+        FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-30, -15, COR_MUITO_FRIO));
 
 
         for (int y = 0; y < mapa_planeta.getAltura(); y++) {
@@ -67,7 +67,7 @@ public class TronarkoRenderizadores {
 
                     Cor cor_temp = mCores.getBranco();
 
-                    for (FaixaDeTemperatura temp_zona : FAIXAS_DE_TEMPERATURA) {
+                    for (IntervaloDeValorColorido temp_zona : FAIXAS_DE_TEMPERATURA) {
                         if (temperatura >= temp_zona.getMinimo() && temperatura <= temp_zona.getMaximo()) {
                             cor_temp = temp_zona.getCor();
                             break;
