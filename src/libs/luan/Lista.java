@@ -484,6 +484,9 @@ public class Lista<T> implements Iterable<T> {
         }
     }
 
+    public T getPrimeiroValor() {
+        return getValor(0);
+    }
 
     public T getUltimoValor() {
         return getValor(getQuantidade() - 1);
