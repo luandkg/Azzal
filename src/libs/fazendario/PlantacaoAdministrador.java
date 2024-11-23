@@ -236,4 +236,104 @@ public class PlantacaoAdministrador {
     }
 
 
+    public int getPlantacoesQuantidade() {
+
+        DeslizadorEstrutural<PlantacaoDeslizante> portoes_deslizantes = new DeslizadorEstrutural<PlantacaoDeslizante>(new PlantacaoDeslizante(mArquivador, mPonteiroPlantacao));
+
+
+       int quantidade = 0;
+
+        while (portoes_deslizantes.temProximo()) {
+
+            PlantacaoDeslizante plantacao_corrente = portoes_deslizantes.get();
+
+            quantidade+=1;
+
+            if (plantacao_corrente.temProximo()) {
+                portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
+                //    fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
+            } else {
+                portoes_deslizantes.finalizar();
+            }
+
+        }
+
+        return quantidade;
+    }
+
+    public int getPlantacoesEspacos() {
+
+        DeslizadorEstrutural<PlantacaoDeslizante> portoes_deslizantes = new DeslizadorEstrutural<PlantacaoDeslizante>(new PlantacaoDeslizante(mArquivador, mPonteiroPlantacao));
+
+
+        int quantidade = 0;
+
+        while (portoes_deslizantes.temProximo()) {
+
+            PlantacaoDeslizante plantacao_corrente = portoes_deslizantes.get();
+
+            quantidade+=plantacao_corrente.getQuantidade();
+
+            if (plantacao_corrente.temProximo()) {
+                portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
+                //    fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
+            } else {
+                portoes_deslizantes.finalizar();
+            }
+
+        }
+
+        return quantidade;
+    }
+
+    public int getPlantacoesAlocados() {
+
+        DeslizadorEstrutural<PlantacaoDeslizante> portoes_deslizantes = new DeslizadorEstrutural<PlantacaoDeslizante>(new PlantacaoDeslizante(mArquivador, mPonteiroPlantacao));
+
+
+        int quantidade = 0;
+
+        while (portoes_deslizantes.temProximo()) {
+
+            PlantacaoDeslizante plantacao_corrente = portoes_deslizantes.get();
+
+            quantidade+=plantacao_corrente.getAlocados();
+
+            if (plantacao_corrente.temProximo()) {
+                portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
+                //    fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
+            } else {
+                portoes_deslizantes.finalizar();
+            }
+
+        }
+
+        return quantidade;
+    }
+
+
+    public int getPlantacoesOcupados() {
+
+        DeslizadorEstrutural<PlantacaoDeslizante> portoes_deslizantes = new DeslizadorEstrutural<PlantacaoDeslizante>(new PlantacaoDeslizante(mArquivador, mPonteiroPlantacao));
+
+
+        int quantidade = 0;
+
+        while (portoes_deslizantes.temProximo()) {
+
+            PlantacaoDeslizante plantacao_corrente = portoes_deslizantes.get();
+
+            quantidade+=plantacao_corrente.getOcupados();
+
+            if (plantacao_corrente.temProximo()) {
+                portoes_deslizantes.setProximo(new PlantacaoDeslizante(mArquivador, plantacao_corrente.getProximo()));
+                //    fmt.print("\t ++ Mudando de ArmazemPortao :: {} ->> {} ", local_ponteiro_sumario_anterior, local_ponteiro_sumario);
+            } else {
+                portoes_deslizantes.finalizar();
+            }
+
+        }
+
+        return quantidade;
+    }
 }

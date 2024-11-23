@@ -59,6 +59,17 @@ public class ZettaQuorum {
             colecao.at("Reciclaveis", armazem.getItensReciclaveisContagem());
             colecao.at("Utilizados", armazem.getItensUtilizadosContagem());
 
+            if (armazem.temPlantacao()) {
+
+                colecao.at("Plantacao", "SIM");
+                colecao.at("PlantacaoQuantidade", armazem.getPlantacoesQuantidade());
+                colecao.at("PlantacaoEspacos", armazem.getPlantacoesEspacos());
+                colecao.at("PlantacaoAlocados", armazem.getPlantacoesAlocados());
+                colecao.at("PlantacaoOcupados", armazem.getPlantacoesOcupados());
+
+            } else {
+                colecao.at("Plantacao", "NÃO");
+            }
 
         }
 

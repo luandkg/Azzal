@@ -241,11 +241,90 @@ public class Armazem {
 
             PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), portao_primario.getPlantacao());
 
-            dump=pa.getDump();
+            dump = pa.getDump();
 
         }
 
         return dump;
     }
 
+
+    public boolean temPlantacao() {
+
+        boolean tem = false;
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+            tem = true;
+        }
+
+        return tem;
+    }
+
+    public int getPlantacoesQuantidade() {
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+
+            PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), portao_primario.getPlantacao());
+
+            return pa.getPlantacoesQuantidade();
+        }
+
+        return 0;
+    }
+
+    public int getPlantacoesEspacos() {
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+
+            PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), portao_primario.getPlantacao());
+
+            return pa.getPlantacoesEspacos();
+        }
+
+        return 0;
+    }
+
+    public int getPlantacoesAlocados() {
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+
+            PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), portao_primario.getPlantacao());
+
+            return pa.getPlantacoesAlocados();
+        }
+
+        return 0;
+    }
+
+    public int getPlantacoesOcupados() {
+
+        long sumario_ponteiro = getPortaoPonteiro();
+
+        PortaoDeslizante portao_primario = new PortaoDeslizante(mArquivador, mFazendario, mIndice, sumario_ponteiro);
+
+        if (portao_primario.temPlantacao() && portao_primario.getPlantacao() != 0) {
+
+            PlantacaoAdministrador pa = new PlantacaoAdministrador(mArquivador, mFazendario, portao_primario.getIndice(), portao_primario.getPlantacao());
+
+            return pa.getPlantacoesOcupados();
+        }
+
+        return 0;
+    }
 }
