@@ -316,14 +316,18 @@ public class ServicoExportarTronarko {
 
         String arquivo_cidades_dados = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades.entts");
         String arquivo_cidades_modelos = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_modelos.entts");
+        String arquivo_cidades_distancia_oceanica = AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades_distancia_oceanica.entts");
+
 
         Lista<Entidade> cidades = Atzum.GET_CIDADES_NOMES();
         Lista<Entidade> dados = ENTT.ABRIR(arquivo_cidades_dados);
         Lista<Entidade> modelos = ENTT.ABRIR(arquivo_cidades_modelos);
+        Lista<Entidade> distancia_oceanica = ENTT.ABRIR(arquivo_cidades_distancia_oceanica);
 
-        fmt.print("Cidades : {}", ENTT.CONTAGEM(cidades));
-        fmt.print("Cidades : {}", ENTT.CONTAGEM(dados));
-        fmt.print("Modelos : {}", ENTT.CONTAGEM(modelos));
+        fmt.print("Cidades   : {}", ENTT.CONTAGEM(cidades));
+        fmt.print("Cidades   : {}", ENTT.CONTAGEM(dados));
+        fmt.print("Modelos   : {}", ENTT.CONTAGEM(modelos));
+        fmt.print("Distancia : {}", ENTT.CONTAGEM(distancia_oceanica));
 
         ENTT.EXIBIR_TABELA(ENTT.GET_AMOSTRA_PEQUENA(dados));
         // ENTT.EXIBIR_TABELA(ENTT.DISPERSAO(dados,"CidadeNome"));
@@ -352,6 +356,10 @@ public class ServicoExportarTronarko {
             e_cidade.at("Nevasca", e_modelo.at("Nevasca"));
             e_cidade.at("Chuva", e_modelo.at("Chuva"));
             e_cidade.at("Secura", e_modelo.at("Secura"));
+
+            Entidade e_distancia_oceanica = ENTT.GET_SEMPRE(distancia_oceanica, "CidadePos", e_cidade.at("CidadePos"));
+            e_cidade.at("Oceano_Nome", e_distancia_oceanica.at("Oceano_Nome"));
+            e_cidade.at("Oceano_Distancia", e_distancia_oceanica.at("Oceano_Distancia"));
 
 
             double tMenor = e_sensor.atDouble("T1");

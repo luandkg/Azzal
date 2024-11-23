@@ -8,6 +8,7 @@ import apps.app_atzum.servicos.*;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.Strings;
 import libs.luan.fmt;
 import libs.meta_functional.Acao;
 import libs.tronarko.Tron;
@@ -18,6 +19,27 @@ public class AtzumProcessoCriativoEmTarefas {
 
     public static final String ARQUIVO_LOCAL_ALFA = "comparativos/alfa_processo_criativo.entts";
     public static final String ARQUIVO_LOCAL_BETA = "comparativos/beta_processo_criativo.entts";
+
+
+
+    public static void INIT(int quantidade_de_passos){
+
+        while (quantidade_de_passos > 0) {
+
+            AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+
+            if (Strings.isDiferente(AtzumProcessoCriativoEmTarefas.GET_ALFA_TAREFA(), "TudoOK")) {
+                AtzumProcessoCriativoEmTarefas.INIT_ALFA_SEQUENCIAL();
+            } else {
+                AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
+            }
+
+            quantidade_de_passos -= 1;
+        }
+
+    }
+
+
 
     public static void INIT_ALFA_SEQUENCIAL() {
 

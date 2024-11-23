@@ -22,7 +22,7 @@ public class AtzumCentralDados {
         AtzumCreatorInfo.iniciar("AtzumCentralDados.PROXIMIDADE_COM_OCENAO");
 
 
-        Lista<Entidade> mInformacoesDasCidades = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_cidades_publicado.entts"));
+        Lista<Entidade> tronarko_cidades_distancia_oceanica = Atzum.GET_CIDADES_NOMES();
 
 
         Atzum atzum = new Atzum();
@@ -36,7 +36,7 @@ public class AtzumCentralDados {
         int altura = atzum_terra.getAltura();
 
 
-        for (Entidade cidade : mInformacoesDasCidades) {
+        for (Entidade cidade : tronarko_cidades_distancia_oceanica) {
 
             int cidade_x = cidade.atInt("X");
             int cidade_y = cidade.atInt("Y");
@@ -64,9 +64,11 @@ public class AtzumCentralDados {
 
         }
 
+        ENTT.AT_ALTERAR_NOME(tronarko_cidades_distancia_oceanica,"Cidade","CidadePos");
 
-        ENTT.GUARDAR(mInformacoesDasCidades, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_cidades_publicado.entts"));
+        ENTT.GUARDAR(tronarko_cidades_distancia_oceanica, AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades_distancia_oceanica.entts"));
 
+        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(tronarko_cidades_distancia_oceanica,10));
 
         AtzumCreatorInfo.terminar("AtzumCentralDados.PROXIMIDADE_COM_OCENAO");
 
