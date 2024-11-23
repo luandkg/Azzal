@@ -51,4 +51,8 @@ public class ItemColecionavel {
         mItem.remover();
 
     }
+
+    public boolean isRemovido(){
+        return mRemovido;
+    }
 }
