@@ -952,12 +952,12 @@ public class DS {
 
         tamanho_nome+=15;
 
-        String cabecalho_fmt = "| {dir15} | {dir" + tamanho_nome + "} | {dir10} | {dir10} | {dir18} |{esq18} |";
-        String linha_fmt = "| {dir15} | {dir" + tamanho_nome + "} | {dir10} | {dir10} | {esq18} |{esq18} |";
+        String cabecalho_fmt = "| {dir15} | {dir" + tamanho_nome + "} | {dir10} | {dir10} | {dir20} |{esq20} |";
+        String linha_fmt = "| {dir15} | {dir" + tamanho_nome + "} | {dir10} | {dir10} | {esq20} |{esq20} |";
 
-        fmt.print("{}",fmt.repetir("-",tamanho_nome+73+16));
+        fmt.print("{}",fmt.repetir("-",tamanho_nome+73+20));
         fmt.print(cabecalho_fmt,"Status","Nome","Início","Fim","Tamanho","Tamanho Usado");
-        fmt.print("{}",fmt.repetir("-",tamanho_nome+73+16));
+        fmt.print("{}",fmt.repetir("-",tamanho_nome+73+20));
 
         for (DSItem item : itens) {
             if(item.getStatus()==111){
@@ -967,7 +967,7 @@ public class DS {
             }
         }
 
-        fmt.print("{}",fmt.repetir("-",tamanho_nome+73+16));
+        fmt.print("{}",fmt.repetir("-",tamanho_nome+73+20));
 
     }
 
