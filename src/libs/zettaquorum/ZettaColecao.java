@@ -167,4 +167,10 @@ public class ZettaColecao {
     public void exibir_colecao(long minimo,long maximo) {
         ENTT.EXIBIR_TABELA_COM_NOME(getItensIntervalo(minimo,maximo), "COLEÇÃO :: " + mDados.getNome());
     }
+
+    public void adicionar_varios(Lista<Entidade> varios){
+        for(Entidade item : varios){
+            adicionar(item);
+        }
+    }
 }
