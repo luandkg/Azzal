@@ -10,6 +10,8 @@ import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.fmt;
 
+import java.awt.image.BufferedImage;
+
 public class ArquivoAtzumTronarko {
 
     private Lista<DSItem> mIndice;
@@ -37,5 +39,14 @@ public class ArquivoAtzumTronarko {
         return mCidadesDadosPublicados;
     }
 
+    public BufferedImage GET_MODELO_CLIMATICO() {
+        BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/modelo_climatico.im").get());
+        return mapa;
+    }
+
+    public BufferedImage GET_MODELO_VEGETACAO() {
+        BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/modelo_vegetacao.im").get());
+        return mapa;
+    }
 
 }
