@@ -1528,6 +1528,12 @@ public class ENTT {
         return ret;
     }
 
+
+    public static Lista<Entidade> SLICE_PRIMEIROS(Lista<Entidade> dados,int quantidade){
+       return ENTT.SLICE(dados,0,quantidade);
+    }
+
+
     public static Lista<Entidade> PARSER(String texto_dados) {
 
         DKG dkg = new DKG();
