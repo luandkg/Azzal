@@ -1,17 +1,21 @@
 package apps.app_atzum;
 
-import apps.app_atzum.servicos.*;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_atzum.utils.SnapShotter;
+import libs.arquivos.ds.DS;
+import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.utilitarios.Cor;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.imagem.Imagem;
 import libs.luan.Lista;
 import libs.luan.fmt;
 
 public class AtzumProcessoCriativo {
-
 
 
     public static void TAKE_SHOT() {
@@ -74,16 +78,9 @@ public class AtzumProcessoCriativo {
     }
 
 
-
-
-
-
     public static String OBTER_TEMPO(Entidade item) {
         return item.at("Tempo");
     }
-
-
-
 
 
     public static void VER_CIDADES() {
@@ -92,8 +89,6 @@ public class AtzumProcessoCriativo {
         ENTT.EXIBIR_TABELA(cidades);
 
     }
-
-
 
 
 }
