@@ -7,6 +7,7 @@ import apps.app_atzum.VideoRasterizar;
 import libs.arquivos.ds.DS;
 import libs.arquivos.video.Empilhador;
 import libs.arquivos.video.VideoCodecador;
+import libs.arquivos.video.VideoConstrutor;
 import libs.azzal.Renderizador;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
@@ -16,8 +17,6 @@ import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 import libs.luan.Lista;
 import libs.luan.fmt;
-
-import java.awt.image.BufferedImage;
 
 public class AnimadoresDeSensores {
 
@@ -44,7 +43,7 @@ public class AnimadoresDeSensores {
 
         String arquivo_video = PASTA_TRONARKO_VALORES + "fatores_climaticos.vi";
 
-        Empilhador mVideo = new VideoCodecador().criar(arquivo_video, planeta.getLargura() / 2, planeta.getAltura() / 2);
+        VideoConstrutor mVideo = new VideoConstrutor(arquivo_video, planeta.getLargura() / 2, planeta.getAltura() / 2);
 
         for (int superarko = 1; superarko <= 500; superarko++) {
 
@@ -54,7 +53,7 @@ public class AnimadoresDeSensores {
 
             Lista<Entidade> dados = ENTT.PARSER(DS.buscar_item(arquivo_sensores_por_superarko, superarko + ".entts").get().getTexto());
 
-            ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(dados, 5));
+           // ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(dados, 5));
 
             Renderizador render = AtzumCreator.GET_RENDER_FUNDO_PRETO();
 
@@ -79,7 +78,7 @@ public class AnimadoresDeSensores {
 
             }
 
-            mVideo.empurrarQuadro(Efeitos.reduzirMetade(render.toImagemSemAlfa()));
+            mVideo.adicionarQuadro(Efeitos.reduzirMetade(render.toImagemSemAlfa()));
 
         }
 

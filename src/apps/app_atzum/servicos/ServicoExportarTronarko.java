@@ -123,10 +123,9 @@ public class ServicoExportarTronarko {
 
         Entidade e_tronarko = new Entidade();
         e_tronarko.at("Tronarko", tronarko_corrente);
-        e_tronarko.at("Criado", Tronarko.getTronAgora().getTextoZerado());
+        e_tronarko.at("Iniciado", Tronarko.getTronAgora().getTextoZerado());
 
 
-        EXPORTACAO_ADICIONAR_ENTIDADE(arquivo_atzum_tronarko, "@parametros/tronarko.entt", e_tronarko);
 
 
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_climatico.im", arquivo_modelo_climatico);
@@ -177,6 +176,18 @@ public class ServicoExportarTronarko {
         for (int modelo = 1; modelo <= 10; modelo++) {
             EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/fator_climatico/modelo_" + modelo + ".im", TronarkoRenderizadorSensores.GET_ARQUIVO(modelo));
         }
+
+
+
+        // ADICIONAR ANIMAÇÕES
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@animacao/fatores_climaticos.vi", AtzumCreator.LOCAL_GET_ARQUIVO("videos_sensores/fatores_climaticos.vi"));
+
+
+
+        e_tronarko.at("Finalizado", Tronarko.getTronAgora().getTextoZerado());
+
+        EXPORTACAO_ADICIONAR_ENTIDADE(arquivo_atzum_tronarko, "@parametros/tronarko.entt", e_tronarko);
+
 
 
         Opcional<DSItem> op_init = DS.buscar_item(arquivo_atzum_tronarko, "@AtzumTronarko.index");
