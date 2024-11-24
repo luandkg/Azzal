@@ -1,5 +1,6 @@
 package apps.app_atzum.app;
 
+import libs.arquivos.dsvideo.DSVideo;
 import libs.azzal.Cores;
 import libs.imagem.Efeitos;
 import libs.luan.RefInt;
@@ -124,6 +125,21 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 criar_subcamadas(mSubCamadas, app, "fator_climatico");
+
+                mSubCamadas.criarCamadaComNome("FC", "FC", mCores.getVermelho()).setAcao(new Acao() {
+                    @Override
+                    public void onClique() {
+
+
+                        DSVideo video = app.mArquivoAtzumTronarko.GET_VIDEO("@animacao/fatores_climaticos.vi");
+
+                        app.reproduzirVideo(video);
+
+                        mSubCamadas.setSelecionado("FC");
+
+                    }
+                });
+
                 grupo.setSelecionado("FatorClimatico");
 
             }
