@@ -239,7 +239,7 @@ public class Atzum {
         return ret;
     }
 
-    public Cor GET_FATOR_CLIMATICO_COR(String fator_climatico) {
+    public static Cor GET_FATOR_CLIMATICO_COR(String fator_climatico) {
         Cor ret = new Cor(255, 255, 255);
 
         if (Strings.isIgual(fator_climatico, "CHUVA")) {
