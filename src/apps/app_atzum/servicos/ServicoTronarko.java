@@ -2,7 +2,9 @@ package apps.app_atzum.servicos;
 
 import apps.app_arquivos.AppVideo;
 import apps.app_attuz.Ferramentas.Espaco2D;
-import apps.app_atzum.*;
+import apps.app_atzum.Atzum;
+import apps.app_atzum.AtzumCreator;
+import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.analisadores.AnalisadorTemperatura;
 import apps.app_atzum.apps.AtzumSnapShots;
 import apps.app_atzum.renderizadores.TronarkoRenderizadores;
@@ -429,29 +431,7 @@ public class ServicoTronarko {
         for (int superarko = 1; superarko <= 500; superarko++) {
 
 
-            boolean temperatura_aumetando = true;
-
-            if (superarko > 250) {
-                temperatura_aumetando = false;
-            }
-
-
-            for (int y = 0; y < mapa_planeta.getAltura(); y++) {
-                for (int x = 0; x < mapa_planeta.getLargura(); x++) {
-                    if (mapa_planeta.isTerra(x, y)) {
-
-                        if (temperatura_aumetando) {
-                            tronarko_temperatura.set(x, y, tronarko_temperatura.get(x, y) + tronarko_temperatura_transicao.get(x, y));
-                            d_indo.set(tronarko_temperatura.get(x, y));
-                        } else {
-                            tronarko_temperatura.set(x, y, tronarko_temperatura.get(x, y) - tronarko_temperatura_transicao.get(x, y));
-                            d_voltando.set(tronarko_temperatura.get(x, y));
-                        }
-
-
-                    }
-                }
-            }
+            PROCESSAR_TRANSICAO_DE_TEMPERATURA(mapa_planeta, superarko, tronarko_temperatura, d_indo, d_voltando, tronarko_temperatura_transicao);
 
 
             // RENDERIZAR PARTES
@@ -503,81 +483,7 @@ public class ServicoTronarko {
 
             }
 
-
-            Lista<Entidade> sensores_dados = new Lista<Entidade>();
-
-            for (Entidade sensor : sensores) {
-
-
-                int sensor_px = 0;
-                int sensor_py = 0;
-
-
-                int padrao_sensor_px = sensor.atInt("X");
-                int padrao_sensor_py = sensor.atInt("Y");
-
-                if (sensor.is("Tipo", "Comum")) {
-                    sensor_px = sensor.atInt("X");
-                    sensor_py = sensor.atInt("Y");
-                } else if (sensor.is("Tipo", "Cidade")) {
-                    sensor_px = sensor.atInt("X");
-                    sensor_py = sensor.atInt("Y");
-                } else if (sensor.is("Tipo", "Referenciado")) {
-                    sensor_px = sensor.atInt("RefX");
-                    sensor_py = sensor.atInt("RefY");
-                }
-
-
-                Entidade sensor_param = ENTT.CRIAR_EM(sensores_dados, "Sensor", padrao_sensor_px + "::" + padrao_sensor_py);
-
-                String fator_climatico_corrente = atzum.getFatorClimatico(render_fatores_climaticos.getPixel(sensor_px, sensor_py));
-                double temperatura_corrente = tronarko_temperatura.get(sensor_px, sensor_py);
-                double umidade_corrente = umidade_dados.getValor(sensor_px, sensor_py);
-
-                double umidade_variacao = tronarko_umidade_variacao.get(sensor_px, sensor_py);
-
-                umidade_corrente += umidade_variacao;
-
-                umidade_corrente = Matematica.NORMALIZAR(umidade_corrente, 0, 100);
-
-                String tem_interferencia = "NAO";
-
-                if (Strings.isIgual(fator_climatico_corrente, "ONDA_DE_CALOR")) {
-                    temperatura_corrente += 7;
-                    tem_interferencia = "SIM";
-                } else if (Strings.isIgual(fator_climatico_corrente, "SECA")) {
-                    temperatura_corrente += 5;
-                    tem_interferencia = "SIM";
-                } else if (Strings.isIgual(fator_climatico_corrente, "SECA_EXTREMA")) {
-                    temperatura_corrente += 10;
-                    tem_interferencia = "SIM";
-                } else if (Strings.isIgual(fator_climatico_corrente, "CHUVA")) {
-                    temperatura_corrente -= 10;
-                    tem_interferencia = "SIM";
-                } else if (Strings.isIgual(fator_climatico_corrente, "TEMPESTADE_CHUVA")) {
-                    temperatura_corrente -= 12;
-                    tem_interferencia = "SIM";
-                } else if (Strings.isIgual(fator_climatico_corrente, "NEVE")) {
-                    temperatura_corrente -= 15;
-                    tem_interferencia = "SIM";
-                } else if (Strings.isIgual(fator_climatico_corrente, "TEMPESTADE")) {
-                    temperatura_corrente -= 10;
-                    tem_interferencia = "SIM";
-                }
-
-                umidade_corrente = Matematica.NORMALIZAR(umidade_corrente, 0, 100);
-
-                sensor_param.at("SensorID", sensor.atInt("SensorID"));
-                sensor_param.at("X", padrao_sensor_px);
-                sensor_param.at("Y", padrao_sensor_py);
-                sensor_param.at("T" + superarko, fmt.f2(temperatura_corrente));
-                sensor_param.at("U" + superarko, fmt.f2(umidade_corrente));
-                sensor_param.at("M" + superarko, atzum.getMassaDeArTipo(render_massas_de_ar.getPixel(sensor_px, sensor_py)));
-                sensor_param.at("FC" + superarko, fator_climatico_corrente);
-                sensor_param.at("IC" + superarko, tem_interferencia);
-                sensor_param.at("UV" + superarko, fmt.f2(umidade_variacao));
-
-            }
+            Lista<Entidade> sensores_dados = ORGANIZAR_DADOS_SENSORES(atzum, superarko, tronarko_temperatura, umidade_dados, tronarko_umidade_variacao, render_fatores_climaticos, render_massas_de_ar, sensores);
 
 
             DS.adicionar(arquivo_sensores_por_superarko, superarko + ".entts", ENTT.TO_DOCUMENTO(sensores_dados));
@@ -827,52 +733,50 @@ public class ServicoTronarko {
     }
 
 
-
-    public static void EXIBIR_TRONARKO_DADOS(){
+    public static void EXIBIR_TRONARKO_DADOS() {
 
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
 
-        for(DSItem item_superarko : DS.ler_alguns(arquivo_sensores_por_superarko,0,5)){
+        for (DSItem item_superarko : DS.ler_alguns(arquivo_sensores_por_superarko, 0, 5)) {
 
             Lista<Entidade> dados = ENTT.PARSER(item_superarko.getTexto());
 
             //ENTT.ORDENAR_INTEIRO(dados,"SensorID");
 
-           // ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(ENTT.GET_SEMPRE(dados,"SensorID","5250")));
-           // ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(ENTT.GET_ULTIMO(dados)));
+            // ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(ENTT.GET_SEMPRE(dados,"SensorID","5250")));
+            // ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(ENTT.GET_ULTIMO(dados)));
 
             // Comum             |1148      |1343      |          |          |5250
             // Cidade            |1148      |1343      |1141      |1336      |5662
 
             int sid = 0;
 
-            for(Entidade e : dados){
+            for (Entidade e : dados) {
 
-                if(e.atInt("SensorID") == sid){
-                }else{
-                    e.at("Status","PROBLEMA");
+                if (e.atInt("SensorID") == sid) {
+                } else {
+                    e.at("Status", "PROBLEMA");
                 }
-                e.at("Esperado",sid);
+                e.at("Esperado", sid);
 
-                sid+=1;
+                sid += 1;
             }
 
 
-             ENTT.EXIBIR_TABELA(dados);
-          //  ENTT.EXIBIR_TABELA(ENTT.COLETAR(dados,"Status","PROBLEMA"));
+            ENTT.EXIBIR_TABELA(dados);
+            //  ENTT.EXIBIR_TABELA(ENTT.COLETAR(dados,"Status","PROBLEMA"));
 
-            fmt.print(">> {}",ENTT.CONTAGEM(dados));
-            fmt.print(">> {}",ENTT.CONTAGEM_UNICOS(dados,"SensorID"));
+            fmt.print(">> {}", ENTT.CONTAGEM(dados));
+            fmt.print(">> {}", ENTT.CONTAGEM_UNICOS(dados, "SensorID"));
 
-         //   break;
+            //   break;
         }
 
 
         ENTT.EXIBIR_TABELA(Atzum.GET_SENSORES());
 
     }
-
 
 
     public static String TEMPERATURA_CLASSIFICAR(double temperatura) {
@@ -1408,7 +1312,7 @@ public class ServicoTronarko {
         int slot_id = 0;
         while (slot_id < sensores_quantidade) {
             fmt.print("\t Sensores Item :: Zerando :: Faltam {}", (sensores_quantidade - slot_id));
-              sensores_organizando.limpar(slot_id);
+            sensores_organizando.limpar(slot_id);
             slot_id += 1;
         }
 
@@ -1432,7 +1336,7 @@ public class ServicoTronarko {
                 int sensor_id = sensor_item.atInt("SensorID");
 
                 if (sensor_id == 0) {
-                  //  fmt.print("{}", Strings.LINEARIZAR(sensor_item.toTexto()));
+                    //  fmt.print("{}", Strings.LINEARIZAR(sensor_item.toTexto()));
                 }
 
                 // Entidade sensor_final = ENTT.PARSER_ENTIDADE(sensores_organizando.get(sensor_id));
@@ -1556,7 +1460,7 @@ public class ServicoTronarko {
         int i = 0;
         for (DSItem item : DS.ler_todos(arquivo_sensores_por_sensor)) {
 
-            fmt.print("\t >> Sensor : {}",item.getNome());
+            fmt.print("\t >> Sensor : {}", item.getNome());
 
             //  Entidade e_sensor = ENTT.ADICIONAR_EM(sensores,ENTT.PARSER_ENTIDADE(item.getTexto()));
             Entidade e_sensor = ENTT.PARSER_ENTIDADE(item.getTexto());
@@ -1582,13 +1486,13 @@ public class ServicoTronarko {
             a_sensor.at("Umidade", u);
 
 
-          //  if (i > 10) {
+            //  if (i > 10) {
             //    break;
-          //  }
+            //  }
             i += 1;
         }
 
-       // ENTT.EXIBIR_TABELA_COM_NOME(ENTT.GET_AMOSTRA_PEQUENA(sensores), "Dados Sensores - Por Sensor");
+        // ENTT.EXIBIR_TABELA_COM_NOME(ENTT.GET_AMOSTRA_PEQUENA(sensores), "Dados Sensores - Por Sensor");
         ENTT.EXIBIR_TABELA_COM_NOME(ENTT.GET_AMOSTRA_PEQUENA(analise_sensores), "Analise - Dados Sensores - Por Sensor");
 
 
@@ -1596,6 +1500,115 @@ public class ServicoTronarko {
         fmt.print("Sensores com umidade valida     : {}", ENTT.CONTAGEM(analise_sensores, "Umidade", 500));
 
 
+    }
+
+    public static void PROCESSAR_TRANSICAO_DE_TEMPERATURA(AtzumTerra mapa_planeta, int superarko, AreaDouble tronarko_temperatura, Extremos<Double> d_indo, Extremos<Double> d_voltando, AreaDouble tronarko_temperatura_transicao) {
+
+        boolean temperatura_aumetando = true;
+
+        if (superarko > 250) {
+            temperatura_aumetando = false;
+        }
+
+
+        for (int y = 0; y < mapa_planeta.getAltura(); y++) {
+            for (int x = 0; x < mapa_planeta.getLargura(); x++) {
+                if (mapa_planeta.isTerra(x, y)) {
+
+                    if (temperatura_aumetando) {
+                        tronarko_temperatura.set(x, y, tronarko_temperatura.get(x, y) + tronarko_temperatura_transicao.get(x, y));
+                        d_indo.set(tronarko_temperatura.get(x, y));
+                    } else {
+                        tronarko_temperatura.set(x, y, tronarko_temperatura.get(x, y) - tronarko_temperatura_transicao.get(x, y));
+                        d_voltando.set(tronarko_temperatura.get(x, y));
+                    }
+
+
+                }
+            }
+        }
+
+    }
+
+
+    public static Lista<Entidade> ORGANIZAR_DADOS_SENSORES(Atzum atzum, int superarko, AreaDouble tronarko_temperatura, QTT umidade_dados, AreaDouble tronarko_umidade_variacao, Renderizador render_fatores_climaticos, Renderizador render_massas_de_ar, Lista<Entidade> sensores) {
+
+        Lista<Entidade> sensores_dados = new Lista<Entidade>();
+
+        for (Entidade sensor : sensores) {
+
+
+            int sensor_px = 0;
+            int sensor_py = 0;
+
+
+            int padrao_sensor_px = sensor.atInt("X");
+            int padrao_sensor_py = sensor.atInt("Y");
+
+            if (sensor.is("Tipo", "Comum")) {
+                sensor_px = sensor.atInt("X");
+                sensor_py = sensor.atInt("Y");
+            } else if (sensor.is("Tipo", "Cidade")) {
+                sensor_px = sensor.atInt("X");
+                sensor_py = sensor.atInt("Y");
+            } else if (sensor.is("Tipo", "Referenciado")) {
+                sensor_px = sensor.atInt("RefX");
+                sensor_py = sensor.atInt("RefY");
+            }
+
+
+            libs.entt.Entidade sensor_param = ENTT.CRIAR_EM(sensores_dados, "Sensor", padrao_sensor_px + "::" + padrao_sensor_py);
+
+            String fator_climatico_corrente = atzum.getFatorClimatico(render_fatores_climaticos.getPixel(sensor_px, sensor_py));
+            double temperatura_corrente = tronarko_temperatura.get(sensor_px, sensor_py);
+            double umidade_corrente = umidade_dados.getValor(sensor_px, sensor_py);
+
+            double umidade_variacao = tronarko_umidade_variacao.get(sensor_px, sensor_py);
+
+            umidade_corrente += umidade_variacao;
+
+            umidade_corrente = Matematica.NORMALIZAR(umidade_corrente, 0, 100);
+
+            String tem_interferencia = "NAO";
+
+            if (Strings.isIgual(fator_climatico_corrente, "ONDA_DE_CALOR")) {
+                temperatura_corrente += 7;
+                tem_interferencia = "SIM";
+            } else if (Strings.isIgual(fator_climatico_corrente, "SECA")) {
+                temperatura_corrente += 5;
+                tem_interferencia = "SIM";
+            } else if (Strings.isIgual(fator_climatico_corrente, "SECA_EXTREMA")) {
+                temperatura_corrente += 10;
+                tem_interferencia = "SIM";
+            } else if (Strings.isIgual(fator_climatico_corrente, "CHUVA")) {
+                temperatura_corrente -= 10;
+                tem_interferencia = "SIM";
+            } else if (Strings.isIgual(fator_climatico_corrente, "TEMPESTADE_CHUVA")) {
+                temperatura_corrente -= 12;
+                tem_interferencia = "SIM";
+            } else if (Strings.isIgual(fator_climatico_corrente, "NEVE")) {
+                temperatura_corrente -= 15;
+                tem_interferencia = "SIM";
+            } else if (Strings.isIgual(fator_climatico_corrente, "TEMPESTADE")) {
+                temperatura_corrente -= 10;
+                tem_interferencia = "SIM";
+            }
+
+            umidade_corrente = Matematica.NORMALIZAR(umidade_corrente, 0, 100);
+
+            sensor_param.at("SensorID", sensor.atInt("SensorID"));
+            sensor_param.at("X", padrao_sensor_px);
+            sensor_param.at("Y", padrao_sensor_py);
+            sensor_param.at("T" + superarko, fmt.f2(temperatura_corrente));
+            sensor_param.at("U" + superarko, fmt.f2(umidade_corrente));
+            sensor_param.at("M" + superarko, atzum.getMassaDeArTipo(render_massas_de_ar.getPixel(sensor_px, sensor_py)));
+            sensor_param.at("FC" + superarko, fator_climatico_corrente);
+            sensor_param.at("IC" + superarko, tem_interferencia);
+            sensor_param.at("UV" + superarko, fmt.f2(umidade_variacao));
+
+        }
+
+        return sensores_dados;
     }
 
 }
