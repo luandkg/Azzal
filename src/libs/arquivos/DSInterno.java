@@ -2,13 +2,16 @@ package libs.arquivos;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
+import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSItem;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.Strings;
 import libs.luan.fmt;
 
 import java.awt.image.BufferedImage;
+import java.nio.charset.StandardCharsets;
 
 public class DSInterno {
 
@@ -172,6 +175,61 @@ public class DSInterno {
         return ENTT.PARSER(item.getTextoPreAlocado());
     }
 
+    private static Lista<DSItem> DS_OBTER_ITENS_ARQUIVO_ABERTO(Arquivador arquivar ,DSItem item) {
+
+        Lista<DSItem> itens = new Lista<DSItem>();
+
+
+        // System.out.println("Tamanho :: " + arquivar.getLength());
+
+        arquivar.setPonteiro(item.getInicio());
+
+        int b1 = Inteiro.byteToInt(arquivar.get());
+        int b2 = Inteiro.byteToInt(arquivar.get());
+
+        //  System.out.println("B1 :: " + b1);
+        // System.out.println("B2 :: " + b2);
+
+        int status = Inteiro.byteToInt(arquivar.get());
+
+        long t = item.getFim();
+
+        //   fmt.print(">> Iniciando em ptr : {}",arquivar.getPonteiro());
+        //   fmt.print(">> Finalizar em ptr : {}",item.getFim());
+        //   fmt.print(">> Tamanho em ptr : {}",arquivar.getLength());
+
+        TX eTX = new TX();
+
+        int index = 0;
+
+        while ((status == 255 || status == 111) && arquivar.getPonteiro() < t) {
+
+            long item_tamanho = arquivar.get_u64();
+
+
+            long comecar_nome = arquivar.getPonteiro();
+
+            String nome = eTX.lerFluxoLimitado(arquivar, 1024);
+
+            arquivar.setPonteiro(comecar_nome + 1024);
+
+            long antes = arquivar.getPonteiro();
+
+            itens.adicionar(new DSItem(item.getArquivo(), index, status, nome, item_tamanho, antes));
+
+            arquivar.setPonteiro(arquivar.getPonteiro() + item_tamanho);
+            status = Inteiro.byteToInt(arquivar.get());
+
+            index += 1;
+
+        }
+
+        //    fmt.print(">> Parando em ptr : {}",arquivar.getPonteiro());
+
+
+        return itens;
+    }
+
     public static Lista<DSItem> DS_OBTER_ITENS(DSItem item) {
 
         Lista<DSItem> itens = new Lista<DSItem>();
@@ -257,14 +315,34 @@ public class DSInterno {
 
         Lista<Entidade> lista = new Lista<Entidade>();
 
-        for (DSItem item : DS_OBTER_ITENS(item_ds)) {
-            lista.adicionar(ENTT.PARSER_ENTIDADE(item.getTexto()));
+        Arquivador arquivar = new Arquivador(item_ds.getArquivo());
+
+        for (DSItem item : DS_OBTER_ITENS_ARQUIVO_ABERTO(arquivar,item_ds)) {
+            lista.adicionar(ENTT.PARSER_ENTIDADE(DS_ITEM_INTERNO_GET_TEXTO(arquivar,item)));
         }
 
+        arquivar.encerrar();
 
         return lista;
     }
 
+    private static String DS_ITEM_INTERNO_GET_TEXTO( Arquivador arquivar,DSItem item) {
+        return new String(DS_ITEM_INTERNO_GET_BYTES(arquivar,item), StandardCharsets.UTF_8);
+    }
+
+    private static byte[] DS_ITEM_INTERNO_GET_BYTES(Arquivador arquivar,DSItem item) {
+
+        arquivar.setPonteiro(item.getInicio());
+
+        byte[] dados = new byte[(int) item.getTamanho()];
+
+        for (int b = 0; b < item.getTamanho(); b++) {
+            dados[b] = arquivar.get();
+        }
+
+
+        return dados;
+    }
 
     public static BufferedImage IM_VISUALIZAR(DSItem item_ds){
 
@@ -274,6 +352,50 @@ public class DSInterno {
         arq.encerrar();
 
         return img;
+    }
+
+    public static Lista<Entidade> CRIAR_INDICE_ULTRA_RAPIDO(String arquivo,String att_nome){
+
+        Lista<Entidade> indice_ultra_rapido = new Lista<Entidade>();
+
+        for(DSItem item : DS.ler_todos(arquivo)){
+            Entidade e_item = ENTT.CRIAR_EM(indice_ultra_rapido);
+
+            e_item.at(att_nome,"");
+            e_item.at("PTR_INICIO",item.getInicio());
+            e_item.at("PTR_FIM",item.getFim());
+            e_item.at("PTR_TAMANHO",item.getTamanho());
+
+            Entidade ents = ENTT.PARSER_ENTIDADE(item.getTexto());
+
+            e_item.at(att_nome,ents.at(att_nome));
+
+
+        }
+
+        return indice_ultra_rapido;
+    }
+
+    public static Entidade GET_ENTIDADE_INDEXADA_ULTRA_RAPIDO(DSItem todos_os_dados,Entidade idx_item ){
+
+        long ponteiro_inicio = todos_os_dados.getInicio() + idx_item.atLong("PTR_INICIO");
+        long ponteiro_fim = todos_os_dados.getInicio() + idx_item.atLong("PTR_FIM");
+        long tamanho = idx_item.atLong("PTR_TAMANHO");
+
+        Arquivador arquivar = new Arquivador(todos_os_dados.getArquivo());
+        arquivar.setPonteiro(ponteiro_inicio);
+
+        byte[] dados = new byte[(int)tamanho];
+
+        for (int b = 0; b < dados.length; b++) {
+            dados[b] = arquivar.get();
+        }
+
+        arquivar.encerrar();
+
+
+        // fmt.print("{}", );
+        return ENTT.PARSER_ENTIDADE(Strings.GET_STRING_VIEW(dados));
     }
 
 }
