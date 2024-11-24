@@ -9,6 +9,7 @@ import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.PreferenciasOrganizadas;
+import libs.arquivos.dsvideo.DSVideo;
 import libs.azzal.AzzalUnico;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
@@ -16,7 +17,7 @@ import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
-import libs.entt.ENTT;
+import libs.azzal.utilitarios.Cronometro;
 import libs.entt.Entidade;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
@@ -87,6 +88,15 @@ public class AppAtzum extends Cena {
     public MapaZoom mMapaZoom;
     private ClimaWidget mClima;
 
+    private boolean mVideoExecutando = false;
+    private DSVideo mVideo = null;
+    private Cronometro mVideoCronometro;
+    private int mVideoQuadrosTotal = 0;
+    private String mVideoDuracao = "";
+
+    private int VIDEO_TAXA_DE_ATUALIZACAO = 25;
+    private boolean mCarregado = false;
+
     @Override
     public void iniciar(Windows eWindows) {
         mCores = new Cores();
@@ -144,19 +154,46 @@ public class AppAtzum extends Cena {
 
         Tron t1 = Tronarko.getTronAgora();
 
-      //  mInformacoesDasCidades = mArquivoAtzumTronarko.getCidadesDadosPublicados();
+        //  mInformacoesDasCidades = mArquivoAtzumTronarko.getCidadesDadosPublicados();
         mInformacoesDasCidadesIndexadas = mArquivoAtzumTronarko.getCidadesDadosPublicadosIndicePorCidade();
 
         Tron t2 = Tronarko.getTronAgora();
 
-        fmt.print("Gastou :: {}",Tronarko.TRON_DIFERENCA(t1,t2)); // 12 uz
+        fmt.print("Gastou :: {}", Tronarko.TRON_DIFERENCA(t1, t2)); // 12 uz
 
         //ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(mInformacoesDasCidadesIndexadas, 10));
 
 
         mClima = new ClimaWidget();
 
+
     }
+
+
+    public void video_update() {
+        mVideoCronometro.esperar();
+
+        if (mVideoCronometro.foiEsperado()) {
+
+            // fmt.print("Video ++");
+
+            if (!mVideo.getAcabou()) {
+
+                //    fmt.print("++ Video Ler Proximo ");
+
+                mVideo.proximo();
+                mCarregado = true;
+
+                //  System.out.println("\t - Falta = " + mLinhaDoTempo.getTempoFaltante(mVideo.getFrameCorrente()));
+                //  mPorcentagem = mLinhaDoTempo.getPorcentagem(mVideo.getFrameCorrente());
+
+                //  System.out.println("\t - Video -->> Frame Index = " + mVideo.getFrameCorrente());
+
+            }
+
+        }
+    }
+
 
     @Override
     public void update(double dt) {
@@ -169,6 +206,10 @@ public class AppAtzum extends Cena {
         mTerraOuAgua = "";
         mRegiaoCorrente = "";
         mOceanoCorrente = "";
+
+        if (mVideoExecutando) {
+            video_update();
+        }
 
 
         if (px >= X0 && py >= Y0 && px < X1 && py < Y1) {
@@ -254,6 +295,7 @@ public class AppAtzum extends Cena {
 
         mClicavel.update(dt, px, py, getWindows().getMouse().isPressed());
 
+
         getWindows().getMouse().liberar();
         getWindows().getTeclado().limpar();
 
@@ -270,6 +312,30 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL_BRANCO_GRANDE.setRenderizador(g);
 
         g.drawImagem(X0, Y0, mapa_pequeno);
+
+
+        if (mVideoExecutando && mCarregado) {
+
+            BufferedImage reduzido = mVideo.getImagemCorrente();
+
+            g.drawImagem(X0, Y0, reduzido);
+
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 100, mVideo.getLargura() + " vs " + mVideo.getAltura());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 150, mVideo.getFrameCorrente() + " frames de " + mVideoQuadrosTotal);
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 200, mVideoDuracao);
+
+            if(mVideo.getFrameCorrente()>0 && mVideo.getFrameCorrente()<=500){
+                if(mClima.temCidade()){
+                    mClima.marcarSuperarko(mVideo.getFrameCorrente());
+                }
+            }
+
+            if (mVideo.getAcabou()) {
+                mVideo.fechar();
+            }
+
+        }
+
 
         mClicavel.onDraw(g);
 
@@ -484,10 +550,10 @@ public class AppAtzum extends Cena {
         if (mCidadeSelecionada) {
 
 
-            Entidade mCidade  = mArquivoAtzumTronarko.GET_CIDADE_DADOS(mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
+            Entidade mCidade = mArquivoAtzumTronarko.GET_CIDADE_DADOS(mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
 
             // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "Cidade", cidade.getX() + "::" + cidade.getY());
-           // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
+            // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
 
             mCidadeDescritores.adicionar(new Par<String, String>("Nome", mCidade.at("CidadeNome")));
             mCidadeDescritores.adicionar(new Par<String, String>("Posição", mCidadeSelecionadaX + " : " + mCidadeSelecionadaY));
@@ -514,11 +580,22 @@ public class AppAtzum extends Cena {
             mCidadeDescritores.adicionar(new Par<String, String>("Oceano", mCidade.at("Oceano_Nome") + " - " + mCidade.at("Oceano_Distancia")));
 
 
-
             mClima.marcarCidade(mCidade);
         } else {
             mClima.retirarCidade();
         }
 
+    }
+
+    public void reproduzirVideo(DSVideo video) {
+        mVideoExecutando = true;
+        mVideo = video;
+        mVideo.abrir();
+
+        mVideoQuadrosTotal = mVideo.getQuadrosTotal();
+        mVideoDuracao=mVideo.getDuracao() + " :: "+ mVideo.getTempoTotalFormatado();
+
+
+        mVideoCronometro = new Cronometro(VIDEO_TAXA_DE_ATUALIZACAO);
     }
 }
