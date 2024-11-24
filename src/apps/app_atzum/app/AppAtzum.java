@@ -25,6 +25,8 @@ import libs.luan.Par;
 import libs.luan.Strings;
 import libs.luan.fmt;
 import libs.mockui.Interface.Clicavel;
+import libs.tronarko.Tron;
+import libs.tronarko.Tronarko;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -137,8 +139,14 @@ public class AppAtzum extends Cena {
         mCidadeDescritores = new Lista<Par<String, String>>();
 
         fmt.print(">> Carregando Tronarko : {}", mTronarko);
+
+        Tron t1 = Tronarko.getTronAgora();
+
         mInformacoesDasCidades = mArquivoAtzumTronarko.getCidadesDadosPublicados();
 
+        Tron t2 = Tronarko.getTronAgora();
+
+        fmt.print("Gastou :: {}",Tronarko.TRON_DIFERENCA(t1,t2)); // 12 uz
 
         ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(mInformacoesDasCidades, 10));
 
@@ -402,7 +410,7 @@ public class AppAtzum extends Cena {
             int py = 100;
             for (String modelo_corrente : mAtzum.GET_FATORES_CLIMATICOS()) {
 
-                g.drawRect_Pintado(1700, py, 25, 25, mAtzum.GET_FATOR_CLIMATICO_COR(modelo_corrente));
+                g.drawRect_Pintado(1700, py, 25, 25, Atzum.GET_FATOR_CLIMATICO_COR(modelo_corrente));
                 ESCRITOR_NORMAL_BRANCO.escreva(1700 + 40, py + 5, modelo_corrente);
 
                 py += 30;
@@ -462,46 +470,45 @@ public class AppAtzum extends Cena {
             if (distancia < mais_proxima) {
                 mais_proxima = distancia;
 
-                mCidadeDescritores.limpar();
-
                 mCidadeSelecionada = true;
                 mCidadeSelecionadaX = cidade.getX();
                 mCidadeSelecionadaY = cidade.getY();
-
-
-                // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "Cidade", cidade.getX() + "::" + cidade.getY());
-                mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", cidade.getX() + "::" + cidade.getY());
-
-                mCidadeDescritores.adicionar(new Par<String, String>("Nome", mCidade.at("CidadeNome")));
-                mCidadeDescritores.adicionar(new Par<String, String>("Posição", cidade.getX() + " : " + cidade.getY()));
-
-                int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(cidade.getX(), cidade.getY());
-                int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(cidade.getX(), cidade.getY());
-
-                String cidade_regiao = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente) + " - " + mAtzum.GET_REGIAO_NOME(v2_regiao_corrente);
-                String cidade_altitude = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(cidade.getX(), cidade.getY()) + "m";
-
-
-                mCidadeDescritores.adicionar(new Par<String, String>("Região", cidade_regiao));
-                mCidadeDescritores.adicionar(new Par<String, String>("Altitude", cidade_altitude));
-
-
-                //  fmt.print("{}",mCidade.toTexto());
-
-                if (mCidade.atInt("Oceano_Distancia") <= 15) {
-                    mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Litoranea"));
-                } else {
-                    mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Continental"));
-                }
-
-                mCidadeDescritores.adicionar(new Par<String, String>("Oceano", mCidade.at("Oceano_Nome") + " - " + mCidade.at("Oceano_Distancia")));
-
 
             }
         }
 
 
         if (mCidadeSelecionada) {
+
+            // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "Cidade", cidade.getX() + "::" + cidade.getY());
+            mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
+
+            mCidadeDescritores.adicionar(new Par<String, String>("Nome", mCidade.at("CidadeNome")));
+            mCidadeDescritores.adicionar(new Par<String, String>("Posição", mCidadeSelecionadaX + " : " + mCidadeSelecionadaY));
+
+            int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(mCidadeSelecionadaX, mCidadeSelecionadaY);
+            int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(mCidadeSelecionadaX, mCidadeSelecionadaY);
+
+            String cidade_regiao = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente) + " - " + mAtzum.GET_REGIAO_NOME(v2_regiao_corrente);
+            String cidade_altitude = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(mCidadeSelecionadaX, mCidadeSelecionadaY) + "m";
+
+
+            mCidadeDescritores.adicionar(new Par<String, String>("Região", cidade_regiao));
+            mCidadeDescritores.adicionar(new Par<String, String>("Altitude", cidade_altitude));
+
+
+            //  fmt.print("{}",mCidade.toTexto());
+
+            if (mCidade.atInt("Oceano_Distancia") <= 15) {
+                mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Litoranea"));
+            } else {
+                mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Continental"));
+            }
+
+            mCidadeDescritores.adicionar(new Par<String, String>("Oceano", mCidade.at("Oceano_Nome") + " - " + mCidade.at("Oceano_Distancia")));
+
+
+
             mClima.marcarCidade(mCidade);
         } else {
             mClima.retirarCidade();
