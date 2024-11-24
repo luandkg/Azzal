@@ -66,6 +66,10 @@ public class ClimaWidget {
         return superarko_selecionado;
     }
 
+    public boolean temCidade(){
+        return mCidadeSelecionada;
+    }
+
     public void update(int px, int py, boolean is_clicado) {
 
         int temperatura_px_inicio = 50;
@@ -324,6 +328,18 @@ public class ClimaWidget {
 
     }
 
+    public void marcarSuperarko(int eSuperarko){
+
+
+        int temperatura_py = 500;
+        int temperatura_py_inicio = 500;
+
+
+        mClimaClicadoPx=eSuperarko-1;
+        mClimaMovendoPy = temperatura_py_inicio + 50;
+
+
+    }
 
     public int getSuperarkoPosicao(int ePosicaoX) {
         int superarko = (ePosicaoX + 1);
