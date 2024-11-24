@@ -10,32 +10,45 @@ public class ArmazemManipulador {
 
     private Armazem mArmazem;
 
-    public ArmazemManipulador(Armazem eArmazem){
-        mArmazem=eArmazem;
+    public ArmazemManipulador(Armazem eArmazem) {
+        mArmazem = eArmazem;
     }
 
 
-    public void adicionar(Entidade e){
-        mArmazem.item_adicionar(ENTT.TO_DOCUMENTO(e));
+    public ItemAlocado adicionar(Entidade e) {
+       return mArmazem.item_adicionar(ENTT.TO_DOCUMENTO(e));
     }
 
+    public Lista<ItemAlocado> getItens() {
+        return mArmazem.getItensAlocados();
+    }
 
-    public Lista<Entidade> getObjetos(){
+    public Lista<Entidade> getObjetos() {
         Lista<Entidade> itens = new Lista<Entidade>();
 
-        for(ItemAlocado item : mArmazem.getItensAlocados()){
+        for (ItemAlocado item : mArmazem.getItensAlocados()) {
             itens.adicionar(ENTT.PARSER_ENTIDADE(item.lerTextoUTF8()));
         }
 
         return itens;
     }
 
+    public Lista<ItemEditavel> getEditaveis() {
+        Lista<ItemEditavel> itens = new Lista<ItemEditavel>();
 
-    public long contagem(){
+        for (ItemAlocado item : mArmazem.getItensAlocados()) {
+            itens.adicionar(new ItemEditavel(item, ENTT.PARSER_ENTIDADE(item.lerTextoUTF8())));
+        }
+
+        return itens;
+    }
+
+
+    public long contagem() {
         return mArmazem.getItensUtilizadosContagem();
     }
 
-    public void zerar(){
+    public void zerar() {
         mArmazem.zerar();
     }
 

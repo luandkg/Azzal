@@ -188,4 +188,13 @@ public class ZettaTabelas {
     }
 
 
+
+    public static void ADICIONAR_OU_EXIBIR_ERRO(ZettaTabela pessoas, Entidade novo) {
+        Resultado<Boolean, String> resultado = pessoas.adicionar(novo);
+        if (resultado.isErro()) {
+            fmt.print(">> ERRO :: {}", resultado.getErro());
+        }
+    }
+
+
 }

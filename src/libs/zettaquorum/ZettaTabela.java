@@ -1,18 +1,20 @@
 package libs.zettaquorum;
 
 
+import libs.aqz.tabela.AQZTabelaManipuladoraDeDados;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.fazendario.Armazem;
 import libs.fazendario.ArmazemIndiceSumario;
 import libs.fazendario.ItemAlocado;
 import libs.luan.Lista;
+import libs.luan.Resultado;
 
 public class ZettaTabela {
 
     private String mNome;
     private ArmazemManipulador mEsquema;
-    private Armazem mDados;
+    private ArmazemManipulador mDados;
     private ZettaSequenciador mSequenciador;
     private ArmazemIndiceSumario mIndice;
 
@@ -21,7 +23,7 @@ public class ZettaTabela {
     public ZettaTabela(String eNome, Armazem eEsquema, Armazem eDados, ZettaSequenciador eSequenciador, ArmazemIndiceSumario eIndice) {
         mNome = eNome;
         mEsquema = new ArmazemManipulador(eEsquema);
-        mDados = eDados;
+        mDados = new ArmazemManipulador(eDados);
         mSequenciador = eSequenciador;
         mIndice = eIndice;
 
@@ -42,7 +44,7 @@ public class ZettaTabela {
 
         Lista<Entidade> lista = new Lista<Entidade>();
 
-        for (ItemAlocado item : mDados.getItensAlocados()) {
+        for (ItemAlocado item : mDados.getItens()) {
 
             Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
             e_item.at("@PTR", item.getPonteiroDados());
@@ -68,22 +70,6 @@ public class ZettaTabela {
         return mEsquema.contagem() > 0;
     }
 
-
-    public void adicionar(Entidade e) {
-
-        long proximo = mSequenciador.getProximo();
-
-        e.at("@ID", proximo);
-
-
-        ItemAlocado item = mDados.item_adicionar(ENTT.TO_DOCUMENTO(e));
-
-        //  fmt.print("@ID :: {}",e.at("@ID"));
-
-        // fmt.print("Ponteiro Dados :: {}",item.getPonteiroDados());
-
-        mIndice.setItem(proximo, item.getPonteiroDados());
-    }
 
 
     // ESQUEMA
@@ -112,5 +98,11 @@ public class ZettaTabela {
         mEsquematizador.criar_verificador(coluna_regra_nome,coluna_nome,verificador);
     }
 
+
+    // MANIPULAR DADOS
+
+    public Resultado<Boolean, String> adicionar(Entidade novo) {
+        return ZettaTabelaManipuladorDeDados.adicionar(mEsquema,mDados,mIndice,mSequenciador, mNome, novo);
+    }
 
 }

@@ -1,8 +1,13 @@
 package testes;
 
+import libs.entt.ENTT;
+import libs.entt.Entidade;
+import libs.luan.Aleatorio;
 import libs.luan.Lista;
+import libs.luan.Vetor;
 import libs.luan.fmt;
 import libs.zettaquorum.*;
+import servicos.MundoReal;
 
 public class TesteZettaTabela {
 
@@ -62,5 +67,59 @@ public class TesteZettaTabela {
     }
 
 
+    public static void adicionar_dados() {
+
+        fmt.print("----------------- ZETA TABELAS :: INICIANDO ------------------");
+
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta_v2.az";
+
+        ZettaTabelas zeta = new ZettaTabelas(arquivo_zeta);
+
+        ZettaTabela pessoas = zeta.getTabelaSempre("Pessoas");
+
+        pessoas.exibir_esquema();
+
+        Lista<String> nome_repetir = ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Nome");
+
+
+        for (int i = 1; i <= 50; i++) {
+
+            fmt.print("\t ++ Adicionando pessoa : {}", i);
+            Entidade novo = new Entidade();
+            novo.at("Nome", MundoReal.GET_NOME_PESSOA_COMPLETO());
+            novo.at("Idade", Aleatorio.aleatorio_entre(0, 100));
+            novo.at("Altura", Aleatorio.aleatorio_numero_real(1, 3));
+            novo.at("Autenticado", Aleatorio.escolha_um(Vetor.CRIAR("SIM", "NAO", "TALVEZ")));
+            novo.at("Status", Aleatorio.escolha_um(Lista.CRIAR("DISPONIVEL", "BLOQUEADO", "OCUPADO", "TRANSMITINDO", "V2")));
+            novo.at("Documento", MundoReal.GET_DOCUMENTO_NUMERICO(14));
+
+
+            if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                novo.at("Idade", Aleatorio.escolha_um(Vetor.CRIAR("1.50", "130in", "um")));
+            } else {
+                if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                    if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                        novo.at("Nome", fmt.repetir("a", 112));
+                    } else {
+                        novo.at("Nome", "a");
+                    }
+
+                    if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                        novo.at("Nome", Aleatorio.escolha_um(nome_repetir));
+                    }
+                }
+            }
+
+
+            ZettaTabelas.ADICIONAR_OU_EXIBIR_ERRO(pessoas, novo);
+
+        }
+
+
+        pessoas.exibir_esquema();
+        pessoas.exibir_dados();
+
+        zeta.fechar();
+    }
 
 }
