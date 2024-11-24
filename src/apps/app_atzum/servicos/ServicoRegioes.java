@@ -352,6 +352,13 @@ public class ServicoRegioes {
 
         Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_terra.png"));
 
+        Renderizador render_preto_e_branco = render.getCopia();
+        Rasterizador.trocar_cores(render_preto_e_branco, mCores.getBranco(), mCores.getPreto());
+        Rasterizador.trocar_cores(render_preto_e_branco, mCores.getAmarelo(), mCores.getBranco());
+
+        Imagem.exportar(render_preto_e_branco.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_terra_preto_e_branco.png"));
+
+
 
         Renderizador render_salvar = Renderizador.CONSTRUIR(render.getLargura(), render.getAltura(), mCores.getPreto());
 
