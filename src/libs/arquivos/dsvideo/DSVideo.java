@@ -1,12 +1,10 @@
-package libs.arquivos.ds_armazenados;
+package libs.arquivos.dsvideo;
 
 import libs.arquivos.IM;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
 import libs.arquivos.ds.DSItem;
-import libs.arquivos.video.Quadro;
 import libs.luan.Lista;
-import libs.luan.fmt;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -88,6 +86,17 @@ public class DSVideo {
 
     public BufferedImage getImagemCorrente() {
         return mImagemCorrente;
+    }
+
+
+    public void reIniciar() {
+
+        mArenaIndex = 0;
+        mFrameIndex = 0;
+        mArenaCorrente = mArenaInicial;
+
+        procurarQuadro();
+
     }
 
     public void procurarQuadro() {
@@ -294,7 +303,94 @@ public class DSVideo {
         return mTaxa;
     }
 
+    public int getArenasContagem() {
+        int eContando = 1;
 
+        DSArena eQuadroPercursor = mArenaInicial;
+
+
+        while (eQuadroPercursor.getProximo() != 0) {
+            eContando += 1;
+            eQuadroPercursor = new DSArena(mArquivo,mItem, eQuadroPercursor.getProximo());
+        }
+
+        return eContando;
+    }
+
+    public Lista<DSArena> getArenas() {
+
+        Lista<DSArena> mArenas = new Lista<DSArena>();
+
+        mArenas.adicionar(mArenaInicial);
+
+        DSArena eQuadroPercursor = mArenaInicial;
+
+
+        while (eQuadroPercursor.getProximo() != 0) {
+            eQuadroPercursor = new DSArena(mArquivo, mItem,eQuadroPercursor.getProximo());
+            mArenas.adicionar(eQuadroPercursor);
+        }
+
+        return mArenas;
+
+    }
+
+    public int getQuadrosTotal() {
+
+        int eContagem = 0;
+
+
+        DSArena eQuadroPercursor = mArenaInicial;
+
+        eContagem += eQuadroPercursor.getFramesUsadosContagem();
+
+        while (eQuadroPercursor.getProximo() != 0) {
+            eQuadroPercursor = new DSArena(mArquivo,mItem, eQuadroPercursor.getProximo());
+            eContagem += eQuadroPercursor.getFramesUsadosContagem();
+        }
+
+        return eContagem;
+
+    }
+
+    public long getSegundosTotal() {
+
+        long eContando = 0;
+        long eFramesTotal = getDuracao();
+
+        while (eFramesTotal >= 1000) {
+            eFramesTotal -= 1000;
+            eContando += 1;
+        }
+
+        return eContando;
+
+    }
+
+    public String getTempoTotalFormatado() {
+
+        int eHoras = 0;
+        int eMinutos = 0;
+        long eSegundos = getSegundosTotal();
+
+
+        while (eSegundos >= 60) {
+            eSegundos -= 60;
+            eMinutos += 1;
+        }
+
+        while (eMinutos >= 60) {
+            eMinutos -= 60;
+            eHoras += 1;
+        }
+
+
+        return eHoras + ":" + eMinutos + ":" + eSegundos;
+    }
+
+    public int getDuracao() {
+        return getQuadrosTotal() * mTaxa;
+    }
 
 
     public void fechar() {

@@ -1,4 +1,4 @@
-package libs.arquivos.ds_armazenados;
+package libs.arquivos.dsvideo;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.ds.DSItem;

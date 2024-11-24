@@ -1,9 +1,8 @@
-package libs.arquivos.ds_armazenados;
+package libs.arquivos.dsvideo;
 
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.ds.DSItem;
 import libs.luan.Lista;
-import libs.luan.fmt;
 
 public class DSArena {
 
@@ -61,6 +60,45 @@ public class DSArena {
     }
 
 
+    public int getFramesUsadosContagem() {
+
+        int eContador = 0;
+
+        mArquivo.setPonteiro(mItem.getInicio()+mLocal + 18);
+
+        for (int i = 0; i < 100; i++) {
+
+            long eFramePonteiro = mArquivo.get_u64();
+            if (eFramePonteiro != 0) {
+                eContador += 1;
+            }
+
+        }
+
+        return eContador;
+
+
+    }
+
+    public int getFramesLivreContagem() {
+
+        int eContador = 0;
+
+        mArquivo.setPonteiro(mItem.getInicio()+mLocal + 18);
+
+        for (int i = 0; i < 100; i++) {
+
+            long eFramePonteiro = mArquivo.get_u64();
+            if (eFramePonteiro == 0) {
+                eContador += 1;
+            }
+
+        }
+
+        return eContador;
+
+
+    }
 
 
 }
