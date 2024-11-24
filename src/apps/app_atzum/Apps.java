@@ -1,7 +1,7 @@
 package apps.app_atzum;
 
+import apps.app_atzum.app.AppAtzum;
 import apps.app_atzum.apps.*;
-import libs.arquivos.PreferenciasOrganizadas;
 import libs.azzal.AzzalUnico;
 
 public class Apps {

@@ -49,4 +49,9 @@ public class ArquivoAtzumTronarko {
         return mapa;
     }
 
+    public BufferedImage GET_MAPA_MODELO(String modelo, String modelo_id) {
+        BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/" + modelo + "/modelo_" + modelo_id + ".im").get());
+        return mapa;
+    }
+
 }

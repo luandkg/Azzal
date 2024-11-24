@@ -23,6 +23,13 @@ public class Clicavel {
 
     }
 
+
+    public void zerar(){
+        mClicado=false;
+        mAcionadores.clear();
+        mDesenhadores.clear();
+    }
+
     public BotaoCor criarBotaoCor(BotaoCor eBotaoCor) {
         mAcionadores.add(eBotaoCor);
         mDesenhadores.add(0, eBotaoCor);
@@ -92,6 +99,8 @@ public class Clicavel {
     }
 
     public void onDraw(Renderizador g) {
+
+
         for (BotaoCor eBotao : mDesenhadores) {
             eBotao.draw(g);
         }

@@ -43,7 +43,7 @@ public class Atzum {
 
 
     public static final Cor COR_VENTANIA = Cor.getHexCor("#D81B60");
-    public static final Cor COR_ONDA_DE_CALOR = Cor.getHexCor("#FFFFFF");
+    public static final Cor COR_ONDA_DE_CALOR = Cor.getHexCor("#FFD600");
 
 
     public Atzum() {
@@ -146,6 +146,17 @@ public class Atzum {
     }
 
 
+    public Lista<String> GET_MASSA_DE_AR_TIPOS(){
+        Lista<String> tipos = new Lista<String>();
+        tipos.adicionar("FRIO");
+        tipos.adicionar("SUPERFRIO");
+        tipos.adicionar("QUENTE");
+        tipos.adicionar("SUPERQUENTE");
+        tipos.adicionar("TEMPESTADE");
+        tipos.adicionar("HIPERTEMPESTADE");
+        return tipos;
+    }
+
     public String getMassaDeArTipo(Cor eCor) {
 
         String ret = "";
@@ -186,6 +197,20 @@ public class Atzum {
         }
 
         return ret;
+    }
+
+    public Lista<String> GET_FATORES_CLIMATICOS(){
+        Lista<String> tipos = new Lista<String>();
+        tipos.adicionar("CHUVA");
+        tipos.adicionar("NEVE");
+        tipos.adicionar("TEMPESTADE_CHUVA");
+        tipos.adicionar("TEMPESTADE_NEVE");
+        tipos.adicionar("SECA");
+        tipos.adicionar("SECA_EXTREMA");
+        tipos.adicionar("TEMPESTADE_VENTO");
+        tipos.adicionar("VENTANIA");
+        tipos.adicionar("ONDA_DE_CALOR");
+        return tipos;
     }
 
     public String getFatorClimatico(Cor eCor) {

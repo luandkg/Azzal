@@ -1,8 +1,11 @@
-package apps.app_atzum;
+package apps.app_atzum.app;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
+import apps.app_atzum.Atzum;
+import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.utils.ArquivoAtzumGeral;
 import apps.app_atzum.utils.ArquivoAtzumTronarko;
+import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.PreferenciasOrganizadas;
@@ -27,8 +30,8 @@ import java.awt.image.BufferedImage;
 
 public class AppAtzum extends Cena {
 
-    private BufferedImage mapa_pequeno = null;
-    private BufferedImage mapa_grande = null;
+    public BufferedImage mapa_grande = null;
+    public BufferedImage mapa_pequeno = null;
 
     private int X0 = 700;
     private int Y0 = 100;
@@ -43,6 +46,7 @@ public class AppAtzum extends Cena {
     private Fonte ESCRITOR_NORMAL;
     private Fonte ESCRITOR_NORMAL_VERMELHO;
     private Fonte ESCRITOR_NORMAL_BRANCO;
+    private Fonte ESCRITOR_NORMAL_BRANCO_GRANDE;
 
     private boolean mGPS_OK = false;
     private int mGPS_PX = 0;
@@ -62,18 +66,11 @@ public class AppAtzum extends Cena {
     private Lista<Par<String, String>> mCidadeDescritores;
 
     private Clicavel mClicavel;
+
     private Lista<Entidade> mInformacoesDasCidades;
     private Entidade mCidade;
 
-    private Lista<Par<String, BotaoCor>> mCamadas;
-    private int mCamadaPXInicio = 50;
-    private int mCamadaPX = 0;
-    private String mCamada = "";
 
-    private Lista<Par<String, BotaoCor>> mCamadasZoom;
-    private int mCamadaZoomPXInicio = 1900;
-    private int mCamadaZoomPX = 0;
-    private String mCamadaZoom = "";
 
 
     private boolean mClimaMovendo = false;
@@ -90,8 +87,14 @@ public class AppAtzum extends Cena {
 
     private Unico<String> mCidadeFatoresClimaticos;
 
-    private ArquivoAtzumGeral mArquivoAtzumGeral;
-    private ArquivoAtzumTronarko mArquivoAtzumTronarko;
+    public ArquivoAtzumGeral mArquivoAtzumGeral;
+    public ArquivoAtzumTronarko mArquivoAtzumTronarko;
+
+
+
+    private GrupoDeBotoesGrandes mGrupoPrincipal;
+    private GrupoDeBotoesGrandes mSubComandos;
+    private GrupoDeBotoesGrandes mCamadasZoom;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -100,6 +103,7 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL = new FonteRunTime(mCores.getVerde(), 10);
         ESCRITOR_NORMAL_VERMELHO = new FonteRunTime(mCores.getVermelho(), 10);
         ESCRITOR_NORMAL_BRANCO = new FonteRunTime(mCores.getBranco(), 10);
+        ESCRITOR_NORMAL_BRANCO_GRANDE = new FonteRunTime(mCores.getBranco(), 30);
 
         String mTronarko = "7000";
 
@@ -117,13 +121,32 @@ public class AppAtzum extends Cena {
 
         mCidadeFatoresClimaticos = new Unico<String>(Strings.IGUALAVEL());
 
+        mGrupoPrincipal = new GrupoDeBotoesGrandes(50, 30);
+        mGrupoPrincipal.setSinalizador(BotaoSinalizador.LATERAL_DIREITA);
+        mGrupoPrincipal.setAfastamentoX(150);
+
+        mSubComandos = new GrupoDeBotoesGrandes(800, 850);
+        mSubComandos.setSinalizador(BotaoSinalizador.ACIMA_DIRETA);
+        mSubComandos.setAfastamentoX(100);
+
+        mCamadasZoom = new GrupoDeBotoesGrandes(1900, 550);
+        mCamadasZoom.setSinalizador(BotaoSinalizador.LATERAL_DIREITA);
+        mCamadasZoom.setAfastamentoX(50);
+        mCamadasZoom.setTamanho(20);
+        mCamadasZoom.exibirTexto(false);
+
+
         mClicavel = new Clicavel();
 
-        criar_camadas();
-        criar_camadas_zoom();
 
-        aplicarCamada("Relevo");
-        aplicarZoomCamada("Relevo");
+        AtzumBotoesPrincipais.criar_camadas(mGrupoPrincipal, mSubComandos,this);
+        AtzumBotoesPrincipais.criar_camadas_zoom(mCamadasZoom,this);
+
+
+
+        mGrupoPrincipal.aplicarCamada("Relevo");
+        mCamadasZoom.aplicarCamada("Relevo");
+
 
         mCidadeDescritores = new Lista<Par<String, String>>();
 
@@ -200,61 +223,8 @@ public class AppAtzum extends Cena {
                 // AREA CLIMATICA
 
 
-                mCidadeSelecionada = false;
-                mCidadeDescritores.limpar();
-
-                int mais_proxima = Integer.MAX_VALUE;
-
-                for (Ponto cidade : mCidades) {
-                    int distancia = Espaco2D.distancia_entre_pontos(mGPS_PX, mGPS_PY, cidade.getX(), cidade.getY());
-                    if (distancia < mais_proxima) {
-                        mais_proxima = distancia;
-
-                        mCidadeDescritores.limpar();
-
-                        mCidadeSelecionada = true;
-                        mCidadeSelecionadaX = cidade.getX();
-                        mCidadeSelecionadaY = cidade.getY();
-
-
-                        // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "Cidade", cidade.getX() + "::" + cidade.getY());
-                        mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", cidade.getX() + "::" + cidade.getY());
-
-                        mCidadeDescritores.adicionar(new Par<String, String>("Nome", mCidade.at("CidadeNome")));
-                        mCidadeDescritores.adicionar(new Par<String, String>("Posição", cidade.getX() + " : " + cidade.getY()));
-
-                        int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(cidade.getX(), cidade.getY());
-                        int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(cidade.getX(), cidade.getY());
-
-                        String cidade_regiao = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente) + " - " + mAtzum.GET_REGIAO_NOME(v2_regiao_corrente);
-                        String cidade_altitude = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(cidade.getX(), cidade.getY()) + "m";
-
-
-                        mCidadeDescritores.adicionar(new Par<String, String>("Região", cidade_regiao));
-                        mCidadeDescritores.adicionar(new Par<String, String>("Altitude", cidade_altitude));
-
-
-                        //  fmt.print("{}",mCidade.toTexto());
-
-                        if (mCidade.atInt("Oceano_Distancia") <= 15) {
-                            mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Litoranea"));
-                        } else {
-                            mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Continental"));
-                        }
-
-                        mCidadeDescritores.adicionar(new Par<String, String>("Oceano", mCidade.at("Oceano_Nome") + " - " + mCidade.at("Oceano_Distancia")));
-
-
-                        mCidadeFatoresClimaticos.limpar();
-
-                        for (int s = 1; s <= 500; s++) {
-                            if (Strings.isValida(mCidade.at("FC" + s))) {
-                                mCidadeFatoresClimaticos.item(mCidade.at("FC" + s));
-                            }
-                        }
-
-
-                    }
+                if (Strings.isIgual(mTerraOuAgua, "TERRA")) {
+                    procurar_cidade_proxima();
                 }
 
                 drone_update(false);
@@ -289,6 +259,10 @@ public class AppAtzum extends Cena {
 
         //   }
 
+        mGrupoPrincipal.update(dt, px, py, getWindows().getMouse().isPressed());
+        mCamadasZoom.update(dt, px, py, getWindows().getMouse().isPressed());
+        mSubComandos.update(dt, px, py, getWindows().getMouse().isPressed());
+
 
         mClicavel.update(dt, px, py, getWindows().getMouse().isPressed());
 
@@ -303,16 +277,17 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL.setRenderizador(g);
         ESCRITOR_NORMAL_VERMELHO.setRenderizador(g);
         ESCRITOR_NORMAL_BRANCO.setRenderizador(g);
+        ESCRITOR_NORMAL_BRANCO_GRANDE.setRenderizador(g);
 
         g.drawImagem(X0, Y0, mapa_pequeno);
 
         mClicavel.onDraw(g);
 
         if (mGPS_OK) {
-            ESCRITOR_NORMAL.escreveLinha(100, 50, 100, "GPS ON", "");
+            ESCRITOR_NORMAL.escreveLinha(140, 50, 100, "GPS ON", "");
 
-            ESCRITOR_NORMAL.escreveLinha(120, 50, 100, "X", " = " + mGPS_PX);
-            ESCRITOR_NORMAL.escreveLinha(140, 50, 100, "Y", " = " + mGPS_PY);
+            ESCRITOR_NORMAL.escreveLinha(160, 50, 100, "X", " = " + mGPS_PX);
+            ESCRITOR_NORMAL.escreveLinha(180, 50, 100, "Y", " = " + mGPS_PY);
 
 
             ESCRITOR_NORMAL.escreveLinha(220, 50, 150, "Local", " = " + mTerraOuAgua);
@@ -337,7 +312,7 @@ public class AppAtzum extends Cena {
             }
 
         } else {
-            ESCRITOR_NORMAL_VERMELHO.escreva(50, 100, "GPS FAILED");
+            ESCRITOR_NORMAL_VERMELHO.escreva(50, 140, "GPS FAILED");
         }
 
         int superarko_selecionado = 0;
@@ -369,16 +344,8 @@ public class AppAtzum extends Cena {
 
                 Cor cidade_essa_cor = mCores.getBranco();
 
-                String fc = "";
-
-                if (mClimaClicado && superarko_selecionado > 0) {
-
-                    //  Entidade cidade_essa = ENTT.GET_SEMPRE(mInformacoesDasCidades, "Cidade", cidade.getX() + "::" + cidade.getY());
-
-                    fc = mCidade.at("FC" + superarko_selecionado);
-
-                    cidade_essa_cor = mAtzum.GET_FATOR_CLIMATICO_COR(fc);
-
+                if (mSubComandos.getQuantidade()>0) {
+                    cidade_essa_cor = mCores.getPreto();
                 }
 
                 // fmt.print("{} ->> {} :: {}",fc,cidade.toString(),cidade_essa_cor.toString());
@@ -473,37 +440,38 @@ public class AppAtzum extends Cena {
 
                 // if(a_cada==3) {
                 if (estaChovendo) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 60, 3, 3, mCores.getAzul());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 60, 3, 3, Atzum.COR_CHUVA);
                 }
                 if (estaTempestadeChovendo) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 70, 3, 3, mCores.getAzul());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 70, 3, 3, Atzum.COR_TEMPESTADE_CHUVA);
                 }
                 if (estaNevando) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 80, 3, 3, mCores.getCinza());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 80, 3, 3, Atzum.COR_NEVE);
                 }
                 if (estaTempestadeNeve) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 90, 3, 3, mCores.getCinza());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 90, 3, 3, Atzum.COR_TEMPESTADE_NEVE);
                 }
+
                 if (estaTempestade) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 50, 3, 3, mCores.getVerde());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_abaixo + 50, 3, 3, Atzum.COR_TEMPESTADE_VENTO);
                 }
 
 
                 if (estaOndaDeCalor) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 60, 3, 3, mCores.getAmarelo());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 60, 3, 3, Atzum.COR_ONDA_DE_CALOR);
                 }
                 if (estaSeca) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 70, 3, 3, mCores.getVermelho());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 70, 3, 3, Atzum.COR_SECA);
                 }
                 if (estaSecaExtrema) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 80, 3, 3, mCores.getVermelho());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 80, 3, 3, Atzum.COR_SECA_EXTREMA);
                 }
 
                 if (estaVentania) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 50, 3, 3, mCores.getLaranja());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 50, 3, 3, Atzum.COR_VENTANIA);
                 }
                 if (estaTempestadeDeVento) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 40, 3, 3, mCores.getMarrom());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro_acima - 40, 3, 3, Atzum.COR_TEMPESTADE_VENTO);
                 }
                 // }
 
@@ -588,40 +556,18 @@ public class AppAtzum extends Cena {
 
 
         g.drawCirculoCentralizado_Pintado(20, 915, 10, mCores.getVermelho());
-        ESCRITOR_NORMAL.escreva(35, 915 - 8, mCamada);
+        ESCRITOR_NORMAL.escreva(35, 915 - 8, mGrupoPrincipal.getSelecionado());
 
-        // marcar camada selecionada
-        int camada_indo = mCamadaPXInicio;
-        for (Par<String, BotaoCor> item : mCamadas) {
-            if (Strings.isIgual(item.getChave(), mCamada)) {
-
-                Cor cor_botao = g.getPixel(camada_indo + 25, 55);
+        mGrupoPrincipal.render(g, ESCRITOR_NORMAL_BRANCO);
+        mCamadasZoom.render(g, ESCRITOR_NORMAL_BRANCO);
+        mSubComandos.render(g, ESCRITOR_NORMAL_BRANCO);
 
 
-                g.drawCirculoCentralizado_Pintado(camada_indo + 25 + 20, 55, 22, mCores.getBranco());
-                g.drawCirculoCentralizado_Pintado(camada_indo + 25 + 20, 55, 12, cor_botao);
-
-                break;
-            }
-            camada_indo += 100;
-        }
-
-        int camada_zoom_indo = mCamadaZoomPXInicio;
-        for (Par<String, BotaoCor> item : mCamadasZoom) {
-            if (Strings.isIgual(item.getChave(), mCamadaZoom)) {
-
-                Cor cor_botao = g.getPixel(camada_zoom_indo + 15, 555);
-
-                g.drawCirculoCentralizado_Pintado(camada_zoom_indo + 20, 560, 10, mCores.getBranco());
-                g.drawCirculoCentralizado_Pintado(camada_zoom_indo + 20, 560, 5, cor_botao);
-
-                break;
-            }
-            camada_zoom_indo += 50;
-        }
 
 
-        if (mCamada.contentEquals("Regiões")) {
+
+
+        if (mGrupoPrincipal.getSelecionado().contentEquals("Regiões")) {
 
             int py = 100;
             for (String modelo_corrente : Atzum.GET_REGIOES()) {
@@ -632,7 +578,7 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mCamada.contentEquals("Modelo Climático")) {
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Modelo Climático")) {
 
             int py = 100;
             for (String modelo_corrente : Atzum.GET_MODELO_CLIMATICO()) {
@@ -643,7 +589,7 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mCamada.contentEquals("Modelo Vegetação")) {
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Modelo Vegetação")) {
 
             int py = 100;
             for (String modelo_corrente : Atzum.GET_MODELO_VEGETACAO()) {
@@ -654,12 +600,42 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mCamada.contentEquals("T1") || mCamada.contentEquals("T2")) {
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Umidade")) {
 
             int py = 100;
-            for (String modelo_corrente : Atzum.GET_MODELO_TEMPERATURA()) {
+            for (IntervaloDeValorColorido modelo_corrente : Atzum.GET_UMIDADE_INTERVALOS_COLORIDOS()) {
 
-                g.drawRect_Pintado(1700, py, 25, 25, Atzum.GET_MODELO_TEMPERATURA_COR(modelo_corrente));
+                g.drawRect_Pintado(1700, py, 25, 25, modelo_corrente.getCor());
+                ESCRITOR_NORMAL_BRANCO.escreva(1700 + 40, py + 5, modelo_corrente.getMinimo() + " a " + modelo_corrente.getMaximo());
+
+                py += 30;
+            }
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Temperatura")) {
+
+            int py = 100;
+            for (IntervaloDeValorColorido modelo_corrente : Atzum.GET_TEMPERATURA_INTERVALOS_COLORIDOS()) {
+
+                g.drawRect_Pintado(1700, py, 25, 25, modelo_corrente.getCor());
+                ESCRITOR_NORMAL_BRANCO.escreva(1700 + 40, py + 5, modelo_corrente.getMinimo() + " a " + modelo_corrente.getMaximo());
+
+                py += 30;
+            }
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("MassaDeAr")) {
+
+            int py = 100;
+            for (String modelo_corrente : mAtzum.GET_MASSA_DE_AR_TIPOS()) {
+
+                g.drawRect_Pintado(1700, py, 25, 25, mAtzum.GET_MASSA_DE_AR_COR(modelo_corrente));
+                ESCRITOR_NORMAL_BRANCO.escreva(1700 + 40, py + 5, modelo_corrente);
+
+                py += 30;
+            }
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("FatorClimatico")) {
+
+            int py = 100;
+            for (String modelo_corrente : mAtzum.GET_FATORES_CLIMATICOS()) {
+
+                g.drawRect_Pintado(1700, py, 25, 25, mAtzum.GET_FATOR_CLIMATICO_COR(modelo_corrente));
                 ESCRITOR_NORMAL_BRANCO.escreva(1700 + 40, py + 5, modelo_corrente);
 
                 py += 30;
@@ -676,7 +652,7 @@ public class AppAtzum extends Cena {
 
             g.drawRect_Pintado(temperatura_px_inicio + (mClimaMovendoPx - 3), mClimaMovendoPy - 50, 5, 200, mCores.getVermelho());
 
-            g.drawRect_Pintado(20, info_py + 5, 10, 10, mCores.getVermelho());
+            g.drawRect_Pintado(20, info_py + 3, 10, 10, mCores.getVermelho());
 
             render_superarko_info(superarko, g, info_py);
 
@@ -690,7 +666,7 @@ public class AppAtzum extends Cena {
 
             g.drawRect(temperatura_px_inicio + (mClimaClicadoPx - 3), mClimaMovendoPy - 50, 6, 200, mCores.getBranco());
 
-            g.drawRect_Pintado(20, info_py + 5, 10, 10, mCores.getBranco());
+            g.drawRect_Pintado(20, info_py + 3, 10, 10, mCores.getBranco());
 
             render_superarko_info(superarko, g, info_py);
 
@@ -705,37 +681,6 @@ public class AppAtzum extends Cena {
 
     }
 
-    public BotaoCor criarCamada(String nome, Cor eCor) {
-        BotaoCor eBotao = mClicavel.criarBotaoCor(new BotaoCor(mCamadaPX, 30, 50, 50, eCor));
-        mCamadas.adicionar(new Par<String, BotaoCor>(nome, eBotao));
-        mCamadaPX += 100;
-        return eBotao;
-    }
-
-    public void aplicarCamada(String nome) {
-        for (Par<String, BotaoCor> item : mCamadas) {
-            if (Strings.isIgual(item.getChave(), nome)) {
-                item.getValor().clicar();
-                break;
-            }
-        }
-    }
-
-    public BotaoCor criarCamadaZoom(String nome, Cor eCor) {
-        BotaoCor eBotao = mClicavel.criarBotaoCor(new BotaoCor(mCamadaZoomPX, 550, 20, 20, eCor));
-        mCamadasZoom.adicionar(new Par<String, BotaoCor>(nome, eBotao));
-        mCamadaZoomPX += 50;
-        return eBotao;
-    }
-
-    public void aplicarZoomCamada(String nome) {
-        for (Par<String, BotaoCor> item : mCamadasZoom) {
-            if (Strings.isIgual(item.getChave(), nome)) {
-                item.getValor().clicar();
-                break;
-            }
-        }
-    }
 
     private boolean drone_ultimo_valido = false;
     private int drone_ultimo_px = 0;
@@ -816,188 +761,7 @@ public class AppAtzum extends Cena {
     }
 
 
-    public void criar_camadas_zoom() {
 
-        mCamadaZoomPX = mCamadaZoomPXInicio;
-        mCamadasZoom = new Lista<Par<String, BotaoCor>>();
-
-
-        criarCamadaZoom("Regiões", mCores.getLaranja()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_grande = mArquivoAtzumGeral.GET_MAPA_DE_REGIOES();
-                mCamadaZoom = "Regiões";
-                drone_update(true);
-
-            }
-        });
-
-        criarCamadaZoom("Relevo", mCores.getVermelho()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-
-                mapa_grande = mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
-                mCamadaZoom = "Relevo";
-                drone_update(true);
-
-            }
-        });
-
-
-        criarCamadaZoom("T1", mCores.getVermelho()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_grande = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T1();
-                mCamadaZoom = "T1";
-                drone_update(true);
-
-            }
-        });
-
-        criarCamadaZoom("T2", mCores.getVermelho()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_grande = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T2();
-                mCamadaZoom = "T2";
-                drone_update(true);
-
-            }
-        });
-
-        criarCamadaZoom("Oceanos", mCores.getAzul()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_grande = mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS();
-                mCamadaZoom = "Oceanos";
-                drone_update(true);
-
-            }
-        });
-
-        criarCamadaZoom("Modelo Climático", mCores.getLaranja()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_grande = mArquivoAtzumTronarko.GET_MODELO_CLIMATICO();
-                mCamadaZoom = "Modelo Climático";
-                drone_update(true);
-
-            }
-        });
-
-        criarCamadaZoom("Modelo Vegetação", mCores.getRosa()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_grande = mArquivoAtzumTronarko.GET_MODELO_VEGETACAO();
-                mCamadaZoom = "Modelo Vegetação";
-                drone_update(true);
-
-            }
-        });
-
-    }
-
-    public void criar_camadas() {
-
-        mCamadaPX = mCamadaPXInicio;
-        mCamadas = new Lista<Par<String, BotaoCor>>();
-
-        criarCamada("Cidades", mCores.getLaranja()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "Cidades";
-
-            }
-        });
-
-        criarCamada("Regiões", mCores.getLaranja()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = mArquivoAtzumGeral.GET_MAPA_DE_REGIOES();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "Regiões";
-
-            }
-        });
-
-        criarCamada("Relevo", mCores.getVermelho()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "Relevo";
-
-            }
-        });
-
-
-        criarCamada("T1", mCores.getVermelho()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T1();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "T1";
-
-            }
-        });
-
-        criarCamada("T2", mCores.getVermelho()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = AtzumCreator.GET_MAPA_DE_TEMPERATURA_T2();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "T2";
-
-            }
-        });
-
-        criarCamada("Oceanos", mCores.getAzul()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "Oceanos";
-
-            }
-        });
-
-        criarCamada("Modelo Climático", mCores.getLaranja()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = mArquivoAtzumTronarko.GET_MODELO_CLIMATICO();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "Modelo Climático";
-
-            }
-        });
-
-        criarCamada("Modelo Vegetação", mCores.getRosa()).setAcao(new Acao() {
-            @Override
-            public void onClique() {
-
-                mapa_pequeno = mArquivoAtzumTronarko.GET_MODELO_VEGETACAO();
-                mapa_pequeno = Efeitos.reduzirMetade(mapa_pequeno);
-                mCamada = "Modelo Vegetação";
-
-            }
-        });
-
-    }
 
     public static void INICIAR() {
 
@@ -1037,6 +801,72 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL.escreva(220, pos_y, "T = " + fmt.f2(temperatura));
         ESCRITOR_NORMAL.escreva(320, pos_y, "U = " + fmt.f2(umidade));
         ESCRITOR_NORMAL.escreva(420, pos_y, "C = " + fator_climatico);
+
+    }
+
+
+
+
+
+    public void procurar_cidade_proxima() {
+
+
+        mCidadeSelecionada = false;
+        mCidadeDescritores.limpar();
+
+        int mais_proxima = Integer.MAX_VALUE;
+
+        for (Ponto cidade : mCidades) {
+            int distancia = Espaco2D.distancia_entre_pontos(mGPS_PX, mGPS_PY, cidade.getX(), cidade.getY());
+            if (distancia < mais_proxima) {
+                mais_proxima = distancia;
+
+                mCidadeDescritores.limpar();
+
+                mCidadeSelecionada = true;
+                mCidadeSelecionadaX = cidade.getX();
+                mCidadeSelecionadaY = cidade.getY();
+
+
+                // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "Cidade", cidade.getX() + "::" + cidade.getY());
+                mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", cidade.getX() + "::" + cidade.getY());
+
+                mCidadeDescritores.adicionar(new Par<String, String>("Nome", mCidade.at("CidadeNome")));
+                mCidadeDescritores.adicionar(new Par<String, String>("Posição", cidade.getX() + " : " + cidade.getY()));
+
+                int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(cidade.getX(), cidade.getY());
+                int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(cidade.getX(), cidade.getY());
+
+                String cidade_regiao = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente) + " - " + mAtzum.GET_REGIAO_NOME(v2_regiao_corrente);
+                String cidade_altitude = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(cidade.getX(), cidade.getY()) + "m";
+
+
+                mCidadeDescritores.adicionar(new Par<String, String>("Região", cidade_regiao));
+                mCidadeDescritores.adicionar(new Par<String, String>("Altitude", cidade_altitude));
+
+
+                //  fmt.print("{}",mCidade.toTexto());
+
+                if (mCidade.atInt("Oceano_Distancia") <= 15) {
+                    mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Litoranea"));
+                } else {
+                    mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Continental"));
+                }
+
+                mCidadeDescritores.adicionar(new Par<String, String>("Oceano", mCidade.at("Oceano_Nome") + " - " + mCidade.at("Oceano_Distancia")));
+
+
+                mCidadeFatoresClimaticos.limpar();
+
+                for (int s = 1; s <= 500; s++) {
+                    if (Strings.isValida(mCidade.at("FC" + s))) {
+                        mCidadeFatoresClimaticos.item(mCidade.at("FC" + s));
+                    }
+                }
+
+
+            }
+        }
 
     }
 }

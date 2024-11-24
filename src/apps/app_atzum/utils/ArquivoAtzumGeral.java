@@ -5,12 +5,8 @@ import libs.arquivos.DSInterno;
 import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSIndexador;
 import libs.arquivos.ds.DSItem;
-import libs.entt.ENTT;
-import libs.entt.Entidade;
-import libs.imagem.Imagem;
 import libs.luan.Lista;
 import libs.luan.Opcional;
-import libs.luan.fmt;
 
 import java.awt.image.BufferedImage;
 
@@ -53,53 +49,56 @@ public class ArquivoAtzumGeral {
         BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/atzum_regioes_contornos.im").get());
         return mapa;
     }
-    public  BufferedImage GET_MAPA_DE_REGIOES() {
+
+    public BufferedImage GET_MAPA_DE_REGIOES() {
         BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/atzum_regioes.im").get());
         return mapa;
     }
 
-    public  BufferedImage GET_MAPA_DE_OCEANOS() {
+    public BufferedImage GET_MAPA_DE_OCEANOS() {
         BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/atzum_oceanos.im").get());
         return mapa;
     }
 
-    public int GET_PLANETA(int px,int py) {
-        if(op_planeta.isOK()){
+    public int GET_PLANETA(int px, int py) {
+        if (op_planeta.isOK()) {
             return DSInterno.QTT_GET(op_planeta.get(), px, py);
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public int GET_RELEVO_ALTITUDE(int px,int py) {
-        if(op_planeta_relevo.isOK()){
+    public int GET_RELEVO_ALTITUDE(int px, int py) {
+        if (op_planeta_relevo.isOK()) {
             return DSInterno.QTT_GET(op_planeta_relevo.get(), px, py);
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public int GET_OCEANO(int px,int py) {
-        if(op_planeta_oceanos.isOK()){
+    public int GET_OCEANO(int px, int py) {
+        if (op_planeta_oceanos.isOK()) {
             return DSInterno.QTT_GET(op_planeta_oceanos.get(), px, py);
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public int GET_REGIAO(int px,int py) {
-        if(op_planeta_regioes.isOK()){
+    public int GET_REGIAO(int px, int py) {
+        if (op_planeta_regioes.isOK()) {
             return DSInterno.QTT_GET(op_planeta_regioes.get(), px, py);
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public int GET_SUBREGIAO(int px,int py) {
-        if(op_planeta_subregioes.isOK()){
+    public int GET_SUBREGIAO(int px, int py) {
+        if (op_planeta_subregioes.isOK()) {
             return DSInterno.QTT_GET(op_planeta_subregioes.get(), px, py);
-        }else{
+        } else {
             return 0;
         }
     }
+
+
 }

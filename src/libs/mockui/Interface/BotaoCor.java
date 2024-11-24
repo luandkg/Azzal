@@ -17,6 +17,8 @@ public class BotaoCor {
     private Cor mCorNormal;
     private Cor mCorPressionada;
 
+    private String mTexto;
+
     public BotaoCor(int eX, int eY, int eLargura, int eAltura) {
 
         mRetangulo = new Retangulo(eX, eY, eLargura, eAltura);
@@ -24,7 +26,9 @@ public class BotaoCor {
         mAcao = null;
 
         mTemVariacao = false;
+        mTexto="";
     }
+
 
 
     public BotaoCor(int eX, int eY, int eLargura, int eAltura, Cor eCor) {
@@ -33,6 +37,8 @@ public class BotaoCor {
         mCor = eCor;
         mTemAcao = false;
         mAcao = null;
+        mTexto="";
+
 
     }
 
@@ -40,7 +46,15 @@ public class BotaoCor {
         mTemVariacao = true;
         mCorNormal = eCorNormal;
         mCorPressionada = eCorPressionada;
+
     }
+
+
+    public void setTexto(String eTexto){
+        mTexto=eTexto;
+    }
+
+    public String getTexto(){return mTexto;}
 
     public boolean temVariacao() {
         return mTemVariacao;
