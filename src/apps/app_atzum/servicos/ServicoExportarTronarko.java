@@ -4,6 +4,7 @@ import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_atzum.renderizadores.TronarkoRenderizadorSensores;
+import libs.arquivos.DSInterno;
 import libs.arquivos.IM;
 import libs.arquivos.Zipper;
 import libs.arquivos.ds.DS;
@@ -142,6 +143,13 @@ public class ServicoExportarTronarko {
 
 
 
+        Lista<Entidade> indice_ultra_rapido = DSInterno.CRIAR_INDICE_ULTRA_RAPIDO(arquivo_cidades_consolidados,"CidadePos");
+
+        EXPORTACAO_ADICIONAR_ENTIDADES(arquivo_atzum_tronarko, "@dados/tronarko_cidades_dados_publicados_indice_por_cidade.entts", indice_ultra_rapido);
+
+
+
+
         fmt.print(">> Exportando sensores : Umidade !");
         TronarkoRenderizadorSensores.TRONARKO_VER_SENSORES_UMIDADE();
 
@@ -194,6 +202,11 @@ public class ServicoExportarTronarko {
     public static void EXPORTACAO_ADICIONAR_ENTIDADE(String arquivo_atzum, String item_nome, Entidade entidade) {
         fmt.print("\t ++ {}", item_nome);
         DS.adicionar(arquivo_atzum, item_nome, ENTT.TO_DOCUMENTO(entidade));
+    }
+
+    public static void EXPORTACAO_ADICIONAR_ENTIDADES(String arquivo_atzum, String item_nome, Lista<Entidade> entidades) {
+        fmt.print("\t ++ {}", item_nome);
+        DS.adicionar(arquivo_atzum, item_nome, ENTT.TO_DOCUMENTO(entidades));
     }
 
 

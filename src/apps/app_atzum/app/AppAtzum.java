@@ -71,6 +71,8 @@ public class AppAtzum extends Cena {
     private Clicavel mClicavel;
 
     private Lista<Entidade> mInformacoesDasCidades;
+    private Lista<Entidade> mInformacoesDasCidadesIndexadas;
+
     private Entidade mCidade;
 
 
@@ -142,13 +144,14 @@ public class AppAtzum extends Cena {
 
         Tron t1 = Tronarko.getTronAgora();
 
-        mInformacoesDasCidades = mArquivoAtzumTronarko.getCidadesDadosPublicados();
+      //  mInformacoesDasCidades = mArquivoAtzumTronarko.getCidadesDadosPublicados();
+        mInformacoesDasCidadesIndexadas = mArquivoAtzumTronarko.getCidadesDadosPublicadosIndicePorCidade();
 
         Tron t2 = Tronarko.getTronAgora();
 
         fmt.print("Gastou :: {}",Tronarko.TRON_DIFERENCA(t1,t2)); // 12 uz
 
-        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(mInformacoesDasCidades, 10));
+        //ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(mInformacoesDasCidadesIndexadas, 10));
 
 
         mClima = new ClimaWidget();
@@ -480,8 +483,11 @@ public class AppAtzum extends Cena {
 
         if (mCidadeSelecionada) {
 
+
+            Entidade mCidade  = mArquivoAtzumTronarko.GET_CIDADE_DADOS(mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
+
             // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "Cidade", cidade.getX() + "::" + cidade.getY());
-            mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
+           // mCidade = ENTT.GET_SEMPRE(mInformacoesDasCidades, "CidadePos", mCidadeSelecionadaX + "::" + mCidadeSelecionadaY);
 
             mCidadeDescritores.adicionar(new Par<String, String>("Nome", mCidade.at("CidadeNome")));
             mCidadeDescritores.adicionar(new Par<String, String>("Posição", mCidadeSelecionadaX + " : " + mCidadeSelecionadaY));

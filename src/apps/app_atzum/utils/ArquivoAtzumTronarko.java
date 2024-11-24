@@ -5,16 +5,19 @@ import libs.arquivos.DSInterno;
 import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSIndexador;
 import libs.arquivos.ds.DSItem;
+import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
-import libs.luan.fmt;
 
 import java.awt.image.BufferedImage;
 
 public class ArquivoAtzumTronarko {
 
     private Lista<DSItem> mIndice;
+    private Lista<Entidade> mCidadesIndexadas;
+
+    private boolean mIndiceCidadeCarregado = false;
 
     public ArquivoAtzumTronarko(String eTronarko) {
         String arquivo_atzum = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/atzum_tronarko_" + eTronarko + ".ds");
@@ -25,9 +28,6 @@ public class ArquivoAtzumTronarko {
 
         if (Opcional.IS_OK(op_init)) {
             mIndice = DSIndexador.GET_INDEX(arquivo_atzum, "@AtzumTronarko.index");
-
-
-
             DS.DUMP_ITENS(mIndice);
         }
 
@@ -37,6 +37,22 @@ public class ArquivoAtzumTronarko {
     public Lista<Entidade> getCidadesDadosPublicados() {
         Lista<Entidade> mCidadesDadosPublicados = DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@dados/tronarko_cidades_dados_publicados.entts").get());
         return mCidadesDadosPublicados;
+    }
+
+    public Lista<Entidade> getCidadesDadosPublicadosIndicePorCidade() {
+        if (!mIndiceCidadeCarregado) {
+            mCidadesIndexadas = DSInterno.PARSER_ENTIDADES(DSIndexador.GET_ITEM(mIndice, "@dados/tronarko_cidades_dados_publicados_indice_por_cidade.entts").get());
+            mIndiceCidadeCarregado = true;
+        }
+        return mCidadesIndexadas;
+    }
+
+    public Entidade GET_CIDADE_DADOS(String cidade_pos) {
+
+        Entidade idx_cidade = ENTT.GET_SEMPRE(getCidadesDadosPublicadosIndicePorCidade(), "CidadePos", cidade_pos);
+        DSItem dados_todas_cidades = DSIndexador.GET_ITEM(mIndice, "@dados/tronarko_cidades_dados_publicados.entts").get();
+
+        return DSInterno.GET_ENTIDADE_INDEXADA_ULTRA_RAPIDO(dados_todas_cidades, idx_cidade);
     }
 
     public BufferedImage GET_MODELO_CLIMATICO() {
