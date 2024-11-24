@@ -150,7 +150,7 @@ public class Imagem {
         } catch (IOException e) {
         }
 
-        fmt.print("Arquivo :: {}",eArquivo);
+       // fmt.print("Arquivo :: {}",eArquivo);
 
         BufferedImage copia = new BufferedImage(IMG_MOSTRANDO.getWidth(), IMG_MOSTRANDO.getHeight(), BufferedImage.TYPE_INT_RGB);
 
