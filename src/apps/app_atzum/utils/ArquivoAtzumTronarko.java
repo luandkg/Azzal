@@ -5,10 +5,12 @@ import libs.arquivos.DSInterno;
 import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSIndexador;
 import libs.arquivos.ds.DSItem;
+import libs.arquivos.dsvideo.DSVideo;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.fmt;
 
 import java.awt.image.BufferedImage;
 
@@ -70,4 +72,26 @@ public class ArquivoAtzumTronarko {
         return mapa;
     }
 
+
+    public DSVideo GET_VIDEO(String nome) {
+
+        Opcional<DSItem> ret= DSIndexador.GET_ITEM(mIndice, nome);
+
+
+        if(ret.isOK()){
+            DSItem ret_item = ret.get();
+
+            fmt.print(">> {}",ret_item.getNome());
+
+
+            long ptr_inicio = ret_item.getInicio();
+            long ptr_fim = ret_item.getFim();
+
+
+            return new DSVideo(ret_item);
+
+        }
+
+        return null;
+    }
 }
