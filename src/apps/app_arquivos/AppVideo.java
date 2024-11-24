@@ -36,7 +36,8 @@ public class AppVideo extends Cena {
 //private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/preciptacao.vi";
   //  private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/tp.vi";
     // private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/build/complexo/chuva.vi";
-     private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/videos/fatores_climaticos.vi";
+     //private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/videos/fatores_climaticos.vi";
+    private  String eArquivoAbrir=   "/home/luan/Imagens/atzum/videos_sensores/fatores_climaticos.vi";
 
     private boolean mAberto = false;
     private boolean mCarregado = false;
