@@ -2,6 +2,7 @@ package libs.arquivos.video;
 
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
+import libs.luan.fmt;
 
 public class Arena {
 
@@ -12,6 +13,8 @@ public class Arena {
 
         mArquivo = eArquivo;
         mLocal = eLocal;
+
+        fmt.print("PTR Arena :: {}",eLocal);
 
     }
 
@@ -35,9 +38,11 @@ public class Arena {
 
         int eContador = 0;
 
-        mArquivo.setPonteiro(mLocal + 18);
+        mArquivo.setPonteiro(mLocal + 18L);
 
         for (int i = 0; i < 100; i++) {
+
+            fmt.print("Q :: {}",i);
 
             long eAntes = mArquivo.getPonteiro();
             mQuadros.adicionar(new Quadro(mArquivo, i, eAntes));
@@ -47,6 +52,8 @@ public class Arena {
             eContador += 1;
 
         }
+
+        fmt.print("Quadros :: {}",mQuadros.getQuantidade());
 
         return mQuadros;
 
