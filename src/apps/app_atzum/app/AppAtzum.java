@@ -22,8 +22,6 @@ import libs.entt.Entidade;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 import libs.luan.*;
-import libs.mockui.Interface.Acao;
-import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 
 import java.awt.image.BufferedImage;
@@ -48,9 +46,9 @@ public class AppAtzum extends Cena {
     private Fonte ESCRITOR_NORMAL_BRANCO;
     private Fonte ESCRITOR_NORMAL_BRANCO_GRANDE;
 
-    private boolean mGPS_OK = false;
-    private int mGPS_PX = 0;
-    private int mGPS_PY = 0;
+    public boolean mGPS_OK = false;
+    public int mGPS_PX = 0;
+    public int mGPS_PY = 0;
 
     private String mAlturaCorrente = "";
     private String mTerraOuAgua = "";
@@ -58,11 +56,11 @@ public class AppAtzum extends Cena {
     private String mOceanoCorrente = "";
 
     private Atzum mAtzum;
-    private Lista<Ponto> mCidades;
+    public Lista<Ponto> mCidades;
 
-    private boolean mCidadeSelecionada = false;
-    private int mCidadeSelecionadaX = 0;
-    private int mCidadeSelecionadaY = 0;
+    public boolean mCidadeSelecionada = false;
+    public int mCidadeSelecionadaX = 0;
+    public int mCidadeSelecionadaY = 0;
     private Lista<Par<String, String>> mCidadeDescritores;
 
     private Clicavel mClicavel;
@@ -81,9 +79,6 @@ public class AppAtzum extends Cena {
     private int mClimaClicadoPx = 0;
 
 
-    private BufferedImage mapa_drone = null;
-    private boolean drone_ok = false;
-    private Renderizador render_drone;
 
     private Unico<String> mCidadeFatoresClimaticos;
 
@@ -95,6 +90,8 @@ public class AppAtzum extends Cena {
     private GrupoDeBotoesGrandes mGrupoPrincipal;
     private GrupoDeBotoesGrandes mSubComandos;
     private GrupoDeBotoesGrandes mCamadasZoom;
+
+    public MapaZoom mMapaZoom;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -135,6 +132,7 @@ public class AppAtzum extends Cena {
         mCamadasZoom.setTamanho(20);
         mCamadasZoom.exibirTexto(false);
 
+        mMapaZoom=new MapaZoom(this);
 
         mClicavel = new Clicavel();
 
@@ -156,8 +154,6 @@ public class AppAtzum extends Cena {
 
         ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(mInformacoesDasCidades, 10));
 
-        mapa_drone = Imagem.criarEmBranco(300, 300);
-        render_drone = new Renderizador(mapa_drone);
 
     }
 
@@ -179,7 +175,7 @@ public class AppAtzum extends Cena {
             mGPS_PX = (px - X0) * 2;
             mGPS_PY = (py - Y0) * 2;
 
-            drone_update(false);
+            mMapaZoom.update(false);
 
             int terra_ou_agua = mArquivoAtzumGeral.GET_PLANETA(mGPS_PX, mGPS_PY);
             if (terra_ou_agua > 0) {
@@ -227,7 +223,7 @@ public class AppAtzum extends Cena {
                     procurar_cidade_proxima();
                 }
 
-                drone_update(false);
+                mMapaZoom.update(false);
 
             }
 
@@ -672,93 +668,14 @@ public class AppAtzum extends Cena {
 
         }
 
-        if (drone_ok) {
-            g.drawImagem(1900, 600, mapa_drone);
-        }
+        mMapaZoom.render(g);
+
 
         g.drawRect(1900, 600, 300, 300, mCores.getVermelho());
 
 
     }
 
-
-    private boolean drone_ultimo_valido = false;
-    private int drone_ultimo_px = 0;
-    private int drone_ultimo_py = 0;
-
-    public void drone_update(boolean ultimo) {
-
-        if (ultimo && !drone_ultimo_valido) {
-            return;
-        }
-
-
-        if (!ultimo) {
-            drone_ultimo_valido = true;
-            drone_ultimo_px = mGPS_PX;
-            drone_ultimo_py = mGPS_PY;
-        }
-
-        // DRONE
-        int comecar_x = mGPS_PX - 100;
-        int comecar_y = mGPS_PY - 100;
-
-        int terminar_x = mGPS_PX + 200;
-        int terminar_y = mGPS_PY + 200;
-
-        if (ultimo) {
-            comecar_x = drone_ultimo_px - 100;
-            comecar_y = drone_ultimo_py - 100;
-
-            terminar_x = drone_ultimo_px + 200;
-            terminar_y = drone_ultimo_py + 200;
-        }
-
-        drone_ok = true;
-        render_drone.limpar(mCores.getBranco());
-
-        int ady = 0;
-
-        for (int dy = comecar_y; dy < terminar_y; dy++) {
-            int adx = 0;
-            for (int dx = comecar_x; dx < terminar_x; dx++) {
-                if (dx > 0 && dx < mapa_grande.getWidth() && dy > 0 && dy < mapa_grande.getHeight()) {
-                    render_drone.setPixelPuro(adx, ady, mapa_grande.getRGB(dx, dy));
-                }
-                adx += 1;
-            }
-            ady += 1;
-        }
-
-        for (Ponto cidade : mCidades) {
-            if (cidade.getX() > comecar_x && cidade.getX() < terminar_x && cidade.getY() > comecar_y && cidade.getY() < terminar_y) {
-
-                int cidade_x = cidade.getX() - comecar_x;
-                int cidade_y = cidade.getY() - comecar_y;
-
-                render_drone.drawCirculoCentralizado_Pintado(cidade_x, cidade_y, 3, mCores.getAmarelo());
-
-                if (mCidadeSelecionada) {
-                    if (mCidadeSelecionadaX == cidade.getX() && mCidadeSelecionadaY == cidade.getY()) {
-
-                        render_drone.drawCirculoCentralizado_Pintado(cidade_x, cidade_y, 5, mCores.getVerde());
-                        render_drone.drawCirculoCentralizado_Pintado(cidade_x, cidade_y, 2, mCores.getAzul());
-
-                    }
-                }
-
-
-            }
-        }
-
-
-        int drone_x = mGPS_PX - comecar_x;
-        int drone_y = mGPS_PY - comecar_y;
-
-        render_drone.drawCirculoCentralizado_Pintado(drone_x, drone_y, 5, mCores.getVerde());
-
-
-    }
 
 
 

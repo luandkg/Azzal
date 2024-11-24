@@ -176,8 +176,8 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 app.mapa_grande = app.mArquivoAtzumGeral.GET_MAPA_DE_REGIOES();
-                mCamadasZoom.setSelecionado( "Regiões");
-                app. drone_update(true);
+                mCamadasZoom.setSelecionado("Regiões");
+                app.mMapaZoom.update(true);
 
             }
         });
@@ -189,7 +189,7 @@ public class AtzumBotoesPrincipais {
 
                 app.mapa_grande = app.mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
                 mCamadasZoom.setSelecionado("Relevo");
-                app.  drone_update(true);
+                app.mMapaZoom.update(true);
 
             }
         });
@@ -201,7 +201,7 @@ public class AtzumBotoesPrincipais {
 
                 app.mapa_grande = app.mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS();
                 mCamadasZoom.setSelecionado("Oceanos");
-                app.   drone_update(true);
+                app.mMapaZoom.update(true);
 
             }
         });
@@ -212,7 +212,7 @@ public class AtzumBotoesPrincipais {
 
                 app.mapa_grande = app.mArquivoAtzumTronarko.GET_MODELO_CLIMATICO();
                 mCamadasZoom.setSelecionado("Modelo Climático");
-                app.  drone_update(true);
+                app.mMapaZoom.update(true);
 
             }
         });
@@ -222,8 +222,8 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 app.mapa_grande = app.mArquivoAtzumTronarko.GET_MODELO_VEGETACAO();
-                mCamadasZoom.setSelecionado( "Modelo Vegetação");
-                app.  drone_update(true);
+                mCamadasZoom.setSelecionado("Modelo Vegetação");
+                app.mMapaZoom.update(true);
 
             }
         });
