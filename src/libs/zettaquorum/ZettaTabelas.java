@@ -196,5 +196,12 @@ public class ZettaTabelas {
         }
     }
 
+    public static void ATUALIZAR_OU_EXIBIR_ERRO(RefLinhaDaTabela item_ref, Entidade atualizando) {
+        Resultado<Boolean, String> resultado = item_ref.atualizar(atualizando);
+        if (resultado.isErro()) {
+            fmt.print(">> ERRO :: {}", resultado.getErro());
+        }
+    }
+
 
 }

@@ -1,13 +1,13 @@
 package libs.zettaquorum;
 
 
-import libs.aqz.tabela.AQZTabelaManipuladoraDeDados;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.fazendario.Armazem;
 import libs.fazendario.ArmazemIndiceSumario;
 import libs.fazendario.ItemAlocado;
 import libs.luan.Lista;
+import libs.luan.Opcional;
 import libs.luan.Resultado;
 
 public class ZettaTabela {
@@ -103,6 +103,45 @@ public class ZettaTabela {
 
     public Resultado<Boolean, String> adicionar(Entidade novo) {
         return ZettaTabelaManipuladorDeDados.adicionar(mEsquema,mDados,mIndice,mSequenciador, mNome, novo);
+    }
+
+    public Opcional<RefLinhaDaTabela> procurar(String att_nome, int att_valor) {
+
+        for (ItemAlocado item : mDados.getItens()) {
+            Entidade obj = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            if (obj.is(att_nome, att_valor)) {
+                return Opcional.OK(new RefLinhaDaTabela(this, mEsquema, mDados, mNome, item, obj));
+            }
+        }
+
+        return Opcional.CANCEL();
+    }
+
+
+    // FUNCOES
+
+    public Lista<Entidade> contar_por(String atributo){
+        Lista<Entidade> grupos = ENTT.CRIAR_LISTA();
+
+        for(ItemAlocado item : mDados.getItens()){
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            String att_valor = e_item.at(atributo);
+
+            if(ENTT.EXISTE(grupos,atributo,att_valor)){
+                Entidade grupo = ENTT.GET_SEMPRE(grupos,atributo,att_valor);
+                grupo.at("Quantidade",grupo.atInt("Quantidade")+1);
+            }else{
+                Entidade grupo = ENTT.CRIAR_EM(grupos,atributo,att_valor);
+                grupo.at("Quantidade",1);
+            }
+        }
+
+        return grupos;
+    }
+
+
+    public void exibir_contar_por(String atributo) {
+        ENTT.EXIBIR_TABELA_COM_NOME(contar_por(atributo), "DADOS :: " + mNome + " -->> Contar("+atributo+")");
     }
 
 }
