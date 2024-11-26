@@ -1529,8 +1529,8 @@ public class ENTT {
     }
 
 
-    public static Lista<Entidade> SLICE_PRIMEIROS(Lista<Entidade> dados,int quantidade){
-       return ENTT.SLICE(dados,0,quantidade);
+    public static Lista<Entidade> SLICE_PRIMEIROS(Lista<Entidade> dados, int quantidade) {
+        return ENTT.SLICE(dados, 0, quantidade);
     }
 
 
@@ -1641,7 +1641,7 @@ public class ENTT {
         return ls;
     }
 
-    public static Lista<Entidade> CRIAR_LISTA_COM(Entidade e1,Entidade e2) {
+    public static Lista<Entidade> CRIAR_LISTA_COM(Entidade e1, Entidade e2) {
         Lista<Entidade> ls = new Lista<Entidade>();
         ls.adicionar(e1);
         ls.adicionar(e2);
@@ -2250,4 +2250,29 @@ public class ENTT {
 
         return comum;
     }
+
+    public static void ZONA_ANALISAR_EM_DISPERSAO(Lista<Entidade> dados, Lista<Entidade> zonas, String att_valor ) {
+        ENTT.ZONA_ANALISAR(ENTT.DISPERSAO(dados,att_valor),zonas,att_valor,"Quantidade");
+    }
+
+    public static Lista<Entidade>  ZONA_ANALISAR_EM_DISPERSAO_4ZONAS(Lista<Entidade> dados,  String att_valor ) {
+
+        Lista<Entidade> idade_zonas = ENTT.GET_4ZONAS_DE(dados,att_valor);
+
+        ENTT.ZONA_ANALISAR_EM_DISPERSAO(dados,idade_zonas,att_valor);
+
+        return idade_zonas;
+    }
+
+
+    public static void CALCULAR_PORCENTAGEM(Lista<Entidade> dados,String att_calcular,String att_porcentagem){
+
+        int total = ENTT.ATRIBUTO_SOMAR(dados,att_calcular);
+
+        for(Entidade e : dados){
+            e.at(att_porcentagem,fmt.f2Porcentagem(e.atInt(att_calcular),total));
+        }
+
+    }
+
 }
