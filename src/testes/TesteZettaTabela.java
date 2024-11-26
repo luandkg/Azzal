@@ -1,11 +1,9 @@
 package testes;
 
+import libs.aqz.tabela.AQZTabelas;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.Aleatorio;
-import libs.luan.Lista;
-import libs.luan.Vetor;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.zettaquorum.*;
 import servicos.MundoReal;
 
@@ -20,6 +18,8 @@ public class TesteZettaTabela {
         ZettaTabelas zeta = new ZettaTabelas(arquivo_zeta);
 
         ZettaTabela pessoas = zeta.getTabelaSempre("Pessoas");
+
+        // pessoas.zerar();
 
         if (!pessoas.temEsquema()) {
 
@@ -82,7 +82,7 @@ public class TesteZettaTabela {
         Lista<String> nome_repetir = ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Nome");
 
 
-        for (int i = 1; i <= 50; i++) {
+        for (int i = 1; i <= 10; i++) {
 
             fmt.print("\t ++ Adicionando pessoa : {}", i);
             Entidade novo = new Entidade();
@@ -119,7 +119,70 @@ public class TesteZettaTabela {
         pessoas.exibir_esquema();
         pessoas.exibir_dados();
 
+        ENTT.EXIBIR_TABELA(ENTT.VALORES("Autenticado",ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Autenticado")));
+        ENTT.EXIBIR_TABELA(ENTT.VALORES("Status",ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Status")));
+        ENTT.EXIBIR_TABELA(ENTT.VALORES("Idade",ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Idade")));
+
         zeta.fechar();
     }
 
+
+    public static void ver_dados() {
+
+
+        fmt.print("----------------- ZETA TABELAS :: INICIANDO ------------------");
+
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta_v2.az";
+
+        ZettaTabelas zeta = new ZettaTabelas(arquivo_zeta);
+
+        ZettaTabela pessoas = zeta.getTabelaSempre("Pessoas");
+
+        pessoas.exibir_esquema();
+        pessoas.exibir_dados();
+
+
+        Opcional<RefLinhaDaTabela> ref_pessoa_id14 = pessoas.procurar("PessoaID", 14);
+
+        if (ref_pessoa_id14.isOK()) {
+
+            Entidade e_atualizar = ref_pessoa_id14.get().getEntidade();
+            e_atualizar.at_remover("@ID");
+            e_atualizar.at_remover("@PTR");
+
+            e_atualizar.at_remover("PessoaID");
+
+            e_atualizar.at("Nome", MundoReal.GET_NOME_PESSOA_COMPLETO());
+            e_atualizar.at("Idade", Aleatorio.aleatorio_entre(0, 100));
+            e_atualizar.at("Altura", Aleatorio.aleatorio_numero_real(1, 3));
+            e_atualizar.at("Autenticado", Aleatorio.escolha_um(Vetor.CRIAR("SIM", "NAO", "TALVEZ")));
+            e_atualizar.at("Status", Aleatorio.escolha_um(Lista.CRIAR("DISPONIVEL", "BLOQUEADO", "OCUPADO", "TRANSMITINDO", "V2")));
+
+            if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                e_atualizar.at("Idade", Aleatorio.escolha_um(Vetor.CRIAR("1.50", "130in", "um")));
+            } else {
+                if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                    if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                        e_atualizar.at("Nome", fmt.repetir("a", 112));
+                    } else {
+                        e_atualizar.at("Nome", "a");
+                    }
+                }
+            }
+
+            ZettaTabelas.ATUALIZAR_OU_EXIBIR_ERRO(ref_pessoa_id14.get(), e_atualizar);
+        }
+
+
+        pessoas.exibir_dados();
+        pessoas.exibir_contar_por("Status");
+        pessoas.exibir_contar_por("Autenticado");
+
+
+        Lista<Entidade> idade_zonas = ENTT.ZONA_ANALISAR_EM_DISPERSAO_4ZONAS(pessoas.getItens(),"Idade");
+
+        ENTT.CALCULAR_PORCENTAGEM(idade_zonas,"Quantidade","Porcentagem");
+        ENTT.EXIBIR_TABELA_COM_TITULO(idade_zonas,"INTERVALOS DE IDADES");
+
+    }
 }
