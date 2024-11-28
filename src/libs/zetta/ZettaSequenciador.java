@@ -2,7 +2,7 @@ package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.ItemAlocado;
+import libs.zetta.fazendario.ItemAlocado;
 import libs.tronarko.Tronarko;
 
 public class ZettaSequenciador {

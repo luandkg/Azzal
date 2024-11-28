@@ -1,7 +1,7 @@
 package libs.zetta.tabelas;
 
 import libs.entt.Entidade;
-import libs.fazendario.ItemAlocado;
+import libs.zetta.fazendario.ItemAlocado;
 import libs.luan.Resultado;
 import libs.zetta.persistencia.ArmazemManipulador;
 

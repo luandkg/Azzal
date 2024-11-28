@@ -2,7 +2,7 @@ package libs.zetta.tabelas;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.ItemAlocado;
+import libs.zetta.fazendario.ItemAlocado;
 import libs.luan.Lista;
 import libs.luan.Matematica;
 import libs.luan.Strings;

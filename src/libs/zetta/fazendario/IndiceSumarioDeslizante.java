@@ -1,10 +1,9 @@
-package libs.fazendario;
+package libs.zetta.fazendario;
 
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
 import libs.luan.Opcional;
-import libs.luan.fmt;
 
 public class IndiceSumarioDeslizante {
 

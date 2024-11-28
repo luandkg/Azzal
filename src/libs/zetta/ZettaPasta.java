@@ -3,7 +3,7 @@ package libs.zetta;
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.*;
+import libs.zetta.fazendario.*;
 import libs.luan.*;
 import libs.tronarko.Tronarko;
 import libs.zetta.persistencia.ArmazemPrimario;

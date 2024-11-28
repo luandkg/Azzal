@@ -2,9 +2,9 @@ package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.ArmazemIndiceSumario;
-import libs.fazendario.ItemAlocado;
-import libs.fazendario.SuperBloco;
+import libs.zetta.fazendario.ArmazemIndiceSumario;
+import libs.zetta.fazendario.ItemAlocado;
+import libs.zetta.fazendario.SuperBloco;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 

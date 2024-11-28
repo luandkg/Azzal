@@ -2,8 +2,8 @@ package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.ArmazemIndiceSumario;
-import libs.fazendario.ItemAlocado;
+import libs.zetta.fazendario.ArmazemIndiceSumario;
+import libs.zetta.fazendario.ItemAlocado;
 
 public class ItemColecionavel {
 

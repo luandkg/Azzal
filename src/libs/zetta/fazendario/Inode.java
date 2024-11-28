@@ -1,4 +1,4 @@
-package libs.fazendario;
+package libs.zetta.fazendario;
 
 public class Inode {
 

@@ -1,4 +1,4 @@
-package libs.fazendario;
+package libs.zetta.fazendario;
 
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.TX;

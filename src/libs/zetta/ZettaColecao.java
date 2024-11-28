@@ -2,7 +2,7 @@ package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.*;
+import libs.zetta.fazendario.*;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.Strings;

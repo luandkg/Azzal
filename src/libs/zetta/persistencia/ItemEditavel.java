@@ -2,7 +2,7 @@ package libs.zetta.persistencia;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.ItemAlocado;
+import libs.zetta.fazendario.ItemAlocado;
 
 public class ItemEditavel {
 

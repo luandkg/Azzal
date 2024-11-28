@@ -2,8 +2,8 @@ package libs.zetta.persistencia;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.Armazem;
-import libs.fazendario.ItemAlocado;
+import libs.zetta.fazendario.Armazem;
+import libs.zetta.fazendario.ItemAlocado;
 import libs.luan.Lista;
 
 public class ArmazemManipulador {

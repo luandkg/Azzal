@@ -2,7 +2,7 @@ package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.fazendario.IndiceLocalizado;
+import libs.zetta.fazendario.IndiceLocalizado;
 import libs.luan.Opcional;
 import libs.luan.fmt;
 

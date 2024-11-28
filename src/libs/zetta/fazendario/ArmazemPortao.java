@@ -1,4 +1,4 @@
-package libs.fazendario;
+package libs.zetta.fazendario;
 
 import libs.arquivos.binario.Arquivador;
 import libs.luan.DeslizadorEstrutural;
