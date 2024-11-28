@@ -1,7 +1,5 @@
 package libs.zettaquorum;
 
-import libs.aqz.colecao.ColecaoUTF8;
-import libs.aqz.utils.ItemDoBancoUTF8;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.entt.Tag;
@@ -227,7 +225,7 @@ public class ZettaTabelaManipuladorDeDados {
 
             return Resultado.OK(true);
         } else {
-            return Resultado.FALHAR("AQZTabela Erro : " + adicao_erro);
+            return Resultado.FALHAR("ZettaTabela Erro : " + adicao_erro);
 
         }
 
@@ -252,7 +250,7 @@ public class ZettaTabelaManipuladorDeDados {
         if (novo.atributo_existe("@ID")) {
             adicao_valida = false;
             adicao_erro = "Tabela " + mNome + " - Entidade atualizável não pode ter o atributo primario @ID  !";
-            return Resultado.FALHAR("AQZTabela Erro : " + adicao_erro);
+            return Resultado.FALHAR("ZettaTabela Erro : " + adicao_erro);
         }
 
 
@@ -267,7 +265,7 @@ public class ZettaTabelaManipuladorDeDados {
         }
 
         if (!adicao_valida) {
-            return Resultado.FALHAR("AQZTabela Erro : " + adicao_erro);
+            return Resultado.FALHAR("ZettaTabela Erro : " + adicao_erro);
         }
 
         Entidade dados_existentes = ENTT.PARSER_ENTIDADE( eItemExistente.lerTextoUTF8());
@@ -446,7 +444,7 @@ public class ZettaTabelaManipuladorDeDados {
 
             return Resultado.OK(true);
         } else {
-            return Resultado.FALHAR("AQZTabela Erro : " + adicao_erro);
+            return Resultado.FALHAR("ZettaTabela Erro : " + adicao_erro);
 
         }
 

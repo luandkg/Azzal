@@ -4,6 +4,7 @@ import apps.app_campeonatum.VERIFICADOR;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.luan.Resultado;
 import libs.tronarko.Tronarko;
 
 public class ZettaTabelaEsquematizador {
@@ -14,18 +15,34 @@ public class ZettaTabelaEsquematizador {
         mEsquema=eEsquema;
     }
 
-    public void criar_chave_primaria(String coluna_nome, int valor_inicial, int valor_passo) {
+    private void FALHAR_SE(Resultado<String,String> resultado ,boolean condicao,String erro){
+        if(condicao){
+            resultado.errar(erro);
+        }
+    }
 
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains(" "), "AQZTabela : coluna não pode conter espacos !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
+    public Resultado<String,String> criar_chave_primaria(String coluna_nome, int valor_inicial, int valor_passo) {
+
+        Resultado<String,String> resultado = new Resultado<String,String>("OK");
+
+
+        FALHAR_SE(resultado,coluna_nome.contains(" "), "ZettaTabela : coluna não pode conter espacos !");
+        FALHAR_SE(resultado,coluna_nome.contains("@"), "ZettaTabela : coluna não pode conter arrobas !");
+        FALHAR_SE(resultado, coluna_nome.trim().isEmpty(), "ZettaTabela : coluna precisa ter nome !");
+
+        if(resultado.isErro()){
+            return resultado;
+        }
 
         Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
-            throw new RuntimeException("AQZTabela : Coluna já existente - " + coluna_nome);
+            resultado.errar("ZettaTabela : Coluna já existente - " + coluna_nome);
         }
 
+        if(resultado.isErro()){
+            return resultado;
+        }
 
         Entidade e_coluna = new Entidade();
         e_coluna.at("Formato", "PRIMARIA");
@@ -41,21 +58,30 @@ public class ZettaTabelaEsquematizador {
 
         mEsquema.adicionar(e_coluna);
 
+        return resultado;
     }
 
-    public void criar_coluna(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
+    public Resultado<String,String> criar_coluna(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
 
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains(" "), "AQZTabela : coluna não pode conter espacos !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
+        Resultado<String,String> resultado = new Resultado<String,String>("OK");
+
+        FALHAR_SE(resultado,coluna_nome.contains(" "), "ZettaTabela : coluna não pode conter espacos !");
+        FALHAR_SE(resultado,coluna_nome.contains("@"), "ZettaTabela : coluna não pode conter arrobas !");
+        FALHAR_SE(resultado, coluna_nome.trim().isEmpty(), "ZettaTabela : coluna precisa ter nome !");
+
+        if(resultado.isErro()){
+            return resultado;
+        }
 
         Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
-            throw new RuntimeException("AQZTabela : Coluna já existente - " + coluna_nome);
+            resultado.errar("ZettaTabela : Coluna já existente - " + coluna_nome);
         }
 
-
+        if(resultado.isErro()){
+            return resultado;
+        }
         Entidade e_coluna = new Entidade();
         e_coluna.at("Formato", "DADOS");
         e_coluna.at("Nome", coluna_nome);
@@ -65,21 +91,26 @@ public class ZettaTabelaEsquematizador {
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
         mEsquema.adicionar(e_coluna);
+        return resultado;
 
     }
 
-    public void criar_coluna_nao_obrigatoria(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
+    public Resultado<String,String> criar_coluna_nao_obrigatoria(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
 
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains(" "), "AQZTabela : coluna não pode conter espacos !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
+        Resultado<String,String> resultado = new Resultado<String,String>("OK");
+
+        FALHAR_SE(resultado,coluna_nome.contains(" "), "ZettaTabela : coluna não pode conter espacos !");
+        FALHAR_SE(resultado,coluna_nome.contains("@"), "ZettaTabela : coluna não pode conter arrobas !");
+        FALHAR_SE(resultado, coluna_nome.trim().isEmpty(), "ZettaTabela : coluna precisa ter nome !");
 
         Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
-            throw new RuntimeException("AQZTabela : Coluna já existente - " + coluna_nome);
+            resultado.errar("ZettaTabela : Coluna já existente - " + coluna_nome);
         }
-
+        if(resultado.isErro()){
+            return resultado;
+        }
 
         Entidade e_coluna = new Entidade();
         e_coluna.at("Formato", "DADOS");
@@ -90,25 +121,31 @@ public class ZettaTabelaEsquematizador {
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
         mEsquema.adicionar(e_coluna);
+        return resultado;
 
     }
 
-    public void criar_acao_inserivel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoInserivel coluna_auto_inserivel) {
+    public Resultado<String,String> criar_acao_inserivel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoInserivel coluna_auto_inserivel) {
 
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains(" "), "AQZTabela : coluna não pode conter espacos !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
+        Resultado<String,String> resultado = new Resultado<String,String>("OK");
+
+        FALHAR_SE(resultado,coluna_nome.contains(" "), "ZettaTabela : coluna não pode conter espacos !");
+        FALHAR_SE(resultado,coluna_nome.contains("@"), "ZettaTabela : coluna não pode conter arrobas !");
+        FALHAR_SE(resultado, coluna_nome.trim().isEmpty(), "ZettaTabela : coluna precisa ter nome !");
 
         Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (!ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
-            throw new RuntimeException("AQZTabela : Coluna nao existente - " + coluna_nome);
+            resultado.errar("ZettaTabela : Coluna nao existente - " + coluna_nome);
         }
 
         if (ENTT.EXISTE(esquema, "Regra", coluna_regra_nome)) {
-            throw new RuntimeException("AQZTabela : Regra já existente - " + coluna_regra_nome);
+            resultado.errar("ZettaTabela : Regra já existente - " + coluna_regra_nome);
         }
 
+        if(resultado.isErro()){
+            return resultado;
+        }
 
         Entidade e_coluna = new Entidade();
         e_coluna.at("Regra", coluna_regra_nome);
@@ -120,25 +157,31 @@ public class ZettaTabelaEsquematizador {
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
         mEsquema.adicionar(e_coluna);
+        return resultado;
 
     }
 
-    public void criar_acao_atualizavel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoAtualizavel coluna_auto_atualizavel) {
+    public Resultado<String,String> criar_acao_atualizavel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoAtualizavel coluna_auto_atualizavel) {
 
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains(" "), "AQZTabela : coluna não pode conter espacos !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
+        Resultado<String,String> resultado = new Resultado<String,String>("OK");
+
+        FALHAR_SE(resultado,coluna_nome.contains(" "), "ZettaTabela : coluna não pode conter espacos !");
+        FALHAR_SE(resultado,coluna_nome.contains("@"), "ZettaTabela : coluna não pode conter arrobas !");
+        FALHAR_SE(resultado, coluna_nome.trim().isEmpty(), "ZettaTabela : coluna precisa ter nome !");
 
         Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (!ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
-            throw new RuntimeException("AQZTabela : Coluna nao existente - " + coluna_nome);
+            resultado.errar("ZettaTabela : Coluna nao existente - " + coluna_nome);
         }
 
         if (ENTT.EXISTE(esquema, "Regra", coluna_regra_nome)) {
-            throw new RuntimeException("AQZTabela : Regra já existente - " + coluna_regra_nome);
+            resultado.errar("ZettaTabela : Regra já existente - " + coluna_regra_nome);
         }
 
+        if(resultado.isErro()){
+            return resultado;
+        }
 
         Entidade e_coluna = new Entidade();
         e_coluna.at("Regra", coluna_regra_nome);
@@ -150,25 +193,31 @@ public class ZettaTabelaEsquematizador {
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
         mEsquema.adicionar(e_coluna);
+        return resultado;
 
     }
 
-    public void criar_verificador(String coluna_regra_nome, String coluna_nome, Entidade verificador) {
+    public Resultado<String,String> criar_verificador(String coluna_regra_nome, String coluna_nome, Entidade verificador) {
 
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains(" "), "AQZTabela : coluna não pode conter espacos !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(!coluna_nome.contains("@"), "AQZTabela : coluna não pode conter arrobas !");
-        VERIFICADOR.DEVE_SER_VERDADEIRO(coluna_nome.trim().length() > 0, "AQZTabela : coluna precisa ter nome !");
+        Resultado<String,String> resultado = new Resultado<String,String>("OK");
+
+        FALHAR_SE(resultado,coluna_nome.contains(" "), "ZettaTabela : coluna não pode conter espacos !");
+        FALHAR_SE(resultado,coluna_nome.contains("@"), "ZettaTabela : coluna não pode conter arrobas !");
+        FALHAR_SE(resultado,coluna_nome.trim().isEmpty(), "ZettaTabela : coluna precisa ter nome !");
 
         Lista<Entidade> esquema = mEsquema.getObjetos();
 
         if (!ENTT.EXISTE(esquema, "Nome", coluna_nome)) {
-            throw new RuntimeException("AQZTabela : Coluna nao existente - " + coluna_nome);
+            resultado.errar("ZettaTabela : Coluna nao existente - " + coluna_nome);
         }
 
         if (ENTT.EXISTE(esquema, "Regra", coluna_regra_nome)) {
-            throw new RuntimeException("AQZTabela : Regra já existente - " + coluna_regra_nome);
+            resultado.errar("ZettaTabela : Regra já existente - " + coluna_regra_nome);
         }
 
+        if(resultado.isErro()){
+            return resultado;
+        }
 
         Entidade e_coluna = new Entidade();
         e_coluna.at("Formato", "VERIFICAVEL");
@@ -179,9 +228,13 @@ public class ZettaTabelaEsquematizador {
         e_coluna.at("DDM", Tronarko.getTronAgora().getTextoZerado());
 
         verificador.at("Nome", "VERIFICADOR");
+
+        verificador.tornar_primeiro("Nome");
+
         e_coluna.getEntidades().adicionar(verificador);
 
         mEsquema.adicionar(e_coluna);
+        return resultado;
 
     }
 }

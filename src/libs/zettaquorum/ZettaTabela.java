@@ -9,6 +9,7 @@ import libs.fazendario.ItemAlocado;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.Resultado;
+import libs.luan.Strings;
 
 public class ZettaTabela {
 
@@ -59,7 +60,19 @@ public class ZettaTabela {
     }
 
     public void exibir_esquema() {
-        ENTT.EXIBIR_TABELA_COM_NOME(mEsquema.getObjetos(), "ESQUEMA :: " + mNome);
+
+        Lista<Entidade> esquema = mEsquema.getObjetos();
+
+        for(Entidade e : esquema){
+            if(e.getEntidades().possuiObjetos()){
+
+                e.at("Regra::Tipo", Strings.LINEARIZAR(e.getEntidades().get(0).at("Tipo")).replace("\t"," | "));
+                e.at("Regra::Valor", Strings.LINEARIZAR(e.getEntidades().get(0).at("Valor")).replace("\t"," | "));
+
+            }
+        }
+
+        ENTT.EXIBIR_TABELA_COM_NOME(esquema, "ESQUEMA :: " + mNome);
     }
 
     public void exibir_dados() {
@@ -71,38 +84,37 @@ public class ZettaTabela {
     }
 
 
-
     // ESQUEMA
 
-    public void criar_chave_primaria(String coluna_nome, int valor_inicial, int valor_passo) {
-        mEsquematizador.criar_chave_primaria(coluna_nome,valor_inicial,valor_passo);
+    public Resultado<String, String> criar_chave_primaria(String coluna_nome, int valor_inicial, int valor_passo) {
+        return mEsquematizador.criar_chave_primaria(coluna_nome, valor_inicial, valor_passo);
     }
 
-    public void criar_coluna(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
-        mEsquematizador.criar_coluna(coluna_nome,coluna_tipo);
+    public Resultado<String, String> criar_coluna(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
+        return mEsquematizador.criar_coluna(coluna_nome, coluna_tipo);
     }
 
-    public void criar_coluna_nao_obrigatoria(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
-        mEsquematizador.criar_coluna_nao_obrigatoria(coluna_nome,coluna_tipo);
+    public Resultado<String, String> criar_coluna_nao_obrigatoria(String coluna_nome, AZTabelaColunaTipo coluna_tipo) {
+        return mEsquematizador.criar_coluna_nao_obrigatoria(coluna_nome, coluna_tipo);
     }
 
-    public void criar_acao_inserivel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoInserivel coluna_auto_inserivel) {
-        mEsquematizador.criar_acao_inserivel(coluna_regra_nome,coluna_nome,coluna_tipo,coluna_auto_inserivel);
+    public Resultado<String, String> criar_acao_inserivel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoInserivel coluna_auto_inserivel) {
+        return mEsquematizador.criar_acao_inserivel(coluna_regra_nome, coluna_nome, coluna_tipo, coluna_auto_inserivel);
     }
 
-    public void criar_acao_atualizavel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoAtualizavel coluna_auto_atualizavel) {
-        mEsquematizador.criar_acao_atualizavel(coluna_regra_nome,coluna_nome,coluna_tipo,coluna_auto_atualizavel);
+    public Resultado<String, String> criar_acao_atualizavel(String coluna_regra_nome, String coluna_nome, AZTabelaColunaTipo coluna_tipo, AZTabelaAutoAtualizavel coluna_auto_atualizavel) {
+        return mEsquematizador.criar_acao_atualizavel(coluna_regra_nome, coluna_nome, coluna_tipo, coluna_auto_atualizavel);
     }
 
-    public void criar_verificador(String coluna_regra_nome, String coluna_nome, Entidade verificador) {
-        mEsquematizador.criar_verificador(coluna_regra_nome,coluna_nome,verificador);
+    public Resultado<String, String> criar_verificador(String coluna_regra_nome, String coluna_nome, Entidade verificador) {
+        return mEsquematizador.criar_verificador(coluna_regra_nome, coluna_nome, verificador);
     }
 
 
     // MANIPULAR DADOS
 
     public Resultado<Boolean, String> adicionar(Entidade novo) {
-        return ZettaTabelaManipuladorDeDados.adicionar(mEsquema,mDados,mIndice,mSequenciador, mNome, novo);
+        return ZettaTabelaManipuladorDeDados.adicionar(mEsquema, mDados, mIndice, mSequenciador, mNome, novo);
     }
 
     public Opcional<RefLinhaDaTabela> procurar(String att_nome, int att_valor) {
@@ -120,19 +132,19 @@ public class ZettaTabela {
 
     // FUNCOES
 
-    public Lista<Entidade> contar_por(String atributo){
+    public Lista<Entidade> contar_por(String atributo) {
         Lista<Entidade> grupos = ENTT.CRIAR_LISTA();
 
-        for(ItemAlocado item : mDados.getItens()){
+        for (ItemAlocado item : mDados.getItens()) {
             Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
             String att_valor = e_item.at(atributo);
 
-            if(ENTT.EXISTE(grupos,atributo,att_valor)){
-                Entidade grupo = ENTT.GET_SEMPRE(grupos,atributo,att_valor);
-                grupo.at("Quantidade",grupo.atInt("Quantidade")+1);
-            }else{
-                Entidade grupo = ENTT.CRIAR_EM(grupos,atributo,att_valor);
-                grupo.at("Quantidade",1);
+            if (ENTT.EXISTE(grupos, atributo, att_valor)) {
+                Entidade grupo = ENTT.GET_SEMPRE(grupos, atributo, att_valor);
+                grupo.at("Quantidade", grupo.atInt("Quantidade") + 1);
+            } else {
+                Entidade grupo = ENTT.CRIAR_EM(grupos, atributo, att_valor);
+                grupo.at("Quantidade", 1);
             }
         }
 
@@ -141,7 +153,11 @@ public class ZettaTabela {
 
 
     public void exibir_contar_por(String atributo) {
-        ENTT.EXIBIR_TABELA_COM_NOME(contar_por(atributo), "DADOS :: " + mNome + " -->> Contar("+atributo+")");
+        ENTT.EXIBIR_TABELA_COM_NOME(contar_por(atributo), "DADOS :: " + mNome + " -->> Contar(" + atributo + ")");
+    }
+
+    public long contagem() {
+        return mDados.contagem();
     }
 
 }
