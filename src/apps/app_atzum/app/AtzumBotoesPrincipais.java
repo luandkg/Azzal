@@ -18,8 +18,7 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_pequeno = app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO();
-                app.mapa_pequeno = Efeitos.reduzirMetade(app.mapa_pequeno);
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO()));
                 grupo.setSelecionado("Cidades");
                 mSubCamadas.zerar();
 
@@ -30,8 +29,9 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_pequeno = app.mArquivoAtzumGeral.GET_MAPA_DE_REGIOES();
-                app.mapa_pequeno = Efeitos.reduzirMetade(app.mapa_pequeno);
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_REGIOES()));
+
+
                 grupo.setSelecionado("Regiões");
                 mSubCamadas.zerar();
 
@@ -42,8 +42,9 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_pequeno = app.mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
-                app.mapa_pequeno = Efeitos.reduzirMetade(app.mapa_pequeno);
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_RELEVO()));
+
+
                 grupo.setSelecionado("Relevo");
                 mSubCamadas.zerar();
 
@@ -55,8 +56,8 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_pequeno = app.mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS();
-                app.mapa_pequeno = Efeitos.reduzirMetade(app.mapa_pequeno);
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS()));
+
                 grupo.setSelecionado("Oceanos");
                 mSubCamadas.zerar();
 
@@ -68,8 +69,8 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_pequeno = app.mArquivoAtzumTronarko.GET_MODELO_CLIMATICO();
-                app.mapa_pequeno = Efeitos.reduzirMetade(app.mapa_pequeno);
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumTronarko.GET_MODELO_CLIMATICO()));
+
                 grupo.setSelecionado("Modelo Climático");
                 mSubCamadas.zerar();
 
@@ -81,8 +82,9 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_pequeno = app.mArquivoAtzumTronarko.GET_MODELO_VEGETACAO();
-                app.mapa_pequeno = Efeitos.reduzirMetade(app.mapa_pequeno);
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumTronarko.GET_MODELO_VEGETACAO()));
+
+
                 grupo.setSelecionado("Modelo Vegetação");
                 mSubCamadas.zerar();
 
@@ -133,7 +135,7 @@ public class AtzumBotoesPrincipais {
 
                         DSVideo video = app.mArquivoAtzumTronarko.GET_VIDEO("@animacao/fatores_climaticos.vi");
 
-                        app.reproduzirVideo(video);
+                        app.mVideoEmExecucao.reproduzirVideo(video);
 
                         mSubCamadas.setSelecionado("FC");
 
@@ -164,8 +166,8 @@ public class AtzumBotoesPrincipais {
                 @Override
                 public void onClique() {
 
-                    app.mapa_pequeno = app.mArquivoAtzumTronarko.GET_MAPA_MODELO(tipo, String.valueOf(ref_modelo.get()));
-                    app.mapa_pequeno = Efeitos.reduzirMetade(app.mapa_pequeno);
+                    app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumTronarko.GET_MAPA_MODELO(tipo, String.valueOf(ref_modelo.get()))));
+
                     mSubCamadas.setSelecionado(String.valueOf(ref_modelo.get()));
                     fmt.print("SubCamada :: {} !", tipo);
                 }
@@ -191,7 +193,8 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_grande = app.mArquivoAtzumGeral.GET_MAPA_DE_REGIOES();
+                app.mWidgetMapaVisualizador.setMapaGrande(app.mArquivoAtzumGeral.GET_MAPA_DE_REGIOES());
+
                 mCamadasZoom.setSelecionado("Regiões");
                 app.mMapaZoom.update(true);
 
@@ -202,8 +205,8 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
+                app.mWidgetMapaVisualizador.setMapaGrande(app.mArquivoAtzumGeral.GET_MAPA_DE_RELEVO());
 
-                app.mapa_grande = app.mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
                 mCamadasZoom.setSelecionado("Relevo");
                 app.mMapaZoom.update(true);
 
@@ -215,7 +218,8 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_grande = app.mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS();
+                app.mWidgetMapaVisualizador.setMapaGrande(app.mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS());
+
                 mCamadasZoom.setSelecionado("Oceanos");
                 app.mMapaZoom.update(true);
 
@@ -226,7 +230,8 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_grande = app.mArquivoAtzumTronarko.GET_MODELO_CLIMATICO();
+                app.mWidgetMapaVisualizador.setMapaGrande(app.mArquivoAtzumTronarko.GET_MODELO_CLIMATICO());
+
                 mCamadasZoom.setSelecionado("Modelo Climático");
                 app.mMapaZoom.update(true);
 
@@ -237,7 +242,8 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
-                app.mapa_grande = app.mArquivoAtzumTronarko.GET_MODELO_VEGETACAO();
+                app.mWidgetMapaVisualizador.setMapaGrande(app.mArquivoAtzumTronarko.GET_MODELO_VEGETACAO());
+
                 mCamadasZoom.setSelecionado("Modelo Vegetação");
                 app.mMapaZoom.update(true);
 

@@ -57,7 +57,7 @@ public class AtzumCreator {
     }
 
     public static BufferedImage GET_MAPA_DE_CONTORNO() {
-        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("atzum_contornos.png"));
+        BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes_contornos.png"));
         return mapa;
     }
 

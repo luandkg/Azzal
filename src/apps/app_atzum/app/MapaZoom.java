@@ -36,19 +36,21 @@ public class MapaZoom {
             return;
         }
 
+        int mGPS_PX = mApp.mWidgetMapaVisualizador.getGPS_PX();
+        int mGPS_PY = mApp.mWidgetMapaVisualizador.getGPS_PY();
 
         if (!ultimo) {
             drone_ultimo_valido = true;
-            drone_ultimo_px = mApp.mGPS_PX;
-            drone_ultimo_py = mApp.mGPS_PY;
+            drone_ultimo_px = mGPS_PX;
+            drone_ultimo_py = mGPS_PY;
         }
 
         // DRONE
-        int comecar_x = mApp.mGPS_PX - 100;
-        int comecar_y = mApp.mGPS_PY - 100;
+        int comecar_x = mGPS_PX - 100;
+        int comecar_y = mGPS_PY - 100;
 
-        int terminar_x = mApp.mGPS_PX + 200;
-        int terminar_y = mApp.mGPS_PY + 200;
+        int terminar_x = mGPS_PX + 200;
+        int terminar_y = mGPS_PY + 200;
 
         if (ultimo) {
             comecar_x = drone_ultimo_px - 100;
@@ -61,18 +63,8 @@ public class MapaZoom {
         drone_ok = true;
         render_drone.limpar(mCores.getBranco());
 
-        int ady = 0;
+        mApp.mWidgetMapaVisualizador.espelhar(comecar_x, comecar_y, terminar_x, terminar_y, render_drone);
 
-        for (int dy = comecar_y; dy < terminar_y; dy++) {
-            int adx = 0;
-            for (int dx = comecar_x; dx < terminar_x; dx++) {
-                if (dx > 0 && dx < mApp.mapa_grande.getWidth() && dy > 0 && dy < mApp.mapa_grande.getHeight()) {
-                    render_drone.setPixelPuro(adx, ady, mApp.mapa_grande.getRGB(dx, dy));
-                }
-                adx += 1;
-            }
-            ady += 1;
-        }
 
         for (Ponto cidade : mApp.mCidades) {
             if (cidade.getX() > comecar_x && cidade.getX() < terminar_x && cidade.getY() > comecar_y && cidade.getY() < terminar_y) {
@@ -96,8 +88,8 @@ public class MapaZoom {
         }
 
 
-        int drone_x = mApp.mGPS_PX - comecar_x;
-        int drone_y = mApp.mGPS_PY - comecar_y;
+        int drone_x = mGPS_PX - comecar_x;
+        int drone_y = mGPS_PY - comecar_y;
 
         render_drone.drawCirculoCentralizado_Pintado(drone_x, drone_y, 5, mCores.getVerde());
 
