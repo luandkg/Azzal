@@ -122,7 +122,7 @@ public class PlantacaoAdministrador {
                 mArquivador.set_u8_em_bloco(Fazendario.TAMANHO_AREA_ITEM, (byte) 0);
 
                 mArquivador.setPonteiro(bloco_a);
-                mArquivador.set_u8((byte) Fazendario.ESPACO_VAZIO_E_JA_ALOCADO);
+                mArquivador.set_u8((byte) Fazendario.ESPACO_OCUPADO);
                 long pular = mArquivador.get_u64();
                 mArquivador.set_u64(ponteiro_dados);
 
