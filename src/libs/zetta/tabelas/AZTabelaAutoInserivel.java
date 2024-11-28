@@ -1,4 +1,4 @@
-package libs.zetta;
+package libs.zetta.tabelas;
 
 public enum AZTabelaAutoInserivel {
     TOZTE,

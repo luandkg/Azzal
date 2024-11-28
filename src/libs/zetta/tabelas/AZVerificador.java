@@ -1,7 +1,8 @@
-package libs.zetta;
+package libs.zetta.tabelas;
 
 import libs.entt.Entidade;
 import libs.luan.Lista;
+import libs.zetta.ZettaTabelas;
 
 public class AZVerificador {
 

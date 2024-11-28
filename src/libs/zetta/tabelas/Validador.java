@@ -1,4 +1,4 @@
-package libs.zetta;
+package libs.zetta.tabelas;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;

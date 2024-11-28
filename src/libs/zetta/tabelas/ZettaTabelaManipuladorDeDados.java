@@ -1,4 +1,4 @@
-package libs.zetta;
+package libs.zetta.tabelas;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -9,6 +9,7 @@ import libs.luan.Lista;
 import libs.luan.Resultado;
 import libs.luan.Strings;
 import libs.tronarko.Tronarko;
+import libs.zetta.ZettaSequenciador;
 import libs.zetta.persistencia.ArmazemManipulador;
 import libs.zetta.persistencia.ItemEditavel;
 

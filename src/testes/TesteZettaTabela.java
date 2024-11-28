@@ -4,6 +4,7 @@ import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
 import libs.zetta.*;
+import libs.zetta.tabelas.*;
 import servicos.MundoReal;
 
 public class TesteZettaTabela {

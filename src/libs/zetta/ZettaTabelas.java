@@ -9,6 +9,8 @@ import libs.fazendario.ItemAlocado;
 import libs.luan.*;
 import libs.tronarko.Tronarko;
 import libs.zetta.persistencia.ArmazemPrimario;
+import libs.zetta.tabelas.RefLinhaDaTabela;
+import libs.zetta.tabelas.ZettaTabela;
 
 public class ZettaTabelas {
 
