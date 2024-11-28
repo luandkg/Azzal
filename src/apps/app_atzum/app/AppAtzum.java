@@ -34,14 +34,22 @@ import java.awt.image.BufferedImage;
 
 public class AppAtzum extends Cena {
 
-    public BufferedImage mapa_grande = null;
-    public BufferedImage mapa_pequeno = null;
 
-    private int X0 = 700;
-    private int Y0 = 100;
+    public static void INICIAR() {
 
-    private int X1 = 0;
-    private int Y1 = 0;
+        PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
+        if (po.abrirSeExistir()) {
+
+            int px = (int) po.getDouble("Janela", "PX");
+            int py = (int) po.getDouble("Janela", "PY");
+
+            AzzalUnico.unico_posicionado("Mapa Atzum", 2300, 950, new AppAtzum(), px, py);
+        } else {
+            AzzalUnico.unico("Mapa Atzum", 2300, 950, new AppAtzum());
+        }
+
+    }
+
 
 
     private Cores mCores;
@@ -52,9 +60,7 @@ public class AppAtzum extends Cena {
     private Fonte ESCRITOR_NORMAL_BRANCO;
     private Fonte ESCRITOR_NORMAL_BRANCO_GRANDE;
 
-    public boolean mGPS_OK = false;
-    public int mGPS_PX = 0;
-    public int mGPS_PY = 0;
+
 
     private String mAlturaCorrente = "";
     private String mTerraOuAgua = "";
@@ -87,6 +93,8 @@ public class AppAtzum extends Cena {
 
     public VideoEmExecucao mVideoEmExecucao;
 
+    public WidgetMapaVisualizador mWidgetMapaVisualizador;
+
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -102,11 +110,9 @@ public class AppAtzum extends Cena {
         mArquivoAtzumGeral = new ArquivoAtzumGeral();
         mArquivoAtzumTronarko = new ArquivoAtzumTronarko(mTronarko);
 
-        mapa_grande = mArquivoAtzumGeral.GET_MAPA_DE_RELEVO();
-        mapa_pequeno = Efeitos.reduzirMetade(Imagem.getCopia(mapa_grande));
 
-        X1 = X0 + mapa_pequeno.getWidth();
-        Y1 = Y0 + mapa_pequeno.getHeight();
+     mWidgetMapaVisualizador = new WidgetMapaVisualizador(mArquivoAtzumGeral.GET_MAPA_DE_RELEVO(),Efeitos.reduzirMetade(Imagem.getCopia(mArquivoAtzumGeral.GET_MAPA_DE_RELEVO())));
+
 
         mAtzum = new Atzum();
         mCidades = Atzum.GET_CIDADES();
@@ -171,7 +177,6 @@ public class AppAtzum extends Cena {
         int px = getWindows().getMouse().getX();
         int py = getWindows().getMouse().getY();
 
-        mGPS_OK = false;
         mAlturaCorrente = "";
         mTerraOuAgua = "";
         mRegiaoCorrente = "";
@@ -183,30 +188,25 @@ public class AppAtzum extends Cena {
 
 
 
-        if (px >= X0 && py >= Y0 && px < X1 && py < Y1) {
-            mGPS_OK = true;
-            mGPS_PX = (px - X0) * 2;
-            mGPS_PY = (py - Y0) * 2;
+        if (mWidgetMapaVisualizador.isDentro(px,py)) {
+
 
             mMapaZoom.update(false);
 
-            int terra_ou_agua = mArquivoAtzumGeral.GET_PLANETA(mGPS_PX, mGPS_PY);
+            int terra_ou_agua = mArquivoAtzumGeral.GET_PLANETA(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
             if (terra_ou_agua > 0) {
                 mTerraOuAgua = "TERRA";
 
-                //  int v2_regiao_corrente = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("regioes.qtt"), mGPS_PX, mGPS_PY);
-                //  int v2_sub_regiao_corrente = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("subregioes.qtt"), mGPS_PX, mGPS_PY);
 
-                int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(mGPS_PX, mGPS_PY);
-                int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(mGPS_PX, mGPS_PY);
+                int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
+                int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
 
                 mRegiaoCorrente = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente);
 
             } else {
                 mTerraOuAgua = "ÁGUA";
 
-                //  int oceano_corrente = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("oceanos.qtt"), mGPS_PX, mGPS_PY);
-                int oceano_corrente = mArquivoAtzumGeral.GET_OCEANO(mGPS_PX, mGPS_PY);
+                int oceano_corrente = mArquivoAtzumGeral.GET_OCEANO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
 
                 if (oceano_corrente > 0) {
                     mOceanoCorrente = oceano_corrente + " - " + mAtzum.GET_OCEANO(oceano_corrente);
@@ -215,7 +215,7 @@ public class AppAtzum extends Cena {
             }
 
             //  mAlturaCorrente = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("relevo.qtt"), mGPS_PX, mGPS_PY) + "m";
-            mAlturaCorrente = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(mGPS_PX, mGPS_PY) + "m";
+            mAlturaCorrente = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY()) + "m";
 
             if (getWindows().getMouse().isClicked()) {
 
@@ -282,18 +282,22 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL_BRANCO.setRenderizador(g);
         ESCRITOR_NORMAL_BRANCO_GRANDE.setRenderizador(g);
 
-        g.drawImagem(X0, Y0, mapa_pequeno);
+        mWidgetMapaVisualizador.render(g);
 
 
         if (mVideoEmExecucao.isExibindo()) {
 
             BufferedImage reduzido = mVideoEmExecucao.getImagemCorrente();
 
-            g.drawImagem(X0, Y0, reduzido);
+            g.drawImagem(mWidgetMapaVisualizador.getPosX(), mWidgetMapaVisualizador.getPosY(), reduzido);
 
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 100, mVideoEmExecucao.getLargura() + " vs " + mVideoEmExecucao.getAltura());
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 150, mVideoEmExecucao.getFrameCorrente() + " frames de " + mVideoEmExecucao.getVideoQuadrosTotal());
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 200, mVideoEmExecucao.getVideoDuracao());
+            int info_px = mWidgetMapaVisualizador.getPosX();
+            int info_py = mWidgetMapaVisualizador.getPosY();
+
+
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 150, info_py + 100, mVideoEmExecucao.getLargura() + " vs " + mVideoEmExecucao.getAltura());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 150, info_py + 150, mVideoEmExecucao.getFrameCorrente() + " frames de " + mVideoEmExecucao.getVideoQuadrosTotal());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 150, info_py + 200, mVideoEmExecucao.getVideoDuracao());
 
             if (mVideoEmExecucao.getFrameCorrente() > 0 && mVideoEmExecucao.getFrameCorrente() <= 500) {
                 if (mClima.temCidade()) {
@@ -309,11 +313,11 @@ public class AppAtzum extends Cena {
 
         mClicavel.onDraw(g);
 
-        if (mGPS_OK) {
+        if (mWidgetMapaVisualizador.isGPS_ON()) {
             ESCRITOR_NORMAL.escreveLinha(140, 50, 100, "GPS ON", "");
 
-            ESCRITOR_NORMAL.escreveLinha(160, 50, 100, "X", " = " + mGPS_PX);
-            ESCRITOR_NORMAL.escreveLinha(180, 50, 100, "Y", " = " + mGPS_PY);
+            ESCRITOR_NORMAL.escreveLinha(160, 50, 100, "X", " = " + mWidgetMapaVisualizador.getGPS_PX());
+            ESCRITOR_NORMAL.escreveLinha(180, 50, 100, "Y", " = " + mWidgetMapaVisualizador.getGPS_PY());
 
 
             ESCRITOR_NORMAL.escreveLinha(220, 50, 150, "Local", " = " + mTerraOuAgua);
@@ -342,6 +346,10 @@ public class AppAtzum extends Cena {
         }
 
 
+        int X0 =mWidgetMapaVisualizador.getPosX();
+        int Y0 =mWidgetMapaVisualizador.getPosY();
+
+
         for (Ponto cidade : mCidades) {
 
             boolean cidade_selecionada = false;
@@ -353,6 +361,8 @@ public class AppAtzum extends Cena {
             }
 
             if (cidade_selecionada) {
+
+
                 g.drawCirculoCentralizado_Pintado((cidade.getX() / 2) + X0, (cidade.getY() / 2) + Y0, 5, mCores.getVerde());
                 g.drawCirculoCentralizado_Pintado((cidade.getX() / 2) + X0, (cidade.getY() / 2) + Y0, 2, mCores.getAzul());
             } else {
@@ -480,20 +490,6 @@ public class AppAtzum extends Cena {
     }
 
 
-    public static void INICIAR() {
-
-        PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
-        if (po.abrirSeExistir()) {
-
-            int px = (int) po.getDouble("Janela", "PX");
-            int py = (int) po.getDouble("Janela", "PY");
-
-            AzzalUnico.unico_posicionado("Mapa Atzum", 2300, 950, new AppAtzum(), px, py);
-        } else {
-            AzzalUnico.unico("Mapa Atzum", 2300, 950, new AppAtzum());
-        }
-
-    }
 
 
     public void procurar_cidade_proxima() {
@@ -505,7 +501,7 @@ public class AppAtzum extends Cena {
         int mais_proxima = Integer.MAX_VALUE;
 
         for (Ponto cidade : mCidades) {
-            int distancia = Espaco2D.distancia_entre_pontos(mGPS_PX, mGPS_PY, cidade.getX(), cidade.getY());
+            int distancia = Espaco2D.distancia_entre_pontos(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY(), cidade.getX(), cidade.getY());
             if (distancia < mais_proxima) {
                 mais_proxima = distancia;
 
