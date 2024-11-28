@@ -7,7 +7,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
 import libs.azzal.utilitarios.Paleta;
 import libs.azzal.utilitarios.TransformadorDeCor;
-import libs.zettagraficos.ZettaBarras;
+import libs.grafique.GrafiqueBarras;
 
 import java.awt.*;
 import java.util.Random;
@@ -18,7 +18,7 @@ public class GraficosCena extends Cena {
     private TransformadorDeCor TDA;
     private TransformadorDeCor TDB;
     private Paleta mPaleta;
-    private ZettaBarras mZettaBarras;
+    private GrafiqueBarras mGrafiqueBarras;
 
     Cronometro mCron;
 
@@ -49,19 +49,19 @@ public class GraficosCena extends Cena {
         mPaleta.criar("Iota", new Cor(63, 81, 181));
         mPaleta.criar("Omega", new Cor(255, 235, 59));
 
-        mZettaBarras = new ZettaBarras();
+        mGrafiqueBarras = new GrafiqueBarras();
 
-        mZettaBarras.setCorBarra(new Cor(30, 50, 80));
-        mZettaBarras.setCorFundo(Cor.getRGB(Color.WHITE));
+        mGrafiqueBarras.setCorBarra(new Cor(30, 50, 80));
+        mGrafiqueBarras.setCorFundo(Cor.getRGB(Color.WHITE));
 
-        mZettaBarras.setMaiorDoGrupo(true);
-        mZettaBarras.setCorMaiorBarra(new Cor(10, 150, 160));
+        mGrafiqueBarras.setMaiorDoGrupo(true);
+        mGrafiqueBarras.setCorMaiorBarra(new Cor(10, 150, 160));
 
-        mZettaBarras.setMenorDoGrupo(true);
-        mZettaBarras.setCorMenorBarra(new Cor(200, 60, 150));
+        mGrafiqueBarras.setMenorDoGrupo(true);
+        mGrafiqueBarras.setCorMenorBarra(new Cor(200, 60, 150));
 
 
-        mZettaBarras.nivelar(-100, 100);
+        mGrafiqueBarras.nivelar(-100, 100);
 
         mCron = new Cronometro(600);
 
@@ -86,7 +86,7 @@ public class GraficosCena extends Cena {
 
             Random gerador = new Random();
 
-            mZettaBarras.adicionar(100 - gerador.nextInt(200));
+            mGrafiqueBarras.adicionar(100 - gerador.nextInt(200));
 
 
         }
@@ -99,13 +99,13 @@ public class GraficosCena extends Cena {
 
         mRenderizador.limpar(Color.WHITE);
 
-        mZettaBarras.onDraw(mRenderizador, 100, 200, 600, 300);
+        mGrafiqueBarras.onDraw(mRenderizador, 100, 200, 600, 300);
 
-        mZettaBarras.onDrawRect(mRenderizador, 800, 200, 600, 300);
+        mGrafiqueBarras.onDrawRect(mRenderizador, 800, 200, 600, 300);
 
-        mZettaBarras.onDrawTower(mRenderizador, 100, 600, 600, 300);
+        mGrafiqueBarras.onDrawTower(mRenderizador, 100, 600, 600, 300);
 
-        mZettaBarras.onDrawQuad(mRenderizador, 800, 600, 600, 300);
+        mGrafiqueBarras.onDrawQuad(mRenderizador, 800, 600, 600, 300);
 
     }
 

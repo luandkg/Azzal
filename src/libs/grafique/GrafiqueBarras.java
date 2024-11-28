@@ -1,4 +1,4 @@
-package libs.zettagraficos;
+package libs.grafique;
 
 import libs.azzal.geometria.Linha;
 import libs.azzal.geometria.Ponto;
@@ -9,9 +9,8 @@ import libs.azzal.utilitarios.Posicionador;
 import libs.luan.Lista;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-public class ZettaBarras {
+public class GrafiqueBarras {
 
     private Lista<Integer> mValores;
 
@@ -31,7 +30,7 @@ public class ZettaBarras {
     private boolean mMenorDoGrupo;
 
 
-    public ZettaBarras() {
+    public GrafiqueBarras() {
 
         mValores = new Lista<Integer>();
         mLimite = 10;
