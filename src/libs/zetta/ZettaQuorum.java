@@ -11,6 +11,7 @@ import libs.luan.Opcional;
 import libs.luan.Par;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
+import libs.zetta.persistencia.ArmazemPrimario;
 
 public class ZettaQuorum {
 

@@ -6,6 +6,7 @@ import libs.entt.Entidade;
 import libs.fazendario.*;
 import libs.luan.*;
 import libs.tronarko.Tronarko;
+import libs.zetta.persistencia.ArmazemPrimario;
 
 public class ZettaPasta {
 

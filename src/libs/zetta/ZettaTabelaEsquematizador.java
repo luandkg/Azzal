@@ -5,6 +5,7 @@ import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Resultado;
 import libs.tronarko.Tronarko;
+import libs.zetta.persistencia.ArmazemManipulador;
 
 public class ZettaTabelaEsquematizador {
 

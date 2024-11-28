@@ -6,6 +6,7 @@ import libs.fazendario.ItemAlocado;
 import libs.luan.Lista;
 import libs.luan.Matematica;
 import libs.luan.Strings;
+import libs.zetta.persistencia.ArmazemManipulador;
 
 public class Validador {
 

@@ -1,4 +1,4 @@
-package libs.zetta;
+package libs.zetta.persistencia;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;

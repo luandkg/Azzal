@@ -9,6 +9,8 @@ import libs.luan.Lista;
 import libs.luan.Resultado;
 import libs.luan.Strings;
 import libs.tronarko.Tronarko;
+import libs.zetta.persistencia.ArmazemManipulador;
+import libs.zetta.persistencia.ItemEditavel;
 
 public class ZettaTabelaManipuladorDeDados {
 

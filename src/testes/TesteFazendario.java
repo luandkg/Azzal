@@ -10,7 +10,7 @@ import libs.fazendario.Fazendario;
 import libs.fazendario.ItemAlocado;
 import libs.luan.*;
 import libs.tronarko.Tronarko;
-import libs.zetta.ArmazemPrimario;
+import libs.zetta.persistencia.ArmazemPrimario;
 
 public class TesteFazendario {
 

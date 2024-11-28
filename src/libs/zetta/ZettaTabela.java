@@ -10,6 +10,7 @@ import libs.luan.Lista;
 import libs.luan.Opcional;
 import libs.luan.Resultado;
 import libs.luan.Strings;
+import libs.zetta.persistencia.ArmazemManipulador;
 
 public class ZettaTabela {
 
