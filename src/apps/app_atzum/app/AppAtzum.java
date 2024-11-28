@@ -71,10 +71,7 @@ public class AppAtzum extends Cena {
 
     private Clicavel mClicavel;
 
-    private Lista<Entidade> mInformacoesDasCidades;
     private Lista<Entidade> mInformacoesDasCidadesIndexadas;
-
-    private Entidade mCidade;
 
 
     public ArquivoAtzumGeral mArquivoAtzumGeral;
@@ -88,14 +85,8 @@ public class AppAtzum extends Cena {
     public MapaZoom mMapaZoom;
     private ClimaWidget mClima;
 
-    private boolean mVideoExecutando = false;
-    private DSVideo mVideo = null;
-    private Cronometro mVideoCronometro;
-    private int mVideoQuadrosTotal = 0;
-    private String mVideoDuracao = "";
+    public VideoEmExecucao mVideoEmExecucao;
 
-    private int VIDEO_TAXA_DE_ATUALIZACAO = 25;
-    private boolean mCarregado = false;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -165,34 +156,13 @@ public class AppAtzum extends Cena {
 
 
         mClima = new ClimaWidget();
+        mVideoEmExecucao = new VideoEmExecucao();
 
 
     }
 
 
-    public void video_update() {
-        mVideoCronometro.esperar();
 
-        if (mVideoCronometro.foiEsperado()) {
-
-            // fmt.print("Video ++");
-
-            if (!mVideo.getAcabou()) {
-
-                //    fmt.print("++ Video Ler Proximo ");
-
-                mVideo.proximo();
-                mCarregado = true;
-
-                //  System.out.println("\t - Falta = " + mLinhaDoTempo.getTempoFaltante(mVideo.getFrameCorrente()));
-                //  mPorcentagem = mLinhaDoTempo.getPorcentagem(mVideo.getFrameCorrente());
-
-                //  System.out.println("\t - Video -->> Frame Index = " + mVideo.getFrameCorrente());
-
-            }
-
-        }
-    }
 
 
     @Override
@@ -207,9 +177,10 @@ public class AppAtzum extends Cena {
         mRegiaoCorrente = "";
         mOceanoCorrente = "";
 
-        if (mVideoExecutando) {
-            video_update();
+        if(mVideoEmExecucao.isExecutando()){
+            mVideoEmExecucao.update();
         }
+
 
 
         if (px >= X0 && py >= Y0 && px < X1 && py < Y1) {
@@ -314,25 +285,24 @@ public class AppAtzum extends Cena {
         g.drawImagem(X0, Y0, mapa_pequeno);
 
 
-        if (mVideoExecutando && mCarregado) {
+        if (mVideoEmExecucao.isExibindo()) {
 
-            BufferedImage reduzido = mVideo.getImagemCorrente();
+            BufferedImage reduzido = mVideoEmExecucao.getImagemCorrente();
 
             g.drawImagem(X0, Y0, reduzido);
 
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 100, mVideo.getLargura() + " vs " + mVideo.getAltura());
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 150, mVideo.getFrameCorrente() + " frames de " + mVideoQuadrosTotal);
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 200, mVideoDuracao);
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 100, mVideoEmExecucao.getLargura() + " vs " + mVideoEmExecucao.getAltura());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 150, mVideoEmExecucao.getFrameCorrente() + " frames de " + mVideoEmExecucao.getVideoQuadrosTotal());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(X0 - 150, Y0 + 200, mVideoEmExecucao.getVideoDuracao());
 
-            if(mVideo.getFrameCorrente()>0 && mVideo.getFrameCorrente()<=500){
-                if(mClima.temCidade()){
-                    mClima.marcarSuperarko(mVideo.getFrameCorrente());
+            if (mVideoEmExecucao.getFrameCorrente() > 0 && mVideoEmExecucao.getFrameCorrente() <= 500) {
+                if (mClima.temCidade()) {
+                    mClima.marcarSuperarko(mVideoEmExecucao.getFrameCorrente());
                 }
             }
 
-            if (mVideo.getAcabou()) {
-                mVideo.fechar();
-            }
+            mVideoEmExecucao.verificarFim();
+
 
         }
 
@@ -587,15 +557,5 @@ public class AppAtzum extends Cena {
 
     }
 
-    public void reproduzirVideo(DSVideo video) {
-        mVideoExecutando = true;
-        mVideo = video;
-        mVideo.abrir();
 
-        mVideoQuadrosTotal = mVideo.getQuadrosTotal();
-        mVideoDuracao=mVideo.getDuracao() + " :: "+ mVideo.getTempoTotalFormatado();
-
-
-        mVideoCronometro = new Cronometro(VIDEO_TAXA_DE_ATUALIZACAO);
-    }
 }
