@@ -216,6 +216,11 @@ public class TesteZettaQuorum {
         pastas.dump();
         pastas.fechar();
 
+        fmt.print("");
+        fmt.print(">> DUMP : TABELAS");
+        ZettaTabelas tabelas = new ZettaTabelas(arquivo_zeta);
+        tabelas.dump();
+        tabelas.fechar();
     }
 
 
@@ -242,9 +247,11 @@ public class TesteZettaQuorum {
 
         for (ItemColecionavel item : fts.getItensEditaveis()) {
 
-            item.get().at("ResumoFTS", FTS.PARSER_TO_DOCUMENTO(item.get().at("Resumo")));
+            if (!item.get().atributo_existe("ResumoFTS")) {
+                item.get().at("ResumoFTS", FTS.PARSER_TO_DOCUMENTO(item.get().at("Resumo")));
+                item.atualizar();
+            }
 
-            //    item.atualizar();
         }
 
         // fts.exibir_colecao();
@@ -261,18 +268,23 @@ public class TesteZettaQuorum {
             fmt.print("Resumo :: {}", Strings.LINEARIZAR(item.at("Resumo")));
             // fmt.print("FTS    :: {}",Strings.LINEARIZAR(item.at("ResumoFTS") ));
 
-            Lista<Entidade> fts_dados = FTS.GET_DOCUMENTO(item.at("ResumoFTS"));
+            if (item.atributo_existe("ResumoFTS")) {
 
-            FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getArtigos());
-            FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getPreposicoes());
-            FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getPronomes());
-            FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getPronomesPossessivos());
+                Lista<Entidade> fts_dados = FTS.GET_DOCUMENTO(item.at("ResumoFTS"));
 
-            FTS.ORDENAR_MAIOR_RANKING(fts_dados);
+                FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getArtigos());
+                FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getPreposicoes());
+                FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getPronomes());
+                FTS.RETIRAR_PALAVRAS(fts_dados, portugues.getPronomesPossessivos());
 
-            ENTT.EXIBIR_TABELA(ENTT.SLICE(fts_dados, 0, 10));
+                FTS.ORDENAR_MAIOR_RANKING(fts_dados);
 
-            FTS.MERGE(fts_analisado, ENTT.SLICE(fts_dados, 0, 10));
+                ENTT.EXIBIR_TABELA(ENTT.SLICE(fts_dados, 0, 10));
+
+                FTS.MERGE(fts_analisado, ENTT.SLICE(fts_dados, 0, 10));
+
+
+            }
 
         }
 
@@ -386,11 +398,11 @@ public class TesteZettaQuorum {
 
         beta.adicionar_varios(novos);
 
-        if(novos.getQuantidade()>0){
+        if (novos.getQuantidade() > 0) {
             Entidade log = new Entidade();
-            log.at("Tron",Tronarko.getTronAgora().getTextoZerado());
-            log.at("Status","Adicionando");
-            log.at("Quantidade",ENTT.CONTAGEM(novos));
+            log.at("Tron", Tronarko.getTronAgora().getTextoZerado());
+            log.at("Status", "Adicionando");
+            log.at("Quantidade", ENTT.CONTAGEM(novos));
 
             zeta_logs.adicionar(log);
         }
@@ -419,9 +431,9 @@ public class TesteZettaQuorum {
                 if (!item.isRemovido() && item.get().is("@RefID", e.at("@RefID"))) {
                     fmt.print(":: Removendo {}", item.get().at("@RefID"));
 
-                  //  item.get().at("@Removido", Tronarko.getTronAgora().getTextoZerado());
+                    //  item.get().at("@Removido", Tronarko.getTronAgora().getTextoZerado());
 
-                  //  item.atualizar();
+                    //  item.atualizar();
                     item.remover();
                     break;
                 }
@@ -429,11 +441,11 @@ public class TesteZettaQuorum {
 
         }
 
-        if(excluidos.getQuantidade()>0){
+        if (excluidos.getQuantidade() > 0) {
             Entidade log = new Entidade();
-            log.at("Tron",Tronarko.getTronAgora().getTextoZerado());
-            log.at("Status","Removendo");
-            log.at("Quantidade",ENTT.CONTAGEM(novos));
+            log.at("Tron", Tronarko.getTronAgora().getTextoZerado());
+            log.at("Status", "Removendo");
+            log.at("Quantidade", ENTT.CONTAGEM(novos));
             zeta_logs.adicionar(log);
         }
 
@@ -454,22 +466,22 @@ public class TesteZettaQuorum {
             alpha_atributos = Strings.RETIRAR_ITEM_SE_COMECAR_COM(alpha_atributos, "@");
             beta_atributos = Strings.RETIRAR_ITEM_SE_COMECAR_COM(beta_atributos, "@");
 
-            if(Strings.LISTAS_IGUAIS(alpha_atributos,beta_atributos) ){
+            if (Strings.LISTAS_IGUAIS(alpha_atributos, beta_atributos)) {
 
                 boolean editado = false;
 
-                for(String att : alpha_atributos){
-                    if(Strings.isDiferente(dupla.getChave().at(att),dupla.getValor().at(att))){
-                        editado=true;
+                for (String att : alpha_atributos) {
+                    if (Strings.isDiferente(dupla.getChave().at(att), dupla.getValor().at(att))) {
+                        editado = true;
                         break;
                     }
                 }
 
-                if(editado){
+                if (editado) {
                     editados.adicionar(dupla);
                 }
 
-            }else{
+            } else {
                 editados.adicionar(dupla);
             }
 
@@ -480,7 +492,7 @@ public class TesteZettaQuorum {
 
         for (Par<Entidade, Entidade> dupla : editados) {
 
-            ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(dupla.getChave(),dupla.getValor()));
+            ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(dupla.getChave(), dupla.getValor()));
 
             for (ItemColecionavel item : itens_atualizaveis) {
                 if (!item.isRemovido() && item.get().is("@RefID", dupla.getValor().at("@RefID"))) {
@@ -489,7 +501,7 @@ public class TesteZettaQuorum {
                     Lista<String> beta_atributos = ENTT.GET_ATRIBUTOS_NOMES(dupla.getValor());
                     beta_atributos = Strings.RETIRAR_ITEM_SE_COMECAR_COM(beta_atributos, "@");
 
-                    for(String att : beta_atributos) {
+                    for (String att : beta_atributos) {
                         item.get().at_remover(att);
                     }
 
@@ -499,8 +511,8 @@ public class TesteZettaQuorum {
                     Lista<String> alpha_atributos = ENTT.GET_ATRIBUTOS_NOMES(dupla.getChave());
                     alpha_atributos = Strings.RETIRAR_ITEM_SE_COMECAR_COM(alpha_atributos, "@");
 
-                    for(String att : alpha_atributos){
-                        item.get().at(att,dupla.getChave().at(att));
+                    for (String att : alpha_atributos) {
+                        item.get().at(att, dupla.getChave().at(att));
                     }
 
                     item.atualizar();
@@ -510,11 +522,11 @@ public class TesteZettaQuorum {
 
         }
 
-        if(editados.getQuantidade()>0){
+        if (editados.getQuantidade() > 0) {
             Entidade log = new Entidade();
-            log.at("Tron",Tronarko.getTronAgora().getTextoZerado());
-            log.at("Status","Atualizando");
-            log.at("Quantidade",editados.getQuantidade());
+            log.at("Tron", Tronarko.getTronAgora().getTextoZerado());
+            log.at("Status", "Atualizando");
+            log.at("Quantidade", editados.getQuantidade());
 
             zeta_logs.adicionar(log);
         }

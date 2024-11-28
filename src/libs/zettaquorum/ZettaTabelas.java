@@ -41,6 +41,78 @@ public class ZettaTabelas {
         ENTT.EXIBIR_TABELA_COM_NOME(mIndices.getItens(), "ZETTA-TABELAS : @TABELAS::INDICES");
         ENTT.EXIBIR_TABELA_COM_NOME(mTabelas.getItens(), "ZETTA-TABELAS : @TABELAS::TABELAS");
 
+
+        Lista<Entidade> esquemas = mTabelas.getItens();
+
+        for (Entidade colecao : esquemas) {
+
+            Armazem armazem = mFazendario.OBTER_ARMAZEM_LOCATORIO(colecao.atLong("EsquemaPonteiro"));
+
+            colecao.at("Identificador", armazem.getNome());
+            colecao.at("Portao", armazem.getPortao());
+
+            colecao.at("Portoes", armazem.getPortoesContagem());
+            colecao.at("Andares", armazem.getAndaresContagem());
+            colecao.at("Espacos", armazem.getEspacosContagem());
+
+            colecao.at("Alocados", armazem.getItensAlocadosContagem());
+            colecao.at("NaoAlocados", armazem.getItensNaoAlocadosContagem());
+
+            colecao.at("Reciclaveis", armazem.getItensReciclaveisContagem());
+            colecao.at("Utilizados", armazem.getItensUtilizadosContagem());
+
+            if (armazem.temPlantacao()) {
+
+                colecao.at("Plantacao", "SIM");
+                colecao.at("PlantacaoQuantidade", armazem.getPlantacoesQuantidade());
+                colecao.at("PlantacaoEspacos", armazem.getPlantacoesEspacos());
+                colecao.at("PlantacaoAlocados", armazem.getPlantacoesAlocados());
+                colecao.at("PlantacaoOcupados", armazem.getPlantacoesOcupados());
+
+            } else {
+                colecao.at("Plantacao", "NÃO");
+            }
+
+        }
+
+        ENTT.EXIBIR_TABELA_COM_NOME(esquemas, "ZETTA-TABELAS : ESQUEMAS");
+
+        Lista<Entidade> tabelas = mTabelas.getItens();
+
+        for (Entidade colecao : tabelas) {
+
+            Armazem armazem = mFazendario.OBTER_ARMAZEM_LOCATORIO(colecao.atLong("TabelaPonteiro"));
+
+            colecao.at("Identificador", armazem.getNome());
+            colecao.at("Portao", armazem.getPortao());
+
+            colecao.at("Portoes", armazem.getPortoesContagem());
+            colecao.at("Andares", armazem.getAndaresContagem());
+            colecao.at("Espacos", armazem.getEspacosContagem());
+
+            colecao.at("Alocados", armazem.getItensAlocadosContagem());
+            colecao.at("NaoAlocados", armazem.getItensNaoAlocadosContagem());
+
+            colecao.at("Reciclaveis", armazem.getItensReciclaveisContagem());
+            colecao.at("Utilizados", armazem.getItensUtilizadosContagem());
+
+            if (armazem.temPlantacao()) {
+
+                colecao.at("Plantacao", "SIM");
+                colecao.at("PlantacaoQuantidade", armazem.getPlantacoesQuantidade());
+                colecao.at("PlantacaoEspacos", armazem.getPlantacoesEspacos());
+                colecao.at("PlantacaoAlocados", armazem.getPlantacoesAlocados());
+                colecao.at("PlantacaoOcupados", armazem.getPlantacoesOcupados());
+
+            } else {
+                colecao.at("Plantacao", "NÃO");
+            }
+
+        }
+
+        ENTT.EXIBIR_TABELA_COM_NOME(tabelas, "ZETTA-TABELAS : TABELAS");
+
+
     }
 
     public ZettaTabela getTabelaSempre(String colecao_nome) {

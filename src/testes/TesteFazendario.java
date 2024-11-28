@@ -332,7 +332,7 @@ public class TesteFazendario {
 
     public static void teste_objetos_grandes() {
 
-        String arquivo_fazenda = "/home/luan/assets/teste_fazendas/fazenda_alfa.az";
+        String arquivo_fazenda = "/home/luan/assets/teste_fazendas/zeta.az";
 
         // Arquivador.remover(arquivo_fazenda);
 

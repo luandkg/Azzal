@@ -13,7 +13,7 @@ public class TesteZettaTabela {
 
         fmt.print("----------------- ZETA TABELAS :: INICIANDO ------------------");
 
-        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta_v2.az";
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta.az";
 
         ZettaTabelas zeta = new ZettaTabelas(arquivo_zeta);
 
@@ -23,36 +23,36 @@ public class TesteZettaTabela {
 
         if (!pessoas.temEsquema()) {
 
-            pessoas.criar_chave_primaria("PessoaID", 10, 2);
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(pessoas.criar_chave_primaria("PessoaID", 10, 2));
 
-            pessoas.criar_coluna("Nome", AZTabelaColunaTipo.TEXTO);
-            pessoas.criar_coluna("Idade", AZTabelaColunaTipo.INTEIRO);
-            pessoas.criar_coluna("Altura", AZTabelaColunaTipo.REAL);
-            pessoas.criar_coluna("Documento", AZTabelaColunaTipo.TEXTO);
-            pessoas.criar_coluna("Autenticado", AZTabelaColunaTipo.LOGICO);
-            pessoas.criar_coluna("Status", AZTabelaColunaTipo.TEXTO);
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(pessoas.criar_coluna("Nome", AZTabelaColunaTipo.TEXTO));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_coluna("Idade", AZTabelaColunaTipo.INTEIRO));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_coluna("Altura", AZTabelaColunaTipo.REAL));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_coluna("Documento", AZTabelaColunaTipo.TEXTO));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_coluna("Autenticado", AZTabelaColunaTipo.LOGICO));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_coluna("Status", AZTabelaColunaTipo.TEXTO));
 
-            pessoas.criar_coluna_nao_obrigatoria("DDC", AZTabelaColunaTipo.TEXTO);
-            pessoas.criar_coluna_nao_obrigatoria("DDM", AZTabelaColunaTipo.TEXTO);
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(pessoas.criar_coluna_nao_obrigatoria("DDC", AZTabelaColunaTipo.TEXTO));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_coluna_nao_obrigatoria("DDM", AZTabelaColunaTipo.TEXTO));
 
-            pessoas.criar_acao_inserivel("AI_DDC", "DDC", AZTabelaColunaTipo.TEXTO, AZTabelaAutoInserivel.TRON);
-            pessoas.criar_acao_inserivel("AI_DDM", "DDM", AZTabelaColunaTipo.TEXTO, AZTabelaAutoInserivel.TRON);
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_acao_inserivel("AI_DDC", "DDC", AZTabelaColunaTipo.TEXTO, AZTabelaAutoInserivel.TRON));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(  pessoas.criar_acao_inserivel("AI_DDM", "DDM", AZTabelaColunaTipo.TEXTO, AZTabelaAutoInserivel.TRON));
 
-            pessoas.criar_acao_atualizavel("AU_DDM", "DDM", AZTabelaColunaTipo.TEXTO, AZTabelaAutoAtualizavel.TRON);
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(  pessoas.criar_acao_atualizavel("AU_DDM", "DDM", AZTabelaColunaTipo.TEXTO, AZTabelaAutoAtualizavel.TRON));
 
-            pessoas.criar_verificador("V_Nome::QuantidadeMinimaDeLetras", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::TamanhoMaior", 5));
-            pessoas.criar_verificador("V_Nome::QuantidadeMaximaDeLetras", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::TamanhoMenor", 100));
-            pessoas.criar_verificador("V_Nome::NumerosProibidos", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::NaoConter", "NUMEROS"));
-            pessoas.criar_verificador("V_Nome::Formato", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::Formato", "FRASE"));
-            pessoas.criar_verificador("V_Nome::Unico", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Valor::Tipo", "UNICO"));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(  pessoas.criar_verificador("V_Nome::QuantidadeMinimaDeLetras", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::TamanhoMaior", 5)));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(  pessoas.criar_verificador("V_Nome::QuantidadeMaximaDeLetras", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::TamanhoMenor", 100)));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(  pessoas.criar_verificador("V_Nome::NumerosProibidos", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::NaoConter", "NUMEROS")));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_verificador("V_Nome::Formato", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Texto::Formato", "FRASE")));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(  pessoas.criar_verificador("V_Nome::Unico", "Nome", ZettaTabelas.CRIAR_VERIFICADOR("Valor::Tipo", "UNICO")));
 
-            pessoas.criar_verificador("V_Idade", "Idade", ZettaTabelas.CRIAR_VERIFICADOR("Inteiro::MaiorIgual", 0));
-            pessoas.criar_verificador("V_AlturaMinimo", "Altura", ZettaTabelas.CRIAR_VERIFICADOR("Real::MaiorIgual", 0));
-            pessoas.criar_verificador("V_AlturaMaximo", "Altura", ZettaTabelas.CRIAR_VERIFICADOR("Real::MenorIgual", 3));
-            pessoas.criar_verificador("V_Status", "Status", ZettaTabelas.CRIAR_VERIFICADOR_CONTEM("Texto::Existe", Lista.CRIAR("DISPONIVEL", "BLOQUEADO", "OCUPADO", "TRANSMITINDO")));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_verificador("V_Idade", "Idade", ZettaTabelas.CRIAR_VERIFICADOR("Inteiro::MaiorIgual", 0)));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_verificador("V_AlturaMinimo", "Altura", ZettaTabelas.CRIAR_VERIFICADOR("Real::MaiorIgual", 0)));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(  pessoas.criar_verificador("V_AlturaMaximo", "Altura", ZettaTabelas.CRIAR_VERIFICADOR("Real::MenorIgual", 3)));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER( pessoas.criar_verificador("V_Status", "Status", ZettaTabelas.CRIAR_VERIFICADOR_CONTEM("Texto::Existe", Lista.CRIAR("DISPONIVEL", "BLOQUEADO", "OCUPADO", "TRANSMITINDO"))));
 
-            pessoas.criar_verificador("V_Documento::DocumentoValido_Tamanho", "Documento", ZettaTabelas.CRIAR_VERIFICADOR("Texto::TamanhoIgual", 18));
-            pessoas.criar_verificador("V_Documento::DocumentoValido_Unico", "Documento", ZettaTabelas.CRIAR_VERIFICADOR("Valor::Tipo", "UNICO"));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(pessoas.criar_verificador("V_Documento::DocumentoValido_Tamanho", "Documento", ZettaTabelas.CRIAR_VERIFICADOR("Texto::TamanhoIgual", 18)));
+            ZettaTabelas.EXIBIR_ERRO_SE_OCORRER(pessoas.criar_verificador("V_Documento::DocumentoValido_Unico", "Documento", ZettaTabelas.CRIAR_VERIFICADOR("Valor::Tipo", "UNICO")));
 
         }
 
@@ -71,7 +71,7 @@ public class TesteZettaTabela {
 
         fmt.print("----------------- ZETA TABELAS :: INICIANDO ------------------");
 
-        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta_v2.az";
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta.az";
 
         ZettaTabelas zeta = new ZettaTabelas(arquivo_zeta);
 
@@ -80,9 +80,10 @@ public class TesteZettaTabela {
         pessoas.exibir_esquema();
 
         Lista<String> nome_repetir = ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Nome");
+        Lista<String> documentos_repetir = ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Documento");
 
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 300; i++) {
 
             fmt.print("\t ++ Adicionando pessoa : {}", i);
             Entidade novo = new Entidade();
@@ -98,6 +99,7 @@ public class TesteZettaTabela {
                 novo.at("Idade", Aleatorio.escolha_um(Vetor.CRIAR("1.50", "130in", "um")));
             } else {
                 if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+
                     if (Aleatorio.aleatorio_entre(0, 100) > 50) {
                         novo.at("Nome", fmt.repetir("a", 112));
                     } else {
@@ -106,6 +108,11 @@ public class TesteZettaTabela {
 
                     if (Aleatorio.aleatorio_entre(0, 100) > 50) {
                         novo.at("Nome", Aleatorio.escolha_um(nome_repetir));
+
+                        if (Aleatorio.aleatorio_entre(0, 100) > 50) {
+                            novo.at("Documento", Aleatorio.escolha_um(documentos_repetir));
+                        }
+
                     }
                 }
             }
@@ -117,11 +124,9 @@ public class TesteZettaTabela {
 
 
         pessoas.exibir_esquema();
-        pessoas.exibir_dados();
+      //  pessoas.exibir_dados();
 
-        ENTT.EXIBIR_TABELA(ENTT.VALORES("Autenticado",ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Autenticado")));
-        ENTT.EXIBIR_TABELA(ENTT.VALORES("Status",ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Status")));
-        ENTT.EXIBIR_TABELA(ENTT.VALORES("Idade",ENTT.FILTRAR_UNICOS(pessoas.getItens(), "Idade")));
+        fmt.print("Quantidade :: {}",pessoas.contagem());
 
         zeta.fechar();
     }
@@ -139,7 +144,7 @@ public class TesteZettaTabela {
         ZettaTabela pessoas = zeta.getTabelaSempre("Pessoas");
 
         pessoas.exibir_esquema();
-        pessoas.exibir_dados();
+       // pessoas.exibir_dados();
 
 
         Opcional<RefLinhaDaTabela> ref_pessoa_id14 = pessoas.procurar("PessoaID", 14);
@@ -175,7 +180,7 @@ public class TesteZettaTabela {
 
 
         pessoas.exibir_dados();
-        pessoas.exibir_contar_por("Status");
+      // pessoas.exibir_contar_por("Status");
         pessoas.exibir_contar_por("Autenticado");
 
 
