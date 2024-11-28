@@ -128,7 +128,6 @@ public class TesteAQZTabelas {
 
             Opcional<Entidade> buscando_diretamente = pessoas.obter_diretamente(op_pessoa_id14.get().atInt("@ID"));
             ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(buscando_diretamente.get()));
-
         }
 
         Opcional<RefLinhaDaTabela> ref_pessoa_id14 = pessoas.procurar_ref("PessoaID", 14);
