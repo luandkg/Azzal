@@ -1,6 +1,5 @@
-package libs.zettaquorum;
+package libs.zetta;
 
-import libs.aqz.tabela.AQZTabelaManipuladoraDeDados;
 import libs.entt.Entidade;
 import libs.fazendario.ItemAlocado;
 import libs.luan.Resultado;

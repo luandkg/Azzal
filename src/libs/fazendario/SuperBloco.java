@@ -6,7 +6,7 @@ import libs.luan.Matematica;
 import libs.luan.Opcional;
 import libs.luan.fmt;
 import libs.matematica.Tipo;
-import libs.zettaquorum.ZettaPasta;
+import libs.zetta.ZettaPasta;
 
 public class SuperBloco {
 

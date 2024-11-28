@@ -1,4 +1,4 @@
-package libs.zettaquorum;
+package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
@@ -6,7 +6,6 @@ import libs.entt.Tag;
 import libs.fazendario.ArmazemIndiceSumario;
 import libs.fazendario.ItemAlocado;
 import libs.luan.Lista;
-import libs.luan.Matematica;
 import libs.luan.Resultado;
 import libs.luan.Strings;
 import libs.tronarko.Tronarko;

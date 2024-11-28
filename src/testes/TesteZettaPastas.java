@@ -6,9 +6,9 @@ import libs.luan.Opcional;
 import libs.luan.Strings;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
-import libs.zettaquorum.ZettaArquivo;
-import libs.zettaquorum.ZettaPasta;
-import libs.zettaquorum.ZettaPastas;
+import libs.zetta.ZettaArquivo;
+import libs.zetta.ZettaPasta;
+import libs.zetta.ZettaPastas;
 
 public class TesteZettaPastas {
 

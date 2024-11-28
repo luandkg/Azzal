@@ -1,4 +1,4 @@
-package libs.zettaquorum;
+package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;

@@ -12,7 +12,7 @@ import libs.matematica.Matematica;
 import libs.portugues.PortuguesFTS;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.TronarkoAleatorium;
-import libs.zettaquorum.*;
+import libs.zetta.*;
 
 public class TesteZettaQuorum {
 
@@ -234,6 +234,8 @@ public class TesteZettaQuorum {
 
         ZettaColecao fts = zeta.getColecaoSempre("@FTS");
 
+        fts.zerar();
+
         if (fts.contagem() == 0) {
             Lista<Entidade> dados = ENTT.ABRIR("/home/luan/assets/mangas/saint_seiya.entts");
             ENTT.EXIBIR_TABELA(dados);
@@ -279,7 +281,7 @@ public class TesteZettaQuorum {
 
                 FTS.ORDENAR_MAIOR_RANKING(fts_dados);
 
-                ENTT.EXIBIR_TABELA(ENTT.SLICE(fts_dados, 0, 10));
+               // ENTT.EXIBIR_TABELA(ENTT.SLICE(fts_dados, 0, 10));
 
                 FTS.MERGE(fts_analisado, ENTT.SLICE(fts_dados, 0, 10));
 
@@ -290,7 +292,7 @@ public class TesteZettaQuorum {
 
         zeta.fechar();
 
-        ENTT.EXIBIR_TABELA(fts_analisado);
+       // ENTT.EXIBIR_TABELA(fts_analisado);
 
         FTS.ORDENAR_MAIOR_RANKING(fts_analisado);
         // FTS.ORDENAR_MAIOR_CITACAO(fts_analisado);

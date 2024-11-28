@@ -1,4 +1,4 @@
-package libs.zettaquorum;
+package libs.zetta;
 
 import libs.arquivos.binario.Arquivador;
 import libs.entt.ENTT;

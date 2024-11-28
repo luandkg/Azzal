@@ -12,7 +12,7 @@ public class MundoReal {
 
         String nome_completo = "";
 
-        Vetor<String> primeiro_nome = Vetor.CRIAR("Luan", "Alice", "Bruno", "Flavio", "Pedro", "Matheus", "Thiado", "Samara", "Alana", "Aglicia", "Marta", "Maria", "Madalena");
+        Vetor<String> primeiro_nome = Vetor.CRIAR("Luan", "Alice", "Bruno", "Flavio", "Pedro", "Matheus", "Thiado", "Samara", "Alana", "Aglicia", "Marta", "Maria", "Madalena","João","Alberto","Gustado","Rodolfo","Sara","Carla","Jéssica");
         Lista<String> sobrenome_lista_alfa = Lista.CRIAR("Bucar", "Alencar", "Freitas", "Diniz", "Coimbra", "Ferraz", "Almeida", "Oliveira", "Santos", "Silva", "Souza", "Pereira", "Ferreira");
 
         nome_completo = Aleatorio.escolha_um(primeiro_nome)+" "+Aleatorio.escolha_um_sem_repetir(sobrenome_lista_alfa)+" "+Aleatorio.escolha_um_sem_repetir(sobrenome_lista_alfa);

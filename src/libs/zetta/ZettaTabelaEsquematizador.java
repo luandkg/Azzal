@@ -1,6 +1,5 @@
-package libs.zettaquorum;
+package libs.zetta;
 
-import apps.app_campeonatum.VERIFICADOR;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;

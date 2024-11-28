@@ -3,7 +3,7 @@ package testes;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
-import libs.zettaquorum.*;
+import libs.zetta.*;
 import servicos.MundoReal;
 
 public class TesteZettaTabela {

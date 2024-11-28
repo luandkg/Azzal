@@ -1,4 +1,4 @@
-package libs.zettaquorum;
+package libs.zetta;
 
 public enum AZTabelaColunaTipo {
     TEXTO,

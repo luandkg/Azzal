@@ -2,7 +2,7 @@ package libs.fazendario;
 
 import libs.arquivos.binario.Arquivador;
 import libs.luan.Lista;
-import libs.zettaquorum.ZettaPasta;
+import libs.zetta.ZettaPasta;
 
 public class Bloco {
 
