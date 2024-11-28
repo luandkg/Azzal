@@ -21,10 +21,7 @@ import libs.azzal.utilitarios.Cronometro;
 import libs.entt.Entidade;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
-import libs.luan.Lista;
-import libs.luan.Par;
-import libs.luan.Strings;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.mockui.Interface.Clicavel;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
@@ -140,6 +137,8 @@ public class AppAtzum extends Cena {
         AtzumBotoesPrincipais.criar_camadas(mGrupoPrincipal, mSubComandos, this);
         AtzumBotoesPrincipais.criar_camadas_zoom(mCamadasZoom, this);
 
+        mClima = new ClimaWidget();
+        mVideoEmExecucao = new VideoEmExecucao();
 
         mGrupoPrincipal.aplicarCamada("Relevo");
         mCamadasZoom.aplicarCamada("Relevo");
@@ -160,9 +159,6 @@ public class AppAtzum extends Cena {
 
         //ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(mInformacoesDasCidadesIndexadas, 10));
 
-
-        mClima = new ClimaWidget();
-        mVideoEmExecucao = new VideoEmExecucao();
 
 
     }
@@ -194,17 +190,17 @@ public class AppAtzum extends Cena {
             mMapaZoom.update(false);
 
             int terra_ou_agua = mArquivoAtzumGeral.GET_PLANETA(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
+
+            mTerraOuAgua = Portugues.VALIDAR(terra_ou_agua>0,"TERRA","ÁGUA");
+
             if (terra_ou_agua > 0) {
-                mTerraOuAgua = "TERRA";
 
+                int regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
+                int sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
 
-                int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
-                int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
-
-                mRegiaoCorrente = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente);
+                mRegiaoCorrente = String.valueOf(regiao_corrente) + " :: " + String.valueOf(sub_regiao_corrente);
 
             } else {
-                mTerraOuAgua = "ÁGUA";
 
                 int oceano_corrente = mArquivoAtzumGeral.GET_OCEANO(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
 
@@ -214,7 +210,6 @@ public class AppAtzum extends Cena {
 
             }
 
-            //  mAlturaCorrente = QTT.pegar(AtzumCreator.DADOS_GET_ARQUIVO("relevo.qtt"), mGPS_PX, mGPS_PY) + "m";
             mAlturaCorrente = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY()) + "m";
 
             if (getWindows().getMouse().isClicked()) {
@@ -287,17 +282,15 @@ public class AppAtzum extends Cena {
 
         if (mVideoEmExecucao.isExibindo()) {
 
-            BufferedImage reduzido = mVideoEmExecucao.getImagemCorrente();
-
-            g.drawImagem(mWidgetMapaVisualizador.getPosX(), mWidgetMapaVisualizador.getPosY(), reduzido);
+            g.drawImagem(mWidgetMapaVisualizador.getPosX(), mWidgetMapaVisualizador.getPosY(), mVideoEmExecucao.getImagemCorrente());
 
             int info_px = mWidgetMapaVisualizador.getPosX();
             int info_py = mWidgetMapaVisualizador.getPosY();
 
 
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 150, info_py + 100, mVideoEmExecucao.getLargura() + " vs " + mVideoEmExecucao.getAltura());
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 150, info_py + 150, mVideoEmExecucao.getFrameCorrente() + " frames de " + mVideoEmExecucao.getVideoQuadrosTotal());
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 150, info_py + 200, mVideoEmExecucao.getVideoDuracao());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 100, mVideoEmExecucao.getLargura() + " vs " + mVideoEmExecucao.getAltura());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 150, mVideoEmExecucao.getFrameCorrente() + " frames de " + mVideoEmExecucao.getVideoQuadrosTotal());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 200, mVideoEmExecucao.getVideoDuracao());
 
             if (mVideoEmExecucao.getFrameCorrente() > 0 && mVideoEmExecucao.getFrameCorrente() <= 500) {
                 if (mClima.temCidade()) {
@@ -361,8 +354,6 @@ public class AppAtzum extends Cena {
             }
 
             if (cidade_selecionada) {
-
-
                 g.drawCirculoCentralizado_Pintado((cidade.getX() / 2) + X0, (cidade.getY() / 2) + Y0, 5, mCores.getVerde());
                 g.drawCirculoCentralizado_Pintado((cidade.getX() / 2) + X0, (cidade.getY() / 2) + Y0, 2, mCores.getAzul());
             } else {
@@ -524,10 +515,10 @@ public class AppAtzum extends Cena {
             mCidadeDescritores.adicionar(new Par<String, String>("Nome", mCidade.at("CidadeNome")));
             mCidadeDescritores.adicionar(new Par<String, String>("Posição", mCidadeSelecionadaX + " : " + mCidadeSelecionadaY));
 
-            int v2_regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(mCidadeSelecionadaX, mCidadeSelecionadaY);
-            int v2_sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(mCidadeSelecionadaX, mCidadeSelecionadaY);
+            int regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(mCidadeSelecionadaX, mCidadeSelecionadaY);
+            int sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(mCidadeSelecionadaX, mCidadeSelecionadaY);
 
-            String cidade_regiao = String.valueOf(v2_regiao_corrente) + " :: " + String.valueOf(v2_sub_regiao_corrente) + " - " + mAtzum.GET_REGIAO_NOME(v2_regiao_corrente);
+            String cidade_regiao = String.valueOf(regiao_corrente) + " :: " + String.valueOf(sub_regiao_corrente) + " - " + mAtzum.GET_REGIAO_NOME(regiao_corrente);
             String cidade_altitude = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(mCidadeSelecionadaX, mCidadeSelecionadaY) + "m";
 
 
@@ -535,14 +526,7 @@ public class AppAtzum extends Cena {
             mCidadeDescritores.adicionar(new Par<String, String>("Altitude", cidade_altitude));
 
 
-            //  fmt.print("{}",mCidade.toTexto());
-
-            if (mCidade.atInt("Oceano_Distancia") <= 15) {
-                mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Litoranea"));
-            } else {
-                mCidadeDescritores.adicionar(new Par<String, String>("Tipo", "Continental"));
-            }
-
+            mCidadeDescritores.adicionar(new Par<String, String>("Tipo", Portugues.VALIDAR(mCidade.atInt("Oceano_Distancia") <= 15,"Litoranea","Continental")));
             mCidadeDescritores.adicionar(new Par<String, String>("Oceano", mCidade.at("Oceano_Nome") + " - " + mCidade.at("Oceano_Distancia")));
 
 

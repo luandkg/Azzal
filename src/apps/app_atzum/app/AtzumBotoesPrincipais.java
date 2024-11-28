@@ -21,6 +21,7 @@ public class AtzumBotoesPrincipais {
                 app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO()));
                 grupo.setSelecionado("Cidades");
                 mSubCamadas.zerar();
+                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -34,6 +35,7 @@ public class AtzumBotoesPrincipais {
 
                 grupo.setSelecionado("Regiões");
                 mSubCamadas.zerar();
+                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -47,6 +49,7 @@ public class AtzumBotoesPrincipais {
 
                 grupo.setSelecionado("Relevo");
                 mSubCamadas.zerar();
+                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -60,6 +63,7 @@ public class AtzumBotoesPrincipais {
 
                 grupo.setSelecionado("Oceanos");
                 mSubCamadas.zerar();
+                app.mVideoEmExecucao.parar();
 
 
             }
@@ -73,6 +77,7 @@ public class AtzumBotoesPrincipais {
 
                 grupo.setSelecionado("Modelo Climático");
                 mSubCamadas.zerar();
+                app.mVideoEmExecucao.parar();
 
 
             }
@@ -87,6 +92,7 @@ public class AtzumBotoesPrincipais {
 
                 grupo.setSelecionado("Modelo Vegetação");
                 mSubCamadas.zerar();
+                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -98,6 +104,7 @@ public class AtzumBotoesPrincipais {
 
                 criar_subcamadas(mSubCamadas, app, "umidade");
                 grupo.setSelecionado("Umidade");
+                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -108,6 +115,7 @@ public class AtzumBotoesPrincipais {
 
                 criar_subcamadas(mSubCamadas, app, "temperatura");
                 grupo.setSelecionado("Temperatura");
+                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -118,6 +126,7 @@ public class AtzumBotoesPrincipais {
 
                 criar_subcamadas(mSubCamadas, app, "massa_de_ar");
                 grupo.setSelecionado("MassaDeAr");
+                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -138,6 +147,7 @@ public class AtzumBotoesPrincipais {
                         app.mVideoEmExecucao.reproduzirVideo(video);
 
                         mSubCamadas.setSelecionado("FC");
+                       // app.mVideoEmExecucao.parar();
 
                     }
                 });
@@ -170,6 +180,8 @@ public class AtzumBotoesPrincipais {
 
                     mSubCamadas.setSelecionado(String.valueOf(ref_modelo.get()));
                     fmt.print("SubCamada :: {} !", tipo);
+                    app.mVideoEmExecucao.parar();
+
                 }
             });
 
@@ -197,6 +209,7 @@ public class AtzumBotoesPrincipais {
 
                 mCamadasZoom.setSelecionado("Regiões");
                 app.mMapaZoom.update(true);
+
 
             }
         });

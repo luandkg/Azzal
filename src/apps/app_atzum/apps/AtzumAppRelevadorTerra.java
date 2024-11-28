@@ -66,7 +66,7 @@ public class AtzumAppRelevadorTerra extends Cena {
         mapa = AtzumCreator.GET_MAPA_DE_CONTORNO();
 
 
-        Imagem.exportar(mapa, LOCAL + "atzum_organizado.png");
+      //  Imagem.exportar(mapa, LOCAL + "atzum_organizado.png");
 
         Renderizador render2 = new Renderizador(mapa);
 

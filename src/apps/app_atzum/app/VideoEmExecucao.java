@@ -22,6 +22,7 @@ public class VideoEmExecucao {
     }
 
 
+
     public void reproduzirVideo(DSVideo video) {
         mVideoExecutando = true;
         mVideo = video;
@@ -33,6 +34,13 @@ public class VideoEmExecucao {
         mVideoCronometro = new Cronometro(VIDEO_TAXA_DE_ATUALIZACAO);
     }
 
+    public void parar(){
+        if(mVideoExecutando){
+            mVideo.fechar();
+        }
+        mVideoExecutando=false;
+        mCarregado=false;
+    }
 
 
     public boolean isExecutando(){
