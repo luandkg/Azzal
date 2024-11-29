@@ -64,7 +64,7 @@ public class ZettaColecao {
         return lista;
     }
 
-    public void adicionar(Entidade e) {
+    public long adicionar(Entidade e) {
 
         long proximo = mSequenciador.getProximo();
 
@@ -78,6 +78,8 @@ public class ZettaColecao {
         // fmt.print("Ponteiro Dados :: {}",item.getPonteiroDados());
 
         mIndice.setItem(proximo, item.getPonteiroDados());
+
+        return proximo;
     }
 
 
@@ -121,17 +123,10 @@ public class ZettaColecao {
 
         if (op_indice.isOK()) {
 
-            mDados.getArquivador().setPonteiro(op_indice.get().getPonteiro());
+            String direto_texto= ItemAcessarDireto.LER(mDados.getArquivador(), op_indice.get().getPonteiro());
 
-            long tam = mDados.getArquivador().get_u32();
 
-            if (tam > Fazendario.TAMANHO_SETOR_ITEM) {
-                tam = Fazendario.TAMANHO_SETOR_ITEM;
-            }
-
-            byte[] dados = mDados.getArquivador().get_u8_array((int)tam);
-
-            Entidade e_item = ENTT.PARSER_ENTIDADE(Strings.GET_STRING_VIEW(dados));
+            Entidade e_item = ENTT.PARSER_ENTIDADE(direto_texto);
 
             e_item.at("@PTR", op_indice.get().getPonteiro());
 
