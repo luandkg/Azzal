@@ -220,6 +220,23 @@ public class ENTT {
     }
 
 
+    public static Lista<Entidade> GET_ATRIBUTOS(Entidade entidade) {
+
+        Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
+
+            for (Tag tag : entidade.tags()) {
+                atributos.item(tag.getNome());
+            }
+
+
+        Lista<Entidade> e_atts = new Lista<Entidade>();
+        for (String item : atributos) {
+            e_atts.adicionar(ENTT.CRIAR("Nome", item));
+        }
+
+        return e_atts;
+    }
+
     public static Lista<Entidade> GET_ATRIBUTOS(Lista<Entidade> entidades) {
 
         Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
@@ -1270,6 +1287,31 @@ public class ENTT {
 
     }
 
+
+    public static double ATRIBUTOS_VARIOS_ANALISE_DOUBLE_MEDIA(Entidade e, String prefixo, int inicio, int fim) {
+
+
+        boolean tem = true;
+
+        double somatorio = 0;
+        int quantidade=0;
+
+        for (int i = inicio; i <= fim; i++) {
+            double valor = e.atDouble(prefixo + i);
+            somatorio += valor;
+            quantidade+=1;
+            tem = true;
+        }
+
+
+        if (tem) {
+            return somatorio/quantidade;
+        } else {
+            throw new RuntimeException("ERRO :: ATRIBUTOS_VARIOS_ANALISE_DOUBLE_MAIOR");
+        }
+
+    }
+
     public static Entidade GET_PRIMEIRO(Lista<Entidade> entts) {
         return entts.get(0);
     }
@@ -2273,6 +2315,19 @@ public class ENTT {
             e.at(att_porcentagem,fmt.f2Porcentagem(e.atInt(att_calcular),total));
         }
 
+    }
+
+
+    public static Lista<String> COLETAR_ATRIBUTOS_NOME_QUANDO(Entidade e,String valor){
+        Lista<String> nomes = new Lista<String>();
+
+        for(Tag tag : e.tags()){
+            if(tag.getValor().contentEquals(valor)){
+                nomes.adicionar(tag.getNome());
+            }
+        }
+
+        return nomes;
     }
 
 }
