@@ -1319,10 +1319,10 @@ public class Strings {
         return texto;
     }
 
-    public static String LISTA_TO_TEXTO_LINHA(ArrayList<String> ls) {
+    public static String LISTA_TO_TEXTO_LINHA(Lista<String> ls) {
         String texto = "";
 
-        int index_ultimo = ls.size() - 1;
+        int index_ultimo = ls.getQuantidade() - 1;
         int index_corrente = 0;
 
         for (String item : ls) {
