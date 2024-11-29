@@ -396,5 +396,25 @@ public class Entidade {
 
     }
 
+    public void trocar_valores(String att_alfa,String att_beta){
+        String s_alfa = at(att_alfa);
+        String s_beta = at(att_beta);
 
-}
+        at(att_alfa,s_beta);
+        at(att_beta,s_alfa);
+
+    }
+
+    public void at_renomear(String att_alfa,String att_beta) {
+
+        for(Tag tag : tags()){
+            if(tag.is_nome(att_alfa)){
+                tag.setNome(att_beta);
+                break;
+            }
+        }
+
+    }
+
+
+    }
