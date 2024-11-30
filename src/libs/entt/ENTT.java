@@ -224,9 +224,9 @@ public class ENTT {
 
         Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
 
-            for (Tag tag : entidade.tags()) {
-                atributos.item(tag.getNome());
-            }
+        for (Tag tag : entidade.tags()) {
+            atributos.item(tag.getNome());
+        }
 
 
         Lista<Entidade> e_atts = new Lista<Entidade>();
@@ -251,6 +251,89 @@ public class ENTT {
         for (String item : atributos) {
             e_atts.adicionar(ENTT.CRIAR("Nome", item));
         }
+
+        return e_atts;
+    }
+
+    public static Lista<Entidade> GET_ATRIBUTOS_E_SEQUENCIAIS(Lista<Entidade> entidades) {
+
+        Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
+        Unico<String> atributos_comuns = new Unico<String>(Strings.IGUALAVEL());
+        Unico<String> sequenciais = new Unico<String>(Strings.IGUALAVEL());
+
+        for (Entidade e : entidades) {
+            for (Tag tag : e.tags()) {
+                atributos.item(tag.getNome());
+
+                String nome_parte_textual = Strings.getParteTextual(tag.getNome());
+
+                if (nome_parte_textual.length() == tag.getNome().length()) {
+                    atributos_comuns.item(tag.getNome());
+                } else {
+                    sequenciais.item(nome_parte_textual);
+                }
+
+            }
+        }
+
+        Lista<Entidade> e_atts = new Lista<Entidade>();
+
+        if (atributos.getQuantidade() == atributos_comuns.getQuantidade() || (atributos.getQuantidade() == (atributos_comuns.getQuantidade() + sequenciais.getQuantidade()))) {
+
+            for (String item : atributos) {
+                e_atts.adicionar(ENTT.CRIAR("Nome", item));
+            }
+
+        } else {
+
+            for (String item : atributos_comuns) {
+                Entidade e = ENTT.CRIAR("Tipo", "Atributo");
+                e.at("Nome", item);
+                e_atts.adicionar(e);
+            }
+
+            for (String item : sequenciais) {
+
+                Entidade e = ENTT.CRIAR("Tipo", "Sequencial");
+                e.at("Nome", item);
+
+                boolean primeiro = true;
+
+                for (String att : atributos) {
+
+                    String nome_parte_textual = Strings.getParteTextual(att);
+
+                    if (Strings.isIgual(item, nome_parte_textual)) {
+
+                        int sequencia = Strings.getParteNumericaAposTextual(att);
+
+                        if(primeiro){
+                            primeiro=false;
+
+                            e.at("Menor", sequencia);
+                            e.at("Maior", sequencia);
+
+
+                        }else{
+                            if (sequencia < e.atInt("Menor")) {
+                                e.at("Menor", sequencia);
+                            }
+
+                            if (sequencia > e.atInt("Maior")) {
+                                e.at("Maior", sequencia);
+                            }
+                        }
+
+
+                    }
+
+                }
+
+                e_atts.adicionar(e);
+            }
+
+        }
+
 
         return e_atts;
     }
@@ -1294,18 +1377,18 @@ public class ENTT {
         boolean tem = true;
 
         double somatorio = 0;
-        int quantidade=0;
+        int quantidade = 0;
 
         for (int i = inicio; i <= fim; i++) {
             double valor = e.atDouble(prefixo + i);
             somatorio += valor;
-            quantidade+=1;
+            quantidade += 1;
             tem = true;
         }
 
 
         if (tem) {
-            return somatorio/quantidade;
+            return somatorio / quantidade;
         } else {
             throw new RuntimeException("ERRO :: ATRIBUTOS_VARIOS_ANALISE_DOUBLE_MAIOR");
         }
@@ -2293,36 +2376,36 @@ public class ENTT {
         return comum;
     }
 
-    public static void ZONA_ANALISAR_EM_DISPERSAO(Lista<Entidade> dados, Lista<Entidade> zonas, String att_valor ) {
-        ENTT.ZONA_ANALISAR(ENTT.DISPERSAO(dados,att_valor),zonas,att_valor,"Quantidade");
+    public static void ZONA_ANALISAR_EM_DISPERSAO(Lista<Entidade> dados, Lista<Entidade> zonas, String att_valor) {
+        ENTT.ZONA_ANALISAR(ENTT.DISPERSAO(dados, att_valor), zonas, att_valor, "Quantidade");
     }
 
-    public static Lista<Entidade>  ZONA_ANALISAR_EM_DISPERSAO_4ZONAS(Lista<Entidade> dados,  String att_valor ) {
+    public static Lista<Entidade> ZONA_ANALISAR_EM_DISPERSAO_4ZONAS(Lista<Entidade> dados, String att_valor) {
 
-        Lista<Entidade> idade_zonas = ENTT.GET_4ZONAS_DE(dados,att_valor);
+        Lista<Entidade> idade_zonas = ENTT.GET_4ZONAS_DE(dados, att_valor);
 
-        ENTT.ZONA_ANALISAR_EM_DISPERSAO(dados,idade_zonas,att_valor);
+        ENTT.ZONA_ANALISAR_EM_DISPERSAO(dados, idade_zonas, att_valor);
 
         return idade_zonas;
     }
 
 
-    public static void CALCULAR_PORCENTAGEM(Lista<Entidade> dados,String att_calcular,String att_porcentagem){
+    public static void CALCULAR_PORCENTAGEM(Lista<Entidade> dados, String att_calcular, String att_porcentagem) {
 
-        int total = ENTT.ATRIBUTO_SOMAR(dados,att_calcular);
+        int total = ENTT.ATRIBUTO_SOMAR(dados, att_calcular);
 
-        for(Entidade e : dados){
-            e.at(att_porcentagem,fmt.f2Porcentagem(e.atInt(att_calcular),total));
+        for (Entidade e : dados) {
+            e.at(att_porcentagem, fmt.f2Porcentagem(e.atInt(att_calcular), total));
         }
 
     }
 
 
-    public static Lista<String> COLETAR_ATRIBUTOS_NOME_QUANDO(Entidade e,String valor){
+    public static Lista<String> COLETAR_ATRIBUTOS_NOME_QUANDO(Entidade e, String valor) {
         Lista<String> nomes = new Lista<String>();
 
-        for(Tag tag : e.tags()){
-            if(tag.getValor().contentEquals(valor)){
+        for (Tag tag : e.tags()) {
+            if (tag.getValor().contentEquals(valor)) {
                 nomes.adicionar(tag.getNome());
             }
         }

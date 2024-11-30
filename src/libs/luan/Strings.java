@@ -2178,6 +2178,66 @@ public class Strings {
         return ret;
     }
 
+    public static String getParteTextual(String s) {
+        String parte = "";
+
+        String digitos = "0123456789";
+
+        int i = 0;
+        int o = s.length();
+
+        while (i < o) {
+
+            String d = String.valueOf(s.charAt(i));
+
+            if (digitos.contains(d)) {
+                break;
+            } else {
+                parte += d;
+            }
+
+            i += 1;
+        }
+
+
+        return parte;
+    }
+
+    public static int getParteNumericaAposTextual(String s) {
+        String parte = "";
+
+        String digitos = "0123456789";
+
+        int i = 0;
+        int o = s.length();
+
+        while (i < o) {
+
+            String d = String.valueOf(s.charAt(i));
+
+            if (digitos.contains(d)) {
+                break;
+            }
+
+            i += 1;
+        }
+
+        while (i < o) {
+
+            String d = String.valueOf(s.charAt(i));
+
+            if (digitos.contains(d)) {
+                parte += d;
+            } else {
+                break;
+            }
+
+            i += 1;
+        }
+
+
+        return Integer.parseInt(parte);
+    }
 
     public static String getParteNumerica(String s) {
         String parte = "";
