@@ -9,15 +9,19 @@ import libs.luan.Strings;
 
 public class ZettaColecao {
 
+    private String mNome;
     private Armazem mDados;
     private ZettaSequenciador mSequenciador;
     private ArmazemIndiceSumario mIndice;
 
-    public ZettaColecao(Armazem eArmazem, ZettaSequenciador eSequenciador, ArmazemIndiceSumario eIndice) {
+    public ZettaColecao(String eNome,Armazem eArmazem, ZettaSequenciador eSequenciador, ArmazemIndiceSumario eIndice) {
+        mNome=eNome;
         mDados = eArmazem;
         mSequenciador = eSequenciador;
         mIndice = eIndice;
     }
+
+    public String getNome(){return mNome;}
 
     public long contagem() {
         return mDados.getItensUtilizadosContagem();
