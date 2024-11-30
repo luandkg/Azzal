@@ -6,9 +6,11 @@ import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
 import libs.tronarko.Tronarko;
-import libs.zetta.ItemColecionavel;
 import libs.zetta.ZettaColecao;
 import libs.zetta.ZettaQuorum;
+import libs.zetta_monitorum.ItemColecionavelMonitorum;
+import libs.zetta_monitorum.ZettaColecaoMonitorum;
+import libs.zetta_monitorum.ZettaQuorumMonitorum;
 
 public class AztumTronarkoAnalises {
 
@@ -16,7 +18,7 @@ public class AztumTronarkoAnalises {
     public static void INIT() {
 
         String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("AtzumAnalises.az");
-        ZettaQuorum colecoes = new ZettaQuorum(arquivo);
+        ZettaQuorumMonitorum colecoes = new ZettaQuorumMonitorum(arquivo);
 
         String mTronarko = "7000";
 
@@ -25,11 +27,13 @@ public class AztumTronarkoAnalises {
         ArquivoAtzumGeral mArquivoAtzumGeral = new ArquivoAtzumGeral();
         ArquivoAtzumTronarko mArquivoAtzumTronarko = new ArquivoAtzumTronarko(mTronarko);
 
-        ZettaColecao cidades = colecoes.getColecaoSempre("Cidades");
-        ZettaColecao fatores_climaticos = colecoes.getColecaoSempre("Cidades::FatoresClimaticos");
-        ZettaColecao temperaturas = colecoes.getColecaoSempre("Cidades::Temperatura");
-        ZettaColecao umidades = colecoes.getColecaoSempre("Cidades::Umidade");
-        ZettaColecao massas_de_ar = colecoes.getColecaoSempre("Cidades::MassasDeAr");
+        ZettaColecaoMonitorum cidades = colecoes.getColecaoSempre("Cidades");
+        ZettaColecaoMonitorum fatores_climaticos = colecoes.getColecaoSempre("Cidades::FatoresClimaticos");
+        ZettaColecaoMonitorum temperaturas = colecoes.getColecaoSempre("Cidades::Temperatura");
+        ZettaColecaoMonitorum umidades = colecoes.getColecaoSempre("Cidades::Umidade");
+        ZettaColecaoMonitorum massas_de_ar = colecoes.getColecaoSempre("Cidades::MassasDeAr");
+
+        colecoes.logs_limpar();
 
         cidades.zerar();
         fatores_climaticos.zerar();
@@ -49,7 +53,7 @@ public class AztumTronarkoAnalises {
             int regiao_corrente = mArquivoAtzumGeral.GET_REGIAO(cidade.atInt("X"), cidade.atInt("Y"));
             int sub_regiao_corrente = mArquivoAtzumGeral.GET_SUBREGIAO(cidade.atInt("X"), cidade.atInt("Y"));
 
-            int altitude = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(cidade.atInt("X"), cidade.atInt("Y")) ;
+            int altitude = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(cidade.atInt("X"), cidade.atInt("Y"));
 
             String regiao_nome = mAtzum.GET_REGIAO_NOME(regiao_corrente);
 
@@ -70,15 +74,14 @@ public class AztumTronarkoAnalises {
             cidade.at("Hiperestacao", mCidade.at("Hiperestacao"));
             cidade.at("Vegetacao", mCidade.at("Vegetacao"));
 
-            cidade.at("CidadeHash", Aleatorio.aleatorio_com_esses("0123456789BCDFGHJKLMNPQRSTVWXZ",10)+ "/"+Aleatorio.aleatorio_com_esses("0123456789",3));
+            cidade.at("CidadeHash", Aleatorio.aleatorio_com_esses("0123456789BCDFGHJKLMNPQRSTVWXZ", 10) + "/" + Aleatorio.aleatorio_com_esses("0123456789", 3));
 
-            long cidade_idx = cidades.adicionar(cidade);
-
+            cidades.adicionar(cidade);
 
         }
 
 
-        for (ItemColecionavel ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
+        for (ItemColecionavelMonitorum ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
 
             Entidade cidade = ic_cidade.get();
 
@@ -104,11 +107,11 @@ public class AztumTronarkoAnalises {
             }
 
 
-            ic_cidade.referenciar("FCID",fatores_climaticos,e_cidade_fatores_climaticos);
+            ic_cidade.referenciar("FCID", fatores_climaticos, e_cidade_fatores_climaticos);
 
         }
 
-        for (ItemColecionavel ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
+        for (ItemColecionavelMonitorum ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
 
             Entidade cidade = ic_cidade.get();
 
@@ -127,10 +130,10 @@ public class AztumTronarkoAnalises {
 
             }
 
-            ic_cidade.referenciar("TID",temperaturas,e_cidade_temperatura);
+            ic_cidade.referenciar("TID", temperaturas, e_cidade_temperatura);
 
         }
-        for (ItemColecionavel ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
+        for (ItemColecionavelMonitorum ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
 
             Entidade cidade = ic_cidade.get();
 
@@ -150,12 +153,11 @@ public class AztumTronarkoAnalises {
             }
 
 
-
-            ic_cidade.referenciar("UID",umidades,e_cidade_umidade);
+            ic_cidade.referenciar("UID", umidades, e_cidade_umidade);
 
         }
 
-        for (ItemColecionavel ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
+        for (ItemColecionavelMonitorum ic_cidade : Embaralhar.emabaralhe(cidades.getItensEditaveis())) {
 
             Entidade cidade = ic_cidade.get();
 
@@ -176,7 +178,7 @@ public class AztumTronarkoAnalises {
             }
 
 
-            ic_cidade.referenciar("MID",massas_de_ar,e_cidade_massa_de_ar);
+            ic_cidade.referenciar("MID", massas_de_ar, e_cidade_massa_de_ar);
 
         }
 
@@ -189,6 +191,11 @@ public class AztumTronarkoAnalises {
 
         fmt.print(">> DUMP : COLEÇÕES");
         colecoes.dump();
+
+
+        fmt.print(">> Logs");
+        colecoes.logs_ver();
+
         colecoes.fechar();
 
 
@@ -198,26 +205,22 @@ public class AztumTronarkoAnalises {
     public static void VER() {
 
         String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("AtzumAnalises.az");
-        ZettaQuorum colecoes = new ZettaQuorum(arquivo);
+        ZettaQuorumMonitorum colecoes = new ZettaQuorumMonitorum(arquivo);
 
 
-        ZettaColecao cidades = colecoes.getColecaoSempre("Cidades");
-        ZettaColecao temperaturas = colecoes.getColecaoSempre("Cidades::Temperatura");
-        ZettaColecao umidades = colecoes.getColecaoSempre("Cidades::Umidade");
-        ZettaColecao fatores_climaticos = colecoes.getColecaoSempre("Cidades::FatoresClimaticos");
+        ZettaColecaoMonitorum cidades = colecoes.getColecaoSempre("Cidades");
+        ZettaColecaoMonitorum temperaturas = colecoes.getColecaoSempre("Cidades::Temperatura");
+        ZettaColecaoMonitorum umidades = colecoes.getColecaoSempre("Cidades::Umidade");
+        ZettaColecaoMonitorum fatores_climaticos = colecoes.getColecaoSempre("Cidades::FatoresClimaticos");
 
-        ZettaColecao cidades_resumo = colecoes.getColecaoSempre("Cidades::Resumo");
+        ZettaColecaoMonitorum cidades_resumo = colecoes.getColecaoSempre("Cidades::Resumo");
         cidades_resumo.zerar();
 
-        ZettaColecao informativos= colecoes.getColecaoSempre("Atzum::Informativos");
+        ZettaColecaoMonitorum informativos = colecoes.getColecaoSempre("Atzum::Informativos");
         informativos.zerar();
 
-        // Lista<Entidade> temperatura_dados = temperaturas.getItens();
-        // Lista<Entidade> umidade_dados = umidades.getItens();
-        // Lista<Entidade> fatores_climaticos_dados = fatores_climaticos.getItens();
 
-       // Lista<Entidade> cidades_dados = ENTT.SLICE_PRIMEIROS(cidades.getItens(), 10);
-        Lista<Entidade> cidades_dados=cidades.getItens();
+        Lista<Entidade> cidades_dados = cidades.getItens();
 
         for (Entidade cidade : cidades_dados) {
 
@@ -225,9 +228,6 @@ public class AztumTronarkoAnalises {
             Opcional<Entidade> op_cidade_umidade = umidades.procurar_item_por_indice(cidade.atLong("UID"));
             Opcional<Entidade> op_cidade_fatores_climaticos = fatores_climaticos.procurar_item_por_indice(cidade.atLong("FCID"));
 
-            // Entidade cidade_temperaturas = ENTT.GET_SEMPRE(temperatura_dados, "CidadeNome", cidade.at("CidadeNome"));
-            //   Entidade cidade_umidade = ENTT.GET_SEMPRE(umidade_dados, "CidadeNome", cidade.at("CidadeNome"));
-            //  Entidade cidade_fatores_climaticos = ENTT.GET_SEMPRE(fatores_climaticos_dados, "CidadeNome", cidade.at("CidadeNome"));
 
             if (op_cidade_temperaturas.isOK()) {
                 Entidade cidade_temperaturas = op_cidade_temperaturas.get();
@@ -238,9 +238,9 @@ public class AztumTronarkoAnalises {
 
                 cidade.at("tCidadeNome", cidade_temperaturas.at("CidadeNome"));
 
-                cidade.at("tMin", tMin);
+                cidade.at("tMin", fmt.f2(tMin));
                 cidade.at("tMed", fmt.f2(tMed));
-                cidade.at("tMax", tMax);
+                cidade.at("tMax", fmt.f2(tMax));
 
             }
 
@@ -253,70 +253,167 @@ public class AztumTronarkoAnalises {
                 double uMed = ENTT.ATRIBUTOS_VARIOS_ANALISE_DOUBLE_MEDIA(cidade_umidade, "U", 1, 500);
                 double uMax = ENTT.ATRIBUTOS_VARIOS_ANALISE_DOUBLE_MAIOR(cidade_umidade, "U", 1, 500);
 
-                cidade.at("uMin", uMin);
+                cidade.at("uMin", fmt.f2(uMin));
                 cidade.at("uMed", fmt.f2(uMed));
-                cidade.at("uMax", uMax);
+                cidade.at("uMax", fmt.f2(uMax));
 
             }
 
             if (op_cidade_fatores_climaticos.isOK()) {
                 Entidade cidade_fatores_climaticos = op_cidade_fatores_climaticos.get();
+                cidade.at("FCQ", ENTT.COLETAR_ATRIBUTOS_NOME_QUANDO(cidade_fatores_climaticos, "SIM").getQuantidade());
                 cidade.at("FatoresClimaticos", Strings.LISTA_TO_TEXTO_LINHA(ENTT.COLETAR_ATRIBUTOS_NOME_QUANDO(cidade_fatores_climaticos, "SIM")));
-
             }
 
             cidades_resumo.adicionar(cidade);
         }
 
 
-        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados,10));
-
-
-        ENTT.EXIBIR_TABELA(ENTT.COLETAR(cidades.getItens(),"CidadeTipo","Litoranea"));
-
-        ENTT.ORDENAR_DOUBLE_DECRESCENTE(cidades_dados,"tMed");
-        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados,10));
-        PUBLIQUE_INFORMATIVO(informativos,"CidadesQuentes",ENTT.SLICE_PRIMEIROS(cidades_dados,10),"CidadeNome","CidadePos","tMed");
-
-
-        ENTT.ORDENAR_DOUBLE(cidades_dados,"tMed");
-        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados,10));
-        PUBLIQUE_INFORMATIVO(informativos,"CidadesFrias",ENTT.SLICE_PRIMEIROS(cidades_dados,10),"CidadeNome","CidadePos","tMed");
+        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados, 10));
 
 
 
+        CRIAR_INFO_CIDADES_QUENTES(informativos, cidades_dados);
+        CRIAR_INFO_CIDADES_FRIAS(informativos, cidades_dados);
 
+        CRIAR_INFO_CIDADES_BAIXAS(informativos, cidades_dados);
+        CRIAR_INFO_CIDADES_ALTAS(informativos, cidades_dados);
 
-        ENTT.EXIBIR_TABELA_COM_TITULO(informativos.getItens(),"INFORMATIVOS");
+        CRIAR_INFO_CIDADES_LITORANEAS(informativos, cidades_dados);
+        CRIAR_INFO_CIDADES_CONTINENTAIS(informativos, cidades_dados);
 
-        for(Entidade info : informativos.getItens()){
+        CRIAR_INFO_CIDADES_CLIMA_DOIDO(informativos, cidades_dados);
 
-            fmt.print(">> {}",info.at("Nome"));
-            ENTT.EXIBIR_TABELA_PREFIXO("\t",info.getEntidades());
+        CRIAR_INFO_CIDADES_CLIMA_PARADO(informativos, cidades_dados);
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(informativos.getItens(), "INFORMATIVOS");
+
+        for (Entidade info : informativos.getItens()) {
+
+            fmt.print(">> {}", info.at("Nome"));
+           ENTT.EXIBIR_TABELA_PREFIXO("\t", info.getEntidades());
 
         }
 
+        fmt.print(">> Logs");
+        colecoes.logs_ver();
 
 
         colecoes.fechar();
     }
 
 
-    public static void PUBLIQUE_INFORMATIVO(ZettaColecao informativos,String nome,Lista<Entidade> dados,String att_alfa,String att_beta,String att_gama){
+    public static void PUBLIQUE_INFORMATIVO(ZettaColecaoMonitorum informativos, String nome, Lista<Entidade> dados, String att_alfa, String att_beta, String att_gama) {
 
         Entidade e_informativo = new Entidade();
         e_informativo.at("Nome", nome);
         e_informativo.at("Tron", Tronarko.getTronAgora().getTextoZerado());
 
-        for(Entidade e : dados){
+        for (Entidade e : dados) {
             Entidade novo = ENTT.CRIAR_EM(e_informativo.getEntidades());
-            novo.at(att_alfa,e.at(att_alfa));
-            novo.at(att_beta,e.at(att_beta));
-            novo.at(att_gama,e.at(att_gama));
+            novo.at(att_alfa, e.at(att_alfa));
+            novo.at(att_beta, e.at(att_beta));
+            novo.at(att_gama, e.at(att_gama));
         }
 
 
         long info_id = informativos.adicionar(e_informativo);
 
     }
+
+
+    public static void VER_ESQUEMAS() {
+
+        String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("AtzumAnalises.az");
+        ZettaQuorum colecoes = new ZettaQuorum(arquivo);
+
+        for (ZettaColecao colecao : colecoes.getColecoes()) {
+            ENTT.EXIBIR_TABELA_COM_TITULO(ENTT.GET_ATRIBUTOS_E_SEQUENCIAIS(colecao.getItens()), "ESQUEMA :: " + colecao.getNome());
+        }
+
+        colecoes.fechar();
+    }
+
+
+    public static void CRIAR_INFO_CIDADES_QUENTES(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+        ENTT.ORDENAR_DOUBLE_DECRESCENTE(cidades_dados, "tMed");
+        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados, 10));
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesQuentes", ENTT.SLICE_PRIMEIROS(cidades_dados, 10), "CidadeNome", "CidadePos", "tMed");
+
+
+    }
+
+    public static void CRIAR_INFO_CIDADES_FRIAS(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+        ENTT.ORDENAR_DOUBLE(cidades_dados, "tMed");
+        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados, 10));
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesFrias", ENTT.SLICE_PRIMEIROS(cidades_dados, 10), "CidadeNome", "CidadePos", "tMed");
+
+    }
+
+    public static void CRIAR_INFO_CIDADES_ALTAS(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+        ENTT.ORDENAR_INTEIRO_DECRESCENTE(cidades_dados, "Altitude");
+        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados, 10));
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesAltas", ENTT.SLICE_PRIMEIROS(cidades_dados, 10), "CidadeNome", "CidadePos", "Altitude");
+
+    }
+
+    public static void CRIAR_INFO_CIDADES_BAIXAS(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+        ENTT.ORDENAR_INTEIRO(cidades_dados, "Altitude");
+        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados, 10));
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesBaixas", ENTT.SLICE_PRIMEIROS(cidades_dados, 10), "CidadeNome", "CidadePos", "Altitude");
+
+    }
+
+    public static void CRIAR_INFO_CIDADES_LITORANEAS(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+        Lista<Entidade> cidades_criterio = ENTT.COLETAR(cidades_dados, "CidadeTipo", "Litoranea");
+
+        ENTT.EXIBIR_TABELA(cidades_criterio);
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesLitoraneas", cidades_criterio, "CidadeNome", "CidadePos", "OceanoDistancia");
+
+    }
+
+    public static void CRIAR_INFO_CIDADES_CONTINENTAIS(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+        Lista<Entidade> cidades_criterio = ENTT.COLETAR(cidades_dados, "CidadeTipo", "Continental");
+
+        ENTT.EXIBIR_TABELA(cidades_criterio);
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesContinentais", cidades_criterio, "CidadeNome", "CidadePos", "OceanoDistancia");
+
+    }
+
+
+    public static void CRIAR_INFO_CIDADES_CLIMA_DOIDO(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+
+        ENTT.ORDENAR_INTEIRO_DECRESCENTE(cidades_dados, "FCQ");
+
+     //   ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados,10));
+
+        Lista<Entidade> cidades_criterio = ENTT.COLETAR_INTEIRO_MAIOR_OU_IGUAL(cidades_dados, "FCQ", 3);
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(cidades_criterio,":: CLIMA DOIDO");
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesClimaDoido", cidades_criterio, "CidadeNome", "CidadePos", "FatoresClimaticos");
+
+    }
+
+
+    public static void CRIAR_INFO_CIDADES_CLIMA_PARADO(ZettaColecaoMonitorum informativos, Lista<Entidade> cidades_dados) {
+
+
+        ENTT.ORDENAR_INTEIRO_DECRESCENTE(cidades_dados, "FCQ");
+
+        //   ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(cidades_dados,10));
+
+        Lista<Entidade> cidades_criterio = ENTT.COLETAR_INTEIRO_IGUAL(cidades_dados, "FCQ", 0);
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(cidades_criterio,":: CLIMA PARADO");
+        PUBLIQUE_INFORMATIVO(informativos, "CidadesClimaParado", cidades_criterio, "CidadeNome", "CidadePos", "FatoresClimaticos");
+
+    }
+
 }
