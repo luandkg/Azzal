@@ -3,7 +3,7 @@ package libs.luan;
 public class Embaralhar {
 
 
-    public static <T> void emabaralhe(Lista<T> lista) {
+    public static <T> Lista<T> emabaralhe(Lista<T> lista) {
 
 
         for (int i = 0; i < lista.getQuantidade(); i++) {
@@ -19,6 +19,7 @@ public class Embaralhar {
 
         }
 
+        return lista;
 
     }
 
