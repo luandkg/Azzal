@@ -2415,4 +2415,85 @@ public class ENTT {
         return nomes;
     }
 
+
+    public static Lista<Entidade> COLETAR_INTEIRO_MAIOR(Lista<Entidade> entts, String campo_nome, int campo_valor) {
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.atInt(campo_nome)>campo_valor) {
+                filtrados.adicionar(e);
+            }
+        }
+
+
+        return filtrados;
+    }
+
+    public static Lista<Entidade> COLETAR_INTEIRO_MAIOR_OU_IGUAL(Lista<Entidade> entts, String campo_nome, int campo_valor) {
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.atInt(campo_nome)>=campo_valor) {
+                filtrados.adicionar(e);
+            }
+        }
+
+
+        return filtrados;
+    }
+
+    public static Lista<Entidade> COLETAR_INTEIRO_MENOR(Lista<Entidade> entts, String campo_nome, int campo_valor) {
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.atInt(campo_nome)<campo_valor) {
+                filtrados.adicionar(e);
+            }
+        }
+
+
+        return filtrados;
+    }
+
+    public static Lista<Entidade> COLETAR_INTEIRO_MENOR_OU_IGUAL(Lista<Entidade> entts, String campo_nome, int campo_valor) {
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.atInt(campo_nome)<=campo_valor) {
+                filtrados.adicionar(e);
+            }
+        }
+
+
+        return filtrados;
+    }
+
+    public static Lista<Entidade> COLETAR_INTEIRO_IGUAL(Lista<Entidade> entts, String campo_nome, int campo_valor) {
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.atInt(campo_nome)==campo_valor) {
+                filtrados.adicionar(e);
+            }
+        }
+
+
+        return filtrados;
+    }
+
+
+    public static Lista<Entidade> COLETAR_INTEIRO_DIFERENTE(Lista<Entidade> entts, String campo_nome, int campo_valor) {
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.atInt(campo_nome)!=campo_valor) {
+                filtrados.adicionar(e);
+            }
+        }
+
+
+        return filtrados;
+    }
+
+
 }
