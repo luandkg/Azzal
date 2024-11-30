@@ -55,4 +55,17 @@ public class ItemColecionavel {
     public boolean isRemovido(){
         return mRemovido;
     }
+
+    public void referenciar(String att_nome,ZettaColecao colecao,Entidade nova_referencia) {
+
+        if (mRemovido) {
+            throw new RuntimeException("ItemColecionavel removido !");
+        }
+
+        long referencia_id = colecao.adicionar(nova_referencia);
+
+        get().at(att_nome, referencia_id);
+
+        atualizar();
+    }
 }
