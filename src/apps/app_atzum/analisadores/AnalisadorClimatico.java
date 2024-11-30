@@ -136,6 +136,13 @@ public class AnalisadorClimatico {
 
         if (ret.isEmpty() && unicamente.getQuantidade() == 4) {
             Lista<String> tipos_unicos = unicamente.toLista();
+            if (Lista.IS_IGUAL_ORDENADO(Strings.IGUALDADE(), Ordenador.ORDENAR_STRING_NAO_SENSITIVA(), Lista.CRIAR("AMBIENTE", "FRIO", "QUENTE", "FRIO_EXTREMO"), tipos_unicos)) {
+                ret = "SAZONAL_EXTREMO";
+            }
+        }
+
+        if (ret.isEmpty() && unicamente.getQuantidade() == 4) {
+            Lista<String> tipos_unicos = unicamente.toLista();
             if (Lista.IS_IGUAL_ORDENADO(Strings.IGUALDADE(), Ordenador.ORDENAR_STRING_NAO_SENSITIVA(), Lista.CRIAR("AMBIENTE", "FRIO", "QUENTE", "QUENTE_EXTREMO"), tipos_unicos)) {
                 ret = "SAZONAL_EXTREMO";
             }
