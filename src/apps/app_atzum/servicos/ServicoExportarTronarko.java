@@ -3,6 +3,7 @@ package apps.app_atzum.servicos;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
+import apps.app_atzum.animadores.AnimadoresDeSensores;
 import apps.app_atzum.renderizadores.TronarkoRenderizadorSensores;
 import libs.arquivos.DSInterno;
 import libs.arquivos.IM;
@@ -179,7 +180,18 @@ public class ServicoExportarTronarko {
 
 
 
+
+        // PROCESSAR ANIMAÇÕES
+
+        AnimadoresDeSensores.TRONARKO_VER_SENSORES_TEMPERATURA();
+        AnimadoresDeSensores.TRONARKO_VER_SENSORES_UMIDADE();
+        AnimadoresDeSensores.TRONARKO_VER_SENSORES_MASSA_DE_AR();
+        AnimadoresDeSensores.TRONARKO_VER_SENSORES_FATORES_CLIMATICOS();
+
         // ADICIONAR ANIMAÇÕES
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@animacao/temperatura.vi", AtzumCreator.LOCAL_GET_ARQUIVO("videos_sensores/temperatura.vi"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@animacao/umidade.vi", AtzumCreator.LOCAL_GET_ARQUIVO("videos_sensores/umidade.vi"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@animacao/massa_de_ar.vi", AtzumCreator.LOCAL_GET_ARQUIVO("videos_sensores/massa_de_ar.vi"));
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@animacao/fatores_climaticos.vi", AtzumCreator.LOCAL_GET_ARQUIVO("videos_sensores/fatores_climaticos.vi"));
 
 
