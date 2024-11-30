@@ -281,20 +281,22 @@ public class ENTT {
         if (atributos.getQuantidade() == atributos_comuns.getQuantidade() || (atributos.getQuantidade() == (atributos_comuns.getQuantidade() + sequenciais.getQuantidade()))) {
 
             for (String item : atributos) {
-                e_atts.adicionar(ENTT.CRIAR("Nome", item));
+                Entidade e = ENTT.CRIAR("Atributo", "Simples");
+                e.at("Nome", item);
+                e_atts.adicionar(e);
             }
 
         } else {
 
             for (String item : atributos_comuns) {
-                Entidade e = ENTT.CRIAR("Tipo", "Atributo");
+                Entidade e = ENTT.CRIAR("Atributo", "Simples");
                 e.at("Nome", item);
                 e_atts.adicionar(e);
             }
 
             for (String item : sequenciais) {
 
-                Entidade e = ENTT.CRIAR("Tipo", "Sequencial");
+                Entidade e = ENTT.CRIAR("Atributo", "Sequencial");
                 e.at("Nome", item);
 
                 boolean primeiro = true;
