@@ -834,6 +834,14 @@ public class AtzumProcessoCriativoEmTarefas {
         return tarefa;
     }
 
+    public static String GET_BETA_TAREFA() {
+        Lista<Entidade> beta_dados = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
+        Entidade e_atividade = ENTT.GET_SEMPRE(beta_dados, "Conjunto", "TarefaCorrente");
+        String beta_tronarko = e_atividade.at("Tarefa");
+
+        return beta_tronarko;
+    }
+
     public static String GET_BETA_TRONARKO() {
         Lista<Entidade> beta_dados = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
         Entidade e_atividade = ENTT.GET_SEMPRE(beta_dados, "Conjunto", "TarefaCorrente");
@@ -849,5 +857,11 @@ public class AtzumProcessoCriativoEmTarefas {
 
     public static void BETA_ZERAR() {
         ENTT.GUARDAR(new Lista<Entidade>(), AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
+    }
+
+
+    public static void EXIBIR_EXECUTANDO(){
+        fmt.print(">> Alfa -->> {} ", AtzumProcessoCriativoEmTarefas.GET_ALFA_TAREFA());
+        fmt.print(">> Beta -->> {} :: {}", AtzumProcessoCriativoEmTarefas.GET_BETA_TRONARKO(),AtzumProcessoCriativoEmTarefas.GET_BETA_TAREFA());
     }
 }
