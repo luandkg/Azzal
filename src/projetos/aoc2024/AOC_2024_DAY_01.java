@@ -11,7 +11,7 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
 
     @Override
     public void parte_1() {
-        AOC_2024.CABECALHO(getProblemaNumero(),1);
+        AOC_2024.CABECALHO(getProblemaNumero(),AOC_2024.PARTE_1);
 
         fmt.print("------------- ENTRADA ----------------");
 
@@ -61,7 +61,7 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
     @Override
     public void parte_2() {
 
-        AOC_2024.CABECALHO(getProblemaNumero(),2);
+        AOC_2024.CABECALHO(getProblemaNumero(),AOC_2024.PARTE_2);
 
         fmt.print("------------- ENTRADA ----------------");
 
