@@ -269,4 +269,23 @@ public class Matematica {
             return valor;
         }
     }
+
+    public static Ordenavel<Integer> INTEIRO_ORDENAVEL(){
+        return new Ordenavel<Integer>() {
+            @Override
+            public int emOrdem(Integer a, Integer b) {
+                return Integer.compare(a,b);
+            }
+        };
+    }
+
+    public static Igualavel<Integer> INTEIRO_IGUALAVEL() {
+        return new Igualavel<Integer>() {
+            @Override
+            public boolean is(Integer a, Integer b) {
+                return a.intValue()==b.intValue();
+            }
+
+        };
+    }
 }

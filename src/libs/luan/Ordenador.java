@@ -147,25 +147,4 @@ public class Ordenador {
     }
 
 
-    public static Ordenavel<Integer> ORDENAR_INTEIRO() {
-        return new Ordenavel<Integer>() {
-            @Override
-            public int emOrdem(Integer a, Integer b) {
-
-
-                int resp = Ordenavel.IGUAL;
-
-                if (a > b) {
-                    resp = Ordenavel.MAIOR;
-                } else if (a < b) {
-                    resp = Ordenavel.MENOR;
-                }
-
-
-                return resp;
-            }
-        };
-
-    }
-
 }
