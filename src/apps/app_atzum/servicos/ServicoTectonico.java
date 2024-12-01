@@ -11,6 +11,8 @@ import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.imagem.Imagem;
 import libs.luan.*;
 import libs.meta_functional.Acao;
@@ -20,11 +22,14 @@ public class ServicoTectonico {
     public static void INIT() {
         AtzumCreatorInfo.iniciar("ServicoTectonico.INIT");
 
-        INICIAR_PLACAS();
-        EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
+        //  INICIAR_PLACAS();
+        // EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
 
-        CRIAR_PLACAS_COM_LIMITES();
+        // CRIAR_PLACAS_COM_LIMITES();
 
+        DEFINIR_AREAS_DE_ATIVIDADE_SISMICA();
+        VULCANIZAR();
+        VULCANIZAR_TERRA_OU_AGUA();
 
         AtzumCreatorInfo.terminar("ServicoTectonico.INIT");
         AtzumCreatorInfo.exibir_item("ServicoTectonico.INIT");
@@ -279,9 +284,9 @@ public class ServicoTectonico {
 
     }
 
-    public static void CRIAR_PLACAS_COM_LIMITES(){
+    public static void CRIAR_PLACAS_COM_LIMITES() {
 
-        AtzumCreatorInfo.iniciar("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
+        AtzumCreatorInfo.iniciar("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
 
@@ -321,8 +326,182 @@ public class ServicoTectonico {
 
         Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_com_limites.png"));
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
+        AtzumCreatorInfo.terminar("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
+    }
+
+
+    public static void DEFINIR_AREAS_DE_ATIVIDADE_SISMICA() {
+
+        AtzumCreatorInfo.iniciar("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
+
+        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
+        Renderizador render_atividade_sismica = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
+
+        Cores mCores = new Cores();
+
+        int x_mudanca = Aleatorio.aleatorio_entre(50, 200);
+        int x_contagem = 0;
+        int x_aumentar = Aleatorio.aleatorio_entre(5, 20);
+
+        for (int y = 0; y < render.getAltura(); y++) {
+            x_contagem += 1;
+            if (x_contagem == x_mudanca) {
+                x_contagem = 0;
+                x_mudanca = Aleatorio.aleatorio_entre(50, 200);
+                x_aumentar = Aleatorio.aleatorio_entre(5, 20);
+            }
+            for (int x = 0; x < render.getLargura(); x++) {
+                if (render.getPixel(x, y).igual(mCores.getVermelho())) {
+
+                    for (int a = (x - 30 - x_aumentar); a < (x + 30 + x_aumentar); a++) {
+                        render_atividade_sismica.setPixel(a, y, mCores.getAmarelo());
+                    }
+
+                }
+
+            }
+        }
+
+        int y_mudanca = Aleatorio.aleatorio_entre(50, 200);
+        int y_contagem = 0;
+        int y_aumentar = Aleatorio.aleatorio_entre(5, 20);
+
+
+        for (int y = 0; y < render.getAltura(); y++) {
+            for (int x = 0; x < render.getLargura(); x++) {
+
+                y_contagem += 1;
+                if (y_contagem == y_mudanca) {
+                    y_contagem = 0;
+                    y_mudanca = Aleatorio.aleatorio_entre(50, 200);
+                    y_aumentar = Aleatorio.aleatorio_entre(5, 20);
+                }
+                if (render.getPixel(x, y).igual(mCores.getVermelho())) {
+
+                    for (int a = (y - 30 - y_aumentar); a < (y + 30 + y_aumentar); a++) {
+                        render_atividade_sismica.setPixel(x, a, mCores.getAmarelo());
+                    }
+
+                }
+
+            }
+        }
+
+        for (int y = 0; y < render.getAltura(); y++) {
+            for (int x = 0; x < render.getLargura(); x++) {
+                if (render.getPixel(x, y).igual(mCores.getVermelho())) {
+                    render_atividade_sismica.setPixel(x, y, mCores.getAzul());
+                }
+            }
+        }
+
+        Imagem.exportar(render_atividade_sismica.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
+
+        AtzumCreatorInfo.terminar("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
+    }
+
+
+    public static void VULCANIZAR() {
+
+        AtzumCreatorInfo.iniciar("ServicoTectonico.VULCANIZAR");
+
+        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
+        Renderizador render_vulcanismo = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
+
+        Cores mCores = new Cores();
+
+        Lista<Entidade> vulcoes = ENTT.CRIAR_LISTA();
+
+
+        int vulcanizando_contagem = 0;
+        int vulcanizando_mudanca = Aleatorio.aleatorio_entre(100, 300);
+
+
+        for (int y = 0; y < render.getAltura(); y++) {
+            for (int x = 0; x < render.getLargura(); x++) {
+                if (render.getPixel(x, y).igual(mCores.getAzul())) {
+
+                    vulcanizando_contagem += 1;
+                    if (vulcanizando_contagem == vulcanizando_mudanca) {
+                        vulcanizando_contagem = 0;
+                        vulcanizando_mudanca = Aleatorio.aleatorio_entre(100, 300);
+
+                        int vulcao_x = x - Aleatorio.aleatorio_entre_positivo_ou_negativo(10, 30);
+                        int vulcao_y = y + Aleatorio.aleatorio_entre_positivo_ou_negativo(10, 30);
+
+                        if (render.getPixel(vulcao_x, vulcao_y).igual(mCores.getAmarelo()) || render.getPixel(vulcao_x, vulcao_y).igual(mCores.getAzul())) {
+                            render_vulcanismo.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getVermelho());
+
+                            Entidade e_vulcao = ENTT.CRIAR_EM_SEQUENCIALMENTE(vulcoes, "VID");
+                            e_vulcao.at("X", vulcao_x);
+                            e_vulcao.at("Y", vulcao_y);
+                            e_vulcao.at("Sismicidade", Aleatorio.aleatorio_entre(500, 6000));
+                            e_vulcao.at("Dormencia", e_vulcao.atInt("Sismicidade") + Aleatorio.aleatorio_entre(50, 100));
+                            e_vulcao.at("Nivel", Aleatorio.aleatorio_entre(1, 12));
+
+
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+
+
+        Imagem.exportar(render_vulcanismo.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_vulcanismo.png"));
+
+        ENTT.GUARDAR(vulcoes, AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
+
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(vulcoes, "VULCÕES");
+
+        AtzumCreatorInfo.terminar("ServicoTectonico.VULCANIZAR");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.VULCANIZAR");
+    }
+
+    public static void VULCANIZAR_TERRA_OU_AGUA() {
+
+        AtzumCreatorInfo.iniciar("ServicoTectonico.VULCANIZAR_TERRA_OU_AGUA");
+
+        Renderizador render_vulcoes = new Renderizador(AtzumCreator.GET_MAPA_PRETO_E_BRANCO());
+
+        Cores mCores = new Cores();
+
+        Lista<Entidade> vulcoes = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
+
+        for (Entidade vulcao : vulcoes) {
+
+            int vulcao_x = vulcao.atInt("X");
+            int vulcao_y = vulcao.atInt("Y");
+
+            if (render_vulcoes.getPixel(vulcao_x, vulcao_y).igual(mCores.getPreto())) {
+
+                vulcao.at("Tipo", "Aquatico");
+                render_vulcoes.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getAzul());
+
+            }else{
+
+                vulcao.at("Tipo", "Terreste");
+                render_vulcoes.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getVermelho());
+
+            }
+
+        }
+
+
+
+        Imagem.exportar(render_vulcoes.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_vulcoes.png"));
+
+        ENTT.GUARDAR(vulcoes,AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(vulcoes, "VULCÕES");
+
+        AtzumCreatorInfo.terminar("ServicoTectonico.VULCANIZAR_TERRA_OU_AGUA");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.VULCANIZAR_TERRA_OU_AGUA");
     }
 
 }
