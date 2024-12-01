@@ -13,6 +13,7 @@ public class AOC_2024 {
 
         Lista<AOC_2024_DAY> problemas = new Lista<AOC_2024_DAY>();
 
+        problemas.adicionar(new AOC_2024_DAY_01());
 
         PROBLEMA_EXECUTAR(problemas,eParte,eProblema);
     }
@@ -71,4 +72,8 @@ public class AOC_2024 {
 
     }
 
+
+    public static String GET_ARQUIVO(String nome){
+        return "/home/luan/dev/azzal/res/aoc_2024/" +nome;
+    }
 }

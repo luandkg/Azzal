@@ -261,4 +261,12 @@ public class Matematica {
         };
     }
 
+
+    public static int modulo(int valor){
+        if(valor<0){
+            return valor*(-1);
+        }else{
+            return valor;
+        }
+    }
 }
