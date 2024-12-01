@@ -90,16 +90,17 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
 
         int similaridade_total = 0;
 
-        for(int a=0;a<esquerda.getQuantidade();a++){
+        int indice=0;
+        for(Integer esquerda_valor : esquerda){
 
-            int esquerda_valor = esquerda.get(a);
             int contagem_valor= direita.contar(Inteiro.IGUALAVEL(),esquerda_valor);
 
             int similaridade = esquerda_valor*contagem_valor;
 
-            fmt.print("\t ++ esquerda({}) = {} -->> {} :: {}",a,esquerda_valor,contagem_valor,similaridade);
+            fmt.print("\t ++ esquerda({}) = {} -->> {} :: {}",indice,esquerda_valor,contagem_valor,similaridade);
 
             similaridade_total+=similaridade;
+            indice+=1;
         }
 
         fmt.print(">> Similaridade = {}",similaridade_total);
