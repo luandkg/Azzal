@@ -29,6 +29,20 @@ public class Aleatorio {
     }
 
 
+    public static int aleatorio_entre_positivo_ou_negativo(int minimo, int maximo) {
+
+        int delta = maximo - minimo;
+        Random sorte = new Random();
+        int ret = minimo + sorte.nextInt(delta);
+
+        if(aleatorio_entre(0,100)<50){
+            ret=ret*(-1);
+        }
+
+        return ret;
+    }
+
+
     public static String aleatorio_numero_real(int minimo,int maximo){
         return Aleatorio.aleatorio_entre(minimo, maximo) + "." + Aleatorio.aleatorio_entre(0, 100);
     }
