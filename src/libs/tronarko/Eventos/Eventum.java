@@ -557,6 +557,8 @@ public class Eventum {
         for (TozteCor e : ToztesComCor) {
             boolean enc = false;
 
+            e.getToztes().limpar();
+
             for (TozteCor u : ToztesComCorUnico) {
                 if (u.getNome().contentEquals(e.getNome())) {
                     enc = true;
@@ -565,7 +567,7 @@ public class Eventum {
                 }
             }
 
-            if (enc == false) {
+            if (!enc) {
                 e.adicionar_Tozte(e.getTozte());
                 ToztesComCorUnico.adicionar(e);
             }

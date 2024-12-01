@@ -1,9 +1,10 @@
 package libs.tronarko.utils;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
+import libs.luan.Lista;
 import libs.tronarko.Tozte;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class TozteCor {
 
@@ -11,14 +12,14 @@ public class TozteCor {
     private Tozte mTozte;
     private Color mCor;
 
-    private ArrayList<Tozte> mToztes;
+    private Lista<Tozte> mToztes;
 
     public TozteCor(String eNome, Tozte eTozte, Color eCor) {
         mNome = eNome;
         mTozte = eTozte;
         mCor = eCor;
 
-        mToztes = new ArrayList<Tozte>();
+        mToztes = new Lista<Tozte>();
 
     }
 
@@ -43,13 +44,13 @@ public class TozteCor {
     }
 
 
-    public ArrayList<Tozte> getToztes() {
+    public Lista<Tozte> getToztes() {
         return mToztes;
     }
 
 
     public void adicionar_Tozte(Tozte eTozte) {
-        mToztes.add(eTozte);
+        mToztes.adicionar(eTozte);
     }
 
 
@@ -57,7 +58,7 @@ public class TozteCor {
 
         Tozte ret = null;
 
-        if (mToztes.size() > 0) {
+        if (mToztes.getQuantidade() > 0) {
 
             ret = mToztes.get(0);
 
@@ -81,7 +82,7 @@ public class TozteCor {
 
         Tozte ret = null;
 
-        if (mToztes.size() > 0) {
+        if (mToztes.getQuantidade() > 0) {
 
             ret = mToztes.get(0);
 
@@ -106,7 +107,7 @@ public class TozteCor {
         String ret = "";
 
 
-        if (mToztes.size() == 1) {
+        if (mToztes.getQuantidade() == 1) {
 
             ret = "[ " + getTozteMin().getTextoZerado() + " ]";
 
