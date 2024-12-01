@@ -22,14 +22,12 @@ public class ServicoTectonico {
     public static void INIT() {
         AtzumCreatorInfo.iniciar("ServicoTectonico.INIT");
 
-        //  INICIAR_PLACAS();
-        // EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
-
-        // CRIAR_PLACAS_COM_LIMITES();
+      //  INICIAR_PLACAS();
+      //  EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
+     //   CRIAR_PLACAS_COM_LIMITES();
 
         DEFINIR_AREAS_DE_ATIVIDADE_SISMICA();
         VULCANIZAR();
-        VULCANIZAR_TERRA_OU_AGUA();
 
         AtzumCreatorInfo.terminar("ServicoTectonico.INIT");
         AtzumCreatorInfo.exibir_item("ServicoTectonico.INIT");
@@ -409,6 +407,8 @@ public class ServicoTectonico {
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
         Renderizador render_vulcanismo = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
+        Renderizador render_vulcoes = new Renderizador(AtzumCreator.GET_MAPA_PRETO_E_BRANCO());
+        Renderizador terra_ou_agua = new Renderizador(AtzumCreator.GET_MAPA_PRETO_E_BRANCO());
 
         Cores mCores = new Cores();
 
@@ -442,6 +442,19 @@ public class ServicoTectonico {
                             e_vulcao.at("Nivel", Aleatorio.aleatorio_entre(1, 12));
 
 
+                            if (terra_ou_agua.getPixel(vulcao_x, vulcao_y).igual(mCores.getPreto())) {
+
+                                e_vulcao.at("Tipo", "Aquatico");
+                                render_vulcoes.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getAzul());
+
+                            } else {
+
+                                e_vulcao.at("Tipo", "Terreste");
+                                render_vulcoes.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getVermelho());
+
+                            }
+
+
                         }
 
 
@@ -453,6 +466,7 @@ public class ServicoTectonico {
 
 
         Imagem.exportar(render_vulcanismo.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_vulcanismo.png"));
+        Imagem.exportar(render_vulcoes.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_vulcoes.png"));
 
         ENTT.GUARDAR(vulcoes, AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
 
@@ -463,45 +477,5 @@ public class ServicoTectonico {
         AtzumCreatorInfo.exibir_item("ServicoTectonico.VULCANIZAR");
     }
 
-    public static void VULCANIZAR_TERRA_OU_AGUA() {
-
-        AtzumCreatorInfo.iniciar("ServicoTectonico.VULCANIZAR_TERRA_OU_AGUA");
-
-        Renderizador render_vulcoes = new Renderizador(AtzumCreator.GET_MAPA_PRETO_E_BRANCO());
-
-        Cores mCores = new Cores();
-
-        Lista<Entidade> vulcoes = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
-
-        for (Entidade vulcao : vulcoes) {
-
-            int vulcao_x = vulcao.atInt("X");
-            int vulcao_y = vulcao.atInt("Y");
-
-            if (render_vulcoes.getPixel(vulcao_x, vulcao_y).igual(mCores.getPreto())) {
-
-                vulcao.at("Tipo", "Aquatico");
-                render_vulcoes.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getAzul());
-
-            }else{
-
-                vulcao.at("Tipo", "Terreste");
-                render_vulcoes.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getVermelho());
-
-            }
-
-        }
-
-
-
-        Imagem.exportar(render_vulcoes.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_vulcoes.png"));
-
-        ENTT.GUARDAR(vulcoes,AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
-
-        ENTT.EXIBIR_TABELA_COM_TITULO(vulcoes, "VULCÕES");
-
-        AtzumCreatorInfo.terminar("ServicoTectonico.VULCANIZAR_TERRA_OU_AGUA");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.VULCANIZAR_TERRA_OU_AGUA");
-    }
 
 }
