@@ -148,6 +148,7 @@ public class Publicador {
         Lista<Entidade> mapa_sensores = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v9.entts"));
         Lista<Entidade> mapa_sensores_original = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts"));
 
+        fmt.print("Publicar dados resumidamente : Cidades !!! ");
 
         Lista<Entidade> cidade_dados = ENTT.CRIAR_LISTA();
 
