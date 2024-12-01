@@ -23,34 +23,11 @@ public class ServicoTectonico {
         INICIAR_PLACAS();
         EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
 
-        CRIAR_PLACAS_EXPANDIDAS();
+        CRIAR_PLACAS_COM_LIMITES();
 
 
         AtzumCreatorInfo.terminar("ServicoTectonico.INIT");
         AtzumCreatorInfo.exibir_item("ServicoTectonico.INIT");
-    }
-
-    public static void AJUSTAR(){
-
-        Cores mCores = new Cores();
-
-        Renderizador render_tronarko_placas_tectonicas_limites = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites.png"));
-
-        // EXPANDIR LIMITES
-        for (int y = 0; y < render_tronarko_placas_tectonicas_limites.getAltura(); y++) {
-            for (int x = 0; x < render_tronarko_placas_tectonicas_limites.getLargura(); x++) {
-                if (render_tronarko_placas_tectonicas_limites.getPixel(x, y).igual(mCores.getVermelho())||render_tronarko_placas_tectonicas_limites.getPixel(x, y).igual(mCores.getPreto())) {
-
-                    Cor mais_proxima = Rasterizador.GET_COR_DO_QUADRANTE_DIFERENTE(render_tronarko_placas_tectonicas_limites, x, y, 50, mCores.getVermelho(), mCores.getPreto());
-                    render_tronarko_placas_tectonicas_limites.setPixel(x, y, mais_proxima);
-
-                }
-            }
-        }
-
-        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v2.png"));
-
-
     }
 
 
@@ -141,7 +118,7 @@ public class ServicoTectonico {
         }
 
 
-        Imagem.exportar(render_tronarko.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico.png"));
+        Imagem.exportar(render_tronarko.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_eixos.png"));
 
 
         render_tronarko_placas_tectonicas_limites.drawRect_Pintado(0, 420, 50, 50, mCores.getVermelho());
@@ -175,14 +152,14 @@ public class ServicoTectonico {
 
             Rasterizador.RASTERIZAR_COM(render_tronarko_placas_tectonicas_limites, placa_tectonica.getChave().getX(), placa_tectonica.getChave().getY(), mCores.getPreto(), placa_tectonica.getValor(), durante_mudanca, a_cada_100);
 
-            Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v1.png"));
+            Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_v0.png"));
 
         }
 
 
         Rasterizador.trocar_cores(render_tronarko_placas_tectonicas_limites, mCores.getPreto(), mCores.getVermelho());
 
-        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v1.png"));
+        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_v0.png"));
 
 
         // EXPANDIR LIMITES
@@ -197,7 +174,7 @@ public class ServicoTectonico {
             }
         }
 
-        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v2.png"));
+        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas.png"));
 
 
         AtzumCreatorInfo.terminar("ServicoTectonico.INICIAR_PLACAS");
@@ -209,7 +186,7 @@ public class ServicoTectonico {
 
         AtzumCreatorInfo.iniciar("ServicoTectonico.EXTRAIR_CONTORNOS");
 
-        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v2.png"));
+        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas.png"));
 
         Cores mCores = new Cores();
 
@@ -295,18 +272,18 @@ public class ServicoTectonico {
             }
         }
 
-        Imagem.exportar(render_salvar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_definidos.png"));
+        Imagem.exportar(render_salvar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
 
         AtzumCreatorInfo.terminar("ServicoTectonico.EXTRAIR_CONTORNOS");
         AtzumCreatorInfo.exibir_item("ServicoTectonico.EXTRAIR_CONTORNOS");
 
     }
 
-    public static void CRIAR_PLACAS_EXPANDIDAS(){
+    public static void CRIAR_PLACAS_COM_LIMITES(){
 
         AtzumCreatorInfo.iniciar("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
 
-        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_definidos.png"));
+        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
 
         Cores mCores = new Cores();
 
@@ -338,11 +315,11 @@ public class ServicoTectonico {
 
             Rasterizador.RASTERIZAR_COM(render, placa_tectonica.getChave().getX(), placa_tectonica.getChave().getY(), mCores.getPreto(), placa_tectonica.getValor(), durante_mudanca, a_cada_100);
 
-            Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_placas.png"));
+            Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_com_limites.png"));
 
         }
 
-        Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_placas.png"));
+        Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_com_limites.png"));
 
         AtzumCreatorInfo.terminar("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
         AtzumCreatorInfo.exibir_item("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
