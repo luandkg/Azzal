@@ -288,7 +288,7 @@ public class AtzumProcessoCriativoEmTarefas {
         });
 
 
-        tarefas.criarSequencia("ServicoRegioes::RENDERIZAR_OCEANOS", "ServicoRelevo", new Acao() {
+        tarefas.criarSequencia("ServicoRegioes::RENDERIZAR_OCEANOS", "ServicoTectonico", new Acao() {
             @Override
             public void fazer() {
 
@@ -309,6 +309,26 @@ public class AtzumProcessoCriativoEmTarefas {
 
             }
         });
+
+        tarefas.criarSequencia("ServicoTectonico", "ServicoRelevo", new Acao() {
+            @Override
+            public void fazer() {
+
+                String ATIVIDADE_CORRENTE = "ServicoTectonico";
+
+                MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                ServicoTectonico.INIT();
+                MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
+
+                ALFA_EXIBIR_PUBLICACAO(comparativos);
+
+            }
+        });
+
+
+
+
 
         // FIM SUBTAREFAS
 
