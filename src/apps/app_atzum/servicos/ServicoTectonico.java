@@ -4,26 +4,80 @@ import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.GPS;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.VideoRasterizar;
 import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumPontosInteiro;
 import apps.app_atzum.utils.Rasterizador;
-import libs.arquivos.QTT;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
-import libs.entt.ENTT;
-import libs.entt.Entidade;
 import libs.imagem.Imagem;
 import libs.luan.*;
 import libs.meta_functional.Acao;
-
-import java.util.ArrayList;
 
 public class ServicoTectonico {
 
     public static void INIT() {
         AtzumCreatorInfo.iniciar("ServicoTectonico.INIT");
+
+        INICIAR_PLACAS();
+        EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
+
+        CRIAR_PLACAS_EXPANDIDAS();
+
+
+        AtzumCreatorInfo.terminar("ServicoTectonico.INIT");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.INIT");
+    }
+
+    public static void AJUSTAR(){
+
+        Cores mCores = new Cores();
+
+        Renderizador render_tronarko_placas_tectonicas_limites = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites.png"));
+
+        // EXPANDIR LIMITES
+        for (int y = 0; y < render_tronarko_placas_tectonicas_limites.getAltura(); y++) {
+            for (int x = 0; x < render_tronarko_placas_tectonicas_limites.getLargura(); x++) {
+                if (render_tronarko_placas_tectonicas_limites.getPixel(x, y).igual(mCores.getVermelho())||render_tronarko_placas_tectonicas_limites.getPixel(x, y).igual(mCores.getPreto())) {
+
+                    Cor mais_proxima = Rasterizador.GET_COR_DO_QUADRANTE_DIFERENTE(render_tronarko_placas_tectonicas_limites, x, y, 50, mCores.getVermelho(), mCores.getPreto());
+                    render_tronarko_placas_tectonicas_limites.setPixel(x, y, mais_proxima);
+
+                }
+            }
+        }
+
+        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v2.png"));
+
+
+    }
+
+
+    public static Lista<Par<Ponto, Cor>> GET_PLACAS_TECTONICAS() {
+
+        Cores mCores = new Cores();
+        Lista<Par<Ponto, Cor>> placas_tectonicas = new Lista<Par<Ponto, Cor>>();
+
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(500, 500), Cor.getHexCor("#FDD835")));
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(800, 500), Cor.getHexCor("#43A047")));
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(500, 1200), Cor.getHexCor("#D81B60")));
+
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(100, 700), Cor.getHexCor("#1976D2")));
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(2200, 700), Cor.getHexCor("#1976D2")));
+
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(500, 1500), Cor.getHexCor("#512DA8")));
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(2000, 900), Cor.getHexCor("#9E9D24")));
+        //   placas_tectonicas.adicionar(new Par<Ponto,Cor>(new Ponto(500,50),mCores.getMarrom()));
+
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(2080, 600), Cor.getHexCor("#FF8F00")));
+        placas_tectonicas.adicionar(new Par<Ponto, Cor>(new Ponto(1900, 250), Cor.getHexCor("#D32F2F")));
+
+        return placas_tectonicas;
+    }
+
+    public static void INICIAR_PLACAS() {
+        AtzumCreatorInfo.iniciar("ServicoTectonico.INICIAR_PLACAS");
 
         fmt.print("Tectonismo");
 
@@ -35,486 +89,263 @@ public class ServicoTectonico {
 
         AtzumTerra planeta = new AtzumTerra();
 
-        QTT dados_relevo = QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("relevo.qtt"));
+        String LOCAL = "/home/luan/Imagens/atzum/parametros/";
+        String ARQUIVO_NOME = LOCAL + "PLACAS_TECTONICAS.dkg";
 
-        Unico<Ponto> pontos_marcados_terra = new Unico<Ponto>(Ponto.IGUAL());
-        Unico<Ponto> pontos_marcados_oceano = new Unico<Ponto>(Ponto.IGUAL());
-
-        for (int y = 0; y < planeta.getAltura(); y++) {
-
-            int maior_altitude_terra = 0;
-            boolean tem_altitude_terra = false;
-
-            int maior_altitude_oceano = 0;
-            boolean tem_altitude_oceano = false;
-
-
-            for (int x = 0; x < planeta.getLargura(); x++) {
-                if (planeta.isTerra(x, y)) {
-                    int altitude = dados_relevo.getValor(x, y);
-                    if (tem_altitude_terra) {
-                        if (altitude > maior_altitude_terra) {
-                            maior_altitude_terra = altitude;
-                        }
-                    } else {
-                        maior_altitude_terra = altitude;
-                        tem_altitude_terra = true;
-                    }
-                } else {
-
-                    int altitude = dados_relevo.getValor(x, y);
-                    if (tem_altitude_oceano) {
-                        if (altitude < maior_altitude_oceano) {
-                            maior_altitude_oceano = altitude;
-                        }
-                    } else {
-                        maior_altitude_oceano = altitude;
-                        tem_altitude_oceano = true;
-                    }
-
-                }
-
-            }
-
-            if (tem_altitude_terra) {
-                for (int x = 0; x < planeta.getLargura(); x++) {
-                    if (planeta.isTerra(x, y)) {
-                        int altitude = dados_relevo.getValor(x, y);
-                        if (maior_altitude_terra == altitude) {
-                            render_tronarko.setPixel(x, y, mCores.getVermelho());
-                            pontos_marcados_terra.item(new Ponto(x, y));
-                        }
-                    }
-                }
-            }
-
-            if (tem_altitude_oceano) {
-                for (int x = 0; x < planeta.getLargura(); x++) {
-                    if (planeta.isOceano(x, y)) {
-                        int altitude = dados_relevo.getValor(x, y);
-                        if (maior_altitude_oceano == altitude) {
-                            render_tronarko.setPixel(x, y, mCores.getAzul());
-                            pontos_marcados_oceano.item(new Ponto(x, y));
-                        }
-                    }
-                }
-
-            }
-
-
+        Unico<Par<Ponto, Integer>> eixos = new Unico<Par<Ponto, Integer>>(AtzumPontosInteiro.PAR_PONTO_INTEGER_IGUALAVEL());
+        for (Par<Ponto, Integer> p : AtzumPontosInteiro.ABRIR(ARQUIVO_NOME)) {
+            eixos.item(p);
         }
 
-        fmt.print("Pontos marcados : {}", pontos_marcados_terra.getQuantidade());
+        Lista<Ponto> pontos = new Lista<Ponto>();
 
-        for (int x = 0; x < planeta.getLargura(); x++) {
+        for (Par<Ponto, Integer> eixo : eixos) {
+            pontos.adicionar(eixo.getChave());
+        }
 
-            int maior_altitude_terra = 0;
-            boolean tem_altitude_terra = false;
+        fmt.print("Quantidade : {}", pontos.getQuantidade());
 
-            int maior_altitude_oceano = 0;
-            boolean tem_altitude_oceano = false;
 
-            for (int y = 0; y < planeta.getAltura(); y++) {
-                if (planeta.isTerra(x, y)) {
-                    int altitude = dados_relevo.getValor(x, y);
-                    if (tem_altitude_terra) {
-                        if (altitude > maior_altitude_terra) {
-                            maior_altitude_terra = altitude;
-                        }
-                    } else {
-                        maior_altitude_terra = altitude;
-                        tem_altitude_terra = true;
-                    }
-                } else {
-                    int altitude = dados_relevo.getValor(x, y);
-                    if (tem_altitude_oceano) {
-                        if (altitude < maior_altitude_oceano) {
-                            maior_altitude_oceano = altitude;
-                        }
-                    } else {
-                        maior_altitude_oceano = altitude;
-                        tem_altitude_oceano = true;
-                    }
-                }
+        for (Ponto pt_eixo : pontos) {
 
-            }
+            render_tronarko.drawCirculoCentralizado_Pintado(pt_eixo, 10, mCores.getAmarelo());
 
-            if (tem_altitude_terra) {
-                for (int y = 0; y < planeta.getAltura(); y++) {
-                    if (planeta.isTerra(x, y)) {
-                        int altitude = dados_relevo.getValor(x, y);
-                        if (maior_altitude_terra == altitude) {
-                            render_tronarko.setPixel(x, y, mCores.getVermelho());
-                            pontos_marcados_terra.item(new Ponto(x, y));
-                        }
+
+            Opcional<Ponto> proximo = Espaco2D.GET_MAIS_PROXIMO(pt_eixo, pontos);
+
+            if (proximo.isOK()) {
+                double dist = Espaco2D.distancia_entre_pontos(pt_eixo, proximo.get());
+                if (dist < 200) {
+                    render_tronarko.drawLinha(pt_eixo, proximo.get(), mCores.getVerde());
+
+                    for (Ponto o : GPS.criarRota(pt_eixo, proximo.get())) {
+                        render_tronarko_placas_tectonicas_limites.drawRect_Pintado(o.getX(), o.getY(), 20, 20, mCores.getVermelho());
                     }
                 }
             }
 
-            if (tem_altitude_oceano) {
-                for (int y = 0; y < planeta.getAltura(); y++) {
-                    if (planeta.isOceano(x, y)) {
-                        int altitude = dados_relevo.getValor(x, y);
-                        if (maior_altitude_oceano == altitude) {
-                            render_tronarko.setPixel(x, y, mCores.getAzul());
-                            pontos_marcados_oceano.item(new Ponto(x, y));
-                        }
+            Opcional<Ponto> proximo2 = Espaco2D.GET_SEGUNDO_PROXIMO(pt_eixo, pontos);
+
+            if (proximo2.isOK()) {
+                double dist = Espaco2D.distancia_entre_pontos(pt_eixo, proximo2.get());
+                if (dist < 200) {
+                    render_tronarko.drawLinha(pt_eixo, proximo2.get(), mCores.getVermelho());
+
+                    for (Ponto o : GPS.criarRota(pt_eixo, proximo2.get())) {
+                        render_tronarko_placas_tectonicas_limites.drawRect_Pintado(o.getX(), o.getY(), 20, 20, mCores.getVermelho());
                     }
                 }
             }
 
-        }
-
-        fmt.print("Pontos marcados terra  : {}", pontos_marcados_terra.getQuantidade());
-        fmt.print("Pontos marcados oceano : {}", pontos_marcados_oceano.getQuantidade());
-
-
-        Lista<Ponto> pontos_definidos_terra = pontos_marcados_terra.toLista().getCopia();
-
-        Lista<Ponto> pontos_escolhidos = new Lista<Ponto>();
-
-        int terra_escolhidos = Aleatorio.aleatorio_entre(30, 50);
-        int oceano_escolhidos = Aleatorio.aleatorio_entre(30, 50);
-
-
-        for (int marcar = 0; marcar < terra_escolhidos; marcar++) {
-
-            Ponto p1 = Aleatorio.escolha_um(pontos_definidos_terra);
-            pontos_definidos_terra.remover(p1);
-            render_tronarko.drawCirculoCentralizado_Pintado(p1.getX(), p1.getY(), 10, mCores.getVerde());
-            //  render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 100, mCores.getVerde());
-            //  render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 300, mCores.getVermelho());
-
-            pontos_escolhidos.adicionar(p1);
-        }
-
-        Lista<Ponto> pontos_definidos_oceano = pontos_marcados_oceano.toLista().getCopia();
-
-        for (int marcar = 0; marcar < oceano_escolhidos; marcar++) {
-
-            Ponto p1 = Aleatorio.escolha_um(pontos_definidos_oceano);
-            pontos_definidos_oceano.remover(p1);
-            render_tronarko.drawCirculoCentralizado_Pintado(p1.getX(), p1.getY(), 10, mCores.getCinza());
-            //  render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 100, mCores.getCinza());
-            // render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 300, mCores.getVermelho());
-
-            pontos_escolhidos.adicionar(p1);
-
-        }
-
-        Lista<Ponto> pontos_escolhidos_v2 = new Lista<Ponto>();
-
-        int terra_escolhidos_v2 = Aleatorio.aleatorio_entre(30, 50);
-        int oceano_escolhidos_v2 = Aleatorio.aleatorio_entre(30, 50);
-
-
-        for (int marcar = 0; marcar < terra_escolhidos_v2; marcar++) {
-
-            Ponto p1 = Aleatorio.escolha_um(pontos_definidos_terra);
-            pontos_definidos_terra.remover(p1);
-            render_tronarko.drawCirculoCentralizado_Pintado(p1.getX(), p1.getY(), 10, mCores.getVerde());
-            //  render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 100, mCores.getVerde());
-            //  render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 300, mCores.getVermelho());
-
-            pontos_escolhidos_v2.adicionar(p1);
-        }
-
-        for (int marcar = 0; marcar < oceano_escolhidos_v2; marcar++) {
-
-            Ponto p1 = Aleatorio.escolha_um(pontos_definidos_oceano);
-            pontos_definidos_oceano.remover(p1);
-            render_tronarko.drawCirculoCentralizado_Pintado(p1.getX(), p1.getY(), 10, mCores.getCinza());
-            //  render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 100, mCores.getCinza());
-            // render_tronarko.drawCirculoCentralizado(p1.getX(), p1.getY(), 300, mCores.getVermelho());
-
-            pontos_escolhidos_v2.adicionar(p1);
-
-        }
-
-        // RENDER
-
-        for (Ponto p1 : pontos_escolhidos) {
-
-            render_tronarko.drawCirculoCentralizado_Pintado(p1.getX(), p1.getY(), 10, mCores.getRosa());
-
-            Lista<Ponto> ao_redor = new Lista<Ponto>();
-
-            for (Ponto p2 : pontos_escolhidos) {
-                if (Espaco2D.distancia_entre_pontos(p1, p2) >= 300 && Espaco2D.distancia_entre_pontos(p1, p2) < 500) {
-                    int diff_x = Matematica.POSITIVO(p1.getX() - p2.getX());
-                    int diff_y = Matematica.POSITIVO(p1.getY() - p2.getY());
-
-                    if (diff_x > 100 && diff_y > 100) {
-                        ao_redor.adicionar(p2);
-                    }
-                }
-            }
-
-            if (ao_redor.possuiObjetos()) {
-
-                Ponto sorteado = Aleatorio.escolha_um(ao_redor);
-                ArrayList<Ponto> rota = GPS.criarRota(p1, sorteado);
-
-                for (Ponto p2 : rota) {
-                    //  render_tronarko.drawCirculoCentralizado_Pintado(p2.getX(), p2.getY(), 3, mCores.getTurquesa());
-                }
-
-            }
-
-
-        }
-
-
-        Ponto iniciar = Lista.PRIMEIRO(pontos_escolhidos);
-
-        while (pontos_escolhidos.possuiObjetos()) {
-            pontos_escolhidos.remover(iniciar);
-
-
-            Opcional<Ponto> mais_proximo = Espaco2D.GET_MAIS_PROXIMO(iniciar, pontos_escolhidos);
-
-            if (mais_proximo.isOK()) {
-
-                ArrayList<Ponto> rota = GPS.criarRota(iniciar, mais_proximo.get());
-
-                for (Ponto p2 : rota) {
-                    render_tronarko.drawCirculoCentralizado_Pintado(p2.getX(), p2.getY(), 3, mCores.getTurquesa());
-                    render_tronarko_placas_tectonicas_limites.drawRect_Pintado(p2.getX(), p2.getY(), 3, 3, mCores.getTurquesa());
-                }
-
-                iniciar = mais_proximo.get();
-            } else {
-                break;
-            }
-
-        }
-
-        iniciar = Lista.PRIMEIRO(pontos_escolhidos_v2);
-
-        while (pontos_escolhidos_v2.possuiObjetos()) {
-            pontos_escolhidos_v2.remover(iniciar);
-
-
-            Opcional<Ponto> mais_proximo = Espaco2D.GET_MAIS_PROXIMO(iniciar, pontos_escolhidos_v2);
-
-            if (mais_proximo.isOK()) {
-
-                ArrayList<Ponto> rota = GPS.criarRota(iniciar, mais_proximo.get());
-
-                for (Ponto p2 : rota) {
-                    render_tronarko.drawCirculoCentralizado_Pintado(p2.getX(), p2.getY(), 3, mCores.getVerde());
-                    render_tronarko_placas_tectonicas_limites.drawRect_Pintado(p2.getX(), p2.getY(), 3, 3, mCores.getTurquesa());
-                }
-
-                iniciar = mais_proximo.get();
-            } else {
-                break;
-            }
 
         }
 
 
         Imagem.exportar(render_tronarko.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico.png"));
-        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites.png"));
 
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.INIT");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.INIT");
-    }
-
-    public static void RASTERIZAR() {
-        AtzumCreatorInfo.iniciar("ServicoTectonico.RASTERIZAR");
-
-        fmt.print("Tectonismo :: Organizar Placas");
-
-        Cores mCores = new Cores();
-
-        Renderizador render_tronarko = new Renderizador(Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites.png")));
-
-        String arquivo_video_tectonismo = AtzumCreator.LOCAL_GET_ARQUIVO("videos/atzum_tectonismo.vi");
-        String arquivo_video_tectonismo_processando = AtzumCreator.LOCAL_GET_ARQUIVO("build/processando.png");
-
-        VideoRasterizar video = new VideoRasterizar(arquivo_video_tectonismo, render_tronarko);
-        video.debug(arquivo_video_tectonismo_processando);
+        render_tronarko_placas_tectonicas_limites.drawRect_Pintado(0, 420, 50, 50, mCores.getVermelho());
+        render_tronarko_placas_tectonicas_limites.drawRect_Pintado(0, 1050, 50, 50, mCores.getVermelho());
 
 
-        boolean tem_preto = true;
+        Lista<Par<Ponto, Cor>> placas_tectonicas = GET_PLACAS_TECTONICAS();
 
-        int placas = 0;
+        for (Par<Ponto, Cor> placa_tectonica : placas_tectonicas) {
+            //  render_tronarko_placas_tectonicas_limites.drawRect_Pintado(placa_tectonica.getChave().getX(),placa_tectonica.getChave().getY(),50,50,placa_tectonica.getValor());
 
-
-        EmLoop<Cor> qual_cor = new EmLoop<Cor>(Lista.CRIAR(Cor.getHexCor("#1565C0"), Cor.getHexCor("#0277BD"), Cor.getHexCor("#00838F"), Cor.getHexCor("#2E7D32"), Cor.getHexCor("#558B2F"), Cor.getHexCor("#F9A825"), Cor.getHexCor("#FF8F00"), Cor.getHexCor("#EF6C00"), Cor.getHexCor("#D84315"), Cor.getHexCor("#C62828")));
-
-        Lista<Ponto> placas_marcadas = new Lista<Ponto>();
-
-
-        while (tem_preto) {
-
-            Opcional<Ponto> tem_ponto_preto = Rasterizador.GET_PONTO_COM_COR_DIFERENTES_DE(render_tronarko, mCores.getPreto(), placas_marcadas);
-
-            if (tem_ponto_preto.isOK()) {
-
-                video.novoQuadro();
-
-                Ponto ponto_preto = tem_ponto_preto.get();
-                placas_marcadas.adicionar(ponto_preto);
-                placas += 1;
-
-                Cor placa_cor = qual_cor.get();
-
-                fmt.print("Placa Tectonica :: {} ->> {}:{} com {}", placas, ponto_preto.getX(), ponto_preto.getY(), render_tronarko.getPixel(ponto_preto.getX(), ponto_preto.getY()).getValor());
-                Rasterizador.RASTERIZAR_COM(render_tronarko, ponto_preto.getX(), ponto_preto.getY(), mCores.getPreto(), placa_cor, Acao.ACAO_VAZIA(), video.onQuadro());
-                render_tronarko.setPixel(ponto_preto.getX(), ponto_preto.getY(), placa_cor);
-
-                video.novoQuadro();
-
-            }
-
-            tem_preto = tem_ponto_preto.isOK();
-            Imagem.exportar(render_tronarko.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v3.png"));
-
-            // break;
-        }
-
-
-        video.fechar();
-
-        Lista<Entidade> e_placas = ENTT.CRIAR_LISTA();
-
-        for (Ponto placa : placas_marcadas) {
-            Entidade e_placa = ENTT.CRIAR_EM(e_placas);
-            e_placa.atInt("PlacaID", ENTT.CONTAGEM(e_placas));
-            e_placa.at("X", placa.getX());
-            e_placa.at("Y", placa.getY());
-        }
-
-        ENTT.GUARDAR(e_placas, AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/placas_tectonicas.entts"));
-
-
-        AtzumCreatorInfo.terminar("ServicoTectonico.RASTERIZAR");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.RASTERIZAR");
-
-    }
-
-
-    public static void PLACA_AREA() {
-        AtzumCreatorInfo.iniciar("ServicoTectonico.PLACA_AREA");
-
-        Cores mCores = new Cores();
-
-
-        Lista<Entidade> e_placas = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/placas_tectonicas.entts"));
-
-        for (Entidade e_placa : e_placas) {
-
-            ENTT.EXIBIR_TABELA_COM_NOME(e_placas, "Placas Tectônicas :: ANTES");
-
-            Renderizador render_tronarko = new Renderizador(Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites.png")));
-
-            fmt.print("Placa Tectonica :: {}", e_placa.at("PlacaID"));
-
+            RefInt processante = new RefInt(0);
 
             Acao durante_mudanca = new Acao() {
                 @Override
                 public void fazer() {
-                    Imagem.exportar(render_tronarko.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/processando.png"));
+                }
+            };
+
+            Acao a_cada_100 = new Acao() {
+                @Override
+                public void fazer() {
+
+                    // Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
+                    processante.set(processante.get() + 1);
+                    Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/processando.png"));
+
                 }
             };
 
 
-            Rasterizador.RASTERIZAR_COM(render_tronarko, e_placa.atInt("X"), e_placa.atInt("Y"), mCores.getPreto(), mCores.getAmarelo(), durante_mudanca, Acao.ACAO_VAZIA());
+            Rasterizador.RASTERIZAR_COM(render_tronarko_placas_tectonicas_limites, placa_tectonica.getChave().getX(), placa_tectonica.getChave().getY(), mCores.getPreto(), placa_tectonica.getValor(), durante_mudanca, a_cada_100);
 
-            long tamanho = 0;
-
-            for (int y = 0; y <= render_tronarko.getAltura(); y++) {
-                for (int x = 0; x <= render_tronarko.getLargura(); x++) {
-                    if (render_tronarko.getPixel(x, y).igual(mCores.getAmarelo())) {
-                        tamanho += 1;
-                    }
-                }
-            }
-
-            long area_minima = 300 * 300;
-
-            e_placa.at("Tamanho", tamanho);
-            e_placa.at("AreaTipo", Matematica.CONDICIONAL(tamanho > area_minima, "AREA_VALIDA", "PEQUENO"));
-
-
-            ENTT.GUARDAR(e_placas, AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/placas_tectonicas.entts"));
-            ENTT.EXIBIR_TABELA_COM_NOME(e_placas, "Placas Tectônicas :: DEPOIS");
+            Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v1.png"));
 
         }
 
 
-        fmt.print("Placas Válidas  : {}", ENTT.CONTAGEM(e_placas, "AreaTipo", "AREA_VALIDA"));
-        fmt.print("Placas Pequenas : {}", ENTT.CONTAGEM(e_placas, "AreaTipo", "PEQUENO"));
+        Rasterizador.trocar_cores(render_tronarko_placas_tectonicas_limites, mCores.getPreto(), mCores.getVermelho());
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.PLACA_AREA");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.PLACA_AREA");
+        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v1.png"));
+
+
+        // EXPANDIR LIMITES
+        for (int y = 0; y < render_tronarko_placas_tectonicas_limites.getAltura(); y++) {
+            for (int x = 0; x < render_tronarko_placas_tectonicas_limites.getLargura(); x++) {
+                if (render_tronarko_placas_tectonicas_limites.getPixel(x, y).igual(mCores.getVermelho())) {
+
+                    Cor mais_proxima = Rasterizador.GET_COR_DO_QUADRANTE_DIFERENTE(render_tronarko_placas_tectonicas_limites, x, y, 50, mCores.getVermelho(), mCores.getPreto());
+                    render_tronarko_placas_tectonicas_limites.setPixel(x, y, mais_proxima);
+
+                }
+            }
+        }
+
+        Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v2.png"));
+
+
+        AtzumCreatorInfo.terminar("ServicoTectonico.INICIAR_PLACAS");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.INICIAR_PLACAS");
     }
 
 
-    public static void ORGANIZAR_PLACAS() {
+    public static void EXTRAIR_PLACAS_TECTONICAS_CONTORNOS() {
 
-        AtzumCreatorInfo.iniciar("ServicoTectonico.ORGANIZAR_PLACAS");
+        AtzumCreatorInfo.iniciar("ServicoTectonico.EXTRAIR_CONTORNOS");
 
-        Lista<Entidade> e_placas = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/placas_tectonicas.entts"));
+        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_v2.png"));
 
-        Lista<Entidade> placas_validas = ENTT.COLETAR(e_placas, "AreaTipo", "AREA_VALIDA");
-        Lista<Entidade> placas_pequenas = ENTT.COLETAR(e_placas, "AreaTipo", "PEQUENO");
-
-        fmt.print("Placas Válidas  : {}", ENTT.CONTAGEM(e_placas, "AreaTipo", "AREA_VALIDA"));
-        fmt.print("Placas Pequenas : {}", ENTT.CONTAGEM(e_placas, "AreaTipo", "PEQUENO"));
+        Cores mCores = new Cores();
 
 
-        ENTT.ATRIBUTO_TODOS(e_placas,"RefPlacaID","");
+        Renderizador render_salvar = Renderizador.CONSTRUIR(render.getLargura(), render.getAltura(), mCores.getPreto());
 
-        for(Entidade e : placas_validas){
-            e.at("RefPlacaID",e.at("PlacaID"));
-        }
 
-        ENTT.EXIBIR_TABELA(placas_validas);
+        for (int y = 0; y < render.getAltura(); y++) {
+            for (int x = 0; x < render.getLargura(); x++) {
 
-        for (Entidade placa_pequena : placas_pequenas) {
+                Cor ponto_a = render.getPixel(x, y);
 
-            int px = placa_pequena.atInt("X");
-            int py = placa_pequena.atInt("Y");
+                if (render.isPontoValido(x + 1, y)) {
 
-            Opcional<Entidade> placa_proxima = Opcional.CANCEL();
-            double placa_proximidade = 0;
+                    Cor ponto_b = render.getPixel(x + 1, y);
 
-            for (Entidade placa_valida : placas_validas) {
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
+                    }
+                }
+                if (render.isPontoValido(x - 1, y)) {
 
-                int pvx = placa_valida.atInt("X");
-                int pvy = placa_valida.atInt("Y");
+                    Cor ponto_b = render.getPixel(x - 1, y);
 
-                if (placa_proxima.isVazio()) {
-                    placa_proxima.set(placa_valida);
-                    placa_proximidade = Espaco2D.distancia_entre_pontos(px, py, pvx, pvy);
-                } else {
-                    double distancia = Espaco2D.distancia_entre_pontos(px, py, pvx, pvy);
-                    if (distancia < placa_proximidade) {
-                        placa_proxima.set(placa_valida);
-                        placa_proximidade=distancia;
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
+                    }
+                }
+                if (render.isPontoValido(x, y + 1)) {
+
+                    Cor ponto_b = render.getPixel(x, y + 1);
+
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
+                    }
+                }
+                if (render.isPontoValido(x, y - 1)) {
+
+                    Cor ponto_b = render.getPixel(x, y - 1);
+
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
+                    }
+                }
+
+                // DIAGONAL
+                if (render.isPontoValido(x + 1, y + 1)) {
+
+                    Cor ponto_b = render.getPixel(x + 1, y + 1);
+
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
+                    }
+                }
+
+                if (render.isPontoValido(x + 1, y - 1)) {
+
+                    Cor ponto_b = render.getPixel(x + 1, y - 1);
+
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
+                    }
+                }
+
+                if (render.isPontoValido(x - 1, y + 1)) {
+
+                    Cor ponto_b = render.getPixel(x - 1, y + 1);
+
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
+                    }
+                }
+
+                if (render.isPontoValido(x - 1, -+1)) {
+
+                    Cor ponto_b = render.getPixel(x - 1, y - 1);
+
+                    if (ponto_a.isDiferente(ponto_b)) {
+                        render_salvar.setPixel(x, y, mCores.getVermelho());
                     }
                 }
 
             }
+        }
 
-            if(placa_proxima.isOK()){
-                placa_pequena.at("RefPlacaID",placa_proxima.get().at("PlacaID"));
-                placa_pequena.at("PlacaProximaID",placa_proxima.get().at("PlacaID"));
-            }
+        Imagem.exportar(render_salvar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_definidos.png"));
 
+        AtzumCreatorInfo.terminar("ServicoTectonico.EXTRAIR_CONTORNOS");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.EXTRAIR_CONTORNOS");
+
+    }
+
+    public static void CRIAR_PLACAS_EXPANDIDAS(){
+
+        AtzumCreatorInfo.iniciar("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
+
+        Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_limites_definidos.png"));
+
+        Cores mCores = new Cores();
+
+
+        Lista<Par<Ponto, Cor>> placas_tectonicas = GET_PLACAS_TECTONICAS();
+
+        for (Par<Ponto, Cor> placa_tectonica : placas_tectonicas) {
+            //  render_tronarko_placas_tectonicas_limites.drawRect_Pintado(placa_tectonica.getChave().getX(),placa_tectonica.getChave().getY(),50,50,placa_tectonica.getValor());
+
+            RefInt processante = new RefInt(0);
+
+            Acao durante_mudanca = new Acao() {
+                @Override
+                public void fazer() {
+                    Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/processando.png"));
+                }
+            };
+
+            Acao a_cada_100 = new Acao() {
+                @Override
+                public void fazer() {
+
+                    // Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
+                    processante.set(processante.get() + 1);
+
+                }
+            };
+
+
+            Rasterizador.RASTERIZAR_COM(render, placa_tectonica.getChave().getX(), placa_tectonica.getChave().getY(), mCores.getPreto(), placa_tectonica.getValor(), durante_mudanca, a_cada_100);
+
+            Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_placas.png"));
 
         }
 
+        Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/tronarko_tectonico_placas.png"));
 
-        ENTT.GUARDAR(e_placas, AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/placas_tectonicas.entts"));
-
-        AtzumCreatorInfo.terminar("ServicoTectonico.ORGANIZAR_PLACAS");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.ORGANIZAR_PLACAS");
-
+        AtzumCreatorInfo.terminar("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
+        AtzumCreatorInfo.exibir_item("ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS");
     }
 
 }
