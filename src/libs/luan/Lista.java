@@ -435,6 +435,18 @@ public class Lista<T> implements Iterable<T> {
         return retorno;
     }
 
+    public int contar(Igualavel<T> eIgualador, T procurado) {
+
+        int contagem = 0;
+
+        for (T valor : this) {
+            if (eIgualador.is(procurado, valor)) {
+                contagem+=1;
+            }
+        }
+
+        return contagem;
+    }
 
     public void limitar(int eLimite) {
 

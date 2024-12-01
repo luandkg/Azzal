@@ -13,7 +13,7 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
     public void parte_1() {
         AOC_2024.CABECALHO(getProblemaNumero(),1);
 
-        fmt.print("------------- DICA ----------------");
+        fmt.print("------------- ENTRADA ----------------");
 
         String texto_dica = Texto.arquivo_ler(AOC_2024.GET_ARQUIVO("DAY_01.txt"));
         fmt.print("{}",texto_dica);
@@ -60,6 +60,49 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
 
     @Override
     public void parte_2() {
+
+        AOC_2024.CABECALHO(getProblemaNumero(),1);
+
+        fmt.print("------------- ENTRADA ----------------");
+
+        String texto_dica = Texto.arquivo_ler(AOC_2024.GET_ARQUIVO("DAY_01.txt"));
+        fmt.print("{}",texto_dica);
+
+        Lista<Integer> esquerda = new Lista<Integer>();
+        Lista<Integer> direita = new Lista<Integer>();
+
+        int i =0;
+        for(String linha : Strings.DIVIDIR_LINHAS(texto_dica)){
+
+            int n1 = Integer.parseInt(Strings.GET_ATE(linha," "));
+            int n2 = Integer.parseInt(Strings.GET_REVERSO_ATE(linha," "));
+
+            fmt.print("\t ++ esquerda({}) = {} --- direita({}) = {}",i,n1,i,n2);
+
+            esquerda.adicionar(n1);
+            direita.adicionar(n2);
+
+            i+=1;
+        }
+
+
+        fmt.print(">> Exibindo");
+
+        int similaridade_total = 0;
+
+        for(int a=0;a<esquerda.getQuantidade();a++){
+
+            int esquerda_valor = esquerda.get(a);
+            int contagem_valor= direita.contar(Inteiro.IGUALAVEL(),esquerda_valor);
+
+            int similaridade = esquerda_valor*contagem_valor;
+
+            fmt.print("\t ++ esquerda({}) = {} -->> {} :: {}",a,esquerda_valor,contagem_valor,similaridade);
+
+            similaridade_total+=similaridade;
+        }
+
+        fmt.print(">> Similaridade = {}",similaridade_total);
 
     }
 }
