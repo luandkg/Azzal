@@ -1,6 +1,5 @@
 package projetos.aoc2024;
 
-import libs.arquivos.binario.Inteiro;
 import libs.luan.*;
 
 public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
@@ -36,8 +35,8 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
         }
 
         fmt.print(">> Ordenando....");
-        Ordenador.ordenar_lista_crescente(esquerda, Inteiro.GET_ORDENAVEL());
-        Ordenador.ordenar_lista_crescente(direita, Inteiro.GET_ORDENAVEL());
+        Ordenador.ordenar_lista_crescente(esquerda, Matematica.INTEIRO_ORDENAVEL());
+        Ordenador.ordenar_lista_crescente(direita, Matematica.INTEIRO_ORDENAVEL());
 
         fmt.print(">> Exibindo");
 
@@ -93,7 +92,7 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
         int indice=0;
         for(Integer esquerda_valor : esquerda){
 
-            int contagem_valor= direita.contar(Inteiro.IGUALAVEL(),esquerda_valor);
+            int contagem_valor= direita.contar(Matematica.INTEIRO_IGUALAVEL(),esquerda_valor);
 
             int similaridade = esquerda_valor*contagem_valor;
 
