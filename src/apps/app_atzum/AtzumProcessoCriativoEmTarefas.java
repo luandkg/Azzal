@@ -17,8 +17,8 @@ import libs.tronarko.utils.StringTronarko;
 
 public class AtzumProcessoCriativoEmTarefas {
 
-    public static final String ARQUIVO_LOCAL_ALFA = "comparativos/alfa_processo_criativo.entts";
-    public static final String ARQUIVO_LOCAL_BETA = "comparativos/beta_processo_criativo.entts";
+    public static final String ARQUIVO_LOCAL_ALFA = "logs/alfa_processo_criativo.entts";
+    public static final String ARQUIVO_LOCAL_BETA = "logs/beta_processo_criativo.entts";
 
 
 
