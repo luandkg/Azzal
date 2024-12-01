@@ -199,6 +199,40 @@ public class Espaco2D {
         return Opcional.CANCEL();
     }
 
+    public static Opcional<Ponto> GET_SEGUNDO_PROXIMO(Ponto ir_comecar, Lista<Ponto> possiveis) {
+
+        boolean existe_proximo = false;
+
+        int distancia = 0;
+        Ponto proximo = null;
+        Ponto proximo_anterior = null;
+
+        for (Ponto prox : possiveis) {
+            if (prox.isDiferente(ir_comecar)) {
+
+                if (!existe_proximo) {
+                    distancia = Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY());
+                    existe_proximo = true;
+                    proximo = prox;
+                    proximo_anterior=proximo;
+                } else {
+                    if (Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY()) < distancia) {
+                        distancia = Espaco2D.distancia_entre_pontos(ir_comecar.getX(), ir_comecar.getY(), prox.getX(), prox.getY());
+                        proximo_anterior=proximo;
+                        proximo = prox;
+                    }
+                }
+
+            }
+        }
+
+        if (existe_proximo) {
+            return Opcional.OK(proximo_anterior);
+        }
+
+        return Opcional.CANCEL();
+    }
+
     public static Opcional<Ponto> GET_UM_DOS_MAIS_PROXIMO(Ponto ir_comecar, int max_distancia, Lista<Ponto> possiveis) {
 
 

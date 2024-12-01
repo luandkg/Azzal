@@ -796,6 +796,10 @@ public class Renderizador {
         drawLinha(new Linha(eX, eY, eX2, eY2), eCor);
     }
 
+    public void drawLinha(Ponto p1,Ponto p2, Cor eCor) {
+        drawLinha(new Linha(p1.getX(), p1.getY(), p2.getX(), p2.getY()), eCor);
+    }
+
     public void drawLinha(Linha eLinha, Cor eCor) {
 
 

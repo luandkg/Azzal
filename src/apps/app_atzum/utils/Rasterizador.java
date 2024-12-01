@@ -285,7 +285,7 @@ public class Rasterizador {
 
                 todos.adicionar(ponto);
 
-               // fmt.print("COMPARADOR {} :: {}",render.getPixelBruto(ponto.getX(), ponto.getY()),cor_entrada_valor);
+                // fmt.print("COMPARADOR {} :: {}",render.getPixelBruto(ponto.getX(), ponto.getY()),cor_entrada_valor);
 
                 if (render.getPixel(ponto.getX(), ponto.getY()).getValor() == cor_entrada_valor) {
                     modificado = true;
@@ -317,7 +317,8 @@ public class Rasterizador {
                 }
 
                 if (modificado) {
-                    processando += 1;                    if (processando > 500) {
+                    processando += 1;
+                    if (processando > 500) {
                         processando = 0;
 
                         durante_toda_mudanca.fazer();
@@ -338,7 +339,7 @@ public class Rasterizador {
             proximos.limpar();
             proximos.adicionar_varios(pt_novos);
 
-         //   fmt.print("EXISTEM NOVOS  -->> {}", proximos.getQuantidade());
+            //   fmt.print("EXISTEM NOVOS  -->> {}", proximos.getQuantidade());
 
         }
 
@@ -379,24 +380,24 @@ public class Rasterizador {
     }
 
 
-    public static boolean TEM_AO_REDOR(Renderizador render,int x,int y,Cor procurada){
+    public static boolean TEM_AO_REDOR(Renderizador render, int x, int y, Cor procurada) {
 
         boolean marcar = false;
 
-        if(render.getPixel(x-1,y).igual(procurada)) {
+        if (render.getPixel(x - 1, y).igual(procurada)) {
             marcar = true;
-        }else  if(render.getPixel(x+1,y).igual(procurada)){
-            marcar=true;
-        }else  if(render.getPixel(x,y-1).igual(procurada)){
-            marcar=true;
-        }else  if(render.getPixel(x,y+1).igual(procurada)){
-            marcar=true;
+        } else if (render.getPixel(x + 1, y).igual(procurada)) {
+            marcar = true;
+        } else if (render.getPixel(x, y - 1).igual(procurada)) {
+            marcar = true;
+        } else if (render.getPixel(x, y + 1).igual(procurada)) {
+            marcar = true;
         }
 
         return marcar;
     }
 
-    public static boolean isDaRegiao(Renderizador render, Cor cor_entrada,  Ponto pt_processar) {
+    public static boolean isDaRegiao(Renderizador render, Cor cor_entrada, Ponto pt_processar) {
 
         boolean ret = false;
 
@@ -404,7 +405,7 @@ public class Rasterizador {
 
         if (pt_processar.getX() >= 0 && pt_processar.getY() >= 0 && pt_processar.getX() < render.getLargura() && pt_processar.getY() < render.getAltura()) {
             if (render.getPixel(pt_processar.getX(), pt_processar.getY()).getValor() == cor_entrada_valor) {
-                ret=true;
+                ret = true;
             }
         }
 
@@ -554,7 +555,7 @@ public class Rasterizador {
         return cor_ret;
     }
 
-    public static Lista<Ponto> GET_PONTOS_DE_COR(Renderizador render, Cor cor){
+    public static Lista<Ponto> GET_PONTOS_DE_COR(Renderizador render, Cor cor) {
 
         Lista<Ponto> pontos = new Lista<Ponto>();
 
@@ -570,30 +571,30 @@ public class Rasterizador {
     }
 
 
-    public static Opcional<Ponto> GET_PONTO_COM_COR(Renderizador render,Cor proc_cor){
+    public static Opcional<Ponto> GET_PONTO_COM_COR(Renderizador render, Cor proc_cor) {
         for (int y = 0; y <= render.getAltura(); y++) {
             for (int x = 0; x <= render.getLargura(); x++) {
                 if (render.getPixel(x, y).igual(proc_cor)) {
-                    return Opcional.OK(new Ponto(x,y));
+                    return Opcional.OK(new Ponto(x, y));
                 }
             }
         }
         return Opcional.CANCEL();
     }
 
-    public static Opcional<Ponto> GET_PONTO_COM_COR_DIFERENTES_DE(Renderizador render,Cor proc_cor,Lista<Ponto> pontos){
+    public static Opcional<Ponto> GET_PONTO_COM_COR_DIFERENTES_DE(Renderizador render, Cor proc_cor, Lista<Ponto> pontos) {
         for (int y = 0; y <= render.getAltura(); y++) {
             for (int x = 0; x <= render.getLargura(); x++) {
                 if (render.getPixel(x, y).igual(proc_cor)) {
-                    Ponto ret = new Ponto(x,y);
+                    Ponto ret = new Ponto(x, y);
                     boolean proximo = false;
-                    for(Ponto e : pontos){
-                        if(e.isIgual(ret)){
-                            proximo=true;
+                    for (Ponto e : pontos) {
+                        if (e.isIgual(ret)) {
+                            proximo = true;
                             break;
                         }
                     }
-                    if(!proximo){
+                    if (!proximo) {
                         return Opcional.OK(ret);
                     }
                 }
