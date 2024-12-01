@@ -1440,6 +1440,13 @@ public class ENTT {
         return novo;
     }
 
+    public static Entidade CRIAR_EM_SEQUENCIALMENTE(Lista<Entidade> entts, String sequencia_nome,int iniciar_em) {
+        Entidade novo = new Entidade();
+        novo.at(sequencia_nome, ENTT.CONTAGEM(entts)+iniciar_em);
+        entts.adicionar(novo);
+        return novo;
+    }
+
     public static Entidade CRIAR_EM(Lista<Entidade> entts) {
         Entidade novo = new Entidade();
         entts.adicionar(novo);
