@@ -9,7 +9,7 @@ public class AOC_2024 {
     public static final int PARTE_1 = 1;
     public static final int PARTE_2 = 2;
 
-    public static void PROBLEMA(int eParte, int eProblema) {
+    public static void PROBLEMA( int eProblema,int eParte) {
 
         Lista<AOC_2024_DAY> problemas = new Lista<AOC_2024_DAY>();
 
