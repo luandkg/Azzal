@@ -23,61 +23,13 @@ public class AOC_2024_DAY_02 extends AOC_2024_DAY {
 
         for (String linha : Strings.DIVIDIR_LINHAS(texto_entrada)) {
 
-            boolean safe = true;
-            String erro = "";
+            Resultado<Boolean,String> nivel = validar_nivel(Strings.DIVIDIR_POR_SEM_DIVISOR(linha, " "));
 
-            boolean iniciado = false;
-            int valor_anterior = 0;
-
-            boolean regra_definida = false;
-            final int REGRA_AUMENTANDO = +1;
-            final int REGRA_DIMINUINDO = -1;
-            int regra = 0;
-
-
-            for (String s_valor_corrente : Strings.DIVIDIR_POR_SEM_DIVISOR(linha, " ")) {
-                int valor_corrente = Integer.parseInt(s_valor_corrente);
-                if (!iniciado) {
-                    iniciado = true;
-                } else {
-                    int diferenca = Matematica.modulo(valor_anterior - valor_corrente);
-                    if (diferenca >= 1 && diferenca <= 3) {
-                        if (!regra_definida) {
-                            regra_definida = true;
-                            if (valor_anterior < valor_corrente) {
-                                regra = REGRA_AUMENTANDO;
-                            } else {
-                                regra = REGRA_DIMINUINDO;
-                            }
-                        } else {
-                            int regra_corrente = 0;
-                            if (valor_anterior < valor_corrente) {
-                                regra_corrente = REGRA_AUMENTANDO;
-                            } else {
-                                regra_corrente = REGRA_DIMINUINDO;
-                            }
-                            if (regra != regra_corrente) {
-                                erro = valor_anterior + " " + valor_corrente + " -->> Mudanca de Regra !";
-                                safe = false;
-                                break;
-                            }
-                        }
-                    } else {
-                        erro = valor_anterior + " " + valor_corrente + " -->> " + diferenca;
-                        safe = false;
-                        break;
-                    }
-                }
-
-                valor_anterior = valor_corrente;
-
-            }
-
-            if (safe) {
+            if (nivel.isOK()) {
                 contagem_safe += 1;
-                fmt.print("\t ++ {} :: {}", linha, Portugues.VALIDAR(safe, "Safe", "Unsafe"));
+                fmt.print("\t ++ {} :: {}", linha, Portugues.VALIDAR(nivel.isOK(), "Safe", "Unsafe"));
             } else {
-                fmt.print("\t ++ {} :: {} -->> {}", linha, Portugues.VALIDAR(safe, "Safe", "Unsafe"), erro);
+                fmt.print("\t ++ {} :: {} -->> {}", linha, Portugues.VALIDAR(nivel.isOK(), "Safe", "Unsafe"), nivel.getErro());
             }
         }
 
