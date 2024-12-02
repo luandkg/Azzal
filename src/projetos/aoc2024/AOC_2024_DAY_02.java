@@ -98,7 +98,6 @@ public class AOC_2024_DAY_02 extends AOC_2024_DAY {
 
         int contagem_safe = 0;
 
-
         for (String linha : Strings.DIVIDIR_LINHAS(texto_entrada)) {
 
 
