@@ -1,0 +1,93 @@
+package projetos.aoc2024;
+
+import libs.luan.*;
+
+public class AOC_2024_DAY_02  extends AOC_2024_DAY{
+
+    public AOC_2024_DAY_02( ) {
+        super(2);
+    }
+
+    @Override
+    public void parte_1() {
+
+        AOC_2024.CABECALHO(getProblemaNumero(),AOC_2024.PARTE_1);
+
+        fmt.print("------------- ENTRADA ----------------");
+        String texto_entrada = Texto.arquivo_ler(AOC_2024.GET_ARQUIVO("DAY_02.txt"));
+        fmt.print("{}",texto_entrada);
+
+        fmt.print(">> Processando");
+
+        int contagem_safe = 0;
+
+        for(String linha : Strings.DIVIDIR_LINHAS(texto_entrada)){
+
+            boolean safe = true;
+            String erro = "";
+
+            boolean iniciado=false;
+            int valor_anterior =0;
+
+            boolean regra_definida=false;
+            final int REGRA_AUMENTANDO=+1;
+            final int REGRA_DIMINUINDO=-1;
+            int regra=0;
+
+
+            for(String s_valor_corrente : Strings.DIVIDIR_POR_SEM_DIVISOR(linha," ")){
+                int valor_corrente = Integer.parseInt(s_valor_corrente);
+                if(!iniciado){
+                    iniciado=true;
+                }else{
+                    int diferenca = Matematica.modulo(valor_anterior-valor_corrente);
+                    if(diferenca>=1 && diferenca<=3){
+                        if(!regra_definida){
+                            regra_definida=true;
+                            if(valor_anterior<valor_corrente){
+                                regra=REGRA_AUMENTANDO;
+                            }else{
+                                regra=REGRA_DIMINUINDO;
+                            }
+                        }else{
+                            int regra_corrente = 0;
+                            if(valor_anterior<valor_corrente){
+                                regra_corrente=REGRA_AUMENTANDO;
+                            }else{
+                                regra_corrente=REGRA_DIMINUINDO;
+                            }
+                            if(regra!=regra_corrente){
+                                erro=valor_anterior + " "+valor_corrente + " -->> Mudanca de Regra !";
+                                safe=false;
+                                break;
+                            }
+                        }
+                    }else{
+                        erro=valor_anterior + " "+valor_corrente + " -->> "+ diferenca;
+                        safe=false;
+                        break;
+                    }
+                }
+
+                valor_anterior=valor_corrente;
+
+            }
+
+            if(safe){
+                contagem_safe+=1;
+                fmt.print("\t ++ {} :: {}",linha, Portugues.VALIDAR(safe,"Safe","Unsafe"));
+            }else{
+                fmt.print("\t ++ {} :: {} -->> {}",linha, Portugues.VALIDAR(safe,"Safe","Unsafe"),erro);
+            }
+        }
+
+        fmt.print(">> Resultado : {}",contagem_safe);
+
+    }
+
+    @Override
+    public void parte_2() {
+
+
+    }
+}
