@@ -1980,6 +1980,32 @@ public class Strings {
         return linhas;
     }
 
+    public static Lista<String> DIVIDIR_POR_SEM_DIVISOR(String texto, String por) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals(por)) {
+                if (!linha.isEmpty()) {
+                    linhas.adicionar(linha);
+                }
+                linha = "";
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (!linha.isEmpty()) {
+            linhas.adicionar(linha);
+        }
+        return linhas;
+    }
+
     public static Lista<String> DIVIDIR_POR_QUALQUER_UM_DESSES(String texto, String por) {
         Lista<String> linhas = new Lista<String>();
 
