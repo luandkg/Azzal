@@ -14,6 +14,8 @@ public class AOC_2024 {
         Lista<AOC_2024_DAY> problemas = new Lista<AOC_2024_DAY>();
 
         problemas.adicionar(new AOC_2024_DAY_01());
+        problemas.adicionar(new AOC_2024_DAY_02());
+        problemas.adicionar(new AOC_2024_DAY_03());
 
         PROBLEMA_EXECUTAR(problemas,eParte,eProblema);
     }
