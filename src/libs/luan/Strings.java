@@ -2544,4 +2544,31 @@ public class Strings {
 
         return false;
     }
+
+
+    public static Lista<String> GET_LETRAS(String s){
+        int i =0;
+        int o = s.length();
+
+        Lista<String> lista = new Lista<String>();
+
+        while(i<o){
+            lista.adicionar(String.valueOf(s.charAt(i)));
+            i+=1;
+        }
+
+        return lista;
+    }
+
+    public static String REVERSE(String s){
+        int i = s.length()-1;
+
+        String ret = "";
+
+        while(i>=0){
+            ret+=String.valueOf(s.charAt(i));
+            i-=1;
+        }
+        return ret;
+    }
 }
