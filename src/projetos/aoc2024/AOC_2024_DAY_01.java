@@ -5,7 +5,7 @@ import libs.luan.*;
 public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
 
     public AOC_2024_DAY_01( ){
-        super(1);
+        super(1,"");
     }
 
     @Override

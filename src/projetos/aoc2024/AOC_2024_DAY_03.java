@@ -7,7 +7,7 @@ import libs.luan.fmt;
 public class AOC_2024_DAY_03 extends AOC_2024_DAY {
 
     public AOC_2024_DAY_03() {
-        super(3);
+        super(3,"");
     }
 
     @Override
