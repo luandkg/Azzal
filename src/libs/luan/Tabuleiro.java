@@ -2,40 +2,43 @@ package libs.luan;
 
 public class Tabuleiro<T> {
 
-
-    public class Letra<T> {
+    public class Peca<T> {
 
         public int linha = 0;
         public int coluna = 0;
-        public T letra = null;
+        public T mConteudo = null;
         private boolean descoberto = false;
 
-        public Letra(int eLinha, int eColuna, T eLetra) {
+        public Peca(int eLinha, int eColuna, T eLetra) {
             linha = eLinha;
             coluna = eColuna;
-            letra = eLetra;
+            mConteudo = eLetra;
             descoberto = false;
         }
 
     }
 
-    public Lista<Lista<Letra<T>>> mLinhas = new Lista<Lista<Letra<T>>>();
+    public Lista<Lista<Peca<T>>> mLinhas = new Lista<Lista<Peca<T>>>();
 
 
-    public Letra<T> get(int linha, int coluna) {
+    public Peca<T> get(int linha, int coluna) {
         return mLinhas.get(linha).get(coluna);
     }
 
-    public void marque_letra(int linha, int coluna, boolean marcado) {
+    public T getValor(int linha,int coluna){
+        return get(linha,coluna).mConteudo;
+    }
+
+    public void marque(int linha, int coluna, boolean marcado) {
         mLinhas.get(linha).get(coluna).descoberto = marcado;
     }
 
     public void criar_linha() {
-        mLinhas.adicionar(new Lista<Letra<T>>());
+        mLinhas.adicionar(new Lista<Peca<T>>());
     }
 
     public void adicionar_letra(T letra) {
-        mLinhas.getUltimoValor().adicionar(new Letra<T>(mLinhas.getQuantidade(), mLinhas.getUltimoValor().getQuantidade(), letra));
+        mLinhas.getUltimoValor().adicionar(new Peca<T>(mLinhas.getQuantidade(), mLinhas.getUltimoValor().getQuantidade(), letra));
     }
 
     public void adicionar_linha(Lista<T> lista){
@@ -47,21 +50,21 @@ public class Tabuleiro<T> {
     }
 
     public void exibir() {
-        for (Lista<Letra<T>> linha : mLinhas) {
+        for (Lista<Peca<T>> linha : mLinhas) {
             String s_linha = "";
-            for (Letra<T> letra : linha) {
-                s_linha += letra.letra + " ";
+            for (Peca<T> letra : linha) {
+                s_linha += letra.mConteudo + " ";
             }
             fmt.print("{}", s_linha);
         }
     }
 
     public void exibir_descobertos() {
-        for (Lista<Letra<T>> linha : mLinhas) {
+        for (Lista<Peca<T>> linha : mLinhas) {
             String s_linha = "";
-            for (Letra<T> letra : linha) {
+            for (Peca<T> letra : linha) {
                 if (letra.descoberto) {
-                    s_linha += letra.letra + " ";
+                    s_linha += letra.mConteudo + " ";
                 } else {
                     s_linha += "." + " ";
                 }
@@ -88,82 +91,82 @@ public class Tabuleiro<T> {
         return false;
     }
 
-    public void marcar_letras_horizontalmente(int linha, int coluna, int quantidade) {
+    public void marcar_horizontalmente(int linha, int coluna, int quantidade) {
 
         for (int i = coluna; i < coluna + quantidade; i++) {
-            marque_letra(linha, i, true);
+            marque(linha, i, true);
         }
 
     }
 
-    public void marcar_letras_verticalmente(int linha, int coluna, int quantidade) {
+    public void marcar_verticalmente(int linha, int coluna, int quantidade) {
 
 
         for (int i = linha; i < linha + quantidade; i++) {
-            marque_letra(i, coluna, true);
+            marque(i, coluna, true);
 
         }
 
     }
 
 
-    public void marque_letras_diagonalmente_abaixo_direita(int linha, int coluna, int quantidade) {
+    public void marque_diagonalmente_abaixo_direita(int linha, int coluna, int quantidade) {
 
         for (int i = 0; i < quantidade; i++) {
-            marque_letra(linha + i, coluna + i, true);
+            marque(linha + i, coluna + i, true);
 
         }
 
     }
 
-    public void marque_letras_diagonalmente_abaixo_esquerda(int linha, int coluna, int quantidade) {
+    public void marque_diagonalmente_abaixo_esquerda(int linha, int coluna, int quantidade) {
 
         for (int i = 0; i < quantidade; i++) {
-            marque_letra(linha + i, coluna - i, true);
+            marque(linha + i, coluna - i, true);
         }
 
     }
 
 
-    public Lista<T> getLetrasHorizontalmente(int linha, int coluna, int quantidade) {
+    public Lista<T> getHorizontalmente(int linha, int coluna, int quantidade) {
 
         Lista<T> ret = new Lista<T>();
 
         for (int i = coluna; i < coluna + quantidade; i++) {
-            ret.adicionar(get(linha, i).letra);
+            ret.adicionar(get(linha, i).mConteudo);
         }
 
         return ret;
     }
 
-    public Lista<T> getLetrasVerticalmente(int linha, int coluna, int quantidade) {
+    public Lista<T> getVerticalmente(int linha, int coluna, int quantidade) {
 
         Lista<T> ret = new Lista<T>();
 
         for (int i = linha; i < linha + quantidade; i++) {
-            ret.adicionar(get(i, coluna).letra);
+            ret.adicionar(get(i, coluna).mConteudo);
         }
 
         return ret;
     }
 
-    public Lista<T> getLetrasDiagonalmenteAbaixoDireita(int linha, int coluna, int quantidade) {
+    public Lista<T> getDiagonalmenteAbaixoDireita(int linha, int coluna, int quantidade) {
 
         Lista<T> ret = new Lista<T>();
 
         for (int i = 0; i < quantidade; i++) {
-            ret.adicionar(get(linha + i, coluna + i).letra);
+            ret.adicionar(get(linha + i, coluna + i).mConteudo);
         }
 
         return ret;
     }
 
-    public Lista<T> getLetrasDiagonalmenteAbaixoEsquerda(int linha, int coluna, int quantidade) {
+    public Lista<T> getDiagonalmenteAbaixoEsquerda(int linha, int coluna, int quantidade) {
 
         Lista<T> ret = new Lista<T>();
 
         for (int i = 0; i < quantidade; i++) {
-            ret.adicionar(get(linha + i, coluna - i).letra);
+            ret.adicionar(get(linha + i, coluna - i).mConteudo);
         }
 
         return ret;
