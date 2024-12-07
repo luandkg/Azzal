@@ -17,6 +17,7 @@ public class AOC_2024 {
         problemas.adicionar(new AOC_2024_DAY_02());
         problemas.adicionar(new AOC_2024_DAY_03());
         problemas.adicionar(new AOC_2024_DAY_04());
+        problemas.adicionar(new AOC_2024_DAY_05());
 
         PROBLEMA_EXECUTAR(problemas,eParte,eProblema);
     }

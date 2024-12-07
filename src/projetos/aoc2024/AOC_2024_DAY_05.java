@@ -15,7 +15,7 @@ public class AOC_2024_DAY_05 extends AOC_2024_DAY {
         AOC_2024.CABECALHO(getProblemaNumero(), AOC_2024.PARTE_1);
 
         fmt.print("------------- ENTRADA ----------------");
-        String texto_entrada = Texto.arquivo_ler(AOC_2024.GET_ARQUIVO("DAY_05.txt"));
+        String texto_entrada = Texto.arquivo_ler(getArquivoEntrada());
         fmt.print("{}", texto_entrada);
 
         fmt.print(">> Processando");
@@ -126,7 +126,7 @@ public class AOC_2024_DAY_05 extends AOC_2024_DAY {
         AOC_2024.CABECALHO(getProblemaNumero(), AOC_2024.PARTE_1);
 
         fmt.print("------------- ENTRADA ----------------");
-        String texto_entrada = Texto.arquivo_ler(AOC_2024.GET_ARQUIVO("DAY_05.txt"));
+        String texto_entrada = Texto.arquivo_ler(getArquivoDica());
         fmt.print("{}", texto_entrada);
 
         fmt.print(">> Processando");
@@ -263,7 +263,6 @@ public class AOC_2024_DAY_05 extends AOC_2024_DAY {
 
         return update_correto == update.getQuantidade();
     }
-
 
     public static boolean sequencia_ordenar_um_passo(Lista<Integer> update, Lista<Regra> regras) {
 
