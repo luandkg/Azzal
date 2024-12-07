@@ -51,45 +51,7 @@ public class AOC_2024_DAY_05 extends AOC_2024_DAY {
         for (Lista<Integer> update : updates) {
             fmt.print("++ Update :: {}", Strings.LISTA_TO_TEXTO_LINHA_INTEIRO(update));
 
-            int numero_depois = 0;
-            int numero_contagem = 0;
-            int update_correto = 0;
-
-            for (Integer numero : update) {
-                fmt.print("\t ++ {}", numero);
-
-                int segundo_numero = 0;
-                int segundo_quantidade = 0;
-                int segundo_numero_ok = 0;
-
-                for (Integer numero2 : update) {
-                    if (segundo_numero > numero_contagem) {
-
-                        boolean tem = false;
-                        for (Regra regra : regras) {
-                            if (regra.parte_1 == numero && regra.parte_2 == numero2) {
-                                tem = true;
-                                break;
-                            }
-                        }
-
-                        fmt.print("\t ++ {}::{} -->> {}", numero, numero2, Portugues.VALIDAR(tem, "OK", "PROBLEMA"));
-                        segundo_quantidade += 1;
-                        if (tem) {
-                            segundo_numero_ok += 1;
-                        }
-                    }
-                    segundo_numero += 1;
-                }
-
-                if (segundo_quantidade == segundo_numero_ok) {
-                    update_correto += 1;
-                }
-
-                numero_contagem += 1;
-            }
-
-            if (update_correto == update.getQuantidade()) {
+            if (sequencia_esta_ordenada(update,regras)) {
                 updates_corretos.adicionar(update);
             }
 
@@ -115,7 +77,7 @@ public class AOC_2024_DAY_05 extends AOC_2024_DAY {
             fmt.print("\t -- Centro :: {}", numero_do_meio);
         }
 
-        fmt.print("Somatório Número do Meio :: {}", somatorio_numero_do_meio);
+        info(AOC_2024.PARTE_1, somatorio_numero_do_meio);
 
     }
 
@@ -204,8 +166,8 @@ public class AOC_2024_DAY_05 extends AOC_2024_DAY {
             fmt.print("\t -- Centro :: {}", numero_do_meio);
         }
 
-        fmt.print("Somatório Número do Meio :: {}", somatorio_numero_do_meio);
 
+        info(AOC_2024.PARTE_2, somatorio_numero_do_meio);
 
     }
 
