@@ -1,9 +1,6 @@
 package projetos.aoc2024;
 
-import libs.luan.Strings;
-import libs.luan.Tabuleiro;
-import libs.luan.Texto;
-import libs.luan.fmt;
+import libs.luan.*;
 
 public class AOC_2024_DAY_04 extends AOC_2024_DAY {
 
@@ -25,11 +22,13 @@ public class AOC_2024_DAY_04 extends AOC_2024_DAY {
 
         Tabuleiro<String> tabuleiro = new Tabuleiro<String>();
 
+        Lista<Lista<String>> conteudo = new Lista<Lista<String>>();
+
         for (String linha : Strings.DIVIDIR_LINHAS(texto_entrada)) {
-
-            tabuleiro.adicionar_linha(Strings.GET_LETRAS(linha));
-
+            conteudo.adicionar(Strings.GET_LETRAS(linha));
         }
+
+        tabuleiro.setTabuleiro(conteudo);
 
         tabuleiro.exibir();
 
@@ -159,16 +158,21 @@ public class AOC_2024_DAY_04 extends AOC_2024_DAY {
 
         Tabuleiro<String> tabuleiro = new Tabuleiro<String>();
 
+        Lista<Lista<String>> novo_conteudo = new Lista<Lista<String>>();
+
         for (String linha : Strings.DIVIDIR_LINHAS(texto_entrada)) {
 
-            tabuleiro.criar_linha();
+            Lista<String> linha_valores = new Lista<String>();
 
             for (String letra : Strings.GET_LETRAS(linha)) {
-                tabuleiro.adicionar_letra(letra);
+                linha_valores.adicionar(letra);
             }
+            novo_conteudo.adicionar(linha_valores);
+
 
         }
 
+        tabuleiro.setTabuleiro(novo_conteudo);
         tabuleiro.exibir();
 
         int xmas_contagem = 0;
