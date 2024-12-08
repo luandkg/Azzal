@@ -18,39 +18,65 @@ public class Tabuleiro<T> {
 
     }
 
-    public Lista<Lista<Peca<T>>> mLinhas = new Lista<Lista<Peca<T>>>();
+    public Vetor<Vetor<Peca<T>>> mLinhas = new Vetor<Vetor<Peca<T>>>(1);
 
 
     public Peca<T> get(int linha, int coluna) {
         return mLinhas.get(linha).get(coluna);
     }
 
-    public T getValor(int linha,int coluna){
-        return get(linha,coluna).mConteudo;
+    public T getValor(int linha, int coluna) {
+        return get(linha, coluna).mConteudo;
+    }
+
+    public void setValor(int linha, int coluna,T valor) {
+         get(linha, coluna).mConteudo=valor;
+    }
+
+    public T getValorCartesiano(int coluna, int linha) {
+        return get(linha, coluna).mConteudo;
+    }
+
+    public void setValorCartesiano(int coluna, int linha, T valor) {
+        get(linha, coluna).mConteudo = valor;
     }
 
     public void marque(int linha, int coluna, boolean marcado) {
         mLinhas.get(linha).get(coluna).descoberto = marcado;
     }
 
-    public void criar_linha() {
-        mLinhas.adicionar(new Lista<Peca<T>>());
-    }
 
-    public void adicionar_letra(T letra) {
-        mLinhas.getUltimoValor().adicionar(new Peca<T>(mLinhas.getQuantidade(), mLinhas.getUltimoValor().getQuantidade(), letra));
-    }
+    public void setTabuleiro(Lista<Lista<T>> conteudo){
 
-    public void adicionar_linha(Lista<T> lista){
-        criar_linha();
+        mLinhas = new Vetor<Vetor<Peca<T>>>(conteudo.getQuantidade());
 
-        for (T letra :lista) {
-            adicionar_letra(letra);
+        int i = 0;
+        for(Lista<T> linha : conteudo){
+            aplicar_linha(i,linha);
+            i+=1;
         }
+
     }
+
+    public void aplicar_linha(int linha_indice,Lista<T> lista) {
+
+        int linha_tamanho = lista.getQuantidade();
+        Vetor<Peca<T>> linha_vec_pecas = new Vetor<Peca<T>>(linha_tamanho);
+
+        int i =0;
+        for (T letra : lista) {
+            Peca<T> peca =new Peca<T>(linha_indice,i,letra);
+            linha_vec_pecas.set(i,peca);
+            i+=1;
+        }
+
+        mLinhas.set(linha_indice,linha_vec_pecas);
+    }
+
+
 
     public void exibir() {
-        for (Lista<Peca<T>> linha : mLinhas) {
+        for (Vetor<Peca<T>> linha : mLinhas) {
             String s_linha = "";
             for (Peca<T> letra : linha) {
                 s_linha += letra.mConteudo + " ";
@@ -60,7 +86,7 @@ public class Tabuleiro<T> {
     }
 
     public void exibir_descobertos() {
-        for (Lista<Peca<T>> linha : mLinhas) {
+        for (Vetor<Peca<T>> linha : mLinhas) {
             String s_linha = "";
             for (Peca<T> letra : linha) {
                 if (letra.descoberto) {
@@ -75,16 +101,26 @@ public class Tabuleiro<T> {
 
 
     public int getLinhasQuantidade() {
-        return mLinhas.getQuantidade();
+        return mLinhas.getCapacidade();
     }
 
     public int getLetrasQuantidadeDaLinha(int linha) {
-        return mLinhas.get(linha).getQuantidade();
+        return mLinhas.get(linha).getCapacidade();
     }
 
     public boolean posicao_valida(int linha, int coluna) {
-        if (linha >= 0 && linha < mLinhas.getQuantidade()) {
-            if (coluna >= 0 && coluna < mLinhas.get(linha).getQuantidade()) {
+        if (linha >= 0 && linha < mLinhas.getCapacidade()) {
+            if (coluna >= 0 && coluna < mLinhas.get(linha).getCapacidade()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean posicao_valida_cartesiana(int coluna, int linha) {
+        if (linha >= 0 && linha < mLinhas.getCapacidade()) {
+            if (coluna >= 0 && coluna < mLinhas.get(linha).getCapacidade()) {
                 return true;
             }
         }
@@ -179,6 +215,42 @@ public class Tabuleiro<T> {
             ret += String.valueOf(item);
         }
         return ret;
+    }
+
+
+    public Tabuleiro<T> getCopia(){
+
+        Tabuleiro<T> copia = new Tabuleiro<T>();
+
+        copia.mLinhas=new Vetor<Vetor<Peca<T>>>(getLinhasQuantidade());
+
+        int indice_linha=0;
+
+        for(Vetor<Peca<T>> linha : mLinhas){
+
+            Vetor<Peca<T>> nova_linha = new Vetor<Peca<T>>(linha.getCapacidade());
+
+            int i = 0;
+            for(Peca<T> peca : linha){
+                Peca<T> peca_nova = new Peca<T>(peca.linha,peca.coluna,peca.mConteudo);
+                nova_linha.set(i,peca_nova);
+                i+=1;
+            }
+
+            copia.mLinhas.set(indice_linha,nova_linha);
+            indice_linha+=1;
+        }
+
+        return copia;
+    }
+
+
+    public void aplicar_todos(T valor){
+        for (int y = 0; y < getLinhasQuantidade(); y++) {
+            for (int x = 0; x < getLetrasQuantidadeDaLinha(y); x++) {
+                setValorCartesiano(x, y, valor);
+            }
+        }
     }
 
 }
