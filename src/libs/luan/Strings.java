@@ -1968,7 +1968,7 @@ public class Strings {
                 if (!linha.isEmpty()) {
                     linhas.adicionar(linha);
                 }
-                linha = c;
+                linha = "";
             } else {
                 linha += c;
             }
@@ -2570,5 +2570,25 @@ public class Strings {
             i-=1;
         }
         return ret;
+    }
+
+
+    public static String LISTA_TO_TEXTO_LINHA_INTEIRO(Lista<Integer> ls) {
+        String texto = "";
+
+        int index_ultimo = ls.getQuantidade() - 1;
+        int index_corrente = 0;
+
+        for (Integer item : ls) {
+            if (index_ultimo == index_corrente) {
+                texto += item;
+            } else {
+                texto += item + " | ";
+            }
+
+            index_corrente += 1;
+        }
+
+        return texto;
     }
 }
