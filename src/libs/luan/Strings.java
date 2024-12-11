@@ -263,6 +263,15 @@ public class Strings {
         };
     }
 
+    public static Concatenador<String> CONCATENADOR() {
+        return new Concatenador<String>() {
+            @Override
+            public String concatenar(String v1, String v2) {
+                return v1+v2;
+            }
+        };
+    }
+
     public static Lista<String> ORDENAR(Lista<String> entradas) {
 
         int n = entradas.getQuantidade();
