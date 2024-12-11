@@ -253,4 +253,20 @@ public class Tabuleiro<T> {
         }
     }
 
+
+    public void parser(String texto_entrada){
+        Lista<Lista<T>> conteudo = new Lista<Lista<T>>();
+
+        for (String linha : Strings.DIVIDIR_LINHAS(texto_entrada)) {
+            Lista<T> lista = new Lista<T>();
+            for(String it : Strings.GET_LETRAS(linha)){
+                lista.adicionar((T)it);
+            }
+            conteudo.adicionar(lista);
+        }
+
+        setTabuleiro(conteudo);
+
+    }
+
 }
