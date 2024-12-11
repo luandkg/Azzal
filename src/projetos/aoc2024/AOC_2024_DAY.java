@@ -6,15 +6,25 @@ public abstract class AOC_2024_DAY {
 
 
     private int mProblemaNumero;
+    private int mProblemaParte;
     private String mProblemaNome;
 
     public AOC_2024_DAY(int eProblemaNumero, String eNome) {
         mProblemaNumero = eProblemaNumero;
         mProblemaNome = eNome;
+        mProblemaParte=0;
     }
 
     public int getProblemaNumero() {
         return mProblemaNumero;
+    }
+
+    public int getParte(){
+        return mProblemaParte;
+    }
+
+    public void setParte(int eParte){
+        mProblemaParte=eParte;
     }
 
     public String getProblemaNome() {
@@ -44,4 +54,7 @@ public abstract class AOC_2024_DAY {
         AOC_2024.INFO(getProblemaNumero(), parte, String.valueOf(mensagem));
     }
 
+    public void info(int parte, long mensagem) {
+        AOC_2024.INFO(getProblemaNumero(), parte, String.valueOf(mensagem));
+    }
 }
