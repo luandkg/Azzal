@@ -86,4 +86,28 @@ public class Ponto {
             }
         };
     }
+
+
+    public static Ponto DIFERENCA(Ponto p1,Ponto p2){
+
+        int diff_x = (p2.getX() - p1.getX());
+        int diff_y = (p2.getY() - p1.getY());
+
+        return new Ponto(diff_x,diff_y);
+    }
+
+
+    public static double INCLINACAO(Ponto p1, Ponto p2){
+        Ponto ponto_diff = Ponto.DIFERENCA(p1, p2);
+        return ((double) ponto_diff.getY() / (double) ponto_diff.getX());
+    }
+
+    public static int DISTANCIA(Ponto p1, Ponto p2) {
+        return DISTANCIA(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    }
+
+    public static int DISTANCIA(int x1, int y1, int x2, int y2) {
+        return (int) Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+    }
+
 }
