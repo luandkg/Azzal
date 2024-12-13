@@ -346,7 +346,7 @@ public class Entidade {
         at(att_nome, at(att_nome));
 
         for (Tag tag : copia) {
-            at(tag.getNome(),tag.getValor());
+            at(tag.getNome(), tag.getValor());
         }
 
     }
@@ -366,8 +366,8 @@ public class Entidade {
 
 
         for (Tag tag : copia) {
-            if(!tag.is_nome(att_nome)){
-                at(tag.getNome(),tag.getValor());
+            if (!tag.is_nome(att_nome)) {
+                at(tag.getNome(), tag.getValor());
             }
         }
 
@@ -376,8 +376,7 @@ public class Entidade {
     }
 
 
-
-    public void atributo_depois(String att_antes,String att_novo) {
+    public void atributo_depois(String att_antes, String att_novo) {
 
         Lista<Tag> copia = new Lista<Tag>();
 
@@ -388,27 +387,27 @@ public class Entidade {
         mTags.limpar();
 
         for (Tag tag : copia) {
-            at(tag.getNome(),tag.getValor());
-            if(tag.is_nome(att_antes)){
-                at(att_novo,"");
+            at(tag.getNome(), tag.getValor());
+            if (tag.is_nome(att_antes)) {
+                at(att_novo, "");
             }
         }
 
     }
 
-    public void trocar_valores(String att_alfa,String att_beta){
+    public void trocar_valores(String att_alfa, String att_beta) {
         String s_alfa = at(att_alfa);
         String s_beta = at(att_beta);
 
-        at(att_alfa,s_beta);
-        at(att_beta,s_alfa);
+        at(att_alfa, s_beta);
+        at(att_beta, s_alfa);
 
     }
 
-    public void at_renomear(String att_alfa,String att_beta) {
+    public void at_renomear(String att_alfa, String att_beta) {
 
-        for(Tag tag : tags()){
-            if(tag.is_nome(att_alfa)){
+        for (Tag tag : tags()) {
+            if (tag.is_nome(att_alfa)) {
                 tag.setNome(att_beta);
                 break;
             }
@@ -417,4 +416,19 @@ public class Entidade {
     }
 
 
+    public Entidade getCopia(){
+        Entidade copia = new Entidade();
+
+        for(Tag tag : mTags){
+            copia.at(tag.getNome(),tag.getValor());
+        }
+
+        for(Entidade e : mEntidades){
+            copia.getEntidades().adicionar(e.getCopia());
+        }
+
+        return copia;
     }
+
+
+}

@@ -309,14 +309,14 @@ public class ENTT {
 
                         int sequencia = Strings.getParteNumericaAposTextual(att);
 
-                        if(primeiro){
-                            primeiro=false;
+                        if (primeiro) {
+                            primeiro = false;
 
                             e.at("Menor", sequencia);
                             e.at("Maior", sequencia);
 
 
-                        }else{
+                        } else {
                             if (sequencia < e.atInt("Menor")) {
                                 e.at("Menor", sequencia);
                             }
@@ -1440,9 +1440,9 @@ public class ENTT {
         return novo;
     }
 
-    public static Entidade CRIAR_EM_SEQUENCIALMENTE(Lista<Entidade> entts, String sequencia_nome,int iniciar_em) {
+    public static Entidade CRIAR_EM_SEQUENCIALMENTE(Lista<Entidade> entts, String sequencia_nome, int iniciar_em) {
         Entidade novo = new Entidade();
-        novo.at(sequencia_nome, ENTT.CONTAGEM(entts)+iniciar_em);
+        novo.at(sequencia_nome, ENTT.CONTAGEM(entts) + iniciar_em);
         entts.adicionar(novo);
         return novo;
     }
@@ -2427,7 +2427,7 @@ public class ENTT {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
         for (Entidade e : entts) {
-            if (e.atInt(campo_nome)>campo_valor) {
+            if (e.atInt(campo_nome) > campo_valor) {
                 filtrados.adicionar(e);
             }
         }
@@ -2440,7 +2440,7 @@ public class ENTT {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
         for (Entidade e : entts) {
-            if (e.atInt(campo_nome)>=campo_valor) {
+            if (e.atInt(campo_nome) >= campo_valor) {
                 filtrados.adicionar(e);
             }
         }
@@ -2453,7 +2453,7 @@ public class ENTT {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
         for (Entidade e : entts) {
-            if (e.atInt(campo_nome)<campo_valor) {
+            if (e.atInt(campo_nome) < campo_valor) {
                 filtrados.adicionar(e);
             }
         }
@@ -2466,7 +2466,7 @@ public class ENTT {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
         for (Entidade e : entts) {
-            if (e.atInt(campo_nome)<=campo_valor) {
+            if (e.atInt(campo_nome) <= campo_valor) {
                 filtrados.adicionar(e);
             }
         }
@@ -2479,7 +2479,7 @@ public class ENTT {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
         for (Entidade e : entts) {
-            if (e.atInt(campo_nome)==campo_valor) {
+            if (e.atInt(campo_nome) == campo_valor) {
                 filtrados.adicionar(e);
             }
         }
@@ -2493,7 +2493,7 @@ public class ENTT {
         Lista<Entidade> filtrados = new Lista<Entidade>();
 
         for (Entidade e : entts) {
-            if (e.atInt(campo_nome)!=campo_valor) {
+            if (e.atInt(campo_nome) != campo_valor) {
                 filtrados.adicionar(e);
             }
         }
@@ -2502,5 +2502,15 @@ public class ENTT {
         return filtrados;
     }
 
+
+    public static Lista<Entidade> COPIAR(Lista<Entidade> entrada) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+        for (Entidade e : entrada) {
+            ret.adicionar(e.getCopia());
+        }
+
+        return ret;
+    }
 
 }
