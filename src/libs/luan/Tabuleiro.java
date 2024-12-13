@@ -1,5 +1,7 @@
 package libs.luan;
 
+import libs.azzal.geometria.Ponto;
+
 public class Tabuleiro<T> {
 
     public class Peca<T> {
@@ -268,5 +270,26 @@ public class Tabuleiro<T> {
         setTabuleiro(conteudo);
 
     }
+
+
+    public Lista<Ponto> getPontosCartesianosComValor(Igualavel<T> eIgualavel,T eValor){
+
+        Lista<Ponto> ret = new Lista<Ponto>();
+
+        for (int y = 0; y < getLinhasQuantidade(); y++) {
+            for (int x = 0; x < getLetrasQuantidadeDaLinha(y); x++) {
+
+                T valor = getValorCartesiano(x, y);
+
+                if (eIgualavel.is(eValor, valor)) {
+                    ret.adicionar(new Ponto(x, y));
+                }
+
+            }
+        }
+
+        return ret;
+    }
+
 
 }
