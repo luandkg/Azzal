@@ -421,6 +421,8 @@ public class ServicoTronarko {
             variacao_superior = Opcional.OK(QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("variacao_superior.qtt")));
         }
 
+        Renderizador fenomeno_atsmofestico_furacao = ServicoFenomenoAtmosferico.MAPA_TEMPESTADE_INICIAR();
+        Renderizador fenomeno_atsmofestico_tornado = ServicoFenomenoAtmosferico.MAPA_TEMPESTADE_INICIAR();
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
 
@@ -468,6 +470,9 @@ public class ServicoTronarko {
             ServicoMassasDeAr.CALCULAR_UMIDADE(ANALISAR_VARIACAO, mapa_planeta, tronarko_umidade_variacao, render_fatores_climaticos, variacao_inferior, variacao_superior);
 
 
+            ServicoFenomenoAtmosferico.PROCESSAR_FURACAO(mapa_planeta,atzum,fenomeno_atsmofestico_furacao,render_massas_de_ar);
+            ServicoFenomenoAtmosferico.PROCESSAR_TORNADO(mapa_planeta,atzum,fenomeno_atsmofestico_tornado,render_massas_de_ar);
+
 
 
             if (RENDERIZAR_VIDEOS) {
@@ -495,6 +500,8 @@ public class ServicoTronarko {
                 mAnalisadorTemperatura.processarSuperarko(render_fatores_climaticos);
             }
 
+            Imagem.exportar(fenomeno_atsmofestico_furacao.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/tronarko_zona_de_furacoes.png"));
+            Imagem.exportar(fenomeno_atsmofestico_tornado.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/tronarko_zona_de_tornados.png"));
 
         }
 
@@ -511,6 +518,12 @@ public class ServicoTronarko {
 
 
         Imagem.exportar(render_tronarko_preciptacao.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_preciptacao_temporal.png"));
+
+
+        Imagem.exportar(fenomeno_atsmofestico_furacao.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/tronarko_zona_de_furacoes.png"));
+        Imagem.exportar(fenomeno_atsmofestico_tornado.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/tronarko_zona_de_tornados.png"));
+
+
 
         fmt.print("\t + {esq5}      -- {esq5}", fmt.f2(d_indo.getMenor()), fmt.f2(d_indo.getMaior()));
         fmt.print("\t + {esq5}      -- {esq5}", fmt.f2(d_voltando.getMenor()), fmt.f2(d_voltando.getMaior()));
