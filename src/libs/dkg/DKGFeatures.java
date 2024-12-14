@@ -367,7 +367,7 @@ public class DKGFeatures {
         for (DKGObjeto item : objetos) {
 
             String valor = item.identifique(att).getValor();
-            if (!ret.existe(valor)) {
+            if (!ret.existe(Strings.IGUALAVEL(),valor)) {
                 ret.adicionar(valor);
             }
         }
@@ -682,7 +682,7 @@ public class DKGFeatures {
         String cabecalho = "";
         for (DKGObjeto obj : colunas) {
             int tt = obj.identifique("Tamanho").getInteiro(0) + 5;
-            cabecalho += " |" + fmt.espacar_antes(obj.identifique("Nome").getValor(), tt);
+            cabecalho += " |" + fmt.espacar_depois(obj.identifique("Nome").getValor(), tt);
         }
 
         fmt.print("{}", cabecalho + " |");
@@ -694,7 +694,7 @@ public class DKGFeatures {
 
             for (DKGObjeto coluna : colunas) {
                 int tt = coluna.identifique("Tamanho").getInteiro(0) + 5;
-                linha += " |" + fmt.espacar_antes(obj.identifique(coluna.identifique("Nome").getValor()).getValor(), tt);
+                linha += " |" + fmt.espacar_depois(obj.identifique(coluna.identifique("Nome").getValor()).getValor(), tt);
             }
 
             fmt.print("{}", linha + " |");
