@@ -491,7 +491,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
         AgendadorDeTarefas tarefas = new AgendadorDeTarefas();
 
-        tarefas.criarSequenciaDupla("", "CONSTRUIR_TRONARKO", "CALCULAR_TRONARKO_TRANSICAO", new Acao() {
+        tarefas.criarSequenciaDupla("", "CONSTRUIR_TRONARKO", "TRONARKO_PROCESSAR_SUPERARKOS", new Acao() {
             @Override
             public void fazer() {
 
@@ -512,14 +512,16 @@ public class AtzumProcessoCriativoEmTarefas {
         });
 
 
-        tarefas.criarSequencia("CALCULAR_TRONARKO_TRANSICAO", "SENSORES_ORGANIZAR_POR_SENSORES_COM_QUADRUM", new Acao() {
+        tarefas.criarSequencia("TRONARKO_PROCESSAR_SUPERARKOS", "FENOMENOS_TECTONICOS", new Acao() {
             @Override
             public void fazer() {
 
-                String ATIVIDADE_CORRENTE = "CALCULAR_TRONARKO_TRANSICAO";
+                String ATIVIDADE_CORRENTE = "TRONARKO_PROCESSAR_SUPERARKOS";
 
                 MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
-                ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO(tronarko > 7000);
+
+                ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS(tronarko > 7000);
+
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
 
@@ -528,6 +530,33 @@ public class AtzumProcessoCriativoEmTarefas {
 
             }
         });
+
+        tarefas.criarSequencia("FENOMENOS_TECTONICOS", "SENSORES_ORGANIZAR_POR_SENSORES_COM_QUADRUM", new Acao() {
+            @Override
+            public void fazer() {
+
+                String ATIVIDADE_CORRENTE = "FENOMENOS_TECTONICOS";
+
+                MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+
+                if(tronarko==7000){
+                    ServicoFenomenoTectonico.ZERAR();
+                }
+
+                ServicoFenomenoTectonico.INIT(tronarko);
+
+                MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
+
+                PUBLICAR(comparativos);
+                BETA_EXIBIR_PUBLICACAO(comparativos);
+
+            }
+        });
+
+
+
+
 
         tarefas.criarSequencia("SENSORES_ORGANIZAR_POR_SENSORES_COM_QUADRUM", "SENSORES_ORGANIZAR_POR_SENSORES_A_PARTIR_DE_QUADRUM", new Acao() {
             @Override

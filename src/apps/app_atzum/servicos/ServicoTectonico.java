@@ -24,9 +24,9 @@ public class ServicoTectonico {
     public static void INIT() {
         AtzumCreatorInfo.iniciar("ServicoTectonico.INIT");
 
-        //  INICIAR_PLACAS();
-        //  EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
-        //   CRIAR_PLACAS_COM_LIMITES();
+        INICIAR_PLACAS();
+        EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
+        CRIAR_PLACAS_COM_LIMITES();
 
         GUARDAR_DADOS_PLACAS_TECTONICAS();
 
@@ -36,9 +36,6 @@ public class ServicoTectonico {
         AtzumCreatorInfo.terminar("ServicoTectonico.INIT");
         AtzumCreatorInfo.exibir_item("ServicoTectonico.INIT");
     }
-
-
-
 
 
     public static void INICIAR_PLACAS() {
@@ -434,7 +431,7 @@ public class ServicoTectonico {
 
                             } else {
 
-                                e_vulcao.at("Tipo", "Terreste");
+                                e_vulcao.at("Tipo", "Terrestre");
                                 render_vulcoes.drawCirculoCentralizado_Pintado(vulcao_x, vulcao_y, 10, mCores.getVermelho());
 
                             }
@@ -475,34 +472,34 @@ public class ServicoTectonico {
         QTT.alocar(AtzumCreator.DADOS_GET_ARQUIVO("placas_tectonicas.qtt"), terra.getLargura(), terra.getAltura());
 
 
-        Lista< Cor> placas_tectonicas = AtzumPlacasTectonicas.GET_PLACAS_TECTONICAS_CORES();
+        Lista<Cor> placas_tectonicas = AtzumPlacasTectonicas.GET_PLACAS_TECTONICAS_CORES();
 
         Lista<Entidade> dados_placas_tectonicas = ENTT.CRIAR_LISTA();
 
 
         for (Cor placa_tectonica : placas_tectonicas) {
 
-            Entidade e_placa = ENTT.CRIAR_EM_SEQUENCIALMENTE(dados_placas_tectonicas,"PlacaID",1);
-            e_placa.at("Cor",placa_tectonica.toString());
+            Entidade e_placa = ENTT.CRIAR_EM_SEQUENCIALMENTE(dados_placas_tectonicas, "PlacaID", 1);
+            e_placa.at("Cor", placa_tectonica.toString());
 
-            int placa_id =e_placa.atInt("PlacaID");
+            int placa_id = e_placa.atInt("PlacaID");
 
             long tamanho = 0;
 
             for (int y = 0; y < render.getAltura(); y++) {
                 for (int x = 0; x < render.getLargura(); x++) {
-                    if(render.getPixel(x, y).igual(placa_tectonica)){
-                        QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("placas_tectonicas.qtt"), x,y,placa_id);
-                        tamanho+=1;
+                    if (render.getPixel(x, y).igual(placa_tectonica)) {
+                        QTT.alterar(AtzumCreator.DADOS_GET_ARQUIVO("placas_tectonicas.qtt"), x, y, placa_id);
+                        tamanho += 1;
                     }
                 }
             }
 
-            e_placa.at("Tamanho",tamanho);
+            e_placa.at("Tamanho", tamanho);
 
         }
 
-        ENTT.GUARDAR(dados_placas_tectonicas,AtzumCreator.DADOS_GET_ARQUIVO("placas_tectonicas.entts"));
+        ENTT.GUARDAR(dados_placas_tectonicas, AtzumCreator.DADOS_GET_ARQUIVO("placas_tectonicas.entts"));
 
         AtzumCreatorInfo.terminar("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
         AtzumCreatorInfo.exibir_item("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");

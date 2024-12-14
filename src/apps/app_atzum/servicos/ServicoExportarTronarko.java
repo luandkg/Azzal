@@ -51,6 +51,8 @@ public class ServicoExportarTronarko {
 
 
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@parametros/cidades.entts", AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@parametros/vulcanismo.entts", AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
+
 
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_regioes.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes.png"));
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_contorno_oceanico.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_contorno_oceanico.png"));
@@ -62,6 +64,9 @@ public class ServicoExportarTronarko {
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_relevo_terra.im", AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_relevo_terra.png"));
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_relevo_agua.im", AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_relevo_agua.png"));
 
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_tectonismo_placas.im", AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas.png"));
+        EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_tectonismo_limites.im", AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
+
 
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/planeta.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/planeta.qtt"));
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/oceanos.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/oceanos.qtt"));
@@ -71,6 +76,9 @@ public class ServicoExportarTronarko {
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/distancia_terra.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/distancia_terra.qtt"));
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/distancia_oceanica.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/distancia_oceanica.qtt"));
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/sensor_proximidade.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/sensor_proximidade.qtt"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@dados/placas_tectonicas.qtt", AtzumCreator.LOCAL_GET_ARQUIVO("dados/placas_tectonicas.qtt"));
+
+
 
 
         Opcional<DSItem> op_init = DS.buscar_item(arquivo_atzum, "@Atzum.index");
@@ -119,8 +127,9 @@ public class ServicoExportarTronarko {
         String arquivo_modelo_climatico = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_climatico.png");
         String arquivo_modelo_vegetacao = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_vegetacao.png");
 
+        String arquivo_fenomenos_tectonicos = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/fenomenos_tectonicos.entts");
 
-        //  EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@parametros/cidades.entts", AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts"));
+
 
         Entidade e_tronarko = new Entidade();
         e_tronarko.at("Tronarko", tronarko_corrente);
@@ -134,6 +143,9 @@ public class ServicoExportarTronarko {
 
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_info_climatico.im", arquivo_info_modelo_climatico);
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_info_vegetacao.im", arquivo_info_modelo_vegetacao);
+
+
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@informacoes/fenomenos_tectonicos.entts", arquivo_fenomenos_tectonicos);
 
 
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_sensores_por_superarko.dz", arquivo_sensores_superarko_compactado);

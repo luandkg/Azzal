@@ -286,9 +286,9 @@ public class ServicoTronarko {
     }
 
 
-    public static void CALCULAR_TRONARKO_TRANSICAO(boolean usar_transicao) {
+    public static void TRONARKO_PROCESSAR_SUPERARKOS(boolean usar_transicao) {
 
-        AtzumCreatorInfo.iniciar("ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO");
+        AtzumCreatorInfo.iniciar("ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS");
 
         boolean ANALISAR_VARIACAO = true;
 
@@ -468,6 +468,8 @@ public class ServicoTronarko {
             ServicoMassasDeAr.CALCULAR_UMIDADE(ANALISAR_VARIACAO, mapa_planeta, tronarko_umidade_variacao, render_fatores_climaticos, variacao_inferior, variacao_superior);
 
 
+
+
             if (RENDERIZAR_VIDEOS) {
 
                 video_temperatura.get().empurrarQuadro(Efeitos.reduzirMetade(TronarkoRenderizadores.renderizar_variacao_de_temperatura(mapa_planeta, tronarko_temperatura, temp_taxa).toImagemSemAlfa()));
@@ -525,7 +527,7 @@ public class ServicoTronarko {
 
         SENSORES_DADOS_ORGANIZAR();
 
-        AtzumCreatorInfo.terminar("ServicoTronarko.CALCULAR_TRONARKO_TRANSICAO");
+        AtzumCreatorInfo.terminar("ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS");
 
         fmt.print(">> Tudo OK !!!");
 
