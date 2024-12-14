@@ -1,18 +1,17 @@
 package libs.luan;
 
-import java.util.ArrayList;
 
 public class fmt {
 
     // AUTOR : LUAN FREITAS
     // DATA : 2022 01 16
 
-    private static String format_text(String texto, ArrayList<Object> objetos) {
+    private static String format_text(String texto, Lista<Object> objetos) {
 
         int i = 0;
         int o = texto.length();
 
-        ArrayList<FatiaString> fatias = new ArrayList<FatiaString>();
+        Lista<FatiaString> fatias = new Lista<FatiaString>();
 
         String juntando = "";
         boolean isDentro = false;
@@ -26,7 +25,7 @@ public class fmt {
 
                     FatiaString fatia = new FatiaString();
                     fatia.setTipo(juntando);
-                    fatias.add(fatia);
+                    fatias.adicionar(fatia);
 
                     isDentro = false;
                     juntando = "";
@@ -37,7 +36,7 @@ public class fmt {
 
             } else {
                 if (letra.contentEquals("{")) {
-                    fatias.add(new FatiaString(juntando));
+                    fatias.adicionar(new FatiaString(juntando));
 
                     isDentro = true;
                     juntando = "";
@@ -50,7 +49,7 @@ public class fmt {
         }
 
         if (juntando.length() > 0) {
-            fatias.add(new FatiaString(juntando));
+            fatias.adicionar(new FatiaString(juntando));
         }
 
         String retornar = "";
@@ -113,9 +112,9 @@ public class fmt {
 
     public static String format(String texto, Object ...args) {
 
-        ArrayList<Object> objetos = new ArrayList<Object>();
+        Lista<Object> objetos = new Lista<Object>();
         for(Object arg : args){
-            objetos.add(arg);
+            objetos.adicionar(arg);
         }
 
         return format_text(texto, objetos);
@@ -621,7 +620,7 @@ public class fmt {
         }
     }
 
-    public static void listar_strings(String prefixo, ArrayList<String> lista) {
+    public static void listar_strings(String prefixo, Lista<String> lista) {
 
         for (String aa : lista) {
             System.out.println(prefixo + aa);
@@ -685,7 +684,7 @@ public class fmt {
 
     }
 
-    public static String format_strings(ArrayList<String> ls) {
+    public static String format_strings(Lista<String> ls) {
 
         String ret = "";
 
@@ -696,9 +695,9 @@ public class fmt {
         return ret;
     }
 
-    public static String verticalmente(ArrayList<String> s_linhas) {
+    public static String verticalmente(Lista<String> s_linhas) {
 
-        ArrayList<String> horizontal = new ArrayList<String>();
+        Lista<String> horizontal = new Lista<String>();
 
         int maximo = 0;
 
@@ -709,7 +708,7 @@ public class fmt {
         }
 
         for (int a = 0; a < maximo; a++) {
-            horizontal.add("");
+            horizontal.adicionar("");
         }
 
 
@@ -730,7 +729,7 @@ public class fmt {
         }
 
 
-        int e = horizontal.size() - 1;
+        int e = horizontal.getQuantidade() - 1;
         String ss = "";
 
         while (e > 0) {
