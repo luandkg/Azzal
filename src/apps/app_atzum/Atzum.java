@@ -45,6 +45,9 @@ public class Atzum {
     public static final Cor COR_VENTANIA = Cor.getHexCor("#D81B60");
     public static final Cor COR_ONDA_DE_CALOR = Cor.getHexCor("#FFD600");
 
+    public static final Cor FENOMENO_COR_FURACAO = Cor.getHexCor("#039BE5");
+    public static final Cor FENOMENO_COR_TORNADO = Cor.getHexCor("#FFA000");
+
 
     public Atzum() {
 
