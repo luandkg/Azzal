@@ -286,7 +286,7 @@ public class ServicoTronarko {
     }
 
 
-    public static void TRONARKO_PROCESSAR_SUPERARKOS(boolean usar_transicao) {
+    public static void TRONARKO_PROCESSAR_SUPERARKOS(boolean usar_transicao,int tronarko_corrente) {
 
         AtzumCreatorInfo.iniciar("ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS");
 
@@ -429,6 +429,22 @@ public class ServicoTronarko {
         DS.limpar(arquivo_sensores_por_superarko);
 
 
+
+        Cor cor_furacao = Atzum.FENOMENO_COR_FURACAO;
+        Cor cor_tornado = Atzum.FENOMENO_COR_TORNADO;
+
+
+        if(tronarko_corrente==7000){
+            ServicoFenomenoAtmosferico.ZERAR();
+        }
+
+        Lista<Entidade> tronarko_atividade_atmosfericos = new Lista<Entidade>();
+
+        Lista<Entidade> dados_furacoes = ENTT.ABRIR(ServicoFenomenoAtmosferico.ARQUIVO_FENOMENOS_FURACOES());
+        Lista<Entidade> dados_tornados = ENTT.ABRIR(ServicoFenomenoAtmosferico.ARQUIVO_FENOMENOS_TORNADOS());
+
+
+
         fmt.print(">> Processando Tronarko...");
         for (int superarko = 1; superarko <= 500; superarko++) {
 
@@ -470,9 +486,17 @@ public class ServicoTronarko {
             ServicoMassasDeAr.CALCULAR_UMIDADE(ANALISAR_VARIACAO, mapa_planeta, tronarko_umidade_variacao, render_fatores_climaticos, variacao_inferior, variacao_superior);
 
 
+            Renderizador fenomeno_atsmofestico_furacao_do_superarko = ServicoFenomenoAtmosferico.MAPA_TEMPESTADE_INICIAR();
+            Renderizador fenomeno_atsmofestico_tornado_do_superarko = ServicoFenomenoAtmosferico.MAPA_TEMPESTADE_INICIAR();
+
+            ServicoFenomenoAtmosferico.PROCESSAR_FURACAO(mapa_planeta,atzum,fenomeno_atsmofestico_furacao_do_superarko,render_massas_de_ar);
+            ServicoFenomenoAtmosferico.PROCESSAR_TORNADO(mapa_planeta,atzum,fenomeno_atsmofestico_tornado_do_superarko,render_massas_de_ar);
+
             ServicoFenomenoAtmosferico.PROCESSAR_FURACAO(mapa_planeta,atzum,fenomeno_atsmofestico_furacao,render_massas_de_ar);
             ServicoFenomenoAtmosferico.PROCESSAR_TORNADO(mapa_planeta,atzum,fenomeno_atsmofestico_tornado,render_massas_de_ar);
 
+            tronarko_atividade_atmosfericos.adicionar_varios(ServicoFenomenoAtmosferico.processar_furacao(dados_furacoes, cor_furacao, fenomeno_atsmofestico_furacao_do_superarko.toImagemSemAlfa(), tronarko_corrente, superarko));
+            tronarko_atividade_atmosfericos.adicionar_varios(ServicoFenomenoAtmosferico.processar_tornado(dados_tornados, cor_tornado, fenomeno_atsmofestico_tornado_do_superarko.toImagemSemAlfa(), tronarko_corrente, superarko));
 
 
             if (RENDERIZAR_VIDEOS) {
@@ -523,6 +547,12 @@ public class ServicoTronarko {
         Imagem.exportar(fenomeno_atsmofestico_furacao.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/tronarko_zona_de_furacoes.png"));
         Imagem.exportar(fenomeno_atsmofestico_tornado.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/tronarko_zona_de_tornados.png"));
 
+        ENTT.GUARDAR(dados_furacoes, ServicoFenomenoAtmosferico.ARQUIVO_FENOMENOS_FURACOES());
+        ENTT.GUARDAR(dados_tornados, ServicoFenomenoAtmosferico.ARQUIVO_FENOMENOS_TORNADOS());
+
+        ENTT.GUARDAR(tronarko_atividade_atmosfericos, ServicoFenomenoAtmosferico.ARQUIVO_FENOMENOS_ATMOSFERICOS());
+
+        ServicoFenomenoAtmosferico.RENDER(tronarko_corrente);
 
 
         fmt.print("\t + {esq5}      -- {esq5}", fmt.f2(d_indo.getMenor()), fmt.f2(d_indo.getMaior()));

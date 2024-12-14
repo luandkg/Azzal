@@ -127,6 +127,7 @@ public class ServicoExportarTronarko {
         String arquivo_modelo_climatico = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_climatico.png");
         String arquivo_modelo_vegetacao = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_modelo_vegetacao.png");
 
+        String arquivo_fenomenos_atmosfericos = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/fenomenos_atmosfericos.entts");
         String arquivo_fenomenos_tectonicos = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/fenomenos_tectonicos.entts");
 
 
@@ -145,7 +146,9 @@ public class ServicoExportarTronarko {
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum_tronarko, "@imagem/modelo_info_vegetacao.im", arquivo_info_modelo_vegetacao);
 
 
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@informacoes/fenomenos_atmosfericos.entts", arquivo_fenomenos_atmosfericos);
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@informacoes/fenomenos_tectonicos.entts", arquivo_fenomenos_tectonicos);
+
 
 
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum_tronarko, "@dados/tronarko_sensores_por_superarko.dz", arquivo_sensores_superarko_compactado);

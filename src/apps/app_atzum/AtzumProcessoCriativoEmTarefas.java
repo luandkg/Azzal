@@ -520,7 +520,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
                 MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
 
-                ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS(tronarko > 7000);
+                ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS(tronarko > 7000,tronarko);
 
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
