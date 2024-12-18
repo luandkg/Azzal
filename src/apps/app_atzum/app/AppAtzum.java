@@ -9,7 +9,6 @@ import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.arquivos.PreferenciasOrganizadas;
-import libs.arquivos.dsvideo.DSVideo;
 import libs.azzal.AzzalUnico;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
@@ -17,17 +16,18 @@ import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Ponto;
 import libs.azzal.utilitarios.Cor;
-import libs.azzal.utilitarios.Cronometro;
+import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.imagem.Efeitos;
 import libs.imagem.Imagem;
 import libs.luan.*;
+import libs.mockui.Interface.Acao;
+import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 public class AppAtzum extends Cena {
 
@@ -48,7 +48,6 @@ public class AppAtzum extends Cena {
     }
 
 
-
     private Cores mCores;
 
 
@@ -56,7 +55,6 @@ public class AppAtzum extends Cena {
     private Fonte ESCRITOR_NORMAL_VERMELHO;
     private Fonte ESCRITOR_NORMAL_BRANCO;
     private Fonte ESCRITOR_NORMAL_BRANCO_GRANDE;
-
 
 
     private String mAlturaCorrente = "";
@@ -87,10 +85,18 @@ public class AppAtzum extends Cena {
 
     public MapaZoom mMapaZoom;
     private ClimaWidget mClima;
+    private TectonicoWidget mTectonico;
+    private AtmosfericoWidget mAtmosferico;
 
     public VideoEmExecucao mVideoEmExecucao;
 
     public WidgetMapaVisualizador mWidgetMapaVisualizador;
+
+    private RefString mMapaDeAtividade = null;
+
+
+    public Lista<Entidade> mFenomenosTectonicos;
+    public Lista<Entidade> mFenomenosAtmosfericos;
 
 
     @Override
@@ -102,13 +108,13 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL_BRANCO = new FonteRunTime(mCores.getBranco(), 10);
         ESCRITOR_NORMAL_BRANCO_GRANDE = new FonteRunTime(mCores.getBranco(), 30);
 
-        String mTronarko = "7000";
+        String mTronarko = "7002";
 
         mArquivoAtzumGeral = new ArquivoAtzumGeral();
         mArquivoAtzumTronarko = new ArquivoAtzumTronarko(mTronarko);
 
 
-     mWidgetMapaVisualizador = new WidgetMapaVisualizador(mArquivoAtzumGeral.GET_MAPA_DE_RELEVO(),Efeitos.reduzirMetade(Imagem.getCopia(mArquivoAtzumGeral.GET_MAPA_DE_RELEVO())));
+        mWidgetMapaVisualizador = new WidgetMapaVisualizador(mArquivoAtzumGeral.GET_MAPA_DE_RELEVO(), Efeitos.reduzirMetade(Imagem.getCopia(mArquivoAtzumGeral.GET_MAPA_DE_RELEVO())));
 
 
         mAtzum = new Atzum();
@@ -138,6 +144,9 @@ public class AppAtzum extends Cena {
         AtzumBotoesPrincipais.criar_camadas_zoom(mCamadasZoom, this);
 
         mClima = new ClimaWidget();
+        mTectonico = new TectonicoWidget();
+        mAtmosferico = new AtmosfericoWidget();
+
         mVideoEmExecucao = new VideoEmExecucao();
 
         mGrupoPrincipal.aplicarCamada("Relevo");
@@ -160,11 +169,67 @@ public class AppAtzum extends Cena {
         //ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(mInformacoesDasCidadesIndexadas, 10));
 
 
+        BotaoCor BTN_MAPA_CLIMATICO = mClicavel.criarBotaoCor(new BotaoCor(2150, 30, 30, 100, mCores.getBranco()));
+        BotaoCor BTN_MAPA_TECTONICO = mClicavel.criarBotaoCor(new BotaoCor(2200, 30, 30, 100, mCores.getBranco()));
+        BotaoCor BTN_MAPA_ATMOSFERICO = mClicavel.criarBotaoCor(new BotaoCor(2250, 30, 30, 100, mCores.getBranco()));
+
+        BTN_MAPA_CLIMATICO.setAcao(new Acao() {
+            @Override
+            public void onClique() {
+                mMapaDeAtividade.set("MAPA_CLIMATICO");
+                PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
+                po.abrirSeExistir();
+                po.setOpcao("Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
+                po.salvar();
+            }
+        });
+
+        BTN_MAPA_TECTONICO.setAcao(new Acao() {
+            @Override
+            public void onClique() {
+                mMapaDeAtividade.set("MAPA_TECTONICO");
+                PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
+                po.abrirSeExistir();
+                po.setOpcao("Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
+                po.salvar();
+
+                mTectonico.setDados(mArquivoAtzumTronarko.getFenomenosTectonicos());
+                ENTT.EXIBIR_TABELA(mArquivoAtzumTronarko.getFenomenosTectonicos());
+            }
+        });
+
+        BTN_MAPA_ATMOSFERICO.setAcao(new Acao() {
+            @Override
+            public void onClique() {
+                mMapaDeAtividade.set("MAPA_ATMOSFERICO");
+                PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
+                po.abrirSeExistir();
+                po.setOpcao("Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
+                po.salvar();
+
+                mAtmosferico.setDados(mArquivoAtzumTronarko.getFenomenosAtmosfericos());
+                ENTT.EXIBIR_TABELA(mArquivoAtzumTronarko.getFenomenosAtmosfericos());
+            }
+        });
+
+        mMapaDeAtividade = new RefString();
+
+        PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
+        if (po.abrirSeExistir()) {
+            mMapaDeAtividade.set(po.getOpcao("Atzum", "MapaDeAtividade"));
+        } else {
+            mMapaDeAtividade.set("MAPA_CLIMATICO");
+        }
+
+        if (mMapaDeAtividade.isIgual("MAPA_CLIMATICO")) {
+            BTN_MAPA_CLIMATICO.clicar();
+        } else if (mMapaDeAtividade.isIgual("MAPA_TECTONICO")) {
+            BTN_MAPA_TECTONICO.clicar();
+        } else if (mMapaDeAtividade.isIgual("MAPA_ATMOSFERICO")) {
+            BTN_MAPA_ATMOSFERICO.clicar();
+        }
 
     }
-
-
-
 
 
     @Override
@@ -178,20 +243,19 @@ public class AppAtzum extends Cena {
         mRegiaoCorrente = "";
         mOceanoCorrente = "";
 
-        if(mVideoEmExecucao.isExecutando()){
+        if (mVideoEmExecucao.isExecutando()) {
             mVideoEmExecucao.update();
         }
 
 
-
-        if (mWidgetMapaVisualizador.isDentro(px,py)) {
+        if (mWidgetMapaVisualizador.isDentro(px, py)) {
 
 
             mMapaZoom.update(false);
 
             int terra_ou_agua = mArquivoAtzumGeral.GET_PLANETA(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY());
 
-            mTerraOuAgua = Portugues.VALIDAR(terra_ou_agua>0,"TERRA","ÁGUA");
+            mTerraOuAgua = Portugues.VALIDAR(terra_ou_agua > 0, "TERRA", "ÁGUA");
 
             if (terra_ou_agua > 0) {
 
@@ -248,7 +312,20 @@ public class AppAtzum extends Cena {
         // if (getWindows().getMouse().isClicked()) {
 
         if (mCidadeSelecionada) {
-            mClima.update(px, py, getWindows().getMouse().isClicked());
+
+            if (mMapaDeAtividade.get().contentEquals("MAPA_CLIMATICO")) {
+                mClima.update(px, py, getWindows().getMouse().isClicked());
+            } else if (mMapaDeAtividade.get().contentEquals("MAPA_TECTONICO")) {
+            } else if (mMapaDeAtividade.get().contentEquals("MAPA_ATMOSFERICO")) {
+
+            }
+
+        }
+
+        if (mMapaDeAtividade.get().contentEquals("MAPA_TECTONICO")) {
+            mTectonico.update(px, py, getWindows().getMouse().isClicked());
+        }else      if (mMapaDeAtividade.get().contentEquals("MAPA_ATMOSFERICO")) {
+            mAtmosferico.update(px, py, getWindows().getMouse().isClicked());
         }
 
 
@@ -287,10 +364,9 @@ public class AppAtzum extends Cena {
             int info_px = mWidgetMapaVisualizador.getPosX();
             int info_py = mWidgetMapaVisualizador.getPosY();
 
-
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 100, mVideoEmExecucao.getLargura() + " vs " + mVideoEmExecucao.getAltura());
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 150, mVideoEmExecucao.getFrameCorrente() + " frames de " + mVideoEmExecucao.getVideoQuadrosTotal());
-            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 200, mVideoEmExecucao.getVideoDuracao());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 50, mVideoEmExecucao.getLargura() + " vs " + mVideoEmExecucao.getAltura());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 100, mVideoEmExecucao.getFrameCorrente() + " frames de " + mVideoEmExecucao.getVideoQuadrosTotal());
+            ESCRITOR_NORMAL_BRANCO_GRANDE.escreva(info_px - 130, info_py + 150, mVideoEmExecucao.getVideoDuracao());
 
             if (mVideoEmExecucao.getFrameCorrente() > 0 && mVideoEmExecucao.getFrameCorrente() <= 500) {
                 if (mClima.temCidade()) {
@@ -339,8 +415,8 @@ public class AppAtzum extends Cena {
         }
 
 
-        int X0 =mWidgetMapaVisualizador.getPosX();
-        int Y0 =mWidgetMapaVisualizador.getPosY();
+        int X0 = mWidgetMapaVisualizador.getPosX();
+        int Y0 = mWidgetMapaVisualizador.getPosY();
 
 
         for (Ponto cidade : mCidades) {
@@ -455,6 +531,38 @@ public class AppAtzum extends Cena {
 
                 py += 30;
             }
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("MapaTectonico")) {
+
+            int py = 200;
+            for (Entidade fenomeno :mFenomenosTectonicos) {
+
+                if(fenomeno.is("Fenomeno","TERREMOTO")){
+                    g.drawRect_Pintado(1800, py, 25, 25, mCores.getLaranja());
+                }else{
+                    g.drawRect_Pintado(1800, py, 25, 25, mCores.getVermelho());
+                }
+
+                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: "+fenomeno.at("Tozte"));
+
+                py += 30;
+            }
+
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("MapaAtmosferico")) {
+
+            int py = 200;
+            for (Entidade fenomeno :mFenomenosAtmosfericos) {
+
+                if(fenomeno.is("Fenomeno","FURACAO")){
+                    g.drawRect_Pintado(1800, py, 25, 25, mCores.getAzul());
+                }else{
+                    g.drawRect_Pintado(1800, py, 25, 25, mCores.getLaranja());
+                }
+
+                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: "+fenomeno.at("Tozte"));
+
+                py += 30;
+            }
+
         }
 
         int descritor_py = 300;
@@ -470,7 +578,14 @@ public class AppAtzum extends Cena {
 
         }
 
-        mClima.render(g, descritor_py);
+
+        if (mMapaDeAtividade.get().contentEquals("MAPA_CLIMATICO")) {
+            mClima.render(g, descritor_py);
+        } else if (mMapaDeAtividade.get().contentEquals("MAPA_TECTONICO")) {
+            mTectonico.render(g, descritor_py);
+        } else if (mMapaDeAtividade.get().contentEquals("MAPA_ATMOSFERICO")) {
+            mAtmosferico.render(g, descritor_py);
+        }
 
         mMapaZoom.render(g);
 
@@ -478,9 +593,15 @@ public class AppAtzum extends Cena {
         g.drawRect(1900, 600, 300, 300, mCores.getVermelho());
 
 
+        if (mMapaDeAtividade.get().contentEquals("MAPA_CLIMATICO")) {
+            g.drawRect_Pintado(2150 + 5, 50, 20, 50, mCores.getLaranja());
+        } else if (mMapaDeAtividade.get().contentEquals("MAPA_TECTONICO")) {
+            g.drawRect_Pintado(2200 + 5, 50, 20, 50, mCores.getVermelho());
+        } else if (mMapaDeAtividade.get().contentEquals("MAPA_ATMOSFERICO")) {
+            g.drawRect_Pintado(2250 + 5, 50, 20, 50, mCores.getAzul());
+        }
+
     }
-
-
 
 
     public void procurar_cidade_proxima() {
@@ -526,12 +647,16 @@ public class AppAtzum extends Cena {
             mCidadeDescritores.adicionar(new Par<String, String>("Altitude", cidade_altitude));
 
 
-            mCidadeDescritores.adicionar(new Par<String, String>("Tipo", Portugues.VALIDAR(mCidade.atInt("Oceano_Distancia") <= 15,"Litoranea","Continental")));
+            mCidadeDescritores.adicionar(new Par<String, String>("Tipo", Portugues.VALIDAR(mCidade.atInt("Oceano_Distancia") <= 15, "Litoranea", "Continental")));
             mCidadeDescritores.adicionar(new Par<String, String>("Oceano", mCidade.at("Oceano_Nome") + " - " + mCidade.at("Oceano_Distancia")));
 
 
+            mTectonico.marcarCidade(mCidade);
+            mAtmosferico.marcarCidade(mCidade);
             mClima.marcarCidade(mCidade);
         } else {
+            mTectonico.retirarCidade();
+            mAtmosferico.retirarCidade();
             mClima.retirarCidade();
         }
 
