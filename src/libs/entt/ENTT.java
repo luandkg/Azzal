@@ -255,6 +255,23 @@ public class ENTT {
         return e_atts;
     }
 
+    public static Lista<Entidade> GET_ATRIBUTOS_COM_TAMANHO(Lista<Entidade> entidades) {
+
+        Lista<Entidade> e_atts = new Lista<Entidade>();
+
+        for (Entidade e : entidades) {
+            for (Tag tag : e.tags()) {
+                Entidade a_att = ENTT.GET_SEMPRE(e_atts, "Nome", tag.getNome());
+                if (tag.getValor().length() > a_att.atIntOuPadrao("Tamanho", 0)) {
+                    a_att.at("Tamanho", tag.getValor().length());
+                }
+            }
+        }
+
+
+        return e_atts;
+    }
+
     public static Lista<Entidade> GET_ATRIBUTOS_E_SEQUENCIAIS(Lista<Entidade> entidades) {
 
         Unico<String> atributos = new Unico<String>(Strings.IGUALAVEL());
@@ -1175,6 +1192,13 @@ public class ENTT {
         for (Indexado<Entidade> e : Indexamento.indexe(mEntts)) {
             DS.adicionar(arquivo, String.valueOf(e.index()), TO_DOCUMENTO(e.get()));
         }
+
+    }
+
+    public static void GUARDAR_MAIS_UM(Entidade e, String arquivo) {
+
+        int quantidade = DS.contar(arquivo);
+        DS.adicionar(arquivo, String.valueOf(quantidade), TO_DOCUMENTO(e));
 
     }
 

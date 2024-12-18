@@ -44,7 +44,6 @@ public class ENTTBinario {
             }
         }
 
-     //   ENTT.GUARDAR(lista,AtzumCreator.LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts"));
         ENTT.EXIBIR_TABELA_COM_TITULO(lista,"Logs - Tabela Mestre");
 
     }
