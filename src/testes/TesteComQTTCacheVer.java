@@ -1,7 +1,8 @@
-package apps.app_atzum;
+package testes;
 
+import apps.app_atzum.AtzumCreator;
+import apps.app_atzum.AtzumTerra;
 import libs.arquivos.QTT;
-import libs.arquivos.QTTCache;
 import libs.arquivos.QTTCacheVer;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
@@ -14,7 +15,6 @@ import libs.luan.Par;
 import libs.luan.fmt;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
-import libs.tronarko.utils.StringTronarko;
 
 public class TesteComQTTCacheVer {
 
