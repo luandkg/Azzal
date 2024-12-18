@@ -544,4 +544,26 @@ public class TesteZettaQuorum {
         zeta.fechar();
     }
 
+    public static void init_ver_dados(){
+
+        fmt.print("----------------- ZETA QUORUM :: VER DADOS ------------------");
+
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta.az";
+
+        ZettaQuorum zeta = new ZettaQuorum(arquivo_zeta);
+
+
+        Lista<Entidade> colecoes = ENTT.CRIAR_LISTA();
+        for(ZettaColecao colecao : zeta.getColecoes()){
+            Entidade e_colecao = ENTT.CRIAR_EM_SEQUENCIALMENTE(colecoes,"ID",1);
+            e_colecao.at("Nome",colecao.getNome());
+        }
+
+
+        zeta.fechar();
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(colecoes,"COLECOES");
+
+    }
+
 }
