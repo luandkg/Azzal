@@ -610,4 +610,15 @@ public class StringTronarko {
         Tozte ret = new Tozte(i_superarko, i_hiperarko, i_tronarko);
         return ret;
     }
+
+    public static String SUPERARKOS_DO_TRONARKO_PARA_TOZTE(int superarkos, int eTronarko) {
+
+        int hiperarko = 1;
+        while (superarkos > 50) {
+            hiperarko += 1;
+            superarkos -= 50;
+        }
+
+        return fmt.numero_zerado_c2(superarkos) + "/" + fmt.numero_zerado_c2(hiperarko) + "/" + eTronarko;
+    }
 }
