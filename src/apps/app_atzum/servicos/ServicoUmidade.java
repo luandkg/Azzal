@@ -3,7 +3,7 @@ package apps.app_atzum.servicos;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_atzum.utils.AtzumPontos;
 import apps.app_atzum.utils.Rasterizador;
 import libs.arquivos.QTT;
@@ -22,7 +22,7 @@ public class ServicoUmidade {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar(SERVICO_NOME+".INIT");
+        AtzumCriativoLog.iniciar(SERVICO_NOME+".INIT");
 
         fmt.print("-->> Parte 1");
 
@@ -336,8 +336,8 @@ public class ServicoUmidade {
 
         fmt.print("Tudo OK !");
 
-        AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
-        AtzumCreatorInfo.exibir_item(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.terminar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.exibir_item(SERVICO_NOME + ".INIT");
 
     }
 

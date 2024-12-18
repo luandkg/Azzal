@@ -4,7 +4,7 @@ import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.GPS;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_atzum.utils.AtzumPlacasTectonicas;
 import apps.app_atzum.utils.AtzumPontosInteiro;
 import apps.app_atzum.utils.Rasterizador;
@@ -22,7 +22,7 @@ import libs.meta_functional.Acao;
 public class ServicoTectonico {
 
     public static void INIT() {
-        AtzumCreatorInfo.iniciar("ServicoTectonico.INIT");
+        AtzumCriativoLog.iniciar("ServicoTectonico.INIT");
 
         INICIAR_PLACAS();
         EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
@@ -33,13 +33,13 @@ public class ServicoTectonico {
         DEFINIR_AREAS_DE_ATIVIDADE_SISMICA();
         VULCANIZAR();
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.INIT");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.INIT");
+        AtzumCriativoLog.terminar("ServicoTectonico.INIT");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.INIT");
     }
 
 
     public static void INICIAR_PLACAS() {
-        AtzumCreatorInfo.iniciar("ServicoTectonico.INICIAR_PLACAS");
+        AtzumCriativoLog.iniciar("ServicoTectonico.INICIAR_PLACAS");
 
         fmt.print("Tectonismo");
 
@@ -67,6 +67,7 @@ public class ServicoTectonico {
 
         fmt.print("Quantidade : {}", pontos.getQuantidade());
 
+        fmt.print(">> Criar placas tectônicas !");
 
         for (Ponto pt_eixo : pontos) {
 
@@ -109,6 +110,7 @@ public class ServicoTectonico {
         render_tronarko_placas_tectonicas_limites.drawRect_Pintado(0, 420, 50, 50, mCores.getVermelho());
         render_tronarko_placas_tectonicas_limites.drawRect_Pintado(0, 1050, 50, 50, mCores.getVermelho());
 
+        fmt.print(">> Renderizar placas tectônicas !");
 
         Lista<Par<Ponto, Cor>> placas_tectonicas = AtzumPlacasTectonicas.GET_PLACAS_TECTONICAS();
 
@@ -146,6 +148,7 @@ public class ServicoTectonico {
 
         Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_v0.png"));
 
+        fmt.print(">> Expandir limites !");
 
         // EXPANDIR LIMITES
         for (int y = 0; y < render_tronarko_placas_tectonicas_limites.getAltura(); y++) {
@@ -162,14 +165,14 @@ public class ServicoTectonico {
         Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas.png"));
 
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.INICIAR_PLACAS");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.INICIAR_PLACAS");
+        AtzumCriativoLog.terminar("ServicoTectonico.INICIAR_PLACAS");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.INICIAR_PLACAS");
     }
 
 
     public static void EXTRAIR_PLACAS_TECTONICAS_CONTORNOS() {
 
-        AtzumCreatorInfo.iniciar("ServicoTectonico.EXTRAIR_CONTORNOS");
+        AtzumCriativoLog.iniciar("ServicoTectonico.EXTRAIR_CONTORNOS");
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas.png"));
 
@@ -178,6 +181,7 @@ public class ServicoTectonico {
 
         Renderizador render_salvar = Renderizador.CONSTRUIR(render.getLargura(), render.getAltura(), mCores.getPreto());
 
+        fmt.print(">> Extrair contornos das placas tectônicas !");
 
         for (int y = 0; y < render.getAltura(); y++) {
             for (int x = 0; x < render.getLargura(); x++) {
@@ -259,19 +263,20 @@ public class ServicoTectonico {
 
         Imagem.exportar(render_salvar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.EXTRAIR_CONTORNOS");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.EXTRAIR_CONTORNOS");
+        AtzumCriativoLog.terminar("ServicoTectonico.EXTRAIR_CONTORNOS");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.EXTRAIR_CONTORNOS");
 
     }
 
     public static void CRIAR_PLACAS_COM_LIMITES() {
 
-        AtzumCreatorInfo.iniciar("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
+        AtzumCriativoLog.iniciar("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
 
         Cores mCores = new Cores();
 
+        fmt.print(">> Criar placas tectônicas !");
 
         Lista<Par<Ponto, Cor>> placas_tectonicas = AtzumPlacasTectonicas.GET_PLACAS_TECTONICAS();
 
@@ -306,17 +311,19 @@ public class ServicoTectonico {
 
         Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_com_limites.png"));
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
+        AtzumCriativoLog.terminar("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.CRIAR_PLACAS_COM_LIMITES");
     }
 
 
     public static void DEFINIR_AREAS_DE_ATIVIDADE_SISMICA() {
 
-        AtzumCreatorInfo.iniciar("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
+        AtzumCriativoLog.iniciar("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
         Renderizador render_atividade_sismica = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_limites.png"));
+
+        fmt.print(">> Definir areas com atividade sismica !");
 
         Cores mCores = new Cores();
 
@@ -378,14 +385,14 @@ public class ServicoTectonico {
 
         Imagem.exportar(render_atividade_sismica.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
+        AtzumCriativoLog.terminar("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.DEFINIR_AREAS_DE_ATIVIDADE_SISMICA");
     }
 
 
     public static void VULCANIZAR() {
 
-        AtzumCreatorInfo.iniciar("ServicoTectonico.VULCANIZAR");
+        AtzumCriativoLog.iniciar("ServicoTectonico.VULCANIZAR");
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
         Renderizador render_vulcanismo = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_atividade_sismica.png"));
@@ -393,6 +400,8 @@ public class ServicoTectonico {
         Renderizador terra_ou_agua = new Renderizador(AtzumCreator.GET_MAPA_PRETO_E_BRANCO());
 
         Cores mCores = new Cores();
+
+        fmt.print(">> Definir areas com atividade vulcânica !");
 
         Lista<Entidade> vulcoes = ENTT.CRIAR_LISTA();
 
@@ -455,17 +464,18 @@ public class ServicoTectonico {
 
         ENTT.EXIBIR_TABELA_COM_TITULO(vulcoes, "VULCÕES");
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.VULCANIZAR");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.VULCANIZAR");
+        AtzumCriativoLog.terminar("ServicoTectonico.VULCANIZAR");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.VULCANIZAR");
     }
 
 
     public static void GUARDAR_DADOS_PLACAS_TECTONICAS() {
 
-        AtzumCreatorInfo.iniciar("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
+        AtzumCriativoLog.iniciar("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas.png"));
 
+        fmt.print(">> Guardar dados tectônicos !");
 
         AtzumTerra terra = new AtzumTerra();
 
@@ -501,8 +511,8 @@ public class ServicoTectonico {
 
         ENTT.GUARDAR(dados_placas_tectonicas, AtzumCreator.DADOS_GET_ARQUIVO("placas_tectonicas.entts"));
 
-        AtzumCreatorInfo.terminar("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
-        AtzumCreatorInfo.exibir_item("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
+        AtzumCriativoLog.terminar("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
 
     }
 

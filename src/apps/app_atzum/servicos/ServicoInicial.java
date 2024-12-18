@@ -1,7 +1,7 @@
 package apps.app_atzum.servicos;
 
 import apps.app_atzum.AtzumCreator;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.imagem.Imagem;
@@ -15,7 +15,7 @@ public class ServicoInicial {
 
 
     public static void INIT() {
-        AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.iniciar(SERVICO_NOME + ".INIT");
 
         fmt.print(">> Organizando planeta");
 
@@ -35,8 +35,8 @@ public class ServicoInicial {
         Imagem.exportar(mapa_planeta.toImagemSemAlfa(),AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_planeta.png"));
 
 
-        AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
-        AtzumCreatorInfo.exibir_item(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.terminar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.exibir_item(SERVICO_NOME + ".INIT");
     }
 
 

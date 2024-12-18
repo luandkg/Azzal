@@ -10,13 +10,16 @@ import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
 
-public class AtzumCreatorInfo {
+public class AtzumCriativoLog {
+
+    public static String GET_ARQUIVO(){
+        return AtzumCreator.LOCAL_GET_ARQUIVO("logs/atzum_logs.entts");
+    }
 
     public static void iniciar(String nome) {
 
-        String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts");
 
-        Lista<Entidade> logs = ENTT.ABRIR(arquivo);
+        Lista<Entidade> logs = ENTT.ABRIR(GET_ARQUIVO());
 
         Entidade chave = ENTT.GET_SEMPRE(logs, "Item", nome);
 
@@ -27,15 +30,14 @@ public class AtzumCreatorInfo {
         chave.at("Iniciado", Tronarko.getTronAgora().getTextoZerado());
         chave.at("IniciadoContagem", chave.atIntOuPadrao("IniciadoContagem", 0) + 1);
 
-        ENTT.GUARDAR(logs, arquivo);
+        ENTT.GUARDAR(logs, GET_ARQUIVO());
     }
 
 
     public static void terminar(String nome) {
 
-        String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts");
 
-        Lista<Entidade> logs = ENTT.ABRIR(arquivo);
+        Lista<Entidade> logs = ENTT.ABRIR(GET_ARQUIVO());
 
         Entidade chave = ENTT.GET_SEMPRE(logs, "Item", nome);
 
@@ -47,23 +49,21 @@ public class AtzumCreatorInfo {
         chave.at("Sucesso", chave.atIntOuPadrao("TerminadoContagem", 0));
         chave.at("Interrompido", interrompido);
 
-        ENTT.GUARDAR(logs, arquivo);
+        ENTT.GUARDAR(logs, GET_ARQUIVO());
     }
 
 
     public static void exibir() {
 
-        String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts");
-        Lista<Entidade> logs = ENTT.ABRIR(arquivo);
+        Lista<Entidade> logs = ENTT.ABRIR(GET_ARQUIVO());
 
         ENTT.EXIBIR_TABELA(logs);
 
     }
 
     public static void exibir_item(String nome) {
-        String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts");
 
-        Lista<Entidade> logs = ENTT.ABRIR(arquivo);
+        Lista<Entidade> logs = ENTT.ABRIR(GET_ARQUIVO());
 
         Entidade chave = ENTT.GET_SEMPRE(logs, "Item", nome);
 
@@ -85,16 +85,15 @@ public class AtzumCreatorInfo {
     }
 
     public static void renomear_item(String nome_antigo,String nome_novo) {
-        String arquivo = AtzumCreator.LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts");
 
-        Lista<Entidade> logs = ENTT.ABRIR(arquivo);
+        Lista<Entidade> logs = ENTT.ABRIR(GET_ARQUIVO());
 
         Opcional<Entidade> chave = ENTT.GET_OPCIONAL(logs, "Item", nome_antigo);
         if(chave.isOK()){
             chave.get().at("Item",nome_novo);
         }
 
-        ENTT.GUARDAR(logs,arquivo);
+        ENTT.GUARDAR(logs,GET_ARQUIVO());
 
     }
 

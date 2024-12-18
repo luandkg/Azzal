@@ -40,6 +40,16 @@ public class ArquivoAtzumGeral {
         }
     }
 
+    public BufferedImage GET_MAPA_DE_PLACAS_TECTONICAS() {
+        BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/atzum_tectonismo_placas.im").get());
+        return mapa;
+    }
+
+    public BufferedImage GET_MAPA_DE_PLACAS_TECTONICAS_LIMITES() {
+        BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/atzum_tectonismo_limites.im").get());
+        return mapa;
+    }
+
     public BufferedImage GET_MAPA_DE_RELEVO() {
         BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/atzum_relevo.im").get());
         return mapa;

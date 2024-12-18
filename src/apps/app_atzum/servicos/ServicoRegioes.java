@@ -3,7 +3,7 @@ package apps.app_atzum.servicos;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_atzum.utils.AtzumPontosInteiro;
 import apps.app_atzum.utils.Rasterizador;
 import apps.app_atzum.utils.RegiaoDefinida;
@@ -30,7 +30,7 @@ public class ServicoRegioes {
 
 
     public static void INIT() {
-        AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.iniciar(SERVICO_NOME + ".INIT");
 
         ORGANIZAR_REGIOES();
         EXPANDIR_REGIOES_ATE_A_MARGEM();
@@ -48,14 +48,14 @@ public class ServicoRegioes {
         ORGANIZAR_OCEANOS();
         RENDERIZAR_OCEANOS();
 
-        AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
-        AtzumCreatorInfo.exibir_item(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.terminar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.exibir_item(SERVICO_NOME + ".INIT");
     }
 
 
     public static void ORGANIZAR_REGIOES() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.ORGANIZAR_REGIOES");
+        AtzumCriativoLog.iniciar("ServicoRegioes.ORGANIZAR_REGIOES");
 
         BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_planeta.png"));
 
@@ -106,15 +106,15 @@ public class ServicoRegioes {
 
         vic_empilhador.fechar();
 
-        AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_REGIOES");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.ORGANIZAR_REGIOES");
+        AtzumCriativoLog.terminar("ServicoRegioes.ORGANIZAR_REGIOES");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.ORGANIZAR_REGIOES");
 
     }
 
 
     public static void EXPANDIR_REGIOES_ATE_A_MARGEM() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.EXPANDIR_REGIOES_ATE_A_MARGEM");
+        AtzumCriativoLog.iniciar("ServicoRegioes.EXPANDIR_REGIOES_ATE_A_MARGEM");
 
 
         Cores mCores = new Cores();
@@ -136,15 +136,15 @@ public class ServicoRegioes {
         Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/regioes/regioes_v2.png"));
         Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes.png"));
 
-        AtzumCreatorInfo.terminar("ServicoRegioes.EXPANDIR_REGIOES_ATE_A_MARGEM");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.EXPANDIR_REGIOES_ATE_A_MARGEM");
+        AtzumCriativoLog.terminar("ServicoRegioes.EXPANDIR_REGIOES_ATE_A_MARGEM");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.EXPANDIR_REGIOES_ATE_A_MARGEM");
 
     }
 
 
     public static void ORGANIZAR_DADOS_REGIOES() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.ORGANIZAR_DADOS_REGIOES");
+        AtzumCriativoLog.iniciar("ServicoRegioes.ORGANIZAR_DADOS_REGIOES");
 
         Renderizador mapa_global = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes.png"));
 
@@ -224,8 +224,8 @@ public class ServicoRegioes {
 
         }
 
-        AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_DADOS_REGIOES");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.ORGANIZAR_DADOS_REGIOES");
+        AtzumCriativoLog.terminar("ServicoRegioes.ORGANIZAR_DADOS_REGIOES");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.ORGANIZAR_DADOS_REGIOES");
 
 
     }
@@ -233,7 +233,7 @@ public class ServicoRegioes {
 
     public static void EXTRAIR_REGIOES_CONTORNOS() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.EXTRAIR_CONTORNOS");
+        AtzumCriativoLog.iniciar("ServicoRegioes.EXTRAIR_CONTORNOS");
 
         Renderizador render = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/regioes/regioes_v2.png"));
 
@@ -325,14 +325,14 @@ public class ServicoRegioes {
         Imagem.exportar(render_salvar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes_contornos.png"));
 
 
-        AtzumCreatorInfo.terminar("ServicoRegioes.EXTRAIR_CONTORNOS");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.EXTRAIR_CONTORNOS");
+        AtzumCriativoLog.terminar("ServicoRegioes.EXTRAIR_CONTORNOS");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.EXTRAIR_CONTORNOS");
 
     }
 
     public static void EXTRAIR_CONTORNO_OCEANICO() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.EXTRAIR_CONTORNO_OCEANICO");
+        AtzumCriativoLog.iniciar("ServicoRegioes.EXTRAIR_CONTORNO_OCEANICO");
 
         BufferedImage mapa = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes.png"));
 
@@ -444,15 +444,15 @@ public class ServicoRegioes {
         Imagem.exportar(render_salvar.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_contorno_oceanico.png"));
 
 
-        AtzumCreatorInfo.terminar("ServicoRegioes.EXTRAIR_CONTORNO_OCEANICO");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.EXTRAIR_CONTORNO_OCEANICO");
+        AtzumCriativoLog.terminar("ServicoRegioes.EXTRAIR_CONTORNO_OCEANICO");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.EXTRAIR_CONTORNO_OCEANICO");
 
     }
 
 
     public static void EXTRAIR_DISTANCIA_OCEANICA() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.EXTRAIR_DISTANCIA_OCEANICA");
+        AtzumCriativoLog.iniciar("ServicoRegioes.EXTRAIR_DISTANCIA_OCEANICA");
 
         AtzumTerra atzum_terra = new AtzumTerra();
 
@@ -490,6 +490,12 @@ public class ServicoRegioes {
         QTTCache dist_oceano = new QTTCache(AtzumCreator.DADOS_GET_ARQUIVO("distancia_oceanica.qtt"), 1000);
         QTTCache dist_terra = new QTTCache(AtzumCreator.DADOS_GET_ARQUIVO("distancia_terra.qtt"), 1000);
 
+        int progresso_total = atzum_terra.getLargura()*atzum_terra.getAltura();
+        int progresso_contagem = 0;
+        int progresso_parcela = progresso_total/100;
+        int progresso_parcela_contagem = 0;
+        int progresso_exibir = 0;
+
 
         for (int y = 0; y < atzum_terra.getAltura(); y++) {
             for (int x = 0; x < atzum_terra.getLargura(); x++) {
@@ -510,6 +516,13 @@ public class ServicoRegioes {
                     dist_terra.cache(x, y, proximidade);
                 }
 
+                progresso_contagem+=1;
+                progresso_parcela_contagem+=1;
+                if(progresso_parcela_contagem==progresso_parcela){
+                    progresso_parcela_contagem=0;
+                    progresso_exibir+=1;
+                    fmt.print("\t >> Progresso : {}",progresso_exibir);
+                }
             }
         }
 
@@ -517,8 +530,8 @@ public class ServicoRegioes {
         dist_terra.guardar();
 
         fmt.print("Tudo OK !");
-        AtzumCreatorInfo.terminar("ServicoRegioes.EXTRAIR_DISTANCIA_OCEANICA");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.EXTRAIR_DISTANCIA_OCEANICA");
+        AtzumCriativoLog.terminar("ServicoRegioes.EXTRAIR_DISTANCIA_OCEANICA");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.EXTRAIR_DISTANCIA_OCEANICA");
 
 
     }
@@ -526,7 +539,7 @@ public class ServicoRegioes {
 
     public static void PROXIMIDADE_COM_OCEANO() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.PROXIMIDADE_COM_OCEANO");
+        AtzumCriativoLog.iniciar("ServicoRegioes.PROXIMIDADE_COM_OCEANO");
 
         AtzumTerra atzum_terra = new AtzumTerra();
 
@@ -576,14 +589,14 @@ public class ServicoRegioes {
         Imagem.exportar(render_distancia.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_oceano_distancia.png"));
 
         fmt.print("Tudo OK !");
-        AtzumCreatorInfo.terminar("ServicoRegioes.PROXIMIDADE_COM_OCEANO");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.PROXIMIDADE_COM_OCEANO");
+        AtzumCriativoLog.terminar("ServicoRegioes.PROXIMIDADE_COM_OCEANO");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.PROXIMIDADE_COM_OCEANO");
 
     }
 
     public static void PROXIMIDADE_COM_TERRA() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.PROXIMIDADE_COM_TERRA");
+        AtzumCriativoLog.iniciar("ServicoRegioes.PROXIMIDADE_COM_TERRA");
 
         AtzumTerra atzum_terra = new AtzumTerra();
 
@@ -635,14 +648,14 @@ public class ServicoRegioes {
         Imagem.exportar(render_distancia.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_terra_distancia.png"));
 
         fmt.print("Tudo OK !");
-        AtzumCreatorInfo.terminar("ServicoRegioes.PROXIMIDADE_COM_TERRA");
-        AtzumCreatorInfo.exibir_item("ServicoRegioes.PROXIMIDADE_COM_TERRA");
+        AtzumCriativoLog.terminar("ServicoRegioes.PROXIMIDADE_COM_TERRA");
+        AtzumCriativoLog.exibir_item("ServicoRegioes.PROXIMIDADE_COM_TERRA");
 
     }
 
     public static void ORGANIZAR_DADOS_PLANETA() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.ORGANIZAR_DADOS_PLANETA");
+        AtzumCriativoLog.iniciar("ServicoRegioes.ORGANIZAR_DADOS_PLANETA");
 
         AtzumTerra atzum_terra = new AtzumTerra();
 
@@ -669,7 +682,7 @@ public class ServicoRegioes {
 
         dados_planeta.guardar();
 
-        AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_DADOS_PLANETA");
+        AtzumCriativoLog.terminar("ServicoRegioes.ORGANIZAR_DADOS_PLANETA");
 
         fmt.print("OK !");
     }
@@ -677,7 +690,7 @@ public class ServicoRegioes {
     public static void ORGANIZAR_OCEANOS() {
         fmt.print("Feature :: Oceanos");
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.ORGANIZAR_OCEANOS");
+        AtzumCriativoLog.iniciar("ServicoRegioes.ORGANIZAR_OCEANOS");
 
         String ARQUIVO_OCEANO = AtzumCreator.LOCAL_GET_ARQUIVO("parametros/OCEANOS.dkg");
         Unico<Par<Ponto, Integer>> pontos_de_relevo = AtzumPontosInteiro.UNICOS(AtzumPontosInteiro.ABRIR_ZERADO(ARQUIVO_OCEANO));
@@ -712,14 +725,14 @@ public class ServicoRegioes {
         }
 
         dados_oceano.guardar();
-        AtzumCreatorInfo.terminar("ServicoRegioes.ORGANIZAR_OCEANOS");
+        AtzumCriativoLog.terminar("ServicoRegioes.ORGANIZAR_OCEANOS");
 
         fmt.print("OK !");
     }
 
     public static void RENDERIZAR_OCEANOS() {
 
-        AtzumCreatorInfo.iniciar("ServicoRegioes.RENDERIZAR_OCEANOS");
+        AtzumCriativoLog.iniciar("ServicoRegioes.RENDERIZAR_OCEANOS");
 
         AtzumTerra atzum_terra = new AtzumTerra();
 
@@ -755,7 +768,7 @@ public class ServicoRegioes {
 
         Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("atzum_oceanos.png"));
 
-        AtzumCreatorInfo.terminar("ServicoRegioes.RENDERIZAR_OCEANOS");
+        AtzumCriativoLog.terminar("ServicoRegioes.RENDERIZAR_OCEANOS");
 
         fmt.print("OK !");
 

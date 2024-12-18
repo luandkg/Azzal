@@ -1,9 +1,8 @@
 package apps.app_atzum.servicos;
 
-import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import libs.arquivos.QTT;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
@@ -18,7 +17,7 @@ public class ServicoCorrelacionar {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.iniciar(SERVICO_NOME + ".INIT");
 
         Cores mCores = new Cores();
 
@@ -84,8 +83,8 @@ public class ServicoCorrelacionar {
         Imagem.exportar(render_c2.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/umidade_vs_temperatura_2.png"));
 
 
-        AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
-        AtzumCreatorInfo.exibir_item(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.terminar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.exibir_item(SERVICO_NOME + ".INIT");
 
     }
 

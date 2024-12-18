@@ -14,6 +14,7 @@ import libs.imagem.Imagem;
 import libs.luan.Aleatorio;
 import libs.luan.Lista;
 import libs.luan.fmt;
+import libs.tronarko.utils.StringTronarko;
 
 import java.awt.image.BufferedImage;
 
@@ -117,7 +118,6 @@ public class ServicoFenomenoAtmosferico {
         BufferedImage zona_de_tornados = Imagem.GET_IMAGEM_POR_PIXEL_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/tronarko_zona_de_tornados.png"));
 
 
-        Cores mCores = new Cores();
         Cor cor_furacao = Atzum.FENOMENO_COR_FURACAO;
         Cor cor_tornado = Atzum.FENOMENO_COR_TORNADO;
 
@@ -203,40 +203,48 @@ public class ServicoFenomenoAtmosferico {
 
                 boolean adicionar_evento = false;
 
-                int sorteado = Aleatorio.aleatorio_entre(a.atInt("Inicio"), a.atInt("Fim"));
+                if(a.atInt("Fim")>a.atInt("Inicio")){
 
-                long contagem = 0;
-                for (int py = 0; py < mapa_zona_de_furacoes.getHeight(); py++) {
-                    for (int px = 0; px < mapa_zona_de_furacoes.getWidth(); px++) {
-                        Cor cor = Cor.getInt(mapa_zona_de_furacoes.getRGB(px, py));
-                        if (cor.igual(cor_furacao)) {
-                            if (contagem == sorteado) {
-                                a.at("X", px);
-                                a.at("Y", py);
+                    int sorteado = Aleatorio.aleatorio_entre(a.atInt("Inicio"), a.atInt("Fim"));
 
-                                //fmt.print("\t ++ Trocar {} para :: {} -- {} :: {}", a.at("ID"), area_sismica, px, py);
-                                adicionar_evento = true;
-                                break;
+                    long contagem = 0;
+                    for (int py = 0; py < mapa_zona_de_furacoes.getHeight(); py++) {
+                        for (int px = 0; px < mapa_zona_de_furacoes.getWidth(); px++) {
+                            Cor cor = Cor.getInt(mapa_zona_de_furacoes.getRGB(px, py));
+                            if (cor.igual(cor_furacao)) {
+                                if (contagem == sorteado) {
+                                    a.at("X", px);
+                                    a.at("Y", py);
+
+                                    //fmt.print("\t ++ Trocar {} para :: {} -- {} :: {}", a.at("ID"), area_sismica, px, py);
+                                    adicionar_evento = true;
+                                    break;
+                                }
+                                contagem += 1;
                             }
-                            contagem += 1;
+                        }
+                        if (contagem == sorteado) {
+                            break;
                         }
                     }
-                    if (contagem == sorteado) {
-                        break;
+
+                }
+
+
+                if(adicionar_evento){
+                    fmt.print("Superarko {} -- {} >> Furacao !!!", superarko, a.at("ID"));
+                    ENTT.EXIBIR_TABELA_PREFIXO("\t",ENTT.CRIAR_LISTA_COM(a));
+
+                    a.at("Superarko", superarko);
+                    a.at("Tozte",  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(superarko, tronarko));
+
+                    if (adicionar_evento) {
+                        a.at("Fenomeno", "FURACAO");
+                        retornar_fenonemos.adicionar(a.getCopia());
                     }
                 }
 
 
-                fmt.print("Superarko {} -- {} >> Furacao !!!", superarko, a.at("ID"));
-                ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(a));
-
-                a.at("Superarko", superarko);
-                a.at("Tozte", SUPERARKOS_DO_TRONARKO_PARA_TOZTE(superarko, tronarko));
-
-                if (adicionar_evento) {
-                    a.at("Tipo", "FURACAO");
-                    retornar_fenonemos.adicionar(a.getCopia());
-                }
             }
 
         }
@@ -300,40 +308,47 @@ public class ServicoFenomenoAtmosferico {
 
                 boolean adicionar_evento = false;
 
-                int sorteado = Aleatorio.aleatorio_entre(a.atInt("Inicio"), a.atInt("Fim"));
+                if(a.atInt("Fim")>a.atInt("Inicio")){
 
-                long contagem = 0;
-                for (int py = 0; py < mapa_zona_de_tornados.getHeight(); py++) {
-                    for (int px = 0; px < mapa_zona_de_tornados.getWidth(); px++) {
-                        Cor cor = Cor.getInt(mapa_zona_de_tornados.getRGB(px, py));
-                        if (cor.igual(cor_tornado)) {
-                            if (contagem == sorteado) {
-                                a.at("X", px);
-                                a.at("Y", py);
+                    int sorteado = Aleatorio.aleatorio_entre(a.atInt("Inicio"), a.atInt("Fim"));
 
-                                //fmt.print("\t ++ Trocar {} para :: {} -- {} :: {}", a.at("ID"), area_sismica, px, py);
-                                adicionar_evento = true;
-                                break;
+                    long contagem = 0;
+                    for (int py = 0; py < mapa_zona_de_tornados.getHeight(); py++) {
+                        for (int px = 0; px < mapa_zona_de_tornados.getWidth(); px++) {
+                            Cor cor = Cor.getInt(mapa_zona_de_tornados.getRGB(px, py));
+                            if (cor.igual(cor_tornado)) {
+                                if (contagem == sorteado) {
+                                    a.at("X", px);
+                                    a.at("Y", py);
+
+                                    //fmt.print("\t ++ Trocar {} para :: {} -- {} :: {}", a.at("ID"), area_sismica, px, py);
+                                    adicionar_evento = true;
+                                    break;
+                                }
+                                contagem += 1;
                             }
-                            contagem += 1;
+                        }
+                        if (contagem == sorteado) {
+                            break;
                         }
                     }
-                    if (contagem == sorteado) {
-                        break;
-                    }
+
+
+                    fmt.print("Superarko {} -- {} >> Tornado !!!", superarko, a.at("ID"));
+                    ENTT.EXIBIR_TABELA_PREFIXO("\t",ENTT.CRIAR_LISTA_COM(a));
+
+                    a.at("Superarko", superarko);
+                    a.at("Tozte", StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(superarko, tronarko));
+
+
+
                 }
-
-
-                fmt.print("Superarko {} -- {} >> Furacao !!!", superarko, a.at("ID"));
-                ENTT.EXIBIR_TABELA(ENTT.CRIAR_LISTA_COM(a));
-
-                a.at("Superarko", superarko);
-                a.at("Tozte", SUPERARKOS_DO_TRONARKO_PARA_TOZTE(superarko, tronarko));
 
                 if (adicionar_evento) {
-                    a.at("Tipo", "TORNADO");
+                    a.at("Fenomeno", "TORNADO");
                     retornar_fenonemos.adicionar(a.getCopia());
                 }
+
             }
 
         }
@@ -342,16 +357,7 @@ public class ServicoFenomenoAtmosferico {
     }
 
 
-    public static String SUPERARKOS_DO_TRONARKO_PARA_TOZTE(int superarko, int eTronarko) {
 
-        int hiperarko = 1;
-        while (superarko > 50) {
-            hiperarko += 1;
-            superarko -= 50;
-        }
-
-        return fmt.numero_zerado_c2(superarko) + "/" + fmt.numero_zerado_c2(hiperarko) + "/" + eTronarko;
-    }
 
 
     public static void RENDER(int tronarko){
@@ -371,20 +377,20 @@ public class ServicoFenomenoAtmosferico {
 
         for (Entidade fenomeno : tronarko_atividade_atmosfericos) {
 
-            if (fenomeno.is("Tipo", "FURACAO")) {
+            if (fenomeno.is("Fenomeno", "FURACAO")) {
                 Entidade furacao = fenomeno;
                 render.drawCirculoCentralizado_Pintado(furacao.atInt("X"), furacao.atInt("Y"), 15, Cores.hexToCor("#B3E5FC"));
                 render.drawCirculoCentralizado_Pintado(furacao.atInt("X"), furacao.atInt("Y"), 5, Cores.hexToCor("#43A047"));
 
                 ESCRITOR_NORMAL_BRANCO.escreva(furacao.atInt("X"), furacao.atInt("Y") + 20, "Furacão : " + furacao.at("Escala"));
-                ESCRITOR_NORMAL_BRANCO.escreva(furacao.atInt("X"), furacao.atInt("Y") + 60, "Superarko :: " + SUPERARKOS_DO_TRONARKO_PARA_TOZTE(furacao.atInt("Superarko"), tronarko));
-            }else   if (fenomeno.is("Tipo", "TORNADO")) {
+                ESCRITOR_NORMAL_BRANCO.escreva(furacao.atInt("X"), furacao.atInt("Y") + 60, "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(furacao.atInt("Superarko"), tronarko));
+            }else   if (fenomeno.is("Fenomeno", "TORNADO")) {
                 Entidade tornado = fenomeno;
                 render.drawCirculoCentralizado_Pintado(tornado.atInt("X"), tornado.atInt("Y"), 15, Cores.hexToCor("#FFEE58"));
                 render.drawCirculoCentralizado_Pintado(tornado.atInt("X"), tornado.atInt("Y"), 5, Cores.hexToCor("#FFA000"));
 
                 ESCRITOR_NORMAL_BRANCO.escreva(tornado.atInt("X"), tornado.atInt("Y") + 20, "Tornado : " + tornado.at("Escala"));
-                ESCRITOR_NORMAL_BRANCO.escreva(tornado.atInt("X"), tornado.atInt("Y") + 60, "Superarko :: " + SUPERARKOS_DO_TRONARKO_PARA_TOZTE(tornado.atInt("Superarko"), tronarko));
+                ESCRITOR_NORMAL_BRANCO.escreva(tornado.atInt("X"), tornado.atInt("Y") + 60, "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(tornado.atInt("Superarko"), tronarko));
             }
 
         }

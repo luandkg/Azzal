@@ -4,8 +4,7 @@ import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
-import apps.app_atzum.utils.Rasterizador;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Cores;
@@ -141,7 +140,7 @@ public class Publicador {
 
     public static void PUBLICAR_DADOS() {
 
-        AtzumCreatorInfo.iniciar("AnalisadorClimatico.PUBLICAR_DADOS");
+        AtzumCriativoLog.iniciar("AnalisadorClimatico.PUBLICAR_DADOS");
 
         Lista<Entidade> mInformacoesDasCidades = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_cidades.entts"));
 
@@ -225,7 +224,7 @@ public class Publicador {
         ENTT.GUARDAR(mInformacoesDasCidades, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_cidades_publicado.entts"));
         ENTT.GUARDAR(cidade_dados, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_cidades_publicado_simples.entts"));
 
-        AtzumCreatorInfo.terminar("AnalisadorClimatico.PUBLICAR_DADOS");
+        AtzumCriativoLog.terminar("AnalisadorClimatico.PUBLICAR_DADOS");
 
     }
 

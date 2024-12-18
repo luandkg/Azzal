@@ -14,21 +14,13 @@ import libs.luan.Aleatorio;
 import libs.luan.Embaralhar;
 import libs.luan.Lista;
 import libs.luan.fmt;
+import libs.tronarko.utils.StringTronarko;
 
 import java.awt.image.BufferedImage;
 
 public class ServicoFenomenoTectonico {
 
-    public static String SUPERARKOS_DO_TRONARKO_PARA_TOZTE(int superarko, int eTronarko) {
 
-        int hiperarko = 1;
-        while (superarko > 50) {
-            hiperarko += 1;
-            superarko -= 50;
-        }
-
-        return fmt.numero_zerado_c2(superarko) + "/" + fmt.numero_zerado_c2(hiperarko) + "/" + eTronarko;
-    }
 
     public static String ARQUIVO_VULCANISMO() {
         return AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos/vulcanismo.entts");
@@ -395,7 +387,7 @@ public class ServicoFenomenoTectonico {
         atividade_terrestre.adicionar_varios(tronarko_vulcanismo);
 
         for (Entidade e : atividade_terrestre) {
-            e.at("Tozte", SUPERARKOS_DO_TRONARKO_PARA_TOZTE(e.atInt("Superarko"), tronarko));
+            e.at("Tozte",  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(e.atInt("Superarko"), tronarko));
         }
 
         ENTT.ORDENAR_INTEIRO(atividade_terrestre, "Superarko");
@@ -435,7 +427,7 @@ public class ServicoFenomenoTectonico {
             render.drawCirculoCentralizado_Pintado(sismica.atInt("X"), sismica.atInt("Y"), 5, Cores.hexToCor("#43A047"));
 
             ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 20, "Terremoto : " + sismica.at("Escala"));
-            ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 60, "Superarko :: " + SUPERARKOS_DO_TRONARKO_PARA_TOZTE(sismica.atInt("Superarko"), tronarko));
+            ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 60, "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(sismica.atInt("Superarko"), tronarko));
 
         }
 
@@ -458,7 +450,7 @@ public class ServicoFenomenoTectonico {
                 render.drawCirculoCentralizado_Pintado(sismica.atInt("X"), sismica.atInt("Y"), 5, Cores.hexToCor("#1565C0"));
 
                 ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 20, "Terremoto : " + sismica.at("SismicaEscala"));
-                ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 60, "Superarko :: " + SUPERARKOS_DO_TRONARKO_PARA_TOZTE(sismica.atInt("Superarko"), tronarko));
+                ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 60, "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(sismica.atInt("Superarko"), tronarko));
             }
 
         }
@@ -470,7 +462,7 @@ public class ServicoFenomenoTectonico {
             render.drawCirculoCentralizado_Pintado(vulcao.atInt("X"), vulcao.atInt("Y"), 5, Cores.hexToCor("#FF5722"));
 
             ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), vulcao.atInt("Y") + 20, "Erupção : " + vulcao.at("Nivel"));
-            ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), vulcao.atInt("Y") + 60, "Superarko :: " + SUPERARKOS_DO_TRONARKO_PARA_TOZTE(vulcao.atInt("Superarko"), tronarko));
+            ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), vulcao.atInt("Y") + 60, "Superarko :: " + StringTronarko. SUPERARKOS_DO_TRONARKO_PARA_TOZTE(vulcao.atInt("Superarko"), tronarko));
 
 
             int descer_py = vulcao.atInt("Y") + 100;
@@ -481,7 +473,7 @@ public class ServicoFenomenoTectonico {
                     e_atividade_sismica.at("TemVulcanismo", "SIM");
                     vulcao.getEntidades().adicionar(e_atividade_sismica);
 
-                    ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), descer_py, "Terremoto = " + e_atividade_sismica.at("SismicaEscala") + " :: " + "Superarko :: " + SUPERARKOS_DO_TRONARKO_PARA_TOZTE(e_atividade_sismica.atInt("Superarko"), tronarko));
+                    ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), descer_py, "Terremoto = " + e_atividade_sismica.at("SismicaEscala") + " :: " + "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(e_atividade_sismica.atInt("Superarko"), tronarko));
 
                     //  ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), descer_py, "aaaaa");
 
@@ -497,6 +489,10 @@ public class ServicoFenomenoTectonico {
         fenomenos_tectonicos.adicionar_varios(tronarko_vulcanismo);
         fenomenos_tectonicos.adicionar_varios(tronarko_vulcanismo_sismica);
         fenomenos_tectonicos.adicionar_varios(tronarko_atividade_sismica);
+
+        ENTT.ATRIBUTO_TODOS(tronarko_vulcanismo,"Fenomeno","VULCANISMO");
+        ENTT.ATRIBUTO_TODOS(tronarko_vulcanismo_sismica,"Fenomeno","TERREMOTO");
+        ENTT.ATRIBUTO_TODOS(tronarko_atividade_sismica,"Fenomeno","TERREMOTO");
 
         ENTT.GUARDAR(fenomenos_tectonicos, ARQUIVO_FENOMENOS_TECTONICOS());
 

@@ -5,7 +5,7 @@ import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.escalas.EscalaAQ4;
 import apps.app_atzum.escalas.EscalaRT3;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_atzum.utils.AtzumPontosInteiro;
 import apps.app_atzum.utils.Rasterizador;
 import libs.arquivos.QTT;
@@ -25,7 +25,7 @@ public class ServicoRelevo {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.iniciar(SERVICO_NOME + ".INIT");
 
 
         relevo_terra();
@@ -40,8 +40,8 @@ public class ServicoRelevo {
         RELEVO_AGUA_PARCELAS();
         RELEVO_TERRA_PARCELAS();
 
-        AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
-        AtzumCreatorInfo.exibir_item(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.terminar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.exibir_item(SERVICO_NOME + ".INIT");
 
     }
 

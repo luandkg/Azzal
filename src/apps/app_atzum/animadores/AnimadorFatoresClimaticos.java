@@ -4,7 +4,7 @@ import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.utils.SnapShotter;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import libs.arquivos.Quadrum;
 import libs.arquivos.video.Empilhador;
 import libs.arquivos.video.VideoCodecador;
@@ -22,7 +22,7 @@ public class AnimadorFatoresClimaticos {
     public static void INIT() {
 
 
-        AtzumCreatorInfo.iniciar("AnimadorFatoresClimaticos.INIT");
+        AtzumCriativoLog.iniciar("AnimadorFatoresClimaticos.INIT");
 
 
         Cores mCores = new Cores();
@@ -136,8 +136,8 @@ public class AnimadorFatoresClimaticos {
         SnapShotter.CRIAR(AtzumCreator.LOCAL_GET_ARQUIVO("videos/sensores_observando_seca.vi"), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_observados_seca.png"));
 
 
-        AtzumCreatorInfo.terminar("AnimadorFatoresClimaticos.INIT");
-        AtzumCreatorInfo.exibir_item("AnimadorFatoresClimaticos.INIT");
+        AtzumCriativoLog.terminar("AnimadorFatoresClimaticos.INIT");
+        AtzumCriativoLog.exibir_item("AnimadorFatoresClimaticos.INIT");
 
 
     }

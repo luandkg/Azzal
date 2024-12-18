@@ -1,7 +1,7 @@
 package apps.app_atzum.analisadores;
 
 import apps.app_atzum.AtzumCreator;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSItem;
@@ -237,7 +237,7 @@ public class AnalisadorClimatico {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar("AnalisadorClimatico.INIT");
+        AtzumCriativoLog.iniciar("AnalisadorClimatico.INIT");
 
         PARTE_1();
         VER_DADOS_SENSORES_V2();
@@ -247,7 +247,7 @@ public class AnalisadorClimatico {
         PARTE_5();
         VER_V8();
 
-        AtzumCreatorInfo.terminar("AnalisadorClimatico.INIT");
+        AtzumCriativoLog.terminar("AnalisadorClimatico.INIT");
 
     }
 
@@ -586,7 +586,7 @@ public class AnalisadorClimatico {
 
         //MAPEAR_CONDICOES_CLIMATICAS
 
-        AtzumCreatorInfo.iniciar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
+        AtzumCriativoLog.iniciar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
 
         //   Lista<Entidade> mapa_sensores = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v7.entts"));
 
@@ -625,7 +625,7 @@ public class AnalisadorClimatico {
 
         ENTT.GUARDAR(dados_sensores_v8, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v8.entts"));
 
-        AtzumCreatorInfo.terminar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
+        AtzumCriativoLog.terminar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
 
     }
 

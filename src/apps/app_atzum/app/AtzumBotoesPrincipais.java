@@ -2,10 +2,15 @@ package apps.app_atzum.app;
 
 import libs.arquivos.dsvideo.DSVideo;
 import libs.azzal.Cores;
+import libs.azzal.Renderizador;
+import libs.entt.Entidade;
 import libs.imagem.Efeitos;
+import libs.luan.Lista;
 import libs.luan.RefInt;
 import libs.luan.fmt;
 import libs.mockui.Interface.Acao;
+
+import java.awt.image.BufferedImage;
 
 public class AtzumBotoesPrincipais {
 
@@ -19,9 +24,10 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO()));
+                app.mVideoEmExecucao.parar();
+
                 grupo.setSelecionado("Cidades");
                 mSubCamadas.zerar();
-                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -31,11 +37,60 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_REGIOES()));
-
+                app.mVideoEmExecucao.parar();
 
                 grupo.setSelecionado("Regiões");
                 mSubCamadas.zerar();
+
+            }
+        });
+
+        grupo.criarCamada("PlacasTectonicas", mCores.getVermelho()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_PLACAS_TECTONICAS()));
                 app.mVideoEmExecucao.parar();
+
+                grupo.setSelecionado("PlacasTectonicas");
+                mSubCamadas.zerar();
+
+            }
+        });
+
+        grupo.criarCamada("PlacasLimites", mCores.getVermelho()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+
+                BufferedImage placas_limites = app.mArquivoAtzumGeral.GET_MAPA_DE_PLACAS_TECTONICAS_LIMITES();
+                BufferedImage placas_regioes = app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO();
+
+                Renderizador render = new Renderizador(placas_limites);
+                Renderizador render_regioes = new Renderizador(placas_regioes);
+
+                for(int y=0;y<render.getAltura();y++){
+                    for(int x=0;x<render.getLargura();x++){
+                        if(render.getPixel(x,y).igual(mCores.getVermelho())){
+                            render.setPixel(x,y,mCores.getAmarelo());
+                        }
+                    }
+                }
+
+                for(int y=0;y<render_regioes.getAltura();y++){
+                    for(int x=0;x<render_regioes.getLargura();x++){
+                        if(render_regioes.getPixel(x,y).igual(mCores.getVermelho())){
+                            render.setPixel(x,y,mCores.getVermelho());
+                        }
+                    }
+                }
+
+
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(render.toImagemSemAlfa()));
+                app.mVideoEmExecucao.parar();
+
+                grupo.setSelecionado("PlacasLimites");
+                mSubCamadas.zerar();
 
             }
         });
@@ -45,11 +100,10 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_RELEVO()));
-
+                app.mVideoEmExecucao.parar();
 
                 grupo.setSelecionado("Relevo");
                 mSubCamadas.zerar();
-                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -60,10 +114,10 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumGeral.GET_MAPA_DE_OCEANOS()));
+                app.mVideoEmExecucao.parar();
 
                 grupo.setSelecionado("Oceanos");
                 mSubCamadas.zerar();
-                app.mVideoEmExecucao.parar();
 
 
             }
@@ -74,10 +128,10 @@ public class AtzumBotoesPrincipais {
             public void onClique() {
 
                 app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumTronarko.GET_MODELO_CLIMATICO()));
+                app.mVideoEmExecucao.parar();
 
                 grupo.setSelecionado("Modelo Climático");
                 mSubCamadas.zerar();
-                app.mVideoEmExecucao.parar();
 
 
             }
@@ -89,10 +143,10 @@ public class AtzumBotoesPrincipais {
 
                 app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(app.mArquivoAtzumTronarko.GET_MODELO_VEGETACAO()));
 
+                app.mVideoEmExecucao.parar();
 
                 grupo.setSelecionado("Modelo Vegetação");
                 mSubCamadas.zerar();
-                app.mVideoEmExecucao.parar();
 
             }
         });
@@ -102,9 +156,21 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
+                app.mVideoEmExecucao.parar();
+
                 criar_subcamadas(mSubCamadas, app, "umidade");
                 grupo.setSelecionado("Umidade");
-                app.mVideoEmExecucao.parar();
+
+                mSubCamadas.criarCamadaComNome("VU", "VU", mCores.getVermelho()).setAcao(new Acao() {
+                    @Override
+                    public void onClique() {
+
+                        DSVideo video = app.mArquivoAtzumTronarko.GET_VIDEO("@animacao/umidade.vi");
+                        app.mVideoEmExecucao.reproduzirVideo(video);
+                        mSubCamadas.setSelecionado("VU");
+
+                    }
+                });
 
             }
         });
@@ -113,9 +179,22 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
+                app.mVideoEmExecucao.parar();
+
                 criar_subcamadas(mSubCamadas, app, "temperatura");
                 grupo.setSelecionado("Temperatura");
-                app.mVideoEmExecucao.parar();
+
+                mSubCamadas.criarCamadaComNome("VT", "VT", mCores.getVermelho()).setAcao(new Acao() {
+                    @Override
+                    public void onClique() {
+
+                        DSVideo video = app.mArquivoAtzumTronarko.GET_VIDEO("@animacao/temperatura.vi");
+                        app.mVideoEmExecucao.reproduzirVideo(video);
+                        mSubCamadas.setSelecionado("VT");
+
+                    }
+                });
+
 
             }
         });
@@ -124,9 +203,21 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
+                app.mVideoEmExecucao.parar();
+
                 criar_subcamadas(mSubCamadas, app, "massa_de_ar");
                 grupo.setSelecionado("MassaDeAr");
-                app.mVideoEmExecucao.parar();
+
+                mSubCamadas.criarCamadaComNome("MA", "MA", mCores.getVermelho()).setAcao(new Acao() {
+                    @Override
+                    public void onClique() {
+
+                        DSVideo video = app.mArquivoAtzumTronarko.GET_VIDEO("@animacao/massa_de_ar.vi");
+                        app.mVideoEmExecucao.reproduzirVideo(video);
+                        mSubCamadas.setSelecionado("MA");
+
+                    }
+                });
 
             }
         });
@@ -135,6 +226,7 @@ public class AtzumBotoesPrincipais {
             @Override
             public void onClique() {
 
+                app.mVideoEmExecucao.parar();
                 criar_subcamadas(mSubCamadas, app, "fator_climatico");
 
                 mSubCamadas.criarCamadaComNome("FC", "FC", mCores.getVermelho()).setAcao(new Acao() {
@@ -147,7 +239,7 @@ public class AtzumBotoesPrincipais {
                         app.mVideoEmExecucao.reproduzirVideo(video);
 
                         mSubCamadas.setSelecionado("FC");
-                       // app.mVideoEmExecucao.parar();
+                        // app.mVideoEmExecucao.parar();
 
                     }
                 });
@@ -157,6 +249,97 @@ public class AtzumBotoesPrincipais {
             }
         });
 
+        grupo.criarCamada("MapaTectonico", mCores.getVermelho()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+                app.mFenomenosTectonicos = new Lista<Entidade>();
+
+                Renderizador render = new Renderizador(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO());
+
+                for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosTectonicos()) {
+                    if (atividade.is("Fenomeno", "TERREMOTO")) {
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getLaranja());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getLaranja());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getLaranja());
+                    }
+                }
+
+                for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosTectonicos()) {
+                    if (atividade.is("Fenomeno", "VULCANISMO")) {
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getVermelho());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getVermelho());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getVermelho());
+
+                        app.mFenomenosTectonicos.adicionar(atividade);
+                    }
+                }
+
+
+                for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosTectonicos()) {
+                    if (atividade.is("Fenomeno", "TERREMOTO")) {
+
+                        boolean existe = false;
+
+                        for(Entidade vulcao : app.mFenomenosTectonicos){
+                            if(vulcao.atInt("X") == atividade.atInt("X") && vulcao.atInt("Y") == atividade.atInt("Y")){
+                                existe=true;
+                                break;
+                            }
+                        }
+
+                        if(!existe){
+                            app.mFenomenosTectonicos.adicionar(atividade);
+                        }
+
+                    }
+                }
+
+
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(render.toImagemSemAlfa()));
+                app.mVideoEmExecucao.parar();
+
+                grupo.setSelecionado("MapaTectonico");
+                mSubCamadas.zerar();
+
+
+            }
+        });
+
+
+        grupo.criarCamada("MapaAtmosferico", mCores.getAzul()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+                app.mFenomenosAtmosfericos = app.mArquivoAtzumTronarko.getFenomenosAtmosfericos();
+
+                Renderizador render = new Renderizador(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO());
+
+                for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosAtmosfericos()) {
+                    if (atividade.is("Fenomeno", "FURACAO")) {
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getAzul());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getAzul());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getAzul());
+                    }
+                }
+
+                for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosAtmosfericos()) {
+                    if (atividade.is("Fenomeno", "TORNADO")) {
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getLaranja());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getLaranja());
+                        render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getLaranja());
+                    }
+                }
+
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(render.toImagemSemAlfa()));
+                app.mVideoEmExecucao.parar();
+
+                grupo.setSelecionado("MapaAtmosferico");
+                mSubCamadas.zerar();
+
+
+            }
+        });
     }
 
 

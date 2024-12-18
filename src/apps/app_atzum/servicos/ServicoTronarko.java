@@ -4,11 +4,12 @@ import apps.app_arquivos.AppVideo;
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
+import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.analisadores.AnalisadorTemperatura;
 import apps.app_atzum.apps.AtzumSnapShots;
 import apps.app_atzum.renderizadores.TronarkoRenderizadores;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_atzum.utils.MassaDeAr;
 import apps.app_atzum.utils.Rasterizador;
 import apps.app_atzum.utils.SnapShotter;
@@ -39,13 +40,13 @@ import libs.luan.*;
 public class ServicoTronarko {
 
     public static void CONSTRUIR_TRONARKO() {
-        AtzumCreatorInfo.iniciar("ServicoTronarko.CONSTRUIR_TRONARKO");
+        AtzumCriativoLog.iniciar("ServicoTronarko.CONSTRUIR_TRONARKO");
 
         CONSTRUIR_TRONARKO_MODELO_V2(1);
         CONSTRUIR_TRONARKO_MODELO_V2(2);
 
-        AtzumCreatorInfo.terminar("ServicoTronarko.CONSTRUIR_TRONARKO");
-        AtzumCreatorInfo.exibir_item("ServicoTronarko.CONSTRUIR_TRONARKO");
+        AtzumCriativoLog.terminar("ServicoTronarko.CONSTRUIR_TRONARKO");
+        AtzumCriativoLog.exibir_item("ServicoTronarko.CONSTRUIR_TRONARKO");
 
     }
 
@@ -288,7 +289,7 @@ public class ServicoTronarko {
 
     public static void TRONARKO_PROCESSAR_SUPERARKOS(boolean usar_transicao,int tronarko_corrente) {
 
-        AtzumCreatorInfo.iniciar("ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS");
+        AtzumCriativoLog.iniciar("ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS");
 
         boolean ANALISAR_VARIACAO = true;
 
@@ -434,7 +435,7 @@ public class ServicoTronarko {
         Cor cor_tornado = Atzum.FENOMENO_COR_TORNADO;
 
 
-        if(tronarko_corrente==7000){
+        if(tronarko_corrente== AtzumProcessoCriativoEmTarefas.TRONARKO_INICIAR){
             ServicoFenomenoAtmosferico.ZERAR();
         }
 
@@ -570,7 +571,7 @@ public class ServicoTronarko {
 
         SENSORES_DADOS_ORGANIZAR();
 
-        AtzumCreatorInfo.terminar("ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS");
+        AtzumCriativoLog.terminar("ServicoTronarko.TRONARKO_PROCESSAR_SUPERARKOS");
 
         fmt.print(">> Tudo OK !!!");
 
@@ -839,7 +840,7 @@ public class ServicoTronarko {
 
         //  ServicoTronarko.OBSERVAR_SENSORES >>> + 29 uz
 
-        AtzumCreatorInfo.iniciar("ServicoTronarko.OBSERVAR_SENSORES");
+        AtzumCriativoLog.iniciar("ServicoTronarko.OBSERVAR_SENSORES");
 
         Lista<Entidade> dados_brutos = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores.entts"));
 
@@ -918,8 +919,8 @@ public class ServicoTronarko {
         SnapShotter.CRIAR(AtzumCreator.LOCAL_GET_ARQUIVO("videos/sensores_observando.vi"), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_observados.png"));
 
 
-        AtzumCreatorInfo.terminar("ServicoTronarko.OBSERVAR_SENSORES");
-        AtzumCreatorInfo.exibir_item("ServicoTronarko.OBSERVAR_SENSORES");
+        AtzumCriativoLog.terminar("ServicoTronarko.OBSERVAR_SENSORES");
+        AtzumCriativoLog.exibir_item("ServicoTronarko.OBSERVAR_SENSORES");
 
         //  ENTT.EXIBIR_TABELA(dados_brutos);
 
@@ -930,7 +931,7 @@ public class ServicoTronarko {
 
         //  ServicoTronarko.OBSERVAR_SENSORES >>> + 29 uz
 
-        AtzumCreatorInfo.iniciar("ServicoTronarko.OBSERVAR_SENSORES");
+        AtzumCriativoLog.iniciar("ServicoTronarko.OBSERVAR_SENSORES");
 
         fmt.print(">> Obtendo dados dos sensores...");
 
@@ -1048,8 +1049,8 @@ public class ServicoTronarko {
         SnapShotter.CRIAR(AtzumCreator.LOCAL_GET_ARQUIVO("videos/sensores_observando_seca.vi"), AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_observados_seca.png"));
 
 
-        AtzumCreatorInfo.terminar("ServicoTronarko.OBSERVAR_SENSORES");
-        AtzumCreatorInfo.exibir_item("ServicoTronarko.OBSERVAR_SENSORES");
+        AtzumCriativoLog.terminar("ServicoTronarko.OBSERVAR_SENSORES");
+        AtzumCriativoLog.exibir_item("ServicoTronarko.OBSERVAR_SENSORES");
 
         //  ENTT.EXIBIR_TABELA(dados_brutos);
 

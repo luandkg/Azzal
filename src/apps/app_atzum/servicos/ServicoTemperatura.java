@@ -4,7 +4,7 @@ import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.utils.AtzumCidades;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_atzum.utils.AtzumPontosInteiro;
 import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_atzum.utils.Rasterizador;
@@ -363,7 +363,7 @@ public class ServicoTemperatura {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.iniciar(SERVICO_NOME + ".INIT");
 
 
         PRE(1);
@@ -381,8 +381,8 @@ public class ServicoTemperatura {
         //  RENDERIZAR("1");
         //  RENDERIZAR("2");
 
-        AtzumCreatorInfo.terminar(SERVICO_NOME + ".INIT");
-        AtzumCreatorInfo.exibir_item(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.terminar(SERVICO_NOME + ".INIT");
+        AtzumCriativoLog.exibir_item(SERVICO_NOME + ".INIT");
 
     }
 

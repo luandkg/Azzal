@@ -149,24 +149,6 @@ public class AtzumCreator {
     }
 
 
-    public static void EMPACOTAR_ATZUM() {
-
-        DS.limpar(LOCAL_GET_ARQUIVO("Atzum.ds"));
-
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "ATZUM.im", IM.salvar_to_bytes(GET_MAPA()));
-
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "BUILD.entts", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("logs/AtzumCreatorInfo.entts")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "SENSORES.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/SENSORES.dkg")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "CIDADES.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/CIDADES.dkg")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "OCEANOS.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/OCEANOS.dkg")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "CIDADES_NOMES.entts", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "SENSORES.entts", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/SENSORES.entts")));
-
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "RELEVO_AGUA.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/relevo/RELEVO_AGUA.dkg")));
-        DS.adicionar(LOCAL_GET_ARQUIVO("Atzum.ds"), "RELEVO_TERRA.dkg", Arquivador.GET_BYTES(LOCAL_GET_ARQUIVO("parametros/relevo/RELEVO_TERRA.dkg")));
-
-
-    }
 
 
     public static Lista<RegiaoDefinida> GET_REGIOES() {

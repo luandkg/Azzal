@@ -4,7 +4,7 @@ import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_atzum.utils.Rasterizador;
 import libs.arquivos.QTT;
 import libs.azzal.Cores;
@@ -22,18 +22,18 @@ public class ServicoSensores {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar("ServicoSensores.INIT");
+        AtzumCriativoLog.iniciar("ServicoSensores.INIT");
 
         MAPEAR_SENSORES();
         ORGANIZAR_SENSORES();
 
-        AtzumCreatorInfo.terminar("ServicoSensores.INIT");
-        AtzumCreatorInfo.exibir_item("ServicoSensores.INIT");
+        AtzumCriativoLog.terminar("ServicoSensores.INIT");
+        AtzumCriativoLog.exibir_item("ServicoSensores.INIT");
 
     }
 
     public static void MAPEAR_SENSORES() {
-        AtzumCreatorInfo.iniciar("ServicoTronarko.MAPEAR_SENSORES");
+        AtzumCriativoLog.iniciar("ServicoTronarko.MAPEAR_SENSORES");
 
         Cores mCores = new Cores();
 
@@ -159,14 +159,14 @@ public class ServicoSensores {
         ENTT.GUARDAR(sensores, AtzumCreator.LOCAL_GET_ARQUIVO("parametros/SENSORES.entts"));
 
 
-        AtzumCreatorInfo.terminar("ServicoTronarko.MAPEAR_SENSORES");
-        AtzumCreatorInfo.exibir_item("ServicoTronarko.MAPEAR_SENSORES");
+        AtzumCriativoLog.terminar("ServicoTronarko.MAPEAR_SENSORES");
+        AtzumCriativoLog.exibir_item("ServicoTronarko.MAPEAR_SENSORES");
 
     }
 
     public static void ORGANIZAR_SENSORES() {
 
-        AtzumCreatorInfo.iniciar("ServicoTronarko.ORGANIZAR_SENSORES");
+        AtzumCriativoLog.iniciar("ServicoTronarko.ORGANIZAR_SENSORES");
 
         AtzumTerra planeta = new AtzumTerra();
 
@@ -204,8 +204,8 @@ public class ServicoSensores {
         }
 
 
-        AtzumCreatorInfo.terminar("ServicoTronarko.ORGANIZAR_SENSORES");
-        AtzumCreatorInfo.exibir_item("ServicoTronarko.ORGANIZAR_SENSORES");
+        AtzumCriativoLog.terminar("ServicoTronarko.ORGANIZAR_SENSORES");
+        AtzumCriativoLog.exibir_item("ServicoTronarko.ORGANIZAR_SENSORES");
     }
 
 }

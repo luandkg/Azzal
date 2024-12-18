@@ -1,11 +1,10 @@
 package apps.app_atzum.servicos;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
-import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import libs.arquivos.QTT;
 import libs.azzal.geometria.Ponto;
 import libs.entt.ENTT;
@@ -19,7 +18,7 @@ public class AtzumCentralDados {
 
     public static void PROXIMIDADE_COM_OCENAO() {
 
-        AtzumCreatorInfo.iniciar("AtzumCentralDados.PROXIMIDADE_COM_OCENAO");
+        AtzumCriativoLog.iniciar("AtzumCentralDados.PROXIMIDADE_COM_OCENAO");
 
 
         Lista<Entidade> tronarko_cidades_distancia_oceanica = Atzum.GET_CIDADES_NOMES();
@@ -70,7 +69,7 @@ public class AtzumCentralDados {
 
         ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(tronarko_cidades_distancia_oceanica,10));
 
-        AtzumCreatorInfo.terminar("AtzumCentralDados.PROXIMIDADE_COM_OCENAO");
+        AtzumCriativoLog.terminar("AtzumCentralDados.PROXIMIDADE_COM_OCENAO");
 
         fmt.print("OK !");
     }

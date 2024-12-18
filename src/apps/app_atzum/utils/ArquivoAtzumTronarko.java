@@ -37,8 +37,18 @@ public class ArquivoAtzumTronarko {
     }
 
     public Lista<Entidade> getCidadesDadosPublicados() {
-        Lista<Entidade> mCidadesDadosPublicados = DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@dados/tronarko_cidades_dados_publicados.entts").get());
-        return mCidadesDadosPublicados;
+        Lista<Entidade> dados = DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@dados/tronarko_cidades_dados_publicados.entts").get());
+        return dados;
+    }
+
+    public Lista<Entidade> getFenomenosTectonicos() {
+        Lista<Entidade> dados = DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@informacoes/fenomenos_tectonicos.entts").get());
+        return dados;
+    }
+
+    public Lista<Entidade> getFenomenosAtmosfericos() {
+        Lista<Entidade> dados = DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@informacoes/fenomenos_atmosfericos.entts").get());
+        return dados;
     }
 
     public Lista<Entidade> getCidadesDadosPublicadosIndicePorCidade() {

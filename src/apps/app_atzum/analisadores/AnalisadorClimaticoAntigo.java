@@ -2,7 +2,7 @@ package apps.app_atzum.analisadores;
 
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
-import apps.app_atzum.utils.AtzumCreatorInfo;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_campeonatum.VERIFICADOR;
 import libs.arquivos.Quadrum;
 import libs.arquivos.ds.DS;
@@ -704,7 +704,7 @@ public class AnalisadorClimaticoAntigo {
 
     public static void MAPEAR_CONDICOES_CLIMATICAS() {
 
-        AtzumCreatorInfo.iniciar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
+        AtzumCriativoLog.iniciar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
 
         Lista<Entidade> mapa_sensores = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v3.entts"));
         //  Lista<Entidade> mapa_sensores = ENTT.ABRIR_COM_LIMITE(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v3.entts"), 30);
@@ -737,7 +737,7 @@ public class AnalisadorClimaticoAntigo {
 
         ENTT.GUARDAR(vegetacao, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v5.entts"));
 
-        AtzumCreatorInfo.terminar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
+        AtzumCriativoLog.terminar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
 
     }
 
@@ -938,7 +938,7 @@ public class AnalisadorClimaticoAntigo {
 
     public static void ANALISE_TEMPORAL() {
 
-        AtzumCreatorInfo.iniciar("AnalisadorClimatico.ANALISE_TEMPORAL");
+        AtzumCriativoLog.iniciar("AnalisadorClimatico.ANALISE_TEMPORAL");
 
         fmt.print(">> Obtendo dados dos sensores...");
 
@@ -1074,8 +1074,8 @@ public class AnalisadorClimaticoAntigo {
         Lista<Entidade> modelos_validos = ENTT.COLETAR(modelos, "Status", "Original");
         ENTT.EXIBIR_TABELA(modelos_validos);
 
-        AtzumCreatorInfo.terminar("AnalisadorClimatico.ANALISE_TEMPORAL");
-        AtzumCreatorInfo.exibir_item("AnalisadorClimatico.ANALISE_TEMPORAL");
+        AtzumCriativoLog.terminar("AnalisadorClimatico.ANALISE_TEMPORAL");
+        AtzumCriativoLog.exibir_item("AnalisadorClimatico.ANALISE_TEMPORAL");
 
 
     }
@@ -1083,7 +1083,7 @@ public class AnalisadorClimaticoAntigo {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar("AnalisadorClimatico.INIT");
+        AtzumCriativoLog.iniciar("AnalisadorClimatico.INIT");
 
         fmt.print(">> Obtendo dados dos sensores...");
 
@@ -1211,7 +1211,7 @@ public class AnalisadorClimaticoAntigo {
         parte_4();
         parte_5();
 
-        AtzumCreatorInfo.terminar("AnalisadorClimatico.INIT");
+        AtzumCriativoLog.terminar("AnalisadorClimatico.INIT");
 
     }
 
@@ -1509,7 +1509,7 @@ public class AnalisadorClimaticoAntigo {
 
         //MAPEAR_CONDICOES_CLIMATICAS
 
-        AtzumCreatorInfo.iniciar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
+        AtzumCriativoLog.iniciar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
 
         Lista<Entidade> mapa_sensores = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v7.entts"));
 
@@ -1539,7 +1539,7 @@ public class AnalisadorClimaticoAntigo {
 
         ENTT.GUARDAR(vegetacao, AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v8.entts"));
 
-        AtzumCreatorInfo.terminar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
+        AtzumCriativoLog.terminar("AnalisadorClimatico.MAPEAR_CONDICOES_CLIMATICAS");
 
     }
 

@@ -1,32 +1,18 @@
 package apps.app_atzum.analisadores;
 
-import apps.app_attuz.Ferramentas.Espaco2D;
-import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
-import apps.app_atzum.AtzumTerra;
-import apps.app_atzum.utils.AtzumCreatorInfo;
-import apps.app_atzum.utils.Rasterizador;
+import apps.app_atzum.utils.AtzumCriativoLog;
 import apps.app_campeonatum.VERIFICADOR;
-import apps.app_letrum.Fonte;
-import apps.app_letrum.Maker.FonteRunTime;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.geometria.Ponto;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.imagem.Imagem;
 import libs.luan.Lista;
-import libs.luan.Par;
-import libs.luan.Strings;
 import libs.luan.fmt;
-
-import java.awt.image.BufferedImage;
 
 public class AnalisadorVegetacao {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar("AnalisadorVegetacao.INIT");
+        AtzumCriativoLog.iniciar("AnalisadorVegetacao.INIT");
 
         Lista<Entidade> mapa_sensores = ENTT.ABRIR(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_v8.entts"));
 
@@ -121,7 +107,7 @@ public class AnalisadorVegetacao {
 
 
 
-        AtzumCreatorInfo.terminar("AnalisadorVegetacao.INIT");
+        AtzumCriativoLog.terminar("AnalisadorVegetacao.INIT");
 
     }
 

@@ -23,7 +23,7 @@ public class ServicoMassasDeAr {
 
     public static void INIT() {
 
-        AtzumCreatorInfo.iniciar("ServicoMassasDeAr.INIT");
+        AtzumCriativoLog.iniciar("ServicoMassasDeAr.INIT");
 
         AtzumTerra planeta = new AtzumTerra();
 
@@ -302,7 +302,7 @@ public class ServicoMassasDeAr {
 
         }
 
-        AtzumCreatorInfo.terminar("ServicoMassasDeAr.INIT");
+        AtzumCriativoLog.terminar("ServicoMassasDeAr.INIT");
 
     }
 
@@ -344,7 +344,7 @@ public class ServicoMassasDeAr {
 
     public static void PROCESSAR_TRONARKO() {
 
-        AtzumCreatorInfo.iniciar("ServicoMassasDeAr.PROCESSAR_TRONARKO");
+        AtzumCriativoLog.iniciar("ServicoMassasDeAr.PROCESSAR_TRONARKO");
 
         AtzumTerra mapa_planeta = new AtzumTerra();
 
@@ -499,7 +499,7 @@ public class ServicoMassasDeAr {
 
         video_movimento.fechar();
 
-        AtzumCreatorInfo.terminar("ServicoMassasDeAr.PROCESSAR_TRONARKO");
+        AtzumCriativoLog.terminar("ServicoMassasDeAr.PROCESSAR_TRONARKO");
 
     }
 

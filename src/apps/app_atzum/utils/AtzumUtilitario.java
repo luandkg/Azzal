@@ -1,21 +1,14 @@
-package apps.app_atzum;
+package apps.app_atzum.utils;
 
-import apps.app_atzum.utils.IntervaloDeValorColorido;
-import apps.app_atzum.utils.SnapShotter;
-import libs.arquivos.ds.DS;
-import libs.azzal.Cores;
-import libs.azzal.Renderizador;
-import libs.azzal.geometria.Ponto;
-import libs.azzal.utilitarios.Cor;
+import apps.app_atzum.AtzumCreator;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.imagem.Imagem;
 import libs.luan.Lista;
 import libs.luan.fmt;
 
-public class AtzumProcessoCriativo {
+public class AtzumUtilitario {
 
 
     public static void TAKE_SHOT() {
