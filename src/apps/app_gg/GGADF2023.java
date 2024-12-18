@@ -1,4 +1,4 @@
-package apps.app;
+package apps.app_gg;
 
 import apps.app_citatte.Stringum;
 import libs.arquivos.binario.Arquivador;
@@ -19,15 +19,13 @@ public class GGADF2023 {
 
 
         fmt.print();
-        fmt.print("---------------------- GG ADF -----------------------");
+        fmt.print("---------------------- GG ADF :: 2023 -----------------------");
         fmt.print();
 
 
-        String arquivo_b1_a = "/home/luan/Dropbox/GG23/2022/TRADICIONAL_0.cache";
-
-        String arquivo_b1 = "/home/luan/Dropbox/GG23/2023/TRADICIONAL_0.cache";
-        String arquivo_b2 = "/home/luan/Dropbox/GG23/2023/TRADICIONAL_5.cache";
-        String arquivo_b3 = "/home/luan/Dropbox/GG23/2023/CONTINUA_6.cache";
+        String arquivo_b1 = "/home/luan/Documentos/GG/2023/TRADICIONAL_0.cache";
+        String arquivo_b2 = "/home/luan/Documentos/GG/2023/TRADICIONAL_5.cache";
+        String arquivo_b3 = "/home/luan/Documentos/GG/2023/CONTINUA_6.cache";
 
         Lista<DKGObjeto> turmas_analisadas = new Lista<>();
 
@@ -35,7 +33,7 @@ public class GGADF2023 {
         Lista<DKGObjeto> alunos_3_bimestre = new Lista<>();
 
 
-        BIMESTRE(arquivo_b1_a, "B1", turmas_analisadas, alunos_todos_bimestres, new Lista<>());
+        BIMESTRE(arquivo_b1, "B1", turmas_analisadas, alunos_todos_bimestres, new Lista<>());
         BIMESTRE(arquivo_b2, "B2", turmas_analisadas, alunos_todos_bimestres, new Lista<>());
         BIMESTRE(arquivo_b3, "B3", turmas_analisadas, alunos_todos_bimestres, alunos_3_bimestre);
 
@@ -101,11 +99,17 @@ public class GGADF2023 {
 
         }
 
+        DKGFeatures.EXIBIR_TABELA(alunos_3_bimestre);
+
+        ANALISTICS_V2(arquivo_b3);
+
+        fmt.print("P(306) = {}", GET_ITEM(arquivo_b3, 59));
+
     }
 
     public static String GET_ITEM(String eArquivo, int indice) {
 
-        final int TAMANHO_ITEM = (500 * 1024);
+        final long TAMANHO_ITEM = (500 * 1024);
 
         Arquivador arquivar = new Arquivador(eArquivo);
         arquivar.setPonteiro(2 + (indice * TAMANHO_ITEM));
@@ -129,6 +133,18 @@ public class GGADF2023 {
 
 
     public static void ANALISTICS(String arquivo) {
+
+
+        fmt.print("");
+        fmt.print("-------------------- ANALISADOR ANALISTICO CACHE ------------------------");
+        fmt.print("");
+
+        boolean tem_primeiro = false;
+        long menor = 0;
+        long maior = 0;
+        String s_menor = "";
+        String s_maior = "";
+
 
         Arquivador arquivar = new Arquivador(arquivo);
         arquivar.setPonteiro(0);
@@ -155,7 +171,30 @@ public class GGADF2023 {
                 if (comecar) {
                     comecar = false;
                     p2 = pos;
-                    System.out.println("Entre " + fmt.espacar_antes(qq, 5) + " = " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p1 - ap1, 10) + "    -    " + fmt.formatar_tamanho_precisao_dupla(p2 - p1));
+                    fmt.print("\t ++ {}", "Objeto " + fmt.espacar_antes(qq, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p1 - ap1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(p2 - p1), 20) + " ]");
+
+                    long tamanho_bloco = p2 - p1;
+
+                    if (!tem_primeiro) {
+                        tem_primeiro = true;
+                        menor = tamanho_bloco;
+                        maior = tamanho_bloco;
+
+                        s_menor = "Objeto " + fmt.espacar_antes(qq, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p1 - ap1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(p2 - p1), 20) + " ]";
+                        s_maior = "Objeto " + fmt.espacar_antes(qq, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p1 - ap1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(p2 - p1), 20) + " ]";
+
+                    } else {
+                        if (tamanho_bloco < menor) {
+                            menor = tamanho_bloco;
+                            s_menor = "Objeto " + fmt.espacar_antes(qq, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p1 - ap1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(p2 - p1), 20) + " ]";
+                        }
+                        if (tamanho_bloco > maior) {
+                            maior = tamanho_bloco;
+                            s_maior = "Objeto " + fmt.espacar_antes(qq, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p1 - ap1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(p2 - p1), 20) + " ]";
+                        }
+                    }
+
+
                     qq += 1;
                 }
             }
@@ -163,6 +202,116 @@ public class GGADF2023 {
         }
 
         arquivar.encerrar();
+
+        if (tem_primeiro) {
+            fmt.print("");
+            fmt.print("\t ++ Menor : {}", s_menor);
+            fmt.print("\t ++ Maior : {}", s_maior);
+        }
+
+    }
+
+
+    public static void ANALISTICS_V2(String arquivo) {
+
+        final int TAMANHO_ITEM = (500 * 1024);
+
+        Arquivador arquivar = new Arquivador(arquivo);
+        long tama = arquivar.getLength() - 2;
+        arquivar.encerrar();
+
+        long quantidade_de_blocos = tama / TAMANHO_ITEM;
+
+
+        fmt.print("");
+        fmt.print("-------------------- ANALISADOR ANALISTICO CACHE ------------------------");
+        fmt.print("");
+
+        boolean tem_primeiro = false;
+        long menor = 0;
+        long maior = 0;
+        String s_menor = "";
+        String s_maior = "";
+
+        String s_maior2 = "";
+        String s_maior3 = "";
+        String s_maior4 = "";
+
+        long bloco_id = 0;
+
+
+        while (bloco_id < quantidade_de_blocos) {
+
+            Arquivador arquivar2 = new Arquivador(arquivo);
+            arquivar2.setPonteiro(2 + (bloco_id * TAMANHO_ITEM));
+
+            long p1 = arquivar2.getPonteiro();
+            long p2 = arquivar2.getPonteiro() + TAMANHO_ITEM;
+
+            int tamanho_bloco = arquivar2.get_u32();
+            arquivar2.encerrar();
+
+
+            String porcentagem = fmt.f2Porcentagem(tamanho_bloco, TAMANHO_ITEM);
+
+            String item_tipo = "";
+
+            if(tamanho_bloco>0){
+                String s_item = GET_ITEM(arquivo,(int)bloco_id);
+
+                if( s_item.startsWith("!")){
+                    s_item=Strings.GET_ATE(s_item," ");
+                    item_tipo=s_item;
+                }else{
+                    item_tipo="<<FORMATO_DESCONHECIDO>>";
+                }
+            }
+
+
+
+            fmt.print("\t ++ {}", "Objeto " + fmt.espacar_antes(bloco_id, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p2 - p1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(tamanho_bloco), 20) + " ( " + fmt.espacar_antes(porcentagem,6) + " ) "+ " ] -->> "+item_tipo);
+
+
+            if (!tem_primeiro) {
+                tem_primeiro = true;
+                menor = tamanho_bloco;
+                maior = tamanho_bloco;
+
+                s_menor = "Objeto " + fmt.espacar_antes(bloco_id, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p2 - p1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(tamanho_bloco), 20) + " ( " + fmt.espacar_antes(porcentagem,6) + " ) "+ " ]";
+                s_maior = "Objeto " + fmt.espacar_antes(bloco_id, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p2 - p1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(tamanho_bloco), 20) + " ( " + fmt.espacar_antes(porcentagem,6) + " ) "+ " ]";
+
+            } else {
+                if (tamanho_bloco < menor) {
+                    menor = tamanho_bloco;
+                    s_menor = "Objeto " + fmt.espacar_antes(bloco_id, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p2 - p1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(tamanho_bloco), 20)+ " ( " + fmt.espacar_antes(porcentagem,6) + " ) "+ " ]";
+                }
+                if (tamanho_bloco > maior) {
+                    maior = tamanho_bloco;
+
+                    s_maior4=s_maior3;
+                    s_maior3=s_maior2;
+                    s_maior2=s_maior;
+
+                    s_maior = "Objeto " + fmt.espacar_antes(bloco_id, 5) + " -->> [ " + fmt.espacar_antes(p1, 10) + "  " + fmt.espacar_antes(p2, 10) + "    " + fmt.espacar_antes(p2 - p1, 10) + "    -    " + fmt.espacar_antes(fmt.formatar_tamanho_precisao_dupla(tamanho_bloco), 20) + " ( " + fmt.espacar_antes(porcentagem,6) + " ) "+ " ]";
+                }
+            }
+
+            bloco_id += 1;
+        }
+
+
+        if (tem_primeiro) {
+            fmt.print("");
+            fmt.print("\t ++ Menor   : {}", s_menor);
+            fmt.print("\t ++ Maior 4 : {}", s_maior4);
+            fmt.print("\t ++ Maior 3 : {}", s_maior3);
+            fmt.print("\t ++ Maior 2 : {}", s_maior2);
+            fmt.print("\t ++ Maior   : {}", s_maior);
+            fmt.print("");
+        }
+
+        fmt.print("----------------------------------------------------------------------------------");
+
     }
 
 

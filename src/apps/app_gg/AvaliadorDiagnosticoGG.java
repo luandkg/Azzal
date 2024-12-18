@@ -1,4 +1,4 @@
-package apps.app;
+package apps.app_gg;
 
 import libs.dkg.DKGObjeto;
 import libs.luan.RefString;
