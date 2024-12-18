@@ -51,6 +51,28 @@ public class ZettaColecao {
         return lista;
     }
 
+    public Lista<Entidade> getItensAlguns(int quantidade) {
+
+        Lista<Entidade> lista = new Lista<Entidade>();
+
+        for (ItemAlocado item : mDados.getItensAlocados()) {
+
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+            e_item.at("@PTR", item.getPonteiroDados());
+
+            e_item.tornar_primeiro("@PTR");
+            e_item.tornar_primeiro("@ID");
+
+            lista.adicionar(e_item);
+
+            if(lista.getQuantidade()>=quantidade){
+                break;
+            }
+        }
+
+        return lista;
+    }
+
     public Lista<ItemColecionavel> getItensEditaveis() {
         Lista<ItemColecionavel> lista = new Lista<ItemColecionavel>();
 
