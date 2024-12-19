@@ -123,6 +123,14 @@ public class Matematica {
         }
     }
 
+    public static int NEGATIVO(int valor) {
+        if (valor < 0) {
+            return valor;
+        } else {
+            return valor * (-1);
+        }
+    }
+
     public static String CONDICIONAL(boolean condicao, String valido, String nao_valido) {
         if (condicao) {
             return valido;
@@ -420,6 +428,15 @@ public class Matematica {
         }
 
         return operadores_valores;
+    }
+
+
+    public static int POSITIVO_OU_NEGATIVO(int valor){
+        if(Aleatorio.aleatorio(100)>=50){
+            return valor;
+        }else{
+            return valor*(-1);
+        }
     }
 
 }
