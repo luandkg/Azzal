@@ -19,6 +19,7 @@ public class ArquivoAtzumGeral {
     private Opcional<DSItem> op_planeta_oceanos = Opcional.CANCEL();
     private Opcional<DSItem> op_planeta_regioes = Opcional.CANCEL();
     private Opcional<DSItem> op_planeta_subregioes = Opcional.CANCEL();
+    private Opcional<DSItem> op_planeta_placas_tectonicas = Opcional.CANCEL();
 
     public ArquivoAtzumGeral() {
         String arquivo_atzum = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/atzum.ds");
@@ -34,6 +35,7 @@ public class ArquivoAtzumGeral {
             op_planeta_oceanos = DSIndexador.GET_ITEM(mIndice, "@dados/oceanos.qtt");
             op_planeta_regioes = DSIndexador.GET_ITEM(mIndice, "@dados/regioes.qtt");
             op_planeta_subregioes = DSIndexador.GET_ITEM(mIndice, "@dados/subregioes.qtt");
+            op_planeta_placas_tectonicas = DSIndexador.GET_ITEM(mIndice, "@dados/placas_tectonicas.qtt");
 
 
             DS.DUMP_ITENS(mIndice);
@@ -110,5 +112,14 @@ public class ArquivoAtzumGeral {
         }
     }
 
+
+
+    public int GET_PLACA_TECTONICA(int px, int py) {
+        if (op_planeta_relevo.isOK()) {
+            return DSInterno.QTT_GET(op_planeta_placas_tectonicas.get(), px, py);
+        } else {
+            return 0;
+        }
+    }
 
 }

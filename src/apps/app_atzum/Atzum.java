@@ -22,6 +22,7 @@ public class Atzum {
 
     private Vetor<String> mRegioes;
     private Vetor<String> mOceanos;
+    private Vetor<String> mPlacasTectonicas;
 
 
     private static final Cor mMassaDeArFria = Cor.getHexCor("#4FC3F7");
@@ -72,9 +73,23 @@ public class Atzum {
         mRegioes.set(9, "Oomgue");
         mRegioes.set(10, "Mecron");
 
+
+        mPlacasTectonicas = new Vetor<String>(9);
+        mPlacasTectonicas.set(0, "");
+        mPlacasTectonicas.set(1, "Placa ATG");
+        mPlacasTectonicas.set(2, "Placa BTT");
+        mPlacasTectonicas.set(3, "Placa CDM");
+        mPlacasTectonicas.set(4, "Placa RCZ");
+        mPlacasTectonicas.set(5, "Placa SSP");
+        mPlacasTectonicas.set(6, "Placa GRT");
+        mPlacasTectonicas.set(7, "Placa ZQA");
+        mPlacasTectonicas.set(8, "Placa EMT");
+
     }
 
-    public static String GET_LOCAL(){return LOCAL;}
+    public static String GET_LOCAL() {
+        return LOCAL;
+    }
 
     public String GET_REGIAO_NOME(int i) {
         return mRegioes.get(i);
@@ -86,7 +101,7 @@ public class Atzum {
 
 
     public static Lista<Ponto> GET_CIDADES() {
-        return AtzumPontos.ABRIR( LOCAL + "parametros/CIDADES.dkg");
+        return AtzumPontos.ABRIR(LOCAL + "parametros/CIDADES.dkg");
     }
 
     public static Lista<Entidade> GET_SENSORES() {
@@ -100,7 +115,7 @@ public class Atzum {
     public static Lista<Entidade> GET_CIDADES_NOMES() {
 
         Lista<Entidade> e_cidades = ENTT.ABRIR(LOCAL + "parametros/CIDADES_NOMES.entts");
-        ENTT.AT_ALTERAR_NOME(e_cidades, "ID","CidadeID");
+        ENTT.AT_ALTERAR_NOME(e_cidades, "ID", "CidadeID");
 
         return e_cidades;
     }
@@ -149,7 +164,7 @@ public class Atzum {
     }
 
 
-    public Lista<String> GET_MASSA_DE_AR_TIPOS(){
+    public Lista<String> GET_MASSA_DE_AR_TIPOS() {
         Lista<String> tipos = new Lista<String>();
         tipos.adicionar("FRIO");
         tipos.adicionar("SUPERFRIO");
@@ -183,7 +198,7 @@ public class Atzum {
 
     public Cor GET_MASSA_DE_AR_COR(String massa_de_ar) {
 
-        Cor ret =new Cor(0,0,0);
+        Cor ret = new Cor(0, 0, 0);
 
         if (massa_de_ar.contentEquals("FRIO")) {
             ret = mMassaDeArFria;
@@ -202,7 +217,7 @@ public class Atzum {
         return ret;
     }
 
-    public Lista<String> GET_FATORES_CLIMATICOS(){
+    public Lista<String> GET_FATORES_CLIMATICOS() {
         Lista<String> tipos = new Lista<String>();
         tipos.adicionar("CHUVA");
         tipos.adicionar("NEVE");
@@ -497,7 +512,7 @@ public class Atzum {
     }
 
 
-    public static Ponto SENSOR_NORMALIZAR(Lista<Entidade> sensores,Entidade sensor){
+    public static Ponto SENSOR_NORMALIZAR(Lista<Entidade> sensores, Entidade sensor) {
 
         int sensor_px = 0;
         int sensor_py = 0;
@@ -524,7 +539,7 @@ public class Atzum {
             sensor_py = sensor.atInt("RefY");
         }
 
-        return new Ponto(sensor_px,sensor_py);
+        return new Ponto(sensor_px, sensor_py);
 
     }
 
@@ -548,7 +563,7 @@ public class Atzum {
     }
 
 
-        public static Lista<IntervaloDeValorColorido> GET_UMIDADE_INTERVALOS_COLORIDOS(){
+    public static Lista<IntervaloDeValorColorido> GET_UMIDADE_INTERVALOS_COLORIDOS() {
 
         Cor COR_MUITO_QUENTE = Cor.getHexCor("#BF360C");
         Cor COR_QUENTE = Cor.getHexCor("#FB8C00");
@@ -567,4 +582,8 @@ public class Atzum {
         return FAIXAS_DE_UMIDADE;
     }
 
+
+    public String GET_PLACA_TECTONICA(int placa_id) {
+        return mPlacasTectonicas.get(placa_id);
+    }
 }
