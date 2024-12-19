@@ -58,9 +58,12 @@ public class AppAtzum extends Cena {
 
 
     private String mAlturaCorrente = "";
+
     private String mTerraOuAgua = "";
     private String mRegiaoCorrente = "";
     private String mOceanoCorrente = "";
+
+    private String mPlacaCorrente = "";
 
     private Atzum mAtzum;
     public Lista<Ponto> mCidades;
@@ -275,6 +278,7 @@ public class AppAtzum extends Cena {
             }
 
             mAlturaCorrente = mArquivoAtzumGeral.GET_RELEVO_ALTITUDE(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY()) + "m";
+            mPlacaCorrente = mAtzum.GET_PLACA_TECTONICA(mArquivoAtzumGeral.GET_PLACA_TECTONICA(mWidgetMapaVisualizador.getGPS_PX(), mWidgetMapaVisualizador.getGPS_PY()));
 
             if (getWindows().getMouse().isClicked()) {
 
@@ -324,7 +328,7 @@ public class AppAtzum extends Cena {
 
         if (mMapaDeAtividade.get().contentEquals("MAPA_TECTONICO")) {
             mTectonico.update(px, py, getWindows().getMouse().isClicked());
-        }else      if (mMapaDeAtividade.get().contentEquals("MAPA_ATMOSFERICO")) {
+        } else if (mMapaDeAtividade.get().contentEquals("MAPA_ATMOSFERICO")) {
             mAtmosferico.update(px, py, getWindows().getMouse().isClicked());
         }
 
@@ -409,6 +413,12 @@ public class AppAtzum extends Cena {
                 ESCRITOR_NORMAL.escreveLinha(260, 50, 150, "Oceano", " = " + mOceanoCorrente);
                 g.drawRect_Pintado(30, 260 + 3, 10, 10, mCores.getBranco());
             }
+
+            if (!mPlacaCorrente.isEmpty()) {
+                g.drawRect_Pintado(300, 260 + 3, 10, 10, mCores.getBranco());
+                ESCRITOR_NORMAL.escreveLinha(260, 320, 350, "Placa", " = " + mPlacaCorrente);
+            }
+
 
         } else {
             ESCRITOR_NORMAL_VERMELHO.escreva(50, 140, "GPS FAILED");
@@ -534,15 +544,15 @@ public class AppAtzum extends Cena {
         } else if (mGrupoPrincipal.getSelecionado().contentEquals("MapaTectonico")) {
 
             int py = 200;
-            for (Entidade fenomeno :mFenomenosTectonicos) {
+            for (Entidade fenomeno : mFenomenosTectonicos) {
 
-                if(fenomeno.is("Fenomeno","TERREMOTO")){
+                if (fenomeno.is("Fenomeno", "TERREMOTO")) {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getLaranja());
-                }else{
+                } else {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getVermelho());
                 }
 
-                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: "+fenomeno.at("Tozte"));
+                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: " + fenomeno.at("Tozte"));
 
                 py += 30;
             }
@@ -550,15 +560,15 @@ public class AppAtzum extends Cena {
         } else if (mGrupoPrincipal.getSelecionado().contentEquals("MapaAtmosferico")) {
 
             int py = 200;
-            for (Entidade fenomeno :mFenomenosAtmosfericos) {
+            for (Entidade fenomeno : mFenomenosAtmosfericos) {
 
-                if(fenomeno.is("Fenomeno","FURACAO")){
+                if (fenomeno.is("Fenomeno", "FURACAO")) {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getAzul());
-                }else{
+                } else {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getLaranja());
                 }
 
-                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: "+fenomeno.at("Tozte"));
+                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: " + fenomeno.at("Tozte"));
 
                 py += 30;
             }
