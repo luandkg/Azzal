@@ -920,6 +920,43 @@ public class fmt {
         return f;
     }
 
+    public static String f4(double numero) {
+        String s = String.valueOf(numero);
+        String f = "";
+
+        int e = 0;
+        int c = 4;
+
+        boolean ja = false;
+
+        int i = 0;
+        int o = s.length();
+        while (i < o) {
+            String letra = String.valueOf(s.charAt(i));
+            if (letra.contentEquals(".")) {
+                ja = true;
+                f += letra;
+            } else {
+                if (!ja) {
+                    f += letra;
+                } else {
+                    if (e < c) {
+                        f += letra;
+                    }
+                    e += 1;
+                }
+            }
+            i += 1;
+        }
+
+        if (ja && e < c) {
+            f = f + "0";
+        }
+
+        return f;
+    }
+
+
     public static String f2Porcentagem(double numero) {
         return f2(numero) + " %";
     }
