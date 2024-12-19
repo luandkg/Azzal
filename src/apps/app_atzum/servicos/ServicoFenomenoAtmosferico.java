@@ -4,6 +4,7 @@ import apps.app_attuz.Ferramentas.GPS;
 import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
+import apps.app_campeonatum.VERIFICADOR;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Cores;
@@ -17,6 +18,8 @@ import libs.luan.Aleatorio;
 import libs.luan.Lista;
 import libs.luan.Matematica;
 import libs.luan.fmt;
+import libs.tronarko.Hazde;
+import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
 
@@ -169,7 +172,6 @@ public class ServicoFenomenoAtmosferico {
 
                 if (Aleatorio.aleatorio(100) > 70) {
                     a.at("Evento", "SIM");
-                    a.at("Escala", Aleatorio.aleatorio_entre(1, 10));
                 }
 
             }
@@ -243,15 +245,15 @@ public class ServicoFenomenoAtmosferico {
                     a.at("Superarko", superarko);
                     a.at("Tozte", StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(superarko, tronarko));
 
-                    if (adicionar_evento) {
-                        a.at("Fenomeno", "FURACAO");
+                    a.at("Fenomeno", "FURACAO");
 
-                        Entidade e_furacao = a.getCopia();
+                    Entidade e_furacao = a.getCopia();
+                    e_furacao.at("Escala", Aleatorio.aleatorio_entre(1, 5));
 
-                        ROTARIZADOR_DE_FENOMENO("Furacão", mapa_zona_de_furacoes, e_furacao);
+                    ROTARIZADOR_DE_FENOMENO("Furacão", mapa_zona_de_furacoes, e_furacao);
 
-                        retornar_fenonemos.adicionar(e_furacao);
-                    }
+                    retornar_fenonemos.adicionar(e_furacao);
+
                 }
 
 
@@ -444,18 +446,18 @@ public class ServicoFenomenoAtmosferico {
 
         int duracao = Aleatorio.aleatorio_entre(3, 15);
 
-        e_fenomeno.at("Duracao", duracao);
 
 
         int x1 = e_fenomeno.atInt("X");
         int y1 = e_fenomeno.atInt("Y");
 
-        Entidade e_percurso_dias = ENTT.CRIAR_EM(e_fenomeno.getEntidades(), "Nome", "Dias");
+        Entidade e_percurso_eixos = ENTT.CRIAR_EM(e_fenomeno.getEntidades(), "Nome", "Eixos");
+        Entidade e_percurso_segmento = ENTT.CRIAR_EM(e_fenomeno.getEntidades(), "Nome", "Segmentos");
         Entidade e_percurso_rota = ENTT.CRIAR_EM(e_fenomeno.getEntidades(), "Nome", "Percurso");
 
 
         for (int dia = 1; dia <= duracao; dia++) {
-            Entidade e_percurso = ENTT.CRIAR_EM(e_percurso_dias.getEntidades(), "DiaID", dia);
+            Entidade e_percurso = ENTT.CRIAR_EM(e_percurso_eixos.getEntidades(), "DiaID", dia);
             e_percurso.at("X1", x1);
             e_percurso.at("Y1", y1);
 
@@ -489,13 +491,18 @@ public class ServicoFenomenoAtmosferico {
             e_percurso.at("Y2", y2);
 
             int rota = 0;
+            int tamanho_rota = 0;
+
             for (Ponto pt : GPS.criarRota(x1, y1, x2, y2)) {
                 Entidade e_rota = ENTT.CRIAR_EM_SEQUENCIALMENTE(e_percurso_rota.getEntidades(), "RotaID", rota);
                 e_rota.at("Dia", dia);
                 e_rota.at("X", pt.getX());
                 e_rota.at("Y", pt.getY());
                 rota += 1;
+                tamanho_rota += 1;
             }
+
+            e_percurso.at("TamanhoRota", tamanho_rota);
 
             x1 = proximo_x2;
             y1 = y2;
@@ -503,97 +510,111 @@ public class ServicoFenomenoAtmosferico {
         }
 
 
+        ENTT.EXIBIR_TABELA_COM_TITULO(e_percurso_eixos.getEntidades(), "POR EIXO");
+
+        int tamanho_rota_total = ENTT.ATRIBUTO_SOMAR(e_percurso_eixos.getEntidades(), "TamanhoRota");
+
+        fmt.print("Tamanho Rota Total : {}", tamanho_rota_total);
+
+        int tamanho_por_dia = 450 + Aleatorio.aleatorio_entre(20, 30);
+
+        int tamanho_calculando = 0;
+        int tempo = 200;
+
+        while (tamanho_calculando < (tamanho_rota_total - 1)) {
+
+            Entidade e_Segmento = ENTT.CRIAR_EM_SEQUENCIALMENTE(e_percurso_segmento.getEntidades(), "SegmentoID", 0);
+            e_Segmento.at("IniciarRotaID", tamanho_calculando);
+
+            tamanho_calculando += tamanho_por_dia;
+
+            if (tamanho_calculando >= tamanho_rota_total) {
+                tamanho_calculando = tamanho_rota_total - 1;
+            }
+
+            e_Segmento.at("TerminarRotaID", tamanho_calculando);
+            e_Segmento.at("Tamanho", e_Segmento.atInt("TerminarRotaID") - e_Segmento.atInt("IniciarRotaID"));
+
+
+            e_Segmento.at("Tempo", tempo);
+            e_Segmento.at("Velocidade", fmt.f2((double) e_Segmento.atInt("Tamanho") / (double) e_Segmento.atInt("Tempo")));
+
+
+            Lista<Entidade> rota_local = ENTT.SLICE(e_percurso_rota.getEntidades(), e_Segmento.atInt("IniciarRotaID"), e_Segmento.atInt("TerminarRotaID"));
+
+            ENTT.ATRIBUTO_TODOS(rota_local, "SegmentoID", e_Segmento.at("SegmentoID"));
+
+            tamanho_por_dia -= Aleatorio.aleatorio_entre(20, 30);
+            tempo += Aleatorio.aleatorio_entre(20, 30);
+
+
+            VERIFICADOR.DEVE_SER_VERDADEIRO(tamanho_por_dia > 10, "PROBLEMA COM A REDUÇÃO : " + tamanho_por_dia);
+        }
+
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(e_percurso_segmento.getEntidades(), "POR SEGMENTOS");
+
+
+        int maior_segmento = ENTT.GET_INTEIRO_MAIOR(e_percurso_segmento.getEntidades(), "SegmentoID");
+
+        fmt.print(">> Maior SegmentoID : {}", maior_segmento);
+
+        ENTT.REMOVER_SE(e_percurso_segmento.getEntidades(), "SegmentoID", maior_segmento);
+        ENTT.REMOVER_SE(e_percurso_rota.getEntidades(), "SegmentoID", maior_segmento);
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(e_percurso_segmento.getEntidades(), "POR SEGMENTOS");
+
         int indice = 0;
 
+        int arko = Aleatorio.aleatorio_entre(0, 9);
+        int ittas = Aleatorio.aleatorio_entre(0, 99);
 
-        for (Entidade posicoes_do_dia : ENTT.AGRUPAR(e_percurso_rota.getEntidades(), "Dia")) {
+        Tron tron = new Tron(new Hazde(arko,ittas,0),StringTronarko.PARSER_TOZTE(e_fenomeno.at("Tozte")));
 
-            fmt.print(">> Dia {} com {} posicoes", posicoes_do_dia.at("Dia"), ENTT.CONTAGEM(posicoes_do_dia.getEntidades()));
+        int arko_padrao = Aleatorio.aleatorio_entre(7,9);
+
+
+        for (Entidade posicoes_do_dia : ENTT.AGRUPAR(e_percurso_rota.getEntidades(), "SegmentoID")) {
+
+            fmt.print(">> SegmentoID {} com {} posicoes", posicoes_do_dia.at("SegmentoID"), ENTT.CONTAGEM(posicoes_do_dia.getEntidades()));
 
             int quantidade = ENTT.CONTAGEM(posicoes_do_dia.getEntidades());
             double taxa = 0;
 
-            int arko = 0;
-            int ittas = 0;
+            long total = ((long)arko_padrao * 100);
+            taxa = (double) total / (double) quantidade;
 
-            if (indice == 0) {
+            double iniciando = 0;
 
-                if (quantidade >= 100) {
-                    arko = Aleatorio.aleatorio_entre(0, 6);
-                    ittas = Aleatorio.aleatorio_entre(0, 99);
-                } else {
-                    arko = Aleatorio.aleatorio_entre(0, 9);
-                    ittas = Aleatorio.aleatorio_entre(0, 50);
-                }
+            fmt.print("\t Total : {} -->> {}", total, taxa);
+            fmt.print("\t Iniciando em {}", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
 
-                long total = (10 * 100) - (((long) arko * 100) + ittas);
-                 taxa = (double) total / (double) quantidade;
+            Tron tron_local = tron.getCopia();
 
+            Tron tron_ultimo = tron.getCopia();
 
-                double iniciando = ((double) arko * 100) + ittas;
+            for (Entidade passo : posicoes_do_dia.getEntidades()) {
+                passo.at("Momento", (int) iniciando);
 
-                fmt.print("\t Total : {} -->> {}", total, taxa);
-                fmt.print("\t Iniciando em {}", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
+                Tron tron_copia = tron_local.getCopia();
 
-                for (Entidade passo : posicoes_do_dia.getEntidades()) {
-                    passo.at("Momento", (int) iniciando);
-                    passo.at("Hazde", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
-                    iniciando += taxa;
-                }
+                tron_copia=  tron_copia.modificar_Itta((int)iniciando);
+                tron_ultimo=tron_copia;
 
-              //  ENTT.EXIBIR_TABELA_COM_TITULO(posicoes_do_dia.getEntidades(), "Momentos PRIMEIRO");
-
-            } else if (indice == duracao - 1) {
-
-                if (quantidade >= 100) {
-                    arko = Aleatorio.aleatorio_entre(0, 6);
-                    ittas = Aleatorio.aleatorio_entre(0, 99);
-                } else {
-                    arko = Aleatorio.aleatorio_entre(0, 5);
-                    ittas = Aleatorio.aleatorio_entre(0, 50);
-                }
-
-                long total = (((long) arko * 100) + ittas);
-                 taxa = (double) total / (double) quantidade;
-
-
-                double iniciando = 0;
-
-                fmt.print("\t Total : {} -->> {}", total, taxa);
-                fmt.print("\t Iniciando em {}", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
-
-                for (Entidade passo : posicoes_do_dia.getEntidades()) {
-                    passo.at("Momento", (int) iniciando);
-                    passo.at("Hazde", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
-                    iniciando += taxa;
-                }
-
-             //   ENTT.EXIBIR_TABELA_COM_TITULO(posicoes_do_dia.getEntidades(), "Momentos ULTIMO");
-
-
-            } else {
-
-                long total = (10 * 100);
-                 taxa = (double) total / (double) quantidade;
-
-                double iniciando = 0;
-
-                fmt.print("\t Total : {} -->> {}", total, taxa);
-                fmt.print("\t Iniciando em {}", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
-
-                for (Entidade passo : posicoes_do_dia.getEntidades()) {
-                    passo.at("Momento", (int) iniciando);
-                    passo.at("Hazde", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
-                    iniciando += taxa;
-                }
-
-             //   ENTT.EXIBIR_TABELA_COM_TITULO(posicoes_do_dia.getEntidades(), "Momentos OUTROS");
-
+                passo.at("Tozte", tron_copia.getTozte().getTextoZerado());
+                passo.at("Hazde", tron_copia.getHazde().getTextoSemUzzonZerado());
+                passo.at("Tron",tron_copia.getTextoSemUzzonZerado());
+                iniciando += taxa;
             }
 
-            Entidade e_dia = ENTT.GET_SEMPRE(e_percurso_dias.getEntidades(), "DiaID", indice + 1);
-            e_dia.at("Inicio", e_fenomeno.at("Tozte") + " " + ENTT.GET_PRIMEIRO(posicoes_do_dia.getEntidades()).at("Hazde"));
-            e_dia.at("Fim", StringTronarko.PARSER_TOZTE(e_fenomeno.at("Tozte")).adicionar_Superarko(indice).getTextoZerado() + " " + ENTT.GET_ULTIMO(posicoes_do_dia.getEntidades()).at("Hazde"));
+            tron=tron_ultimo.getCopia();
+
+            //   ENTT.EXIBIR_TABELA_COM_TITULO(posicoes_do_dia.getEntidades(), "Momentos OUTROS");
+
+
+            Entidade e_dia = ENTT.GET_SEMPRE(e_percurso_segmento.getEntidades(), "SegmentoID", indice);
+            e_dia.at("Inicio", ENTT.GET_PRIMEIRO(posicoes_do_dia.getEntidades()).at("Tron"));
+            e_dia.at("Fim", ENTT.GET_ULTIMO(posicoes_do_dia.getEntidades()).at("Tron"));
 
             e_dia.at("PercursoTamanho", quantidade);
             e_dia.at("Taxa", taxa);
@@ -602,12 +623,18 @@ public class ServicoFenomenoAtmosferico {
         }
 
 
-        ENTT.EXIBIR_TABELA_COM_TITULO(e_percurso_dias.getEntidades(), s_fenomeno.toUpperCase() + " PERCURSO");
-        //   ENTT.EXIBIR_TABELA_COM_TITULO(e_percurso_rota.getEntidades(), s_fenomeno.toUpperCase() + " PERCURSO::ROTA");
+        ENTT.EXIBIR_TABELA_COM_TITULO(e_percurso_segmento.getEntidades(), s_fenomeno.toUpperCase() + " PERCURSO");
+         //  ENTT.EXIBIR_TABELA_COM_TITULO(e_percurso_rota.getEntidades(), s_fenomeno.toUpperCase() + " PERCURSO::ROTA");
 
-        e_fenomeno.at("Inicio", e_fenomeno.at("Tozte") + " " + ENTT.GET_PRIMEIRO(e_percurso_rota.getEntidades()).at("Hazde"));
-        e_fenomeno.at("Fim", StringTronarko.PARSER_TOZTE(e_fenomeno.at("Tozte")).adicionar_Superarko(duracao).getTextoZerado() + " " + ENTT.GET_ULTIMO(e_percurso_rota.getEntidades()).at("Hazde"));
+        e_fenomeno.at("Inicio",   ENTT.GET_PRIMEIRO(e_percurso_rota.getEntidades()).at("Tron"));
+        e_fenomeno.at("Fim",  ENTT.GET_ULTIMO(e_percurso_rota.getEntidades()).at("Tron"));
+        e_fenomeno.at("Duracao", ENTT.FILTRAR_UNICOS(e_percurso_rota.getEntidades(),"Tozte").getQuantidade());
 
-        e_fenomeno.at("PercursoTamanho",ENTT.CONTAGEM(e_percurso_rota.getEntidades()));
+        e_fenomeno.at("PercursoTamanho", ENTT.CONTAGEM(e_percurso_rota.getEntidades()));
+
+        e_fenomeno.at_remover("Evento");
+        e_fenomeno.at_remover("Valor");
+        e_fenomeno.at_remover("Maximo");
+
     }
 }
