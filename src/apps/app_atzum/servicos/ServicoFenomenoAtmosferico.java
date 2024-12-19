@@ -515,17 +515,17 @@ public class ServicoFenomenoAtmosferico {
 
         fmt.print("Tamanho Rota Total : {}", tamanho_rota_total);
 
-        int tamanho_por_dia = 450 + Aleatorio.aleatorio_entre(20, 30);
+        int tamanho_por_segmento = 450 + Aleatorio.aleatorio_entre(20, 30);
 
         int tamanho_calculando = 0;
-        int tempo = 200;
+        int tempo_para_reducao = 200;
 
         while (tamanho_calculando < (tamanho_rota_total - 1)) {
 
             Entidade e_Segmento = ENTT.CRIAR_EM_SEQUENCIALMENTE(e_percurso_segmento.getEntidades(), "SegmentoID", 0);
             e_Segmento.at("IniciarRotaID", tamanho_calculando);
 
-            tamanho_calculando += tamanho_por_dia;
+            tamanho_calculando += tamanho_por_segmento;
 
             if (tamanho_calculando >= tamanho_rota_total) {
                 tamanho_calculando = tamanho_rota_total - 1;
@@ -535,7 +535,7 @@ public class ServicoFenomenoAtmosferico {
             e_Segmento.at("Tamanho", e_Segmento.atInt("TerminarRotaID") - e_Segmento.atInt("IniciarRotaID"));
 
 
-            e_Segmento.at("Tempo", tempo);
+            e_Segmento.at("Tempo", tempo_para_reducao);
             e_Segmento.at("Velocidade", fmt.f2((double) e_Segmento.atInt("Tamanho") / (double) e_Segmento.atInt("Tempo")));
 
 
@@ -543,11 +543,11 @@ public class ServicoFenomenoAtmosferico {
 
             ENTT.ATRIBUTO_TODOS(rota_local, "SegmentoID", e_Segmento.at("SegmentoID"));
 
-            tamanho_por_dia -= Aleatorio.aleatorio_entre(20, 30);
-            tempo += Aleatorio.aleatorio_entre(20, 30);
+            tamanho_por_segmento -= Aleatorio.aleatorio_entre(20, 30);
+            tempo_para_reducao += Aleatorio.aleatorio_entre(20, 30);
 
 
-            VERIFICADOR.DEVE_SER_VERDADEIRO(tamanho_por_dia > 10, "PROBLEMA COM A REDUÇÃO : " + tamanho_por_dia);
+            VERIFICADOR.DEVE_SER_VERDADEIRO(tamanho_por_segmento > 10, "PROBLEMA COM A REDUÇÃO : " + tamanho_por_segmento);
         }
 
 
@@ -586,7 +586,6 @@ public class ServicoFenomenoAtmosferico {
             double iniciando = 0;
 
             fmt.print("\t Total : {} -->> {}", total, taxa);
-            fmt.print("\t Iniciando em {}", Tronarko.CRIAR_HAZDE_ARKO_ITTAS((int) iniciando).getTextoSemUzzonZerado());
 
             Tron tron_local = tron.getCopia();
 
@@ -616,7 +615,7 @@ public class ServicoFenomenoAtmosferico {
             e_dia.at("Fim", ENTT.GET_ULTIMO(posicoes_do_dia.getEntidades()).at("Tron"));
 
             e_dia.at("PercursoTamanho", quantidade);
-            e_dia.at("Taxa", taxa);
+            e_dia.at("Taxa", fmt.f4(taxa));
 
             indice += 1;
         }
