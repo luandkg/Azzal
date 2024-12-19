@@ -444,7 +444,7 @@ public class ServicoFenomenoAtmosferico {
 
         fmt.print("\t {} Percurso", s_fenomeno);
 
-        int duracao = Aleatorio.aleatorio_entre(3, 15);
+        int quantidade_de_eixos = Aleatorio.aleatorio_entre(3, 15);
 
 
 
@@ -456,8 +456,8 @@ public class ServicoFenomenoAtmosferico {
         Entidade e_percurso_rota = ENTT.CRIAR_EM(e_fenomeno.getEntidades(), "Nome", "Percurso");
 
 
-        for (int dia = 1; dia <= duracao; dia++) {
-            Entidade e_percurso = ENTT.CRIAR_EM(e_percurso_eixos.getEntidades(), "DiaID", dia);
+        for (int eixo = 1; eixo <= quantidade_de_eixos; eixo++) {
+            Entidade e_percurso = ENTT.CRIAR_EM(e_percurso_eixos.getEntidades(), "EixoID", eixo);
             e_percurso.at("X1", x1);
             e_percurso.at("Y1", y1);
 
@@ -495,7 +495,6 @@ public class ServicoFenomenoAtmosferico {
 
             for (Ponto pt : GPS.criarRota(x1, y1, x2, y2)) {
                 Entidade e_rota = ENTT.CRIAR_EM_SEQUENCIALMENTE(e_percurso_rota.getEntidades(), "RotaID", rota);
-                e_rota.at("Dia", dia);
                 e_rota.at("X", pt.getX());
                 e_rota.at("Y", pt.getY());
                 rota += 1;
