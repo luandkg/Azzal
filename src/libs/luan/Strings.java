@@ -109,7 +109,7 @@ public class Strings {
         return entradas;
     }
 
-    public static String exibir_lista_em_linha(ArrayList<String> lista) {
+    public static String exibir_lista_em_linha(Lista<String> lista) {
         String ret = "";
 
         for (String item : lista) {
@@ -359,6 +359,10 @@ public class Strings {
 
     public static boolean isIgual(String s1, String s2) {
         return s1.contentEquals(s2);
+    }
+
+    public static boolean isVazio(String s){
+        return s.isEmpty();
     }
 
     public static String limpar_vazios(String s) {
@@ -1082,7 +1086,7 @@ public class Strings {
         return ret;
     }
 
-    public static String exibir_lista_em_linhas(ArrayList<String> lista) {
+    public static String exibir_lista_em_linhas(Lista<String> lista) {
         String ret = "";
 
         for (String item : lista) {
@@ -1318,7 +1322,7 @@ public class Strings {
     }
 
 
-    public static String LISTA_TO_TEXTO_FRASE(ArrayList<String> ls) {
+    public static String LISTA_TO_TEXTO_FRASE(Lista<String> ls) {
         String texto = "";
 
         for (String item : ls) {
@@ -2599,5 +2603,9 @@ public class Strings {
         }
 
         return texto;
+    }
+
+    public static Unico<String> CRIAR_UNICO(){
+        return new Unico<String>(Strings.IGUALAVEL());
     }
 }
