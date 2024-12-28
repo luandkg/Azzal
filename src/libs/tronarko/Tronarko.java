@@ -209,6 +209,10 @@ public class Tronarko {
         return new Hazde(a, i, u);
     }
 
+    public static Hazde CRIAR_HAZDE_ARKO_ITTAS(int total) {
+        return new Hazde(total/100,total-((total/100)*100),0);
+    }
+
     public static Hazde getHazdeComecar() {
         return new Hazde(0, 0, 0);
     }
