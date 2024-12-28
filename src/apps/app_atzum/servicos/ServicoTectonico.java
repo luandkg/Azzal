@@ -2,6 +2,8 @@ package apps.app_atzum.servicos;
 
 import apps.app_attuz.Ferramentas.Espaco2D;
 import apps.app_attuz.Ferramentas.GPS;
+import apps.app_attuz.Sociedade.NomeadorBurgo;
+import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
 import apps.app_atzum.utils.AtzumCriativoLog;
@@ -18,6 +20,7 @@ import libs.entt.Entidade;
 import libs.imagem.Imagem;
 import libs.luan.*;
 import libs.meta_functional.Acao;
+import libs.meta_functional.FuncaoGama;
 
 public class ServicoTectonico {
 
@@ -513,6 +516,181 @@ public class ServicoTectonico {
 
         AtzumCriativoLog.terminar("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
         AtzumCriativoLog.exibir_item("ServicoTectonico.GUARDAR_DADOS_PLACAS_TECTONICAS");
+
+    }
+
+
+    public static void VULCOES_NOMEAR() {
+
+        AtzumCriativoLog.iniciar("ServicoTectonico.VULCOES_NOMEAR");
+
+        // DEFINIR PLACAS EM VULCOES
+        QTT placas_tectonicas = QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("placas_tectonicas.qtt"));
+
+        Lista<Entidade> vulcoes = ENTT.ABRIR(AtzumCreator.DADOS_GET_ARQUIVO("vulcanismo.entts"));
+
+        ENTT.EXIBIR_TABELA(vulcoes);
+
+        Atzum atzum = new Atzum();
+        AtzumTerra atzum_planeta = new AtzumTerra();
+
+
+        Lista<String> nomes_unicos = new Lista<String>();
+
+        nomes_unicos = ENTT.FILTRAR_UNICOS(Atzum.GET_CIDADES_NOMES(), "Nome");
+
+        //Strings.exibir_lista_em_linhas(nomes_unicos);
+
+
+        FuncaoGama<String, QTT, Integer, Integer> buscar_placa = new FuncaoGama<String, QTT, Integer, Integer>() {
+            @Override
+            public String fazer(QTT qtt, Integer x, Integer y) {
+
+                if (x < 0) {
+                    x = atzum_planeta.getLargura() + x;
+                } else if (x >= atzum_planeta.getLargura()) {
+                    x = x - atzum_planeta.getLargura();
+                }
+
+                if (y < 0) {
+                    y = 0;
+                } else if (y >= atzum_planeta.getAltura()) {
+                    y = atzum_planeta.getAltura() - 1;
+                }
+
+                if (x >= 0 && y >= 0 && x < atzum_planeta.getLargura() && y < atzum_planeta.getAltura()) {
+                    return atzum.GET_PLACA_TECTONICA(qtt.getValor(x, y));
+                }
+                return "";
+            }
+        };
+
+
+        for (Entidade e : vulcoes) {
+
+            e.at("PlacaTectonica", buscar_placa.fazer(placas_tectonicas, e.atInt("X"), e.atInt("Y")));
+
+            String h1 = buscar_placa.fazer(placas_tectonicas, e.atInt("X") - 200, e.atInt("Y"));
+            String h2 = buscar_placa.fazer(placas_tectonicas, e.atInt("X") + 200, e.atInt("Y"));
+
+            String v1 = buscar_placa.fazer(placas_tectonicas, e.atInt("X"), e.atInt("Y") - 200);
+            String v2 = buscar_placa.fazer(placas_tectonicas, e.atInt("X"), e.atInt("Y") + 200);
+
+            e.at("PlacaTectonica_Norte", v1);
+            e.at("PlacaTectonica_Sul", v2);
+
+            e.at("PlacaTectonica_Oeste", h1);
+            e.at("PlacaTectonica_Leste", h2);
+
+            Unico<String> placas = Strings.CRIAR_UNICO();
+
+            Unico<String> placas_horizontalmente = Strings.CRIAR_UNICO();
+            Unico<String> placas_verticalmente = Strings.CRIAR_UNICO();
+
+
+            if (Strings.isValida(h1)) {
+                placas_horizontalmente.item(h1);
+                placas.item(h1);
+            }
+
+            if (Strings.isValida(h2)) {
+                placas_horizontalmente.item(h2);
+                placas.item(h2);
+            }
+
+            if (Strings.isValida(v1)) {
+                placas_verticalmente.item(v1);
+                placas.item(v1);
+            }
+
+            if (Strings.isValida(v2)) {
+                placas_verticalmente.item(v2);
+                placas.item(v2);
+            }
+
+
+            String horizontalidade = Strings.LISTA_TO_TEXTO_LINHA(placas_horizontalmente.toLista());
+            String verticalidade = Strings.LISTA_TO_TEXTO_LINHA(placas_verticalmente.toLista());
+
+
+            e.at("Horizontalidade", horizontalidade);
+            e.at("Verticalidade", verticalidade);
+
+            e.at("Localidade", "");
+            e.at("LocalidadeModo", "");
+
+            String localidade_modo = "";
+
+            if (placas_horizontalmente.getQuantidade() == 0) {
+
+                if (placas_verticalmente.getQuantidade() == 1) {
+                    localidade_modo = "Central";
+                } else if (placas_verticalmente.getQuantidade() == 2) {
+                    localidade_modo = "Verticalmente";
+                }
+
+            } else if (placas_verticalmente.getQuantidade() == 0) {
+
+                if (placas_horizontalmente.getQuantidade() == 1) {
+                    localidade_modo = "Central";
+                } else if (placas_horizontalmente.getQuantidade() == 2) {
+                    localidade_modo = "Horizontalmente";
+                }
+
+            }
+
+            if (placas_horizontalmente.getQuantidade() == 1 && placas_verticalmente.getQuantidade() == 1) {
+                if (placas.getQuantidade() == 1) {
+                    localidade_modo = "Central";
+                } else if (placas.getQuantidade() == 2) {
+                    localidade_modo = "Diagonalmente";
+                }
+            } else if (placas_horizontalmente.getQuantidade() == 1 && placas_verticalmente.getQuantidade() == 2) {
+                if(placas_verticalmente.existe(placas_horizontalmente.toLista().get(0))){
+                    localidade_modo = "Diagonal";
+                }else{
+                    localidade_modo = "Zona";
+                }
+            } else if (placas_horizontalmente.getQuantidade() == 2 && placas_verticalmente.getQuantidade() == 1) {
+                if(placas_horizontalmente.existe(placas_verticalmente.toLista().get(0))){
+                    localidade_modo = "Diagonal";
+                }else{
+                    localidade_modo = "Zona";
+                }
+            } else {
+                if (placas.getQuantidade() == 1) {
+                    localidade_modo = "Central";
+                } else if (placas.getQuantidade() > 1) {
+                    localidade_modo = "Zona";
+                }
+            }
+
+
+            e.at("LocalidadeModo", localidade_modo);
+
+
+            if (placas.getQuantidade() > 1) {
+                e.at("Localidade", Strings.LISTA_TO_TEXTO_LINHA(placas.toLista()));
+            }
+
+            String nome = NomeadorBurgo.getSimplesUnico(nomes_unicos);
+
+            e.at("Nome", nome);
+            nomes_unicos.adicionar(nome);
+        }
+
+
+        ENTT.ATRIBUTO_REMOVER(vulcoes, "Sismicidade");
+        ENTT.ATRIBUTO_REMOVER(vulcoes, "Dormencia");
+        ENTT.ATRIBUTO_REMOVER(vulcoes, "Nivel");
+
+        ENTT.EXIBIR_TABELA(vulcoes);
+
+        ENTT.GUARDAR(vulcoes, AtzumCreator.DADOS_GET_ARQUIVO("tectonico_vulcoes.entts"));
+
+
+        AtzumCriativoLog.terminar("ServicoTectonico.VULCOES_NOMEAR");
+        AtzumCriativoLog.exibir_item("ServicoTectonico.VULCOES_NOMEAR");
 
     }
 
