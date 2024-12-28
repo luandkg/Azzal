@@ -586,4 +586,17 @@ public class Atzum {
     public String GET_PLACA_TECTONICA(int placa_id) {
         return mPlacasTectonicas.get(placa_id);
     }
+
+    public Lista<String> GET_PLACAS_TECTONICAS() {
+        Lista<String> tipos = new Lista<String>();
+
+        int i =0;
+        for(String a : mPlacasTectonicas){
+            if(i>0){
+                tipos.adicionar(a);
+            }
+            i+=1;
+        }
+        return tipos;
+    }
 }
