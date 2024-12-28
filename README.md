@@ -1,6 +1,6 @@
 #### AZZAL
 
-> É um local de criatividade no qual implemento utilizando a linguagem de programação JAVA os vários devaneios que se passam em minha mente.
+> É um local de criatividade no qual são implementados vários devaneios em JAVA que se passam em minha mente.
 
 ![AZZAL UI](https://github.com/luandkg/Azzal/blob/master/res/app_ui.png)
 
@@ -105,30 +105,35 @@ de Dados da Universidade de Brasília
     - HZ : Formato de Áudio : @ESTOU_ESTUDANDO
     - VI : Formato de Vídeo : @NAO_TEM_AUDIO
     - BZ : Formato de seção pre-alocada ( BZ2 = 10Kb | BZ3 = 100Kb )
+    - AN : Formato de Animações : Sequência de Imagens IM com taxa de reprodução
+
+    Formatos com ideias mais complexas de proposito geral :
 
     - CacheIndexado : Formato de seção pre-alocada expandível
-    - Sumario : Formato de indexamento pela primeira letra
-    - QTT : Formato de acesso direto em 2 dimenções
-    - Stacker : Formato de guarda de blocos nomeados de bytes contínuos
+    - Sumario       : Formato de indexamento pela primeira letra
+    - QTT           : Formato de acesso direto em 2 dimenções
+    - DS            : Formato de guarda de blocos nomeados de bytes contínuos
 
     - Arquivador : Classe para abrir/escrever arquivos
 
     - Int8 : Mapeador de 8 bits
     - Int6 : Mapeador de 6 bits
 
-# Biblioteca AZ / ARMAZENADOR : Banco de Dados
+# Biblioteca Zetta - Banco de Dados
 
-> Banco de dados organizado por Coleções
-> 
-> Os objetos das coleções são arquivados em DKGObjeto
-> 
-> As coleções possuem ID Sequencial configurável
+> Essa é uma grande biblioteca que permite a construção de coleções de armazenamento de dados em formato de Entidade
+> Possui seções com especificados para diversos propósitos :
+
+    - ZettaQuorum
+    - ZettaColeção
+    - ZettaPastas
+    - ZettaPasta
+    - ZettaTabelas
 
 
+# Gráficos
 
-# Zetta Gráficos
-
-> Pacote ZettaBarras para desenhos de gráficos de barras e pontos.
+> Pacote GrafiqueBarras para desenhos de gráficos de barras e pontos.
 
 ![ZETTA BARRAS](https://github.com/luandkg/Azzal/blob/master/res/app_zetta.png)
 
