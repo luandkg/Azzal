@@ -5,6 +5,7 @@ import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.utils.ArquivoAtzumGeral;
 import apps.app_atzum.utils.ArquivoAtzumTronarko;
+import apps.app_atzum.utils.AtzumPlacasTectonicas;
 import apps.app_atzum.utils.IntervaloDeValorColorido;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
@@ -570,6 +571,20 @@ public class AppAtzum extends Cena {
 
                 ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: " + fenomeno.at("Tozte"));
 
+                py += 30;
+            }
+
+        } else if (mGrupoPrincipal.getSelecionado().contentEquals("PlacasTectonicas")) {
+
+            int py = 200;
+            int placa_id=0;
+            for (String placa_tectonica : mAtzum.GET_PLACAS_TECTONICAS()) {
+
+                g.drawRect_Pintado(1900, py, 25, 25, AtzumPlacasTectonicas.GET_PLACAS_TECTONICAS_CORES().get(placa_id));
+
+                ESCRITOR_NORMAL_BRANCO.escreva(1900 + 40, py + 5, placa_tectonica);
+
+                placa_id+=1;
                 py += 30;
             }
 
