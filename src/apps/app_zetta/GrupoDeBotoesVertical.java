@@ -27,7 +27,7 @@ public class GrupoDeBotoesVertical {
     private BotaoSinalizador mBotaoSinalizador;
 
     private int mTamanho;
-    private int mAfastamentoX;
+    private int mAfastamentoY;
     private boolean mExibirTexto;
 
     private boolean mMarcadorTemCorSelecionado = false;
@@ -50,12 +50,12 @@ public class GrupoDeBotoesVertical {
         mBotaoSinalizador = BotaoSinalizador.ACIMA_DIRETA;
 
         mTamanho = 50;
-        mAfastamentoX = 100;
+        mAfastamentoY = 100;
         mExibirTexto = true;
     }
 
-    public void setAfastamentoX(int eAfastamentoX) {
-        mAfastamentoX = eAfastamentoX;
+    public void setAfastamentoY(int eAfastamentoY) {
+        mAfastamentoY = eAfastamentoY;
     }
 
     public void setTamanho(int eTamanho) {
@@ -90,7 +90,7 @@ public class GrupoDeBotoesVertical {
         BotaoCor eBotao = mClicavel.criarBotaoCor(new BotaoCor(mPX, mCamadaPY, mTamanho, mTamanho, eCor));
         eBotao.setTexto(nome);
         mCamadas.adicionar(new Par<String, BotaoCor>(nome, eBotao));
-        mCamadaPY += mAfastamentoX;
+        mCamadaPY += mAfastamentoY;
         return eBotao;
     }
 
@@ -98,7 +98,7 @@ public class GrupoDeBotoesVertical {
         BotaoCor eBotao = mClicavel.criarBotaoCor(new BotaoCor(mPX, mCamadaPY, mTamanho, mTamanho, eCor));
         eBotao.setTexto(eBotaoNome);
         mCamadas.adicionar(new Par<String, BotaoCor>(nome, eBotao));
-        mCamadaPY += mAfastamentoX;
+        mCamadaPY += mAfastamentoY;
         return eBotao;
     }
 
@@ -159,7 +159,7 @@ public class GrupoDeBotoesVertical {
 
                 // break;
             }
-            camada_indo += mAfastamentoX;
+            camada_indo += mAfastamentoY;
         }
 
     }
