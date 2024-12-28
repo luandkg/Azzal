@@ -52,6 +52,8 @@ public class ServicoExportarTronarko {
 
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@parametros/cidades.entts", AtzumCreator.LOCAL_GET_ARQUIVO("parametros/CIDADES_NOMES.entts"));
         EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@parametros/vulcanismo.entts", AtzumCreator.LOCAL_GET_ARQUIVO("dados/vulcanismo.entts"));
+        EXPORTACAO_ADICIONAR_ARQUIVO(arquivo_atzum, "@parametros/tectonico_vulcoes.entts", AtzumCreator.LOCAL_GET_ARQUIVO("dados/tectonico_vulcoes.entts"));
+
 
 
         EXPORTACAO_ADICIONAR_IMAGEM(arquivo_atzum, "@imagem/atzum_regioes.im", AtzumCreator.LOCAL_GET_ARQUIVO("atzum_regioes.png"));
