@@ -1,19 +1,20 @@
 package apps.app_atzum.servicos;
 
+import apps.app_attuz.Sociedade.NomeadorBurgo;
+import apps.app_atzum.Atzum;
 import apps.app_atzum.AtzumCreator;
 import apps.app_atzum.AtzumTerra;
 import apps.app_letrum.Fonte;
 import apps.app_letrum.Maker.FonteRunTime;
+import libs.arquivos.QTT;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.imagem.Imagem;
-import libs.luan.Aleatorio;
-import libs.luan.Embaralhar;
-import libs.luan.Lista;
-import libs.luan.fmt;
+import libs.luan.*;
+import libs.meta_functional.FuncaoGama;
 import libs.tronarko.utils.StringTronarko;
 
 import java.awt.image.BufferedImage;
@@ -505,6 +506,7 @@ public class ServicoFenomenoTectonico {
 
 
     }
+
 
 
 }
