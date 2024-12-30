@@ -65,7 +65,12 @@ public class PastaFS {
         }
     }
 
-    public String getLocal() {
+    public PastaFS getPastaFS(String arquivo) {
+        return new PastaFS(getPasta(arquivo));
+    }
+
+
+        public String getLocal() {
         return mLocal;
     }
 
