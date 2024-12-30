@@ -1993,6 +1993,32 @@ public class Strings {
         return linhas;
     }
 
+    public static Lista<String> DIVIDIR_POR_INCLUIDO(String texto, String por) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals(por)) {
+                if (!linha.isEmpty()) {
+                    linhas.adicionar(linha);
+                }
+                linha = c;
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (!linha.isEmpty()) {
+            linhas.adicionar(linha);
+        }
+        return linhas;
+    }
+
     public static Lista<String> DIVIDIR_POR_SEM_DIVISOR(String texto, String por) {
         Lista<String> linhas = new Lista<String>();
 
@@ -2607,5 +2633,76 @@ public class Strings {
 
     public static Unico<String> CRIAR_UNICO(){
         return new Unico<String>(Strings.IGUALAVEL());
+    }
+
+    public static String LISTA_TO_TEXTO_LINHA_COM_SEPARADOR(Lista<String> ls,String separador) {
+        String texto = "";
+
+        int index_ultimo = ls.getQuantidade() - 1;
+        int index_corrente = 0;
+
+        for (String item : ls) {
+            if (index_ultimo == index_corrente) {
+                texto += item;
+            } else {
+                texto += item + separador;
+            }
+
+            index_corrente += 1;
+        }
+
+        return texto;
+    }
+
+    public static Lista<String> DIVIDIR_LINHAS_TRIM(String texto) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals("\n")) {
+                if (!linha.isEmpty()) {
+                    linhas.adicionar(linha.trim());
+                }
+                linha = "";
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (!linha.isEmpty()) {
+            linhas.adicionar(linha.trim());
+        }
+        return linhas;
+    }
+
+    public static Lista<String> DIVIDIR_ESPACOS(String texto) {
+        Lista<String> linhas = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        String linha = "";
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals(" ")) {
+                if (linha.length() > 0) {
+                    linhas.adicionar(linha.trim());
+                }
+                linha = "";
+            } else {
+                linha += c;
+            }
+            i += 1;
+        }
+        if (linha.length() > 0) {
+            linhas.adicionar(linha.trim());
+        }
+        return linhas;
     }
 }
