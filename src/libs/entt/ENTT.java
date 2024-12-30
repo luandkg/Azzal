@@ -2537,4 +2537,113 @@ public class ENTT {
         return ret;
     }
 
+    public static Lista<Entidade> VALORES_TO_ENTIDADE_ORDENADO(Lista<String> lista, String att_nome_ordem, String att_nome) {
+
+        Lista<Entidade> entts = CRIAR_LISTA();
+
+        int ordem = 0;
+
+        for (String item : lista) {
+            Entidade e = new Entidade();
+            e.at(att_nome_ordem, ordem);
+            e.at(att_nome, item);
+
+            entts.adicionar(e);
+            ordem += 1;
+        }
+
+        return entts;
+    }
+
+    public static void REMOVER_SE_COMECAR_COM(Lista<Entidade> entidades_lista, String att_nome, String att_valor_comeca) {
+
+        Lista<Entidade> validos = new Lista<Entidade>();
+
+        for (Entidade item : entidades_lista) {
+            if (!item.at(att_nome).startsWith(att_valor_comeca)) {
+                validos.adicionar(item);
+            }
+        }
+
+        entidades_lista.limpar();
+        for (Entidade v : validos) {
+            entidades_lista.adicionar(v);
+        }
+
+    }
+
+    public static Opcional<Entidade> GET_PRIMEIRO_INICIA_COM(Lista<Entidade> ls, String atributo, String valor) {
+
+        Opcional<Entidade> ret = Opcional.CANCEL();
+
+        for (Entidade entt : ls) {
+            if (entt.at(atributo).startsWith(valor)) {
+                ret.set(entt);
+                break;
+            }
+        }
+
+        return ret;
+
+    }
+
+    public static Lista<Entidade> SLICE_REFERENCIADO(Lista<Entidade> entts, int onde, int antes_quantidade, int depois_quantidade) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+        int inicio = onde - antes_quantidade;
+        int fim = onde + depois_quantidade;
+
+        int i = 0;
+        for (Entidade e : entts) {
+            if (i >= inicio && i <= fim) {
+                ret.adicionar(e);
+            }
+            if (i > fim) {
+                break;
+            }
+            i += 1;
+        }
+        return ret;
+    }
+
+    public static void TORNAR_PRIMEIRO(Lista<Entidade> entts, String att_nome) {
+        for (Entidade e : entts) {
+            e.tornar_primeiro(att_nome);
+        }
+    }
+
+    public static void EXIBIR_BUSCA_REFERENCIADA_CONTEM(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem) {
+
+        for (Entidade e : entts) {
+            if (e.at(att_nome).contains(att_valor_contem)) {
+
+                Lista<Entidade> tokens_refs = ENTT.SLICE_REFERENCIADO(entts, e.atInt(att_ordem), 5, 5);
+                ENTT.SEQUENCIAR(tokens_refs, att_ordem, -5);
+                ENTT.TORNAR_PRIMEIRO(tokens_refs, att_ordem);
+                ENTT.EXIBIR_TABELA(tokens_refs);
+
+
+            }
+        }
+
+    }
+
+    public static void EXIBIR_BUSCA_REFERENCIADA_INICIA(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem) {
+
+        for (Entidade e : entts) {
+            if (e.at(att_nome).startsWith(att_valor_contem)) {
+
+                Lista<Entidade> tokens_refs = ENTT.SLICE_REFERENCIADO(entts, e.atInt(att_ordem), 5, 5);
+                ENTT.SEQUENCIAR(tokens_refs, att_ordem, -5);
+                ENTT.TORNAR_PRIMEIRO(tokens_refs, att_ordem);
+                ENTT.EXIBIR_TABELA(tokens_refs);
+
+
+            }
+        }
+
+    }
+
+
+
 }
