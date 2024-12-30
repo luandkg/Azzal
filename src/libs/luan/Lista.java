@@ -841,4 +841,13 @@ public class Lista<T> implements Iterable<T> {
         return proximo;
     }
 
+    public static <T> void TROCAR(Lista<T> valores, int alfa, int beta) {
+
+        T v0 = valores.get(alfa);
+        T v1 = valores.get(beta);
+        valores.set(alfa, v1);
+        valores.set(beta, v0);
+
+    }
+
 }
