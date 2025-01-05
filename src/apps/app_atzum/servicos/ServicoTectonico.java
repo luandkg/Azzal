@@ -54,8 +54,7 @@ public class ServicoTectonico {
 
         AtzumTerra planeta = new AtzumTerra();
 
-        String LOCAL = "/home/luan/Imagens/atzum/parametros/";
-        String ARQUIVO_NOME = LOCAL + "PLACAS_TECTONICAS.dkg";
+        String ARQUIVO_NOME = AtzumCreator.LOCAL_GET_ARQUIVO("parametros/PLACAS_TECTONICAS.dkg") ;
 
         Unico<Par<Ponto, Integer>> eixos = new Unico<Par<Ponto, Integer>>(AtzumPontosInteiro.PAR_PONTO_INTEGER_IGUALAVEL());
         for (Par<Ponto, Integer> p : AtzumPontosInteiro.ABRIR(ARQUIVO_NOME)) {
