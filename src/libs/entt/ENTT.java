@@ -2628,6 +2628,43 @@ public class ENTT {
 
     }
 
+    public static void EXIBIR_BUSCA_REFERENCIADA_CONTEM(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem,int tamanho) {
+
+        for (Entidade e : entts) {
+            if (e.at(att_nome).contains(att_valor_contem)) {
+
+                Lista<Entidade> tokens_refs = ENTT.SLICE_REFERENCIADO(entts, e.atInt(att_ordem), tamanho, tamanho);
+                ENTT.SEQUENCIAR(tokens_refs, att_ordem, -5);
+                ENTT.TORNAR_PRIMEIRO(tokens_refs, att_ordem);
+                ENTT.EXIBIR_TABELA(tokens_refs);
+
+
+            }
+        }
+
+    }
+
+
+    public static  Lista<Entidade> EXIBIR_BUSCA_REFERENCIADA_CONTEM_ABAIXO(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem,int tamanho) {
+
+        Lista<Entidade> refs = new Lista<Entidade>();
+
+        for (Entidade e : entts) {
+            if (e.at(att_nome).contains(att_valor_contem)) {
+
+                Lista<Entidade> tokens_refs = ENTT.SLICE(entts, e.atInt(att_ordem), e.atInt(att_ordem)+tamanho);
+                ENTT.SEQUENCIAR(tokens_refs, "Ref", 0);
+                ENTT.TORNAR_PRIMEIRO(tokens_refs, att_ordem);
+                ENTT.EXIBIR_TABELA(tokens_refs);
+
+                refs.adicionar(e);
+            }
+        }
+
+        return refs;
+    }
+
+
     public static void EXIBIR_BUSCA_REFERENCIADA_INICIA(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem) {
 
         for (Entidade e : entts) {
