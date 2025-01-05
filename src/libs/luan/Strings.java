@@ -2705,4 +2705,24 @@ public class Strings {
         }
         return linhas;
     }
+
+
+    public static int contar(String texto,String s){
+
+        int i = 0;
+        int o = texto.length();
+
+        int contagem=0;
+
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals(s)) {
+                contagem+=1;
+            }
+            i += 1;
+        }
+
+        return contagem;
+    }
 }
