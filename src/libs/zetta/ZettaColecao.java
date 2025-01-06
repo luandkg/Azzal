@@ -21,6 +21,10 @@ public class ZettaColecao {
         mIndice = eIndice;
     }
 
+    public long getIdentificador(){
+        return mDados.getIndice();
+    }
+
     public String getNome(){return mNome;}
 
     public long contagem() {
