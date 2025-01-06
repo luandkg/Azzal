@@ -280,4 +280,54 @@ public class ZettaQuorum {
     }
 
 
+    public void destruirColecao(String colecao_nome) {
+
+        Opcional<Par<ItemAlocado, Entidade>> op_colecao = mColecoes.procurar_unico_atualizavel("Nome", colecao_nome);
+
+        if (op_colecao.isOK()) {
+
+            Entidade e_item = op_colecao.get().getValor();
+
+            Armazem armazem = mFazendario.OBTER_ARMAZEM_LOCATORIO(e_item.atLong("Ponteiro"));
+
+            Opcional<Par<ItemAlocado, Entidade>> op_sequencia = mSequencias.procurar_unico_atualizavel("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
+            Opcional<Par<ItemAlocado, Entidade>> op_indice = mIndices.procurar_unico_atualizavel("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
+
+
+            if (op_sequencia.isOK()) {
+                op_sequencia = mSequencias.procurar_unico_atualizavel("Identificador", String.valueOf(armazem.getPonteiroCorrente()));
+                op_sequencia.get().getValor().at("Corrente", 0);
+                op_sequencia.get().getChave().atualizarUTF8(ENTT.TO_DOCUMENTO(op_sequencia.get().getValor()));
+            }
+
+            if (op_indice.isOK()) {
+
+                long ponteiro_indice = mFazendario.CRIAR_AREA_INDEXADA_SUMARIO(armazem.getPonteiroCorrente());
+
+                ArmazemIndiceSumario indice_sumario = mFazendario.OBTER_INDICE_SUMARIO(armazem.getPonteiroCorrente(), ponteiro_indice);
+                indice_sumario.zerar();
+
+            }
+
+            armazem.zerar();
+
+            e_item.at("Status","DESTRUIDO");
+            op_colecao.get().getChave().atualizarUTF8(ENTT.TO_DOCUMENTO(e_item));
+        }
+
+
+    }
+
+    public void exibir_tudo() {
+
+        fmt.print("");
+        fmt.print("-------------------------- EXIBIR TUDO ------------------------------");
+        fmt.print("");
+
+        for (ZettaColecao colecao : getColecoes()) {
+            ENTT.EXIBIR_TABELA_COM_TITULO(colecao.getItens(), colecao.getNome());
+        }
+
+    }
+
 }
