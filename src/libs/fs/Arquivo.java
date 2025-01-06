@@ -7,6 +7,7 @@ import java.io.File;
 public class Arquivo {
 
     private String mLocal;
+
     public Arquivo(String eLocal){
         mLocal=eLocal;
     }

@@ -221,8 +221,8 @@ public class PastaFS {
     }
 
 
-    public Lista<PastaFS> getArquivosComExtensao(String eExtensao) {
-        Lista<PastaFS> ret = new Lista<PastaFS>();
+    public Lista<Arquivo> getArquivosComExtensao(String eExtensao) {
+        Lista<Arquivo> ret = new Lista<Arquivo>();
 
         File file = new File(mLocal);
 
@@ -232,7 +232,7 @@ public class PastaFS {
             for (File a : files) {
                 if (a.isFile()) {
                     if (a.getName().endsWith(eExtensao)) {
-                        ret.adicionar(new PastaFS(a.getAbsolutePath()));
+                        ret.adicionar(new Arquivo(a.getAbsolutePath()));
                     }
                 }
             }
@@ -243,7 +243,7 @@ public class PastaFS {
 
     public Lista<String> getArquivosComExtensaoApenasNome(String eExtensao) {
         Lista<String> arquivos = new Lista<String>();
-        for (PastaFS observado : getArquivosComExtensao(eExtensao)) {
+        for (Arquivo observado : getArquivosComExtensao(eExtensao)) {
             String nome = observado.getNome();
             arquivos.adicionar(nome);
         }
