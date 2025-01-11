@@ -235,7 +235,7 @@ public class ServicoFenomenoTectonico {
 
             if (Aleatorio.aleatorio(100) > 70) {
                 a.at("Evento", "SIM");
-                a.at("SismicaEscala", Aleatorio.aleatorio_entre(1, 12));
+                a.at("Escala", Aleatorio.aleatorio_entre(1, 12));
             }
 
         }
@@ -254,9 +254,9 @@ public class ServicoFenomenoTectonico {
             if (Aleatorio.aleatorio(100) > 50) {
                 e_vulcao.at("AtividadeSismica", "SIM");
                 if (e_vulcao.atInt("Nivel") == 1) {
-                    e_vulcao.at("SismicaEscala", 1);
+                    e_vulcao.at("Escala", 1);
                 } else {
-                    e_vulcao.at("SismicaEscala", Aleatorio.aleatorio_entre(1, e_vulcao.atInt("Nivel")));
+                    e_vulcao.at("Escala", Aleatorio.aleatorio_entre(1, e_vulcao.atInt("Nivel")));
                 }
             }
 
@@ -450,7 +450,7 @@ public class ServicoFenomenoTectonico {
                 render.drawCirculoCentralizado_Pintado(sismica.atInt("X"), sismica.atInt("Y"), 15, Cores.hexToCor("#FFCDD2"));
                 render.drawCirculoCentralizado_Pintado(sismica.atInt("X"), sismica.atInt("Y"), 5, Cores.hexToCor("#1565C0"));
 
-                ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 20, "Terremoto : " + sismica.at("SismicaEscala"));
+                ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 20, "Terremoto : " + sismica.at("Escala"));
                 ESCRITOR_NORMAL_BRANCO.escreva(sismica.atInt("X"), sismica.atInt("Y") + 60, "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(sismica.atInt("Superarko"), tronarko));
             }
 
@@ -474,7 +474,7 @@ public class ServicoFenomenoTectonico {
                     e_atividade_sismica.at("TemVulcanismo", "SIM");
                     vulcao.getEntidades().adicionar(e_atividade_sismica);
 
-                    ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), descer_py, "Terremoto = " + e_atividade_sismica.at("SismicaEscala") + " :: " + "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(e_atividade_sismica.atInt("Superarko"), tronarko));
+                    ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), descer_py, "Terremoto = " + e_atividade_sismica.at("Escala") + " :: " + "Superarko :: " +  StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(e_atividade_sismica.atInt("Superarko"), tronarko));
 
                     //  ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), descer_py, "aaaaa");
 
@@ -487,13 +487,19 @@ public class ServicoFenomenoTectonico {
 
 
         Lista<Entidade> fenomenos_tectonicos = new Lista<Entidade>();
-        fenomenos_tectonicos.adicionar_varios(tronarko_vulcanismo);
-        fenomenos_tectonicos.adicionar_varios(tronarko_vulcanismo_sismica);
-        fenomenos_tectonicos.adicionar_varios(tronarko_atividade_sismica);
+        fenomenos_tectonicos.adicionar_varios(ENTT.COPIAR(tronarko_vulcanismo));
+        fenomenos_tectonicos.adicionar_varios(ENTT.COPIAR(tronarko_vulcanismo_sismica));
+        fenomenos_tectonicos.adicionar_varios(ENTT.COPIAR(tronarko_atividade_sismica));
+
+        ENTT.ATRIBUTO_REMOVER(fenomenos_tectonicos,"Nivel");
+        ENTT.ATRIBUTO_REMOVER(fenomenos_tectonicos,"AtividadeSismica");
+        ENTT.ATRIBUTO_REMOVER(fenomenos_tectonicos,"TemVulcanismo");
 
         ENTT.ATRIBUTO_TODOS(tronarko_vulcanismo,"Fenomeno","VULCANISMO");
         ENTT.ATRIBUTO_TODOS(tronarko_vulcanismo_sismica,"Fenomeno","TERREMOTO");
         ENTT.ATRIBUTO_TODOS(tronarko_atividade_sismica,"Fenomeno","TERREMOTO");
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(fenomenos_tectonicos,"FENOMENOS TECTONICOS");
 
         ENTT.GUARDAR(fenomenos_tectonicos, ARQUIVO_FENOMENOS_TECTONICOS());
 
