@@ -5,6 +5,7 @@ import libs.arquivos.DSInterno;
 import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSIndexador;
 import libs.arquivos.ds.DSItem;
+import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
 
@@ -40,6 +41,10 @@ public class ArquivoAtzumGeral {
 
             DS.DUMP_ITENS(mIndice);
         }
+    }
+
+    public Lista<Entidade> GET_CIDADES(){
+        return DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@parametros/cidades.entts").get());
     }
 
     public BufferedImage GET_MAPA_DE_PLACAS_TECTONICAS() {
