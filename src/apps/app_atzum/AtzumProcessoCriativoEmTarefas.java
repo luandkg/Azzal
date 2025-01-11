@@ -145,9 +145,7 @@ public class AtzumProcessoCriativoEmTarefas {
         return item.at("Tempo");
     }
 
-    public static void PUBLICAR(Lista<Entidade> comparativos) {
-        ENTT.GUARDAR(comparativos, AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_BETA));
-    }
+
 
     public static void BETA_EXIBIR_PUBLICACAO(Lista<Entidade> beta_tarefas) {
         ENTT.EXIBIR_TABELA_COM_NOME(beta_tarefas, "PROCESSO CRIATIVO ATZUM - BETA");

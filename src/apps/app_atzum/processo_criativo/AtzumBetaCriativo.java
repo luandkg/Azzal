@@ -33,7 +33,6 @@ public class AtzumBetaCriativo {
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
 
-                PUBLICAR(beta_tarefas);
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
             }
@@ -53,7 +52,6 @@ public class AtzumBetaCriativo {
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
 
-                PUBLICAR(beta_tarefas);
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
             }
@@ -76,7 +74,6 @@ public class AtzumBetaCriativo {
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
 
-                PUBLICAR(beta_tarefas);
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
             }
@@ -97,7 +94,7 @@ public class AtzumBetaCriativo {
                 ServicoTronarko.EXIBIR_TRONARKO();
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
-                PUBLICAR(beta_tarefas);
+
 
             }
         });
@@ -113,7 +110,7 @@ public class AtzumBetaCriativo {
                 ServicoTronarko.SENSORES_ORGANIZAR_POR_SENSORES_A_PARTIR_DE_QUADRUM();
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
-                PUBLICAR(beta_tarefas);
+
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
             }
@@ -134,7 +131,7 @@ public class AtzumBetaCriativo {
 
                     MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                     MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
-                    PUBLICAR(beta_tarefas);
+
                     BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
                 }
@@ -156,7 +153,7 @@ public class AtzumBetaCriativo {
 
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
-                PUBLICAR(beta_tarefas);
+
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
 
@@ -173,7 +170,7 @@ public class AtzumBetaCriativo {
                 AnalisadorVegetacao.INIT();
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
-                PUBLICAR(beta_tarefas);
+
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
 
@@ -197,7 +194,7 @@ public class AtzumBetaCriativo {
 
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
-                PUBLICAR(beta_tarefas);
+
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
 
@@ -216,7 +213,6 @@ public class AtzumBetaCriativo {
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
 
-                PUBLICAR(beta_tarefas);
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
             }
@@ -234,7 +230,6 @@ public class AtzumBetaCriativo {
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
 
-                PUBLICAR(beta_tarefas);
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
 
@@ -258,7 +253,6 @@ public class AtzumBetaCriativo {
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
 
-                PUBLICAR(beta_tarefas);
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
 
@@ -278,7 +272,6 @@ public class AtzumBetaCriativo {
                 MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
                 MARQUE_DURACAO(e_tronarko,ATIVIDADE_CORRENTE);
 
-                PUBLICAR(beta_tarefas);
                 BETA_EXIBIR_PUBLICACAO(beta_tarefas);
 
 
@@ -302,9 +295,7 @@ public class AtzumBetaCriativo {
     }
 
 
-    public static void PUBLICAR(Lista<Entidade> comparativos) {
-        AtzumProcessoCriativoEmTarefas.PUBLICAR(comparativos);
-    }
+
 
     public static Entidade MARQUE_INICIO(Lista<Entidade> comparativos, String nome) {
         return AtzumProcessoCriativoEmTarefas.MARQUE_INICIO(comparativos, nome);
