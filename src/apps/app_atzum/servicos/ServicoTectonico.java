@@ -432,7 +432,7 @@ public class ServicoTectonico {
                             e_vulcao.at("Y", vulcao_y);
                             e_vulcao.at("Sismicidade", Aleatorio.aleatorio_entre(500, 6000));
                             e_vulcao.at("Dormencia", e_vulcao.atInt("Sismicidade") + Aleatorio.aleatorio_entre(50, 100));
-                            e_vulcao.at("Nivel", Aleatorio.aleatorio_entre(1, 12));
+                            e_vulcao.at("Escala", Aleatorio.aleatorio_entre(1, 12));
 
 
                             if (terra_ou_agua.getPixel(vulcao_x, vulcao_y).igual(mCores.getPreto())) {
@@ -681,7 +681,6 @@ public class ServicoTectonico {
 
         ENTT.ATRIBUTO_REMOVER(vulcoes, "Sismicidade");
         ENTT.ATRIBUTO_REMOVER(vulcoes, "Dormencia");
-        ENTT.ATRIBUTO_REMOVER(vulcoes, "Nivel");
 
         ENTT.EXIBIR_TABELA(vulcoes);
 

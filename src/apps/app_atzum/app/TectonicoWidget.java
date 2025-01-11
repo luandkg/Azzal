@@ -125,11 +125,11 @@ public class TectonicoWidget {
                 }
 
                 for (Entidade terremoto : acontecimentos_terremoto) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro + 20, 1, terremoto.atInt("SismicaEscala") * 10, mCores.getLaranja());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro + 20, 1, terremoto.atInt("Escala") * 10, mCores.getLaranja());
                 }
 
                 for (Entidade vulcanismo : acontecimentos_vulcanismo) {
-                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro - 20 - (vulcanismo.atInt("Nivel") * 10), 1, vulcanismo.atInt("Nivel") * 10, mCores.getVermelho());
+                    g.drawRect_Pintado(temperatura_px, temperatura_py_centro - 20 - (vulcanismo.atInt("Escala") * 10), 1, vulcanismo.atInt("Escala") * 10, mCores.getVermelho());
                 }
 
                 g.drawRect_Pintado(temperatura_px, temperatura_py_centro - 4, 1, 9, acontecimento_cor);

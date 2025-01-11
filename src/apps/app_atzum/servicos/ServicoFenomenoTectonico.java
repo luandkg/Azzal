@@ -55,8 +55,8 @@ public class ServicoFenomenoTectonico {
 
 
             vulcao.at("Valor", Aleatorio.aleatorio(vulcao.atInt("Dormencia")));
-            if (vulcao.atInt("Nivel") == 0) {
-                vulcao.at("Nivel", 1);
+            if (vulcao.atInt("Escala") == 0) {
+                vulcao.at("Escala", 1);
             }
         }
 
@@ -253,10 +253,10 @@ public class ServicoFenomenoTectonico {
 
             if (Aleatorio.aleatorio(100) > 50) {
                 e_vulcao.at("AtividadeSismica", "SIM");
-                if (e_vulcao.atInt("Nivel") == 1) {
+                if (e_vulcao.atInt("Escala") == 1) {
                     e_vulcao.at("Escala", 1);
                 } else {
-                    e_vulcao.at("Escala", Aleatorio.aleatorio_entre(1, e_vulcao.atInt("Nivel")));
+                    e_vulcao.at("Escala", Aleatorio.aleatorio_entre(1, e_vulcao.atInt("Escala")));
                 }
             }
 
@@ -462,7 +462,7 @@ public class ServicoFenomenoTectonico {
             render.drawCirculoCentralizado_Pintado(vulcao.atInt("X"), vulcao.atInt("Y"), 15, Cores.hexToCor("#FFF9C4"));
             render.drawCirculoCentralizado_Pintado(vulcao.atInt("X"), vulcao.atInt("Y"), 5, Cores.hexToCor("#FF5722"));
 
-            ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), vulcao.atInt("Y") + 20, "Erupção : " + vulcao.at("Nivel"));
+            ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), vulcao.atInt("Y") + 20, "Erupção : " + vulcao.at("Escala"));
             ESCRITOR_NORMAL_BRANCO.escreva(vulcao.atInt("X"), vulcao.atInt("Y") + 60, "Superarko :: " + StringTronarko. SUPERARKOS_DO_TRONARKO_PARA_TOZTE(vulcao.atInt("Superarko"), tronarko));
 
 
