@@ -1,5 +1,6 @@
 package libs.arquivos;
 
+import apps.app_atzum.AtzumCreator;
 import libs.dkg.DKG;
 
 import java.io.File;
@@ -70,5 +71,27 @@ public class PreferenciasOrganizadas {
     public double getDouble(String eSecao, String eAtributo) {
         double v = eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).getDouble(0.0);
         return v;
+    }
+
+
+    public static String OBTER_DIRETO(String eArquivo,String eSecao,String eAtributo,String eAtributoValorPadrao){
+
+        PreferenciasOrganizadas po = new PreferenciasOrganizadas(eArquivo);
+
+        if (po.abrirSeExistir()) {
+           return po.getOpcao(eSecao, eAtributo);
+        } else {
+           return  eAtributoValorPadrao;
+        }
+
+    }
+
+    public static void ALTERAR_DIRETO(String eArquivo,String eSecao,String eAtributo,String eAtributoValor){
+
+        PreferenciasOrganizadas po = new PreferenciasOrganizadas(eArquivo);
+        po.abrirSeExistir();
+        po.setOpcao(eSecao, eAtributo, eAtributoValor);
+        po.salvar();
+
     }
 }
