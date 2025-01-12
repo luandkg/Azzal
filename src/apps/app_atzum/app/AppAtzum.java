@@ -112,7 +112,7 @@ public class AppAtzum extends Cena {
         ESCRITOR_NORMAL_BRANCO = new FonteRunTime(mCores.getBranco(), 10);
         ESCRITOR_NORMAL_BRANCO_GRANDE = new FonteRunTime(mCores.getBranco(), 30);
 
-        String mTronarko = "7002";
+        String mTronarko = "7000";
 
         mArquivoAtzumGeral = new ArquivoAtzumGeral();
         mArquivoAtzumTronarko = new ArquivoAtzumTronarko(mTronarko);
@@ -547,13 +547,13 @@ public class AppAtzum extends Cena {
             int py = 200;
             for (Entidade fenomeno : mFenomenosTectonicos) {
 
-                if (fenomeno.is("Fenomeno", "TERREMOTO")) {
+                if (fenomeno.is("Evento", "TERREMOTO")) {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getLaranja());
                 } else {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getVermelho());
                 }
 
-                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: " + fenomeno.at("Tozte"));
+                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Evento") + " :: " + fenomeno.at("Tozte"));
 
                 py += 30;
             }
@@ -563,13 +563,13 @@ public class AppAtzum extends Cena {
             int py = 200;
             for (Entidade fenomeno : mFenomenosAtmosfericos) {
 
-                if (fenomeno.is("Fenomeno", "FURACAO")) {
+                if (fenomeno.is("Evento", "FURACAO")) {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getAzul());
                 } else {
                     g.drawRect_Pintado(1800, py, 25, 25, mCores.getLaranja());
                 }
 
-                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Fenomeno") + " :: " + fenomeno.at("Tozte"));
+                ESCRITOR_NORMAL_BRANCO.escreva(1800 + 40, py + 5, fenomeno.at("Evento") + " :: " + fenomeno.at("Tozte"));
 
                 py += 30;
             }
