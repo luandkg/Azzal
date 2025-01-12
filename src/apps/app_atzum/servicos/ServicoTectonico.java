@@ -119,6 +119,8 @@ public class ServicoTectonico {
         for (Par<Ponto, Cor> placa_tectonica : placas_tectonicas) {
             //  render_tronarko_placas_tectonicas_limites.drawRect_Pintado(placa_tectonica.getChave().getX(),placa_tectonica.getChave().getY(),50,50,placa_tectonica.getValor());
 
+            fmt.print("\t ++ {}",placa_tectonica.getValor().toString());
+
             RefInt processante = new RefInt(0);
 
             Acao durante_mudanca = new Acao() {
