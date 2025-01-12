@@ -1,49 +1,76 @@
 package apps.app_atzum;
 
 import apps.app.AgendadorDeTarefas;
-import apps.app_atzum.analisadores.AnalisadorClimatico;
-import apps.app_atzum.analisadores.AnalisadorVegetacao;
-import apps.app_atzum.analisadores.Publicador;
 import apps.app_atzum.processo_criativo.AtzumAlfaCriativo;
 import apps.app_atzum.processo_criativo.AtzumBetaCriativo;
-import apps.app_atzum.servicos.*;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
+import libs.luan.Aleatorio;
 import libs.luan.Lista;
 import libs.luan.Strings;
 import libs.luan.fmt;
-import libs.meta_functional.Acao;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
+import libs.zetta.features.ZQC;
 
 public class AtzumProcessoCriativoEmTarefas {
 
     public static final String ARQUIVO_LOCAL_ALFA = "logs/alfa_processo_criativo.entts";
     public static final String ARQUIVO_LOCAL_BETA = "logs/beta_processo_criativo.entts";
 
+    public static final String ARQUIVO_PROCESSO_CRIATIVO = "logs/atzum_processo_criativo.az";
+
     public static final int TRONARKO_INICIAR = 7000;
 
 
-    public static void INIT(int quantidade_de_passos){
+    public static void INIT(int quantidade_de_passos) {
 
-        while (quantidade_de_passos > 0) {
+
+        String execucao_corrente = Tronarko.getTozte().getTextoInversoZerado_UnderLine().replace("_", "") + Tronarko.getHazde().getTextoZerado().replace(":", "") + ":::" + fmt.zerado(Aleatorio.aleatorio(1000), 6);
+
+        int passo = 1;
+
+        while (passo <= quantidade_de_passos) {
+
+            Tron t1 = Tronarko.getTronAgora();
 
             AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
 
+            String tronarko_corrente = "";
+            String tarefa_corrente = "";
+
             if (Strings.isDiferente(AtzumProcessoCriativoEmTarefas.GET_ALFA_TAREFA(), "TudoOK")) {
+                tarefa_corrente = GET_ALFA_TAREFA();
                 AtzumProcessoCriativoEmTarefas.INIT_ALFA_SEQUENCIAL();
             } else {
+                tronarko_corrente = GET_BETA_TRONARKO();
+                tarefa_corrente = GET_BETA_TAREFA();
                 AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
             }
 
             AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
 
-            quantidade_de_passos -= 1;
+            Tron t2 = Tronarko.getTronAgora();
+
+
+            Entidade log = new Entidade();
+            log.at("Tron", Tronarko.getTronAgora().getTextoZerado());
+            log.at("Execucao", execucao_corrente);
+            log.at("Passo", passo);
+            log.at("Iniciado", t1.getTextoZerado());
+            log.at("Terminado", t2.getTextoZerado());
+            log.at("Tempo", Tronarko.TRON_DIFERENCA(t1, t2));
+            log.at("Tronarko", tronarko_corrente);
+            log.at("Tarefa", tarefa_corrente);
+
+            ZQC.INSERIR(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_PROCESSO_CRIATIVO), "AtzumProcessoCriativo", log);
+
+
+            passo += 1;
         }
 
     }
-
 
 
     public static void INIT_ALFA_SEQUENCIAL() {
@@ -66,7 +93,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
         AgendadorDeTarefas tarefas = new AgendadorDeTarefas();
 
-        AtzumAlfaCriativo.CRIAR_TAREFAS(tarefas,alfa_tarefas,alfa_subtarefas,e_tronarko,e_sub_atividade);
+        AtzumAlfaCriativo.CRIAR_TAREFAS(tarefas, alfa_tarefas, alfa_subtarefas, e_tronarko, e_sub_atividade);
 
 
         tarefas.setTarefaCorrente(tarefa);
@@ -104,7 +131,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
         AgendadorDeTarefas tarefas = new AgendadorDeTarefas();
 
-        AtzumBetaCriativo.CRIAR_TAREFAS(tarefas,beta_tarefas,e_atividade,e_tronarko,tronarko);
+        AtzumBetaCriativo.CRIAR_TAREFAS(tarefas, beta_tarefas, e_atividade, e_tronarko, tronarko);
 
 
         tarefas.setTarefaCorrente(tarefa);
@@ -136,7 +163,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
     }
 
-    public static void MARQUE_DURACAO(Entidade e_tronarko,String ATIVIDADE_CORRENTE){
+    public static void MARQUE_DURACAO(Entidade e_tronarko, String ATIVIDADE_CORRENTE) {
         e_tronarko.at(ATIVIDADE_CORRENTE, OBTER_TEMPO_MARCADO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE));
     }
 
@@ -144,7 +171,6 @@ public class AtzumProcessoCriativoEmTarefas {
         Entidade item = ENTT.GET_SEMPRE(comparativos, "Acao", nome);
         return item.at("Tempo");
     }
-
 
 
     public static void BETA_EXIBIR_PUBLICACAO(Lista<Entidade> beta_tarefas) {
@@ -170,12 +196,12 @@ public class AtzumProcessoCriativoEmTarefas {
         Entidade e_alfa_subtarefa = ENTT.GET_SEMPRE(alfa_dados, "Conjunto", "SubTarefas");
 
 
-        ENTT.EXIBIR_TABELA_COM_NOME(alfa_dados,"ALFA - GERAL");
+        ENTT.EXIBIR_TABELA_COM_NOME(alfa_dados, "ALFA - GERAL");
 
         ALFA_EXIBIR_PUBLICACAO(e_alfa_tarefas.getEntidades());
 
         Lista<Entidade> alfa_sub_dados = e_alfa_subtarefa.getEntidades();
-        if(alfa_sub_dados.getQuantidade()>0){
+        if (alfa_sub_dados.getQuantidade() > 0) {
             ALFA_SUB_EXIBIR_PUBLICACAO(alfa_sub_dados.get(0).getEntidades());
         }
 
@@ -223,8 +249,14 @@ public class AtzumProcessoCriativoEmTarefas {
     }
 
 
-    public static void EXIBIR_EXECUTANDO(){
+    public static void EXIBIR_EXECUTANDO() {
         fmt.print(">> Alfa -->> {} ", AtzumProcessoCriativoEmTarefas.GET_ALFA_TAREFA());
-        fmt.print(">> Beta -->> {} :: {}", AtzumProcessoCriativoEmTarefas.GET_BETA_TRONARKO(),AtzumProcessoCriativoEmTarefas.GET_BETA_TAREFA());
+        fmt.print(">> Beta -->> {} :: {}", AtzumProcessoCriativoEmTarefas.GET_BETA_TRONARKO(), AtzumProcessoCriativoEmTarefas.GET_BETA_TAREFA());
+    }
+
+    public static void VER_BANCO(){
+
+        ZQC.EXIBIR_COLECAO(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_PROCESSO_CRIATIVO), "AtzumProcessoCriativo");
+
     }
 }
