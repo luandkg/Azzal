@@ -180,22 +180,19 @@ public class AppAtzum extends Cena {
         BTN_MAPA_CLIMATICO.setAcao(new Acao() {
             @Override
             public void onClique() {
+
                 mMapaDeAtividade.set("MAPA_CLIMATICO");
-                PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
-                po.abrirSeExistir();
-                po.setOpcao("Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
-                po.salvar();
+                PreferenciasOrganizadas.ALTERAR_DIRETO(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"), "Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
+
             }
         });
 
         BTN_MAPA_TECTONICO.setAcao(new Acao() {
             @Override
             public void onClique() {
+
                 mMapaDeAtividade.set("MAPA_TECTONICO");
-                PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
-                po.abrirSeExistir();
-                po.setOpcao("Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
-                po.salvar();
+                PreferenciasOrganizadas.ALTERAR_DIRETO(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"), "Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
 
                 mTectonico.setDados(mArquivoAtzumTronarko.getFenomenosTectonicos());
                 ENTT.EXIBIR_TABELA(mArquivoAtzumTronarko.getFenomenosTectonicos());
@@ -205,11 +202,9 @@ public class AppAtzum extends Cena {
         BTN_MAPA_ATMOSFERICO.setAcao(new Acao() {
             @Override
             public void onClique() {
+
                 mMapaDeAtividade.set("MAPA_ATMOSFERICO");
-                PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
-                po.abrirSeExistir();
-                po.setOpcao("Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
-                po.salvar();
+                PreferenciasOrganizadas.ALTERAR_DIRETO(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"), "Atzum", "MapaDeAtividade", mMapaDeAtividade.get());
 
                 mAtmosferico.setDados(mArquivoAtzumTronarko.getFenomenosAtmosfericos());
                 ENTT.EXIBIR_TABELA(mArquivoAtzumTronarko.getFenomenosAtmosfericos());
@@ -218,12 +213,7 @@ public class AppAtzum extends Cena {
 
         mMapaDeAtividade = new RefString();
 
-        PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
-        if (po.abrirSeExistir()) {
-            mMapaDeAtividade.set(po.getOpcao("Atzum", "MapaDeAtividade"));
-        } else {
-            mMapaDeAtividade.set("MAPA_CLIMATICO");
-        }
+        mMapaDeAtividade.set(PreferenciasOrganizadas.OBTER_DIRETO(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"), "Atzum", "MapaDeAtividade", "MAPA_CLIMATICO"));
 
         if (mMapaDeAtividade.isIgual("MAPA_CLIMATICO")) {
             BTN_MAPA_CLIMATICO.clicar();
@@ -469,7 +459,7 @@ public class AppAtzum extends Cena {
         mSubComandos.render(g, ESCRITOR_NORMAL_BRANCO);
 
 
-        if (mGrupoPrincipal.getSelecionado().contentEquals("Regiões")) {
+        if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "Regiões")) {
 
             int py = 100;
             for (String modelo_corrente : Atzum.GET_REGIOES()) {
@@ -480,7 +470,7 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Modelo Climático")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "Modelo Climático")) {
 
             int py = 100;
             for (String modelo_corrente : Atzum.GET_MODELO_CLIMATICO()) {
@@ -491,7 +481,7 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Modelo Vegetação")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "Modelo Vegetação")) {
 
             int py = 100;
             for (String modelo_corrente : Atzum.GET_MODELO_VEGETACAO()) {
@@ -502,7 +492,7 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Umidade")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "Umidade")) {
 
             int py = 100;
             for (IntervaloDeValorColorido modelo_corrente : Atzum.GET_UMIDADE_INTERVALOS_COLORIDOS()) {
@@ -512,7 +502,7 @@ public class AppAtzum extends Cena {
 
                 py += 30;
             }
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("Temperatura")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "Temperatura")) {
 
             int py = 100;
             for (IntervaloDeValorColorido modelo_corrente : Atzum.GET_TEMPERATURA_INTERVALOS_COLORIDOS()) {
@@ -522,7 +512,7 @@ public class AppAtzum extends Cena {
 
                 py += 30;
             }
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("MassaDeAr")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "MassaDeAr")) {
 
             int py = 100;
             for (String modelo_corrente : mAtzum.GET_MASSA_DE_AR_TIPOS()) {
@@ -532,7 +522,7 @@ public class AppAtzum extends Cena {
 
                 py += 30;
             }
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("FatorClimatico")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "FatorClimatico")) {
 
             int py = 100;
             for (String modelo_corrente : mAtzum.GET_FATORES_CLIMATICOS()) {
@@ -542,7 +532,7 @@ public class AppAtzum extends Cena {
 
                 py += 30;
             }
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("MapaTectonico")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "MapaTectonico")) {
 
             int py = 200;
             for (Entidade fenomeno : mFenomenosTectonicos) {
@@ -558,7 +548,7 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("MapaAtmosferico")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "MapaAtmosferico")) {
 
             int py = 200;
             for (Entidade fenomeno : mFenomenosAtmosfericos) {
@@ -574,17 +564,17 @@ public class AppAtzum extends Cena {
                 py += 30;
             }
 
-        } else if (mGrupoPrincipal.getSelecionado().contentEquals("PlacasTectonicas")) {
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "PlacasTectonicas")) {
 
             int py = 200;
-            int placa_id=0;
+            int placa_id = 0;
             for (String placa_tectonica : mAtzum.GET_PLACAS_TECTONICAS()) {
 
                 g.drawRect_Pintado(1900, py, 25, 25, AtzumPlacasTectonicas.GET_PLACAS_TECTONICAS_CORES().get(placa_id));
 
                 ESCRITOR_NORMAL_BRANCO.escreva(1900 + 40, py + 5, placa_tectonica);
 
-                placa_id+=1;
+                placa_id += 1;
                 py += 30;
             }
 
