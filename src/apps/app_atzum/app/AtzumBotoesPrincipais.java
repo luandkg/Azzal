@@ -258,7 +258,7 @@ public class AtzumBotoesPrincipais {
                 Renderizador render = new Renderizador(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO());
 
                 for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosTectonicos()) {
-                    if (atividade.is("Fenomeno", "TERREMOTO")) {
+                    if (atividade.is("Evento", "TERREMOTO")) {
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getLaranja());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getLaranja());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getLaranja());
@@ -266,7 +266,7 @@ public class AtzumBotoesPrincipais {
                 }
 
                 for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosTectonicos()) {
-                    if (atividade.is("Fenomeno", "VULCANISMO")) {
+                    if (atividade.is("Evento", "VULCANISMO")) {
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getVermelho());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getVermelho());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getVermelho());
@@ -277,7 +277,7 @@ public class AtzumBotoesPrincipais {
 
 
                 for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosTectonicos()) {
-                    if (atividade.is("Fenomeno", "TERREMOTO")) {
+                    if (atividade.is("Evento", "TERREMOTO")) {
 
                         boolean existe = false;
 
@@ -316,7 +316,7 @@ public class AtzumBotoesPrincipais {
                 Renderizador render = new Renderizador(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO());
 
                 for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosAtmosfericos()) {
-                    if (atividade.is("Fenomeno", "FURACAO")) {
+                    if (atividade.is("Evento", "FURACAO")) {
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getAzul());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getAzul());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getAzul());
@@ -324,7 +324,7 @@ public class AtzumBotoesPrincipais {
                 }
 
                 for (Entidade atividade : app.mArquivoAtzumTronarko.getFenomenosAtmosfericos()) {
-                    if (atividade.is("Fenomeno", "TORNADO")) {
+                    if (atividade.is("Evento", "TORNADO")) {
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 10, mCores.getLaranja());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 20, mCores.getLaranja());
                         render.drawCirculoCentralizado(atividade.atInt("X"), atividade.atInt("Y"), 30, mCores.getLaranja());
