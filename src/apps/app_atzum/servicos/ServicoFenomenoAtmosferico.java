@@ -20,7 +20,6 @@ import libs.luan.Matematica;
 import libs.luan.fmt;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tron;
-import libs.tronarko.Tronarko;
 import libs.tronarko.utils.StringTronarko;
 
 import java.awt.image.BufferedImage;
@@ -161,7 +160,7 @@ public class ServicoFenomenoAtmosferico {
 
         for (Entidade a : dados_furacoes) {
 
-            a.at("Evento", "NAO");
+            a.at("TemEvento", "NAO");
 
             a.at("Valor", a.atInt("Valor") + Aleatorio.aleatorio(5));
 
@@ -171,12 +170,12 @@ public class ServicoFenomenoAtmosferico {
                 a.at("Maximo", Aleatorio.aleatorio_entre(1000, 5000));
 
                 if (Aleatorio.aleatorio(100) > 70) {
-                    a.at("Evento", "SIM");
+                    a.at("TemEvento", "SIM");
                 }
 
             }
 
-            if (a.is("Evento", "SIM")) {
+            if (a.is("TemEvento", "SIM")) {
 
                 long tamanho_zona_de_furacoes = 0;
                 for (int py = 0; py < mapa_zona_de_furacoes.getHeight(); py++) {
@@ -245,7 +244,7 @@ public class ServicoFenomenoAtmosferico {
                     a.at("Superarko", superarko);
                     a.at("Tozte", StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(superarko, tronarko));
 
-                    a.at("Fenomeno", "FURACAO");
+                    a.at("Evento", "FURACAO");
 
                     Entidade e_furacao = a.getCopia();
                     e_furacao.at("Escala", Aleatorio.aleatorio_entre(1, 5));
@@ -270,7 +269,7 @@ public class ServicoFenomenoAtmosferico {
 
         for (Entidade a : dados_tornados) {
 
-            a.at("Evento", "NAO");
+            a.at("TemEvento", "NAO");
 
             a.at("Valor", a.atInt("Valor") + Aleatorio.aleatorio(5));
 
@@ -280,13 +279,13 @@ public class ServicoFenomenoAtmosferico {
                 a.at("Maximo", Aleatorio.aleatorio_entre(1000, 5000));
 
                 if (Aleatorio.aleatorio(100) > 70) {
-                    a.at("Evento", "SIM");
+                    a.at("TemEvento", "SIM");
                     a.at("Escala", Aleatorio.aleatorio_entre(1, 10));
                 }
 
             }
 
-            if (a.is("Evento", "SIM")) {
+            if (a.is("TemEvento", "SIM")) {
 
                 long tamanho_zona_de_tornados = 0;
                 for (int py = 0; py < mapa_zona_de_tornados.getHeight(); py++) {
@@ -356,7 +355,7 @@ public class ServicoFenomenoAtmosferico {
                 }
 
                 if (adicionar_evento) {
-                    a.at("Fenomeno", "TORNADO");
+                    a.at("Evento", "TORNADO");
 
                     Entidade e_tornado = a.getCopia();
                     ROTARIZADOR_DE_FENOMENO("Tornado", mapa_zona_de_tornados, e_tornado);
@@ -389,7 +388,7 @@ public class ServicoFenomenoAtmosferico {
 
         for (Entidade fenomeno : tronarko_atividade_atmosfericos) {
 
-            if (fenomeno.is("Fenomeno", "FURACAO")) {
+            if (fenomeno.is("Evento", "FURACAO")) {
                 Entidade e_furacao = fenomeno;
                 render.drawCirculoCentralizado_Pintado(e_furacao.atInt("X"), e_furacao.atInt("Y"), 15, Cores.hexToCor("#B3E5FC"));
                 render.drawCirculoCentralizado_Pintado(e_furacao.atInt("X"), e_furacao.atInt("Y"), 5, Cores.hexToCor("#43A047"));
@@ -409,7 +408,7 @@ public class ServicoFenomenoAtmosferico {
 
                 ESCRITOR_NORMAL_BRANCO.escreva(e_furacao.atInt("X"), e_furacao.atInt("Y") + 20, "Furacão : " + e_furacao.at("Escala"));
                 ESCRITOR_NORMAL_BRANCO.escreva(e_furacao.atInt("X"), e_furacao.atInt("Y") + 60, "Superarko :: " + StringTronarko.SUPERARKOS_DO_TRONARKO_PARA_TOZTE(e_furacao.atInt("Superarko"), tronarko));
-            } else if (fenomeno.is("Fenomeno", "TORNADO")) {
+            } else if (fenomeno.is("Evento", "TORNADO")) {
                 Entidade tornado = fenomeno;
                 render.drawCirculoCentralizado_Pintado(tornado.atInt("X"), tornado.atInt("Y"), 15, Cores.hexToCor("#FFEE58"));
                 render.drawCirculoCentralizado_Pintado(tornado.atInt("X"), tornado.atInt("Y"), 5, Cores.hexToCor("#FFA000"));
@@ -630,7 +629,7 @@ public class ServicoFenomenoAtmosferico {
 
         e_fenomeno.at("PercursoTamanho", ENTT.CONTAGEM(e_percurso_rota.getEntidades()));
 
-        e_fenomeno.at_remover("Evento");
+      //  e_fenomeno.at_remover("Evento");
         e_fenomeno.at_remover("Valor");
         e_fenomeno.at_remover("Maximo");
 
