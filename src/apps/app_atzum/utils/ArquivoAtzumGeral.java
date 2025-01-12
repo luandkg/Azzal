@@ -47,6 +47,10 @@ public class ArquivoAtzumGeral {
         return DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@parametros/cidades.entts").get());
     }
 
+    public Lista<Entidade> GET_VULCOES(){
+        return  DSInterno.ENTT_ABRIR(DSIndexador.GET_ITEM(mIndice, "@parametros/vulcanismo.entts").get());
+    }
+
     public BufferedImage GET_MAPA_DE_PLACAS_TECTONICAS() {
         BufferedImage mapa = DSInterno.IM_VISUALIZAR(DSIndexador.GET_ITEM(mIndice, "@imagem/atzum_tectonismo_placas.im").get());
         return mapa;
