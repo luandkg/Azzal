@@ -115,8 +115,8 @@ public class AtmosfericoWidget {
             if (acontecimentos.possuiObjetos()) {
                 Cor acontecimento_cor = mCores.getVerde();
 
-                Lista<Entidade> acontecimentos_furacao = ENTT.COLETAR(acontecimentos, "Fenomeno", "FURACAO");
-                Lista<Entidade> acontecimentos_tornado = ENTT.COLETAR(acontecimentos, "Fenomeno", "TORNADO");
+                Lista<Entidade> acontecimentos_furacao = ENTT.COLETAR(acontecimentos, "Evento", "FURACAO");
+                Lista<Entidade> acontecimentos_tornado = ENTT.COLETAR(acontecimentos, "Evento", "TORNADO");
 
                 if (acontecimentos_furacao.getQuantidade() > 0 && acontecimentos_tornado.getQuantidade() == 0) {
                     acontecimento_cor = mCores.getAzul();
@@ -214,8 +214,8 @@ public class AtmosfericoWidget {
     public void render_superarko_info(int superarko, Renderizador g, int pos_y) {
 
         Lista<Entidade> acontecimentos = ENTT.COLETAR(mDados, "Superarko", superarko);
-        Lista<Entidade> acontecimentos_furacao = ENTT.COLETAR(acontecimentos, "Fenomeno", "FURACAO");
-        Lista<Entidade> acontecimentos_tornado = ENTT.COLETAR(acontecimentos, "Fenomeno", "TORNADO");
+        Lista<Entidade> acontecimentos_furacao = ENTT.COLETAR(acontecimentos, "Evento", "FURACAO");
+        Lista<Entidade> acontecimentos_tornado = ENTT.COLETAR(acontecimentos, "Evento", "TORNADO");
 
 
         ESCRITOR_NORMAL.escreveLinha(pos_y, 40, 120, "Superarko", " = " + superarko);

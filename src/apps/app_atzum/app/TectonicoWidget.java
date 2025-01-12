@@ -115,8 +115,8 @@ public class TectonicoWidget {
             if (acontecimentos.possuiObjetos()) {
                 Cor acontecimento_cor = mCores.getVerde();
 
-                Lista<Entidade> acontecimentos_terremoto = ENTT.COLETAR(acontecimentos, "Fenomeno", "TERREMOTO");
-                Lista<Entidade> acontecimentos_vulcanismo = ENTT.COLETAR(acontecimentos, "Fenomeno", "VULCANISMO");
+                Lista<Entidade> acontecimentos_terremoto = ENTT.COLETAR(acontecimentos, "Evento", "TERREMOTO");
+                Lista<Entidade> acontecimentos_vulcanismo = ENTT.COLETAR(acontecimentos, "Evento", "VULCANISMO");
 
                 if (acontecimentos_terremoto.getQuantidade() > 0 && acontecimentos_vulcanismo.getQuantidade() == 0) {
                     acontecimento_cor = mCores.getLaranja();
@@ -214,8 +214,8 @@ public class TectonicoWidget {
     public void render_superarko_info(int superarko, Renderizador g, int pos_y) {
 
         Lista<Entidade> acontecimentos = ENTT.COLETAR(mDados, "Superarko", superarko);
-        Lista<Entidade> acontecimentos_terremoto = ENTT.COLETAR(acontecimentos, "Fenomeno", "TERREMOTO");
-        Lista<Entidade> acontecimentos_vulcanismo = ENTT.COLETAR(acontecimentos, "Fenomeno", "VULCANISMO");
+        Lista<Entidade> acontecimentos_terremoto = ENTT.COLETAR(acontecimentos, "Evento", "TERREMOTO");
+        Lista<Entidade> acontecimentos_vulcanismo = ENTT.COLETAR(acontecimentos, "Evento", "VULCANISMO");
 
 
         ESCRITOR_NORMAL.escreveLinha(pos_y, 40, 120, "Superarko", " = " + superarko);
