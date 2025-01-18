@@ -22,6 +22,15 @@ public class Tozte {
 
     }
 
+    public long getSuperarkosDoTronarko() {
+
+        long P1 = (long) (this.getSuperarko());
+        long P2 = ((((long) (this.getHiperarko()) - 1) * 50));
+
+        return P1 + P2 ;
+
+    }
+
     public int getSuperarko() {
         return this.mSuperarkos;
     }
