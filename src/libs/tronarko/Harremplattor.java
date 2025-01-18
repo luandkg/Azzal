@@ -3,9 +3,14 @@ package libs.tronarko;
 import libs.azzal.Cores;
 import libs.luan.Lista;
 import libs.luan.Par;
+import libs.luan.Vetor;
 import libs.tronarko.utils.AstroLocal;
 
 public class Harremplattor {
+
+
+    // ATUALIZACAO 2025 01 18 - ADIÇÃO DE PARAMETROS DE DESLOCAMENTO
+
 
     public static Lista<Par<String, String>> get(Signos eSigno, Tozte eTozte) {
 
@@ -26,9 +31,14 @@ public class Harremplattor {
         Lista<String> numeros_do_jogo = LISTA_DE_NUMEROS_JOGO();
 
 
+
+
         Lista<AstroLocal> mLocais = getLocais(eSigno, eTozte);
 
-        lista.adicionar(new Par<String, String>("Sentimento", sentimentos.get(distancia(mLocais, "A", "Vermelho") % sentimentos.getQuantidade())));
+
+
+
+        lista.adicionar(new Par<String, String>("Sentimento", sentimentos.get((distancia(mLocais, "A", "Vermelho") )% sentimentos.getQuantidade())));
         lista.adicionar(new Par<String, String>("Cor", cores.get(distancia(mLocais, "A", "Amarelo") % cores.getQuantidade())));
         lista.adicionar(new Par<String, String>("Elemento", elementos.get(distancia(mLocais, "A", "Azul") % elementos.getQuantidade())));
         lista.adicionar(new Par<String, String>("Direção", direcoes.get(distancia(mLocais, "A", "Laranja") % direcoes.getQuantidade())));
@@ -124,11 +134,11 @@ public class Harremplattor {
 
     }
 
-    public static Lista<AstroLocal> getLocais(Signos eSigno, Tozte eTozte) {
+    public static Lista<AstroLocal> getLocais(Signos eSigno,Tozte eTozte) {
 
         Lista<AstroLocal> mLocais = new Lista<AstroLocal>();
 
-        for (AstroLocal p : getEixos(eSigno)) {
+        for (AstroLocal p : getEixos(eSigno,eTozte)) {
             mLocais.adicionar(p);
         }
 
@@ -140,7 +150,7 @@ public class Harremplattor {
 
     }
 
-    public static Lista<AstroLocal> getEixos(Signos eSigno) {
+    public static Lista<AstroLocal> getEixos(Signos eSigno,Tozte eTozte) {
 
 
         Lista<AstroLocal> mEixos = new Lista<AstroLocal>();
@@ -215,6 +225,41 @@ public class Harremplattor {
 
         }
 
+
+        Vetor<Integer> deslocamento_alfa = new Vetor<Integer>(11);
+        deslocamento_alfa.set(1,5);
+        deslocamento_alfa.set(2,18);
+        deslocamento_alfa.set(3,4);
+        deslocamento_alfa.set(4,1);
+        deslocamento_alfa.set(5,5);
+        deslocamento_alfa.set(6,2);
+        deslocamento_alfa.set(7,10);
+        deslocamento_alfa.set(8,3);
+        deslocamento_alfa.set(9,15);
+        deslocamento_alfa.set(10,5);
+
+        Vetor<Integer> deslocamento_beta = new Vetor<Integer>(11);
+        deslocamento_beta.set(1,0);
+        deslocamento_beta.set(2,9);
+        deslocamento_beta.set(3,6);
+        deslocamento_beta.set(4,1);
+        deslocamento_beta.set(5,6);
+        deslocamento_beta.set(6,2);
+        deslocamento_beta.set(7,10);
+        deslocamento_beta.set(8,7);
+        deslocamento_beta.set(9,5);
+        deslocamento_beta.set(10,2);
+
+        int mais_x = ((eTozte.getHiperarko()*deslocamento_beta.get(eSigno.getValor())) +(deslocamento_alfa.get(eSigno.getValor())*eTozte.getTronarko()) )% 300;
+        int mais_y = (deslocamento_beta.get(eSigno.getValor())*eTozte.getTronarko()) % 600;
+
+
+
+        mEixos.get(0).setX(mEixos.get(0).getX()+mais_x);
+        mEixos.get(1).setY(mEixos.get(1).getY()+mais_y);
+
+        mEixos.get(2).setX(mEixos.get(2).getX()+mais_y);
+        mEixos.get(2).setY(mEixos.get(2).getY()+mais_x);
 
         return mEixos;
     }
