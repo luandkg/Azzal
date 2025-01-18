@@ -30,5 +30,8 @@ public class TronarkoAleatorium {
         return novo.getTozte();
     }
 
+    public static TronarkoAleatorium CRIAR_TRONARKOS(int eTronarkoInicio,int eTronarkoFim){
+        return new TronarkoAleatorium(new Tozte(1, 1, eTronarkoInicio), new Tozte(50, 10, eTronarkoFim));
+    }
 
 }
