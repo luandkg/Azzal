@@ -187,6 +187,80 @@ public class ENTT {
         return menor;
     }
 
+
+    public static Entidade GET_ITEM_MAIOR(Lista<Entidade> mEntts, String eNome) {
+        Entidade ret = GET_PRIMEIRO(mEntts);
+        int maior = ret.atInt(eNome);
+
+        for (Entidade e : mEntts) {
+            if (e.atIntOuPadrao(eNome, 0) > maior) {
+                maior = e.atInt(eNome);
+                ret = e;
+            }
+        }
+
+        return ret;
+    }
+
+    public static Entidade GET_ITEM_MENOR(Lista<Entidade> mEntts, String eNome) {
+        Entidade ret = GET_PRIMEIRO(mEntts);
+        int menor = ret.atInt(eNome);
+
+        for (Entidade e : mEntts) {
+            if (e.atIntOuPadrao(eNome, 0) < menor) {
+                menor = e.atInt(eNome);
+                ret = e;
+            }
+        }
+
+        return ret;
+    }
+
+
+    public static Lista<Entidade> GET_ITEM_MAIOR_COM_REPETICAO(Lista<Entidade> mEntts, String eNome) {
+        Entidade ret = GET_PRIMEIRO(mEntts);
+        int maior = ret.atInt(eNome);
+
+        Lista<Entidade> repeticao = new Lista<Entidade>();
+
+
+        for (Entidade e : mEntts) {
+            if (e.atIntOuPadrao(eNome, 0) > maior) {
+                maior = e.atInt(eNome);
+                ret = e;
+                repeticao.limpar();
+                repeticao.adicionar(e);
+            } else if (e.atIntOuPadrao(eNome, 0) == maior) {
+                repeticao.adicionar(e);
+            }
+        }
+
+        return repeticao;
+    }
+
+    public static Lista<Entidade> GET_ITEM_MENOR_COM_REPETICAO(Lista<Entidade> mEntts, String eNome) {
+        Entidade ret = GET_PRIMEIRO(mEntts);
+        int menor = ret.atInt(eNome);
+
+        Lista<Entidade> repeticao = new Lista<Entidade>();
+
+
+        for (Entidade e : mEntts) {
+            if (e.atIntOuPadrao(eNome, 0) < menor) {
+                menor = e.atInt(eNome);
+                ret = e;
+                repeticao.limpar();
+                repeticao.adicionar(e);
+            } else if (e.atIntOuPadrao(eNome, 0) == menor) {
+                repeticao.adicionar(e);
+            }
+        }
+
+        return repeticao;
+    }
+
+
+
     public static double GET_DOUBLE_MAIOR(Lista<Entidade> mEntts, String eNome) {
         double maior = 0;
 
@@ -2628,7 +2702,7 @@ public class ENTT {
 
     }
 
-    public static void EXIBIR_BUSCA_REFERENCIADA_CONTEM(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem,int tamanho) {
+    public static void EXIBIR_BUSCA_REFERENCIADA_CONTEM(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem, int tamanho) {
 
         for (Entidade e : entts) {
             if (e.at(att_nome).contains(att_valor_contem)) {
@@ -2645,14 +2719,14 @@ public class ENTT {
     }
 
 
-    public static  Lista<Entidade> EXIBIR_BUSCA_REFERENCIADA_CONTEM_ABAIXO(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem,int tamanho) {
+    public static Lista<Entidade> EXIBIR_BUSCA_REFERENCIADA_CONTEM_ABAIXO(Lista<Entidade> entts, String att_ordem, String att_nome, String att_valor_contem, int tamanho) {
 
         Lista<Entidade> refs = new Lista<Entidade>();
 
         for (Entidade e : entts) {
             if (e.at(att_nome).contains(att_valor_contem)) {
 
-                Lista<Entidade> tokens_refs = ENTT.SLICE(entts, e.atInt(att_ordem), e.atInt(att_ordem)+tamanho);
+                Lista<Entidade> tokens_refs = ENTT.SLICE(entts, e.atInt(att_ordem), e.atInt(att_ordem) + tamanho);
                 ENTT.SEQUENCIAR(tokens_refs, "Ref", 0);
                 ENTT.TORNAR_PRIMEIRO(tokens_refs, att_ordem);
                 ENTT.EXIBIR_TABELA(tokens_refs);
@@ -2682,5 +2756,27 @@ public class ENTT {
     }
 
 
+    public static Lista<String> VALORES_DE(Lista<Entidade> entts, String att) {
+        Lista<String> valores = new Lista<String>();
+        for (Entidade e : entts) {
+            valores.adicionar(e.at(att));
+        }
+
+        return valores;
+    }
+
+    public static Lista<Entidade> VALORES_PARA_ENTIDADES(Lista<String> valores, String att) {
+        Lista<Entidade> lista = new Lista<Entidade>();
+        for (String valor : valores) {
+            Entidade item = ENTT.CRIAR_EM(lista);
+            item.at(att, valor);
+        }
+        return lista;
+    }
+
+    public static Lista<Entidade> EMBARALHAR(Lista<Entidade> entts) {
+        Embaralhar.emabaralhe(entts);
+        return entts;
+    }
 
 }
