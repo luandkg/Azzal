@@ -332,62 +332,8 @@ public class Matematica {
             operadores_valores.adicionar(null);
         }
 
-        int indice_trocar_valor= operacoes / opcoes.getQuantidade();
-        int montante_anterior=indice_trocar_valor;
-
-        for (int operador_id = 0; operador_id < operadores; operador_id++) {
-
-           // fmt.print("OP :: {} -->> {} :: {} == a {}", operador_id, divisor,indice_trocar_valor,montante_anterior);
-
-            int i = 0;
-            T OPERADOR_CORRENTE = opcoes.get(0);
-
-            int op_indice = 0;
-            int indice_valor_corrente = 0;
-
-            for (T op : operadores_valores) {
-                if (i == indice_trocar_valor) {
-
-                    indice_valor_corrente += 1;
-                    if (indice_valor_corrente == opcoes.getQuantidade()) {
-                        indice_valor_corrente = 0;
-                    }
-
-                    OPERADOR_CORRENTE = opcoes.get(indice_valor_corrente);
-
-                    i = 0;
-                }
-
-                if (operadores_valores.get(op_indice) == null) {
-                    operadores_valores.set(op_indice, OPERADOR_CORRENTE);
-                } else {
-                    operadores_valores.set(op_indice, eConcatenador.concatenar(op, OPERADOR_CORRENTE));
-                }
-
-                i += 1;
-                op_indice += 1;
-            }
-
-            indice_trocar_valor=montante_anterior/opcoes.getQuantidade();
-            montante_anterior=indice_trocar_valor;
-
-        }
-
-        return operadores_valores;
-    }
-
-    public static <T> Vetor<T> PERMUTACOES_EM_VETOR(int operadores, Lista<T> opcoes, Concatenador<T> eConcatenador) {
-
-        int operacoes = Matematica.PERMUTACAO_QUANTIDADE(operadores, opcoes.getQuantidade());
-
-        Vetor<T> operadores_valores = new Vetor<T>(operacoes);
-
-        for (int a = 0; a < operacoes; a++) {
-            operadores_valores.set(a,null);
-        }
-
-        int indice_trocar_valor= operacoes / opcoes.getQuantidade();
-        int montante_anterior=indice_trocar_valor;
+        int indice_trocar_valor = operacoes / opcoes.getQuantidade();
+        int montante_anterior = indice_trocar_valor;
 
         for (int operador_id = 0; operador_id < operadores; operador_id++) {
 
@@ -422,8 +368,62 @@ public class Matematica {
                 op_indice += 1;
             }
 
-            indice_trocar_valor=montante_anterior/opcoes.getQuantidade();
-            montante_anterior=indice_trocar_valor;
+            indice_trocar_valor = montante_anterior / opcoes.getQuantidade();
+            montante_anterior = indice_trocar_valor;
+
+        }
+
+        return operadores_valores;
+    }
+
+    public static <T> Vetor<T> PERMUTACOES_EM_VETOR(int operadores, Lista<T> opcoes, Concatenador<T> eConcatenador) {
+
+        int operacoes = Matematica.PERMUTACAO_QUANTIDADE(operadores, opcoes.getQuantidade());
+
+        Vetor<T> operadores_valores = new Vetor<T>(operacoes);
+
+        for (int a = 0; a < operacoes; a++) {
+            operadores_valores.set(a, null);
+        }
+
+        int indice_trocar_valor = operacoes / opcoes.getQuantidade();
+        int montante_anterior = indice_trocar_valor;
+
+        for (int operador_id = 0; operador_id < operadores; operador_id++) {
+
+            // fmt.print("OP :: {} -->> {} :: {} == a {}", operador_id, divisor,indice_trocar_valor,montante_anterior);
+
+            int i = 0;
+            T OPERADOR_CORRENTE = opcoes.get(0);
+
+            int op_indice = 0;
+            int indice_valor_corrente = 0;
+
+            for (T op : operadores_valores) {
+                if (i == indice_trocar_valor) {
+
+                    indice_valor_corrente += 1;
+                    if (indice_valor_corrente == opcoes.getQuantidade()) {
+                        indice_valor_corrente = 0;
+                    }
+
+                    OPERADOR_CORRENTE = opcoes.get(indice_valor_corrente);
+
+                    i = 0;
+                }
+
+                if (operadores_valores.get(op_indice) == null) {
+                    operadores_valores.set(op_indice, OPERADOR_CORRENTE);
+                } else {
+                    operadores_valores.set(op_indice, eConcatenador.concatenar(op, OPERADOR_CORRENTE));
+                }
+
+                i += 1;
+                op_indice += 1;
+            }
+
+            indice_trocar_valor = montante_anterior / opcoes.getQuantidade();
+            montante_anterior = indice_trocar_valor;
 
         }
 
@@ -431,12 +431,40 @@ public class Matematica {
     }
 
 
-    public static int POSITIVO_OU_NEGATIVO(int valor){
-        if(Aleatorio.aleatorio(100)>=50){
+    public static int POSITIVO_OU_NEGATIVO(int valor) {
+        if (Aleatorio.aleatorio(100) >= 50) {
             return valor;
-        }else{
-            return valor*(-1);
+        } else {
+            return valor * (-1);
         }
     }
+
+    public static <T> Lista<T> COMBINACOES(Lista<T> valores_a, Lista<T> valores_b, Concatenador<T> eConcatenador) {
+        Lista<T> combinacoes = new Lista<T>();
+
+        for (T a : valores_a) {
+            for (T b : valores_b) {
+                combinacoes.adicionar(eConcatenador.concatenar(a, b));
+            }
+        }
+
+        return combinacoes;
+    }
+
+    public static <T> Lista<T> COMBINACOES(Lista<T> valores_a, Lista<T> valores_b, Lista<T> valores_c, Concatenador<T> eConcatenador) {
+        Lista<T> combinacoes = new Lista<T>();
+
+        for (T a : valores_a) {
+            for (T b : valores_b) {
+                for (T c : valores_c) {
+                    T ab = eConcatenador.concatenar(a, b);
+                    combinacoes.adicionar(eConcatenador.concatenar(ab, c));
+                }
+            }
+        }
+
+        return combinacoes;
+    }
+
 
 }
