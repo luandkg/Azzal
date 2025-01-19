@@ -146,6 +146,54 @@ public class Lista<T> implements Iterable<T> {
 
     }
 
+    public void remover(Igualdade<T> eIgualdade, T eValor) {
+
+        if (mPrimeiro != null) {
+
+            Item<T> mAnterior = null;
+            Item<T> mCorrente = mPrimeiro;
+
+            while (mCorrente != null) {
+
+                if (eIgualdade.isIgual(mCorrente.getValor(), eValor)) {
+
+                    mQuantidade -= 1;
+                    //	System.out.println("Removendo " + eValor);
+
+                    if (mAnterior == null) {
+
+                        if (mPrimeiro.getProximo() != null) {
+                            mPrimeiro = mPrimeiro.getProximo();
+                        } else {
+                            mPrimeiro = null;
+                            mUltimo = null;
+                        }
+
+                    } else {
+
+                        if (mCorrente.getProximo() == null) {
+                            mUltimo = mAnterior;
+                            mAnterior.setProximo(null);
+                            mCorrente = null;
+                        } else {
+
+                            mAnterior.setProximo(mCorrente.getProximo());
+                            mCorrente = null;
+                        }
+
+                    }
+
+                    break;
+                }
+
+                mAnterior = mCorrente;
+                mCorrente = mCorrente.getProximo();
+            }
+
+        }
+
+    }
+
     public void remover_indice(int indice_para_remover) {
 
         if (mPrimeiro != null) {
@@ -418,6 +466,9 @@ public class Lista<T> implements Iterable<T> {
         return false;
     }
 
+
+
+
     public int contar(T eValor) {
 
         int retorno = 0;
@@ -441,7 +492,7 @@ public class Lista<T> implements Iterable<T> {
 
         for (T valor : this) {
             if (eIgualador.is(procurado, valor)) {
-                contagem+=1;
+                contagem += 1;
             }
         }
 
@@ -848,6 +899,17 @@ public class Lista<T> implements Iterable<T> {
         valores.set(alfa, v1);
         valores.set(beta, v0);
 
+    }
+
+    public static <T1,T2> boolean EXISTE_COM_ATRIBUTO(IgualavelAtributo<T1,T2> eIgualador,Lista<T1> eLista, T2 procurado) {
+
+        for (T1 valor : eLista) {
+            if (eIgualador.is(valor, procurado)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
