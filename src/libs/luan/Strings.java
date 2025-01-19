@@ -267,7 +267,7 @@ public class Strings {
         return new Concatenador<String>() {
             @Override
             public String concatenar(String v1, String v2) {
-                return v1+v2;
+                return v1 + v2;
             }
         };
     }
@@ -361,7 +361,7 @@ public class Strings {
         return s1.contentEquals(s2);
     }
 
-    public static boolean isVazio(String s){
+    public static boolean isVazio(String s) {
         return s.isEmpty();
     }
 
@@ -1467,9 +1467,12 @@ public class Strings {
     }
 
     public static boolean isLetra(String texto) {
-        String alfa = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String alfa = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         return alfa.contains(texto);
     }
+
+
+
 
     public static String GET_TABULADO(String s, int v) {
 
@@ -2467,6 +2470,32 @@ public class Strings {
         return strings;
     }
 
+    public static Lista<String> LISTA_CAIXA_BAIXA(Lista<String> strings) {
+
+        int i = 0;
+        int o = strings.getQuantidade();
+
+        while (i < o) {
+            strings.set(i, strings.get(i).toLowerCase());
+            i += 1;
+        }
+
+        return strings;
+    }
+
+    public static Lista<String> LISTA_CAIXA_ALTA(Lista<String> strings) {
+
+        int i = 0;
+        int o = strings.getQuantidade();
+
+        while (i < o) {
+            strings.set(i, strings.get(i).toUpperCase());
+            i += 1;
+        }
+
+        return strings;
+    }
+
     public static String GET_DIGITOS(String s) {
 
         int i = 0;
@@ -2585,28 +2614,28 @@ public class Strings {
     }
 
 
-    public static Lista<String> GET_LETRAS(String s){
-        int i =0;
+    public static Lista<String> GET_LETRAS(String s) {
+        int i = 0;
         int o = s.length();
 
         Lista<String> lista = new Lista<String>();
 
-        while(i<o){
+        while (i < o) {
             lista.adicionar(String.valueOf(s.charAt(i)));
-            i+=1;
+            i += 1;
         }
 
         return lista;
     }
 
-    public static String REVERSE(String s){
-        int i = s.length()-1;
+    public static String REVERSE(String s) {
+        int i = s.length() - 1;
 
         String ret = "";
 
-        while(i>=0){
-            ret+=String.valueOf(s.charAt(i));
-            i-=1;
+        while (i >= 0) {
+            ret += String.valueOf(s.charAt(i));
+            i -= 1;
         }
         return ret;
     }
@@ -2631,11 +2660,11 @@ public class Strings {
         return texto;
     }
 
-    public static Unico<String> CRIAR_UNICO(){
+    public static Unico<String> CRIAR_UNICO() {
         return new Unico<String>(Strings.IGUALAVEL());
     }
 
-    public static String LISTA_TO_TEXTO_LINHA_COM_SEPARADOR(Lista<String> ls,String separador) {
+    public static String LISTA_TO_TEXTO_LINHA_COM_SEPARADOR(Lista<String> ls, String separador) {
         String texto = "";
 
         int index_ultimo = ls.getQuantidade() - 1;
@@ -2707,22 +2736,37 @@ public class Strings {
     }
 
 
-    public static int contar(String texto,String s){
+    public static int contar(String texto, String s) {
 
         int i = 0;
         int o = texto.length();
 
-        int contagem=0;
+        int contagem = 0;
 
 
         while (i < o) {
             String c = String.valueOf(texto.charAt(i));
             if (c.contentEquals(s)) {
-                contagem+=1;
+                contagem += 1;
             }
             i += 1;
         }
 
         return contagem;
+    }
+
+    public static Lista<String> CARACTER_TO_LISTA(String texto) {
+
+        Lista<String> ret = new Lista<String>();
+
+        int i = 0;
+        int o = texto.length();
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            ret.adicionar(c);
+            i += 1;
+        }
+        return ret;
     }
 }
