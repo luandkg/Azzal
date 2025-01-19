@@ -4,55 +4,60 @@
 
 ![AZZAL UI](https://github.com/luandkg/Azzal/blob/master/res/app_ui.png)
 
-> Sistema de Renderização de Interface Gráfica
+## Sistema de Renderização de Interface Gráfica: Uma Visão Completa
 
-    Interface
-        - Janela
-        - Cena
-        - AppGlobal com varias cenas e transição
+Um sistema de renderização de interface gráfica é responsável por criar e atualizar visualmente os elementos que o usuário interage em um aplicativo. Ele transforma dados abstratos em representações visuais na tela.
 
-    Entrada de dados
-        - Mouse
-        - Teclado
-        
-    Formas Geométricas
-        - Ponto
-        - Linha
-        - Circulo
-        - Triângulo
-        - Quadrado
-        - Retangulo
-        
-    Utilitários
-        - Tempo
-        - Cronometro
-        - Cor
-        - Luz
-        - Paleta
-        - Posicionador
-        - Transformador de Cor
+### Componentes Principais:
 
-# libs.aqz - Biblioteca de Armazenamento de Coleções e Arquivos
+* **Interface:**
+    * **Janela:** A área principal onde a aplicação é exibida. Define o tamanho, posição e propriedades básicas da interface.
+    * **Cena:** O espaço virtual onde os objetos 3D são posicionados e renderizados. É como um palco onde a ação acontece.
+    * **AppGlobal:** Um objeto que gerencia o estado global da aplicação, como as diferentes cenas, transições entre elas e outros dados compartilhados.
 
-> AQZColecao : Coleção para armazenamento de documentos organizados por atributos
-> 
-> AQZPasta   : Coleção de documentos com INodes de 64Kb em Sistema de File Alocation Table (FAT)
+* **Entrada de Dados:**
+    * **Mouse:** Permite ao usuário interagir com a interface, selecionando objetos, movendo-os e realizando outras ações.
+    * **Teclado:** Utilizado para digitar texto, comandos e atalhos.
 
-# libs.entt - ENTT
+* **Formas Geométricas:**
+    * **Primitivas:** Os blocos de construção básicos da interface gráfica.
+        * **Ponto:** A unidade fundamental, definindo uma posição no espaço.
+        * **Linha:** Conecta dois pontos, formando segmentos de reta.
+        * **Círculo:** Uma curva fechada onde todos os pontos estão à mesma distância de um ponto central.
+        * **Triângulo:** Um polígono de três lados.
+        * **Quadrado:** Um polígono de quatro lados com todos os lados iguais e ângulos retos.
+        * **Retângulo:** Um polígono de quatro lados com lados opostos iguais e ângulos retos.
 
-> Organizador de entidades abstratas para análise grandes volumes de dados
-> 
-> Os conjuntos de dados são formados por Entidades e seus atributos especificados por Tags de Chave/Valor
-> 
-> As chaves podem ser tipadas : Texto, Inteiro, Long e Double
-> 
-> A superclasse ENTT pode analisar, agrupar, classificar, ordenar e várias vou funções para grandes volumes de dados de Entidades
+* **Utilitários:**
+    * **Tempo:** Permite medir o tempo de execução de tarefas, criar animações e efeitos visuais.
+    * **Cronômetro:** Um contador de tempo específico para medir a duração de eventos.
+    * **Cor:** Define a tonalidade, saturação e brilho das cores utilizadas na interface.
+    * **Luz:** Simula a iluminação em cenas 3D, afetando a aparência dos objetos.
+    * **Paleta:** Um conjunto de cores predefinidas para facilitar a seleção e garantir a consistência visual.
+    * **Posicionador:** Define a posição de elementos na tela, utilizando coordenadas ou outros sistemas de posicionamento.
+    * **Transformador de Cor:** Permite modificar as cores de um objeto, como ajustar o brilho, contraste ou aplicar filtros.
 
+### Funcionamento Básico:
 
-# libs.dg - Biblioteca de Coleções
+* **Criação da Cena:** A aplicação define a cena, adicionando objetos e luzes.
+* **Entrada do Usuário:** O sistema captura eventos do mouse e teclado.
+* **Atualização:** A cena é atualizada com base nas entradas do usuário e no tempo.
+* **Renderização:** Os objetos na cena são transformados em pixels na tela, levando em conta a iluminação, as câmeras e as propriedades dos materiais.
+* **Exibição:** A imagem renderizada é exibida na janela.
 
-> Banco de coleções em arquivo único
-> Essa biblioteca é ideal para armazenar objetos com vários campos de forma rápida e organizada, possui sistema de indexamento por páginas, construção de coleção não existente com a necessidade.
+# ENTT
+
+Imagine um sistema capaz de compreender e manipular dados complexos, como se fossem objetos do mundo real. Esse é o papel de um organizador de entidades abstratas. Essa ferramenta revolucionária oferece um conjunto de recursos avançados para analisar, agrupar, classificar e ordenar grandes volumes de dados de forma eficiente e intuitiva.
+
+* **Entidades:** Representam os elementos fundamentais dos seus dados. Podem ser desde pessoas e produtos até eventos e conceitos abstratos.
+* **Atributos:** São as características que descrevem cada entidade. Por exemplo, para uma entidade "Pessoa", os atributos poderiam ser "nome", "idade", "profissão", etc.
+* **Tags de Chave/Valor:** Uma forma flexível de representar os atributos. A chave indica o nome do atributo, e o valor, o seu conteúdo.
+* **Tipos de Chaves:**
+    * **Texto:** Para armazenar informações textuais, como nomes e descrições.
+    * **Inteiro:** Para números inteiros, como idades e quantidades.
+    * **Long:** Para números inteiros de grande precisão.
+    * **Double:** Para números de ponto flutuante, como valores monetários e medidas.
+
 
 # libs.luan - Estruturas de Dados
 
@@ -169,43 +174,79 @@ de Dados da Universidade de Brasília
 
 # libs.tronarko
 
-> Sistema de contagem temporal
->
-> O ano é chamado de TRONARKO e possui 500 Superarkos que representam os dias, dividos em 10 faixas de 50 Superarkos
-> entitulados de Hiperarkos
->
-> Cada Superarko é formado por 10 Arcos [ 0 ... 9 ] que representam as horas
+O sistema de contagem temporal proposto, denominado Tronarko, apresenta uma estrutura única e complexa, divergindo dos sistemas calendáricos mais comuns. Vamos destrinchar cada componente desse sistema para uma melhor compreensão:
+
+### O Tronarko: Uma Nova Contagem do Tempo
+
+* Tronarko: A unidade de tempo fundamental, equivalente ao que chamamos de "ano" em calendários tradicionais.
+* Superarko: A subdivisão do Tronarko, representando um dia. Um Tronarko possui 500 Superarkos.
+* Hiperarko: Um conjunto de 50 Superarkos, dividindo o Tronarko em 10 faixas de 50 dias cada.
+* Arco: A menor unidade de tempo dentro do Tronarko, representando uma hora. Cada Superarko (dia) possui 10 Arcos.
 
 ![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/app_tronarko.png)
 
-# Attuz - Construtor de Mundos
+## **Atzum - Construtor de Mundos**
 
-> Aplicação de construção de WorldBuilding
+**Dê vida aos seus mundos imaginários com Atzum!**
 
-    - Algoritmos para MAPAS
-    - Ferramentas de algoritmos IDW
-    - Geração de mapas : Relevo, Temperatura, Umidade, Latitude, Longitude ...
-    - Aplicativo para visualização de mapa e realizar marcações.
+Atzum é uma ferramenta poderosa e intuitiva para criadores de histórias, designers de jogos e entusiastas de worldbuilding. Com Atzum, você pode gerar mapas detalhados e realistas, personalizando cada aspecto de seus mundos imaginários.
+
+**Funcionalidades Principais:**
+
+* **Geração Procedural de Mapas:**
+    * **Algoritmos avançados:** Utilize algoritmos de ruído Perlin e Simplex para criar paisagens únicas e diversas.
+    * **Personalização:** Ajuste parâmetros como nível de detalhe, escala e semente para gerar mapas infinitamente variados.
+    * **Características geográficas:** Gere automaticamente mapas com relevos complexos, rios, lagos, cadeias de montanhas e muito mais.
+
+* **Criação de Atmosferas:**
+    * **Biomas:** Gere biomas realistas com base em fatores como clima, altitude e tipo de solo.
+    * **Clima:** Simule diferentes tipos de clima, como tropical, temperado, árido e polar.
+    * **Ciclos diurnos e sazonais:** Crie ciclos de dia e noite, estações do ano e eventos climáticos dinâmicos.
+
+* **Compartilhamento e Colaboração:**
+    * **Exportação:** Exporte seus mapas em diversos formatos para uso em seus projetos.
+    * **Comunidade:** Compartilhe seus mundos com outros usuários e explore mapas criados por outros.
+
+**Com Attuz, você pode:**
+
+* **Criar mundos para seus jogos de RPG:** Gere mapas detalhados para suas aventuras.
+* **Desenvolver cenários para suas histórias:** Crie paisagens únicas para seus romances e contos.
+* **Visualizar suas ideias:** Transforme suas visões em mapas tangíveis e interativos.
+
 
 # libs.dkg - Arquivo DKG
 
-> Formato de texto com estilo de marcação para estruturação de dados, possui dois tipos básicos de dados OBJETO e ATRIBUTO.
-> A estrutura é uma classe árvore que permite armazenar vários filhos do tipo OBJETO e cada objeto possui uma lista de atributos únicos.
+## DKG: Uma Abordagem Flexível para Estruturação de Dados
+
+O formato DKG (possivelmente uma abreviação de "Dados em Grafo") é uma estrutura de dados textual projetada para oferecer uma maneira flexível e intuitiva de organizar informações. Ao combinar a simplicidade de um formato de texto com a complexidade de uma estrutura em árvore, o DKG permite representar dados de forma hierárquica e relacionar diferentes elementos.
+
+### Conceitos Fundamentais:
+
+* **Objeto:** A unidade básica de informação no DKG. Cada objeto pode ter um nome único e armazenar uma variedade de atributos.
+* **Atributo:** Uma propriedade associada a um objeto, definindo suas características. Os atributos podem ser de diversos tipos, como texto, números, datas ou até mesmo outros objetos.
+* **Estrutura em Árvore:** O DKG organiza os objetos em uma estrutura hierárquica, similar a uma árvore. Cada objeto pode ter um ou mais objetos filhos, criando relações pai-filho entre eles.
+
+### Características Principais:
+
+* **Flexibilidade:** A estrutura em árvore permite representar dados complexos e hierárquicos de forma natural.
+* **Extensibilidade:** Novos tipos de objetos e atributos podem ser definidos facilmente, adaptando o DKG a diferentes domínios.
+* **Legibilidade:** A sintaxe textual do DKG torna os dados fáceis de ler e entender, facilitando a manutenção e depuração.
+* **Versatilidade:** O DKG pode ser utilizado para representar uma ampla variedade de dados, desde configurações de software até modelos de dados complexos.
 
 ~~~
 !Alunos :: {
-!Aluno :: {  @Turma = "A" @Nome = "BELTRANO" @Grupo = "AZUL"     @Status = "PRESENTE" @Visibilidade = "SIM" }
-!Aluno :: {  @Turma = "B" @Nome = "FULANO"   @Grupo = "VERMELHO" @Status = "AUSENTE"  @Visibilidade = "SIM" }
+    !Aluno :: {  @Turma = "A" @Nome = "BELTRANO" @Grupo = "AZUL"     @Status = "PRESENTE" @Visibilidade = "SIM" }
+    !Aluno :: {  @Turma = "B" @Nome = "FULANO"   @Grupo = "VERMELHO" @Status = "AUSENTE"  @Visibilidade = "SIM" }
 }
 ~~~
 
 ~~~
 !Configuracoes :: {
-!Tarefas :: {
-!Status :: {  @Nome = "Acessar" @Nome = "SIM" }
-!Status :: {  @Nome = "Publicar" @Nome = "NAO" }
-!Status :: {  @Nome = "Listar" @Nome = "SIM" }
-}
+    !Permissoes :: {
+        !Permissao :: {  @Nome = "Acessar" @Valor = "SIM" }
+        !Permissao :: {  @Nome = "Publicar" @Valor = "NAO" }
+        !Permissao :: {  @Nome = "Listar" @Valor = "SIM" }
+    }
 }
 
 ~~~
