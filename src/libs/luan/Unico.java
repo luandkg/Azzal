@@ -24,41 +24,48 @@ public class Unico<T> implements Iterable<T> {
 
     }
 
+
+    public void item_varios(Lista<T> valores) {
+        for (T passando_item : valores) {
+            item(passando_item);
+        }
+    }
+
     public T item_get(T valor) {
 
-        T item_ret =null;
+        T item_ret = null;
 
         if (mLista.existe(mIgualavel, valor)) {
             for (T proc : this) {
                 if (mIgualavel.is(proc, valor)) {
-                    item_ret= proc;
+                    item_ret = proc;
                     break;
                 }
             }
         } else {
             mLista.adicionar(valor);
-            item_ret= valor;
+            item_ret = valor;
         }
 
         return item_ret;
     }
 
 
-    public void remover(T item){
+    public void remover(T item) {
         mLista.remover(item);
     }
 
-    public void remover_varios(Lista<T> remocao){
+    public void remover_varios(Lista<T> remocao) {
         mLista.remover_varios(remocao);
     }
 
 
-    public boolean existe(T item){
-        return mLista.existe(mIgualavel,item);
+    public boolean existe(T item) {
+        return mLista.existe(mIgualavel, item);
     }
 
 
-    public void limpar(){
+    public void limpar() {
         mLista.limpar();
     }
 
@@ -68,14 +75,13 @@ public class Unico<T> implements Iterable<T> {
     }
 
 
-    public Lista<T> toLista(){
+    public Lista<T> toLista() {
         Lista<T> lista = new Lista<T>();
-        for(T item : this){
+        for (T item : this) {
             lista.adicionar(item);
         }
         return lista;
     }
-
 
 
     public Iterator<T> iterator() {
@@ -156,5 +162,13 @@ public class Unico<T> implements Iterable<T> {
         return lista;
     }
 
+
+    public static <T> Unico<T> CRIAR_DE_LISTA(Igualavel<T> eIgualavel, Lista<T> eLista) {
+        Unico<T> unico = new Unico<T>(eIgualavel);
+        for (T item : eLista) {
+            unico.item(item);
+        }
+        return unico;
+    }
 
 }
