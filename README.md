@@ -108,7 +108,7 @@ O sistema de contagem temporal proposto, denominado Tronarko, apresenta uma estr
 * Tronarko: A unidade de tempo fundamental, equivalente ao que chamamos de "ano" em calendários tradicionais.
 * Superarko: A subdivisão do Tronarko, representando um dia. Um Tronarko possui 500 Superarkos.
 * Hiperarko: Um conjunto de 50 Superarkos, dividindo o Tronarko em 10 faixas de 50 dias cada.
-* Arco: A menor unidade de tempo dentro do Tronarko, representando uma hora. Cada Superarko (dia) possui 10 Arcos.
+* Arco: Uma unidade de tempo dentro do Tronarko, representando similarmente a hora. Cada Superarko (dia) possui 10 Arcos.
 
 ![TRONARKO](https://github.com/luandkg/Azzal/blob/master/res/app_tronarko.png)
 
@@ -134,7 +134,7 @@ Atzum é uma ferramenta poderosa e intuitiva para criadores de histórias, desig
     * **Exportação:** Exporte seus mapas em diversos formatos para uso em seus projetos.
     * **Comunidade:** Compartilhe seus mundos com outros usuários e explore mapas criados por outros.
 
-**Com Attuz, você pode:**
+**Com Atzum, você pode:**
 
 * **Criar mundos para seus jogos de RPG:** Gere mapas detalhados para suas aventuras.
 * **Desenvolver cenários para suas histórias:** Crie paisagens únicas para seus romances e contos.
