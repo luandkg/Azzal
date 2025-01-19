@@ -3,10 +3,9 @@ package libs.zetta.features;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.Lista;
-import libs.luan.Opcional;
-import libs.luan.Par;
-import libs.luan.Strings;
+import libs.luan.*;
+import libs.meta_functional.Acao;
+import libs.meta_functional.AcaoAlfa;
 import libs.zetta.ItemColecionavel;
 import libs.zetta.ZettaColecao;
 import libs.zetta.ZettaQuorum;
@@ -97,6 +96,41 @@ public class ZQC {
 
     }
 
+
+    public static void EXIBIR_COLECAO_ORDENADOR_POR(String arquivo_banco, String colecao_nome, String att_nome) {
+
+        ZettaQuorum zetta = new ZettaQuorum(arquivo_banco);
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(ENTT.ORDENAR_TEXTO(zetta.getColecaoSempre(colecao_nome).getItens(), att_nome), colecao_nome);
+
+        zetta.fechar();
+
+    }
+
+
+    public static void EXIBIR_COLECAO_ALGUNS(String arquivo_banco, String colecao_nome) {
+
+        ZettaQuorum zetta = new ZettaQuorum(arquivo_banco);
+
+        long parcela = zetta.getColecaoSempre(colecao_nome).contagem() / 100;
+
+        long indo = 0;
+
+        Lista<Entidade> seleciondas = new Lista<Entidade>();
+
+        for (int i = 0; i < 100; i++) {
+            Opcional<Entidade> op = zetta.getColecaoSempre(colecao_nome).procurar_item_por_indice(indo);
+            if (op.isOK()) {
+                seleciondas.adicionar(op.get());
+            }
+            indo += parcela;
+        }
+        ENTT.EXIBIR_TABELA_COM_TITULO(seleciondas, colecao_nome);
+
+        zetta.fechar();
+
+    }
+
     public static void EXIBIR_TUDO(String arquivo_banco) {
 
         ZettaQuorum zetta = new ZettaQuorum(arquivo_banco);
@@ -111,15 +145,15 @@ public class ZQC {
         ZettaQuorum zetta = new ZettaQuorum(arquivo_banco);
 
         Lista<Entidade> resumo = new Lista<Entidade>();
-        for(ZettaColecao colecao : zetta.getColecoes()){
-            Entidade e_colecao = ENTT.CRIAR_EM(resumo,"ID",colecao.getIdentificador());
-            e_colecao.at("Nome",colecao.getNome());
-            e_colecao.at("Quantidade",colecao.contagem());
+        for (ZettaColecao colecao : zetta.getColecoes()) {
+            Entidade e_colecao = ENTT.CRIAR_EM(resumo, "ID", colecao.getIdentificador());
+            e_colecao.at("Nome", colecao.getNome());
+            e_colecao.at("Quantidade", colecao.contagem());
         }
 
         zetta.fechar();
 
-        ENTT.EXIBIR_TABELA_COM_NOME(resumo,"ZETTA QUORUM - COLEÇÕES");
+        ENTT.EXIBIR_TABELA_COM_NOME(resumo, "ZETTA QUORUM - COLEÇÕES");
     }
 
     public static boolean UNICO_EXISTE(String arquivo_banco, String colecao_nome, String att_nome, String att_valor) {
@@ -196,8 +230,85 @@ public class ZQC {
         return ret;
     }
 
-    public static void ATUALIZAR(String arquivo_banco, String colecao_nome, ItemColecionavel item, Entidade entidade) {
-        throw new RuntimeException("NÃO IMPLEMENTADO !");
-        // item.atualizarUTF8();
+    public static void ATUALIZAR(String arquivo_banco, String colecao_nome, AcaoAlfa<ItemColecionavel> acao) {
+        ZettaQuorum aqz = new ZettaQuorum(arquivo_banco);
+
+        ZettaColecao colecao = aqz.getColecaoSempre(colecao_nome);
+        for (ItemColecionavel item : colecao.getItensEditaveis()) {
+            acao.fazer(item);
+        }
+
+        aqz.fechar();
+    }
+
+
+    public static void PROCESSAR_EM_INTERVALOS(String arquivo, String colecao_nome, int intervalo, boolean mostrar_processamento, AcaoAlfa<Entidade> eAcao) {
+
+        ZettaQuorum zq = new ZettaQuorum(arquivo);
+        ZettaColecao colecao = zq.getColecaoSempre(colecao_nome);
+
+
+        long quantidade = colecao.contagem();
+
+        int iniciando = 0;
+        int finalizando = 0;
+
+        while (finalizando < quantidade) {
+            finalizando += intervalo;
+
+            if (mostrar_processamento) {
+                fmt.print(">> Processando {} - {} :: {}", iniciando, finalizando, quantidade);
+            }
+
+            for (Entidade item : colecao.getItensIntervalo(iniciando, finalizando)) {
+                eAcao.fazer(item);
+            }
+
+            iniciando = finalizando + 1;
+        }
+
+
+        zq.fechar();
+
+
+    }
+
+    public static void PROCESSAR_EM_INTERVALOS_COM_ANALITICO(String arquivo, String colecao_nome, int intervalo, boolean mostrar_processamento, int intervalo_analitico, AcaoAlfa<Entidade> eAcao, Acao eAcaoAnalitica) {
+
+        ZettaQuorum zq = new ZettaQuorum(arquivo);
+        ZettaColecao colecao = zq.getColecaoSempre(colecao_nome);
+
+
+        long quantidade = colecao.contagem();
+
+        int iniciando = 0;
+        int finalizando = 0;
+
+        int analiticamente_contagem = 0;
+
+        while (finalizando < quantidade) {
+            finalizando += intervalo;
+
+            if (mostrar_processamento) {
+                fmt.print(">> Processando {} - {} :: {}", iniciando, finalizando, quantidade);
+            }
+
+            for (Entidade item : colecao.getItensIntervalo(iniciando, finalizando)) {
+                eAcao.fazer(item);
+
+                analiticamente_contagem+=1;
+                if(analiticamente_contagem==intervalo_analitico){
+                    analiticamente_contagem=0;
+                    eAcaoAnalitica.fazer();
+                }
+            }
+
+            iniciando = finalizando + 1;
+        }
+
+
+        zq.fechar();
+
+
     }
 }
