@@ -99,80 +99,7 @@ de Dados da Universidade de Brasília
 > Tempo : Classe responsável por trabalhar com datas e horarios, ela será atualizada com outra versão que desenvolvi no projeto appEscola
 
 
-# Biblioteca Arquivos - Meus formatos de arquivos
-
-> Pacote com formatos de arquivados criados por eu mesmo ( hehehe )
-
-    - IM : Formato de Imagem
-    - AI : Formato de Álbum de Imagens
-    - TX : Formato de Texto
-    - BZ : Formato de Blocos de Textos Indexados
-    - HZ : Formato de Áudio : @ESTOU_ESTUDANDO
-    - VI : Formato de Vídeo : @NAO_TEM_AUDIO
-    - BZ : Formato de seção pre-alocada ( BZ2 = 10Kb | BZ3 = 100Kb )
-    - AN : Formato de Animações : Sequência de Imagens IM com taxa de reprodução
-
-    Formatos com ideias mais complexas de proposito geral :
-
-    - CacheIndexado : Formato de seção pre-alocada expandível
-    - Sumario       : Formato de indexamento pela primeira letra
-    - QTT           : Formato de acesso direto em 2 dimenções
-    - DS            : Formato de guarda de blocos nomeados de bytes contínuos
-
-    - Arquivador : Classe para abrir/escrever arquivos
-
-    - Int8 : Mapeador de 8 bits
-    - Int6 : Mapeador de 6 bits
-
-# Biblioteca Zetta - Banco de Dados
-
-> Essa é uma grande biblioteca que permite a construção de coleções de armazenamento de dados em formato de Entidade
-> Possui seções com especificados para diversos propósitos :
-
-    - ZettaQuorum
-    - ZettaColeção
-    - ZettaPastas
-    - ZettaPasta
-    - ZettaTabelas
-
-
-# Gráficos
-
-> Pacote GrafiqueBarras para desenhos de gráficos de barras e pontos.
-
-![ZETTA BARRAS](https://github.com/luandkg/Azzal/blob/master/res/app_zetta.png)
-
-# libs.imagem
-
-> Coleção de códigos para facilitar abertura de imagens, além de aplicação de efeitos.
-
-
-# Biblioteca LLCripto 
-
-> Algoritmo para realizar criptografica de dados
-![LLCripto](https://github.com/luandkg/Azzal/blob/master/res/llcripto.png)
-
-# Partículas
-
-> Aplicação de renderização de partículas AREIA e LÍQUIDO.
-
-# libs.organizadorq2d
-
-> Mapeador de regiões do espaço 2D com algoritmo para algilizar detecção de colisão de corpos.
-
-![Organizador Espacial](https://github.com/luandkg/Azzal/blob/master/res/app_oe.png)
-
-
-# libs.movimentador
-
-> Algoritmos para realizar movimento de corpos no espaço 2D de forma mais harmônica e real.
-
-    - libs.movimentador Burro
-    - libs.movimentador Linear
-    - libs.movimentador Vertical
-    - libs.movimentador Inteligente
-
-# libs.tronarko
+# Tronarko
 
 O sistema de contagem temporal proposto, denominado Tronarko, apresenta uma estrutura única e complexa, divergindo dos sistemas calendáricos mais comuns. Vamos destrinchar cada componente desse sistema para uma melhor compreensão:
 
@@ -250,3 +177,86 @@ O formato DKG (possivelmente uma abreviação de "Dados em Grafo") é uma estrut
 }
 
 ~~~
+
+# Biblioteca Arquivos - Meus formatos de arquivos
+
+> Pacote com formatos de arquivados criados por eu mesmo ( hehehe )
+
+    - IM : Formato de Imagem
+    - AI : Formato de Álbum de Imagens
+    - TX : Formato de Texto
+    - BZ : Formato de Blocos de Textos Indexados
+    - HZ : Formato de Áudio : @ESTOU_ESTUDANDO
+    - VI : Formato de Vídeo : @NAO_TEM_AUDIO
+    - BZ : Formato de seção pre-alocada ( BZ2 = 10Kb | BZ3 = 100Kb )
+    - AN : Formato de Animações : Sequência de Imagens IM com taxa de reprodução
+
+    Formatos com ideias mais complexas de proposito geral :
+
+    - CacheIndexado : Formato de seção pre-alocada expandível
+    - Sumario       : Formato de indexamento pela primeira letra
+    - QTT           : Formato de acesso direto em 2 dimenções
+    - DS            : Formato de guarda de blocos nomeados de bytes contínuos
+
+    - Arquivador : Classe para abrir/escrever arquivos
+
+    - Int8 : Mapeador de 8 bits
+    - Int6 : Mapeador de 6 bits
+
+# Biblioteca Zetta: Um Ecossistema Completo para Gestão de Dados
+
+A Biblioteca Zetta é uma poderosa ferramenta para o desenvolvimento de aplicações que demandam um alto nível de organização e gerenciamento de dados. Pensada para ser flexível e escalável, ela oferece um conjunto de recursos robustos para a construção de coleções de dados altamente personalizadas e eficientes.
+
+### Conceitos Fundamentais:
+
+    Entidade: A unidade básica de informação na Zetta. Uma entidade representa um objeto do mundo real, como um cliente, um produto ou um evento.
+    Coleção: Um agrupamento de entidades relacionadas, formando um conjunto de dados com um propósito específico.
+    ZettaColeção: Uma coleção de entidades, similar a uma tabela em um banco de dados relacional, mas com maior flexibilidade e capacidade de armazenar dados complexos.
+    ZettaPastas: Uma estrutura hierárquica para organizar as coleções, permitindo uma melhor organização e acesso aos dados.
+    ZettaPasta: Uma unidade de organização dentro da estrutura de pastas da Zetta.
+
+### Características Principais:
+
+    Flexibilidade: A Zetta permite a criação de esquemas de dados personalizados, adaptando-se a diferentes necessidades.
+    Escalabilidade: A biblioteca é projetada para lidar com grandes volumes de dados e pode ser facilmente escalada para atender a demandas crescentes.
+    Consistência: O mecanismo de consenso ZettaQuorum garante a integridade dos dados, mesmo em ambientes distribuídos.
+    Performance: A Zetta oferece um alto desempenho para operações de leitura e escrita, otimizando a utilização de recursos.
+    Facilidade de uso: A API da Zetta é intuitiva e fácil de aprender, permitindo que desenvolvedores rapidamente criem e gerenciem suas coleções de dados.
+
+
+# Gráficos
+
+> Pacote GrafiqueBarras para desenhos de gráficos de barras e pontos.
+
+![ZETTA BARRAS](https://github.com/luandkg/Azzal/blob/master/res/app_zetta.png)
+
+# libs.imagem
+
+> Coleção de códigos para facilitar abertura de imagens, além de aplicação de efeitos.
+
+
+# Biblioteca LLCripto 
+
+> Algoritmo para realizar criptografica de dados
+![LLCripto](https://github.com/luandkg/Azzal/blob/master/res/llcripto.png)
+
+# Partículas
+
+> Aplicação de renderização de partículas AREIA e LÍQUIDO.
+
+# libs.organizadorq2d
+
+> Mapeador de regiões do espaço 2D com algoritmo para algilizar detecção de colisão de corpos.
+
+![Organizador Espacial](https://github.com/luandkg/Azzal/blob/master/res/app_oe.png)
+
+
+# libs.movimentador
+
+> Algoritmos para realizar movimento de corpos no espaço 2D de forma mais harmônica e real.
+
+    - libs.movimentador Burro
+    - libs.movimentador Linear
+    - libs.movimentador Vertical
+    - libs.movimentador Inteligente
+
