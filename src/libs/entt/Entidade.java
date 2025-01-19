@@ -84,6 +84,11 @@ public class Entidade {
         return tag.asInt();
     }
 
+    public int atIntSomar(String eNome, int ePadrao, int eSomar) {
+        at(eNome, atIntOuPadrao(eNome, ePadrao) + eSomar);
+        return atInt(eNome);
+    }
+
     public long atLong(String eNome) {
         Tag tag = proc_at(eNome);
         return tag.asLong();
@@ -416,14 +421,14 @@ public class Entidade {
     }
 
 
-    public Entidade getCopia(){
+    public Entidade getCopia() {
         Entidade copia = new Entidade();
 
-        for(Tag tag : mTags){
-            copia.at(tag.getNome(),tag.getValor());
+        for (Tag tag : mTags) {
+            copia.at(tag.getNome(), tag.getValor());
         }
 
-        for(Entidade e : mEntidades){
+        for (Entidade e : mEntidades) {
             copia.getEntidades().adicionar(e.getCopia());
         }
 
