@@ -50,7 +50,7 @@ public class Tron {
       return  getTozte().getTextoZerado() + " " + getHazde().getTextoZerado();
     }
 
-    public String getTextoTHSHS(){
+    public String getTextoComInfos(){
         return getTextoZerado() + " ( "+ getTozte().getSuperarkosDoTronarko() + " ) :: " + getTozte().getHiperarko_Status().toString() + " - "+getTozte().getSuperarko_Status().toString();
     }
 
