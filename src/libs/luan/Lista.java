@@ -912,4 +912,15 @@ public class Lista<T> implements Iterable<T> {
         return false;
     }
 
+    public static <T1,T2> T1 OBTER_COM_ATRIBUTO(IgualavelAtributo<T1,T2> eIgualador,Lista<T1> eLista, T2 procurado) {
+
+        for (T1 valor : eLista) {
+            if (eIgualador.is(valor, procurado)) {
+                return valor;
+            }
+        }
+
+        return null;
+    }
+
 }
