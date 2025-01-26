@@ -5,11 +5,20 @@ public class Horario {
     private int mHora;
     private int mMinutos;
     private int mSegundos;
+    private int mMilissegundos;
 
     public Horario(int h, int m, int s) {
         mHora = h;
         mMinutos = m;
         mSegundos = s;
+        mMilissegundos=0;
+    }
+
+    public Horario(int h, int m, int s,int milissegundos) {
+        mHora = h;
+        mMinutos = m;
+        mSegundos = s;
+        mMilissegundos=milissegundos;
     }
 
 
@@ -23,6 +32,10 @@ public class Horario {
 
     public int getSegundos() {
         return mSegundos;
+    }
+
+    public int getMilissegundos() {
+        return mMilissegundos;
     }
 
 
