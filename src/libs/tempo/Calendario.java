@@ -1,9 +1,11 @@
 package libs.tempo;
 
 import libs.luan.Lista;
+import libs.luan.Par;
 import libs.luan.Strings;
 import libs.luan.fmt;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -242,7 +244,7 @@ public class Calendario {
         return date;
     }
 
-    public static String getData() {
+    public static String getDataTexto() {
         String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         return date;
     }
@@ -263,7 +265,7 @@ public class Calendario {
     }
 
     public static String getTempoCompleto() {
-        return getData() + " " + getHoraCompleta();
+        return getDataTexto() + " " + getHoraCompleta();
     }
 
     public static Data parse(String sData) {
@@ -1328,7 +1330,7 @@ public class Calendario {
     }
 
     public static String getTempoCompletoSemSegundos() {
-        return getData() + " " + getHoraMinuto();
+        return getDataTexto() + " " + getHoraMinuto();
     }
 
 
@@ -1336,73 +1338,73 @@ public class Calendario {
         return listar_datas_entre("01/01/" + ano_inicio, "31/12/" + ano_fim);
     }
 
-    public static String MES_INGLES_PARA_NUMERAL_ZERADO(String nome){
+    public static String MES_INGLES_PARA_NUMERAL_ZERADO(String nome) {
 
         String ret = "";
 
-        nome=nome.toUpperCase();
+        nome = nome.toUpperCase();
 
 
-        if(nome.contentEquals("JANUARY")) {
+        if (nome.contentEquals("JANUARY")) {
             ret = "01";
-        }else  if(nome.contentEquals("FEBRUARY")){
-            ret="02";
-        }else  if(nome.contentEquals("MARCH")){
-            ret="03";
-        }else  if(nome.contentEquals("APRIL")){
-            ret="04";
-        }else  if(nome.contentEquals("MAY")){
-            ret="05";
-        }else  if(nome.contentEquals("JUNE")){
-            ret="06";
-        }else  if(nome.contentEquals("JULY")){
-            ret="07";
-        }else  if(nome.contentEquals("AUGUST")){
-            ret="08";
-        }else  if(nome.contentEquals("SEPTEMBER")){
-            ret="09";
-        }else  if(nome.contentEquals("OCTOBER")){
-            ret="10";
-        }else  if(nome.contentEquals("NOVEMBER")){
-            ret="11";
-        }else  if(nome.contentEquals("DECEMBER")){
-            ret="12";
+        } else if (nome.contentEquals("FEBRUARY")) {
+            ret = "02";
+        } else if (nome.contentEquals("MARCH")) {
+            ret = "03";
+        } else if (nome.contentEquals("APRIL")) {
+            ret = "04";
+        } else if (nome.contentEquals("MAY")) {
+            ret = "05";
+        } else if (nome.contentEquals("JUNE")) {
+            ret = "06";
+        } else if (nome.contentEquals("JULY")) {
+            ret = "07";
+        } else if (nome.contentEquals("AUGUST")) {
+            ret = "08";
+        } else if (nome.contentEquals("SEPTEMBER")) {
+            ret = "09";
+        } else if (nome.contentEquals("OCTOBER")) {
+            ret = "10";
+        } else if (nome.contentEquals("NOVEMBER")) {
+            ret = "11";
+        } else if (nome.contentEquals("DECEMBER")) {
+            ret = "12";
         }
 
         return ret;
     }
 
-    public static String MES_INGLES_3_PARA_NUMERAL_ZERADO(String nome){
+    public static String MES_INGLES_3_PARA_NUMERAL_ZERADO(String nome) {
 
         String ret = "";
 
-        nome=nome.toUpperCase();
+        nome = nome.toUpperCase();
 
 
-        if(nome.contentEquals("JAN")) {
+        if (nome.contentEquals("JAN")) {
             ret = "01";
-        }else  if(nome.contentEquals("FEB")){
-            ret="02";
-        }else  if(nome.contentEquals("MAR")){
-            ret="03";
-        }else  if(nome.contentEquals("APR")){
-            ret="04";
-        }else  if(nome.contentEquals("MAY")){
-            ret="05";
-        }else  if(nome.contentEquals("JUN")){
-            ret="06";
-        }else  if(nome.contentEquals("JUL")){
-            ret="07";
-        }else  if(nome.contentEquals("AUG")){
-            ret="08";
-        }else  if(nome.contentEquals("SEP")){
-            ret="09";
-        }else  if(nome.contentEquals("OCT")){
-            ret="10";
-        }else  if(nome.contentEquals("NOV")){
-            ret="11";
-        }else  if(nome.contentEquals("DEC")){
-            ret="12";
+        } else if (nome.contentEquals("FEB")) {
+            ret = "02";
+        } else if (nome.contentEquals("MAR")) {
+            ret = "03";
+        } else if (nome.contentEquals("APR")) {
+            ret = "04";
+        } else if (nome.contentEquals("MAY")) {
+            ret = "05";
+        } else if (nome.contentEquals("JUN")) {
+            ret = "06";
+        } else if (nome.contentEquals("JUL")) {
+            ret = "07";
+        } else if (nome.contentEquals("AUG")) {
+            ret = "08";
+        } else if (nome.contentEquals("SEP")) {
+            ret = "09";
+        } else if (nome.contentEquals("OCT")) {
+            ret = "10";
+        } else if (nome.contentEquals("NOV")) {
+            ret = "11";
+        } else if (nome.contentEquals("DEC")) {
+            ret = "12";
         }
 
         return ret;
@@ -1419,5 +1421,68 @@ public class Calendario {
     public static String COMPLETO_GET_HORARIO(String tempo) {
         return tempo.substring(11, 19);
     }
+
+
+    public static Par<Data, Horario> GET_DATA_E_HORARIO() {
+
+        Calendar c = Calendar.getInstance();
+
+        int eMilisegundo = c.get(Calendar.MILLISECOND);
+        int eSegundo = c.get(Calendar.SECOND);
+        int eMinuto = c.get(Calendar.MINUTE);
+        int eHora = c.get(Calendar.HOUR_OF_DAY);
+
+        int dia = c.get(Calendar.DAY_OF_MONTH);
+        int mes = c.get(Calendar.MONTH) + 1;
+        int ano = c.get(Calendar.YEAR);
+
+        return new Par<Data, Horario>(new Data(ano, mes, dia), new Horario(eHora, eMinuto, eSegundo, eMilisegundo));
+    }
+
+    public static Horario getHorario() {
+
+        Calendar c = Calendar.getInstance();
+
+        int eMilisegundo = c.get(Calendar.MILLISECOND);
+        int eSegundo = c.get(Calendar.SECOND);
+        int eMinuto = c.get(Calendar.MINUTE);
+        int eHora = c.get(Calendar.HOUR_OF_DAY);
+
+        return new Horario(eHora, eMinuto, eSegundo, eMilisegundo);
+    }
+
+    public static String getHorarioTexto() {
+        return getHorario().getTempo();
+    }
+
+
+    public static int GET_DIFERENCA_DE_DIAS(Data DATA_INICIO, Data DATA_FIM) {
+        return GET_DIFERENCA_DE_DIAS(DATA_INICIO.getTempoLegivel(), DATA_FIM.getTempoLegivel());
+    }
+
+    public static int GET_DIFERENCA_DE_DIAS(String DATA_INICIO, String DATA_FIM) {
+
+        int diferenca_de_dias = 0;
+
+        DateFormat CALENDARIO_GREGORIANO = new SimpleDateFormat("dd/MM/yyyy");
+        CALENDARIO_GREGORIANO.setLenient(false);
+
+        try {
+            long l = (CALENDARIO_GREGORIANO.parse(DATA_FIM).getTime() - CALENDARIO_GREGORIANO.parse(DATA_INICIO).getTime()) / 86400000L;
+            diferenca_de_dias = (int) l;
+
+        } catch (java.text.ParseException ignored) {
+        }
+
+        return diferenca_de_dias;
+    }
+
+    public static Horario PARSER_HORARIO(String eHorario){
+        return Horario.toHorario(eHorario);
+    }
+    public static Data PARSER_DATA(String eData) {
+        return Data.toData(eData);
+    }
+
 }
 
