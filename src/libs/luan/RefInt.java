@@ -155,17 +155,17 @@ public class RefInt {
     }
 
 
-    public void reduzir(RefInt menor, int valor) {
+    public void reduzir_aumentando(RefInt incrementador, int valor) {
         while (get() >= valor) {
             subtrair(valor);
-            menor.somar(1);
+            incrementador.somar(1);
         }
     }
 
-    public void aumentar(RefInt menor, int valor) {
+    public void aumentar_reduzindo(RefInt redutor, int valor) {
         while (get() <= (valor * (-1))) {
             somar(valor);
-            menor.subtrair(1);
+            redutor.subtrair(1);
         }
     }
 
