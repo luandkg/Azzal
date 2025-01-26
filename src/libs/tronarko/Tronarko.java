@@ -1,11 +1,11 @@
 package libs.tronarko;
 
+import libs.luan.Par;
 import libs.luan.RefInt;
+import libs.tempo.Calendario;
+import libs.tempo.Data;
+import libs.tempo.Horario;
 import libs.tronarko.Intervalos.Tozte_Intervalo;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 
 // 		AUTOR : LUAN ALVES FREITAS
@@ -36,11 +36,12 @@ import java.util.Calendar;
 //  ATUALIZACAO 11 : 06/03/2022 - Fases GIBOSAS DOS SATELITES
 //  ATUALIZACAO 12 : 11/03/2022 - AGENDA E FLUXO TEMPORAL
 //  ATUALIZACAO 13 : 27/03/2022 - TRONARKO FALSUM e PSEUDO TRONARKO
+//  ATUALIZACAO 14 : 26/01/2025 - INTEGRAÇÃO ENTRE TRONARKO E CALENDARIO PARA ESPECIALIZAÇÃO E SIMPLIFICAÇÃO
 
 
 public class Tronarko {
 
-    private static final String DATA_INICIO = "21/09/2018";
+    private static final Data DATA_INICIO = Calendario.PARSER_DATA("21/09/2018");
     private static final int TRONARKO_INICIO = 7000;
 
     // TRON
@@ -50,20 +51,10 @@ public class Tronarko {
 
     public static Tron getTronAgora() {
 
-        Calendar c = Calendar.getInstance();
+        Par<Data, Horario> para_data_horario = Calendario.GET_DATA_E_HORARIO();
 
-        int eMilisegundo = c.get(Calendar.MILLISECOND);
-        int eSegundo = c.get(Calendar.SECOND);
-        int eMinuto = c.get(Calendar.MINUTE);
-        int eHora = c.get(Calendar.HOUR_OF_DAY);
-
-        int dia = c.get(Calendar.DAY_OF_MONTH);
-        int mes = c.get(Calendar.MONTH) + 1;
-        int ano = c.get(Calendar.YEAR);
-
-
-        Hazde eHazde = getHora(eHora, eMinuto, eSegundo, eMilisegundo);
-        Tozte eTozte = getData(dia, mes, ano);
+        Hazde eHazde = getHora(para_data_horario.getValor());
+        Tozte eTozte = getData(para_data_horario.getChave());
 
         return new Tron(eHazde, eTozte);
     }
@@ -71,39 +62,23 @@ public class Tronarko {
 
     // TOZTE
     public static Tozte getTozte() {
-
-        Calendar c = Calendar.getInstance();
-
-        int dia = c.get(Calendar.DAY_OF_MONTH);
-        int mes = c.get(Calendar.MONTH) + 1;
-        int ano = c.get(Calendar.YEAR);
-
-
-        return getData(dia, mes, ano);
+        return getData(Calendario.getDataHoje());
     }
 
+    public static Tozte getData(Data eData) {
+        return getData(eData.getDia(), eData.getMes(), eData.getAno());
+    }
+
+
     public static Tozte getData(String entrada) {
-
-        String dia = String.valueOf(entrada.charAt(0)) + String.valueOf(entrada.charAt(1));
-        String mes = String.valueOf(entrada.charAt(3)) + String.valueOf(entrada.charAt(4));
-        String ano = String.valueOf(entrada.charAt(6)) + String.valueOf(entrada.charAt(7));
-        ano += String.valueOf(entrada.charAt(8)) + String.valueOf(entrada.charAt(9));
-
-
-        return getData(Integer.parseInt(dia), Integer.parseInt(mes), Integer.parseInt(ano));
+        return getData(Calendario.PARSER_DATA(entrada));
     }
 
     public static Tozte getData(int eDia, int eMes, int eAno) {
 
         // System.out.printf("\nHCC : %s",eData);
 
-        String sDia = S(eDia);
-        String sMes = S(eMes);
-        String sAno = S(eAno);
-
-        String DATA_AQUI = sDia + "/" + sMes + "/" + sAno;
-
-        RefInt diferenca_de_dias = new RefInt(getDias(DATA_INICIO, DATA_AQUI));
+        RefInt diferenca_de_dias = new RefInt(Calendario.GET_DIFERENCA_DE_DIAS(DATA_INICIO, new Data(eAno, eMes, eDia)));
 
 
         RefInt iTronarko = new RefInt(TRONARKO_INICIO);
@@ -112,8 +87,8 @@ public class Tronarko {
 
         if (diferenca_de_dias.get() >= 0) {
 
-            diferenca_de_dias.reduzir(iTronarko, 500);
-            diferenca_de_dias.reduzir(iHiperarko, 50);
+            diferenca_de_dias.reduzir_aumentando(iTronarko, 500);
+            diferenca_de_dias.reduzir_aumentando(iHiperarko, 50);
 
             iSuperarko.set(1 + diferenca_de_dias.get());
 
@@ -122,8 +97,8 @@ public class Tronarko {
             iTronarko.subtrair(1);
             iHiperarko.set(10);
 
-            diferenca_de_dias.aumentar(iTronarko, 500);
-            diferenca_de_dias.aumentar(iHiperarko, 50);
+            diferenca_de_dias.aumentar_reduzindo(iTronarko, 500);
+            diferenca_de_dias.aumentar_reduzindo(iHiperarko, 50);
 
 
             iSuperarko.set(50 + 1 + diferenca_de_dias.get());
@@ -135,12 +110,11 @@ public class Tronarko {
 
     // HAZDE
     public static Hazde getHora(String entrada) {
+        return getHora(Calendario.PARSER_HORARIO(entrada));
+    }
 
-        String hora = String.valueOf(entrada.charAt(0)) + String.valueOf(entrada.charAt(1));
-        String minuto = String.valueOf(entrada.charAt(3)) + String.valueOf(entrada.charAt(4));
-        String segundo = String.valueOf(entrada.charAt(6)) + String.valueOf(entrada.charAt(7));
-
-        return getHora(Integer.parseInt(hora), Integer.parseInt(minuto), Integer.parseInt(segundo), 0);
+    public static Hazde getHora(Horario eHorario) {
+        return getHora(eHorario.getHora(), eHorario.getMinutos(), eHorario.getSegundos(), eHorario.getMilissegundos());
     }
 
     public static Hazde getHora(int eHora, int eMinuto, int eSegundo, int eMilissegundo) {
@@ -157,8 +131,8 @@ public class Tronarko {
         RefInt iIttas = new RefInt(0);
         RefInt iUzzons = new RefInt((int) ((toSegundos / TAXADOR) / 1000));
 
-        iUzzons.reduzir(iIttas, 100);
-        iIttas.reduzir(iArco, 100);
+        iUzzons.reduzir_aumentando(iIttas, 100);
+        iIttas.reduzir_aumentando(iArco, 100);
 
 
         return new Hazde(iArco.get(), iIttas.get(), iUzzons.get());
@@ -179,24 +153,15 @@ public class Tronarko {
         RefInt iIttas = new RefInt(0);
         RefInt iUzzons = new RefInt((int) ((toSegundos / TAXADOR) / 1000));
 
-        iUzzons.reduzir(iIttas, 100);
-        iIttas.reduzir(iArco, 100);
+        iUzzons.reduzir_aumentando(iIttas, 100);
+        iIttas.reduzir_aumentando(iArco, 100);
 
 
         return new Hazde(iArco.get(), iIttas.get(), iUzzons.get());
     }
 
     public static Hazde getHazde() {
-
-        Calendar c = Calendar.getInstance();
-
-        int eMilisegundo = c.get(Calendar.MILLISECOND);
-        int eSegundo = c.get(Calendar.SECOND);
-        int eMinuto = c.get(Calendar.MINUTE);
-        int eHora = c.get(Calendar.HOUR_OF_DAY);
-
-        return getHora(eHora, eMinuto, eSegundo, eMilisegundo);
-
+        return getHora(Calendario.getHorario());
     }
 
     // FACILITADORES
@@ -210,7 +175,7 @@ public class Tronarko {
     }
 
     public static Hazde CRIAR_HAZDE_ARKO_ITTAS(int total) {
-        return new Hazde(total/100,total-((total/100)*100),0);
+        return new Hazde(total / 100, total - ((total / 100) * 100), 0);
     }
 
     public static Hazde getHazdeComecar() {
@@ -221,31 +186,6 @@ public class Tronarko {
         return new Hazde(9, 9, 99);
     }
 
-    private static String S(int valor) {
-
-        String sValor = String.valueOf(valor);
-        if (sValor.length() == 1) {
-            sValor = "0" + sValor;
-        }
-        return sValor;
-    }
-
-    private static int getDias(String DATA_INICIO, String DATA_FIM) {
-
-        int diferenca_de_dias = 0;
-
-        DateFormat CALENDARIO_GREGORIANO = new SimpleDateFormat("dd/MM/yyyy");
-        CALENDARIO_GREGORIANO.setLenient(false);
-
-        try {
-            long l = (CALENDARIO_GREGORIANO.parse(DATA_FIM).getTime() - CALENDARIO_GREGORIANO.parse(DATA_INICIO).getTime()) / 86400000L;
-            diferenca_de_dias = (int) l;
-
-        } catch (java.text.ParseException ignored) {
-        }
-
-        return diferenca_de_dias;
-    }
 
     public static long SUPERARKOS_ENTRE_COM(Tozte inicio, Tozte fim) {
         return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkos();
@@ -300,11 +240,12 @@ public class Tronarko {
     }
 
 
-    public static Tozte TOZTE_PRIMEIRO(int eTronarko){
-        return new Tozte(1,1,eTronarko);
+    public static Tozte TOZTE_PRIMEIRO(int eTronarko) {
+        return new Tozte(1, 1, eTronarko);
     }
 
-    public static Tozte TOZTE_ULTIMO(int eTronarko){
-        return new Tozte(50,10,eTronarko);
+    public static Tozte TOZTE_ULTIMO(int eTronarko) {
+        return new Tozte(50, 10, eTronarko);
     }
+
 }
