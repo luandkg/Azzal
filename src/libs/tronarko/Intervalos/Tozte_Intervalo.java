@@ -12,11 +12,11 @@ public class Tozte_Intervalo {
 
         this.mNome = eNome;
 
-        Organizar(eInicio, eFim);
+        organizar(eInicio, eFim);
 
     }
 
-    private void Organizar(Tozte eInicio, Tozte eFim) {
+    private void organizar(Tozte eInicio, Tozte eFim) {
 
         if (eInicio.isMenorIgualQue(eFim)) {
             this.mInicio = eInicio;
@@ -33,37 +33,37 @@ public class Tozte_Intervalo {
     }
 
     public Tozte getInicio() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio;
     }
 
     public Tozte getFim() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mFim;
     }
 
     public long getSuperarkos() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return (mFim.getSuperarkosTotal() - mInicio.getSuperarkosTotal());
     }
 
     public long getSuperarkosComFim() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return ((mFim.getSuperarkosTotal() - mInicio.getSuperarkosTotal()) + 1);
     }
 
     public boolean Tronako_Igual() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio.getTronarko() == mFim.getTronarko();
     }
 
     public boolean Hiperarko_Igual() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio.getHiperarko() == mFim.getHiperarko();
     }
@@ -73,7 +73,7 @@ public class Tozte_Intervalo {
     }
 
     public String toString() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio.toString() + " - " + mFim.toString();
     }

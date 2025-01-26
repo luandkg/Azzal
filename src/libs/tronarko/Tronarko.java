@@ -5,7 +5,6 @@ import libs.luan.RefInt;
 import libs.tempo.Calendario;
 import libs.tempo.Data;
 import libs.tempo.Horario;
-import libs.tronarko.Intervalos.Tozte_Intervalo;
 
 
 // 		AUTOR : LUAN ALVES FREITAS
@@ -43,6 +42,9 @@ public class Tronarko {
 
     private static final Data DATA_INICIO = Calendario.PARSER_DATA("21/09/2018");
     private static final int TRONARKO_INICIO = 7000;
+    private static final int TRONARKO_SUPERARKOS_POR_TRONARKO = 500;
+    private static final int TRONARKO_SUPERARKOS_POR_HIPERARKO = 50;
+
 
     // TRON
     public static String getAgora() {
@@ -87,8 +89,8 @@ public class Tronarko {
 
         if (diferenca_de_dias.get() >= 0) {
 
-            diferenca_de_dias.reduzir_aumentando(iTronarko, 500);
-            diferenca_de_dias.reduzir_aumentando(iHiperarko, 50);
+            diferenca_de_dias.reduzir_aumentando(iTronarko, TRONARKO_SUPERARKOS_POR_TRONARKO);
+            diferenca_de_dias.reduzir_aumentando(iHiperarko, TRONARKO_SUPERARKOS_POR_HIPERARKO);
 
             iSuperarko.set(1 + diferenca_de_dias.get());
 
@@ -97,11 +99,11 @@ public class Tronarko {
             iTronarko.subtrair(1);
             iHiperarko.set(10);
 
-            diferenca_de_dias.aumentar_reduzindo(iTronarko, 500);
-            diferenca_de_dias.aumentar_reduzindo(iHiperarko, 50);
+            diferenca_de_dias.aumentar_reduzindo(iTronarko, TRONARKO_SUPERARKOS_POR_TRONARKO);
+            diferenca_de_dias.aumentar_reduzindo(iHiperarko, TRONARKO_SUPERARKOS_POR_HIPERARKO);
 
 
-            iSuperarko.set(50 + 1 + diferenca_de_dias.get());
+            iSuperarko.set(TRONARKO_SUPERARKOS_POR_HIPERARKO + 1 + diferenca_de_dias.get());
         }
 
         return new Tozte(iSuperarko.get(), iHiperarko.get(), iTronarko.get());
@@ -188,11 +190,30 @@ public class Tronarko {
 
 
     public static long SUPERARKOS_ENTRE_COM(Tozte inicio, Tozte fim) {
-        return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkos();
+        return  TOZTE_ENTRE( inicio, fim,false);
     }
 
     public static long SUPERARKOS_ENTRE_COM_FIM(Tozte inicio, Tozte fim) {
-        return new Tozte_Intervalo("ENTRE", inicio, fim).getSuperarkosComFim();
+        return  TOZTE_ENTRE( inicio, fim,true);
+    }
+
+
+    private static long TOZTE_ENTRE(Tozte eInicio, Tozte eFim, boolean com_fim) {
+
+        long ret = 0;
+
+        if (eInicio.isMenorIgualQue(eFim)) {
+            ret = eFim.getSuperarkosTotal() - eInicio.getSuperarkosTotal();
+        } else {
+            ret = ((eInicio.getSuperarkosTotal() - eFim.getSuperarkosTotal()));
+        }
+
+        if (com_fim) {
+            ret += 1;
+        }
+
+
+        return ret;
     }
 
 
