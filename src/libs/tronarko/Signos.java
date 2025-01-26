@@ -1,6 +1,7 @@
 package libs.tronarko;
 
-import java.util.ArrayList;
+
+import libs.luan.Lista;
 
 public enum Signos {
 
@@ -16,20 +17,38 @@ public enum Signos {
         return mValor;
     }
 
-    public ArrayList<String> Listar() {
+    public static Lista<String> listar_nomes() {
 
-        ArrayList<String> mSignos = new ArrayList<String>();
+        Lista<String> mSignos = new Lista<String>();
 
-        mSignos.add(Signos.TIGRE.toString());
-        mSignos.add(Signos.RAPOSA.toString());
-        mSignos.add(Signos.LEOPARDO.toString());
-        mSignos.add(Signos.GAVIAO.toString());
-        mSignos.add(Signos.TOURO.toString());
-        mSignos.add(Signos.LOBO.toString());
-        mSignos.add(Signos.GATO.toString());
-        mSignos.add(Signos.CARPA.toString());
-        mSignos.add(Signos.LEAO.toString());
-        mSignos.add(Signos.SERPENTE.toString());
+        mSignos.adicionar(Signos.TIGRE.toString());
+        mSignos.adicionar(Signos.RAPOSA.toString());
+        mSignos.adicionar(Signos.LEOPARDO.toString());
+        mSignos.adicionar(Signos.GAVIAO.toString());
+        mSignos.adicionar(Signos.TOURO.toString());
+        mSignos.adicionar(Signos.LOBO.toString());
+        mSignos.adicionar(Signos.GATO.toString());
+        mSignos.adicionar(Signos.CARPA.toString());
+        mSignos.adicionar(Signos.LEAO.toString());
+        mSignos.adicionar(Signos.SERPENTE.toString());
+
+        return mSignos;
+    }
+
+    public static Lista<Signos> listar() {
+
+        Lista<Signos> mSignos = new Lista<Signos>();
+
+        mSignos.adicionar(Signos.TIGRE);
+        mSignos.adicionar(Signos.RAPOSA);
+        mSignos.adicionar(Signos.LEOPARDO);
+        mSignos.adicionar(Signos.GAVIAO);
+        mSignos.adicionar(Signos.TOURO);
+        mSignos.adicionar(Signos.LOBO);
+        mSignos.adicionar(Signos.GATO);
+        mSignos.adicionar(Signos.CARPA);
+        mSignos.adicionar(Signos.LEAO);
+        mSignos.adicionar(Signos.SERPENTE);
 
         return mSignos;
     }
