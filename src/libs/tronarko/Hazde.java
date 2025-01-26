@@ -2,6 +2,7 @@ package libs.tronarko;
 
 import libs.luan.Igualavel;
 import libs.luan.Ordenavel;
+import libs.luan.fmt;
 
 public class Hazde {
 
@@ -48,28 +49,33 @@ public class Hazde {
 
     public String getTextoZerado() {
 
-        String p1 = S(this.getArco());
-        String p2 = S(this.getItta());
-        String p3 = S(this.getUzzon());
+        String p1 = fmt.numero_zerado_c2(this.getArco());
+        String p2 = fmt.numero_zerado_c2(this.getItta());
+        String p3 = fmt.numero_zerado_c2(this.getUzzon());
 
         return p1 + ":" + p2 + ":" + p3;
     }
 
     public String getTextoSemUzzonZerado() {
 
-        String p1 = S(this.getArco());
-        String p2 = S(this.getItta());
+        String p1 = fmt.numero_zerado_c2(this.getArco());
+        String p2 = fmt.numero_zerado_c2(this.getItta());
 
         return p1 + ":" + p2;
     }
 
-    private String S(int valor) {
+    public String getTextoComInfos() {
 
-        String sValor = String.valueOf(valor);
-        if (sValor.length() == 1) {
-            sValor = "0" + sValor;
-        }
-        return sValor;
+        String p1 = fmt.numero_zerado_c2(this.getArco());
+        String p2 = fmt.numero_zerado_c2(this.getItta());
+        String p3 = fmt.numero_zerado_c2(this.getUzzon());
+
+        return p1 + ":" + p2 + ":" + p3 + " ( " + getPorcentagem() + " ) :: " + getPeriarko_Valor() + " - " + getModarko_Valor();
+    }
+
+
+    public String getPorcentagem() {
+        return fmt.f2Porcentagem((getArco() * 100) + getItta(), 10 * 100);
     }
 
     public String getTextoSemUzzons() {
@@ -122,8 +128,8 @@ public class Hazde {
             eArcos += 1;
         }
 
-        String sIttas = S(eIttas);
-        String sEttons = S(eEttons);
+        String sIttas = fmt.numero_zerado_c2(eIttas);
+        String sEttons = fmt.numero_zerado_c2(eEttons);
 
         return "" + eArcos + ":" + sIttas + ":" + sEttons;
     }
