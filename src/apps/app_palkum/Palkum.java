@@ -1,13 +1,18 @@
 package apps.app_palkum;
 
-import libs.arquivos.DSInterno;
-import libs.arquivos.ds.DS;
+import apps.app_humanidade.Idioma;
+import apps.app_humanidade.idiomas.*;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.fs.PastaFS;
-import libs.luan.Aleatorio;
-import libs.luan.Lista;
-import libs.luan.fmt;
+import libs.luan.*;
+import libs.meta_functional.Acao;
+import libs.meta_functional.AcaoAlfa;
+import libs.tronarko.utils.TronarkoAleatorium;
+import libs.zetta.ItemColecionavel;
+import libs.zetta.ZettaColecao;
+import libs.zetta.ZettaQuorum;
+import libs.zetta.features.ZQC;
 
 public class Palkum {
 
@@ -15,69 +20,273 @@ public class Palkum {
 
         PastaFS pasta_palkum = new PastaFS("/home/luan/assets/palkum");
 
-        String arquivo_populacao = pasta_palkum.getArquivo("populacao.ds");
+        String arquivo_palkum = pasta_palkum.getArquivo("palkum.az");
 
-        Lista<String> cidades = new Lista<String>();
+        Lista<Idioma> idiomas = new Lista<Idioma>();
 
-        cidades.adicionar("Traddes");
-        cidades.adicionar("Mokkom");
-        cidades.adicionar("Requiz");
-        cidades.adicionar("Plaque");
-        cidades.adicionar("Dommus");
-        cidades.adicionar("Alkoz");
-        cidades.adicionar("Inmeb");
-        cidades.adicionar("Uppuma");
+        idiomas.adicionar(new IdiomaTraddes());
+        idiomas.adicionar(new IdiomaMokkom());
+        idiomas.adicionar(new IdiomaRequiz());
+        idiomas.adicionar(new IdiomaPlaque());
+        idiomas.adicionar(new IdiomaDommus());
+        idiomas.adicionar(new IdiomaAlkoz());
+        idiomas.adicionar(new IdiomaInmeb());
+        idiomas.adicionar(new IdiomaUppuma());
 
 
-        Lista<Entidade> cidade_populacionar = ENTT.CRIAR_LISTA();
+        if (ZQC.COLECAO_CONTAGEM(arquivo_palkum, "Cidades") == 0) {
 
-        for (String cidade : cidades) {
-            Entidade e_cidade = ENTT.CRIAR_EM_SEQUENCIALMENTE(cidade_populacionar, "CidadeID");
-            e_cidade.at("Nome", cidade);
-            e_cidade.at("Populacao", String.valueOf(Aleatorio.aleatorio_entre(0, 3)) + String.valueOf(Aleatorio.aleatorio_entre(1, 9)) + String.valueOf(Aleatorio.aleatorio_entre(1, 9)) + fmt.f3(Aleatorio.aleatorio_entre(0, 999)));
-            e_cidade.at("Populacionando", 0);
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Traddes"));
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Mokkom"));
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Requiz"));
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Plaque"));
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Dommus"));
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Alkoz"));
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Inmeb"));
+            ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Uppuma"));
+
+
+            for (Idioma idioma : idiomas) {
+
+                ZQC.LIMPAR_TUDO(arquivo_palkum, idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_1)");
+                ZQC.LIMPAR_TUDO(arquivo_palkum, idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_2)");
+
+            }
+
+            ZQC.LIMPAR_TUDO(arquivo_palkum, "Pessoas");
+
         }
 
-        // ENTT.EXIBIR_TABELA_COM_NOME(cidade_populacionar,"Cidade");
 
-        //  DS.limpar(arquivo_populacao);
-        //  DS.adicionar_pre_alocado(arquivo_populacao,"@populacao.entts", Matematica.KB(400));
-        //  DS.alterar_pre_alocado(arquivo_populacao,"@populacao.entts",ENTT.TO_DOCUMENTO(cidade_populacionar));
+        ZQC.EXIBIR_COLECAO(arquivo_palkum, "Cidades");
 
-        Lista<Entidade> cidades_dados = DSInterno.PARSER_ENTIDADES(DS.buscar_item(arquivo_populacao, "@populacao.entts").get());
+        ZQC.EXIBIR_COLECOES_RESUMO(arquivo_palkum);
 
 
-        for (Entidade cidade : cidades_dados) {
+        for (Entidade cidade : ZQC.COLECAO_ENTIDADES(arquivo_palkum, "Cidades")) {
+
+            String cidade_nome = cidade.at("Nome").toUpperCase();
+
+            if (ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)") == 0 && ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)") == 0) {
+
+                fmt.print("Organizar nomes de {} ->> <{}> e <{}>", cidade_nome, ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)"), ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)"));
+
+                Unico<String> sobrenomes = new Unico<String>(Strings.IGUALAVEL());
+
+                Lista<String> sobrenomes_1 = new Lista<String>();
+                Lista<String> sobrenomes_2 = new Lista<String>();
+
+                Idioma idioma = Lista.OBTER_COM_ATRIBUTO(Idioma.PROCURAVEL_COM_NOME(),idiomas,cidade.at("Nome"));
+
+                int sobrenomes_quantidade = 300 + Aleatorio.aleatorio_entre(100, 200);
+
+                while (sobrenomes.getQuantidade() <= sobrenomes_quantidade) {
+                    String nome = idioma.getUnico(sobrenomes);
+                    if (Aleatorio.aleatorio(100) >= 50) {
+                        sobrenomes_1.adicionar(nome);
+                    } else {
+                        sobrenomes_2.adicionar(nome);
+                    }
+                    sobrenomes.item(nome);
+                }
+
+
+                ZQC.INSERIR_VARIOS(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)", ENTT.VALORES_PARA_ENTIDADES(sobrenomes_1, "Sobrenome"));
+                ZQC.INSERIR_VARIOS(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)", ENTT.VALORES_PARA_ENTIDADES(sobrenomes_2, "Sobrenome"));
+
+                ZQC.EXIBIR_COLECAO(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)");
+                ZQC.EXIBIR_COLECAO(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)");
+
+
+            }
+
+        }
+
+
+        ZQC.ATUALIZAR(arquivo_palkum, "Cidades", new AcaoAlfa<ItemColecionavel>() {
+            @Override
+            public void fazer(ItemColecionavel item) {
+
+                // TEM REGRAS PARA OS NOMES
+
+                Entidade cidade = item.get();
+
+                if (cidade.isDiferente("TemPopulacao", "SIM")) {
+
+                    cidade.at("Populacao", String.valueOf(String.valueOf(Aleatorio.aleatorio_entre(1, 9))) + String.valueOf(Aleatorio.aleatorio_entre(0, 999)));
+                    cidade.at("Populacionando", 0);
+                    cidade.at("TemPopulacao", "SIM");
+
+                    item.atualizar();
+                }
+
+            }
+        });
+
+
+        TronarkoAleatorium ta = TronarkoAleatorium.CRIAR_TRONARKOS(6500, 7500);
+
+
+        ZettaQuorum palkum = new ZettaQuorum(arquivo_palkum);
+
+        ZettaColecao cidades = palkum.getColecaoSempre("Cidades");
+        ZettaColecao pessoas = palkum.getColecaoSempre("Pessoas");
+
+
+        for (ItemColecionavel item_cidade : cidades.getItensEditaveis()) {
+
+            Entidade cidade = item_cidade.get();
 
             fmt.print("Cidade : {}", cidade.at("Nome"));
+
+            String cidade_nome = cidade.at("Nome").toUpperCase();
+
+            Idioma idioma = Lista.OBTER_COM_ATRIBUTO(Idioma.PROCURAVEL_COM_NOME(),idiomas,cidade.at("Nome"));
+
+            PessoasCriadorDeNomes sociedade = new PessoasCriadorDeNomes(idioma, palkum.getColecaoSempre(cidade_nome + "(SOBRENOMES_PARTE_1)").getItens(), palkum.getColecaoSempre(cidade_nome + "(SOBRENOMES_PARTE_2)").getItens());
 
             int populacao = cidade.atInt("Populacao");
             int populacionando = cidade.atInt("Populacionando");
 
-            int criando = 0;
-            int criar_aqui = Aleatorio.aleatorio_entre(50, 200);
 
             fmt.print("\t ++ Populacao      : {}", populacao);
             fmt.print("\t ++ Populacionando : {}", populacionando);
-            fmt.print("\t ++ Criando        : {}", criar_aqui);
 
-            while (populacionando < populacao && criando < criar_aqui) {
+            if (populacionando < populacao) {
 
-                DS.adicionar(arquivo_populacao,cidade.at("CidadeID") +":"+populacionando+".pessoa","");
+                int criando = 0;
+                int criar_aqui = Aleatorio.aleatorio_entre(50, 200);
 
-                criando += 1;
-                populacionando += 1;
+                fmt.print("\t ++ Criando        : {}", criar_aqui);
+
+                while (populacionando < populacao && criando < criar_aqui) {
+
+                    Entidade e_pessoa = new Entidade();
+                    e_pessoa.at("Nome", Strings.CAPTALIZAR_FRASE(sociedade.get()));
+                    e_pessoa.at("TDN", ta.getTozte().getTextoZerado());
+                    e_pessoa.at("Cidade", cidade.at("Nome"));
+
+                    pessoas.adicionar(e_pessoa);
+
+                    criando += 1;
+                    populacionando += 1;
+
+                    cidade.atInt("Populacionando", populacionando);
+
+                    cidade.at("Status", fmt.f2Porcentagem(cidade.atInt("Populacionando"), cidade.atInt("Populacao")));
+
+                    item_cidade.atualizar();
+                }
+
+
             }
 
-            cidade.atInt("Populacionando", populacionando);
+
         }
 
-        DS.alterar_pre_alocado(arquivo_populacao, "@populacao.entts", ENTT.TO_DOCUMENTO(cidades_dados));
 
-        ENTT.EXIBIR_TABELA(cidades_dados);
+        palkum.fechar();
+
+        ZQC.EXIBIR_COLECAO_ALGUNS(arquivo_palkum, "Pessoas");
+        ZQC.EXIBIR_COLECAO(arquivo_palkum, "Cidades");
 
 
-        fmt.print("Itens : {}",DS.contar(arquivo_populacao));
+        fmt.print("Pessoas : {}", ZQC.COLECAO_CONTAGEM(arquivo_palkum, "Pessoas"));
     }
 
+    public static void infos() {
+
+        PastaFS pasta_palkum = new PastaFS("/home/luan/assets/palkum");
+
+        String arquivo_palkum = pasta_palkum.getArquivo("palkum.az");
+
+        ZQC.EXIBIR_COLECAO_ALGUNS(arquivo_palkum, "Pessoas");
+        ZQC.EXIBIR_COLECAO(arquivo_palkum, "Cidades");
+
+        fmt.print("Pessoas : {}", ZQC.COLECAO_CONTAGEM(arquivo_palkum, "Pessoas"));
+
+
+        Lista<Idioma> idiomas = new Lista<Idioma>();
+
+        idiomas.adicionar(new IdiomaTraddes());
+        idiomas.adicionar(new IdiomaMokkom());
+        idiomas.adicionar(new IdiomaRequiz());
+        idiomas.adicionar(new IdiomaPlaque());
+        idiomas.adicionar(new IdiomaDommus());
+        idiomas.adicionar(new IdiomaAlkoz());
+        idiomas.adicionar(new IdiomaInmeb());
+        idiomas.adicionar(new IdiomaUppuma());
+
+        for (Idioma proc_idioma : idiomas) {
+
+            ZQC.EXIBIR_COLECAO_ORDENADOR_POR(arquivo_palkum, proc_idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_1)", "Sobrenome");
+            ZQC.EXIBIR_COLECAO_ORDENADOR_POR(arquivo_palkum, proc_idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_2)", "Sobrenome");
+
+
+        }
+
+
+    }
+
+    public static void nomes_comuns() {
+
+        PastaFS pasta_palkum = new PastaFS("/home/luan/assets/palkum");
+
+        String arquivo_palkum = pasta_palkum.getArquivo("palkum.az");
+
+
+
+        Lista<Entidade> nomes_comuns = new Lista<Entidade>();
+
+
+        ZQC.PROCESSAR_EM_INTERVALOS_COM_ANALITICO(arquivo_palkum, "Pessoas", 100, true, 3000, new AcaoAlfa<Entidade>() {
+            @Override
+            public void fazer(Entidade pessoa) {
+
+                String nome = Strings.DIVIDIR_ESPACOS(pessoa.at("Nome")).get(1);
+
+                Entidade nome_comum = ENTT.GET_SEMPRE(nomes_comuns, "Nome", nome);
+                nome_comum.atIntSomar("Quantidade", 0, 1);
+
+            }
+        }, new Acao() {
+            @Override
+            public void fazer() {
+
+                Lista<Entidade> analiticos_trendings = ENTT.COLETAR_INTEIRO_MAIOR_OU_IGUAL(nomes_comuns,"Quantidade",10);
+                fmt.print("Analiticos Trendings : {}",ENTT.CONTAGEM(analiticos_trendings));
+
+                ENTT.ORDENAR_INTEIRO_DECRESCENTE(analiticos_trendings,"Quantidade");
+                ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(analiticos_trendings,5));
+
+            }
+        });
+
+        Lista<Entidade> nomes_trendings = ENTT.COLETAR_INTEIRO_MAIOR_OU_IGUAL(nomes_comuns,"Quantidade",10);
+
+
+        fmt.print("Quantidade : {}",ENTT.CONTAGEM(nomes_comuns));
+        fmt.print("Trendings : {}",ENTT.CONTAGEM(nomes_trendings));
+
+
+        fmt.print("Ordenando....");
+
+        ENTT.ORDENAR_INTEIRO_DECRESCENTE(nomes_trendings,"Quantidade");
+        ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(nomes_trendings,100));
+
+    }
+
+
+    public static void EXIBIR_RESUMO(){
+
+        PastaFS pasta_palkum = new PastaFS("/home/luan/assets/palkum");
+
+        String arquivo_palkum = pasta_palkum.getArquivo("palkum.az");
+
+        ZQC.EXIBIR_COLECOES_RESUMO(arquivo_palkum);
+
+        ZQC.EXIBIR_COLECAO_ALGUNS(arquivo_palkum,"INMEB(SOBRENOMES_PARTE_1)");
+
+
+    }
 }
