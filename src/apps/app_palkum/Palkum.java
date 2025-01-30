@@ -2,6 +2,7 @@ package apps.app_palkum;
 
 import apps.app_humanidade.Idioma;
 import apps.app_humanidade.idiomas.*;
+import libs.arquivos.IO;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.fs.PastaFS;
@@ -46,13 +47,7 @@ public class Palkum {
             ZQC.INSERIR(arquivo_palkum, "Cidades", ENTT.CRIAR("Nome", "Uppuma"));
 
 
-            for (Idioma idioma : idiomas) {
-
-                ZQC.LIMPAR_TUDO(arquivo_palkum, idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_1)");
-                ZQC.LIMPAR_TUDO(arquivo_palkum, idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_2)");
-
-            }
-
+            ZQC.LIMPAR_TUDO(arquivo_palkum, "Sobrenomes");
             ZQC.LIMPAR_TUDO(arquivo_palkum, "Pessoas");
 
         }
@@ -67,9 +62,12 @@ public class Palkum {
 
             String cidade_nome = cidade.at("Nome").toUpperCase();
 
-            if (ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)") == 0 && ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)") == 0) {
+            Lista<Entidade> cidade_sobrenomes = ENTT.COLETAR(ZQC.COLECAO_ENTIDADES(arquivo_palkum,"Sobrenomes"),"Idioma",cidade_nome);
 
-                fmt.print("Organizar nomes de {} ->> <{}> e <{}>", cidade_nome, ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)"), ZQC.COLECAO_CONTAGEM(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)"));
+
+            if (ENTT.CONTAGEM(cidade_sobrenomes,"SobrenomeTipo","TIPO_1") == 0 && ENTT.CONTAGEM(cidade_sobrenomes,"SobrenomeTipo","TIPO_2") == 0) {
+
+                fmt.print("Organizar nomes de {} ->> <{}> e <{}>", cidade_nome, ENTT.CONTAGEM(cidade_sobrenomes,"SobrenomeTipo","TIPO_1") , ENTT.CONTAGEM(cidade_sobrenomes,"SobrenomeTipo","TIPO_2") );
 
                 Unico<String> sobrenomes = new Unico<String>(Strings.IGUALAVEL());
 
@@ -90,12 +88,16 @@ public class Palkum {
                     sobrenomes.item(nome);
                 }
 
+                Lista<Entidade> s_sobrenomes_1 = ENTT.VALORES_PARA_ENTIDADES(sobrenomes_1, "Sobrenome");
+                ENTT.ATRIBUTO_TODOS(s_sobrenomes_1,"Idioma",cidade_nome);
+                ENTT.ATRIBUTO_TODOS(s_sobrenomes_1,"SobrenomeTipo","TIPO_1");
+                ZQC.INSERIR_VARIOS(arquivo_palkum, "Sobrenomes", s_sobrenomes_1);
 
-                ZQC.INSERIR_VARIOS(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)", ENTT.VALORES_PARA_ENTIDADES(sobrenomes_1, "Sobrenome"));
-                ZQC.INSERIR_VARIOS(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)", ENTT.VALORES_PARA_ENTIDADES(sobrenomes_2, "Sobrenome"));
+                Lista<Entidade> s_sobrenomes_2 = ENTT.VALORES_PARA_ENTIDADES(sobrenomes_2, "Sobrenome");
+                ENTT.ATRIBUTO_TODOS(s_sobrenomes_2,"Idioma",cidade_nome);
+                ENTT.ATRIBUTO_TODOS(s_sobrenomes_2,"SobrenomeTipo","TIPO_2");
+                ZQC.INSERIR_VARIOS(arquivo_palkum, "Sobrenomes", s_sobrenomes_2);
 
-                ZQC.EXIBIR_COLECAO(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_1)");
-                ZQC.EXIBIR_COLECAO(arquivo_palkum, cidade_nome + "(SOBRENOMES_PARTE_2)");
 
 
             }
@@ -143,7 +145,11 @@ public class Palkum {
 
             Idioma idioma = Lista.OBTER_COM_ATRIBUTO(Idioma.PROCURAVEL_COM_NOME(),idiomas,cidade.at("Nome"));
 
-            PessoasCriadorDeNomes sociedade = new PessoasCriadorDeNomes(idioma, palkum.getColecaoSempre(cidade_nome + "(SOBRENOMES_PARTE_1)").getItens(), palkum.getColecaoSempre(cidade_nome + "(SOBRENOMES_PARTE_2)").getItens());
+            Lista<Entidade> cidade_sobrenomes = ZQC.COLECAO_ENTIDADES_COLETAR_SE(arquivo_palkum,"Sobrenomes","Idioma",cidade_nome);
+            Lista<Entidade> sobrenomes_1 =ENTT.COLETAR(cidade_sobrenomes,"SobrenomeTipo","TIPO_1");
+            Lista<Entidade> sobrenomes_2 =  ENTT.COLETAR(cidade_sobrenomes,"SobrenomeTipo","TIPO_2");
+
+            PessoasCriadorDeNomes sociedade = new PessoasCriadorDeNomes(idioma, sobrenomes_1, sobrenomes_2);
 
             int populacao = cidade.atInt("Populacao");
             int populacionando = cidade.atInt("Populacionando");
@@ -201,29 +207,12 @@ public class Palkum {
         String arquivo_palkum = pasta_palkum.getArquivo("palkum.az");
 
         ZQC.EXIBIR_COLECAO_ALGUNS(arquivo_palkum, "Pessoas");
+        ZQC.EXIBIR_COLECAO_ALGUNS(arquivo_palkum, "Sobrenomes");
         ZQC.EXIBIR_COLECAO(arquivo_palkum, "Cidades");
 
-        fmt.print("Pessoas : {}", ZQC.COLECAO_CONTAGEM(arquivo_palkum, "Pessoas"));
+        fmt.print("Pessoas    : {}", ZQC.COLECAO_CONTAGEM(arquivo_palkum, "Pessoas"));
+        fmt.print("Sobrenomes : {}", ZQC.COLECAO_CONTAGEM(arquivo_palkum, "Sobrenomes"));
 
-
-        Lista<Idioma> idiomas = new Lista<Idioma>();
-
-        idiomas.adicionar(new IdiomaTraddes());
-        idiomas.adicionar(new IdiomaMokkom());
-        idiomas.adicionar(new IdiomaRequiz());
-        idiomas.adicionar(new IdiomaPlaque());
-        idiomas.adicionar(new IdiomaDommus());
-        idiomas.adicionar(new IdiomaAlkoz());
-        idiomas.adicionar(new IdiomaInmeb());
-        idiomas.adicionar(new IdiomaUppuma());
-
-        for (Idioma proc_idioma : idiomas) {
-
-            ZQC.EXIBIR_COLECAO_ORDENADOR_POR(arquivo_palkum, proc_idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_1)", "Sobrenome");
-            ZQC.EXIBIR_COLECAO_ORDENADOR_POR(arquivo_palkum, proc_idioma.getNome().toUpperCase() + "(SOBRENOMES_PARTE_2)", "Sobrenome");
-
-
-        }
 
 
     }
@@ -285,7 +274,7 @@ public class Palkum {
 
         ZQC.EXIBIR_COLECOES_RESUMO(arquivo_palkum);
 
-        ZQC.EXIBIR_COLECAO_ALGUNS(arquivo_palkum,"INMEB(SOBRENOMES_PARTE_1)");
+        ZQC.EXIBIR_COLECAO_ALGUNS(arquivo_palkum,"Sobrenomes");
 
 
     }
