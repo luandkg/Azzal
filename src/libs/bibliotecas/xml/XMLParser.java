@@ -1,4 +1,4 @@
-package libs.xml;
+package libs.bibliotecas.xml;
 
 import libs.luan.Lista;
 

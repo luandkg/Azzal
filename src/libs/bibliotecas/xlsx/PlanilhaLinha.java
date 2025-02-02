@@ -1,9 +1,7 @@
-package libs.xlsx;
+package libs.bibliotecas.xlsx;
 
 import libs.luan.Lista;
 import libs.luan.fmt;
-
-import java.util.ArrayList;
 
 public class PlanilhaLinha {
 

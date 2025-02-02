@@ -1,10 +1,10 @@
-package libs.xlsx;
+package libs.bibliotecas.xlsx;
 
 import libs.arquivos.DocumentoTexto;
 import libs.arquivos.Zipper;
 import libs.luan.*;
-import libs.xml.XML;
-import libs.xml.XMLObjeto;
+import libs.bibliotecas.xml.XML;
+import libs.bibliotecas.xml.XMLObjeto;
 
 import java.util.ArrayList;
 

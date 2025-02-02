@@ -1,4 +1,4 @@
-package libs.arquivos;
+package libs.bibliotecas;
 
 import java.io.BufferedReader;
 import java.io.IOException;

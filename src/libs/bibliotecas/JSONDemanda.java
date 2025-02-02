@@ -1,7 +1,8 @@
-package libs.luan;
+package libs.bibliotecas;
 
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
+import libs.luan.Par;
 
 public class JSONDemanda {
 
@@ -20,7 +21,7 @@ public class JSONDemanda {
     private static final int JSON_INVALIDO = 8;
     private static final int JSON_CONCLUIDO = 9;
 
-    private static  Par<Integer, String> TOKEN_RECENTE = null;
+    private static Par<Integer, String> TOKEN_RECENTE = null;
 
     public static DKG JSON_TO_DKG(String atexto) {
 

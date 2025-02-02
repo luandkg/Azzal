@@ -1,12 +1,12 @@
-package libs.oo;
+package libs.bibliotecas;
 
 import libs.arquivos.DocumentoTexto;
 import libs.arquivos.Zipper;
 import libs.luan.*;
-import libs.xlsx.Planilha;
-import libs.xlsx.PlanilhaLinha;
-import libs.xml.XML;
-import libs.xml.XMLObjeto;
+import libs.bibliotecas.xlsx.Planilha;
+import libs.bibliotecas.xlsx.PlanilhaLinha;
+import libs.bibliotecas.xml.XML;
+import libs.bibliotecas.xml.XMLObjeto;
 
 
 
