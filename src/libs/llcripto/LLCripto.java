@@ -1,19 +1,25 @@
 package libs.llcripto;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import libs.luan.Lista;
+import libs.luan.Strings;
+import libs.luan.fmt;
+
 
 public class LLCripto {
 
-    public static byte[] intToByte(int value) {
+    // AUTOR      LUAN ALVES FREITAS (luandkg@gmail.com)
+    // CRIADO     2023 12 31
+    // ATUALIZADO 2025 02 03
+
+    public static byte[] INT8_TO_BYTE(int value) {
         return new byte[]{(byte) (value >>> 24), (byte) (value >>> 16), (byte) (value >>> 8), (byte) value};
     }
 
-    public static int bytestoInt(byte[] bytes) {
+    public static int BYTE_TO_INT8(byte[] bytes) {
         return ((bytes[0] & 0xFF) << 24) | ((bytes[1] & 0xFF) << 16) | ((bytes[2] & 0xFF) << 8) | ((bytes[3] & 0xFF) << 0);
     }
 
-    public static int normalizar_byte(int valor) {
+    public static int INTEIRO_POSITIVO(int valor) {
 
         while (valor >= 256) {
             valor -= 256;
@@ -52,7 +58,7 @@ public class LLCripto {
     public static void demonstracao() {
 
 
-        System.out.println("LLCripto 1.0");
+        fmt.print("LLCripto 1.0");
 
         String senha = "SENHA_FORTE";
         String mensagem = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -66,15 +72,15 @@ public class LLCripto {
         LLCRIPT_ORIGNUM.definirLinha(2, 9, 10, 11, 12);
         LLCRIPT_ORIGNUM.definirLinha(3, 13, 14, 15, 16);
 
-        System.out.println("Matrix Originum");
-        System.out.println(LLCRIPT_ORIGNUM.getView());
+        fmt.print("Matrix Originum");
+        fmt.print(LLCRIPT_ORIGNUM.getView());
 
 
         Quadrante LLCRIPT_RE_ORIGNUM = new Quadrante();
         LLCRIPT_RE_ORIGNUM.copiarDe(LLCRIPT_ORIGNUM);
 
         // ORGANIZAR SENHA
-        byte[] senha_bytes = senha.getBytes(StandardCharsets.UTF_8);
+        byte[] senha_bytes = Strings.GET_STRING_VIEW_BYTES(senha) ;
 
         int s_index = 0;
         int s_tamanho = senha_bytes.length;
@@ -85,7 +91,7 @@ public class LLCripto {
 
             int novo_valor = LLCRIPT_RE_ORIGNUM.getDireto(s_adicionar) + Byte.toUnsignedInt(senha_bytes[s_index]);
 
-            novo_valor = normalizar_byte(novo_valor);
+            novo_valor = INTEIRO_POSITIVO(novo_valor);
 
             LLCRIPT_RE_ORIGNUM.setDireto(s_adicionar, novo_valor);
 
@@ -97,27 +103,27 @@ public class LLCripto {
         }
 
         // INICIAR CRIPTOGRAFIA
-        System.out.println("Matrix Re-Originum");
-        System.out.println(LLCRIPT_RE_ORIGNUM.getView());
+        fmt.print("Matrix Re-Originum");
+        fmt.print(LLCRIPT_RE_ORIGNUM.getView());
 
 
-        byte[] bytes = mensagem.getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = Strings.GET_STRING_VIEW_BYTES(mensagem);
 
 
-        System.out.println("Dados   : " + mensagem);
-        System.out.println("Tamanho : " + bytes.length);
+        fmt.print("Dados   : " + mensagem);
+        fmt.print("Tamanho : " + bytes.length);
 
 
-        System.out.println("INDO :: " + bytes_to_sequencia(bytes));
+        fmt.print("INDO :: " + bytes_to_sequencia(bytes));
 
-        ArrayList<Quadrante> quadrantes = bytes_to_quadrantes(bytes);
+        Lista<Quadrante> quadrantes = bytes_to_quadrantes(bytes);
 
         listar_quadrantes(quadrantes);
 
-        System.out.println("");
+        fmt.print("");
 
-        System.out.println("-->> APLICAR METODO");
-        ArrayList<Quadrante> criptados = new ArrayList<Quadrante>();
+        fmt.print("-->> APLICAR METODO");
+        Lista<Quadrante> criptados = new Lista<Quadrante>();
 
         Quadrante quadro_anterior = LLCRIPT_RE_ORIGNUM;
 
@@ -127,17 +133,17 @@ public class LLCripto {
             Quadrante montagem = Quadrante.somar(quadro, LLCRIPT_RE_ORIGNUM);
 
 
-            int ponto_central_normalizado = normalizar_byte(quadro_anterior.calcularPontoCentral());
-            int torque_normalizado = normalizar_byte(quadro_anterior.calcularTorque());
+            int ponto_central_normalizado = INTEIRO_POSITIVO(quadro_anterior.calcularPontoCentral());
+            int torque_normalizado = INTEIRO_POSITIVO(quadro_anterior.calcularTorque());
 
             for (int pi = 0; pi < LLCRIPT_TAMANHO_BLOCO; pi++) {
-                montagem.setDireto(pi, normalizar_byte(montagem.getDireto(pi) + quadro_anterior.getDireto(pi) + ponto_central_normalizado - torque_normalizado));
+                montagem.setDireto(pi, INTEIRO_POSITIVO(montagem.getDireto(pi) + quadro_anterior.getDireto(pi) + ponto_central_normalizado - torque_normalizado));
             }
 
-            System.out.println("QUADRO : " + qi + " -->> PONTO CENTRAL = " + ponto_central_normalizado + " TORQUE = " + torque_normalizado);
-            System.out.println(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
+            fmt.print("QUADRO : " + qi + " -->> PONTO CENTRAL = " + ponto_central_normalizado + " TORQUE = " + torque_normalizado);
+            fmt.print(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
 
-            criptados.add(montagem);
+            criptados.adicionar(montagem);
 
             quadro_anterior = montagem;
 
@@ -147,17 +153,17 @@ public class LLCripto {
 
         // DESCRIPTOGRAFAR
 
-        System.out.println("-->> VOLTAR");
+        fmt.print("-->> VOLTAR");
 
-        int tamanho_voltar = criptados.size() * LLCRIPT_TAMANHO_BLOCO;
+        int tamanho_voltar = criptados.getQuantidade() * LLCRIPT_TAMANHO_BLOCO;
 
-        System.out.println("Tamanho : " + tamanho_voltar);
+        fmt.print("Tamanho : " + tamanho_voltar);
 
         int valores[] = new int[tamanho_voltar + 4];
 
         int indice_total = 0;
 
-        byte numero[] = intToByte(bytes.length);
+        byte numero[] = INT8_TO_BYTE(bytes.length);
 
         valores[0] = numero[0];
         valores[1] = numero[1];
@@ -187,7 +193,7 @@ public class LLCripto {
         obter_tamanho[2] = (byte) valores[2];
         obter_tamanho[3] = (byte) valores[3];
 
-        int tamanho_obtido = bytestoInt(obter_tamanho);
+        int tamanho_obtido = BYTE_TO_INT8(obter_tamanho);
 
         byte valores_bytes[] = new byte[tamanho_obtido];
 
@@ -200,16 +206,16 @@ public class LLCripto {
             indice_total += 1;
         }
 
-        System.out.println("");
+        fmt.print("");
 
-        ArrayList<Quadrante> voltar_quadrantes = bytes_to_quadrantes(valores_bytes);
+        Lista<Quadrante> voltar_quadrantes = bytes_to_quadrantes(valores_bytes);
 
         listar_quadrantes(voltar_quadrantes);
 
-        System.out.println("");
+        fmt.print("");
 
-        System.out.println("-->> DESAPLICAR METODO");
-        ArrayList<Quadrante> descriptados = new ArrayList<Quadrante>();
+        fmt.print("-->> DESAPLICAR METODO");
+        Lista<Quadrante> descriptados = new Lista<Quadrante>();
 
         qi = 0;
 
@@ -218,24 +224,24 @@ public class LLCripto {
         for (Quadrante quadro : voltar_quadrantes) {
 
 
-            int ponto_central_normalizado = normalizar_byte(descriptografar_quadro_anterior.calcularPontoCentral());
-            int torque_normalizado = normalizar_byte(descriptografar_quadro_anterior.calcularTorque());
+            int ponto_central_normalizado = INTEIRO_POSITIVO(descriptografar_quadro_anterior.calcularPontoCentral());
+            int torque_normalizado = INTEIRO_POSITIVO(descriptografar_quadro_anterior.calcularTorque());
 
 
             Quadrante montagem = Quadrante.subtrair(quadro, LLCRIPT_RE_ORIGNUM);
 
             for (int pi = 0; pi < LLCRIPT_TAMANHO_BLOCO; pi++) {
-                montagem.setDireto(pi, normalizar_byte(montagem.getDireto(pi) - descriptografar_quadro_anterior.getDireto(pi) - ponto_central_normalizado + torque_normalizado));
+                montagem.setDireto(pi, INTEIRO_POSITIVO(montagem.getDireto(pi) - descriptografar_quadro_anterior.getDireto(pi) - ponto_central_normalizado + torque_normalizado));
             }
 
             // System.out.println("QUADRO : " + qi);
 
 
-            System.out.println("QUADRO : " + qi + " -->> PONTO CENTRAL = " + ponto_central_normalizado + " TORQUE = " + torque_normalizado);
-            System.out.println(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
+            fmt.print("QUADRO : " + qi + " -->> PONTO CENTRAL = " + ponto_central_normalizado + " TORQUE = " + torque_normalizado);
+            fmt.print(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
 
 
-            descriptados.add(montagem);
+            descriptados.adicionar(montagem);
 
             descriptografar_quadro_anterior = quadro;
 
@@ -245,21 +251,21 @@ public class LLCripto {
 
         byte[] bytes_do_texto = quadrantes_to_bytes(descriptados, tamanho_obtido);
 
-        System.out.println("VOLTOU Tamanho :: " + tamanho_obtido);
-        System.out.println("VOLTOU Tamanho buf :: " + bytes_do_texto.length);
+        fmt.print("VOLTOU Tamanho :: " + tamanho_obtido);
+        fmt.print("VOLTOU Tamanho buf :: " + bytes_do_texto.length);
 
-        System.out.println("VOLTOU :: " + ints_to_sequencia(valores));
+        fmt.print("VOLTOU :: " + ints_to_sequencia(valores));
 
-        System.out.println("TRADUÇÃO :: " + new String(bytes_do_texto));
+        fmt.print("TRADUÇÃO :: " + new String(bytes_do_texto));
     }
 
-    public static void listar_quadrantes(ArrayList<Quadrante> quadrantes) {
+    public static void listar_quadrantes(Lista<Quadrante> quadrantes) {
 
         int qi = 0;
         for (Quadrante quadro : quadrantes) {
 
-            System.out.println("QUADRANTE : " + qi);
-            System.out.println(quadro.getView());
+            fmt.print("QUADRANTE : " + qi);
+            fmt.print(quadro.getView());
 
             qi += 1;
         }
@@ -267,15 +273,15 @@ public class LLCripto {
 
     }
 
-    public static ArrayList<Quadrante> bytes_to_quadrantes(byte bytes[]) {
+    public static Lista<Quadrante> bytes_to_quadrantes(byte bytes[]) {
 
-        ArrayList<Quadrante> quadrantes = new ArrayList<Quadrante>();
+        Lista<Quadrante> quadrantes = new Lista<Quadrante>();
 
         int i = 0;
         int o = bytes.length;
 
         Quadrante quadranteCorrente = new Quadrante();
-        quadrantes.add(quadranteCorrente);
+        quadrantes.adicionar(quadranteCorrente);
 
         int e = 0;
 
@@ -286,7 +292,7 @@ public class LLCripto {
 
             if (e >= quadranteCorrente.getTamanho()) {
                 quadranteCorrente = new Quadrante();
-                quadrantes.add(quadranteCorrente);
+                quadrantes.adicionar(quadranteCorrente);
                 e = 0;
             }
 
@@ -353,7 +359,7 @@ public class LLCripto {
     }
 
 
-    public static byte[] quadrantes_to_bytes(ArrayList<Quadrante> quadrantes, int limite) {
+    public static byte[] quadrantes_to_bytes(Lista<Quadrante> quadrantes, int limite) {
 
 
         byte valores[] = new byte[limite];
@@ -398,7 +404,7 @@ public class LLCripto {
         LLCRIPT_RE_ORIGNUM.copiarDe(LLCRIPT_ORIGNUM);
 
         // ORGANIZAR SENHA
-        byte[] senha_bytes = senha.getBytes(StandardCharsets.UTF_8);
+        byte[] senha_bytes = Strings.GET_STRING_VIEW_BYTES(senha);
 
         int s_index = 0;
         int s_tamanho = senha_bytes.length;
@@ -409,7 +415,7 @@ public class LLCripto {
 
             int novo_valor = LLCRIPT_RE_ORIGNUM.getDireto(s_adicionar) + Byte.toUnsignedInt(senha_bytes[s_index]);
 
-            novo_valor = normalizar_byte(novo_valor);
+            novo_valor = INTEIRO_POSITIVO(novo_valor);
 
             LLCRIPT_RE_ORIGNUM.setDireto(s_adicionar, novo_valor);
 
@@ -425,21 +431,21 @@ public class LLCripto {
         // System.out.println(LLCRIPT_RE_ORIGNUM.getView());
 
 
-        byte[] bytes = mensagem.getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = Strings.GET_STRING_VIEW_BYTES(mensagem);
 
 
         //System.out.println("Dados   : " + mensagem);
         // System.out.println("Tamanho : " + bytes.length);
         // System.out.println("INDO :: " + bytes_to_sequencia(bytes));
 
-        ArrayList<Quadrante> quadrantes = bytes_to_quadrantes(bytes);
+        Lista<Quadrante> quadrantes = bytes_to_quadrantes(bytes);
 
         //   listar_quadrantes(quadrantes);
 
         //System.out.println("");
 
         //System.out.println("-->> APLICAR METODO");
-        ArrayList<Quadrante> criptados = new ArrayList<Quadrante>();
+        Lista<Quadrante> criptados = new Lista<Quadrante>();
 
         Quadrante quadro_anterior = LLCRIPT_RE_ORIGNUM;
 
@@ -453,13 +459,13 @@ public class LLCripto {
             int torque_normalizado = quadro_anterior.calcularTorque(); //normalizar_byte(quadro_anterior.calcularTorque());
 
             for (int pi = 0; pi < LLCRIPT_TAMANHO_BLOCO; pi++) {
-                montagem.setDireto(pi, normalizar_byte(montagem.getDireto(pi) + quadro_anterior.getDireto(pi) + ponto_central_normalizado - torque_normalizado));
+                montagem.setDireto(pi, INTEIRO_POSITIVO(montagem.getDireto(pi) + quadro_anterior.getDireto(pi) + ponto_central_normalizado - torque_normalizado));
             }
 
             //System.out.println("QUADRO : " + qi + " -->> PONTO CENTRAL = " + ponto_central_normalizado + " TORQUE = " + torque_normalizado);
             // System.out.println(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
 
-            criptados.add(montagem);
+            criptados.adicionar(montagem);
 
             quadro_anterior = montagem;
 
@@ -468,7 +474,7 @@ public class LLCripto {
 
         // System.out.println("-->> VOLTAR");
 
-        int tamanho_voltar = criptados.size() * LLCRIPT_TAMANHO_BLOCO;
+        int tamanho_voltar = criptados.getQuantidade() * LLCRIPT_TAMANHO_BLOCO;
 
         //System.out.println("Tamanho : " + tamanho_voltar);
 
@@ -476,7 +482,7 @@ public class LLCripto {
 
         int indice_total = 0;
 
-        byte numero[] = intToByte(bytes.length);
+        byte numero[] = INT8_TO_BYTE(bytes.length);
 
         valores[0] = numero[0];
         valores[1] = numero[1];
@@ -519,7 +525,7 @@ public class LLCripto {
         LLCRIPT_RE_ORIGNUM.copiarDe(LLCRIPT_ORIGNUM);
 
         // ORGANIZAR SENHA
-        byte[] senha_bytes = senha.getBytes(StandardCharsets.UTF_8);
+        byte[] senha_bytes = Strings.GET_STRING_VIEW_BYTES(senha);
 
         int s_index = 0;
         int s_tamanho = senha_bytes.length;
@@ -530,7 +536,7 @@ public class LLCripto {
 
             int novo_valor = LLCRIPT_RE_ORIGNUM.getDireto(s_adicionar) + Byte.toUnsignedInt(senha_bytes[s_index]);
 
-            novo_valor = normalizar_byte(novo_valor);
+            novo_valor = INTEIRO_POSITIVO(novo_valor);
 
             LLCRIPT_RE_ORIGNUM.setDireto(s_adicionar, novo_valor);
 
@@ -553,7 +559,7 @@ public class LLCripto {
         obter_tamanho[2] = (byte) cifra[2];
         obter_tamanho[3] = (byte) cifra[3];
 
-        int tamanho_obtido = bytestoInt(obter_tamanho);
+        int tamanho_obtido = BYTE_TO_INT8(obter_tamanho);
 
         byte valores_bytes[] = new byte[tamanho_obtido];
 
@@ -568,14 +574,14 @@ public class LLCripto {
 
         //System.out.println("");
 
-        ArrayList<Quadrante> voltar_quadrantes = bytes_to_quadrantes(valores_bytes);
+        Lista<Quadrante> voltar_quadrantes = bytes_to_quadrantes(valores_bytes);
 
         //listar_quadrantes(voltar_quadrantes);
 
         // System.out.println("");
 
         //System.out.println("-->> DESAPLICAR METODO");
-        ArrayList<Quadrante> descriptados = new ArrayList<Quadrante>();
+        Lista<Quadrante> descriptados = new Lista<Quadrante>();
 
         int qi = 0;
 
@@ -584,14 +590,14 @@ public class LLCripto {
         for (Quadrante quadro : voltar_quadrantes) {
 
 
-            int ponto_central_normalizado = normalizar_byte(descriptografar_quadro_anterior.calcularPontoCentral());
-            int torque_normalizado = normalizar_byte(descriptografar_quadro_anterior.calcularTorque());
+            int ponto_central_normalizado = INTEIRO_POSITIVO(descriptografar_quadro_anterior.calcularPontoCentral());
+            int torque_normalizado = INTEIRO_POSITIVO(descriptografar_quadro_anterior.calcularTorque());
 
 
             Quadrante montagem = Quadrante.subtrair(quadro, LLCRIPT_RE_ORIGNUM);
 
             for (int pi = 0; pi < LLCRIPT_TAMANHO_BLOCO; pi++) {
-                montagem.setDireto(pi, normalizar_byte(montagem.getDireto(pi) - descriptografar_quadro_anterior.getDireto(pi) - ponto_central_normalizado + torque_normalizado));
+                montagem.setDireto(pi, INTEIRO_POSITIVO(montagem.getDireto(pi) - descriptografar_quadro_anterior.getDireto(pi) - ponto_central_normalizado + torque_normalizado));
             }
 
             // System.out.println("QUADRO : " + qi);
@@ -601,7 +607,7 @@ public class LLCripto {
             //System.out.println(quadrante_trinca(quadro, LLCRIPT_RE_ORIGNUM, montagem));
 
 
-            descriptados.add(montagem);
+            descriptados.adicionar(montagem);
 
             descriptografar_quadro_anterior = quadro;
 
@@ -611,10 +617,10 @@ public class LLCripto {
 
         byte[] bytes_do_texto = quadrantes_to_bytes(descriptados, tamanho_obtido);
 
-        // System.out.println("VOLTOU Tamanho :: " + tamanho_obtido);
-        // System.out.println("VOLTOU Tamanho buf :: " + bytes_do_texto.length);
-        //  System.out.println("VOLTOU :: " + bytes_to_sequencia(cifra));
-        //  System.out.println("TRADUÇÃO :: " + new String(bytes_do_texto));
+        // fmt.print("VOLTOU Tamanho :: " + tamanho_obtido);
+        // fmt.print("VOLTOU Tamanho buf :: " + bytes_do_texto.length);
+        //  fmt.print("VOLTOU :: " + bytes_to_sequencia(cifra));
+        //  fmt.print("TRADUÇÃO :: " + new String(bytes_do_texto));
 
         return new String(bytes_do_texto);
     }
