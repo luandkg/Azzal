@@ -1,13 +1,13 @@
 package libs.acumulattor;
 
-import java.util.ArrayList;
+import libs.luan.Lista;
 
 public class Acumulattor {
 
-    private ArrayList<Acumulado> mAcumulados;
+    private Lista<Acumulado> mAcumulados;
 
     public Acumulattor() {
-        mAcumulados = new ArrayList<Acumulado>();
+        mAcumulados = new Lista<Acumulado>();
     }
 
     public void mais(String nome, int mais_v) {
@@ -22,7 +22,7 @@ public class Acumulattor {
         if (!enc) {
             Acumulado acn = new Acumulado(nome);
             acn.mais(mais_v);
-            mAcumulados.add(acn);
+            mAcumulados.adicionar(acn);
         }
     }
 
@@ -38,7 +38,7 @@ public class Acumulattor {
         if (!enc) {
             Acumulado acn = new Acumulado(nome);
             acn.menos(menos_v);
-            mAcumulados.add(acn);
+            mAcumulados.adicionar(acn);
         }
     }
 
