@@ -1,11 +1,18 @@
 package apps.app_llcripto;
 
+import libs.azzal.AzzalUnico;
 import libs.azzal.Renderizador;
 import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.llcripto.LLCripto;
 
 public class App_LLCripto extends Cena {
+
+
+    public static void INIT(){
+        AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
+    }
+
 
     @Override
     public void iniciar(Windows eWindows) {
