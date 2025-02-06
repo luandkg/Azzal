@@ -2,10 +2,9 @@ package libs.zetta;
 
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.zetta.fazendario.*;
 import libs.luan.Lista;
 import libs.luan.Opcional;
-import libs.luan.Strings;
+import libs.zetta.fazendario.*;
 
 public class ZettaColecao {
 
@@ -14,21 +13,28 @@ public class ZettaColecao {
     private ZettaSequenciador mSequenciador;
     private ArmazemIndiceSumario mIndice;
 
-    public ZettaColecao(String eNome,Armazem eArmazem, ZettaSequenciador eSequenciador, ArmazemIndiceSumario eIndice) {
-        mNome=eNome;
+    public ZettaColecao(String eNome, Armazem eArmazem, ZettaSequenciador eSequenciador, ArmazemIndiceSumario eIndice) {
+        mNome = eNome;
         mDados = eArmazem;
         mSequenciador = eSequenciador;
         mIndice = eIndice;
     }
 
-    public long getIdentificador(){
+    public long getIdentificador() {
         return mDados.getIndice();
     }
 
-    public String getNome(){return mNome;}
+    public String getNome() {
+        return mNome;
+    }
 
     public long contagem() {
         return mDados.getItensUtilizadosContagem();
+    }
+
+
+    public long alocados(){
+        return mDados.getItensAlocadosContagem();
     }
 
     public void zerar() {
@@ -69,7 +75,7 @@ public class ZettaColecao {
 
             lista.adicionar(e_item);
 
-            if(lista.getQuantidade()>=quantidade){
+            if (lista.getQuantidade() >= quantidade) {
                 break;
             }
         }
@@ -147,13 +153,35 @@ public class ZettaColecao {
         return mIndice.getIndiceMaior();
     }
 
+    public Opcional<ItemColecionavel> procurar_item_atualizavel_por_indice(long indice) {
+
+        Opcional<IndiceLocalizado> op_indice = procurar_indice(indice);
+        if (op_indice.isOK()) {
+
+            String direto_texto = ItemAcessarDireto.LER(mDados.getArquivador(), op_indice.get().getPonteiro());
+
+
+            Entidade e_item = ENTT.PARSER_ENTIDADE(direto_texto);
+
+            e_item.at("@PTR", op_indice.get().getPonteiro());
+
+            e_item.tornar_primeiro("@PTR");
+            e_item.tornar_primeiro("@ID");
+
+           // return Opcional.OK(new ItemColecionavel(mIndice, item, e_item));
+
+        }
+
+       return Opcional.CANCEL();
+    }
+
     public Opcional<Entidade> procurar_item_por_indice(long indice) {
 
         Opcional<IndiceLocalizado> op_indice = procurar_indice(indice);
 
         if (op_indice.isOK()) {
 
-            String direto_texto= ItemAcessarDireto.LER(mDados.getArquivador(), op_indice.get().getPonteiro());
+            String direto_texto = ItemAcessarDireto.LER(mDados.getArquivador(), op_indice.get().getPonteiro());
 
 
             Entidade e_item = ENTT.PARSER_ENTIDADE(direto_texto);
@@ -171,11 +199,11 @@ public class ZettaColecao {
     }
 
 
-    public Lista<Entidade> getItensIntervalo(long minimo,long maximo) {
+    public Lista<Entidade> getItensIntervalo(long minimo, long maximo) {
 
         Lista<Entidade> lista = new Lista<Entidade>();
 
-        for (ItemAlocado item : mDados.getItensAlocadosIntervalo(minimo,maximo)) {
+        for (ItemAlocado item : mDados.getItensAlocadosIntervalo(minimo, maximo)) {
 
             Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
             e_item.at("@PTR", item.getPonteiroDados());
@@ -189,12 +217,12 @@ public class ZettaColecao {
         return lista;
     }
 
-    public void exibir_colecao(long minimo,long maximo) {
-        ENTT.EXIBIR_TABELA_COM_NOME(getItensIntervalo(minimo,maximo), "COLEÇÃO :: " + mDados.getNome());
+    public void exibir_colecao(long minimo, long maximo) {
+        ENTT.EXIBIR_TABELA_COM_NOME(getItensIntervalo(minimo, maximo), "COLEÇÃO :: " + mDados.getNome());
     }
 
-    public void adicionar_varios(Lista<Entidade> varios){
-        for(Entidade item : varios){
+    public void adicionar_varios(Lista<Entidade> varios) {
+        for (Entidade item : varios) {
             adicionar(item);
         }
     }
