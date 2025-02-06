@@ -66,6 +66,18 @@ public class ZQC {
         return contagem;
     }
 
+    public static Lista<Entidade> COLECAO_ENTIDADES_COLETAR_SE(String eArquivo, String colecao_nome, String att_nome, String att_valor) {
+        ZettaQuorum zetta = new ZettaQuorum(eArquivo);
+        Lista<Entidade> dados = new Lista<Entidade>();
+        for (Entidade item : zetta.getColecaoSempre(colecao_nome).getItens()) {
+            if (item.is(att_nome, att_valor)) {
+                dados.adicionar(item);
+            }
+        }
+        zetta.fechar();
+        return dados;
+    }
+
     public static void REMOVER_EM_LOTE(String arquivo_banco, String colecao_nome, String att_nome, Lista<String> att_valores) {
         ZettaQuorum zetta = new ZettaQuorum(arquivo_banco);
         ZettaColecao colecao = zetta.getColecaoSempre(colecao_nome);
@@ -296,9 +308,9 @@ public class ZQC {
             for (Entidade item : colecao.getItensIntervalo(iniciando, finalizando)) {
                 eAcao.fazer(item);
 
-                analiticamente_contagem+=1;
-                if(analiticamente_contagem==intervalo_analitico){
-                    analiticamente_contagem=0;
+                analiticamente_contagem += 1;
+                if (analiticamente_contagem == intervalo_analitico) {
+                    analiticamente_contagem = 0;
                     eAcaoAnalitica.fazer();
                 }
             }
