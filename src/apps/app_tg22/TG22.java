@@ -1,7 +1,7 @@
 package apps.app_tg22;
 
 import libs.arquivos.IO;
-import libs.arquivos.PDF;
+import libs.bibliotecas.PDF;
 import libs.azzal.Renderizador;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
