@@ -6,10 +6,10 @@ import libs.dkg.DKG;
 import libs.dkg.DKGAtributo;
 import libs.dkg.DKGObjeto;
 import libs.luan.*;
-import libs.oo.ODS;
-import libs.xlsx.Planilha;
-import libs.xlsx.PlanilhaLinha;
-import libs.xlsx.XLSX;
+import libs.bibliotecas.ODS;
+import libs.bibliotecas.xlsx.Planilha;
+import libs.bibliotecas.xlsx.PlanilhaLinha;
+import libs.bibliotecas.xlsx.XLSX;
 
 import java.nio.charset.StandardCharsets;
 
