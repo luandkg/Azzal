@@ -10,8 +10,8 @@ import libs.tempo.Calendario;
 import libs.tempo.Data;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
-import libs.xml.XML;
-import libs.xml.XMLObjeto;
+import libs.bibliotecas.xml.XML;
+import libs.bibliotecas.xml.XMLObjeto;
 
 public class INMET {
 
