@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-import libs.arquivos.binario.ArenaChunk;
 import libs.arquivos.binario.ByteChunk;
 import libs.dkg.DKG;
 import libs.dkg.DKGObjeto;
-import libs.oo.JSON;
+import libs.bibliotecas.JSON;
 
 public class Internet {
 
