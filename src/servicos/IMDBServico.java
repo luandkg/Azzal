@@ -1,5 +1,6 @@
 package servicos;
 
+import libs.bibliotecas.JSONDemanda;
 import libs.dkg.DKG;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
