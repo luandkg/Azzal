@@ -124,19 +124,21 @@ public class ZQC {
 
         ZettaQuorum zetta = new ZettaQuorum(arquivo_banco);
 
-        long parcela = zetta.getColecaoSempre(colecao_nome).contagem() / 100;
+        ZettaColecao colecao = zetta.getColecaoSempre(colecao_nome);
+        long parcela = colecao.contagem() / 100;
 
         long indo = 0;
 
         Lista<Entidade> seleciondas = new Lista<Entidade>();
 
         for (int i = 0; i < 100; i++) {
-            Opcional<Entidade> op = zetta.getColecaoSempre(colecao_nome).procurar_item_por_indice(indo);
+            Opcional<Entidade> op = colecao.procurar_item_por_indice(indo);
             if (op.isOK()) {
                 seleciondas.adicionar(op.get());
             }
             indo += parcela;
         }
+
         ENTT.EXIBIR_TABELA_COM_TITULO(seleciondas, colecao_nome);
 
         zetta.fechar();
