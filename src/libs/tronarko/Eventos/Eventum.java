@@ -2,6 +2,7 @@ package libs.tronarko.Eventos;
 
 import java.awt.Color;
 
+import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.luan.Ordenador;
 import libs.tronarko.Hizarkos;
@@ -114,15 +115,15 @@ public class Eventum {
         return ret;
     }
 
-    public void OrdenarPequenosEventos(Lista<AvisarPequenoEvento> Entrada) {
+    public void ordenarPequenosEventos(Lista<AvisarPequenoEvento> Entrada) {
         Ordenador.ordenar_lista_crescente(Entrada,AvisarPequenoEvento.ORDENAVEL());
     }
 
-    public void OrdenarGrandesEventos(Lista<AvisarGrandeEvento> Entrada) {
+    public void ordenarGrandesEventos(Lista<AvisarGrandeEvento> Entrada) {
         Ordenador.ordenar_lista_crescente(Entrada,AvisarGrandeEvento.ORDENAVEL());
     }
 
-    public void OrdenarGrandesAvisos(Lista<Avisar> Entrada) {
+    public void ordenarGrandesAvisos(Lista<Avisar> Entrada) {
         Ordenador.ordenar_lista_crescente(Entrada,Avisar.ORDENAVEL());
     }
 
@@ -134,7 +135,7 @@ public class Eventum {
             mOrdenados.adicionar(P);
         }
 
-        OrdenarPequenosEventos(mOrdenados);
+        ordenarPequenosEventos(mOrdenados);
 
         return mOrdenados;
     }
@@ -147,33 +148,33 @@ public class Eventum {
             mBaguncados.adicionar(P);
         }
 
-        OrdenarGrandesEventos(mBaguncados);
+        ordenarGrandesEventos(mBaguncados);
 
         return mBaguncados;
     }
 
-    public Lista<String> Eventos_De(int eTronarko) {
+    public Lista<String> eventosDe(int eTronarko) {
 
         Lista<String> ret = new Lista<String>();
 
-        for (PequenoEvento P : ProximosPequenosEventos(eTronarko)) {
+        for (PequenoEvento P : proximosPequenosEventos(eTronarko)) {
             ret.adicionar(P.toString());
 
         }
 
-        for (GrandeEvento P : ProximosGrandesEventos(eTronarko)) {
+        for (GrandeEvento P : proximosGrandesEventos(eTronarko)) {
             ret.adicionar(P.toString());
         }
         return ret;
     }
 
-    public Lista<PequenoEvento> ProximosPequenosEventos(int eTronarko) {
+    public Lista<PequenoEvento> proximosPequenosEventos(int eTronarko) {
 
         Lista<PequenoEvento> ret = new Lista<PequenoEvento>();
 
         Lista<AvisarPequenoEvento> mPequenosEventos = getAvisosPequenosEventos();
 
-        OrdenarPequenosEventos(mPequenosEventos);
+        ordenarPequenosEventos(mPequenosEventos);
 
         for (AvisarPequenoEvento TozteCorrente : mPequenosEventos) {
 
@@ -197,7 +198,7 @@ public class Eventum {
         return ret;
     }
 
-    public void ListarPequenosEventosDe(String eGrandeEvento, int eAteTronarko) {
+    public void listarPequenosEventosDe(String eGrandeEvento, int eAteTronarko) {
 
         int tamanho = mPequenosEventos.getQuantidade();
         int indice = 0;
@@ -222,7 +223,7 @@ public class Eventum {
         }
     }
 
-    public void ListarGrandesEventos(String eGrandeEvento, int eAteTronarko) {
+    public void listarGrandesEventos(String eGrandeEvento, int eAteTronarko) {
 
         int tamanho = mGrandesEventos.getQuantidade();
         int indice = 0;
@@ -247,7 +248,7 @@ public class Eventum {
         }
     }
 
-    public void ListarEventos_Entre(int eDeTronarko, int eAteTronarko) {
+    public void listarEventos_Entre(int eDeTronarko, int eAteTronarko) {
 
 
         Lista<Avisar> Avisos = new Lista<Avisar>();
@@ -286,7 +287,7 @@ public class Eventum {
 
         }
 
-        OrdenarGrandesAvisos(Avisos);
+        ordenarGrandesAvisos(Avisos);
 
 
         for (Avisar AvisoC : Avisos) {
@@ -294,7 +295,7 @@ public class Eventum {
         }
     }
 
-    public void ListarPequenosEventos_Entre(String eGrandeEvento, int eDeTronarko, int eAteTronarko) {
+    public void listarPequenosEventos_Entre(String eGrandeEvento, int eDeTronarko, int eAteTronarko) {
 
         int tamanho = mPequenosEventos.getQuantidade();
         int indice = 0;
@@ -323,7 +324,7 @@ public class Eventum {
         }
     }
 
-    public void ListarGrandesEventos_Entre(String eGrandeEvento, int eDeTronarko, int eAteTronarko) {
+    public void listarGrandesEventos_Entre(String eGrandeEvento, int eDeTronarko, int eAteTronarko) {
 
         int tamanho = mGrandesEventos.getQuantidade();
         int indice = 0;
@@ -352,7 +353,7 @@ public class Eventum {
         }
     }
 
-    public Lista<GrandeEvento> ProximosGrandesEventos(int eTronarko) {
+    public Lista<GrandeEvento> proximosGrandesEventos(int eTronarko) {
 
         Lista<AvisarGrandeEvento> SAT = new Lista<AvisarGrandeEvento>();
         for (AvisarGrandeEvento TozteCorrente : mGrandesEventos) {
@@ -377,7 +378,7 @@ public class Eventum {
 
         }
 
-        OrdenarGrandesEventos(SAT);
+        ordenarGrandesEventos(SAT);
 
         Lista<GrandeEvento> mRetorno = new Lista<GrandeEvento>();
 
@@ -398,7 +399,7 @@ public class Eventum {
         return mRetorno;
     }
 
-    public Lista<String> EventosDoTozte(Tozte TozteC) {
+    public Lista<String> eventosDoTozte(Tozte TozteC) {
         Lista<String> ret = new Lista<String>();
 
         for (AvisarPequenoEvento EventoCorrente : mPequenosEventos) {
@@ -416,7 +417,7 @@ public class Eventum {
         return ret;
     }
 
-    public Lista<String> GrandesEventosDoTozte(Tozte TozteC, Lista<AvisarGrandeEvento> lsGrandesEventos) {
+    public Lista<String> grandesEventosDoTozte(Tozte TozteC, Lista<AvisarGrandeEvento> lsGrandesEventos) {
         Lista<String> ret = new Lista<String>();
 
         for (AvisarGrandeEvento GE : lsGrandesEventos) {
@@ -436,7 +437,7 @@ public class Eventum {
         return ret;
     }
 
-    private Lista<AvisarGrandeEvento> GrandesEventos_EntreTronarkos(int MinTronarko, int MaxTronarko) {
+    private Lista<AvisarGrandeEvento> grandesEventos_EntreTronarkos(int MinTronarko, int MaxTronarko) {
 
         int tamanho = mGrandesEventos.getQuantidade();
         int indice = 0;
@@ -481,24 +482,24 @@ public class Eventum {
 
     }
 
-    public Lista<String> EventosDesde(Tozte TozteC, int eSuperarkos) {
+    public Lista<String> eventosDesde(Tozte TozteC, int eSuperarkos) {
         Lista<String> ret = new Lista<String>();
 
-        Lista<AvisarGrandeEvento> GrandesEventosEntreTronarkos = GrandesEventos_EntreTronarkos(TozteC.getTronarko(),
+        Lista<AvisarGrandeEvento> GrandesEventosEntreTronarkos = grandesEventos_EntreTronarkos(TozteC.getTronarko(),
                 TozteC.adicionar_Superarko(eSuperarkos).getTronarko());
 
         for (int i = 0; i < eSuperarkos; i++) {
 
             Tozte Novo = TozteC.adicionar_Superarko(i);
 
-            for (String eS : EventosDoTozte(Novo)) {
+            for (String eS : eventosDoTozte(Novo)) {
                 String NovoString = eS;
                 if (!ret.existe(NovoString)) {
                     ret.adicionar(NovoString);
                 }
             }
 
-            for (String eS : GrandesEventosDoTozte(Novo, GrandesEventosEntreTronarkos)) {
+            for (String eS : grandesEventosDoTozte(Novo, GrandesEventosEntreTronarkos)) {
                 String NovoString = eS;
 
                 if (!ret.existe(NovoString)) {
@@ -603,11 +604,11 @@ public class Eventum {
 
         Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
 
-        for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
+        for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
             ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
         }
 
-        for (GrandeEvento e : ProximosGrandesEventos(eTronarko)) {
+        for (GrandeEvento e : proximosGrandesEventos(eTronarko)) {
 
             ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
@@ -621,7 +622,7 @@ public class Eventum {
     }
 
 
-    public void alinhar_eventos(Lista<TozteCor> infos) {
+    public void alinharEventos(Lista<TozteCor> infos) {
 
         String mPassadoInfoNome = "";
 
@@ -642,13 +643,13 @@ public class Eventum {
 
         Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
 
-        for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
+        for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
 
             ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
         }
 
-        for (GrandeEvento e : ProximosGrandesEventos(eTronarko)) {
+        for (GrandeEvento e : proximosGrandesEventos(eTronarko)) {
 
             ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
@@ -689,13 +690,13 @@ public class Eventum {
 
             int eTronarko = eAntes.getTronarko();
 
-            for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
+            for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
 
                 ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
             }
 
-            for (GrandeEvento e : ProximosGrandesEventos(eTronarko)) {
+            for (GrandeEvento e : proximosGrandesEventos(eTronarko)) {
 
                 ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
@@ -712,13 +713,13 @@ public class Eventum {
 
             for (int eTronarko = eTronarko1; eTronarko <= eTronarko2; eTronarko++) {
 
-                for (PequenoEvento e : ProximosPequenosEventos(eTronarko)) {
+                for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
 
                     ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
                 }
 
-                for (GrandeEvento e : ProximosGrandesEventos(eTronarko)) {
+                for (GrandeEvento e : proximosGrandesEventos(eTronarko)) {
 
                     ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
@@ -763,90 +764,84 @@ public class Eventum {
     }
 
 
-    public Color getCor(String eNome) {
+    public Cor getCor(String eNome) {
 
-        Color eCor = new Color(170, 170, 170);
+        Cor eCor = new Cor(170, 170, 170);
 
         if (eNome.contains("Reciclum")) {
-            eCor = new Color(140, 140, 140);
+            eCor = new Cor(140, 140, 140);
         }
 
         if (eNome.contains("Fogo")) {
-            eCor = new Color(255, 20, 60);
+            eCor = new Cor(255, 20, 60);
         }
 
         if (eNome.contains("Água")) {
-            eCor = new Color(92, 80, 200);
+            eCor = new Cor(92, 80, 200);
         }
 
         if (eNome.contains("Terra")) {
-            eCor = new Color(92, 140, 10);
+            eCor = new Cor(92, 140, 10);
         }
 
         if (eNome.contains("Trovão")) {
-            eCor = new Color(92, 140, 10);
+            eCor = new Cor(92, 140, 10);
         }
 
 
         if (eNome.contains("Vento")) {
-            eCor = new Color(92, 140, 208);
+            eCor = new Cor(92, 140, 208);
         }
 
         if (eNome.contains("Hazzo")) {
-            eCor = new Color(255, 165, 23);
+            eCor = new Cor(255, 165, 23);
         }
 
         if (eNome.contains("Colheita")) {
-            eCor = new Color(159, 95, 159);
+            eCor = new Cor(159, 95, 159);
         }
 
         if (eNome.contains("Trannor")) {
-            eCor = new Color(107, 142, 35);
+            eCor = new Cor(107, 142, 35);
         }
 
         if (eNome.contains("Izzator")) {
-            eCor = new Color(74, 118, 110);
+            eCor = new Cor(74, 118, 110);
         }
 
         if (eNome.contains("Labirinto")) {
-            eCor = new Color(154, 205, 50);
+            eCor = new Cor(154, 205, 50);
         }
 
         if (eNome.contains("Imperador")) {
-            eCor = getHexCor("#fdd835");
+            eCor = Cor.getHexCor("#fdd835");
         }
 
 
         return eCor;
     }
 
-    private Color getHexCor(String colorStr) {
-        Color eTmp = new Color(Integer.valueOf(colorStr.substring(1, 3), 16),
-                Integer.valueOf(colorStr.substring(3, 5), 16),
-                Integer.valueOf(colorStr.substring(5, 7), 16));
-
-        return eTmp;
-    }
 
 
-    public Color getHizarkoCor(Hizarkos eHizarko) {
 
-        Color eCor = Color.BLACK;
+    public Cor getHizarkoCor(Hizarkos eHizarko) {
+
+        Cor eCor = new Cor(0,0,0);
 
         if (eHizarko == Hizarkos.HARBARIUM) {
-            eCor = new Color(220, 220, 20);
+            eCor = new Cor(220, 220, 20);
         }
 
         if (eHizarko == Hizarkos.DEGGOVIUM) {
-            eCor = new Color(250, 20, 30);
+            eCor = new Cor(250, 20, 30);
         }
 
         if (eHizarko == Hizarkos.NUZTIUM) {
-            eCor = new Color(50, 60, 180);
+            eCor = new Cor(50, 60, 180);
         }
 
         if (eHizarko == Hizarkos.HITTARIUM) {
-            eCor = new Color(160, 160, 160);
+            eCor = new Cor(160, 160, 160);
         }
 
 
