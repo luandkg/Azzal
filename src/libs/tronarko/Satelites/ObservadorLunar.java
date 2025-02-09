@@ -7,7 +7,7 @@ import libs.tronarko.Tozte;
 import libs.tronarko.Satelites.MapaCelestial.Allux;
 import libs.tronarko.Satelites.MapaCelestial.Ettos;
 import libs.tronarko.Satelites.MapaCelestial.Unnos;
-import libs.tronarko.Intervalos.Tozte_Intervalo;
+import libs.tronarko.intervalos.Tozte_Intervalo;
 
 public class ObservadorLunar {
 

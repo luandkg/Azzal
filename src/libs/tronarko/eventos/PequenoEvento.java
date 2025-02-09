@@ -1,6 +1,6 @@
 package libs.tronarko.eventos;
 
-import libs.tronarko.Intervalos.Tron_Intervalo;
+import libs.tronarko.intervalos.Tron_Intervalo;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tron;
 

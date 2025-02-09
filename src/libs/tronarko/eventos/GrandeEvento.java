@@ -4,8 +4,8 @@ import libs.tronarko.Tozte;
 
 import java.util.ArrayList;
 
-import libs.tronarko.Intervalos.Tozte_Intervalo;
-import libs.tronarko.Intervalos.Tron_Intervalo;
+import libs.tronarko.intervalos.Tozte_Intervalo;
+import libs.tronarko.intervalos.Tron_Intervalo;
 import libs.tronarko.Tron;
 
 public class GrandeEvento {

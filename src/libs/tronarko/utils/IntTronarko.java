@@ -1,7 +1,7 @@
 package libs.tronarko.utils;
 
-import libs.tronarko.Intervalos.Tozte_Intervalo;
-import libs.tronarko.Intervalos.Tron_Intervalo;
+import libs.tronarko.intervalos.Tozte_Intervalo;
+import libs.tronarko.intervalos.Tron_Intervalo;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tron;
 

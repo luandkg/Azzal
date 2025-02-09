@@ -1,6 +1,6 @@
 package apps.app_tronarko;
 
-import libs.tronarko.Intervalos.Tozte_Intervalo;
+import libs.tronarko.intervalos.Tozte_Intervalo;
 import libs.tronarko.Satelites.Ceu;
 import libs.tronarko.Satelites.Fases;
 import libs.tronarko.Tozte;

@@ -3,8 +3,7 @@ package libs.tronarko;
 import libs.luan.Igualavel;
 import libs.luan.Lista;
 import libs.luan.Ordenavel;
-import libs.ranking.RankeadoDouble;
-import libs.tronarko.Intervalos.Tozte_Intervalo;
+import libs.tronarko.intervalos.Tozte_Intervalo;
 
 public class Tozte {
 
