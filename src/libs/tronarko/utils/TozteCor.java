@@ -1,20 +1,19 @@
 package libs.tronarko.utils;
 
+import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.tronarko.Tozte;
 
-import java.awt.*;
-import java.util.ArrayList;
 
 public class TozteCor {
 
     private String mNome;
     private Tozte mTozte;
-    private Color mCor;
+    private Cor mCor;
 
     private Lista<Tozte> mToztes;
 
-    public TozteCor(String eNome, Tozte eTozte, Color eCor) {
+    public TozteCor(String eNome, Tozte eTozte, Cor eCor) {
         mNome = eNome;
         mTozte = eTozte;
         mCor = eCor;
@@ -35,7 +34,7 @@ public class TozteCor {
         return mTozte;
     }
 
-    public Color getCor() {
+    public Cor getCor() {
         return mCor;
     }
 
