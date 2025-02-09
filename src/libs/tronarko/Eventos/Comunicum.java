@@ -1,6 +1,7 @@
 package libs.tronarko.Eventos;
 
 import libs.luan.Lista;
+import libs.luan.Strings;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
 
@@ -15,40 +16,40 @@ public class Comunicum {
     }
 
 
-    public Lista<String> Comunicar_Tozte(Tozte TozteProcurar) {
+    public Lista<String> comunicarTozte(Tozte TozteProcurar) {
 
         Lista<String> ret = new Lista<String>();
 
-        ret.adicionar_varios(Comunicar_PequenosEventos_NOVO(TozteProcurar));
-        ret.adicionar_varios(Comunicar_GrandesEventos_NOVO(TozteProcurar));
+        ret.adicionar_varios(comunicarPequenosEventosNOVO(TozteProcurar));
+        ret.adicionar_varios(comunicarGrandesEventosNOVO(TozteProcurar));
 
         return ret;
     }
 
-    public Lista<String> Comunicar_PequenosEventos_NOVO(Tozte TozteProcurar) {
+    public Lista<String> comunicarPequenosEventosNOVO(Tozte TozteProcurar) {
         Lista<String> ret = new Lista<String>();
 
-        for (AvisarPequenoEvento AvisoC : mEventum.getAvisosPequenosEventos()) {
+        for (AvisarPequenoEvento aviso_corrente : mEventum.getAvisosPequenosEventos()) {
 
             //int TronarkoInicio = TozteProcurar.getTronarko();
 
-            int TronarkoInicio = AvisoC.getTronarkoProximoDe(TozteProcurar.getTronarko());
+            int TronarkoInicio = aviso_corrente.getTronarkoProximoDe(TozteProcurar.getTronarko());
 
 
             if (TronarkoInicio == TozteProcurar.getTronarko()) {
 
-                Tozte eCorrente = new Tozte(AvisoC.getSuperarko(), AvisoC.getHiperarko(), TronarkoInicio);
+                Tozte eCorrente = new Tozte(aviso_corrente.getSuperarko(), aviso_corrente.getHiperarko(), TronarkoInicio);
 
 
-                Tozte eAvisoInicio = eCorrente.adicionar_Superarko((-1) * AvisoC.getAntes());
-                Tozte eAvisoFim = eCorrente.adicionar_Superarko((+1) * AvisoC.getDepois());
+                Tozte eAvisoInicio = eCorrente.adicionar_Superarko((-1) * aviso_corrente.getAntes());
+                Tozte eAvisoFim = eCorrente.adicionar_Superarko((+1) * aviso_corrente.getDepois());
 
 
                 if (TozteProcurar.isMaiorIgualQue(eAvisoInicio) && TozteProcurar.isMenorIgualQue(eAvisoFim)) {
 
                     if (TozteProcurar.isIgual(eCorrente)) {
 
-                        ret.adicionar("Estamos no " + AvisoC.getNome());
+                        ret.adicionar("Estamos no " + aviso_corrente.getNome());
 
                     } else {
 
@@ -60,9 +61,9 @@ public class Comunicum {
                             long Falta = eCorrente.getSuperarkosTotal() - TozteProcurar.getSuperarkosTotal();
 
                             if (Falta == 1) {
-                                ret.adicionar("Falta : " + (Falta) + " Superarko para " + AvisoC.getNome());
+                                ret.adicionar("Falta : " + (Falta) + " Superarko para " + aviso_corrente.getNome());
                             } else if (Falta > 1) {
-                                ret.adicionar("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
+                                ret.adicionar("Faltam : " + (Falta) + " Superarkos para " + aviso_corrente.getNome());
                             }
 
                         } else if (TozteProcurar.isMenorIgualQue(eAvisoFim) && TozteProcurar.isMaiorQue(eCorrente)) {
@@ -71,9 +72,9 @@ public class Comunicum {
                             long Passou = TozteProcurar.getSuperarkosTotal() - eCorrente.getSuperarkosTotal();
 
                             if (Passou == 1) {
-                                ret.adicionar("Passou : " + (Passou) + " Superarko após " + AvisoC.getNome());
+                                ret.adicionar("Passou : " + (Passou) + " Superarko após " + aviso_corrente.getNome());
                             } else if (Passou > 1) {
-                                ret.adicionar("Passaram : " + (Passou) + " Superarkos após " + AvisoC.getNome());
+                                ret.adicionar("Passaram : " + (Passou) + " Superarkos após " + aviso_corrente.getNome());
                             }
 
                         }
@@ -89,39 +90,39 @@ public class Comunicum {
         return ret;
     }
 
-    public Lista<String> Comunicar_GrandesEventos_NOVO(Tozte TozteProcurar) {
+    public Lista<String> comunicarGrandesEventosNOVO(Tozte tozte_procurar) {
         Lista<String> ret = new Lista<String>();
 
-        for (AvisarGrandeEvento AvisoC : mEventum.getAvisosGrandesEventos()) {
+        for (AvisarGrandeEvento aviso_corrente : mEventum.getAvisosGrandesEventos()) {
 
 
-            int TronarkoInicio = AvisoC.getTronarkoProximoDe(TozteProcurar.getTronarko());
+            int TronarkoInicio = aviso_corrente.getTronarkoProximoDe(tozte_procurar.getTronarko());
 
 
-            if (TronarkoInicio == TozteProcurar.getTronarko()) {
+            if (TronarkoInicio == tozte_procurar.getTronarko()) {
 
-                Tozte eInicio = new Tozte(AvisoC.getSuperarkoInicio(), AvisoC.getHiperarkoInicio(), TronarkoInicio);
-                Tozte eFim = new Tozte(AvisoC.getSuperarkoFim(), AvisoC.getHiperarkoFim(), TronarkoInicio);
-
-
-                Tozte eAvisoInicio = eInicio.adicionar_Superarko((-1) * AvisoC.getAntes());
-                Tozte eAvisoFim = eFim.adicionar_Superarko((+1) * AvisoC.getDepois());
+                Tozte eInicio = new Tozte(aviso_corrente.getSuperarkoInicio(), aviso_corrente.getHiperarkoInicio(), TronarkoInicio);
+                Tozte eFim = new Tozte(aviso_corrente.getSuperarkoFim(), aviso_corrente.getHiperarkoFim(), TronarkoInicio);
 
 
-                if (TozteProcurar.isMaiorIgualQue(eAvisoInicio) && TozteProcurar.isMenorIgualQue(eAvisoFim)) {
+                Tozte eAvisoInicio = eInicio.adicionar_Superarko((-1) * aviso_corrente.getAntes());
+                Tozte eAvisoFim = eFim.adicionar_Superarko((+1) * aviso_corrente.getDepois());
 
-                    if (TozteProcurar.isMaiorIgualQue(eInicio) && TozteProcurar.isMenorIgualQue(eFim)) {
+
+                if (tozte_procurar.isMaiorIgualQue(eAvisoInicio) && tozte_procurar.isMenorIgualQue(eAvisoFim)) {
+
+                    if (tozte_procurar.isMaiorIgualQue(eInicio) && tozte_procurar.isMenorIgualQue(eFim)) {
 
                         // ret.add(" - Grande Evento Ocorrendo !");
 
-                        if (TozteProcurar.isIgual(eInicio)) {
-                            ret.adicionar("Hoje é o Inicio de : " + AvisoC.getNome());
+                        if (tozte_procurar.isIgual(eInicio)) {
+                            ret.adicionar("Hoje é o Inicio de : " + aviso_corrente.getNome());
 
-                        } else if (TozteProcurar.isIgual(eFim)) {
-                            ret.adicionar("Hoje é o Fim de : " + AvisoC.getNome());
+                        } else if (tozte_procurar.isIgual(eFim)) {
+                            ret.adicionar("Hoje é o Fim de : " + aviso_corrente.getNome());
 
                         } else {
-                            ret.adicionar("Estamos no " + AvisoC.getNome());
+                            ret.adicionar("Estamos no " + aviso_corrente.getNome());
 
                         }
 
@@ -129,26 +130,26 @@ public class Comunicum {
 
                         // ret.add(" - Deve Notificar !");
 
-                        if (TozteProcurar.isMaiorIgualQue(eAvisoInicio) && TozteProcurar.isMenorQue(eInicio)) {
+                        if (tozte_procurar.isMaiorIgualQue(eAvisoInicio) && tozte_procurar.isMenorQue(eInicio)) {
                             // ret.add(" - Antes !");
 
-                            long Falta = eInicio.getSuperarkosTotal() - TozteProcurar.getSuperarkosTotal();
+                            long Falta = eInicio.getSuperarkosTotal() - tozte_procurar.getSuperarkosTotal();
 
                             if (Falta == 1) {
-                                ret.adicionar("Falta : " + (Falta) + " Superarko para " + AvisoC.getNome());
+                                ret.adicionar("Falta : " + (Falta) + " Superarko para " + aviso_corrente.getNome());
                             } else if (Falta > 1) {
-                                ret.adicionar("Faltam : " + (Falta) + " Superarkos para " + AvisoC.getNome());
+                                ret.adicionar("Faltam : " + (Falta) + " Superarkos para " + aviso_corrente.getNome());
                             }
 
-                        } else if (TozteProcurar.isMenorIgualQue(eAvisoFim) && TozteProcurar.isMaiorQue(eFim)) {
+                        } else if (tozte_procurar.isMenorIgualQue(eAvisoFim) && tozte_procurar.isMaiorQue(eFim)) {
                             // ret.add(" - Depois !");
 
-                            long Passou = TozteProcurar.getSuperarkosTotal() - eFim.getSuperarkosTotal();
+                            long Passou = tozte_procurar.getSuperarkosTotal() - eFim.getSuperarkosTotal();
 
                             if (Passou == 1) {
-                                ret.adicionar("Passou : " + (Passou) + " Superarko após " + AvisoC.getNome());
+                                ret.adicionar("Passou : " + (Passou) + " Superarko após " + aviso_corrente.getNome());
                             } else if (Passou > 1) {
-                                ret.adicionar("Passaram : " + (Passou) + " Superarkos após " + AvisoC.getNome());
+                                ret.adicionar("Passaram : " + (Passou) + " Superarkos após " + aviso_corrente.getNome());
                             }
 
                         }
@@ -164,42 +165,42 @@ public class Comunicum {
         return ret;
     }
 
-    public void Comunicar_Todos(int eTronarko) {
+    public void comunicarTodos(int eTronarko) {
 
 
-        Tozte TozteC = new Tozte(1, 1, eTronarko);
+        Tozte tozte_corrente = new Tozte(1, 1, eTronarko);
 
         for (int i = 0; i < 500; i++) {
 
-            if (Comunicar_Tozte(TozteC).getQuantidade() > 0) {
+            if (comunicarTozte(tozte_corrente).getQuantidade() > 0) {
 
-                System.out.printf("\n--------------------------------" + TozteC.toString()
+                System.out.printf("\n--------------------------------" + tozte_corrente.toString()
                         + "------------------------------------------\n");
                 System.out.printf("\n");
 
-                for (String ProximoEventoHoje : Comunicar_Tozte(TozteC)) {
+                for (String ProximoEventoHoje : comunicarTozte(tozte_corrente)) {
                     System.out.println("\t - " + ProximoEventoHoje);
                 }
 
             }
 
-            TozteC = TozteC.adicionar_Superarko(1);
+            tozte_corrente = tozte_corrente.adicionar_Superarko(1);
         }
 
     }
 
-    public void Comunicar_TodosEFiltrarCom(String eFiltro, int eTronarko) {
+    public void comunicarTodosEFiltrarCom(String eFiltro, int eTronarko) {
 
 
-        Tozte TozteC = new Tozte(1, 1, eTronarko);
+        Tozte tozte_corrente = new Tozte(1, 1, eTronarko);
 
         for (int i = 0; i < 500; i++) {
 
-            if (Comunicar_Tozte(TozteC).getQuantidade() > 0) {
+            if (comunicarTozte(tozte_corrente).getQuantidade() > 0) {
 
                 boolean listarEsse = false;
 
-                for (String ProximoEventoHoje : Comunicar_Tozte(TozteC)) {
+                for (String ProximoEventoHoje : comunicarTozte(tozte_corrente)) {
                     if (ProximoEventoHoje.contains(eFiltro)) {
                         listarEsse = true;
                     }
@@ -207,13 +208,13 @@ public class Comunicum {
 
                 if (listarEsse) {
 
-                    System.out.printf("\n--------------------------------" + TozteC.toString()
+                    System.out.printf("\n--------------------------------" + tozte_corrente.toString()
                             + "------------------------------------------\n");
                     System.out.printf("\n");
 
-                    for (String ProximoEventoHoje : Comunicar_Tozte(TozteC)) {
-                        if (ProximoEventoHoje.contains(eFiltro)) {
-                            System.out.println("\t - " + ProximoEventoHoje);
+                    for (String evento_corrente : comunicarTozte(tozte_corrente)) {
+                        if (evento_corrente.contains(eFiltro)) {
+                            System.out.println("\t - " + evento_corrente);
 
                         }
                     }
@@ -223,7 +224,7 @@ public class Comunicum {
 
             }
 
-            TozteC = TozteC.adicionar_Superarko(1);
+            tozte_corrente = tozte_corrente.adicionar_Superarko(1);
         }
 
     }
@@ -275,12 +276,12 @@ public class Comunicum {
 
             }
 
-            if (seForEvento(tozte_evento, "Festival Reciclum Tron")) {
+            if (Strings.isIgual( tozte_evento.getNome(), "Festival Reciclum Tron")) {
                 if (de.isIgual(tozte_evento.getTozteMin()) || de.isIgual(tozte_evento.getTozteMax())) {
                     dentro = true;
                     dentro_de = tozte_evento;
                 }
-            } else if (seNaoForEvento(tozte_evento, "Festival Reciclum Tron")) {
+            } else if (Strings.isDiferente(tozte_evento.getNome(), "Festival Reciclum Tron")) {
                 if (de.isMaiorIgualQue(tozte_evento.getTozteMin()) && de.isMenorIgualQue(tozte_evento.getTozteMax())) {
                     dentro = true;
                     dentro_de = tozte_evento;
@@ -316,11 +317,4 @@ public class Comunicum {
         return ret;
     }
 
-    public static boolean seForEvento(TozteCor evento, String eNomeEvento) {
-        return evento.getNome().contentEquals(eNomeEvento);
-    }
-
-    public static boolean seNaoForEvento(TozteCor evento, String eNomeEvento) {
-        return !evento.getNome().contentEquals(eNomeEvento);
-    }
 }
