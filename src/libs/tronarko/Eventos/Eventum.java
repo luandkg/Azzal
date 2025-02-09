@@ -3,6 +3,7 @@ package libs.tronarko.Eventos;
 import java.awt.Color;
 
 import libs.luan.Lista;
+import libs.luan.Ordenador;
 import libs.tronarko.Hizarkos;
 import libs.tronarko.utils.TozteCor;
 import libs.tronarko.Eventos.Ocorrencia.Modos;
@@ -86,6 +87,14 @@ public class Eventum {
 
     }
 
+    public Lista<AvisarPequenoEvento> getPequenosEventos(){
+        return mPequenosEventos;
+    }
+    public Lista<AvisarGrandeEvento> getGrandesEventos(){
+        return mGrandesEventos;
+    }
+
+
     public Lista<Ocorrencia> getOcorrencias() {
         Lista<Ocorrencia> ret = new Lista<Ocorrencia>();
 
@@ -106,63 +115,15 @@ public class Eventum {
     }
 
     public void OrdenarPequenosEventos(Lista<AvisarPequenoEvento> Entrada) {
-
-        int n = Entrada.getQuantidade();
-        AvisarPequenoEvento temp = null;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 1; j < (n - i); j++) {
-
-                if (Entrada.get(j - 1).getOrdem() >= (Entrada.get(j).getOrdem())) {
-                    temp = Entrada.get(j - 1);
-                    Entrada.set(j - 1, Entrada.get(j));
-                    Entrada.set(j, temp);
-
-                }
-
-            }
-        }
-
+        Ordenador.ordenar_lista_crescente(Entrada,AvisarPequenoEvento.ORDENAVEL());
     }
 
     public void OrdenarGrandesEventos(Lista<AvisarGrandeEvento> Entrada) {
-
-        int n = Entrada.getQuantidade();
-        AvisarGrandeEvento temp = null;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 1; j < (n - i); j++) {
-
-                if (Entrada.get(j - 1).getOrdem() >= (Entrada.get(j).getOrdem())) {
-                    temp = Entrada.get(j - 1);
-                    Entrada.set(j - 1, Entrada.get(j));
-                    Entrada.set(j, temp);
-
-                }
-
-            }
-        }
-
+        Ordenador.ordenar_lista_crescente(Entrada,AvisarGrandeEvento.ORDENAVEL());
     }
 
     public void OrdenarGrandesAvisos(Lista<Avisar> Entrada) {
-
-        int n = Entrada.getQuantidade();
-        Avisar temp = null;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 1; j < (n - i); j++) {
-
-                if (Entrada.get(j - 1).getOrdem() >= (Entrada.get(j).getOrdem())) {
-                    temp = Entrada.get(j - 1);
-                    Entrada.set(j - 1, Entrada.get(j));
-                    Entrada.set(j, temp);
-
-                }
-
-            }
-        }
-
+        Ordenador.ordenar_lista_crescente(Entrada,Avisar.ORDENAVEL());
     }
 
     public Lista<AvisarPequenoEvento> getAvisosPequenosEventos() {
