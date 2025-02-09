@@ -1,5 +1,7 @@
 package libs.tronarko.Eventos;
 
+import libs.luan.Ordenavel;
+
 public class AvisarGrandeEvento {
 
     private String eNome = "";
@@ -142,6 +144,15 @@ public class AvisarGrandeEvento {
         return getNome() + "  ->  [ " + mTozteInicio + " a " + mTozteFim + " ] a cada " + eIntervalo + " " + st
                 + " desde " + eInicio;
 
+    }
+
+    public static Ordenavel<AvisarGrandeEvento> ORDENAVEL(){
+        return new Ordenavel<AvisarGrandeEvento>() {
+            @Override
+            public int emOrdem(AvisarGrandeEvento a, AvisarGrandeEvento b) {
+                return Integer.compare(a.getOrdem(), b.getOrdem());
+            }
+        };
     }
 
 }
