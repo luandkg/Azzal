@@ -1,5 +1,6 @@
 package libs.tronarko.Eventos;
 
+import libs.azzal.utilitarios.Cor;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
 
@@ -27,7 +28,7 @@ public class Comunicado {
         return getValor().length() > 0;
     }
 
-    public Color getCor() {
+    public Cor getCor() {
         return getTozte().getCor();
     }
 
