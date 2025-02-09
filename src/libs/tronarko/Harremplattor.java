@@ -31,26 +31,31 @@ public class Harremplattor {
         Lista<String> numeros_do_jogo = LISTA_DE_NUMEROS_JOGO();
 
 
-
-
         Lista<AstroLocal> mLocais = getLocais(eSigno, eTozte);
 
 
+        lista.adicionar(new Par<String, String>("Sentimento", escolha_um(sentimentos, (distancia(mLocais, "A", "Vermelho")))));
+        lista.adicionar(new Par<String, String>("Cor", escolha_um(cores, distancia(mLocais, "A", "Amarelo"))));
+        lista.adicionar(new Par<String, String>("Elemento", escolha_um(elementos, distancia(mLocais, "A", "Azul"))));
+        lista.adicionar(new Par<String, String>("Direção", escolha_um(direcoes, distancia(mLocais, "A", "Laranja"))));
+        lista.adicionar(new Par<String, String>("Escolha", escolha_um(escolhas, distancia(mLocais, "A", "Verde"))));
 
 
-        lista.adicionar(new Par<String, String>("Sentimento", sentimentos.get((distancia(mLocais, "A", "Vermelho") )% sentimentos.getQuantidade())));
-        lista.adicionar(new Par<String, String>("Cor", cores.get(distancia(mLocais, "A", "Amarelo") % cores.getQuantidade())));
-        lista.adicionar(new Par<String, String>("Elemento", elementos.get(distancia(mLocais, "A", "Azul") % elementos.getQuantidade())));
-        lista.adicionar(new Par<String, String>("Direção", direcoes.get(distancia(mLocais, "A", "Laranja") % direcoes.getQuantidade())));
-        lista.adicionar(new Par<String, String>("Escolha", escolhas.get(distancia(mLocais, "A", "Verde") % escolhas.getQuantidade())));
+        lista.adicionar(new Par<String, String>("N10", escolha_um(n10, distancia(mLocais, "B", "Vermelho"))));
+        lista.adicionar(new Par<String, String>("N100", escolha_um(n100, distancia(mLocais, "B", "Laranja"))));
+
+        lista.adicionar(new Par<String, String>("Letra", escolha_um(letras, distancia(mLocais, "C", "Azul"))));
+        lista.adicionar(new Par<String, String>("Consoante", escolha_um(consoantes, distancia(mLocais, "C", "Verde"))));
+        lista.adicionar(new Par<String, String>("Vogal", escolha_um(vogais, distancia(mLocais, "C", "Vermelho"))));
 
 
-        lista.adicionar(new Par<String, String>("N10", n10.get(distancia(mLocais, "B", "Vermelho") % n10.getQuantidade())));
-        lista.adicionar(new Par<String, String>("N100", n100.get(distancia(mLocais, "B", "Laranja") % n100.getQuantidade())));
+        lista.adicionar(new Par<String, String>("Jogo", numero(numeros_do_jogo,mLocais)));
 
-        lista.adicionar(new Par<String, String>("Letra", letras.get(distancia(mLocais, "C", "Azul") % letras.getQuantidade())));
-        lista.adicionar(new Par<String, String>("Consoante", consoantes.get(distancia(mLocais, "C", "Verde") % consoantes.getQuantidade())));
-        lista.adicionar(new Par<String, String>("Vogal", vogais.get(distancia(mLocais, "C", "Vermelho") % vogais.getQuantidade())));
+
+        return lista;
+    }
+
+    private static String numero(Lista<String> numeros_do_jogo,Lista<AstroLocal> mLocais){
 
         for (int v = 0; v < 100; v++) {
             slicer_numerico(numeros_do_jogo);
@@ -59,38 +64,34 @@ public class Harremplattor {
         String j1 = numeros_do_jogo.get(distancia(mLocais, "A", "Vermelho") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j1);
-        //slicer_numerico(numeros_do_jogo);
 
         String j2 = numeros_do_jogo.get(distancia(mLocais, "B", "Amarelo") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j2);
-        // slicer_numerico(numeros_do_jogo);
 
 
         String j3 = numeros_do_jogo.get(distancia(mLocais, "C", "Azul") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j3);
-        // slicer_numerico(numeros_do_jogo);
 
         String j4 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "B", "Laranja") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j4);
-        // slicer_numerico(numeros_do_jogo);
 
         String j5 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "B", "Verde") % numeros_do_jogo.getQuantidade());
 
         slicer_numerico_retirar(numeros_do_jogo, j5);
-        //  slicer_numerico(numeros_do_jogo);
 
         String j6 = numeros_do_jogo.get(normalizar_triangulacao(mLocais, "A", "C", "Vermelho") % numeros_do_jogo.getQuantidade());
 
 
-        lista.adicionar(new Par<String, String>("Jogo", j1 + " " + j2 + " " + j3 + " " + j4 + " " + j5 + " " + j6));
-
-
-        return lista;
+        return j1 + " " + j2 + " " + j3 + " " + j4 + " " + j5 + " " + j6;
     }
 
+
+    private static String escolha_um(Lista<String> opcoes, int valor) {
+        return opcoes.get(valor % opcoes.getQuantidade());
+    }
 
     public static String get_item(Signos eSigno, Tozte eTozte, String eItem) {
         for (Par<String, String> item : Harremplattor.get(eSigno, eTozte)) {
@@ -134,11 +135,11 @@ public class Harremplattor {
 
     }
 
-    public static Lista<AstroLocal> getLocais(Signos eSigno,Tozte eTozte) {
+    public static Lista<AstroLocal> getLocais(Signos eSigno, Tozte eTozte) {
 
         Lista<AstroLocal> mLocais = new Lista<AstroLocal>();
 
-        for (AstroLocal p : getEixos(eSigno,eTozte)) {
+        for (AstroLocal p : getEixos(eSigno, eTozte)) {
             mLocais.adicionar(p);
         }
 
@@ -150,7 +151,7 @@ public class Harremplattor {
 
     }
 
-    public static Lista<AstroLocal> getEixos(Signos eSigno,Tozte eTozte) {
+    public static Lista<AstroLocal> getEixos(Signos eSigno, Tozte eTozte) {
 
 
         Lista<AstroLocal> mEixos = new Lista<AstroLocal>();
@@ -227,39 +228,38 @@ public class Harremplattor {
 
 
         Vetor<Integer> deslocamento_alfa = new Vetor<Integer>(11);
-        deslocamento_alfa.set(1,5);
-        deslocamento_alfa.set(2,18);
-        deslocamento_alfa.set(3,4);
-        deslocamento_alfa.set(4,1);
-        deslocamento_alfa.set(5,5);
-        deslocamento_alfa.set(6,2);
-        deslocamento_alfa.set(7,10);
-        deslocamento_alfa.set(8,3);
-        deslocamento_alfa.set(9,15);
-        deslocamento_alfa.set(10,5);
+        deslocamento_alfa.set(1, 5);
+        deslocamento_alfa.set(2, 18);
+        deslocamento_alfa.set(3, 4);
+        deslocamento_alfa.set(4, 1);
+        deslocamento_alfa.set(5, 5);
+        deslocamento_alfa.set(6, 2);
+        deslocamento_alfa.set(7, 10);
+        deslocamento_alfa.set(8, 3);
+        deslocamento_alfa.set(9, 15);
+        deslocamento_alfa.set(10, 5);
 
         Vetor<Integer> deslocamento_beta = new Vetor<Integer>(11);
-        deslocamento_beta.set(1,0);
-        deslocamento_beta.set(2,9);
-        deslocamento_beta.set(3,6);
-        deslocamento_beta.set(4,1);
-        deslocamento_beta.set(5,6);
-        deslocamento_beta.set(6,2);
-        deslocamento_beta.set(7,10);
-        deslocamento_beta.set(8,7);
-        deslocamento_beta.set(9,5);
-        deslocamento_beta.set(10,2);
+        deslocamento_beta.set(1, 0);
+        deslocamento_beta.set(2, 9);
+        deslocamento_beta.set(3, 6);
+        deslocamento_beta.set(4, 1);
+        deslocamento_beta.set(5, 6);
+        deslocamento_beta.set(6, 2);
+        deslocamento_beta.set(7, 10);
+        deslocamento_beta.set(8, 7);
+        deslocamento_beta.set(9, 5);
+        deslocamento_beta.set(10, 2);
 
-        int mais_x = ((eTozte.getHiperarko()*deslocamento_beta.get(eSigno.getValor())) +(deslocamento_alfa.get(eSigno.getValor())*eTozte.getTronarko()) )% 300;
-        int mais_y = (deslocamento_beta.get(eSigno.getValor())*eTozte.getTronarko()) % 600;
+        int mais_x = ((eTozte.getHiperarko() * deslocamento_beta.get(eSigno.getValor())) + (deslocamento_alfa.get(eSigno.getValor()) * eTozte.getTronarko())) % 300;
+        int mais_y = (deslocamento_beta.get(eSigno.getValor()) * eTozte.getTronarko()) % 600;
 
 
+        mEixos.get(0).setX(mEixos.get(0).getX() + mais_x);
+        mEixos.get(1).setY(mEixos.get(1).getY() + mais_y);
 
-        mEixos.get(0).setX(mEixos.get(0).getX()+mais_x);
-        mEixos.get(1).setY(mEixos.get(1).getY()+mais_y);
-
-        mEixos.get(2).setX(mEixos.get(2).getX()+mais_y);
-        mEixos.get(2).setY(mEixos.get(2).getY()+mais_x);
+        mEixos.get(2).setX(mEixos.get(2).getX() + mais_y);
+        mEixos.get(2).setY(mEixos.get(2).getY() + mais_x);
 
         return mEixos;
     }
@@ -409,7 +409,7 @@ public class Harremplattor {
         sentimentos.adicionar("INVEJA");
         sentimentos.adicionar("ROMANCE");
         sentimentos.adicionar("TRISTEZA");
-        sentimentos.adicionar("SUPRESA");
+        sentimentos.adicionar("SURPRESA");
         sentimentos.adicionar("SIMPATIA");
         sentimentos.adicionar("TRIUNFO");
         sentimentos.adicionar("INTERESSE");
