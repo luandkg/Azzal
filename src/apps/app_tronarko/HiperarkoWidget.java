@@ -341,7 +341,7 @@ public class HiperarkoWidget {
 
                 Tozte mTozte = new Tozte(mSuperarko, mHiperarko, mTronarko);
 
-                Color mCor = Color.WHITE;
+                Cor mCor = new Cor(0,0,0);
 
                 boolean comFundo = false;
 
@@ -357,14 +357,14 @@ public class HiperarkoWidget {
                 }
 
                 if (comFundo) {
-                    r.drawRect_Pintado(QX - 1, QY - 2, 25, 20, Cor.getRGB(mCor));
+                    r.drawRect_Pintado(QX - 1, QY - 2, 25, 20, mCor);
                 }
 
                 if (comFundo & anteriorComFundo) {
 
 
                     if (mPassadoInfoNome.contentEquals(mAtualInfoNome)) {
-                        r.drawRect_Pintado(QX - 3 - 18, QY + 5, 20, 5, Cor.getRGB(mCor));
+                        r.drawRect_Pintado(QX - 3 - 18, QY + 5, 20, 5, mCor);
                     }
                 }
 
