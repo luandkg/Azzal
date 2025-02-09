@@ -1,4 +1,4 @@
-package libs.tronarko.Intervalos;
+package libs.tronarko.intervalos;
 
 import libs.tronarko.Hazde;
 import libs.tronarko.Tron;
@@ -13,11 +13,11 @@ public class Tron_Intervalo {
 
         this.mNome = eNome;
 
-        Organizar(eInicio, eFim);
+        organizar(eInicio, eFim);
 
     }
 
-    private void Organizar(Tron eInicio, Tron eFim) {
+    private void organizar(Tron eInicio, Tron eFim) {
 
         if (eInicio.isMenorIgualQue(eFim)) {
             this.mInicio = eInicio;
@@ -34,19 +34,19 @@ public class Tron_Intervalo {
     }
 
     public Tron getInicio() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio;
     }
 
     public Tron getFim() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mFim;
     }
 
     public long getTotalEttons() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mFim.getTotal() - mInicio.getTotal();
     }
@@ -177,14 +177,14 @@ public class Tron_Intervalo {
     }
 
     public String toString() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio.toString() + " - " + mFim.toString();
     }
 
     // COMPARADORES
 
-    public boolean MaiorQue(Tron_Intervalo Outro) {
+    public boolean maiorQue(Tron_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() > Outro.getTotalEttons()) {
             resposta = true;
@@ -193,7 +193,7 @@ public class Tron_Intervalo {
         return resposta;
     }
 
-    public boolean MenorQue(Tron_Intervalo Outro) {
+    public boolean menorQue(Tron_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() < Outro.getTotalEttons()) {
             resposta = true;
@@ -202,7 +202,7 @@ public class Tron_Intervalo {
         return resposta;
     }
 
-    public boolean Igual(Tron_Intervalo Outro) {
+    public boolean igual(Tron_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() == Outro.getTotalEttons()) {
             resposta = true;
@@ -211,7 +211,7 @@ public class Tron_Intervalo {
         return resposta;
     }
 
-    public boolean Diferente(Tron_Intervalo Outro) {
+    public boolean diferente(Tron_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() != Outro.getTotalEttons()) {
             resposta = true;
@@ -220,7 +220,7 @@ public class Tron_Intervalo {
         return resposta;
     }
 
-    public boolean MaiorIgualQue(Tron_Intervalo Outro) {
+    public boolean maiorIgualQue(Tron_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() >= Outro.getTotalEttons()) {
             resposta = true;
@@ -229,7 +229,7 @@ public class Tron_Intervalo {
         return resposta;
     }
 
-    public boolean MenorIgualQue(Tron_Intervalo Outro) {
+    public boolean menorIgualQue(Tron_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() <= Outro.getTotalEttons()) {
             resposta = true;

@@ -1,4 +1,4 @@
-package libs.tronarko.Intervalos;
+package libs.tronarko.intervalos;
 
 import libs.luan.fmt;
 import libs.tronarko.Hazde;
@@ -13,11 +13,11 @@ public class Hazde_Intervalo {
 
         this.mNome = eNome;
 
-        Organizar(eInicio, eFim);
+        organizar(eInicio, eFim);
 
     }
 
-    private void Organizar(Hazde eInicio, Hazde eFim) {
+    private void organizar(Hazde eInicio, Hazde eFim) {
 
         if (eInicio.isMenorIgual(eFim)) {
             this.mInicio = eInicio;
@@ -34,25 +34,25 @@ public class Hazde_Intervalo {
     }
 
     public Hazde getInicio() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio;
     }
 
     public Hazde getFim() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mFim;
     }
 
     public int getTotalEttons() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return (mFim.getTotalEttons() - mInicio.getTotalEttons());
     }
 
     public boolean Arco_Igual() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio.getArco() == mFim.getArco();
     }
@@ -121,14 +121,14 @@ public class Hazde_Intervalo {
     }
 
     public String toString() {
-        Organizar(mInicio, mFim);
+        organizar(mInicio, mFim);
 
         return mInicio.toString() + " - " + mFim.toString();
     }
 
     // COMPARADORES
 
-    public boolean MaiorQue(Hazde_Intervalo Outro) {
+    public boolean maiorQue(Hazde_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() > Outro.getTotalEttons()) {
             resposta = true;
@@ -137,7 +137,7 @@ public class Hazde_Intervalo {
         return resposta;
     }
 
-    public boolean MenorQue(Hazde_Intervalo Outro) {
+    public boolean menorQue(Hazde_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() < Outro.getTotalEttons()) {
             resposta = true;
@@ -146,7 +146,7 @@ public class Hazde_Intervalo {
         return resposta;
     }
 
-    public boolean Igual(Hazde_Intervalo Outro) {
+    public boolean igual(Hazde_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() == Outro.getTotalEttons()) {
             resposta = true;
@@ -155,7 +155,7 @@ public class Hazde_Intervalo {
         return resposta;
     }
 
-    public boolean Diferente(Hazde_Intervalo Outro) {
+    public boolean diferente(Hazde_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() != Outro.getTotalEttons()) {
             resposta = true;
@@ -164,7 +164,7 @@ public class Hazde_Intervalo {
         return resposta;
     }
 
-    public boolean MaiorIgualQue(Hazde_Intervalo Outro) {
+    public boolean maiorIgualQue(Hazde_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() >= Outro.getTotalEttons()) {
             resposta = true;
@@ -173,7 +173,7 @@ public class Hazde_Intervalo {
         return resposta;
     }
 
-    public boolean MenorIgualQue(Hazde_Intervalo Outro) {
+    public boolean menorIgualQue(Hazde_Intervalo Outro) {
         boolean resposta = false;
         if (this.getTotalEttons() <= Outro.getTotalEttons()) {
             resposta = true;

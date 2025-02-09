@@ -1,4 +1,4 @@
-package libs.tronarko.Intervalos;
+package libs.tronarko.intervalos;
 
 import libs.tronarko.Tozte;
 
@@ -80,7 +80,7 @@ public class Tozte_Intervalo {
 
     // COMPARADORES
 
-    public boolean MaiorQue(Tozte_Intervalo Outro) {
+    public boolean maiorQue(Tozte_Intervalo Outro) {
         boolean resposta = false;
         if (this.getSuperarkos() > Outro.getSuperarkos()) {
             resposta = true;
@@ -89,7 +89,7 @@ public class Tozte_Intervalo {
         return resposta;
     }
 
-    public boolean MenorQue(Tozte_Intervalo Outro) {
+    public boolean menorQue(Tozte_Intervalo Outro) {
         boolean resposta = false;
         if (this.getSuperarkos() < Outro.getSuperarkos()) {
             resposta = true;
@@ -98,7 +98,7 @@ public class Tozte_Intervalo {
         return resposta;
     }
 
-    public boolean Igual(Tozte_Intervalo Outro) {
+    public boolean igual(Tozte_Intervalo Outro) {
         boolean resposta = false;
         if (this.getSuperarkos() == Outro.getSuperarkos()) {
             resposta = true;
@@ -107,7 +107,7 @@ public class Tozte_Intervalo {
         return resposta;
     }
 
-    public boolean Diferente(Tozte_Intervalo Outro) {
+    public boolean diferente(Tozte_Intervalo Outro) {
         boolean resposta = false;
         if (this.getSuperarkos() != Outro.getSuperarkos()) {
             resposta = true;
@@ -116,7 +116,7 @@ public class Tozte_Intervalo {
         return resposta;
     }
 
-    public boolean MaiorIgualQue(Tozte_Intervalo Outro) {
+    public boolean maiorIgualQue(Tozte_Intervalo Outro) {
         boolean resposta = false;
         if (this.getSuperarkos() >= Outro.getSuperarkos()) {
             resposta = true;
@@ -125,7 +125,7 @@ public class Tozte_Intervalo {
         return resposta;
     }
 
-    public boolean MenorIgualQue(Tozte_Intervalo Outro) {
+    public boolean menorIgualQue(Tozte_Intervalo Outro) {
         boolean resposta = false;
         if (this.getSuperarkos() <= Outro.getSuperarkos()) {
             resposta = true;
