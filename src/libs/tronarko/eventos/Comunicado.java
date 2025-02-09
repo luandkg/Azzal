@@ -1,10 +1,8 @@
-package libs.tronarko.Eventos;
+package libs.tronarko.eventos;
 
 import libs.azzal.utilitarios.Cor;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
-
-import java.awt.*;
 
 public class Comunicado {
 

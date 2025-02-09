@@ -1,13 +1,11 @@
-package libs.tronarko.Eventos;
-
-import java.awt.Color;
+package libs.tronarko.eventos;
 
 import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.luan.Ordenador;
 import libs.tronarko.Hizarkos;
 import libs.tronarko.utils.TozteCor;
-import libs.tronarko.Eventos.Ocorrencia.Modos;
+import libs.tronarko.eventos.Ocorrencia.Modos;
 import libs.tronarko.Tozte;
 
 public class Eventum {

@@ -1,4 +1,4 @@
-package libs.tronarko.Eventos;
+package libs.tronarko.eventos;
 
 import libs.luan.Ordenavel;
 

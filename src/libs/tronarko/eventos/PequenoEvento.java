@@ -1,38 +1,24 @@
-package libs.tronarko.Eventos;
+package libs.tronarko.eventos;
 
-import libs.tronarko.Tozte;
-
-import java.util.ArrayList;
-
-import libs.tronarko.Intervalos.Tozte_Intervalo;
 import libs.tronarko.Intervalos.Tron_Intervalo;
+import libs.tronarko.Tozte;
 import libs.tronarko.Tron;
 
-public class GrandeEvento {
+public class PequenoEvento {
 
     private String mNome;
-    private Tozte mInicio;
-    private Tozte mFim;
-
-    private int mIntervalo;
-    private int mTronarkoInicio;
-
-    private int mEdicao;
+    private Tozte mTozte;
 
     private Tron mTronInicio;
     private Tron mTronFim;
 
-    public GrandeEvento(String eNome, int eIntervalo, int eTronarkoInicio, Tozte eInicio, Tozte eFim, int eEdicao) {
+    public PequenoEvento(String eNome, Tozte eTozte) {
 
         this.mNome = eNome;
-        this.mInicio = eInicio;
-        this.mFim = eFim;
-        this.mIntervalo = eIntervalo;
-        this.mTronarkoInicio = eTronarkoInicio;
-        this.mEdicao = eEdicao;
+        this.mTozte = eTozte;
 
-        mTronInicio = new Tron(1, 0, 0, mInicio.getSuperarko(), mInicio.getHiperarko(), mInicio.getTronarko());
-        mTronFim = new Tron(10, 99, 99, mFim.getSuperarko(), mFim.getHiperarko(), mFim.getTronarko());
+        mTronInicio = new Tron(1, 0, 0, mTozte.getSuperarko(), mTozte.getHiperarko(), mTozte.getTronarko());
+        mTronFim = new Tron(10, 99, 99, mTozte.getSuperarko(), mTozte.getHiperarko(), mTozte.getTronarko());
 
     }
 
@@ -40,12 +26,8 @@ public class GrandeEvento {
         return this.mNome;
     }
 
-    public final Tozte getInicio() {
-        return this.mInicio;
-    }
-
-    public final Tozte getFim() {
-        return this.mFim;
+    public final Tozte getTozte() {
+        return this.mTozte;
     }
 
     public final Tron getTronInicio() {
@@ -56,24 +38,16 @@ public class GrandeEvento {
         return this.mTronFim;
     }
 
-    public Tozte_Intervalo getTozteIntervalo() {
-        return new Tozte_Intervalo(getNome(), getInicio(), getFim());
-    }
-
     public Tron_Intervalo getTronIntervalo() {
         return new Tron_Intervalo(getNome(), getTronInicio(), getTronFim());
     }
 
     public long getSuperarkos() {
-        return getTozteIntervalo().getSuperarkosComFim();
+        return 1;
     }
 
     public long getArkos() {
         return getTronIntervalo().getArkosComFim();
-    }
-
-    public int getEdicao() {
-        return mEdicao;
     }
 
     public long Comecar(Tozte eTozte) {
@@ -81,7 +55,7 @@ public class GrandeEvento {
         long ret = 0;
 
         long i = eTozte.getSuperarkosTotal();
-        long e = this.getInicio().getSuperarkosTotal();
+        long e = this.getTozte().getSuperarkosTotal();
 
         if (i <= e) {
             ret = e - i;
@@ -95,7 +69,7 @@ public class GrandeEvento {
         long ret = 0;
 
         long i = eTozte.getSuperarkosTotal();
-        long e = this.getFim().getSuperarkosTotal();
+        long e = this.getTozte().getSuperarkosTotal();
 
         if (i >= e) {
             ret = i - e;
@@ -109,7 +83,7 @@ public class GrandeEvento {
         long ret = 0;
 
         long i = eTozte.getSuperarkosTotal();
-        long e = this.getInicio().getSuperarkosTotal();
+        long e = this.getTozte().getSuperarkosTotal();
 
         long C = Comecar(eTozte);
         long T = Terminar(eTozte);
@@ -128,7 +102,7 @@ public class GrandeEvento {
         long ret = 0;
 
         long i = eTozte.getSuperarkosTotal();
-        long e = this.getFim().getSuperarkosTotal();
+        long e = this.getTozte().getSuperarkosTotal();
 
         long C = Comecar(eTozte);
         long T = Terminar(eTozte);
@@ -145,11 +119,11 @@ public class GrandeEvento {
     public boolean JaTerminou(Tozte eTozte) {
 
         long i = eTozte.getSuperarkosTotal();
-        long e = this.getFim().getSuperarkosTotal();
+        long e = this.getTozte().getSuperarkosTotal() + 1;
 
         boolean ret = false;
 
-        if (i > e) {
+        if (i >= e) {
             ret = true;
         }
 
@@ -160,11 +134,11 @@ public class GrandeEvento {
     public boolean JaComecou(Tozte eTozte) {
 
         long i = eTozte.getSuperarkosTotal();
-        long e = this.getInicio().getSuperarkosTotal();
+        long e = this.getTozte().getSuperarkosTotal();
 
         boolean ret = false;
 
-        if (i > e) {
+        if (i >= e) {
             ret = true;
         }
 
@@ -206,8 +180,7 @@ public class GrandeEvento {
 
     public String toString() {
 
-        return getNome() + "  ->  [ " + getInicio().toString() + " a " + getFim().toString() + " :: " + getSuperarkos()
-                + " Superarkos ] a cada " + mIntervalo + " desde " + mTronarkoInicio + " :: Edicao : " + getEdicao();
+        return getNome() + "  -> " + getTozte().toString();
 
     }
 
@@ -216,9 +189,7 @@ public class GrandeEvento {
         String ret = "";
 
         ret += "\n" + " - Evento : " + this.getNome();
-        ret += "\n" + " - Inicio : " + this.getInicio().toString();
-        ret += "\n" + " - Fim : " + this.getFim().toString();
-        ret += "\n" + " - Intervalo : " + this.getTozteIntervalo().toString();
+        ret += "\n" + " - Tozte : " + this.getTozte().toString();
         ret += "\n" + " - Superarkos : " + getStringSuperarkos(this.getSuperarkos());
 
         ret += "\n" + " - Inicio : " + this.getTronInicio().toString();
@@ -226,7 +197,6 @@ public class GrandeEvento {
         ret += "\n" + " - Intervalo : " + this.getTronIntervalo().toString();
 
         ret += "\n" + " - Arkos : " + getStringArkos(this.getArkos());
-        ret += "\n" + " - Edicao : " + this.getEdicao();
 
         return ret;
     }
@@ -285,18 +255,4 @@ public class GrandeEvento {
 
     }
 
-
-    public ArrayList<Tozte> getToztes() {
-        ArrayList<Tozte> ret = new ArrayList<Tozte>();
-
-        Tozte T1 = this.getInicio().getCopia();
-        while (T1.isMenorIgualQue(this.getFim())) {
-
-            ret.add(T1.getCopia());
-
-            T1 = T1.adicionar_Superarko(1);
-        }
-
-        return ret;
-    }
 }
