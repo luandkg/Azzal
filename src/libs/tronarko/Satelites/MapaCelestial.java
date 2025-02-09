@@ -3,6 +3,7 @@ package libs.tronarko.Satelites;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import libs.azzal.utilitarios.Cor;
 import libs.tronarko.Intervalos.Tozte_Intervalo;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
@@ -70,16 +71,16 @@ public class MapaCelestial {
 
                 switch (FaseC) {
                     case CHEIA:
-                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
+                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, new Cor(200,200,0)));
                         break;
                     case NOVA:
-                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
+                        ToztesComCor.add(new TozteCor("NOVA", TozteC, new Cor(0,0,0)));
                         break;
                     case MINGUANTE:
-                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
+                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, new Cor(255,0,0)));
                         break;
                     case CRESCENTE:
-                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
+                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, new Cor(0,0,255)));
                         break;
                 }
 
@@ -106,16 +107,16 @@ public class MapaCelestial {
 
                 switch (FaseC) {
                     case CHEIA:
-                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
+                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Cor.getRGB(Color.YELLOW)));
                         break;
                     case NOVA:
-                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
+                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Cor.getRGB(Color.WHITE)));
                         break;
                     case MINGUANTE:
-                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
+                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Cor.getRGB(Color.RED)));
                         break;
                     case CRESCENTE:
-                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
+                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Cor.getRGB(Color.BLUE)));
                         break;
                 }
 
@@ -147,35 +148,35 @@ public class MapaCelestial {
 
                 // TRES
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("ILUMUNAÇAO", TozteC, Color.GRAY));
+                    ToztesComCor.add(new TozteCor("ILUMUNAÇAO", TozteC, Cor.getRGB(Color.GRAY)));
                 }
 
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ESCURIDÃO", TozteC, Color.BLACK));
+                    ToztesComCor.add(new TozteCor("ESCURIDÃO", TozteC, Cor.getRGB(Color.BLACK)));
                 }
 
                 // DUAS
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ALLET", TozteC, Color.ORANGE));
+                    ToztesComCor.add(new TozteCor("ALLET", TozteC, Cor.getRGB(Color.ORANGE)));
                 }
 
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("UNNALL", TozteC, Color.GREEN));
+                    ToztesComCor.add(new TozteCor("UNNALL", TozteC, Cor.getRGB(Color.GREEN)));
                 }
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("ETTUN", TozteC, new Color(135, 31, 120)));
+                    ToztesComCor.add(new TozteCor("ETTUN", TozteC, new Cor(135, 31, 120)));
                 }
 
                 // UM
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ALLIZZ", TozteC, Color.YELLOW));
+                    ToztesComCor.add(new TozteCor("ALLIZZ", TozteC, Cor.getRGB(Color.YELLOW)));
                 }
 
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ETTIZZ", TozteC, Color.RED));
+                    ToztesComCor.add(new TozteCor("ETTIZZ", TozteC, Cor.getRGB(Color.RED)));
                 }
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("UNNIZZ", TozteC, Color.BLUE));
+                    ToztesComCor.add(new TozteCor("UNNIZZ", TozteC, Cor.getRGB(Color.BLUE)));
                 }
             }
 
@@ -200,16 +201,16 @@ public class MapaCelestial {
 
                 switch (FaseC) {
                     case CHEIA:
-                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Color.YELLOW));
+                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Cor.getRGB(Color.YELLOW)));
                         break;
                     case NOVA:
-                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Color.WHITE));
+                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Cor.getRGB(Color.WHITE)));
                         break;
                     case MINGUANTE:
-                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Color.RED));
+                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Cor.getRGB(Color.RED)));
                         break;
                     case CRESCENTE:
-                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Color.BLUE));
+                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC,Cor.getRGB( Color.BLUE)));
                         break;
                 }
 
