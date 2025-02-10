@@ -1,4 +1,4 @@
-package libs.tronarko.Satelites;
+package libs.tronarko.satelites;
 
 public enum Fases {
 

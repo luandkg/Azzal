@@ -1,8 +1,8 @@
-package libs.tronarko.Satelites;
+package libs.tronarko.satelites;
 
-import libs.tronarko.Satelites.MapaCelestial.Allux;
-import libs.tronarko.Satelites.MapaCelestial.Ettos;
-import libs.tronarko.Satelites.MapaCelestial.Unnos;
+import libs.tronarko.satelites.MapaCelestial.Allux;
+import libs.tronarko.satelites.MapaCelestial.Ettos;
+import libs.tronarko.satelites.MapaCelestial.Unnos;
 import libs.tronarko.Tozte;
 
 public enum HiperFases {

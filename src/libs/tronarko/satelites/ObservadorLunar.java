@@ -1,12 +1,12 @@
-package libs.tronarko.Satelites;
+package libs.tronarko.satelites;
 
 
 import libs.luan.Lista;
 import libs.tronarko.Tronarko;
 import libs.tronarko.Tozte;
-import libs.tronarko.Satelites.MapaCelestial.Allux;
-import libs.tronarko.Satelites.MapaCelestial.Ettos;
-import libs.tronarko.Satelites.MapaCelestial.Unnos;
+import libs.tronarko.satelites.MapaCelestial.Allux;
+import libs.tronarko.satelites.MapaCelestial.Ettos;
+import libs.tronarko.satelites.MapaCelestial.Unnos;
 import libs.tronarko.intervalos.Tozte_Intervalo;
 
 public class ObservadorLunar {
