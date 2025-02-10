@@ -515,4 +515,26 @@ public class ZettaMemCached {
         }
 
     }
+
+
+    public boolean remover(String chave){
+
+        boolean removido = false;
+
+        for (ItemAlocado item : mDados.getItensAlocados()) {
+
+            Entidade e_item = ENTT.PARSER_ENTIDADE(item.lerTextoUTF8());
+
+            if (e_item.is("Chave", chave)) {
+
+                mIndice.remover(e_item.atLong("@ID"));
+                item.remover();
+                removido = true;
+                break;
+            }
+        }
+
+        return removido;
+
+    }
 }
