@@ -493,4 +493,26 @@ public class ZettaMemCached {
 
         return Opcional.CANCEL();
     }
+
+    public void publicar_se_nao_existir(String chave,String valor){
+        if(!chaveExiste(chave)){
+            publicar(chave, valor);
+        }
+    }
+
+    public void publicar_se_nao_existir(String chave,int valor){
+        if(!chaveExiste(chave)){
+            publicar(chave, valor);
+        }
+    }
+
+    public void inteiro_aumentar_ou_criar_se_nao_existir (String chave,int valor,int aumentar){
+
+        if(chaveExiste(chave)){
+            inteiro_aumentar(chave, aumentar);
+        }else{
+            publicar(chave, valor);
+        }
+
+    }
 }
