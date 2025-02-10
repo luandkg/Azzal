@@ -1,6 +1,6 @@
 package apps.app_tronarko;
 
-import libs.tronarko.Intervalos.Tozte_Intervalo;
+import libs.tronarko.intervalos.Tozte_Intervalo;
 import libs.tronarko.Tozte;
 
 import java.util.ArrayList;

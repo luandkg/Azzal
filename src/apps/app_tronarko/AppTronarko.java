@@ -17,12 +17,12 @@ import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 import libs.mockui.Marcador;
 import libs.rho_benchmark.RhoBenchmark;
-import libs.tronarko.Eventos.Comunicado;
-import libs.tronarko.Eventos.Comunicum;
-import libs.tronarko.Eventos.Eventum;
-import libs.tronarko.Eventos.Momentum;
+import libs.tronarko.eventos.Comunicado;
+import libs.tronarko.eventos.Comunicum;
+import libs.tronarko.eventos.Eventum;
+import libs.tronarko.eventos.Momentum;
 import libs.tronarko.Hazde;
-import libs.tronarko.Satelites.Ceu;
+import libs.tronarko.satelites.Ceu;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
@@ -277,7 +277,7 @@ public class AppTronarko extends Cena {
         mTextoPequenoBranco.escreva(BTN_HOJE.getX() + 2, BTN_HOJE.getY() + 15, "HOJE");
 
 
-        mEventum.alinhar_eventos(mEventos);
+        mEventum.alinharEventos(mEventos);
 
 
         mHiperarkoWidget_01.draw_hiperarko_com_infos(r, mHoje, mEventos);
@@ -330,7 +330,7 @@ public class AppTronarko extends Cena {
 
         for (TozteCor tozte_evento : eventos) {
 
-            Marcador.marcar(r, AVISO_X, AVISO_Y, 20, 5, Cor.getRGB(tozte_evento.getCor()), mCores.getBranco());
+            Marcador.marcar(r, AVISO_X, AVISO_Y, 20, 5,tozte_evento.getCor(), mCores.getBranco());
 
             mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y, tozte_evento.getNome());
             mTextoPequeno.escreva(AVISO_X + 250, AVISO_Y, " -->> " + tozte_evento.getComplemento());
@@ -344,7 +344,7 @@ public class AppTronarko extends Cena {
 
         if (eComunicado.isOK()) {
 
-            Marcador.marcar_barra_dupla(r, AVISO_X, AVISO_Y + 30, 5, 25, Cor.getRGB(eComunicado.getCor()));
+            Marcador.marcar_barra_dupla(r, AVISO_X, AVISO_Y + 30, 5, 25, eComunicado.getCor());
             mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y + 35, eComunicado.getValor());
 
             if (eComunicado.temVariosSuperarkos()) {
@@ -354,7 +354,7 @@ public class AppTronarko extends Cena {
                     int duracao = eComunicado.getDuracao();
                     int ate = eComunicado.getDistanciaDe(mHoje);
 
-                    BarraDeProgresso.progresso(r, AVISO_X, AVISO_Y + 70, 380, duracao, ate, Cor.getRGB(eComunicado.getCor()));
+                    BarraDeProgresso.progresso(r, AVISO_X, AVISO_Y + 70, 380, duracao, ate, eComunicado.getCor());
 
                 }
 

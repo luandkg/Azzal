@@ -7,13 +7,11 @@ import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.luan.Opcional;
-import libs.tronarko.Agenda.Alarme;
+import libs.tronarko.agenda.Alarme;
 import libs.tronarko.Hiperarkos;
 import libs.tronarko.Superarkos;
 import libs.tronarko.Tozte;
 import libs.tronarko.utils.TozteCor;
-
-import java.awt.*;
 
 
 public class HiperarkoWidget {

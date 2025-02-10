@@ -1,7 +1,7 @@
 package libs.tronarko.utils;
 
 import libs.luan.Lista;
-import libs.tronarko.Agenda.Lembrete;
+import libs.tronarko.agenda.Lembrete;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tron;

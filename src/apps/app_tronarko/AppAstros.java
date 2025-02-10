@@ -9,15 +9,15 @@ import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.Cronometro;
+import libs.luan.Lista;
 import libs.luan.Par;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
 import libs.tronarko.*;
-import libs.tronarko.Satelites.Ceu;
+import libs.tronarko.satelites.Ceu;
 import libs.tronarko.utils.AstroLocal;
 
-import java.util.ArrayList;
 
 public class AppAstros extends Cena {
 
@@ -34,7 +34,6 @@ public class AppAstros extends Cena {
     private Fonte mTextoPequeno_Hoje2;
     private Fonte mTextoPequeno_MuitoGrande;
 
-    private Tronarko TronarkoC;
 
     private BotaoCor BTN_PROXIMO_TOZTE;
 
@@ -61,7 +60,7 @@ public class AppAstros extends Cena {
     private Cronometro cron;
     private Tozte tozte_corrente;
     private Signos signo_corrente;
-    private ArrayList<BotaoCor> mBotoes;
+    private Lista<BotaoCor> mBotoes;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -81,7 +80,6 @@ public class AppAstros extends Cena {
         mTextoPequeno_Hoje2 = new FonteRunTime(mCores.getBranco(), 11);
         mTextoPequeno_MuitoGrande = new FonteRunTime(mCores.getBranco(), 18);
 
-        TronarkoC = new Tronarko();
 
         mClicavel = new Clicavel();
 
@@ -93,36 +91,26 @@ public class AppAstros extends Cena {
             }
         });
 
-        mBotoes = new ArrayList<BotaoCor>();
+        mBotoes = new Lista<BotaoCor>();
 
 
         int signo_x = 250;
+        int signo_y = 100;
 
-        mBotoes.add(botao_organizado(signo_x, 100, Signos.TIGRE));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 100, Signos.RAPOSA));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 100, Signos.LEOPARDO));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 100, Signos.GAVIAO));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 100, Signos.TOURO));
+        int i = 1;
+        for (Signos signo : Signos.listar()) {
+            mBotoes.adicionar(botao_organizado(signo_x, signo_y, signo));
 
-        signo_x = 250;
-
-        mBotoes.add(botao_organizado(signo_x, 150, Signos.LOBO));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 150, Signos.GATO));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 150, Signos.CARPA));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 150, Signos.LEAO));
-        signo_x += 40;
-        mBotoes.add(botao_organizado(signo_x, 150, Signos.SERPENTE));
-        signo_x += 40;
+            signo_x += 40;
+            if (i == 5) {
+                signo_y += 50;
+                signo_x = 250;
+            }
+            i += 1;
+        }
 
 
-        mHoje = TronarkoC.getTozte();
+        mHoje = Tronarko.getTozte();
         mQuantos = 0;
 
 
@@ -131,7 +119,7 @@ public class AppAstros extends Cena {
 
 
         mHiperarkoWidget = new HiperarkoWidget(HIPERARKO_POS_X, HIPERARKO_POS_Y, mHoje.getHiperarko(), mHoje.getTronarko());
-        mHiperarkoWidget.selecionar(TronarkoC.getTozte());
+        mHiperarkoWidget.selecionar(Tronarko.getTozte());
         mHiperarkoWidget.setPodeSelecionar(true);
 
         mTextoPequeno_Sel = new FonteRunTime(mHiperarkoWidget.getCorTocando(), 11);
@@ -166,7 +154,7 @@ public class AppAstros extends Cena {
     public void update(double dt) {
 
 
-        mHoje = TronarkoC.getTozte();
+        mHoje = Tronarko.getTozte();
 
 
         mClicavel.update(dt, getWindows().getMouse().getX(), getWindows().getMouse().getY(), getWindows().getMouse().isPressed());
@@ -180,7 +168,8 @@ public class AppAstros extends Cena {
         mHiperarkoWidget.update(px, py, getWindows().getMouse().isClicked());
 
 
-        mHoje = mHoje.adicionar_Superarko(mQuantos);
+      //  mHoje = mHoje.adicionar_Superarko(mQuantos);
+        mHoje = mHoje.adicionar_Tronarko(mQuantos);
 
         // System.out.println("Cron Ligar : " + mCronLigar.getTexto());
 
@@ -191,7 +180,7 @@ public class AppAstros extends Cena {
         if (cron.foiEsperado()) {
             cron.zerar();
 
-            tozte_corrente = tozte_corrente.adicionar_Superarko(1);
+            tozte_corrente = tozte_corrente.adicionar_Tronarko(1);
 
 
         }
@@ -265,7 +254,7 @@ public class AppAstros extends Cena {
 
         }
 
-        for (AstroLocal eixo : Harremplattor.getEixos(signo_corrente)) {
+        for (AstroLocal eixo : Harremplattor.getEixos(signo_corrente,tozte_corrente)) {
 
             r.drawCirculoCentralizado_Pintado(eixo.getX(), eixo.getY(), 5, mCores.getPreto());
             r.drawCirculoCentralizado(eixo.getX(), eixo.getY(), 8, mCores.getPreto());
@@ -274,9 +263,9 @@ public class AppAstros extends Cena {
 
         }
 
-        AstroLocal e1 = Harremplattor.getEixos(signo_corrente).get(0);
-        AstroLocal e2 = Harremplattor.getEixos(signo_corrente).get(1);
-        AstroLocal e3 = Harremplattor.getEixos(signo_corrente).get(2);
+        AstroLocal e1 = Harremplattor.getEixos(signo_corrente,tozte_corrente).get(0);
+        AstroLocal e2 = Harremplattor.getEixos(signo_corrente,tozte_corrente).get(1);
+        AstroLocal e3 = Harremplattor.getEixos(signo_corrente,tozte_corrente).get(2);
 
 
         r.drawLinha(e1.getX(), e1.getY(), e2.getX(), e2.getY(), mCores.getPreto());

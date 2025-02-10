@@ -1,4 +1,4 @@
-package libs.tronarko.Agenda;
+package libs.tronarko.agenda;
 
 import libs.tronarko.Hazde;
 import libs.tronarko.Superarkos;

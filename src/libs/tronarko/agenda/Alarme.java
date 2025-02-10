@@ -1,4 +1,4 @@
-package libs.tronarko.Agenda;
+package libs.tronarko.agenda;
 
 import libs.luan.Lista;
 import libs.tronarko.Hazde;

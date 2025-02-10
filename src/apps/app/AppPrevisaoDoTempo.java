@@ -5,7 +5,7 @@ import libs.dkg.DKGObjeto;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
-import libs.oo.JSON;
+import libs.bibliotecas.JSON;
 import libs.tempo.Calendario;
 import libs.tempo.Data;
 import libs.tronarko.Tronarko;
