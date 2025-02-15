@@ -4,6 +4,7 @@ import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.Strings;
 import libs.tempo.Calendario;
 import libs.zetta.fazendario.Armazem;
 import libs.zetta.fazendario.ArmazemIndiceSumario;
@@ -232,7 +233,7 @@ public class ZettaMemCached {
 
             if (e_item.is("Chave", chave)) {
 
-                if(!e_item.at("Valor").contentEquals(valor) ) {
+                if (!e_item.at("Valor").contentEquals(valor)) {
 
                     e_item.at("@PTR", item.getPonteiroDados());
 
@@ -278,7 +279,7 @@ public class ZettaMemCached {
 
             if (e_item.is("Chave", chave)) {
 
-                if(e_item.atInt("Valor")!=valor) {
+                if (e_item.atInt("Valor") != valor) {
 
                     e_item.at("@PTR", item.getPonteiroDados());
 
@@ -326,7 +327,7 @@ public class ZettaMemCached {
 
                 e_item.at("@PTR", item.getPonteiroDados());
 
-                if(e_item.atDouble("Valor")!=valor) {
+                if (e_item.atDouble("Valor") != valor) {
 
                     e_item.tornar_primeiro("@PTR");
                     e_item.tornar_primeiro("@ID");
@@ -372,7 +373,7 @@ public class ZettaMemCached {
 
                 e_item.at("@PTR", item.getPonteiroDados());
 
-                if(e_item.atLong("Valor")!=valor){
+                if (e_item.atLong("Valor") != valor) {
 
                     e_item.tornar_primeiro("@PTR");
                     e_item.tornar_primeiro("@ID");
@@ -494,30 +495,30 @@ public class ZettaMemCached {
         return Opcional.CANCEL();
     }
 
-    public void publicar_se_nao_existir(String chave,String valor){
-        if(!chaveExiste(chave)){
+    public void publicar_se_nao_existir(String chave, String valor) {
+        if (!chaveExiste(chave)) {
             publicar(chave, valor);
         }
     }
 
-    public void publicar_se_nao_existir(String chave,int valor){
-        if(!chaveExiste(chave)){
+    public void publicar_se_nao_existir(String chave, int valor) {
+        if (!chaveExiste(chave)) {
             publicar(chave, valor);
         }
     }
 
-    public void inteiro_aumentar_ou_criar_se_nao_existir (String chave,int valor,int aumentar){
+    public void inteiro_aumentar_ou_criar_se_nao_existir(String chave, int valor, int aumentar) {
 
-        if(chaveExiste(chave)){
+        if (chaveExiste(chave)) {
             inteiro_aumentar(chave, aumentar);
-        }else{
+        } else {
             publicar(chave, valor);
         }
 
     }
 
 
-    public boolean remover(String chave){
+    public boolean remover(String chave) {
 
         boolean removido = false;
 
@@ -536,5 +537,57 @@ public class ZettaMemCached {
 
         return removido;
 
+    }
+
+
+    public Lista<Entidade> buscar_parametrizados(String r1 ) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+
+        for (Entidade item : getItens()) {
+
+            String item_nome = item.at("Chave");
+
+            if (item_nome.startsWith(r1 + "(") & item_nome.endsWith(")") && Strings.contar(item_nome,"(")==1 && Strings.contar(item_nome,")")==1) {
+                ret.adicionar(item);
+            }
+
+        }
+
+        return ret;
+    }
+
+    public Lista<Entidade> buscar_parametrizados(String r1 ,String r2) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+
+        for (Entidade item : getItens()) {
+
+            String item_nome = item.at("Chave");
+
+            if (item_nome.startsWith(r1 + "(") & item_nome.endsWith("]") && item_nome.contains(")->"+r2 +"[") && Strings.contar(item_nome,"(")==1 && Strings.contar(item_nome,")")==1 && Strings.contar(item_nome,"[")==1 && Strings.contar(item_nome,"]")==1) {
+                ret.adicionar(item);
+            }
+
+        }
+
+        return ret;
+    }
+
+    public Lista<Entidade> buscar_parametrizados(String r1 ,String r2,String r3) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+
+        for (Entidade item : getItens()) {
+
+            String item_nome = item.at("Chave");
+
+            if (item_nome.startsWith(r1 + "(") & item_nome.endsWith("}") && item_nome.contains(")->"+r2 +"[")&& item_nome.contains("]::"+r3 +"{") && Strings.contar(item_nome,"(")==1 && Strings.contar(item_nome,")")==1 && Strings.contar(item_nome,"[")==1 && Strings.contar(item_nome,"]")==1&& Strings.contar(item_nome,"{")==1 && Strings.contar(item_nome,"}")==1) {
+                ret.adicionar(item);
+            }
+
+        }
+
+        return ret;
     }
 }
