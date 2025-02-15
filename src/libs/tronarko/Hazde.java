@@ -86,6 +86,14 @@ public class Hazde {
         return texto;
     }
 
+    public String getTextoZeradoSemUzzons() {
+        String texto = "";
+
+        texto = fmt.numero_zerado_c2(this.getArco()) + ":" + fmt.numero_zerado_c2(this.getItta());
+
+        return texto;
+    }
+
 
     public String getTextoSemEttos() {
         String texto = "";
