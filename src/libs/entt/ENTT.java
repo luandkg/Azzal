@@ -2,14 +2,14 @@ package libs.entt;
 
 import libs.arquivos.ds.DS;
 import libs.arquivos.ds.DSItem;
-import libs.dkg.DKG;
-import libs.dkg.DKGAtributo;
-import libs.dkg.DKGObjeto;
-import libs.luan.*;
 import libs.bibliotecas.ODS;
 import libs.bibliotecas.xlsx.Planilha;
 import libs.bibliotecas.xlsx.PlanilhaLinha;
 import libs.bibliotecas.xlsx.XLSX;
+import libs.dkg.DKG;
+import libs.dkg.DKGAtributo;
+import libs.dkg.DKGObjeto;
+import libs.luan.*;
 
 import java.nio.charset.StandardCharsets;
 
@@ -258,7 +258,6 @@ public class ENTT {
 
         return repeticao;
     }
-
 
 
     public static double GET_DOUBLE_MAIOR(Lista<Entidade> mEntts, String eNome) {
@@ -2777,6 +2776,17 @@ public class ENTT {
     public static Lista<Entidade> EMBARALHAR(Lista<Entidade> entts) {
         Embaralhar.emabaralhe(entts);
         return entts;
+    }
+
+
+    public static void ALTERAR_VALOR_SE(Lista<Entidade> entts, String att_nome, String att_valor_corrente, String att_valor_novo) {
+
+        for (Entidade item : entts) {
+            if (item.is(att_nome, att_valor_corrente)) {
+                item.at(att_nome, att_valor_novo);
+            }
+        }
+
     }
 
 }
