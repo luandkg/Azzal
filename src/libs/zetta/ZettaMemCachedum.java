@@ -159,4 +159,15 @@ public class ZettaMemCachedum {
 
     }
 
+    public static String PARAMETRIZADO(String a1,String v1){
+        return a1+"(" + v1 + ")";
+    }
+
+    public static String PARAMETRIZADO(String a1,String v1,String a2,String v2){
+        return a1+"(" + v1 + ")->"+a2+"["+ v2+"]";
+    }
+
+    public static String PARAMETRIZADO(String a1,String v1,String a2,String v2,String a3,String v3){
+        return a1+"(" + v1 + ")->"+a2+"["+ v2+"]::"+a3+"{"+v3+"}";
+    }
 }
