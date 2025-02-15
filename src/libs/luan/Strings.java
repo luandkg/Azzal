@@ -2456,6 +2456,17 @@ public class Strings {
         return false;
     }
 
+    public static void LISTA_EXIBIR(Lista<String> strings) {
+
+        int i = 0;
+        int o = strings.getQuantidade();
+
+        while (i < o) {
+            fmt.print("{}", strings.get(i));
+            i += 1;
+        }
+
+    }
 
     public static Lista<String> LISTA_TRIM(Lista<String> strings) {
 
