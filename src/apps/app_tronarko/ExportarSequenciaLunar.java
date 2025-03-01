@@ -4,7 +4,7 @@ import apps.app_letrum.Maker.AutoFonte;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.imagem.Imagem;
-import libs.tronarko.Satelites.Ceu;
+import libs.tronarko.satelites.Ceu;
 import libs.tronarko.Tozte;
 
 import java.awt.image.BufferedImage;
