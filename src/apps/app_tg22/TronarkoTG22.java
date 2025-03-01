@@ -9,7 +9,7 @@ import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.luan.fmt;
-import libs.tronarko.Eventos.Eventum;
+import libs.tronarko.eventos.Eventum;
 import libs.tronarko.Hiperarkos;
 import libs.tronarko.Superarkos;
 import libs.tronarko.Tozte;
@@ -17,8 +17,6 @@ import libs.tronarko.Tronarko;
 import libs.tronarko.utils.IntTronarko;
 import libs.tronarko.utils.StringTronarko;
 import libs.tronarko.utils.TozteCor;
-
-import java.awt.*;
 
 public class TronarkoTG22 {
 
@@ -80,11 +78,11 @@ public class TronarkoTG22 {
         StringTronarko st = new StringTronarko();
 
         for (Tozte f : toztes_personal) {
-            mInfos.adicionar(new TozteCor("personal", f, Cor.getHexCor("#7CB342").toColor()));
+            mInfos.adicionar(new TozteCor("personal", f, Cor.getHexCor("#7CB342")));
         }
 
         for (Tozte f : interrompidos) {
-            mInfos.adicionar(new TozteCor("interrompido", f, new Color(250, 50, 23)));
+            mInfos.adicionar(new TozteCor("interrompido", f, new Cor(250, 50, 23)));
         }
 
         if (projeto.getQuantidade() > 0) {
@@ -94,7 +92,7 @@ public class TronarkoTG22 {
             Tozte primeiro = st.parseTozte(projeto.get(projeto.getQuantidade() - 1).getTozte());
 
             while (primeiro.isMenorIgualQue(ultimo)) {
-                mInfos.adicionar(new TozteCor("TG22", primeiro, new Color(255, 165, 23)));
+                mInfos.adicionar(new TozteCor("TG22", primeiro, new Cor(255, 165, 23)));
                 primeiro = primeiro.adicionar_Superarko(1);
             }
 
@@ -349,7 +347,7 @@ public class TronarkoTG22 {
 
                 Tozte mTozte = new Tozte(mSuperarko, mHiperarko, eTronarko);
 
-                Color mCor = Color.WHITE;
+                Cor mCor = new Cor(0,0,0);
 
                 boolean comFundo = false;
 
@@ -365,7 +363,7 @@ public class TronarkoTG22 {
                 }
 
                 if (comFundo) {
-                    r.drawRect_Pintado(QX - 1, QY - 2, 25, 20, Cor.getRGB(mCor));
+                    r.drawRect_Pintado(QX - 1, QY - 2, 25, 20, mCor);
                 }
 
                 if (comFundo & anteriorComFundo) {
@@ -375,7 +373,7 @@ public class TronarkoTG22 {
                     }
 
                     if (mPassadoInfoNome.contentEquals(mAtualInfoNome) && mSuperarko <= 50 && mSuperarko > 1) {
-                        r.drawRect_Pintado(QX - 3 - 18, QY + 5, 20, 5, Cor.getRGB(mCor));
+                        r.drawRect_Pintado(QX - 3 - 18, QY + 5, 20, 5, mCor);
                     }
                 }
 
