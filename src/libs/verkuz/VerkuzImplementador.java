@@ -1,11 +1,8 @@
 package libs.verkuz;
 
-import libs.luan.Strings;
-import libs.luan.Texto;
-import libs.luan.TextoDocumento;
+import libs.luan.*;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -14,12 +11,12 @@ public class VerkuzImplementador {
     // IMPLEMENTADO : Luan Freitas
 
     // FEATURE 2022.10 - Sistema de organização de implementações
-    private ArrayList<Implementacao> implementacoes;
-    private ArrayList<VerkuzBiblioteca> bibliotecas;
+    private Lista<Implementacao> implementacoes;
+    private Lista<VerkuzBiblioteca> bibliotecas;
 
     public VerkuzImplementador() {
-        implementacoes = new ArrayList<Implementacao>();
-        bibliotecas = new ArrayList<VerkuzBiblioteca>();
+        implementacoes = new Lista<Implementacao>();
+        bibliotecas = new Lista<VerkuzBiblioteca>();
     }
 
     public void init(String pasta) {
@@ -32,12 +29,11 @@ public class VerkuzImplementador {
             i.setArquivo(i.getArquivo().replace(pasta, arq.getName()));
         }
 
-
     }
 
     public void init_bibliotecas(String pasta) {
 
-        organizar_implementacoes(pasta, new ArrayList<>(), bibliotecas);
+        organizar_implementacoes(pasta, new Lista<>(), bibliotecas);
 
         File arq = new File(pasta);
 
@@ -55,7 +51,7 @@ public class VerkuzImplementador {
 
         System.out.println(" ----------------- BIBLIOTECAS ------------------ ");
 
-        ArrayList<VerkuzBiblioteca> grupos_bibliotecas = new ArrayList<VerkuzBiblioteca>();
+        Lista<VerkuzBiblioteca> grupos_bibliotecas = new Lista<VerkuzBiblioteca>();
 
         for (VerkuzBiblioteca i : bibliotecas) {
             String nome = duplo(i.getArquivo());
@@ -72,7 +68,7 @@ public class VerkuzImplementador {
                     }
                 }
                 if (!existe) {
-                    grupos_bibliotecas.add(new VerkuzBiblioteca(nome, i.getTamanho()));
+                    grupos_bibliotecas.adicionar(new VerkuzBiblioteca(nome, i.getTamanho()));
                 }
 
             }
@@ -86,7 +82,7 @@ public class VerkuzImplementador {
 
     }
 
-    public static ArrayList<VerkuzBiblioteca> ordenar_bibliotecas(ArrayList<VerkuzBiblioteca> objetos) {
+    public static Lista<VerkuzBiblioteca> ordenar_bibliotecas(Lista<VerkuzBiblioteca> objetos) {
 
         Collections.sort(objetos, new Comparator() {
             @Override
@@ -133,7 +129,7 @@ public class VerkuzImplementador {
         return ret;
     }
 
-    public void organizar_implementacoes(String pasta, ArrayList<Implementacao> implementacoes, ArrayList<VerkuzBiblioteca> ls_bibliotecas) {
+    public void organizar_implementacoes(String pasta, Lista<Implementacao> implementacoes, Lista<VerkuzBiblioteca> ls_bibliotecas) {
 
         for (File item : new File(pasta).listFiles()) {
 
@@ -148,7 +144,7 @@ public class VerkuzImplementador {
                     // }
                     long tam = item.length();
 
-                    ls_bibliotecas.add(new VerkuzBiblioteca(item.getAbsolutePath(), tam));
+                    ls_bibliotecas.adicionar(new VerkuzBiblioteca(item.getAbsolutePath(), tam));
 
                 }
             } else if (item.isDirectory()) {
@@ -182,11 +178,11 @@ public class VerkuzImplementador {
     }
 
 
-    public void organizar_arquivo_java(String arquivo, ArrayList<Implementacao> implementacoes) {
+    public void organizar_arquivo_java(String arquivo, Lista<Implementacao> implementacoes) {
 
         String conteudo = Texto.arquivo_ler(arquivo);
 
-        ArrayList<String> linhas = Strings.dividir_linhas(conteudo);
+        Lista<String> linhas = Strings.DIVIDIR_LINHAS(conteudo);
 
         for (String linha : linhas) {
 
@@ -202,7 +198,7 @@ public class VerkuzImplementador {
                 linha = linha.replace("//", "");
 
                 if (linha.contains("FEATURE")) {
-                    implementacoes.add(new Implementacao(arquivo, linha, ""));
+                    implementacoes.adicionar(new Implementacao(arquivo, linha, ""));
                 }
                 //  System.out.println(linha);
             }
