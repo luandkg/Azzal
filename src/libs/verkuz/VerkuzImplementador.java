@@ -75,6 +75,8 @@ public class VerkuzImplementador {
 
         }
 
+
+
         for (VerkuzBiblioteca i : ordenar_bibliotecas(grupos_bibliotecas)) {
             System.out.println(i.getArquivo() + " :: " + i.getTamanho());
         }
@@ -82,23 +84,17 @@ public class VerkuzImplementador {
 
     }
 
-    public static Lista<VerkuzBiblioteca> ordenar_bibliotecas(Lista<VerkuzBiblioteca> objetos) {
 
-        Collections.sort(objetos, new Comparator() {
+    public static Lista<VerkuzBiblioteca> ordenar_bibliotecas(Lista<VerkuzBiblioteca> eGrupos) {
+
+        Lista.ORDENAR_CRESCENTE(eGrupos, new Ordenavel<VerkuzBiblioteca>() {
             @Override
-            public int compare(Object objeto_um, Object objeto_dois) {
-
-                VerkuzBiblioteca o1 = (VerkuzBiblioteca) objeto_um;
-                VerkuzBiblioteca o2 = (VerkuzBiblioteca) objeto_dois;
-
-                String p1 = o1.getArquivo();
-                String p2 = o2.getArquivo();
-
-                return (p1.compareTo(p2));
+            public int emOrdem(VerkuzBiblioteca a, VerkuzBiblioteca b) {
+                return Strings.STRING_COMPARAR(a.getArquivo(),b.getArquivo());
             }
         });
 
-        return objetos;
+        return eGrupos;
     }
 
 
