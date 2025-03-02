@@ -2780,4 +2780,18 @@ public class Strings {
         }
         return ret;
     }
+
+
+    public static Ordenavel<String> GET_STRING_ORDENAVEL() {
+        return new Ordenavel<String>() {
+            @Override
+            public int emOrdem(String a, String b) {
+                return a.compareTo(b);
+            }
+        };
+    }
+
+    public static int STRING_COMPARAR(String a,String b){
+        return a.compareTo(b);
+    }
 }
