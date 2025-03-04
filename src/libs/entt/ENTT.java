@@ -40,6 +40,22 @@ public class ENTT {
         return e;
     }
 
+    public static Entidade CRIAR(String nome1, String valor1, String nome2, String valor2,String nome3,String valor3) {
+        Entidade e = new Entidade();
+        e.at(nome1, valor1);
+        e.at(nome2, valor2);
+        e.at(nome3, valor3);
+        return e;
+    }
+    public static Entidade CRIAR(String nome1, String valor1, String nome2, String valor2,String nome3,String valor3,String nome4,String valor4) {
+        Entidade e = new Entidade();
+        e.at(nome1, valor1);
+        e.at(nome2, valor2);
+        e.at(nome3, valor3);
+        e.at(nome4, valor4);
+        return e;
+    }
+
     public static Entidade CRIAR(String nome1, int valor1, String nome2, String valor2) {
         Entidade e = new Entidade();
         e.at(nome1, valor1);
@@ -1646,6 +1662,14 @@ public class ENTT {
 
     }
 
+    public static void AT_MUDAR_NOME(Lista<Entidade> entts, String atributo_antigo, String atributo_novo) {
+
+        for (Entidade item : entts) {
+            item.proc_at(atributo_antigo).setNome(atributo_novo);
+        }
+
+    }
+
 
     public static Lista<Entidade> GET_TOP10(Lista<Entidade> entts) {
 
@@ -2787,6 +2811,69 @@ public class ENTT {
             }
         }
 
+    }
+
+    public static boolean COLETAR_EXISTE(Lista<Entidade> entts, String att_nome, String att_valor){
+        return COLETAR(entts,att_nome,att_valor).getQuantidade()>0;
+    }
+
+    public static boolean TEM_OBJETOS(Lista<Entidade> entts){
+        return entts.getQuantidade()>0;
+    }
+
+    public static boolean ZERO_OBJETOS(Lista<Entidade> entts){
+        return entts.getQuantidade()==0;
+    }
+
+    public static Lista<Entidade> COLETAR_OU_COLETAR(Lista<Entidade> linhas, String chave, String coluna_valor, String chave2, String coluna_valor2) {
+
+        Lista<Entidade> filtrados = new Lista<Entidade>();
+
+        for (Entidade linha : linhas) {
+            if (linha.isIgual(chave, coluna_valor) || linha.isIgual(chave2, coluna_valor2)) {
+                filtrados.adicionar(linha);
+            }
+        }
+
+        return filtrados;
+    }
+
+    public static int INTEIRO_MAIOR(Lista<Entidade> entts, String campo) {
+
+        int maior = 0;
+
+        for (Entidade assunto : entts) {
+            int valor = assunto.atInt(campo);
+            if (valor > maior) {
+                maior = valor;
+            }
+        }
+
+        return maior;
+    }
+
+    public static int INTEIRO_MENOR(Lista<Entidade> entts, String campo) {
+
+        int menor = entts.get(0).atInt(campo);
+
+        for (Entidade assunto : entts) {
+            int valor = assunto.atInt(campo);
+            if (valor < menor) {
+                menor = valor;
+            }
+        }
+
+        return menor;
+    }
+
+
+    public static Lista<String> LISTAR_VALORES(Lista<Entidade> entts, String att_nome) {
+        Lista<String> valores = new Lista<String>();
+
+        for (Entidade e : entts) {
+            valores.adicionar(e.at(att_nome));
+        }
+        return valores;
     }
 
 }

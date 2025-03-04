@@ -409,6 +409,52 @@ public class Entidade {
 
     }
 
+    public void trocar_posicionalmente(String att1, String att2) {
+
+        boolean v1 = false;
+        boolean v2 = false;
+
+        String valor_1 = "";
+        String valor_2 = "";
+
+
+        for (Tag tag : mTags) {
+            if (tag.getNome().contentEquals(att1)) {
+                valor_1=tag.getValor();
+                v1 = true;
+            }
+
+            if (tag.getNome().contentEquals(att2)) {
+                valor_2=tag.getValor();
+                v2 = true;
+            }
+
+            if (v1 && v2) {
+                break;
+            }
+        }
+
+        if (v1 && v2) {
+
+        }else{
+            throw new RuntimeException("Entidade : Erro ao trocar !");
+        }
+
+        for (Tag tag : mTags) {
+            if (tag.getNome().contentEquals(att1)) {
+                tag.setNome(att2);
+                tag.setValor(valor_2);
+            }else  if (tag.getNome().contentEquals(att2)) {
+                tag.setNome(att1);
+                tag.setValor(valor_1);
+            }
+
+
+        }
+
+    }
+
+
     public void at_renomear(String att_alfa, String att_beta) {
 
         for (Tag tag : tags()) {
@@ -433,6 +479,14 @@ public class Entidade {
         }
 
         return copia;
+    }
+
+    public boolean isIgual(String eNome, String eValor) {
+        return at(eNome).contentEquals(eValor);
+    }
+
+    public boolean isIgual(String eNome, int eValor) {
+        return atInt(eNome) == (eValor);
     }
 
 
