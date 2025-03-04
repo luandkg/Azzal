@@ -923,4 +923,8 @@ public class Lista<T> implements Iterable<T> {
         return null;
     }
 
+    public boolean temItens(){
+        return mQuantidade>0;
+    }
+
 }
