@@ -44,39 +44,39 @@ public class Eventum {
         mOcorrencias.adicionar(new Ocorrencia("Batalha dos Imperadores", 30, 1, 5382, 39, 5));
         mOcorrencias.adicionar(new Ocorrencia("Torneio de Hazzo", 11, 9, 5431, 10, 2));
 
-        for (Ocorrencia OcorrenciaC : mOcorrencias) {
+        for (Ocorrencia ocorrencia_corrente : mOcorrencias) {
 
-            if (OcorrenciaC.getPeriodo() == Modos.PERIODICO) {
+            if (ocorrencia_corrente.getPeriodo() == Modos.PERIODICO) {
 
-                if (OcorrenciaC.getQuantidade() == 1) {
+                if (ocorrencia_corrente.getQuantidade() == 1) {
 
-                    mPequenosEventos.adicionar(new AvisarPequenoEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
-                            OcorrenciaC.getSuperarko(), OcorrenciaC.getTronarkoInicio(), OcorrenciaC.getIntervaloTronarko(), 10, 10));
+                    mPequenosEventos.adicionar(new AvisarPequenoEvento(ocorrencia_corrente.getNome(), ocorrencia_corrente.getHiperarko(),
+                            ocorrencia_corrente.getSuperarko(), ocorrencia_corrente.getTronarkoInicio(), ocorrencia_corrente.getIntervaloTronarko(), 10, 10));
 
-                } else if (OcorrenciaC.getQuantidade() > 1) {
+                } else if (ocorrencia_corrente.getQuantidade() > 1) {
 
-                    mGrandesEventos.adicionar(new AvisarGrandeEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
-                            OcorrenciaC.getSuperarko(), OcorrenciaC.getHiperarko(), OcorrenciaC.getSuperarkoFim(),
-                            OcorrenciaC.getIntervaloTronarko(), OcorrenciaC.getTronarkoInicio(), 100, 15));
+                    mGrandesEventos.adicionar(new AvisarGrandeEvento(ocorrencia_corrente.getNome(), ocorrencia_corrente.getHiperarko(),
+                            ocorrencia_corrente.getSuperarko(), ocorrencia_corrente.getHiperarko(), ocorrencia_corrente.getSuperarkoFim(),
+                            ocorrencia_corrente.getIntervaloTronarko(), ocorrencia_corrente.getTronarkoInicio(), 100, 15));
 
                 }
 
             }
 
-            if (OcorrenciaC.getPeriodo() == Modos.CICLICO) {
+            if (ocorrencia_corrente.getPeriodo() == Modos.CICLICO) {
 
-                if (OcorrenciaC.getQuantidade() == 1) {
-
-
-                    mPequenosEventos.adicionar(new AvisarPequenoEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
-                            OcorrenciaC.getSuperarko(), OcorrenciaC.getTronarkoInicio(), OcorrenciaC.getIntervaloTronarko(), 10, 10));
+                if (ocorrencia_corrente.getQuantidade() == 1) {
 
 
-                } else if (OcorrenciaC.getQuantidade() > 1) {
+                    mPequenosEventos.adicionar(new AvisarPequenoEvento(ocorrencia_corrente.getNome(), ocorrencia_corrente.getHiperarko(),
+                            ocorrencia_corrente.getSuperarko(), ocorrencia_corrente.getTronarkoInicio(), ocorrencia_corrente.getIntervaloTronarko(), 10, 10));
 
-                    mGrandesEventos.adicionar(new AvisarGrandeEvento(OcorrenciaC.getNome(), OcorrenciaC.getHiperarko(),
-                            OcorrenciaC.getSuperarko(), OcorrenciaC.getHiperarko(), OcorrenciaC.getSuperarkoFim(),
-                            OcorrenciaC.getIntervaloTronarko(), OcorrenciaC.getTronarkoInicio(), 100, 15));
+
+                } else if (ocorrencia_corrente.getQuantidade() > 1) {
+
+                    mGrandesEventos.adicionar(new AvisarGrandeEvento(ocorrencia_corrente.getNome(), ocorrencia_corrente.getHiperarko(),
+                            ocorrencia_corrente.getSuperarko(), ocorrencia_corrente.getHiperarko(), ocorrencia_corrente.getSuperarkoFim(),
+                            ocorrencia_corrente.getIntervaloTronarko(), ocorrencia_corrente.getTronarkoInicio(), 100, 15));
 
                 }
 
@@ -113,16 +113,16 @@ public class Eventum {
         return ret;
     }
 
-    public void ordenarPequenosEventos(Lista<AvisarPequenoEvento> Entrada) {
-        Ordenador.ordenar_lista_crescente(Entrada,AvisarPequenoEvento.ORDENAVEL());
+    public void ordenarPequenosEventos(Lista<AvisarPequenoEvento> lista_pequenos_eventos) {
+        Ordenador.ORDENAR_CRESCENTE_LISTA(lista_pequenos_eventos,AvisarPequenoEvento.ORDENAVEL());
     }
 
     public void ordenarGrandesEventos(Lista<AvisarGrandeEvento> Entrada) {
-        Ordenador.ordenar_lista_crescente(Entrada,AvisarGrandeEvento.ORDENAVEL());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(Entrada,AvisarGrandeEvento.ORDENAVEL());
     }
 
     public void ordenarGrandesAvisos(Lista<Avisar> Entrada) {
-        Ordenador.ordenar_lista_crescente(Entrada,Avisar.ORDENAVEL());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(Entrada,Avisar.ORDENAVEL());
     }
 
     public Lista<AvisarPequenoEvento> getAvisosPequenosEventos() {
@@ -164,6 +164,23 @@ public class Eventum {
             ret.adicionar(P.toString());
         }
         return ret;
+    }
+
+    public Lista<Evento> getProximosEventos(int eTronarko) {
+
+        Lista<Evento> eventos = new Lista<Evento>();
+
+        for (GrandeEvento ev : proximosGrandesEventos(eTronarko)) {
+            Evento evt = new Evento(ev, ev.getNome(), ev.getInicio());
+            eventos.adicionar(evt);
+        }
+
+        for (PequenoEvento ev : proximosPequenosEventos(eTronarko)) {
+            Evento evt = new Evento(ev, ev.getNome(), ev.getTozte());
+            eventos.adicionar(evt);
+        }
+
+        return eventos;
     }
 
     public Lista<PequenoEvento> proximosPequenosEventos(int eTronarko) {

@@ -1,5 +1,6 @@
 package libs.tronarko;
 
+import libs.luan.Lista;
 import libs.luan.Par;
 import libs.luan.RefInt;
 import libs.tempo.Calendario;
@@ -36,6 +37,7 @@ import libs.tempo.Horario;
 //  ATUALIZACAO 12 : 11/03/2022 - AGENDA E FLUXO TEMPORAL
 //  ATUALIZACAO 13 : 27/03/2022 - TRONARKO FALSUM e PSEUDO TRONARKO
 //  ATUALIZACAO 14 : 26/01/2025 - INTEGRAÇÃO ENTRE TRONARKO E CALENDARIO PARA ESPECIALIZAÇÃO E SIMPLIFICAÇÃO
+//  ATUALIZACAO 15 : 04/03/2025 - CONSTANTES , Enumerador MEGARKO e Classe Evento
 
 
 public class Tronarko {
@@ -45,6 +47,8 @@ public class Tronarko {
     private static final int TRONARKO_SUPERARKOS_POR_TRONARKO = 500;
     private static final int TRONARKO_SUPERARKOS_POR_HIPERARKO = 50;
 
+    public static final int SUPERARKOS_POR_HIPERARKO=50;
+    public static final int SUPERARKOS_POR_MEGARKO=10;
 
     // TRON
     public static String getAgora() {
@@ -267,6 +271,18 @@ public class Tronarko {
 
     public static Tozte TOZTE_ULTIMO(int eTronarko) {
         return new Tozte(50, 10, eTronarko);
+    }
+
+    public static Lista<Megarko> GET_MEGARKOS() {
+        Lista<Megarko> megarkos = new Lista<Megarko>();
+
+        megarkos.adicionar(Megarko.Megarko_1);
+        megarkos.adicionar(Megarko.Megarko_2);
+        megarkos.adicionar(Megarko.Megarko_3);
+        megarkos.adicionar(Megarko.Megarko_4);
+        megarkos.adicionar(Megarko.Megarko_5);
+
+        return megarkos;
     }
 
 }
