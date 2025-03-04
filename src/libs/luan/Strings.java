@@ -425,8 +425,8 @@ public class Strings {
     }
 
 
-    public static ArrayList<String> dividir_linhas_normalizadas(String texto) {
-        ArrayList<String> linhas = new ArrayList<String>();
+    public static Lista<String> dividir_linhas_normalizadas(String texto) {
+        Lista<String> linhas = new Lista<String>();
 
         int i = 0;
         int o = texto.length();
@@ -438,7 +438,7 @@ public class Strings {
             if (c.contentEquals("\n")) {
                 if (linha.length() > 0) {
                     if (isNormalizadaValida(linha)) {
-                        linhas.add(linha);
+                        linhas.adicionar(linha);
                     }
                 }
                 linha = "";
@@ -449,7 +449,7 @@ public class Strings {
         }
         if (linha.length() > 0) {
             if (isNormalizadaValida(linha)) {
-                linhas.add(linha);
+                linhas.adicionar(linha);
             }
         }
         return linhas;
@@ -1651,6 +1651,32 @@ public class Strings {
         return ret.trim();
     }
 
+    public static String GET_ENTRE_ISSO(String s,String abrir,String fechar) {
+
+        String ret = "";
+
+        boolean valido = false;
+
+        int i = 0;
+        int o = s.length();
+        while (i < o) {
+            String l = String.valueOf(s.charAt(i));
+            if (l.contentEquals(abrir)) {
+                valido = true;
+            } else if (valido && l.contentEquals(fechar)) {
+                valido = false;
+                break;
+            } else {
+                if (valido) {
+                    ret += l;
+                }
+            }
+            i += 1;
+        }
+
+        return ret.trim();
+    }
+
     public static String obter_entre_tabs(String texto, int caixa) {
         int contagem = 0;
 
@@ -2793,5 +2819,49 @@ public class Strings {
 
     public static int STRING_COMPARAR(String a,String b){
         return a.compareTo(b);
+    }
+
+    public static String GET_DEPOIS_DE_CONTAGEM(String s, String de, int vContagem) {
+
+        String ret = "";
+
+        int v = 0;
+
+        int i = 0;
+        int o = s.length();
+
+        while (i < o) {
+            String l = String.valueOf(s.charAt(i));
+
+            if (v >= vContagem) {
+                ret += l;
+            } else {
+                if (l.contentEquals(de)) {
+                    v += 1;
+                }
+            }
+
+            i += 1;
+        }
+
+
+        return ret;
+    }
+
+    public static int contar_letra(String texto, String proc_letra) {
+        int contagem = 0;
+
+        int i = 0;
+        int o = texto.length();
+
+        while (i < o) {
+            String c = String.valueOf(texto.charAt(i));
+            if (c.contentEquals(proc_letra)) {
+                contagem += 1;
+            }
+            i += 1;
+        }
+
+        return contagem;
     }
 }
