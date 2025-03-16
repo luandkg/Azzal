@@ -590,4 +590,60 @@ public class ZettaMemCached {
 
         return ret;
     }
+
+    public Lista<Entidade> buscar_parametrizados_completo_com_valor_a1(String r1 ,String r2,String r3,String v1) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+
+        for (Entidade item : getItens()) {
+
+            String item_nome = item.at("Chave");
+
+            if (item_nome.startsWith(r1 + "(") & item_nome.endsWith("}") && item_nome.contains(")->"+r2 +"[")&& item_nome.contains("]::"+r3 +"{") && Strings.contar(item_nome,"(")==1 && Strings.contar(item_nome,")")==1 && Strings.contar(item_nome,"[")==1 && Strings.contar(item_nome,"]")==1&& Strings.contar(item_nome,"{")==1 && Strings.contar(item_nome,"}")==1) {
+                if(item_nome.startsWith(r1+"("+v1+")->")){
+                    ret.adicionar(item);
+                }
+            }
+
+        }
+
+        return ret;
+    }
+    public Lista<Entidade> buscar_parametrizados_completo_com_valor_a2(String r1 ,String r2,String r3,String v2) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+
+        for (Entidade item : getItens()) {
+
+            String item_nome = item.at("Chave");
+
+            if (item_nome.startsWith(r1 + "(") & item_nome.endsWith("}") && item_nome.contains(")->"+r2 +"[")&& item_nome.contains("]::"+r3 +"{") && Strings.contar(item_nome,"(")==1 && Strings.contar(item_nome,")")==1 && Strings.contar(item_nome,"[")==1 && Strings.contar(item_nome,"]")==1&& Strings.contar(item_nome,"{")==1 && Strings.contar(item_nome,"}")==1) {
+                if(item_nome.contains("->"+r2+"["+v2+"]")){
+                    ret.adicionar(item);
+                }
+            }
+
+        }
+
+        return ret;
+    }
+
+    public Lista<Entidade> buscar_parametrizados_completo_com_valor_a3(String r1 ,String r2,String r3,String v3) {
+        Lista<Entidade> ret = new Lista<Entidade>();
+
+
+        for (Entidade item : getItens()) {
+
+            String item_nome = item.at("Chave");
+
+            if (item_nome.startsWith(r1 + "(") & item_nome.endsWith("}") && item_nome.contains(")->"+r2 +"[")&& item_nome.contains("]::"+r3 +"{") && Strings.contar(item_nome,"(")==1 && Strings.contar(item_nome,")")==1 && Strings.contar(item_nome,"[")==1 && Strings.contar(item_nome,"]")==1&& Strings.contar(item_nome,"{")==1 && Strings.contar(item_nome,"}")==1) {
+               if(item_nome.endsWith("::"+r3+"{"+v3+"}")){
+                   ret.adicionar(item);
+               }
+            }
+
+        }
+
+        return ret;
+    }
 }
