@@ -13,6 +13,7 @@ import libs.portugues.PortuguesFTS;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.TronarkoAleatorium;
 import libs.zetta.*;
+import libs.zetta.features.ZQC;
 
 public class TesteZettaQuorum {
 
@@ -281,7 +282,7 @@ public class TesteZettaQuorum {
 
                 FTS.ORDENAR_MAIOR_RANKING(fts_dados);
 
-               // ENTT.EXIBIR_TABELA(ENTT.SLICE(fts_dados, 0, 10));
+                // ENTT.EXIBIR_TABELA(ENTT.SLICE(fts_dados, 0, 10));
 
                 FTS.MERGE(fts_analisado, ENTT.SLICE(fts_dados, 0, 10));
 
@@ -292,7 +293,7 @@ public class TesteZettaQuorum {
 
         zeta.fechar();
 
-       // ENTT.EXIBIR_TABELA(fts_analisado);
+        // ENTT.EXIBIR_TABELA(fts_analisado);
 
         FTS.ORDENAR_MAIOR_RANKING(fts_analisado);
         // FTS.ORDENAR_MAIOR_CITACAO(fts_analisado);
@@ -544,7 +545,7 @@ public class TesteZettaQuorum {
         zeta.fechar();
     }
 
-    public static void init_ver_dados(){
+    public static void init_ver_dados() {
 
         fmt.print("----------------- ZETA QUORUM :: VER DADOS ------------------");
 
@@ -554,16 +555,106 @@ public class TesteZettaQuorum {
 
 
         Lista<Entidade> colecoes = ENTT.CRIAR_LISTA();
-        for(ZettaColecao colecao : zeta.getColecoes()){
-            Entidade e_colecao = ENTT.CRIAR_EM_SEQUENCIALMENTE(colecoes,"ID",1);
-            e_colecao.at("Nome",colecao.getNome());
+        for (ZettaColecao colecao : zeta.getColecoes()) {
+            Entidade e_colecao = ENTT.CRIAR_EM_SEQUENCIALMENTE(colecoes, "ID", 1);
+            e_colecao.at("Nome", colecao.getNome());
         }
 
 
         zeta.fechar();
 
-        ENTT.EXIBIR_TABELA_COM_TITULO(colecoes,"COLECOES");
+        ENTT.EXIBIR_TABELA_COM_TITULO(colecoes, "COLECOES");
+
+        ZQC.EXIBIR_COLECOES_RESUMO(arquivo_zeta);
 
     }
+
+
+    public static void TESTE_MEMCACHED() {
+
+        fmt.print("----------------- ZETA QUORUM ------------------");
+
+        String arquivo_zeta = "/home/luan/assets/teste_fazendas/zeta.az";
+
+
+        ZettaMemCachedum memcached = new ZettaMemCachedum(arquivo_zeta);
+
+        ZettaMemCached prefs = memcached.getColecaoSempre("Prefs");
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(prefs.getItens(), "ANTES");
+
+
+        prefs.publicar_se_nao_existir("Criado", Tronarko.getTronAgora().getTextoComInfos());
+
+        prefs.atualizar("Atualizacao", Tronarko.getTronAgora().getTextoComInfos());
+
+
+        prefs.publicar_se_nao_existir("AlfaContador", 0);
+        prefs.inteiro_aumentar("AlfaContador", 1);
+
+        prefs.atualizar("Quantidade", prefs.contagem());
+
+
+        String s_param = ZettaMemCachedum.PARAMETRIZADO("BetaContador",Tronarko.getTozte().getTextoZerado());
+
+        prefs.inteiro_aumentar_ou_criar_se_nao_existir(s_param, 0, 1);
+
+        prefs.inteiro_aumentar_ou_criar_se_nao_existir("GamaContador", 0, 1);
+
+        Opcional<Integer> op_gama = prefs.obterInteiroOpcional("GamaContador");
+        if (op_gama.isOK()) {
+            if (op_gama.get() >= 5) {
+                prefs.remover("GamaContador");
+                prefs.inteiro_aumentar_ou_criar_se_nao_existir("DeltaContador", 1, 1);
+            }
+        }
+
+
+        String s_param2 = ZettaMemCachedum.PARAMETRIZADO("BetaContador",Tronarko.getTozte().getTextoZerado(),"Arko",fmt.numero_zerado_c2(Tronarko.getHazde().getArco()));
+
+        prefs.inteiro_aumentar_ou_criar_se_nao_existir(s_param2, 0, 1);
+
+        String s_param31 = ZettaMemCachedum.PARAMETRIZADO("BetaContador",Tronarko.getTozte().getTextoZerado(),"Arko",fmt.numero_zerado_c2(Tronarko.getHazde().getArco()),"Info","Nivel");
+        String s_param32 = ZettaMemCachedum.PARAMETRIZADO("BetaContador",Tronarko.getTozte().getTextoZerado(),"Arko",fmt.numero_zerado_c2(Tronarko.getHazde().getArco()),"Info","Personsagem");
+        String s_param33 = ZettaMemCachedum.PARAMETRIZADO("BetaContador",Tronarko.getTozte().getTextoZerado(),"Arko",fmt.numero_zerado_c2(Tronarko.getHazde().getArco()),"Info","Cor");
+
+        prefs.publicar_se_nao_existir(s_param31, "15");
+        prefs.publicar_se_nao_existir(s_param32, "Barto Nezz");
+        prefs.publicar_se_nao_existir(s_param33, "Vermelho");
+
+        prefs.atualizar(s_param31, Aleatorio.aleatorio_entre(0,100));
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(prefs.getItens(), "ATUALIZADA");
+
+
+        Opcional<Integer> op_valor = prefs.obterInteiroOpcional("AlfaContador");
+
+        if (op_valor.isOK()) {
+            fmt.print("AlfaContador :: {}", op_valor.get());
+            String s_valor = String.valueOf(op_valor.get());
+            if(s_valor.endsWith("5")){
+                prefs.atualizar("M5",s_valor);
+            }
+        }
+
+        Opcional<String> op_m5 = prefs.obterValorOpcional("M5");
+        if (op_m5.isOK()) {
+            fmt.print("M5 :: {}", op_m5.get());
+        }
+
+        String s_param34 = ZettaMemCachedum.PARAMETRIZADO("ObjetoRef",Tronarko.getTozte().getTextoZerado(),"Arko",fmt.numero_zerado_c2(Tronarko.getHazde().getArco()),"Modarko",fmt.numero_zerado_c2(Tronarko.getHazde().getModarko().getValor()));
+        prefs.atualizar(s_param34, Tronarko.getHazde().getModarko().toString());
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(prefs.buscar_parametrizados("BetaContador"), "BETA CONTADORES");
+        ENTT.EXIBIR_TABELA_COM_TITULO(prefs.buscar_parametrizados("BetaContador","Hazde"), "BETA CONTADORES COM HAZDE");
+        ENTT.EXIBIR_TABELA_COM_TITULO(prefs.buscar_parametrizados("BetaContador","Arko"), "BETA CONTADORES COM ARKO");
+        ENTT.EXIBIR_TABELA_COM_TITULO(prefs.buscar_parametrizados("BetaContador","Arko","Info"), "BETA CONTADORES COM ARKO E INFO");
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(prefs.buscar_parametrizados_completo_com_valor_a1("BetaContador","Arko","Info","04/08/7004"), "BETA CONTADORES COM ARKO E INFO :: BETACONTADOR(04/08/7004)");
+
+
+        memcached.fechar();
+    }
+
 
 }
