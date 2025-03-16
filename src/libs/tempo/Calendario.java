@@ -110,6 +110,15 @@ public class Calendario {
         return date;
     }
 
+    public static int getHoraInteiro() {
+        String date = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+        return Integer.parseInt(date);
+    }
+
+    public static int getMinutoInteiro() {
+        String date = new SimpleDateFormat("mm", Locale.getDefault()).format(new Date());
+        return Integer.parseInt(date);
+    }
 
     public static boolean isIgual(String a, String b) {
         return a.contentEquals(b);
@@ -1482,6 +1491,99 @@ public class Calendario {
     }
     public static Data PARSER_DATA(String eData) {
         return Data.toData(eData);
+    }
+
+
+    public static String GET_DATA_DE_PORTUGUES(String data_corrente) {
+        data_corrente = data_corrente.replace(" de ", "/");
+        String dia = Strings.GET_ATE(data_corrente, "/");
+        int mes = Calendario.GET_MES_NUMERO_COM_NOME_PORTUGUES(Strings.GET_ENTRE_ISSO(data_corrente, "/", "/").toUpperCase());
+        String ano = Strings.GET_REVERSO_ATE(data_corrente, "/");
+
+        return fmt.numero_zerado_c2(dia) + "/" + fmt.numero_zerado_c2(mes) + "/" + ano;
+    }
+
+
+    public static int GET_MES_NUMERO_COM_NOME_PORTUGUES(String mes) {
+
+        int i_mes = 0;
+
+        if (mes.contentEquals("JANEIRO")) {
+            i_mes = 1;
+        } else if (mes.contentEquals("FEVEREIRO")) {
+            i_mes = 2;
+        } else if (mes.contentEquals("MARÇO")) {
+            i_mes = 3;
+        } else if (mes.contentEquals("ABRIL")) {
+            i_mes = 4;
+        } else if (mes.contentEquals("MAIO")) {
+            i_mes = 5;
+        } else if (mes.contentEquals("JUNHO")) {
+            i_mes = 6;
+        } else if (mes.contentEquals("JULHO")) {
+            i_mes = 7;
+        } else if (mes.contentEquals("AGOSTO")) {
+            i_mes = 8;
+        } else if (mes.contentEquals("SETEMBRO")) {
+            i_mes = 9;
+        } else if (mes.contentEquals("OUTUBRO")) {
+            i_mes = 10;
+        } else if (mes.contentEquals("NOVEMBRO")) {
+            i_mes = 11;
+        } else if (mes.contentEquals("DEZEMBRO")) {
+            i_mes = 12;
+        }
+
+        return i_mes;
+    }
+
+    public static String getTurno() {
+
+        Horario horario = getHorario();
+
+        String turno = "";
+
+        if (horario.getHora() >= 0) {
+            turno = "Madrugando";
+        }
+
+        if (horario.getHora() >= 7) {
+            turno = "Amanhecendo";
+        }
+
+        if (horario.getHora() >= 13) {
+            turno = "Entardecendo";
+        }
+
+        if (horario.getHora() >= 19) {
+            turno = "Anoitecendo";
+        }
+
+        return turno;
+    }
+
+    public static Data getDataAnteriorComEssas(Lista<Data> datas,Data essa){
+        Data ontem = null;
+        for (Data data : datas) {
+            if (data.isIgual(essa)) {
+                break;
+            }
+            ontem = data;
+        }
+        return ontem;
+    }
+
+    public static String GET_DATA_DO_INGLES_TEXTO(String entrada){
+
+        String data_mes = Strings.parser_ate(entrada, " ");
+        String data_dia_ano = Strings.parser_depois_de(entrada, " ");
+        String data_dia = Strings.parser_ate(data_dia_ano, ",");
+        String data_ano = Strings.parser_depois_de(data_dia_ano, " ");
+
+        data_dia = fmt.numero_zerado_c2(data_dia);
+        data_mes = Calendario.MES_INGLES_PARA_NUMERAL_ZERADO(data_mes);
+
+        return  data_ano + "_" + data_mes + "_" + data_dia;
     }
 
 }
