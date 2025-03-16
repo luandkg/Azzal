@@ -412,7 +412,7 @@ public class Strings {
                 if (!linha.isEmpty()) {
                     linhas.adicionar(linha);
                 }
-                linha = "";
+                linha = c;
             } else {
                 linha += c;
             }
