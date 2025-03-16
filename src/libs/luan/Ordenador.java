@@ -46,7 +46,7 @@ public class Ordenador {
     }
 
 
-    public static <T> void ordenar_lista_crescente(Lista<T> lista, Ordenavel<T> algoritmo_de_ordenacao) {
+    public static <T> void ORDENAR_CRESCENTE_LISTA(Lista<T> lista, Ordenavel<T> algoritmo_de_ordenacao) {
 
         int n = lista.getQuantidade();
         T temp = null;
@@ -67,7 +67,7 @@ public class Ordenador {
 
     }
 
-    public static <T> void ordenar_lista_decrescente(Lista<T> lista, Ordenavel<T> algoritmo_de_ordenacao) {
+    public static <T> void ORDENAR_DECRESCENTE_LISTA(Lista<T> lista, Ordenavel<T> algoritmo_de_ordenacao) {
 
         int n = lista.getQuantidade();
         T temp = null;
