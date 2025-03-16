@@ -33,7 +33,7 @@ public class ZettaColecao {
     }
 
 
-    public long alocados(){
+    public long alocados() {
         return mDados.getItensAlocadosContagem();
     }
 
@@ -168,11 +168,11 @@ public class ZettaColecao {
             e_item.tornar_primeiro("@PTR");
             e_item.tornar_primeiro("@ID");
 
-           // return Opcional.OK(new ItemColecionavel(mIndice, item, e_item));
+            // return Opcional.OK(new ItemColecionavel(mIndice, item, e_item));
 
         }
 
-       return Opcional.CANCEL();
+        return Opcional.CANCEL();
     }
 
     public Opcional<Entidade> procurar_item_por_indice(long indice) {
@@ -225,5 +225,16 @@ public class ZettaColecao {
         for (Entidade item : varios) {
             adicionar(item);
         }
+    }
+
+    public Opcional<ItemColecionavel> obter_opcional(String att_nome, String att_valor) {
+
+        for (ItemColecionavel ic : getItensEditaveis()) {
+            if (ic.get().is(att_nome, att_valor)) {
+                return Opcional.OK(ic);
+            }
+        }
+
+        return Opcional.CANCEL();
     }
 }
