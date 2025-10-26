@@ -40,14 +40,15 @@ public class ENTT {
         return e;
     }
 
-    public static Entidade CRIAR(String nome1, String valor1, String nome2, String valor2,String nome3,String valor3) {
+    public static Entidade CRIAR(String nome1, String valor1, String nome2, String valor2, String nome3, String valor3) {
         Entidade e = new Entidade();
         e.at(nome1, valor1);
         e.at(nome2, valor2);
         e.at(nome3, valor3);
         return e;
     }
-    public static Entidade CRIAR(String nome1, String valor1, String nome2, String valor2,String nome3,String valor3,String nome4,String valor4) {
+
+    public static Entidade CRIAR(String nome1, String valor1, String nome2, String valor2, String nome3, String valor3, String nome4, String valor4) {
         Entidade e = new Entidade();
         e.at(nome1, valor1);
         e.at(nome2, valor2);
@@ -730,7 +731,7 @@ public class ENTT {
         }
 
 
-        fmt.print("{}", cabecalho + " |");
+        fmt.print("{}", cabecalho + "  |");
         fmt.print(fmt.repetir("-", tracos));
 
         for (Indexado<Entidade> obj : Indexamento.indexe(objetos)) {
@@ -748,7 +749,7 @@ public class ENTT {
 
             }
 
-            fmt.print("{}", linha + " |");
+            fmt.print("{}", linha + "  |");
 
         }
         fmt.print(fmt.repetir("-", tracos));
@@ -1746,11 +1747,39 @@ public class ENTT {
             linha_tracos += turma.atInt("Tamanho") + 5 + 2;
         }
 
+        linha_tracos+=1;
+
         fmt.print("{}", fmt.repetir("-", linha_tracos));
 
         int titulo_tracos_metade = (linha_tracos - 4 - tabela_nome.length()) / 2;
 
-        fmt.print("| " + fmt.repetir(" ", titulo_tracos_metade) + tabela_nome + fmt.repetir(" ", titulo_tracos_metade) + " |");
+        int titulo_tracos_metade_esquerda = titulo_tracos_metade;
+        int titulo_tracos_metade_direita = titulo_tracos_metade;
+
+
+        String primeira = "";
+
+        for (Entidade turma : entidades_lista) {
+            primeira = "";
+            for (Entidade cab : cabs) {
+                primeira += "| " + fmt.espacar_depois(turma.at(cab.at("Nome")), cab.atInt("Tamanho") + 5);
+            }
+            primeira+= "|";
+            break;
+        }
+
+        int tt = (primeira.length()-tabela_nome.length())-4;
+        int tt_metade = tt/2;
+
+        titulo_tracos_metade_esquerda=tt_metade;
+        titulo_tracos_metade_direita=tt_metade;
+
+
+        String   frase_cab = "| " + fmt.repetir(" ", titulo_tracos_metade_esquerda) + tabela_nome + fmt.repetir(" ", titulo_tracos_metade_direita) + " |";
+
+        //  fmt.print(">> {} : {}",frase_cab.length(),primeira.length());
+
+        fmt.print(frase_cab);
         fmt.print("{}", fmt.repetir("-", linha_tracos));
         fmt.print(cabecalho + "|");
         fmt.print("{}", fmt.repetir("-", linha_tracos));
@@ -2813,16 +2842,16 @@ public class ENTT {
 
     }
 
-    public static boolean COLETAR_EXISTE(Lista<Entidade> entts, String att_nome, String att_valor){
-        return COLETAR(entts,att_nome,att_valor).getQuantidade()>0;
+    public static boolean COLETAR_EXISTE(Lista<Entidade> entts, String att_nome, String att_valor) {
+        return COLETAR(entts, att_nome, att_valor).getQuantidade() > 0;
     }
 
-    public static boolean TEM_OBJETOS(Lista<Entidade> entts){
-        return entts.getQuantidade()>0;
+    public static boolean TEM_OBJETOS(Lista<Entidade> entts) {
+        return entts.getQuantidade() > 0;
     }
 
-    public static boolean ZERO_OBJETOS(Lista<Entidade> entts){
-        return entts.getQuantidade()==0;
+    public static boolean ZERO_OBJETOS(Lista<Entidade> entts) {
+        return entts.getQuantidade() == 0;
     }
 
     public static Lista<Entidade> COLETAR_OU_COLETAR(Lista<Entidade> linhas, String chave, String coluna_valor, String chave2, String coluna_valor2) {
