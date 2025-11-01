@@ -36,14 +36,14 @@ public class RankeadorDouble {
 
     public static Lista<RankeadoDouble> ordenar(Lista<RankeadoDouble> itens) {
 
-        Ordenador.ordenar_lista_crescente(itens, ORDENAVEL_RANKEADO_DOUBLE());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(itens, ORDENAVEL_RANKEADO_DOUBLE());
 
         return itens;
     }
 
     public static Lista<RankeadoDouble> ordenar_inverso(Lista<RankeadoDouble> itens) {
 
-        Ordenador.ordenar_lista_decrescente(itens, ORDENAVEL_RANKEADO_DOUBLE());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(itens, ORDENAVEL_RANKEADO_DOUBLE());
         return itens;
     }
 
