@@ -256,14 +256,13 @@ public class Renderizador {
     }
 
 
-
-    public void setPixel(int eX, int eY,Cor eCor) {
+    public void setPixel(int eX, int eY, Cor eCor) {
 
         if (eX >= 0 && eX < mLargura && eY >= 0 && eY < mAltura) {
 
             int ePox = (eY * mLargura) + eX;
 
-               mPixels[ePox]=eCor.toColor().getRGB();
+            mPixels[ePox] = eCor.toColor().getRGB();
 
         }
 
@@ -275,26 +274,23 @@ public class Renderizador {
 
             int ePox = (eY * mLargura) + eX;
 
-            mPixels[ePox]=HSV.toRGB(eCor).toColor().getRGB();
+            mPixels[ePox] = HSV.toRGB(eCor).toColor().getRGB();
 
         }
 
     }
 
-    public void setPixelPuro(int eX, int eY,int eCor) {
+    public void setPixelPuro(int eX, int eY, int eCor) {
 
         if (eX >= 0 && eX < mLargura && eY >= 0 && eY < mAltura) {
 
             int ePox = (eY * mLargura) + eX;
 
-            mPixels[ePox]=eCor;
+            mPixels[ePox] = eCor;
 
         }
 
     }
-
-
-
 
 
     public void drawLumnos(int eX, int eY, Cor eCor) {
@@ -506,6 +502,10 @@ public class Renderizador {
         }
 
 
+    }
+
+    public void drawRectCentralizado_Pintado(int px, int py, int largura, int altura, Cor eCor) {
+        drawRect_Pintado(px - (largura / 2), py - (altura / 2), largura, altura, eCor);
     }
 
     public void drawRect_Pintado(int px, int py, int largura, int altura, Cor eCor) {
@@ -796,7 +796,7 @@ public class Renderizador {
         drawLinha(new Linha(eX, eY, eX2, eY2), eCor);
     }
 
-    public void drawLinha(Ponto p1,Ponto p2, Cor eCor) {
+    public void drawLinha(Ponto p1, Ponto p2, Cor eCor) {
         drawLinha(new Linha(p1.getX(), p1.getY(), p2.getX(), p2.getY()), eCor);
     }
 
@@ -1896,10 +1896,10 @@ public class Renderizador {
 
     }
 
-    public boolean isPontoValido(int x,int y){
-        if(x>=0 && x<mLargura && y>=0 && y<mAltura){
+    public boolean isPontoValido(int x, int y) {
+        if (x >= 0 && x < mLargura && y >= 0 && y < mAltura) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -1912,31 +1912,31 @@ public class Renderizador {
 
     }
 
-    public static Renderizador construir(int largura, int altura,Cor eCor) {
+    public static Renderizador construir(int largura, int altura, Cor eCor) {
 
         BufferedImage construido = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
-        Renderizador  render =new Renderizador(construido);
+        Renderizador render = new Renderizador(construido);
         render.limpar(eCor);
 
         return render;
     }
 
-    public static Renderizador CONSTRUIR(int largura, int altura,Cor eCor) {
+    public static Renderizador CONSTRUIR(int largura, int altura, Cor eCor) {
 
         BufferedImage construido = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
-        Renderizador  render =new Renderizador(construido);
+        Renderizador render = new Renderizador(construido);
         render.limpar(eCor);
 
         return render;
     }
 
-    public static Renderizador ABRIR_DE_ARQUIVO_RGB(String arquivo){
+    public static Renderizador ABRIR_DE_ARQUIVO_RGB(String arquivo) {
         BufferedImage imagem = Imagem.GET_IMAGEM_POR_PIXEL_RGB(arquivo);
-     return new Renderizador(imagem);
+        return new Renderizador(imagem);
     }
 
 
-    public Renderizador getCopia(){
+    public Renderizador getCopia() {
         return new Renderizador(Imagem.getCopia(toImagemSemAlfa()));
     }
 
