@@ -204,7 +204,7 @@ public class VideoCodecador {
         Temporizador mCrono = new Temporizador();
         mCrono.marqueInicio();
 
-        Ordenador.ordenar_lista_crescente(mArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(mArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
 
         System.out.println("\t - ARQUIVO = " + eArquivo);
@@ -302,7 +302,7 @@ public class VideoCodecador {
         Temporizador mCrono = new Temporizador();
         mCrono.marqueInicio();
 
-        Ordenador.ordenar_lista_crescente(mArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(mArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         System.out.println("\t - ARQUIVO = video.vi");
         System.out.println("");
@@ -509,7 +509,7 @@ public class VideoCodecador {
 
         boolean mCarregado = true;
 
-        Ordenador.ordenar_lista_crescente(eArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(eArquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         for (String eArquivoParaFrame : eArquivos) {
 
