@@ -1,13 +1,15 @@
 package apps.app_atzum.app;
 
+import apps.app_atzum.Atzum;
 import libs.arquivos.dsvideo.DSVideo;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
+import libs.azzal.geometria.Ponto;
+import libs.azzal.utilitarios.Cor;
+import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.imagem.Efeitos;
-import libs.luan.Lista;
-import libs.luan.RefInt;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.mockui.Interface.Acao;
 
 import java.awt.image.BufferedImage;
@@ -335,6 +337,85 @@ public class AtzumBotoesPrincipais {
                 app.mVideoEmExecucao.parar();
 
                 grupo.setSelecionado("MapaAtmosferico");
+                mSubCamadas.zerar();
+
+
+            }
+        });
+
+        grupo.criarCamada("Sociedades", mCores.getAzul()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+                app.mFenomenosAtmosfericos = app.mArquivoAtzumTronarko.getFenomenosAtmosfericos();
+
+                Renderizador render = new Renderizador(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO());
+
+                Lista<Entidade> sociedades = Atzum.GET_SOCIEDADES();
+
+                for(Entidade so : sociedades){
+                    Cor cor = Cor.getHexCor(so.at("Cor"));
+
+                    Lista<Ponto> locais = new Lista<Ponto>();
+                    Lista<Ponto> locais1 = new Lista<Ponto>();
+                    Lista<Ponto> locais2 = new Lista<Ponto>();
+
+                    for(String local : Strings.DIVIDIR_ESPACOS(so.at("Local"))){
+                        int px = Integer.parseInt(Strings.GET_ATE(local,":"));
+                        int py = Integer.parseInt(Strings.GET_DEPOIS(local,":"));
+
+                        render.drawCirculoCentralizado_Pintado(px,py,20,cor);
+
+                        fmt.print("{}--{}",px,py);
+                        locais.adicionar(new Ponto(px,py));
+                    }
+
+                    for(String local : Strings.DIVIDIR_ESPACOS(so.at("Local1"))){
+                        int px = Integer.parseInt(Strings.GET_ATE(local,":"));
+                        int py = Integer.parseInt(Strings.GET_DEPOIS(local,":"));
+
+                        render.drawCirculoCentralizado_Pintado(px,py,20,cor);
+
+                        fmt.print("{}--{}",px,py);
+                        locais1.adicionar(new Ponto(px,py));
+                    }
+
+                    for(String local : Strings.DIVIDIR_ESPACOS(so.at("Local2"))){
+                        int px = Integer.parseInt(Strings.GET_ATE(local,":"));
+                        int py = Integer.parseInt(Strings.GET_DEPOIS(local,":"));
+
+                        render.drawCirculoCentralizado_Pintado(px,py,20,cor);
+
+                        fmt.print("{}--{}",px,py);
+                        locais2.adicionar(new Ponto(px,py));
+                    }
+
+                    for(Ponto a : locais){
+                        for(Ponto b : locais){
+                            render.drawLinha(a.getX(),a.getY(),b.getX(), b.getY(),cor);
+                        }
+                    }
+
+                    for(Ponto a : locais1){
+                        for(Ponto b : locais1){
+                            render.drawLinha(a.getX(),a.getY(),b.getX(), b.getY(),cor);
+                        }
+                    }
+
+                    for(Ponto a : locais2){
+                        for(Ponto b : locais2){
+                            render.drawLinha(a.getX(),a.getY(),b.getX(), b.getY(),cor);
+                        }
+                    }
+
+
+                }
+
+
+                app.mWidgetMapaVisualizador.setMapaPequeno(Efeitos.reduzirMetade(render.toImagemSemAlfa()));
+                app.mVideoEmExecucao.parar();
+
+                grupo.setSelecionado("Sociedades");
                 mSubCamadas.zerar();
 
 

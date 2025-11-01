@@ -43,7 +43,7 @@ public class GrupoDeBotoesGrandes {
         mBotaoSinalizador = BotaoSinalizador.ACIMA_DIRETA;
 
         mTamanho = 50;
-        mAfastamentoX = 100;
+        mAfastamentoX = 50;
         mExibirTexto = true;
     }
 

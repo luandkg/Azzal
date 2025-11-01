@@ -129,13 +129,22 @@ public class ServicoFenomenoTectonico {
         Lista<Entidade> dados_atividade_sismica = ENTT.ABRIR(ARQUIVO_SISMICIDADE());
 
 
-        ENTT.EXIBIR_TABELA_COM_TITULO(dados_vulcanismo, "VULCANISMO");
-        ENTT.EXIBIR_TABELA_COM_TITULO(dados_atividade_sismica, "ATIVIDADE SISMICA");
+        ENTT.EXIBIR_TABELA_COM_TITULO(dados_vulcanismo, "PRE - VULCANISMO");
+        ENTT.EXIBIR_TABELA_COM_TITULO(dados_atividade_sismica, "PRE - ATIVIDADE SISMICA");
 
         simular_tudo(tronarko, dados_atividade_sismica, dados_vulcanismo);
 
         ENTT.GUARDAR(dados_vulcanismo, ARQUIVO_VULCANISMO());
         ENTT.GUARDAR(dados_atividade_sismica, ARQUIVO_SISMICIDADE());
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(dados_vulcanismo, "POS - VULCANISMO");
+        ENTT.EXIBIR_TABELA_COM_TITULO(dados_atividade_sismica, "POS - ATIVIDADE SISMICA");
+
+
+       Lista<Entidade> fenomenos_tectonicos= ENTT.ABRIR( ARQUIVO_FENOMENOS_TECTONICOS());
+
+        ENTT.EXIBIR_TABELA_COM_TITULO(fenomenos_tectonicos, "FENOMENOS TECTONICOS");
+
 
         fmt.print(">> Simulação de fenomenos finalizada !");
 

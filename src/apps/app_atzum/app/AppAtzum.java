@@ -127,7 +127,7 @@ public class AppAtzum extends Cena {
 
         mGrupoPrincipal = new GrupoDeBotoesGrandes(50, 30);
         mGrupoPrincipal.setSinalizador(BotaoSinalizador.LATERAL_DIREITA);
-        mGrupoPrincipal.setAfastamentoX(150);
+        mGrupoPrincipal.setAfastamentoX(120);
 
         mSubComandos = new GrupoDeBotoesGrandes(800, 850);
         mSubComandos.setSinalizador(BotaoSinalizador.ACIMA_DIRETA);
@@ -573,6 +573,23 @@ public class AppAtzum extends Cena {
                 g.drawRect_Pintado(1900, py, 25, 25, AtzumPlacasTectonicas.GET_PLACAS_TECTONICAS_CORES().get(placa_id));
 
                 ESCRITOR_NORMAL_BRANCO.escreva(1900 + 40, py + 5, placa_tectonica);
+
+                placa_id += 1;
+                py += 30;
+            }
+
+        } else if (Strings.isIgual(mGrupoPrincipal.getSelecionado(), "Sociedades")) {
+
+
+            Lista<Entidade> sociedades = Atzum.GET_SOCIEDADES();
+
+            int py = 200;
+            int placa_id = 0;
+            for (Entidade so : sociedades) {
+
+                g.drawRect_Pintado(1900, py, 25, 25, Cor.getHexCor(so.at("Cor")));
+
+                ESCRITOR_NORMAL_BRANCO.escreva(1900 + 40, py + 5, so.at("Nome"));
 
                 placa_id += 1;
                 py += 30;

@@ -599,4 +599,55 @@ public class Atzum {
         }
         return tipos;
     }
+
+
+    public static Lista<Entidade> GET_SOCIEDADES(){
+
+        Lista<Entidade> sociedades = new Lista<Entidade>();
+
+
+        Entidade traddes = ENTT.CRIAR_EM(sociedades);
+        traddes.at("Nome","Traddes");
+        traddes.at("Cor","#F57D00");
+        traddes.at("Local","1474:1034 1946:1054 2036:1292 1546:1446");
+
+        Entidade mokkom = ENTT.CRIAR_EM(sociedades);
+        mokkom.at("Nome","Mokkom");
+        mokkom.at("Cor","#34465D");
+        mokkom.at("Local","804:859 1084:732 1324:776 1078:914");
+
+        Entidade Requiz = ENTT.CRIAR_EM(sociedades);
+        Requiz.at("Nome","Requiz");
+        Requiz.at("Cor","#AF0606");
+        Requiz.at("Local","392:1034 692:954 542:1128");
+
+        Entidade Plaque = ENTT.CRIAR_EM(sociedades);
+        Plaque.at("Nome","Plaque");
+        Plaque.at("Cor","#FF0084");
+        Plaque.at("Local","1162:1172 1260:1286 1262:1050 1334:942");
+
+        Entidade Dommus = ENTT.CRIAR_EM(sociedades);
+        Dommus.at("Nome","Dommus");
+        Dommus.at("Cor","#410093");
+        Dommus.at("Local","536:1232 674:1170 700:1262 758:1068");
+
+        Entidade Alkoz = ENTT.CRIAR_EM(sociedades);
+        Alkoz.at("Nome","Alkoz");
+        Alkoz.at("Cor","#02B875");
+        Alkoz.at("Local","512:460 504:610 1244:632 1244:438 994:328");
+
+        Entidade Inmeb = ENTT.CRIAR_EM(sociedades);
+        Inmeb.at("Nome","Inmeb");
+        Inmeb.at("Cor","#E3F2FD");
+        Inmeb.at("Local1","452:752 618:764 492:838");
+        Inmeb.at("Local2","1506:328 1426:688 1694:556 1502:508");
+
+        Entidade Uttunque = ENTT.CRIAR_EM(sociedades);
+        Uttunque.at("Nome","Uttunque");
+        Uttunque.at("Cor","#FFEE58");
+        Uttunque.at("Local","754:1332 824:1282 864:1144 862:1308 1074:1084 1030:1352");
+
+
+        return sociedades;
+    }
 }
