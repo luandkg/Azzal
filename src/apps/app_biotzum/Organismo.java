@@ -76,7 +76,7 @@ public class Organismo {
         return ret;
     }
 
-    public void atualizar(Lista<Organismo> outros) {
+    public void atualizar(Lista<Organismo> outros,Lista<Comida> comidas) {
 
         boolean aguardou = false;
 
@@ -88,6 +88,15 @@ public class Organismo {
 
         if (mEstagio == ESTAGIO_NORMAL) {
             andar(outros);
+
+            for(Comida comida : comidas){
+                if(comida.getX()==mX && comida.getY()==mY){
+                    comidas.remover(comida);
+                    mEnergia+=10_000;
+                    break;
+                }
+            }
+
             if (mEnergia < 50) {
                 mEstagio = ESTAGIO_DESCANSANDO;
                 mCron.zerar();

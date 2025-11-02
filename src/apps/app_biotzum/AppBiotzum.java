@@ -16,6 +16,8 @@ public class AppBiotzum extends Cena {
     private Cores mCores;
 
     private Lista<Organismo> mOrganismos;
+    private Lista<Comida> mComidas;
+
     private Cronometro mCron;
 
     public static void INICIAR() {
@@ -31,6 +33,7 @@ public class AppBiotzum extends Cena {
         mCron = new Cronometro(100);
 
         mOrganismos = new Lista<Organismo>();
+        mComidas = new Lista<Comida>();
 
         mOrganismos.adicionar(new Organismo(10, 30));
         mOrganismos.adicionar(new Organismo(50, 30));
@@ -41,6 +44,12 @@ public class AppBiotzum extends Cena {
         mOrganismos.adicionar(new Organismo(70, 20));
         mOrganismos.adicionar(new Organismo(20, 20));
 
+        mComidas.adicionar(new Comida(80, 5));
+        mComidas.adicionar(new Comida(20, 80));
+        mComidas.adicionar(new Comida(60, 40));
+        mComidas.adicionar(new Comida(70, 5));
+        mComidas.adicionar(new Comida(44, 80));
+        mComidas.adicionar(new Comida(32, 40));
 
     }
 
@@ -50,7 +59,7 @@ public class AppBiotzum extends Cena {
         if (mCron.foiEsperado()) {
             mCron.zerar();
             for (Organismo org : mOrganismos) {
-                org.atualizar();
+                org.atualizar(mOrganismos,mComidas);
             }
         }
     }
@@ -71,6 +80,10 @@ public class AppBiotzum extends Cena {
 
         for (Organismo org : mOrganismos) {
             org.render(g);
+        }
+
+        for (Comida comida : mComidas) {
+            comida.render(g);
         }
     }
 }
