@@ -1,43 +1,13 @@
 package app;
 
-import algoritmos.AtividadesLL;
-import apps.app.AppFuturistico;
-import apps.app.AppStrava;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
-import apps.app_atzum.analisadores.AnalisadorTemporal;
-import apps.app_atzum.app.AppAtzum;
-import apps.app_atzum.servicos.AtzumSociedades;
-import apps.app_atzum.servicos.ServicoFenomenoTectonico;
 import apps.app_azzal.VamosCalcular;
-import apps.app_humanidade.AppHumanidade;
-import apps.app_palkum.Palkum;
-import apps.app_tozterum.BotLuan;
-import apps.app_tozterum.LuanTreinamento;
-import apps.app_tozterum.TelegramTozterum;
-import apps.app_tozterum.stravamentos.StravaQ6;
-import apps.app_tozterum.stravamentos.StravaQ7;
-import libs.arquivos.IM;
-import libs.entt.ENTT;
-import libs.entt.Entidade;
-import libs.fs.PastaFS;
-import libs.imagem.Imagem;
-import libs.luan.Lista;
 import libs.luan.fmt;
-import libs.tronarko.Superarkos;
-import libs.tronarko.Tozte;
-import libs.tronarko.eventos.AvisarPequenoEvento;
-import libs.tronarko.eventos.Comunicum;
-import libs.tronarko.eventos.Eventum;
 import libs.tronarko.Tronarko;
-import libs.tronarko.utils.StringTronarko;
 import libs.verkuz.VerkuzImplementador;
-import libs.zetta.ZettaQuorum;
-import libs.zetta.features.ZQC;
 import servicos.ASSETS;
-import testes.TesteTronarkum;
-import testes.TesteZettaQuorum;
 
-public class AppAzzal {
+public class App {
 
     public static void main(String[] args) {
 
@@ -150,9 +120,9 @@ public class AppAzzal {
 
         VerkuzImplementador vi = new VerkuzImplementador(ASSETS.GET_PASTA("verkuz").getArquivo("Verkuz.ds"));
 
-        vi.init("/home/luan/dev/azzal/src/libs");
-        vi.init("/home/luan/dev/azzal/src/libs/azzal");
-        vi.init("/home/luan/dev/azzal/src/libs/mockui");
+        vi.init("/home/luan/dev/attz/src/libs");
+        vi.init("/home/luan/dev/attz/src/libs/azzal");
+        vi.init("/home/luan/dev/attz/src/libs/mockui");
 
         //  vi.init_bibliotecas("/home/luan/dev/azzal/src/libs");
         // vi.exibir();
