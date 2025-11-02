@@ -14,6 +14,7 @@ import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.geometria.Retangulo;
 import libs.azzal.utilitarios.Cor;
+import libs.fs.Arquivo;
 import libs.fs.PastaFS;
 import libs.imagem.Imagem;
 import libs.luan.Lista;
@@ -64,7 +65,7 @@ public class AzkaApp extends Cena {
         mMangas = new Lista<Manga>();
 
 
-        for (PastaFS arquivo : new PastaFS(PASTA).getArquivosComExtensao(".hq")) {
+        for (Arquivo arquivo : new PastaFS(PASTA).getArquivosComExtensao(".hq")) {
             mMangas.adicionar(new Manga(arquivo.getLocal()));
             fmt.print("{}", arquivo.getLocal());
         }
