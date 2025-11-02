@@ -6,6 +6,7 @@ import libs.azzal.cenarios.Cena;
 import libs.azzal.cenarios.Cenarios;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Windows extends JFrame implements Runnable {
