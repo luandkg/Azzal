@@ -3,12 +3,14 @@ package libs.verkuz;
 public class Implementacao {
 
     private String mArquivo;
-    private String mFuncao;
+    private String mGrupo;
+    private String mNome;
     private String mData;
 
-    public Implementacao(String eArquivo, String eFuncao, String eData) {
+    public Implementacao(String eArquivo,String eGrupo, String eNome, String eData) {
         mArquivo = eArquivo;
-        mFuncao = eFuncao;
+        mGrupo=eGrupo;
+        mNome = eNome;
         mData = eData;
     }
 
@@ -16,8 +18,12 @@ public class Implementacao {
         return mArquivo;
     }
 
-    public String getFuncao() {
-        return mFuncao;
+    public String getGrupo() {
+        return mGrupo;
+    }
+
+    public String getNome() {
+        return mNome;
     }
 
     public String getData() {

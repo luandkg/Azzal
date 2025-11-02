@@ -1,10 +1,11 @@
 package libs.verkuz;
 
+import libs.entt.ENTT;
+import libs.entt.Entidade;
 import libs.luan.*;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.Comparator;
+
 
 public class VerkuzImplementador {
 
@@ -14,7 +15,10 @@ public class VerkuzImplementador {
     private Lista<Implementacao> implementacoes;
     private Lista<VerkuzBiblioteca> bibliotecas;
 
-    public VerkuzImplementador() {
+    private String mArquivo;
+
+    public VerkuzImplementador(String eArquivo) {
+        mArquivo = eArquivo;
         implementacoes = new Lista<Implementacao>();
         bibliotecas = new Lista<VerkuzBiblioteca>();
     }
@@ -28,6 +32,18 @@ public class VerkuzImplementador {
         for (Implementacao i : implementacoes) {
             i.setArquivo(i.getArquivo().replace(pasta, arq.getName()));
         }
+
+
+        Lista<Entidade> dados = ENTT.CRIAR_LISTA();
+
+        for (Implementacao i : implementacoes) {
+            Entidade ii = ENTT.CRIAR_EM(dados);
+            ii.at("Grupo", i.getGrupo());
+            ii.at("Nome", i.getNome());
+
+        }
+
+        //ENTT.EXIBIR_TABELA(dados);
 
     }
 
@@ -46,7 +62,7 @@ public class VerkuzImplementador {
     public void exibir() {
 
         for (Implementacao i : implementacoes) {
-            System.out.println(i.getArquivo() + " :: " + i.getData() + " -->> " + i.getFuncao());
+            System.out.println(i.getArquivo() + " :: " + i.getData() + " -->> " + i.getNome());
         }
 
         System.out.println(" ----------------- BIBLIOTECAS ------------------ ");
@@ -76,7 +92,6 @@ public class VerkuzImplementador {
         }
 
 
-
         for (VerkuzBiblioteca i : ordenar_bibliotecas(grupos_bibliotecas)) {
             System.out.println(i.getArquivo() + " :: " + i.getTamanho());
         }
@@ -90,7 +105,7 @@ public class VerkuzImplementador {
         Lista.ORDENAR_CRESCENTE(eGrupos, new Ordenavel<VerkuzBiblioteca>() {
             @Override
             public int emOrdem(VerkuzBiblioteca a, VerkuzBiblioteca b) {
-                return Strings.STRING_COMPARAR(a.getArquivo(),b.getArquivo());
+                return Strings.STRING_COMPARAR(a.getArquivo(), b.getArquivo());
             }
         });
 
@@ -180,23 +195,51 @@ public class VerkuzImplementador {
 
         Lista<String> linhas = Strings.DIVIDIR_LINHAS(conteudo);
 
+        String classe_nome = "";
+
         for (String linha : linhas) {
 
             linha = Strings.retirar_espaco_do_comeco(linha);
 
-            if (linha.startsWith("//")) {
+            if (linha.startsWith("public class ")) {
 
-                while (linha.contains("  ")) {
-                    linha = linha.replace("  ", " ");
-                }
+                classe_nome = linha.replace("public class ", "");
+                classe_nome = Strings.GET_ATE(classe_nome, "{");
 
-                linha = linha.replace("// ", "");
-                linha = linha.replace("//", "");
+                implementacoes.adicionar(new Implementacao(arquivo, "PUBLIC_CLASS", classe_nome, ""));
 
-                if (linha.contains("FEATURE")) {
-                    implementacoes.adicionar(new Implementacao(arquivo, linha, ""));
-                }
-                //  System.out.println(linha);
+            }else             if (linha.startsWith("private class ")) {
+                classe_nome = linha.replace("private class ", "");
+                classe_nome = Strings.GET_ATE(classe_nome, "{");
+
+                implementacoes.adicionar(new Implementacao(arquivo, "PRIVATE_CLASS", classe_nome, ""));
+            }else   if (linha.startsWith("public enum ")) {
+
+                classe_nome = linha.replace("public enum ", "");
+                classe_nome = Strings.GET_ATE(classe_nome, "{");
+
+                implementacoes.adicionar(new Implementacao(arquivo, "PUBLIC_ENUM", classe_nome, ""));
+
+            } else if (linha.startsWith("public ") && linha.contains("{")) {
+
+
+                String acao_nome = linha.replace("public ", "");
+                acao_nome = Strings.GET_ATE(acao_nome, "{");
+
+              //  System.out.println("\t >> Acao :: " + acao_nome);
+
+                implementacoes.adicionar(new Implementacao(arquivo, "PUBLIC_FUNCTION", classe_nome + " :: " + acao_nome , ""));
+
+            } else if (linha.startsWith("private ") && linha.contains("{")) {
+
+
+                String acao_nome = linha.replace("private ", "");
+                acao_nome = Strings.GET_ATE(acao_nome, "{");
+
+               // System.out.println("\t >> Acao :: " + acao_nome);
+
+                implementacoes.adicionar(new Implementacao(arquivo, "PRIVATE_FUNCTION", classe_nome + " :: " + acao_nome , ""));
+
             }
 
         }
@@ -227,7 +270,7 @@ public class VerkuzImplementador {
         int mudanca = 50;
 
         for (Implementacao i : implementacoes) {
-            if (i.getFuncao().startsWith("FEATURE")) {
+            if (i.getNome().startsWith("FEATURE")) {
                 impl += 1;
                 menor += 1;
                 if (menor == mudanca) {
@@ -247,8 +290,8 @@ public class VerkuzImplementador {
         documento.adicionarLinha("\t\tArrayList<String> features = new ArrayList<String>();");
 
         for (Implementacao i : implementacoes) {
-            if (i.getFuncao().startsWith("FEATURE")) {
-                documento.adicionarLinha("\t\tfeatures.add(\"" + i.getFuncao() + "\");");
+            if (i.getNome().startsWith("FEATURE")) {
+                documento.adicionarLinha("\t\tfeatures.add(\"" + i.getNome() + "\");");
             }
             //  System.out.println(i.getArquivo() + " :: " + i.getData() + " -->> " + i.getFuncao());
         }
