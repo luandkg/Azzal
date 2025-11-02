@@ -35,8 +35,8 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
         }
 
         fmt.print(">> Ordenando....");
-        Ordenador.ordenar_lista_crescente(esquerda, Matematica.INTEIRO_ORDENAVEL());
-        Ordenador.ordenar_lista_crescente(direita, Matematica.INTEIRO_ORDENAVEL());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(esquerda, Matematica.INTEIRO_ORDENAVEL());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(direita, Matematica.INTEIRO_ORDENAVEL());
 
         fmt.print(">> Exibindo");
 
