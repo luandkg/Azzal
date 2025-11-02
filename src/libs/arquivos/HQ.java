@@ -22,7 +22,7 @@ public class HQ {
         }
 
 
-        Ordenador.ordenar_lista_crescente(arquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(arquivos, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         AI.criar(arquivos, eArquivo);
 
