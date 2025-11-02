@@ -2,6 +2,8 @@ package app;
 
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_azzal.VamosCalcular;
+import apps.app_biotzum.AppBiotzum;
+import libs.azzal.AzzalUnico;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 import libs.verkuz.VerkuzImplementador;
@@ -207,12 +209,12 @@ public class App {
 
         // TesteZettaColecaoMonitorada.init_grande_estresse();
 
-       // AtzumProcessoCriativoEmTarefas.ALFA_ZERAR();
-     //   AtzumProcessoCriativoEmTarefas.BETA_ZERAR();
+        // AtzumProcessoCriativoEmTarefas.ALFA_ZERAR();
+        //   AtzumProcessoCriativoEmTarefas.BETA_ZERAR();
 
-      //  AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+        //  AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
 
-        AtzumProcessoCriativoEmTarefas.INIT(500);
+        // AtzumProcessoCriativoEmTarefas.INIT(500);
 
         //  LimonTorrents.INIT();
 
@@ -352,6 +354,8 @@ public class App {
 
 
         //   ServicoFenomenoTectonico.INIT(7000);
+
+        AppBiotzum.INICIAR();
 
     }
 
