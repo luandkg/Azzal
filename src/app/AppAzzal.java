@@ -1,20 +1,49 @@
 package app;
 
+import algoritmos.AtividadesLL;
+import apps.app.AppFuturistico;
+import apps.app.AppStrava;
+import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
+import apps.app_atzum.analisadores.AnalisadorTemporal;
+import apps.app_atzum.app.AppAtzum;
+import apps.app_atzum.servicos.AtzumSociedades;
+import apps.app_atzum.servicos.ServicoFenomenoTectonico;
 import apps.app_azzal.VamosCalcular;
-import libs.aqz.AQZ;
-import libs.luan.Seq;
+import apps.app_humanidade.AppHumanidade;
+import apps.app_palkum.Palkum;
+import apps.app_tozterum.BotLuan;
+import apps.app_tozterum.LuanTreinamento;
+import apps.app_tozterum.TelegramTozterum;
+import apps.app_tozterum.stravamentos.StravaQ6;
+import apps.app_tozterum.stravamentos.StravaQ7;
+import libs.arquivos.IM;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
+import libs.fs.PastaFS;
+import libs.imagem.Imagem;
+import libs.luan.Lista;
 import libs.luan.fmt;
+import libs.tronarko.Superarkos;
+import libs.tronarko.Tozte;
+import libs.tronarko.eventos.AvisarPequenoEvento;
+import libs.tronarko.eventos.Comunicum;
+import libs.tronarko.eventos.Eventum;
 import libs.tronarko.Tronarko;
+import libs.tronarko.utils.StringTronarko;
 import libs.verkuz.VerkuzImplementador;
-import projetos.aoc2024.AOC_2024;
+import libs.zetta.ZettaQuorum;
+import libs.zetta.features.ZQC;
+import servicos.ASSETS;
+import testes.TesteTronarkum;
+import testes.TesteZettaQuorum;
 
 public class AppAzzal {
 
     public static void main(String[] args) {
 
-        fmt.print("Tronarko : {}", Tronarko.getTronAgora().getTextoZerado());
+        // fmt.print("Tronarko : {}", Tronarko.getTronAgora().getTextoTHSHS());
 
-        AOC_2024.PROBLEMA(2,AOC_2024.PARTE_2);
+        // AOC_2024.PROBLEMA(8, AOC_2024.PARTE_1);
 
         // AzzalUnico.unico("AppAlpha", 1600, 1020, new Alpha());
 
@@ -22,10 +51,11 @@ public class AppAzzal {
 
         // AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.app_fuzz.AppFuzz());
 
-      //  AppTronarkos.TRONARKO();
-      //  AppTronarkos.ALARME();
-      //  AppTronarkos.ASTROS();
+        //  AppTronarkos.TRONARKO();
+        //  AppTronarkos.ALARME();
+        //AppTronarkos.ASTROS();
 
+        //  TesteTronarkum.teste_signos();
 
         // AzzalUnico.unico("Attuz", 3000, 1000, new AppAttuz());
         // AzzalUnico.unico("Citatte", 2000, 1000, new AppCitatte());
@@ -59,7 +89,7 @@ public class AppAzzal {
 
         // AzzalUnico.unico("apps.AppAzzal", 1100, 800, new Fisica.Fisica());
 
-         //AzzalUnico.unico("Letras", 1300, 1000, new Letras());
+        //AzzalUnico.unico("Letras", 1300, 1000, new Letras());
 
         // AzzalUnico.unico("apps.AppAzzal", 1300, 1000, new C1());
         // AzzalUnico.unico("apps.AppAzzal", 1300, 1000, new Chiado());
@@ -102,12 +132,8 @@ public class AppAzzal {
 
         String ESCOLA_LOCAL = "/home/luan/Dropbox/CED 1";
 
-        // Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_01.txt",
-        // ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 1 SEMESTRE - PROFESSOR LUAN
-        // FREITAS.pdf");
-        // Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_02.txt",
-        // ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFESSOR LUAN
-        // FREITAS.pdf");
+        //  Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_01.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 1 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
+        //  Documentar.organizar(ESCOLA_LOCAL + "/Planejamento/planejamento_02.txt", ESCOLA_LOCAL + "/Planejamento/PLANEJAMENTO - 2 SEMESTRE - PROFESSOR LUAN FREITAS.pdf");
 
         // planejamento.organizar("/home/luan/Dropbox/CED_01/Planejamento/pd3_8.txt",
         // "/home/luan/Dropbox/CED_01/Planejamento/PLANEJAMENTO - PROFº ELVES_PROFª.
@@ -120,9 +146,9 @@ public class AppAzzal {
 
         // libs.Tronarko.Testes.init();
 
-        // AzzalUnico.unico("App_LLCripto", 1100, 900, new App_LLCripto());
+        //  App_LLCripto.INIT();
 
-        VerkuzImplementador vi = new VerkuzImplementador();
+        VerkuzImplementador vi = new VerkuzImplementador(ASSETS.GET_PASTA("verkuz").getArquivo("Verkuz.ds"));
 
         vi.init("/home/luan/dev/azzal/src/libs");
         vi.init("/home/luan/dev/azzal/src/libs/azzal");
@@ -188,29 +214,37 @@ public class AppAzzal {
         // FITParser.init();
 
 
-
         //  TesteFazendario.teste_2();
-          //  TesteFazendario.teste_objetos_grandes();
+        //  TesteFazendario.teste_objetos_grandes();
 
-    //   TesteZettaQuorum.init_grande_estresse();
+        //   TesteZettaQuorum.init_grande_estresse();
 
-      //  TesteZettaQuorum.init_fts();
+        //  TesteZettaQuorum.init_fts();
 
-       // TesteZettaQuorum.init_paginar();
+        //TesteZettaQuorum.init_ver_dados();
 
-      //  TesteZettaPastas.init_pastas();
+        // AppZetta.INICIAR();
 
-       // TesteZettaQuorum.init_replicacao();
+        // TesteZettaQuorum.init_paginar();
 
-      //  TesteZettaTabela.ver_dados();
+        //  TesteZettaPastas.init_pastas();
 
-      // TesteZettaQuorum.ver_estrutura();
+        // TesteZettaQuorum.init_replicacao();
 
-       // TesteZettaColecaoMonitorada.init_grande_estresse();
+        //  TesteZettaTabela.ver_dados();
 
-        // AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+        //  TesteZettaQuorum.ver_estrutura();
 
-        // LimonTorrents.INIT();
+        // TesteZettaColecaoMonitorada.init_grande_estresse();
+
+       // AtzumProcessoCriativoEmTarefas.ALFA_ZERAR();
+     //   AtzumProcessoCriativoEmTarefas.BETA_ZERAR();
+
+      //  AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+
+        AtzumProcessoCriativoEmTarefas.INIT(500);
+
+        //  LimonTorrents.INIT();
 
         // ServicoExportarTronarko.EXPORTAR_ATZUM();
         // ServicoExportarTronarko.VER_ATZUM();
@@ -221,12 +255,11 @@ public class AppAzzal {
 
         // AppAtzum.INICIAR();
 
-
-       //  TronarkoRenderizadorSensores.TRONARKO_VER_SENSORES_FATORES_CLIMATICOS();
+        //  TronarkoRenderizadorSensores.TRONARKO_VER_SENSORES_FATORES_CLIMATICOS();
 
         // AtzumCentralDados.PROXIMIDADE_COM_OCENAO();
 
-       //  ServicoExportarTronarko.EXPORTAR_TRONARKO();
+        //  ServicoExportarTronarko.EXPORTAR_TRONARKO();
 
         //  String arquivo_tronarko = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/atzum_tronarko_7000.ds");
         //  DS.DUMP_TABELA(arquivo_tronarko);
@@ -237,9 +270,9 @@ public class AppAzzal {
         //  TesteArquivoDS.alterar_ultimo();
         //  TesteArquivoDS.alterar_ultimo_dm();
 
-         //Apps.INIT(Apps.PLACAS_TECTONICAS);
+        // Apps.INIT(Apps.PLACAS_TECTONICAS);
 
-        //ServicoTectonico.INIT();
+        // ServicoTectonico.INIT();
         // ServicoTectonico.AJUSTAR();
         // ServicoTectonico.EXTRAIR_PLACAS_TECTONICAS_CONTORNOS();
         // ServicoTectonico.CRIAR_PLACAS_EXPANDIDAS();
@@ -247,15 +280,35 @@ public class AppAzzal {
         //  ServicoTectonico.RASTERIZAR();
         //ServicoTectonico.PLACA_AREA();
 
-      //  AtzumProcessoCriativoEmTarefas.INIT(200);
+        // AtzumProcessoCriativoEmTarefas.ALFA_ZERAR();
+        // AtzumProcessoCriativoEmTarefas.BETA_ZERAR();
+        //AtzumProcessoCriativoEmTarefas.INIT(200);
+
+        //AtzumProcessoCriativoEmTarefas.VER_BANCO();
+
+        //AtzumProcessoCriativoEmTarefas.EXIBIR_EXECUTANDO();
+
+        // AtzumSociedades.VER_CIDADES();
 
 
-       // AtzumProcessoCriativoEmTarefas.EXIBIR_EXECUTANDO();
+        //  AztumTronarkoAnalises.VER();
 
+        //HarrempluzCreator.criar();
+        int i = 0;
+        while (i < 500) {
+            //  Palkum.init();
+            i += 1;
+        }
 
-     //  AztumTronarkoAnalises.VER();
+        // Palkum.init();
 
-        //  Palkum.init();
+        // Palkum.infos();
+        //  Palkum.nomes_comuns();
+        //     Palkum.EXIBIR_RESUMO();
+
+        //AppFuturistico.INIT();
+
+        // AppHumanidade.INIT();
 
         // AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
 
@@ -278,7 +331,7 @@ public class AppAzzal {
 
         //  PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
 
-        // AppStrava.init();
+        //AppStrava.init();
 
         // Teste.init();
 
@@ -290,57 +343,47 @@ public class AppAzzal {
 
         //AppCartaze.INIT();
 
-    }
+        // GGADF2023.init();
+
+        //  ServicoFenomenoAtmosferico.ZERAR();
+        // ServicoFenomenoAtmosferico.PROCESSAR_TRONARKO(7000);
+
+        // ServicoFenomenoTectonico.ZERAR();
+        //  ServicoFenomenoTectonico.INIT(7000);
+
+        //ServicoTectonico.VULCOES_NOMEAR();
 
 
-    public static void tozterum() {
-
-        String arquivo_banco = "/home/luan/assets/TozterumBackup.az";
-
-        // AQZ.EXIBIR_ESTRUTURA(arquivo_banco);
+        // AnalisadorTemporal.analisar();
 
 
-        // AQZUTF8.EXIBIR_AMOSTRA(arquivo_banco, "STRAVA_ACOMPANHAMENTO_DADOS(LL)");
-        //  AQZUTF8.EXIBIR_CONTEUDO(arquivo_banco, "STRAVA_ACOMPANHAMENTO_DADOS(LL)");
-        //  AQZUTF8.EXIBIR_DESCRITORES(arquivo_banco, "STRAVA_ACOMPANHAMENTO_DADOS(LL)");
+        fmt.print("{}", Tronarko.getTronAgora().getTextoComInfos());
+        fmt.print("{}", Tronarko.getHazde().getTextoComInfos());
 
-        //   AQZ.EXIBIR_DISPERSAO(arquivo_banco,"INMET.DADOS","Data");
-
-        String arquivo_banco_inmet = "/home/luan/assets/INMET.az";
-        AQZ.EXIBIR_ESTRUTURA_PUBLICA_DETALHADA(arquivo_banco_inmet);
-        //AQZ.EXIBIR_COLECAO(arquivo_banco_inmet, "ALERTAS_INMET");
-        // AQZ.EXIBIR_COLECAO_TAMANHO(arquivo_banco_inmet, "ALERTAS_INMET");
-
-    }
+        // TesteTronarkum.TEST();
 
 
-    public static void sequenciador() {
+        // Lista<Entidade> dados_a =TesteTronarkum.MAPEAR_SIGNOS(Tronarko.getTozte());
+        //  Lista<Entidade> dados_b =TesteTronarkum.MAPEAR_SIGNOS(Tronarko.getTozte().adicionar_Superarko(15));
 
-        for (Integer indice : Seq.SEQUENCIE(0, 100)) {
-            fmt.print("{}", indice);
-        }
+        //ENTT.EXIBIR_TABELA_COM_TITULO(dados_a,"Signos :: Tronarko");
+        // ENTT.EXIBIR_TABELA_COM_TITULO(dados_b,"Signos :: Tronarko");
 
-    }
+        // AtividadesLL.VER();
 
 
-    public static void banco_testes() {
+        //  TesteZettaQuorum.TESTE_MEMCACHED();
 
-        String arquivo_banco = "/home/luan/assets/max.aqz";
+        //    AnalisadorTemporal.ver_cidade();
 
-        for (int id = 0; id <= 10000; id++) {
-            // AQZ.COLECOES_ORGANIZAR(arquivo_banco, "Tronakum_"+id);
-            // fmt.print("Banco :: "+"Tronakum_"+id);
-        }
 
-        AQZ.AUTO_ANALISAR(arquivo_banco);
-        AQZ.ANALISAR(arquivo_banco);
+        //BotLuan.ACADEMIA();
+        //  BotLuan.VER_ATIVIDADES();
 
-        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Init");
-        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Bancos");
-        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Sequencias");
-        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@AutoAnalise");
-        AQZ.EXIBIR_COLECAO_PRIMARIA(arquivo_banco, "@Analise");
+
+        //   ServicoFenomenoTectonico.INIT(7000);
 
     }
+
 
 }
