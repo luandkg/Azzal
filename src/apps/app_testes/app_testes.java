@@ -102,7 +102,7 @@ public class app_testes {
         fmt.print("{}", Stringum.EXIBIR_EM_LISTA_TIPADA(valores));
 
 
-        Ordenador.ordenar_lista_crescente(valores, Matematica.INTEIRO_ORDENAVEL());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(valores, Matematica.INTEIRO_ORDENAVEL());
 
         fmt.print("{}", Stringum.EXIBIR_EM_LISTA_TIPADA(valores));
 
