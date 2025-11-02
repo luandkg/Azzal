@@ -29,8 +29,15 @@ public class AppBiotzum extends Cena {
         mCron = new Cronometro(100);
 
         mOrganismos = new Lista<Organismo>();
+
         mOrganismos.adicionar(new Organismo(10, 30));
         mOrganismos.adicionar(new Organismo(50, 30));
+        mOrganismos.adicionar(new Organismo(80, 80));
+        mOrganismos.adicionar(new Organismo(50, 30));
+        mOrganismos.adicionar(new Organismo(40, 60));
+        mOrganismos.adicionar(new Organismo(60, 90));
+        mOrganismos.adicionar(new Organismo(70, 20));
+        mOrganismos.adicionar(new Organismo(20, 20));
 
 
     }
