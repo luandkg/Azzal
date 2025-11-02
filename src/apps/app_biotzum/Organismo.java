@@ -11,40 +11,45 @@ public class Organismo {
 
     private Cores mCores = new Cores();
 
-    public Organismo(int x,int y){
-        mX=x;
-        mY=y;
+    public Organismo(int x, int y) {
+        mX = x;
+        mY = y;
     }
 
-    public void andar(){
+    public void andar() {
 
-        mX+= Aleatorio.aleatorio_entre(-3,3);
-        mY+=Aleatorio.aleatorio_entre(-3,3);
+        int px = mX+Aleatorio.aleatorio_entre(-3, 3);
+        int py = mY+ Aleatorio.aleatorio_entre(-3, 3);
 
-        restringirArea();
-    }
-
-    private void restringirArea(){
-        if(mX>=100){
-            mX=99;
-        }
-        if(mY>=100){
-            mY=99;
-        }
-        if(mX<=0){
-            mX=0;
-        }
-        if(mY<=1){
-            mY=2;
+        if(isLocalValido(px,py)){
+            mX=px;
+            mY=py;
         }
     }
 
-    public void atualizar(){
+    private boolean isLocalValido(int px,int py) {
+        boolean ret = true;
+        if (px >= 100) {
+            ret = false;
+        }
+        if (py >= 100) {
+            ret = false;
+        }
+        if (px <= 0) {
+            ret = false;
+        }
+        if (py <= 1) {
+            ret = false;
+        }
+        return ret;
+    }
+
+    public void atualizar() {
         andar();
     }
 
 
-    public void render(Renderizador g){
-        g.drawRect_Pintado(mX*10,mY*10,10,10,mCores.getVermelho());
+    public void render(Renderizador g) {
+        g.drawRect_Pintado(mX * 10, mY * 10, 10, 10, mCores.getVermelho());
     }
 }
