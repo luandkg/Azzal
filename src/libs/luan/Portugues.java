@@ -2,6 +2,21 @@ package libs.luan;
 
 public class Portugues {
 
+    public static String sim(boolean logico) {
+        return isOK(logico, "SIM", "NÃO");
+    }
+
+    public static String isOK(boolean condicao, String verdade, String falso) {
+        String ret = "";
+        if (condicao) {
+            ret = verdade;
+        } else {
+            ret = falso;
+        }
+
+        return ret;
+    }
+
     public static String VALIDAR(boolean condicao,String valido,String nao_valido){
         if(condicao){
             return valido;
