@@ -320,6 +320,21 @@ public class Entidade {
         return existe;
     }
 
+    public boolean atributo_valor_valido(String nome) {
+        boolean valido = false;
+
+        for (Tag a : mTags) {
+            if (a.getNome().contentEquals(nome)) {
+                if(!a.getValor().isEmpty()){
+                    valido = true;
+                }
+                break;
+            }
+        }
+
+        return valido;
+    }
+
     public boolean isValido(String nome) {
 
         boolean valido = false;
