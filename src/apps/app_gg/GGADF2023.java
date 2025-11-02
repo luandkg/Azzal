@@ -351,7 +351,7 @@ public class GGADF2023 {
         DKG documento_alunos = DKG.PARSER(GET_ITEM(arquivo, 3));
         Lista<String> turmas = DKGFeatures.filtrar_unicos(documento_alunos.unicoObjeto("Alunos").getObjetos(), "Turma");
 
-        Ordenador.ordenar_lista_crescente(turmas, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
+        Ordenador.ORDENAR_CRESCENTE_LISTA(turmas, Ordenador.ORDENAR_STRING_NAO_SENSITIVA());
 
         fmt.print("TURMAS              = " + Stringum.EXIBIR_EM_LISTA_TIPADA(turmas));
         fmt.print();
