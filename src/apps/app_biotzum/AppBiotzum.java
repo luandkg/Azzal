@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class AppBiotzum extends Cena {
 
-    Cores mCores = new Cores();
+    private Cores mCores;
 
     private Lista<Organismo> mOrganismos;
     private Cronometro mCron;
@@ -26,6 +26,8 @@ public class AppBiotzum extends Cena {
     public void iniciar(Windows eWindows) {
 
         eWindows.setTitle("AppBiotzum");
+
+        mCores = new Cores();
         mCron = new Cronometro(100);
 
         mOrganismos = new Lista<Organismo>();
@@ -45,9 +47,9 @@ public class AppBiotzum extends Cena {
     @Override
     public void update(double dt) {
         mCron.esperar();
-        if(mCron.foiEsperado()){
+        if (mCron.foiEsperado()) {
             mCron.zerar();
-            for(Organismo org : mOrganismos){
+            for (Organismo org : mOrganismos) {
                 org.atualizar();
             }
         }
@@ -67,7 +69,7 @@ public class AppBiotzum extends Cena {
             g.drawLinha(0, y * 10, g.getLargura(), y * 10, mCores.getBranco());
         }
 
-        for(Organismo org : mOrganismos){
+        for (Organismo org : mOrganismos) {
             org.render(g);
         }
     }
