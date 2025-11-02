@@ -2,6 +2,7 @@ package apps.app_biotzum;
 
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
+import libs.luan.Aleatorio;
 
 public class Organismo {
 
@@ -16,8 +17,26 @@ public class Organismo {
     }
 
     public void andar(){
-        mX+=1;
-        mY+=1;
+
+        mX+= Aleatorio.aleatorio_entre(-3,3);
+        mY+=Aleatorio.aleatorio_entre(-3,3);
+
+        restringirArea();
+    }
+
+    private void restringirArea(){
+        if(mX>=100){
+            mX=99;
+        }
+        if(mY>=100){
+            mY=99;
+        }
+        if(mX<=0){
+            mX=0;
+        }
+        if(mY<=1){
+            mY=2;
+        }
     }
 
     public void atualizar(){
