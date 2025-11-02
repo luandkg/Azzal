@@ -34,8 +34,9 @@ public class AppZetta extends Cena {
     private Clicavel mClicavel;
     private GrupoDeBotoesVertical mBotoesColecoes;
 
-    private String mArquivo = "/home/luan/assets/teste_fazendas/zeta.az";
+   // private String mArquivo = "/home/luan/assets/teste_fazendas/zeta.az";
     //private String mArquivo = "/home/luan/Imagens/atzum/AtzumAnalises.az";
+   private String mArquivo = "/home/luan/assets/coisas/tozterum/Tozterum.az";
 
     private Lista<Entidade> mColecoes;
     private Lista<Entidade> mDados;
@@ -72,9 +73,9 @@ public class AppZetta extends Cena {
         ENTT.EXIBIR_TABELA_COM_TITULO(mColecoes, "COLECOES");
 
 
-        mBotoesColecoes = new GrupoDeBotoesVertical(50, 100);
+        mBotoesColecoes = new GrupoDeBotoesVertical(30, 100);
         mBotoesColecoes.setSinalizador(BotaoSinalizador.LATERAL_DIREITA);
-        mBotoesColecoes.setAfastamentoX(50);
+        mBotoesColecoes.setAfastamentoY(40);
         mBotoesColecoes.setTamanho(20);
         mBotoesColecoes.exibirTexto(true);
         mBotoesColecoes.setMarcadorCorSelecionado(mCores.getBranco());
