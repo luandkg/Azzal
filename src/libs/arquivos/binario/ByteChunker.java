@@ -16,6 +16,20 @@ public class ByteChunker {
         mPonteiro = 0;
     }
 
+
+    public ByteChunker( byte[] bytes,int tamanho) {
+        mChunks = new Lista<ByteChunk>();
+        mCapacidade = 0;
+        mPonteiro = 0;
+
+        int i = 0;
+        while(i<tamanho){
+            set_u8(bytes[i]);
+            i+=1;
+        }
+
+    }
+
     public long getTamanho(){return mPonteiro;}
 
     public long getCapacidade(){return mCapacidade;}
